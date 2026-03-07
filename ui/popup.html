@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Focus Guard</title>
+  <link rel="stylesheet" href="../styles/ui.css">
+</head>
+<body class="yfg-popup">
+  <main class="yfg-popup-shell">
+    <header class="yfg-card card yfg-popup-hero">
+      <div class="yfg-hero-top">
+        <div class="yfg-brand-lockup">
+          <div class="yfg-brand-icon" aria-hidden="true">▶</div>
+          <div>
+            <h1 class="yfg-popup-title">YouTube Focus Guard</h1>
+            <p class="yfg-popup-subtitle">Compact productivity control panel</p>
+          </div>
+        </div>
+        <div class="yfg-hero-actions">
+          <button class="yfg-icon-button" id="open-settings-tab" type="button" aria-label="Open settings tab">⚙</button>
+          <button class="yfg-toggle-button" id="extension-toggle" type="button" aria-label="Toggle extension">
+            <span class="yfg-toggle-button-track">
+              <span class="yfg-toggle-button-thumb"></span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="yfg-hero-meta-row">
+        <span class="yfg-mode-pill" id="header-mode">Idle</span>
+        <p class="yfg-hero-topic" id="header-topic">No active topic</p>
+      </div>
+    </header>
+
+    <nav class="yfg-tab-nav" aria-label="Popup sections" role="tablist">
+      <button class="yfg-tab-button is-active" id="tab-control" type="button" role="tab" aria-selected="true" aria-controls="panel-control" data-tab="control">Control</button>
+      <button class="yfg-tab-button" id="tab-research" type="button" role="tab" aria-selected="false" aria-controls="panel-research" data-tab="research">Research</button>
+      <button class="yfg-tab-button" id="tab-settings" type="button" role="tab" aria-selected="false" aria-controls="panel-settings" data-tab="settings">Settings</button>
+    </nav>
+
+    <section class="yfg-popup-content yfg-card card yfg-tab-shell">
+      <section class="yfg-tab-panel is-active" id="panel-control" role="tabpanel" aria-labelledby="tab-control" data-tab-panel="control">
+        <section class="yfg-panel-section">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Session</h2>
+          </div>
+          <div class="yfg-control-list" id="current-status">
+            <div class="yfg-control-row">
+              <span class="yfg-summary-label">Watching</span>
+              <span class="yfg-summary-value" id="session-time">--</span>
+            </div>
+            <div class="yfg-control-row">
+              <span class="yfg-summary-label">Mode</span>
+              <span class="yfg-summary-value" id="current-mode">--</span>
+            </div>
+            <div class="yfg-control-row">
+              <span class="yfg-summary-label">Entertainment Used</span>
+              <span class="yfg-summary-value" id="entertainment-used">0/60m</span>
+            </div>
+            <div class="yfg-control-row">
+              <span class="yfg-summary-label">Topic</span>
+              <span class="yfg-detail-value yfg-detail-topic" id="session-topic">No topic</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="yfg-panel-section">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Mode</h2>
+          </div>
+          <div class="yfg-inline-segment" aria-label="Mode switch">
+            <button class="yfg-btn yfg-btn-mode button-secondary" id="mode-research" type="button">Research</button>
+            <button class="yfg-btn yfg-btn-mode button-secondary" id="mode-entertainment" type="button">Entertainment</button>
+          </div>
+        </section>
+
+        <section class="yfg-panel-section">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Actions</h2>
+          </div>
+          <div class="yfg-action-grid yfg-action-grid-split">
+            <button class="yfg-btn yfg-btn-secondary button-secondary is-disabled" id="take-break" type="button" disabled aria-disabled="true">Take Break</button>
+            <button class="yfg-btn yfg-btn-primary button-primary" id="start-research" type="button">Start Research</button>
+          </div>
+          <div class="yfg-browsing-status" id="browsing-status" hidden>
+            <div class="yfg-browsing-status-header">
+              <span class="yfg-browsing-status-title">Browsing Mode Active</span>
+              <span class="yfg-browsing-status-time" id="browsing-remaining">--:--</span>
+            </div>
+            <p class="yfg-browsing-status-copy">Short intentional browsing is active. Stop it here to restore normal guard rails.</p>
+            <button class="yfg-btn yfg-btn-secondary button-secondary yfg-btn-compact" id="stop-browsing" type="button">Stop Browsing</button>
+          </div>
+        </section>
+
+        <section class="yfg-panel-section yfg-panel-section-fill">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Today</h2>
+          </div>
+          <div class="yfg-control-list yfg-control-list-compact">
+            <div class="yfg-control-row">
+              <span class="yfg-summary-label">Research</span>
+              <span class="yfg-compact-value" id="research-time">--</span>
+            </div>
+            <div class="yfg-control-row">
+              <span class="yfg-summary-label">Entertainment</span>
+              <span class="yfg-compact-value" id="entertainment-time">--</span>
+            </div>
+            <div class="yfg-control-row">
+              <span class="yfg-summary-label">Total Watch Time</span>
+              <span class="yfg-compact-value" id="total-watch-time">--</span>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="yfg-tab-panel" id="panel-research" role="tabpanel" aria-labelledby="tab-research" aria-hidden="true" data-tab-panel="research">
+        <section class="yfg-panel-section">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Research Topic</h2>
+          </div>
+          <input id="current-topic" class="yfg-topic-inline-input input-field" type="text" placeholder="Prisma ORM tutorial">
+          <div class="yfg-inline-editor yfg-inline-editor-actions">
+            <button class="yfg-btn yfg-btn-primary button-primary yfg-btn-compact" id="save-topic" type="button">Save</button>
+            <button class="yfg-btn yfg-btn-secondary button-secondary yfg-btn-compact" id="clear-topic" type="button">Clear</button>
+          </div>
+          <p class="yfg-topic-help" id="current-topic-status">Used by Research mode drift detection.</p>
+        </section>
+
+        <section class="yfg-panel-section yfg-panel-section-fill">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Trusted Channels</h2>
+          </div>
+          <div class="yfg-allowlist-entry-row">
+            <input id="research-channel-input" class="yfg-allowlist-input input-field" type="text" placeholder="Add trusted channel name">
+            <button class="yfg-btn yfg-btn-secondary button-secondary yfg-btn-compact" id="add-research-channel" type="button">Add</button>
+          </div>
+          <div class="yfg-topic-actions yfg-allowlist-actions">
+            <p class="yfg-topic-help" id="research-channel-status">Trusted channels below always pass Topic Guard in Research Mode.</p>
+          </div>
+          <div class="yfg-allowlist-list" id="research-channel-list"></div>
+        </section>
+      </section>
+
+      <section class="yfg-tab-panel yfg-tab-panel-scroll" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings" aria-hidden="true" data-tab-panel="settings">
+        <section class="yfg-panel-section">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Night Lock</h2>
+          </div>
+          <div class="yfg-limit-summary">
+            <div>
+              <div class="yfg-inline-status-row">
+                <span class="yfg-mode-pill yfg-mode-pill-muted" id="night-lock-status">Off</span>
+                <span class="yfg-inline-meta" id="night-lock-window">11:30 PM → 6:00 AM</span>
+              </div>
+            </div>
+            <button class="yfg-toggle-button" id="nightlock-toggle" type="button" aria-label="Toggle night lock">
+              <span class="yfg-toggle-button-track">
+                <span class="yfg-toggle-button-thumb"></span>
+              </span>
+            </button>
+          </div>
+          <div class="yfg-time-grid yfg-time-grid-compact">
+            <label class="yfg-field-label" for="nightlock-start">Start</label>
+            <label class="yfg-field-label" for="nightlock-end">End</label>
+            <input class="input-field yfg-time-field" type="time" id="nightlock-start" value="23:30">
+            <input class="input-field yfg-time-field" type="time" id="nightlock-end" value="06:00">
+          </div>
+        </section>
+
+        <section class="yfg-panel-section">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Entertainment Limit</h2>
+          </div>
+          <div class="yfg-setting-row">
+            <div>
+              <div class="yfg-inline-meta" id="entertainment-limit-summary">60 minutes per day</div>
+            </div>
+            <div class="yfg-limit-input-row">
+              <input class="input-field yfg-number-field" type="number" id="entertainment-limit" min="5" max="180" value="60">
+              <span class="yfg-inline-meta">minutes</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="yfg-panel-section">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Browsing Mode</h2>
+          </div>
+          <div class="yfg-setting-row">
+            <div>
+              <div class="yfg-detail-label">Session Duration</div>
+              <div class="yfg-inline-meta">Default browsing session length</div>
+            </div>
+            <div class="yfg-limit-input-row">
+              <input class="input-field yfg-number-field" type="number" id="browsing-duration" min="5" max="60" value="15">
+              <span class="yfg-inline-meta">minutes</span>
+            </div>
+          </div>
+          <div class="yfg-setting-row yfg-setting-row-stack">
+            <div>
+              <div class="yfg-detail-label">Browsing Extensions Available</div>
+              <div class="yfg-inline-meta" id="browsing-extensions-summary">2 maximum per session cycle</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="yfg-panel-section">
+          <div class="yfg-panel-section-header">
+            <h2 class="section-title">Reset Stats</h2>
+          </div>
+          <button class="yfg-btn yfg-btn-secondary button-secondary yfg-action-full" id="reset-daily" type="button">Reset Daily Stats</button>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="../utils/storage.js"></script>
+  <script src="../utils/time.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
