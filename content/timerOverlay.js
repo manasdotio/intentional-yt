@@ -5,6 +5,7 @@
 
 class TimerOverlay {
   constructor() {
+    this.renderOverlay = false;
     this.overlay = null;
     this.timeElement = null;
     this.nextReminderElement = null;
@@ -69,6 +70,10 @@ class TimerOverlay {
   }
 
   createOverlay() {
+    if (!this.renderOverlay) {
+      return;
+    }
+
     this.overlay = document.createElement('div');
     this.overlay.className = 'yfg-timer-overlay';
     this.overlay.style.display = 'none';
@@ -171,34 +176,36 @@ class TimerOverlay {
   }
 
   updateTimer() {
-    if (!this.overlay || !this.timeUtils) return;
+    if (!this.timeUtils) return;
 
     if (!window.location.href.includes('/watch')) {
       this.lastPlaybackTick = 0;
       return;
     }
 
-    if (this.isVisible) {
+    if (this.renderOverlay && this.isVisible) {
       this.attachOverlayToPlayer();
     }
 
-    if (this.isVisible && !this.overlay.parentNode) {
+    if (this.renderOverlay && this.isVisible && this.overlay && !this.overlay.parentNode) {
       document.body.appendChild(this.overlay);
       this.overlay.style.display = 'block';
     }
 
     this.syncPlaybackTime();
 
-    if (this.isVisible && Date.now() - this.lastContextRefresh > 2000) {
+    if (this.renderOverlay && this.isVisible && Date.now() - this.lastContextRefresh > 2000) {
       this.lastContextRefresh = Date.now();
       this.refreshOverlayContext();
     }
 
-    if (this.timeElement) {
+    if (this.renderOverlay && this.timeElement) {
       this.timeElement.textContent = this.timeUtils.formatTime(this.currentWatchTime);
     }
 
-    this.updateNextReminderDisplay();
+    if (this.renderOverlay) {
+      this.updateNextReminderDisplay();
+    }
   }
 
   syncPlaybackTime() {
@@ -300,7 +307,7 @@ class TimerOverlay {
   }
 
   attachOverlayToPlayer() {
-    if (!this.overlay) {
+    if (!this.renderOverlay || !this.overlay) {
       return;
     }
 
@@ -437,7 +444,7 @@ class TimerOverlay {
 
   show() {
     this.isVisible = true;
-    if (this.overlay) {
+    if (this.renderOverlay && this.overlay) {
       this.attachOverlayToPlayer();
       if (!this.overlay.parentNode) {
         document.body.appendChild(this.overlay);
@@ -447,10 +454,11 @@ class TimerOverlay {
   }
 
   hide() {
-    if (this.overlay) {
+    if (this.renderOverlay && this.overlay) {
       this.overlay.style.display = 'none';
-      this.isVisible = false;
     }
+
+    this.isVisible = false;
   }
 
   showModal(watchTime) {

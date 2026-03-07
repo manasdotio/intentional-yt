@@ -218,11 +218,53 @@ class TopicGuard {
   }
 
   extractCurrentChannelName() {
-    return this.extractChannelNameFromRoot(document);
+    const watchOwnerRoot = this.getWatchPageOwnerRoot();
+    if (watchOwnerRoot) {
+      return this.extractChannelNameFromRoot(watchOwnerRoot);
+    }
+
+    return '';
+  }
+
+  getWatchPageOwnerRoot() {
+    return document.querySelector(
+      'ytd-watch-metadata #owner, ' +
+      'ytd-watch-metadata ytd-video-owner-renderer, ' +
+      'ytd-watch-flexy #owner, ' +
+      'ytd-watch-flexy ytd-video-owner-renderer, ' +
+      '#above-the-fold #owner, ' +
+      '#upload-info'
+    );
   }
 
   getCurrentChannelAnchor() {
-    return document.querySelector('ytd-watch-metadata ytd-channel-name a, ytd-video-owner-renderer ytd-channel-name a, #owner #channel-name a, #channel-name a, #upload-info #channel-name a');
+    const watchOwnerRoot = this.getWatchPageOwnerRoot();
+    if (!watchOwnerRoot) {
+      return null;
+    }
+
+    return watchOwnerRoot.querySelector(
+      'ytd-watch-metadata ytd-channel-name a, ' +
+      'ytd-video-owner-renderer ytd-channel-name a, ' +
+      '#owner #channel-name a, ' +
+      '#channel-name a, ' +
+      '#upload-info #channel-name a, ' +
+      'a[href^="/@"], ' +
+      'a[href^="/channel/"], ' +
+      'a[href^="/c/"], ' +
+      'a[href^="/user/"], ' +
+      'a.yt-simple-endpoint.yt-formatted-string[href^="/@"], ' +
+      'a.yt-simple-endpoint.yt-formatted-string[href^="/channel/"]'
+    );
+  }
+
+  getChannelActionHost(anchor) {
+    const anchorElement = anchor || this.getCurrentChannelAnchor();
+    if (!anchorElement) {
+      return this.getWatchPageOwnerRoot();
+    }
+
+    return anchorElement.closest('ytd-channel-name, ytd-video-owner-renderer, #channel-name, #owner, #upload-info');
   }
 
   extractChannelNameFromLink(linkElement) {
@@ -235,7 +277,17 @@ class TopicGuard {
       return '';
     }
 
-    const channelElement = root.querySelector('ytd-channel-name a, #owner #channel-name a, #channel-name a, #byline a, #upload-info #channel-name a, a[href^="/@"], a[href^="/channel/"]');
+    const channelElement = root.querySelector(
+      'ytd-channel-name a, ' +
+      '#owner #channel-name a, ' +
+      '#channel-name a, ' +
+      '#byline a, ' +
+      '#upload-info #channel-name a, ' +
+      'a[href^="/@"], ' +
+      'a[href^="/channel/"], ' +
+      'a[href^="/c/"], ' +
+      'a[href^="/user/"]'
+    );
     const rawName = channelElement ? (channelElement.textContent || channelElement.getAttribute('aria-label') || '') : '';
     return this.normalizeChannelName(rawName);
   }
@@ -385,15 +437,26 @@ class TopicGuard {
   }
 
   attachChannelActionButton(anchor) {
-    if (!anchor || !anchor.parentElement) {
-      this.removeChannelActionButton();
+    const host = this.getChannelActionHost(anchor);
+    const button = this.ensureChannelActionButton();
+    button.dataset.channel = this.extractCurrentChannelName();
+    button.classList.remove('is-floating');
+
+    if (!host) {
+      if (button.parentNode !== document.body) {
+        document.body.appendChild(button);
+      }
+      button.classList.add('is-floating');
       return;
     }
 
-    const button = this.ensureChannelActionButton();
-    button.dataset.channel = this.extractCurrentChannelName();
-    if (button.parentNode !== anchor.parentElement) {
-      anchor.parentElement.appendChild(button);
+    if ((anchor === null || anchor === void 0 ? void 0 : anchor.parentElement) && button.previousElementSibling !== anchor) {
+      anchor.insertAdjacentElement('afterend', button);
+      return;
+    }
+
+    if (button.parentNode !== host) {
+      host.appendChild(button);
     }
   }
 
@@ -425,32 +488,7 @@ class TopicGuard {
   }
 
   updateChannelActionButton() {
-    if (!window.location.href.includes('/watch')) {
-      this.removeChannelActionButton();
-      return;
-    }
-
-    const anchor = this.getCurrentChannelAnchor();
-    const channelName = this.extractCurrentChannelName();
-    const normalizedChannel = this.normalizeChannelName(channelName);
-    if (!anchor || !normalizedChannel) {
-      this.removeChannelActionButton();
-      this.scheduleMetadataRetry();
-      return;
-    }
-
-    if (this.isAllowedChannel(normalizedChannel)) {
-      this.removeChannelActionButton();
-      return;
-    }
-
-    this.attachChannelActionButton(anchor);
-
-    const button = this.ensureChannelActionButton();
-    button.textContent = 'Add to Allowlist';
-    button.disabled = false;
-    button.classList.remove('is-added');
-    button.title = `Add ${normalizedChannel} to the Research allowlist`;
+    this.removeChannelActionButton();
   }
 
   attachAllowedChannelOverlay() {
