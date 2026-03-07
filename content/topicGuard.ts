@@ -173,7 +173,14 @@ class TopicGuard {
     if (videoLink) {
       const videoTitle = this.extractVideoTitle(videoLink);
       const channelName = this.extractChannelNameFromLink(videoLink);
-      const evaluation = this.evaluateVideoAccess(videoTitle, channelName);
+      const channelHost = videoLink.closest('ytd-compact-video-renderer, ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-playlist-video-renderer, ytd-rich-grid-media, ytd-item-section-renderer');
+      const channelCandidates = this.extractChannelCandidatesFromRoot((channelHost as ParentNode | null) || videoLink.parentElement || document);
+
+      if (!channelName && channelCandidates.length === 0) {
+        return;
+      }
+
+      const evaluation = this.evaluateVideoAccess(videoTitle, channelName, channelCandidates);
 
       if (!evaluation.allowed) {
         event.preventDefault();
@@ -222,7 +229,55 @@ class TopicGuard {
   }
 
   private normalizeChannelName(channelName: string): string {
-    return (channelName || '').toLowerCase().trim();
+    return (channelName || '').toLowerCase().trim().replace(/^@+/, '').replace(/\s+/g, ' ');
+  }
+
+  private extractChannelCandidates(channelElement: Element | null): string[] {
+    if (!channelElement) {
+      return [];
+    }
+
+    const candidates = new Set<string>();
+    const addCandidate = (value: string): void => {
+      const normalized = this.normalizeChannelName(value);
+      if (normalized) {
+        candidates.add(normalized);
+      }
+    };
+
+    addCandidate(channelElement.textContent?.trim() || '');
+    addCandidate((channelElement.getAttribute('aria-label') || '')
+      .replace(/\s*subscribers?.*$/i, '')
+      .replace(/\s*videos?.*$/i, '')
+      .trim());
+
+    const href = channelElement.getAttribute('href') || '';
+    const hrefMatch = href.match(/^\/(?:@|channel\/|c\/|user\/)([^/?#]+)/i);
+    if (hrefMatch?.[1]) {
+      addCandidate(hrefMatch[1]);
+    }
+
+    return [...candidates];
+  }
+
+  private extractChannelCandidatesFromRoot(root: ParentNode | null): string[] {
+    if (!root || !(root as Element).querySelector) {
+      return [];
+    }
+
+    const channelElement = (root as Element).querySelector(
+      'ytd-channel-name a, ' +
+      '#owner #channel-name a, ' +
+      '#channel-name a, ' +
+      '#byline a, ' +
+      '#upload-info #channel-name a, ' +
+      'a[href^="/@"], ' +
+      'a[href^="/channel/"], ' +
+      'a[href^="/c/"], ' +
+      'a[href^="/user/"]'
+    );
+
+    return this.extractChannelCandidates(channelElement);
   }
 
   private extractCurrentChannelName(): string {
@@ -281,23 +336,7 @@ class TopicGuard {
   }
 
   private extractChannelNameFromRoot(root: ParentNode | null): string {
-    if (!root || !(root as Element).querySelector) {
-      return '';
-    }
-
-    const channelElement = (root as Element).querySelector(
-      'ytd-channel-name a, ' +
-      '#owner #channel-name a, ' +
-      '#channel-name a, ' +
-      '#byline a, ' +
-      '#upload-info #channel-name a, ' +
-      'a[href^="/@"], ' +
-      'a[href^="/channel/"], ' +
-      'a[href^="/c/"], ' +
-      'a[href^="/user/"]'
-    );
-    const rawName = channelElement?.textContent?.trim() || channelElement?.getAttribute('aria-label') || '';
-    return this.normalizeChannelName(rawName);
+    return this.extractChannelCandidatesFromRoot(root)[0] || '';
   }
 
   private scheduleMetadataRetry(): void {
@@ -323,9 +362,17 @@ class TopicGuard {
     return this.allowedChannels.includes(this.normalizeChannelName(channelName));
   }
 
-  private evaluateVideoAccess(videoTitle: string, channelName: string): { allowed: boolean; reason: string; channelName: string } {
+  private isAnyAllowedChannel(channelCandidates: string[]): boolean {
+    if (!Array.isArray(channelCandidates) || channelCandidates.length === 0 || this.allowedChannels.length === 0) {
+      return false;
+    }
+
+    return channelCandidates.some((candidate) => this.allowedChannels.includes(this.normalizeChannelName(candidate)));
+  }
+
+  private evaluateVideoAccess(videoTitle: string, channelName: string, channelCandidates: string[] = []): { allowed: boolean; reason: string; channelName: string } {
     // Trusted research channels bypass keyword matching to avoid false negatives.
-    if (this.isAllowedChannel(channelName)) {
+    if (this.isAllowedChannel(channelName) || this.isAnyAllowedChannel(channelCandidates)) {
       return {
         allowed: true,
         reason: 'allowed-channel',
@@ -785,6 +832,7 @@ class TopicGuard {
     const videoTitle = this.extractCurrentVideoTitle();
     if (window.location.href.includes('/watch')) {
       const channelName = this.extractCurrentChannelName();
+      const channelCandidates = this.extractChannelCandidatesFromRoot(this.getWatchPageOwnerRoot());
       if (!videoTitle || !channelName) {
         this.scheduleMetadataRetry();
         return;
@@ -795,7 +843,7 @@ class TopicGuard {
         return;
       }
 
-      const evaluation = this.evaluateVideoAccess(videoTitle, channelName);
+      const evaluation = this.evaluateVideoAccess(videoTitle, channelName, channelCandidates);
       if (!evaluation.allowed) {
         this.hideAllowedChannelOverlay();
         this.showTopicDriftWarning(videoTitle, window.location.href);

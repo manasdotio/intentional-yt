@@ -5,7 +5,7 @@
 
 class TimerOverlay {
   private static instance: TimerOverlay;
-  private readonly renderOverlay: boolean = false;
+  private readonly renderOverlay: boolean = true;
   private overlay: HTMLElement | null = null;
   private timeElement: HTMLElement | null = null;
   private nextReminderElement: HTMLElement | null = null;
@@ -285,19 +285,24 @@ class TimerOverlay {
 
     const settings = await this.storage.getSettings();
     const currentTopic = Array.isArray(settings.research.currentTopic) ? settings.research.currentTopic : [];
+    const isEntertainmentMode = settings.research.mode !== 'research';
+
+    if (!window.location.href.includes('/watch') || !isEntertainmentMode) {
+      this.hide();
+      return;
+    }
+
+    if (!this.isVisible) {
+      this.show();
+    }
 
     if (this.modeElement) {
-      this.modeElement.textContent = settings.research.mode === 'research' ? 'Research' : 'Entertainment';
-      this.modeElement.classList.toggle('is-research', settings.research.mode === 'research');
+      this.modeElement.textContent = 'Entertainment';
+      this.modeElement.classList.remove('is-research');
     }
 
     if (this.topicElement) {
-      if (settings.research.mode === 'research' && currentTopic.length > 0) {
-        const topicText = currentTopic.join(', ');
-        this.topicElement.textContent = topicText.length > 42 ? `${topicText.slice(0, 39)}...` : topicText;
-      } else {
-        this.topicElement.textContent = 'No active topic';
-      }
+      this.topicElement.textContent = currentTopic.length > 0 ? 'Entertainment session' : 'Entertainment session';
     }
   }
 

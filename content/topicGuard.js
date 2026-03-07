@@ -163,7 +163,14 @@ class TopicGuard {
     if (videoLink) {
       const videoTitle = this.extractVideoTitle(videoLink);
       const channelName = this.extractChannelNameFromLink(videoLink);
-      const evaluation = this.evaluateVideoAccess(videoTitle, channelName);
+      const channelHost = videoLink.closest('ytd-compact-video-renderer, ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-playlist-video-renderer, ytd-rich-grid-media, ytd-item-section-renderer');
+      const channelCandidates = this.extractChannelCandidatesFromRoot(channelHost || videoLink.parentElement || document);
+
+      if (!channelName && channelCandidates.length === 0) {
+        return;
+      }
+
+      const evaluation = this.evaluateVideoAccess(videoTitle, channelName, channelCandidates);
 
       if (!evaluation.allowed) {
         event.preventDefault();
@@ -214,7 +221,55 @@ class TopicGuard {
   }
 
   normalizeChannelName(channelName) {
-    return (channelName || '').toLowerCase().trim();
+    return (channelName || '').toLowerCase().trim().replace(/^@+/, '').replace(/\s+/g, ' ');
+  }
+
+  extractChannelCandidates(channelElement) {
+    if (!channelElement) {
+      return [];
+    }
+
+    const candidates = new Set();
+    const addCandidate = (value) => {
+      const normalized = this.normalizeChannelName(value);
+      if (normalized) {
+        candidates.add(normalized);
+      }
+    };
+
+    addCandidate((channelElement.textContent || '').trim());
+    addCandidate((channelElement.getAttribute('aria-label') || '')
+      .replace(/\s*subscribers?.*$/i, '')
+      .replace(/\s*videos?.*$/i, '')
+      .trim());
+
+    const href = channelElement.getAttribute('href') || '';
+    const hrefMatch = href.match(/^\/(?:@|channel\/|c\/|user\/)([^/?#]+)/i);
+    if (hrefMatch && hrefMatch[1]) {
+      addCandidate(hrefMatch[1]);
+    }
+
+    return [...candidates];
+  }
+
+  extractChannelCandidatesFromRoot(root) {
+    if (!root || !root.querySelector) {
+      return [];
+    }
+
+    const channelElement = root.querySelector(
+      'ytd-channel-name a, ' +
+      '#owner #channel-name a, ' +
+      '#channel-name a, ' +
+      '#byline a, ' +
+      '#upload-info #channel-name a, ' +
+      'a[href^="/@"], ' +
+      'a[href^="/channel/"], ' +
+      'a[href^="/c/"], ' +
+      'a[href^="/user/"]'
+    );
+
+    return this.extractChannelCandidates(channelElement);
   }
 
   extractCurrentChannelName() {
@@ -273,23 +328,7 @@ class TopicGuard {
   }
 
   extractChannelNameFromRoot(root) {
-    if (!root || !root.querySelector) {
-      return '';
-    }
-
-    const channelElement = root.querySelector(
-      'ytd-channel-name a, ' +
-      '#owner #channel-name a, ' +
-      '#channel-name a, ' +
-      '#byline a, ' +
-      '#upload-info #channel-name a, ' +
-      'a[href^="/@"], ' +
-      'a[href^="/channel/"], ' +
-      'a[href^="/c/"], ' +
-      'a[href^="/user/"]'
-    );
-    const rawName = channelElement ? (channelElement.textContent || channelElement.getAttribute('aria-label') || '') : '';
-    return this.normalizeChannelName(rawName);
+    return this.extractChannelCandidatesFromRoot(root)[0] || '';
   }
 
   scheduleMetadataRetry() {
@@ -315,9 +354,17 @@ class TopicGuard {
     return this.allowedChannels.includes(this.normalizeChannelName(channelName));
   }
 
-  evaluateVideoAccess(videoTitle, channelName) {
+  isAnyAllowedChannel(channelCandidates) {
+    if (!Array.isArray(channelCandidates) || channelCandidates.length === 0 || this.allowedChannels.length === 0) {
+      return false;
+    }
+
+    return channelCandidates.some((candidate) => this.allowedChannels.includes(this.normalizeChannelName(candidate)));
+  }
+
+  evaluateVideoAccess(videoTitle, channelName, channelCandidates = []) {
     // Trusted research channels bypass keyword matching to avoid false negatives.
-    if (this.isAllowedChannel(channelName)) {
+    if (this.isAllowedChannel(channelName) || this.isAnyAllowedChannel(channelCandidates)) {
       return {
         allowed: true,
         reason: 'allowed-channel',
@@ -779,6 +826,7 @@ class TopicGuard {
     const videoTitle = this.extractCurrentVideoTitle();
     if (window.location.href.includes('/watch')) {
       const channelName = this.extractCurrentChannelName();
+      const channelCandidates = this.extractChannelCandidatesFromRoot(this.getWatchPageOwnerRoot());
       if (!videoTitle || !channelName) {
         this.scheduleMetadataRetry();
         return;
@@ -789,7 +837,7 @@ class TopicGuard {
         return;
       }
 
-      const evaluation = this.evaluateVideoAccess(videoTitle, channelName);
+      const evaluation = this.evaluateVideoAccess(videoTitle, channelName, channelCandidates);
       if (!evaluation.allowed) {
         this.hideAllowedChannelOverlay();
         this.showTopicDriftWarning(videoTitle, window.location.href);
