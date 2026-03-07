@@ -1,4 +1,4 @@
-# YouTube Focus Guard
+# Intentional YT
 
 YouTube Focus Guard is a Firefox WebExtension for making YouTube usage more deliberate.
 
