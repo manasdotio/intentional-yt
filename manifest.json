@@ -1,8 +1,15 @@
 {
   "manifest_version": 2,
   "name": "Intentional YT",
+  "short_name": "Intentional YT",
   "version": "1.0.0",
   "description": "Prevent YouTube binge watching, algorithm rabbit holes, and protect sleep schedules while allowing intentional research",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "intentional-yt@intentional-yt.local",
+      "strict_min_version": "109.0"
+    }
+  },
   
   "permissions": [
     "activeTab",
@@ -60,7 +67,9 @@
 
   "web_accessible_resources": [
     "ui/blocked.html",
+    "ui/blocked.js",
     "ui/modal.html",
+    "ui/modal.js",
     "styles/ui.css"
   ],
 

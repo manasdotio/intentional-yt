@@ -15,6 +15,10 @@ interface TopicData {
 class TopicGuard {
   private static readonly allowOnceStorageKey = 'yfg-topic-guard-allow-once';
   private static readonly navigationEventNames = ['yt-navigate-start', 'yt-navigate-finish', 'yt-page-data-updated'];
+  private static readonly ignoredTopicWords = new Set([
+    'a', 'an', 'and', 'are', 'for', 'from', 'how', 'in', 'into', 'of', 'on', 'or', 'the', 'to', 'with',
+    'youtube', 'video', 'videos', 'official', 'channel', 'watch', 'episode', 'live'
+  ]);
   private static instance: TopicGuard;
   private currentTopic: TopicData | null = null;
   private storage: any;
@@ -94,9 +98,10 @@ class TopicGuard {
       : [];
 
     if (this.isResearchMode && settings.research.currentTopic.length > 0) {
+      const fallbackSearchQuery = settings.research.currentTopic.join(' ');
       this.currentTopic = {
         keywords: settings.research.currentTopic,
-        searchQuery: this.extractSearchQuery(),
+        searchQuery: this.extractSearchQuery() || fallbackSearchQuery,
         originalTitle: document.title,
         allowedTopics: settings.research.currentTopic,
         sessionStart: settings.research.sessionStart,
@@ -203,24 +208,113 @@ class TopicGuard {
     return null;
   }
 
+  private getVideoCardRoot(linkElement: HTMLElement): ParentNode | null {
+    return linkElement.closest(
+      'ytd-compact-video-renderer, ' +
+      'ytd-rich-item-renderer, ' +
+      'ytd-video-renderer, ' +
+      'ytd-grid-video-renderer, ' +
+      'ytd-playlist-video-renderer, ' +
+      'ytd-rich-grid-media, ' +
+      'ytd-item-section-renderer, ' +
+      'ytd-reel-item-renderer'
+    ) || linkElement.parentElement;
+  }
+
+  private isLikelyVideoTitle(value: string): boolean {
+    const trimmedValue = (value || '').trim();
+    if (!trimmedValue) {
+      return false;
+    }
+
+    const normalizedValue = trimmedValue.replace(/\s+/g, ' ');
+    if (/^(?:(?:\d+:)?\d{1,2}:\d{2}\s*)+(?:now playing)?$/i.test(normalizedValue)) {
+      return false;
+    }
+
+    if (/^(?:now playing|live|shorts?)$/i.test(normalizedValue)) {
+      return false;
+    }
+
+    return /[a-z]{2,}/i.test(normalizedValue);
+  }
+
+  private readTitleCandidate(element: Element | null): string {
+    if (!element) {
+      return '';
+    }
+
+    const textCandidate = element.textContent?.trim() || '';
+    if (this.isLikelyVideoTitle(textCandidate)) {
+      return textCandidate;
+    }
+
+    const titleCandidate = element.getAttribute('title') || '';
+    if (this.isLikelyVideoTitle(titleCandidate)) {
+      return titleCandidate;
+    }
+
+    const ariaCandidate = element.getAttribute('aria-label') || '';
+    if (this.isLikelyVideoTitle(ariaCandidate)) {
+      return ariaCandidate;
+    }
+
+    return '';
+  }
+
   private extractVideoTitle(linkElement: HTMLElement): string {
-    const ownTitle = linkElement.getAttribute('title') || linkElement.getAttribute('aria-label') || linkElement.textContent?.trim();
+    const searchRoots = [this.getVideoCardRoot(linkElement), linkElement];
+    const titleSelectors = [
+      '#video-title',
+      '#video-title-link',
+      'a#video-title-link',
+      'yt-formatted-string#video-title',
+      'h3 a',
+      'h3'
+    ];
+
+    for (const root of searchRoots) {
+      if (!root || !(root as Element).querySelector) {
+        continue;
+      }
+
+      for (const selector of titleSelectors) {
+        const candidate = this.readTitleCandidate((root as Element).querySelector(selector));
+        if (candidate) {
+          return candidate;
+        }
+      }
+    }
+
+    const ownTitle = this.readTitleCandidate(linkElement);
     if (ownTitle) {
       return ownTitle;
     }
 
-    const titleElement = linkElement.querySelector('#video-title, .ytd-video-meta-block .style-scope, h3, [aria-label]');
-
-    if (titleElement) {
-      return titleElement.textContent?.trim() || titleElement.getAttribute('aria-label') || '';
+    const cardRoot = this.getVideoCardRoot(linkElement);
+    if (cardRoot && (cardRoot as Element).querySelector) {
+      const fallbackTitle = this.readTitleCandidate((cardRoot as Element).querySelector('.ytd-video-meta-block .style-scope, [title], [aria-label]'));
+      if (fallbackTitle) {
+        return fallbackTitle;
+      }
     }
 
-    return linkElement.textContent?.trim() || '';
+    return '';
+  }
+
+  private getWatchTitleElement(): Element | null {
+    return document.querySelector('ytd-watch-metadata h1 yt-formatted-string, ytd-video-primary-info-renderer h1.title, h1.ytd-watch-metadata');
   }
 
   private extractCurrentVideoTitle(): string {
-    const watchTitle = document.querySelector('ytd-watch-metadata h1 yt-formatted-string, ytd-video-primary-info-renderer h1.title, h1.ytd-watch-metadata');
-    const rawTitle = watchTitle?.textContent || document.title;
+    const watchTitle = this.getWatchTitleElement();
+    const rawWatchTitle = watchTitle?.textContent?.trim();
+
+    if (window.location.href.includes('/watch')) {
+      return rawWatchTitle ? this.normalizePageTitle(rawWatchTitle) : '';
+    }
+
+    const rawTitle = rawWatchTitle || document.title;
     return this.normalizePageTitle(rawTitle);
   }
 
@@ -416,18 +510,32 @@ class TopicGuard {
     if (!this.currentTopic || !videoTitle) return true;
 
     const titleWords = this.normalizeText(videoTitle);
-    const topicKeywords = this.currentTopic.keywords.map((word) => this.normalizeText(word));
+    const titleTokens = this.tokenizeText(videoTitle);
+    const topicKeywords = this.expandTopicKeywords(this.currentTopic.keywords);
 
-    const directMatches = topicKeywords.filter((keyword) =>
-      titleWords.includes(keyword)
-    ).length;
-
-    if (directMatches >= 1) {
+    if (topicKeywords.length === 0) {
       return true;
     }
 
-    const semanticScore = this.calculateSemanticSimilarity(titleWords, topicKeywords);
-    return semanticScore > 0.3;
+    const normalizedTopicPhrase = this.normalizeText(this.currentTopic.keywords.join(' '));
+    if (normalizedTopicPhrase && titleWords.includes(normalizedTopicPhrase)) {
+      return true;
+    }
+
+    const directMatches = topicKeywords.filter((keyword) => titleTokens.includes(keyword)).length;
+    const keywordCoverage = this.calculateKeywordCoverage(titleTokens, topicKeywords);
+
+    const minimumMatchCount = topicKeywords.length === 1 ? 1 : Math.min(2, topicKeywords.length);
+    if (directMatches >= minimumMatchCount) {
+      return true;
+    }
+
+    if (directMatches >= 1 && keywordCoverage >= 0.4) {
+      return true;
+    }
+
+    const semanticScore = this.calculateSemanticSimilarity(titleTokens, topicKeywords);
+    return semanticScore >= 0.6 || keywordCoverage >= 0.55;
   }
 
   private normalizeText(text: string): string {
@@ -437,20 +545,89 @@ class TopicGuard {
       .trim();
   }
 
-  private calculateSemanticSimilarity(titleWords: string, keywords: string[]): number {
-    const titleWordList = titleWords.split(' ').filter((word) => word.length > 2);
+  private tokenizeText(text: string): string[] {
+    return [...new Set(this.normalizeText(text)
+      .split(' ')
+      .map((word) => this.normalizeTopicToken(word))
+      .filter(Boolean))];
+  }
+
+  private expandTopicKeywords(keywords: string[]): string[] {
+    const expandedKeywords: string[] = [];
+
+    for (const keyword of keywords || []) {
+      expandedKeywords.push(...this.tokenizeText(keyword));
+    }
+
+    return [...new Set(expandedKeywords)];
+  }
+
+  private normalizeTopicToken(word: string): string {
+    let normalizedWord = (word || '').toLowerCase().trim();
+
+    if (!normalizedWord || normalizedWord.length <= 2 || TopicGuard.ignoredTopicWords.has(normalizedWord)) {
+      return '';
+    }
+
+    if (normalizedWord.endsWith('ies') && normalizedWord.length > 4) {
+      normalizedWord = `${normalizedWord.slice(0, -3)}y`;
+    } else if (normalizedWord.endsWith('es') && normalizedWord.length > 4) {
+      normalizedWord = normalizedWord.slice(0, -2);
+    } else if (normalizedWord.endsWith('s') && normalizedWord.length > 3 && !normalizedWord.endsWith('ss')) {
+      normalizedWord = normalizedWord.slice(0, -1);
+    }
+
+    if (normalizedWord.length <= 2 || TopicGuard.ignoredTopicWords.has(normalizedWord)) {
+      return '';
+    }
+
+    return normalizedWord;
+  }
+
+  private calculateSemanticSimilarity(titleWords: string[], keywords: string[]): number {
+    if (keywords.length === 0) {
+      return 0;
+    }
+
     let matches = 0;
 
-    for (const word of titleWordList) {
-      for (const keyword of keywords) {
-        if (word.includes(keyword) || keyword.includes(word)) {
-          matches++;
-          break;
+    for (const keyword of keywords) {
+      const keywordMatched = titleWords.some((word) => {
+        if (word === keyword) {
+          return true;
         }
+
+        if (keyword.length < 4 || word.length < 4) {
+          return false;
+        }
+
+        return word.includes(keyword) || keyword.includes(word);
+      });
+
+      if (keywordMatched) {
+        matches++;
       }
     }
 
-    return titleWordList.length > 0 ? matches / titleWordList.length : 0;
+    return matches / keywords.length;
+  }
+
+  private calculateKeywordCoverage(titleWords: string[], keywords: string[]): number {
+    if (keywords.length === 0) {
+      return 0;
+    }
+
+    const totalWeight = keywords.reduce((sum, keyword) => sum + keyword.length, 0);
+    if (totalWeight === 0) {
+      return 0;
+    }
+
+    const matchedWeight = keywords.reduce((sum, keyword) => {
+      const keywordMatched = titleWords.some((word) => word === keyword || (keyword.length >= 4 && word.length >= 4 && (word.includes(keyword) || keyword.includes(word))));
+      return sum + (keywordMatched ? keyword.length : 0);
+    }, 0);
+
+    return matchedWeight / totalWeight;
   }
 
   private ensureAllowedChannelOverlay(): HTMLElement {
@@ -618,16 +795,18 @@ class TopicGuard {
     modal.className = 'yfg-drift-warning-modal';
 
     const isSecondWarning = this.currentTopic.driftWarnings >= 2;
+    const readableTopic = this.currentTopic.searchQuery || this.currentTopic.keywords.join(', ');
 
     modal.innerHTML = `
       <div class="yfg-modal-content">
         <h3>🚨 Topic Drift Detected</h3>
         <div class="yfg-drift-info">
           <p><strong>Current research topic:</strong></p>
+          <p class="yfg-video-title">"${readableTopic}"</p>
           <div class="yfg-topic-tags">
             ${this.currentTopic.keywords.map((keyword) =>
               `<span class="yfg-topic-tag">${keyword}</span>`
-            ).join('')}
+            ).join(' ')}
           </div>
         </div>
         <div class="yfg-drift-video">
@@ -833,7 +1012,7 @@ class TopicGuard {
     if (window.location.href.includes('/watch')) {
       const channelName = this.extractCurrentChannelName();
       const channelCandidates = this.extractChannelCandidatesFromRoot(this.getWatchPageOwnerRoot());
-      if (!videoTitle || !channelName) {
+      if (!videoTitle) {
         this.scheduleMetadataRetry();
         return;
       }
@@ -846,10 +1025,16 @@ class TopicGuard {
       const evaluation = this.evaluateVideoAccess(videoTitle, channelName, channelCandidates);
       if (!evaluation.allowed) {
         this.hideAllowedChannelOverlay();
+        if (!channelName && channelCandidates.length === 0) {
+          this.scheduleMetadataRetry();
+        }
         this.showTopicDriftWarning(videoTitle, window.location.href);
         return;
       }
 
+      if (!channelName && channelCandidates.length === 0) {
+        this.scheduleMetadataRetry();
+      }
       this.updateAllowedChannelOverlay();
     } else {
       this.hideAllowedChannelOverlay();

@@ -39,7 +39,6 @@ class BrowsingModeController {
     this.createOverlay();
     this.setupMessaging();
     this.observeNavigation();
-    this.startTicker();
     this.currentUrl = window.location.href;
     this.handleRouteChange(this.currentUrl);
   }
@@ -106,6 +105,7 @@ class BrowsingModeController {
     }
 
     const settings = await this.storage.getSettings();
+    this.syncTickerState(settings);
 
     if (settings.browsingMode.cooldownUntil && settings.browsingMode.cooldownUntil > Date.now()) {
       this.redirectToBrowsingCooldown();
@@ -181,7 +181,7 @@ class BrowsingModeController {
 
   startTicker() {
     if (this.intervalId) {
-      window.clearInterval(this.intervalId);
+      return;
     }
 
     this.intervalId = window.setInterval(() => {
@@ -189,16 +189,34 @@ class BrowsingModeController {
     }, 1000);
   }
 
+  stopTicker() {
+    if (this.intervalId !== null) {
+      window.clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+  }
+
+  syncTickerState(settings) {
+    if (settings.browsingMode.active) {
+      this.startTicker();
+      return;
+    }
+
+    this.stopTicker();
+  }
+
   async tick() {
     const settings = await this.storage.getSettings();
     const browsingMode = settings.browsingMode;
 
     if (browsingMode.cooldownUntil && browsingMode.cooldownUntil > Date.now()) {
+      this.stopTicker();
       this.hideOverlay();
       return;
     }
 
     if (!browsingMode.active) {
+      this.stopTicker();
       this.hideOverlay();
       return;
     }
@@ -391,6 +409,7 @@ class BrowsingModeController {
       cooldownUntil: 0,
     });
 
+    this.startTicker();
     this.expiryModalOpen = false;
     this.updateOverlayVisibility();
     this.disableAutoplay();
@@ -404,6 +423,7 @@ class BrowsingModeController {
       duration: 15 * 60 * 1000,
       extensionsUsed: 0,
     });
+    this.stopTicker();
     this.hideOverlay();
   }
 
@@ -470,6 +490,7 @@ class BrowsingModeController {
       cooldownUntil,
     });
     await this.storage.setBlocked('browsing-cooldown');
+    this.stopTicker();
     this.redirectToBrowsingCooldown();
   }
 

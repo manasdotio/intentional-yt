@@ -21,6 +21,7 @@ interface SessionStatsResponse {
 
 class UsageTracker {
   private static instance: UsageTracker;
+  private static readonly periodicCheckIntervalMs = 30000;
   private sessions: Map<number, SessionData> = new Map();
   private intervalId: number | null = null;
   
@@ -33,10 +34,13 @@ class UsageTracker {
 
   constructor() {
     this.setupMessageHandling();
-    this.startTracking();
   }
 
   private setupMessageHandling(): void {
+    browser.tabs?.onRemoved?.addListener((tabId: number) => {
+      void this.endSession(tabId);
+    });
+
     browser.runtime.onMessage.addListener((message, sender) => {
       if (message?.type === 'get-session-stats') {
         return Promise.resolve(this.getSerializableSessionStats(message?.data?.tabId));
@@ -109,6 +113,7 @@ class UsageTracker {
     session.lastActivity = now;
     
     this.sessions.set(tabId, session);
+    this.ensureTrackingState();
     
     await storage.saveSettings({
       research: {
@@ -184,6 +189,7 @@ class UsageTracker {
     
     // Clear session
     this.sessions.delete(tabId);
+    this.ensureTrackingState();
   }
 
   private async updateSessionMode(tabId: number, mode: 'research' | 'entertainment'): Promise<void> {
@@ -219,13 +225,30 @@ class UsageTracker {
   }
 
   private startTracking(): void {
-    // Track every 30 seconds
+    if (this.intervalId !== null) {
+      return;
+    }
+
     this.intervalId = setInterval(() => {
-      this.performPeriodicChecks();
-    }, 30000) as any;
+      void this.performPeriodicChecks();
+    }, UsageTracker.periodicCheckIntervalMs) as any;
+  }
+
+  private ensureTrackingState(): void {
+    if (this.sessions.size > 0) {
+      this.startTracking();
+      return;
+    }
+
+    this.stopTracking();
   }
 
   private async performPeriodicChecks(): Promise<void> {
+    if (this.sessions.size === 0) {
+      this.stopTracking();
+      return;
+    }
+
     const storage = StorageManager.getInstance();
     const settings = await storage.getSettings();
     const now = Date.now();
@@ -301,7 +324,7 @@ class UsageTracker {
   }
 
   stopTracking(): void {
-    if (this.intervalId) {
+    if (this.intervalId !== null) {
       clearInterval(this.intervalId);
       this.intervalId = null;
     }

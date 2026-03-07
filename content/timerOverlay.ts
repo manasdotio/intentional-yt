@@ -25,6 +25,7 @@ class TimerOverlay {
   private lastPersistedAt: number = 0;
   private hasLoadedSessionData: boolean = false;
   private pendingVideoSessionStart: boolean = false;
+  private trackingEnabled: boolean = false;
   private _sessionFresh: boolean = false;
   private readonly boundPersistSessionState = () => {
     void this.persistSessionState(true);
@@ -50,11 +51,6 @@ class TimerOverlay {
     this.createOverlay();
     await this.loadSessionData();
     this.setupPersistenceListeners();
-    this.startTimer();
-
-    if (window.location.href.includes('/watch')) {
-      this.show();
-    }
   }
 
   private async waitForDependencies(): Promise<void> {
@@ -158,7 +154,7 @@ class TimerOverlay {
 
   private startTimer(): void {
     if (this.intervalId) {
-      clearInterval(this.intervalId);
+      return;
     }
 
     this.intervalId = setInterval(() => {
@@ -171,11 +167,19 @@ class TimerOverlay {
     }, 1000) as any;
   }
 
+  private stopTimer(): void {
+    if (this.intervalId !== null) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+  }
+
   private updateTimer(): void {
-    if (!this.timeUtils) return;
+    if (!this.timeUtils || !this.trackingEnabled) return;
 
     if (!window.location.href.includes('/watch')) {
       this.lastPlaybackTick = 0;
+      this.stopTimer();
       return;
     }
 
@@ -442,6 +446,19 @@ class TimerOverlay {
     this.applyVideoSessionStart();
   }
 
+  public setTrackingEnabled(enabled: boolean): void {
+    this.trackingEnabled = enabled;
+
+    if (enabled) {
+      this.startTimer();
+      return;
+    }
+
+    this.lastPlaybackTick = 0;
+    this.stopTimer();
+    void this.persistSessionState(true);
+  }
+
   show(): void {
     this.isVisible = true;
     if (this.renderOverlay && this.overlay) {
@@ -468,9 +485,7 @@ class TimerOverlay {
   destroy(): void {
     void this.persistSessionState(true);
 
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+    this.stopTimer();
     
     if (this.overlay && this.overlay.parentNode) {
       this.overlay.remove();

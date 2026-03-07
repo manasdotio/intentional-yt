@@ -13,84 +13,13 @@
       <h3 id="modal-title">Intentional YT</h3>
       <p id="modal-message">Loading...</p>
       <div class="yfg-modal-buttons" id="modal-buttons">
-        <button class="yfg-btn yfg-btn-primary" onclick="window.close()">
+        <button class="yfg-btn yfg-btn-primary" data-action="close">
           Close
         </button>
       </div>
     </div>
   </div>
 
-  <script>
-    // Simple modal controller for standalone modals
-    class ModalController {
-      constructor() {
-        this.init();
-      }
-
-      init() {
-        const params = new URLSearchParams(window.location.search);
-        const type = params.get('type') || 'info';
-        const title = params.get('title') || 'Intentional YT';
-        const message = params.get('message') || 'Modal message';
-        
-        this.renderModal(type, title, message);
-      }
-
-      renderModal(type, title, message) {
-        const titleElement = document.getElementById('modal-title');
-        const messageElement = document.getElementById('modal-message');
-        const buttonsElement = document.getElementById('modal-buttons');
-
-        if (titleElement) titleElement.textContent = title;
-        if (messageElement) messageElement.textContent = decodeURIComponent(message);
-
-        // Customize buttons based on type
-        switch (type) {
-          case 'confirm':
-            buttonsElement.innerHTML = `
-              <button class="yfg-btn yfg-btn-primary" data-action="confirm">
-                Confirm
-              </button>
-              <button class="yfg-btn yfg-btn-secondary" data-action="close">
-                Cancel
-              </button>
-            `;
-            buttonsElement.addEventListener('click', (e) => {
-              const action = e.target.getAttribute('data-action');
-              if (action === 'confirm') window._modalController && window._modalController.confirm();
-              else if (action === 'close') window.close();
-            });
-            break;
-          case 'warning':
-            buttonsElement.innerHTML = `
-              <button class="yfg-btn yfg-btn-warning" onclick="window.close()">
-                Understood
-              </button>
-            `;
-            break;
-          case 'error':
-            buttonsElement.innerHTML = `
-              <button class="yfg-btn yfg-btn-danger" onclick="window.close()">
-                Close
-              </button>
-            `;
-            break;
-          default:
-            // Keep default close button
-            break;
-        }
-      }
-
-      confirm() {
-        // Send confirmation message to parent window if opened as popup
-        if (window.opener) {
-          window.opener.postMessage({ type: 'modal-confirm' }, '*');
-        }
-        window.close();
-      }
-    }
-
-    window._modalController = new ModalController();
-  </script>
+  <script src="modal.js"></script>
 </body>
 </html>

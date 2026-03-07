@@ -10,6 +10,7 @@ const isYouTubeObserverHostSupported = (): boolean => {
 
 class YouTubeObserver {
   private static readonly navigationEventNames = ['yt-navigate-start', 'yt-navigate-finish', 'yt-page-data-updated'];
+  private static readonly activityPingIntervalMs = 15000;
   private static instance: YouTubeObserver;
   private currentVideoId: string | null = null;
   private currentUrl: string = '';
@@ -19,6 +20,7 @@ class YouTubeObserver {
   private observedWatchFlexy: Element | null = null;
   private navigationCheckTimeout: number | null = null;
   private researchPromptPromise: Promise<'research' | 'entertainment'> | null = null;
+  private lastActivityPingAt: number = 0;
   private _navigationInProgress = false;
   private _videoAbortController: AbortController | null = null;
   private readonly boundHandleBeforeUnload = () => {
@@ -467,21 +469,25 @@ class YouTubeObserver {
 
     const settings = await this.storage.getSettings();
     if (settings.browsingMode && settings.browsingMode.active) {
+      this.timerOverlay.setTrackingEnabled?.(false);
       this.timerOverlay.hide();
       return;
     }
 
     if (settings.research.mode === 'research') {
+      this.timerOverlay.setTrackingEnabled?.(false);
       this.timerOverlay.hide();
       return;
     }
 
+    this.timerOverlay.setTrackingEnabled?.(true);
     this.timerOverlay.show();
   }
 
   private handleHomePage(): void {
     // Hide timer overlay on home page
     if (this.timerOverlay) {
+      this.timerOverlay.setTrackingEnabled?.(false);
       this.timerOverlay.hide();
     }
   }
@@ -491,10 +497,16 @@ class YouTubeObserver {
   }
 
   private trackActivity(): void {
+    const now = Date.now();
+    if ((now - this.lastActivityPingAt) < YouTubeObserver.activityPingIntervalMs) {
+      return;
+    }
+
+    this.lastActivityPingAt = now;
     browser.runtime.sendMessage({
       type: 'activity',
-      data: { timestamp: Date.now() }
-    });
+      data: { timestamp: now }
+    }).catch(() => {});
   }
 
   private handleBackgroundMessage(message: any): void {
@@ -520,8 +532,10 @@ class YouTubeObserver {
 
     if (window.location.href.includes('/watch')) {
       if (mode === 'research') {
+        this.timerOverlay?.setTrackingEnabled?.(false);
         this.timerOverlay?.hide();
       } else {
+        this.timerOverlay?.setTrackingEnabled?.(true);
         this.timerOverlay?.show();
       }
     }

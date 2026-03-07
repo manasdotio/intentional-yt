@@ -8,7 +8,6 @@ class UsageTracker {
     this.sessions = new Map();
     this.intervalId = null;
     this.setupMessageHandling();
-    this.startTracking();
   }
 
   static getInstance() {
@@ -18,7 +17,17 @@ class UsageTracker {
     return UsageTracker.instance;
   }
 
+  static get periodicCheckIntervalMs() {
+    return 30000;
+  }
+
   setupMessageHandling() {
+    if (browser.tabs && browser.tabs.onRemoved) {
+      browser.tabs.onRemoved.addListener((tabId) => {
+        void this.endSession(tabId);
+      });
+    }
+
     if (browser.runtime.onMessage) {
       browser.runtime.onMessage.addListener((message, sender) => {
         if (message && message.type === 'get-session-stats') {
@@ -93,6 +102,7 @@ class UsageTracker {
     session.lastActivity = now;
     
     this.sessions.set(tabId, session);
+    this.ensureTrackingState();
     
     await storage.saveSettings({
       research: {
@@ -165,6 +175,7 @@ class UsageTracker {
     }
     
     this.sessions.delete(tabId);
+    this.ensureTrackingState();
   }
 
   async updateSessionMode(tabId, mode) {
@@ -200,12 +211,30 @@ class UsageTracker {
   }
 
   startTracking() {
+    if (this.intervalId !== null) {
+      return;
+    }
+
     this.intervalId = setInterval(() => {
-      this.performPeriodicChecks();
-    }, 30000);
+      void this.performPeriodicChecks();
+    }, UsageTracker.periodicCheckIntervalMs);
+  }
+
+  ensureTrackingState() {
+    if (this.sessions.size > 0) {
+      this.startTracking();
+      return;
+    }
+
+    this.stopTracking();
   }
 
   async performPeriodicChecks() {
+    if (this.sessions.size === 0) {
+      this.stopTracking();
+      return;
+    }
+
     const storage = window.StorageManager.getInstance();
     const settings = await storage.getSettings();
     const now = Date.now();
@@ -279,7 +308,7 @@ class UsageTracker {
   }
 
   stopTracking() {
-    if (this.intervalId) {
+    if (this.intervalId !== null) {
       clearInterval(this.intervalId);
       this.intervalId = null;
     }

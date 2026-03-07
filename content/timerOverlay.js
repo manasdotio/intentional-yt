@@ -25,6 +25,7 @@ class TimerOverlay {
     this.lastPersistedAt = 0;
     this.hasLoadedSessionData = false;
     this.pendingVideoSessionStart = false;
+    this.trackingEnabled = false;
     this._sessionFresh = false; // true once startNewVideoSession() has been called
     this.boundPersistSessionState = () => {
       void this.persistSessionState(true);
@@ -48,12 +49,6 @@ class TimerOverlay {
     this.createOverlay();
     await this.loadSessionData();
     this.setupPersistenceListeners();
-    this.startTimer();
-
-    // Auto-show on watch pages — works regardless of whether show() was called externally
-    if (window.location.href.includes('/watch')) {
-      this.show();
-    }
   }
 
   async waitForDependencies() {
@@ -163,8 +158,7 @@ class TimerOverlay {
   }
 
   startTimer() {
-    // Prevent duplicate intervals if startTimer is called more than once
-    if (this.intervalId) clearInterval(this.intervalId);
+    if (this.intervalId) return;
     this.intervalId = setInterval(() => {
       try {
         this.updateTimer();
@@ -175,11 +169,19 @@ class TimerOverlay {
     }, 1000);
   }
 
+  stopTimer() {
+    if (this.intervalId !== null) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+  }
+
   updateTimer() {
-    if (!this.timeUtils) return;
+    if (!this.timeUtils || !this.trackingEnabled) return;
 
     if (!window.location.href.includes('/watch')) {
       this.lastPlaybackTick = 0;
+      this.stopTimer();
       return;
     }
 
@@ -447,6 +449,19 @@ class TimerOverlay {
     this.applyVideoSessionStart();
   }
 
+  setTrackingEnabled(enabled) {
+    this.trackingEnabled = enabled;
+
+    if (enabled) {
+      this.startTimer();
+      return;
+    }
+
+    this.lastPlaybackTick = 0;
+    this.stopTimer();
+    void this.persistSessionState(true);
+  }
+
   show() {
     this.isVisible = true;
     if (this.renderOverlay && this.overlay) {
@@ -473,9 +488,7 @@ class TimerOverlay {
   destroy() {
     void this.persistSessionState(true);
 
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+    this.stopTimer();
     
     if (this.overlay && this.overlay.parentNode) {
       this.overlay.remove();

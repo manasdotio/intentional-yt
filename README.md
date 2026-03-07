@@ -2,6 +2,11 @@
 
 YouTube Focus Guard is a Firefox WebExtension for making YouTube usage more deliberate.
 
+Privacy and release docs:
+
+- See [PRIVACY.md](PRIVACY.md) for the current privacy policy.
+- See [AMO_CHECKLIST.md](AMO_CHECKLIST.md) for the Firefox Add-ons submission checklist.
+
 It combines four ideas:
 
 - block the most distracting recommendation surfaces
@@ -142,6 +147,8 @@ This is lighter and more reliable than long-lived full-subtree `MutationObserver
 ## Stats And Storage
 
 Settings are stored in `browser.storage.local`.
+
+The extension does not send this data to remote servers. Current data handling details are documented in [PRIVACY.md](PRIVACY.md).
 
 The main settings groups are:
 

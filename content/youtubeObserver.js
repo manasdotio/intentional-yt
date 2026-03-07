@@ -10,6 +10,7 @@ const isYouTubeObserverHostSupported = () => {
 
 class YouTubeObserver {
   static navigationEventNames = ['yt-navigate-start', 'yt-navigate-finish', 'yt-page-data-updated'];
+  static activityPingIntervalMs = 15000;
 
   constructor() {
     this.currentVideoId = null;
@@ -20,6 +21,7 @@ class YouTubeObserver {
     this.observedWatchFlexy = null;
     this.navigationCheckTimeout = null;
     this.researchPromptPromise = null;
+    this.lastActivityPingAt = 0;
     this._navigationInProgress = false;
     this._videoAbortController = null;
     this.boundHandleBeforeUnload = () => {
@@ -459,20 +461,32 @@ class YouTubeObserver {
 
     const settings = await this.storage.getSettings();
     if (settings.browsingMode && settings.browsingMode.active) {
+      if (this.timerOverlay && this.timerOverlay.setTrackingEnabled) {
+        this.timerOverlay.setTrackingEnabled(false);
+      }
       this.timerOverlay.hide();
       return;
     }
 
     if (settings.research.mode === 'research') {
+      if (this.timerOverlay && this.timerOverlay.setTrackingEnabled) {
+        this.timerOverlay.setTrackingEnabled(false);
+      }
       this.timerOverlay.hide();
       return;
     }
 
+    if (this.timerOverlay && this.timerOverlay.setTrackingEnabled) {
+      this.timerOverlay.setTrackingEnabled(true);
+    }
     this.timerOverlay.show();
   }
 
   handleHomePage() {
     if (this.timerOverlay) {
+      if (this.timerOverlay.setTrackingEnabled) {
+        this.timerOverlay.setTrackingEnabled(false);
+      }
       this.timerOverlay.hide();
     }
   }
@@ -483,8 +497,8 @@ class YouTubeObserver {
 
   trackActivity() {
     const now = Date.now();
-    if (now - (this._lastActivitySent || 0) < 5000) return;
-    this._lastActivitySent = now;
+    if ((now - this.lastActivityPingAt) < YouTubeObserver.activityPingIntervalMs) return;
+    this.lastActivityPingAt = now;
     browser.runtime.sendMessage({
       type: 'activity',
       data: { timestamp: now }
@@ -514,8 +528,14 @@ class YouTubeObserver {
 
     if (window.location.href.includes('/watch')) {
       if (mode === 'research') {
+        if (this.timerOverlay && this.timerOverlay.setTrackingEnabled) {
+          this.timerOverlay.setTrackingEnabled(false);
+        }
         this.timerOverlay && this.timerOverlay.hide();
       } else {
+        if (this.timerOverlay && this.timerOverlay.setTrackingEnabled) {
+          this.timerOverlay.setTrackingEnabled(true);
+        }
         this.timerOverlay && this.timerOverlay.show();
       }
     }
