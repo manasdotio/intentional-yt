@@ -25,6 +25,7 @@
   "content_scripts": [
     {
       "matches": ["*://www.youtube.com/*", "*://youtube.com/*"],
+      "exclude_matches": ["*://music.youtube.com/*"],
       "js": [
         "content/recommendationBlocker.js"
       ],
@@ -32,6 +33,7 @@
     },
     {
       "matches": ["*://www.youtube.com/*", "*://youtube.com/*"],
+      "exclude_matches": ["*://music.youtube.com/*"],
       "js": [
         "utils/storage.js",
         "utils/time.js",

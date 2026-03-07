@@ -4,6 +4,7 @@
  */
 
 class Scheduler {
+  private static readonly supportedHosts = new Set(['www.youtube.com', 'youtube.com']);
   private static instance: Scheduler;
   private alarmHandlers: Map<string, () => void> = new Map();
   
@@ -144,7 +145,7 @@ class Scheduler {
       });
       
       for (const tab of tabs) {
-        if (tab.id) {
+        if (tab.id && tab.url && this.isYouTubeUrl(tab.url)) {
           await this.checkNightLock(tab.id);
           await this.checkBrowsingCooldown(tab.id);
         }
@@ -180,7 +181,13 @@ class Scheduler {
   }
 
   private isYouTubeUrl(url: string): boolean {
-    return url.includes('youtube.com') || url.includes('youtu.be');
+    try {
+      const parsedUrl = new URL(url);
+      const hostname = parsedUrl.hostname.toLowerCase();
+      return Scheduler.supportedHosts.has(hostname) || hostname === 'youtu.be';
+    } catch {
+      return false;
+    }
   }
 
   // Public method to trigger immediate checks
@@ -190,7 +197,7 @@ class Scheduler {
     });
     
     for (const tab of tabs) {
-      if (tab.id) {
+      if (tab.id && tab.url && this.isYouTubeUrl(tab.url)) {
         await this.checkNightLock(tab.id);
         if (await this.checkBrowsingCooldown(tab.id)) {
           continue;

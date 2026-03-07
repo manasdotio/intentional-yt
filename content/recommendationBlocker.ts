@@ -3,6 +3,11 @@
  * Hides algorithmic recommendations and distracting elements.
  */
 
+const isRecommendationBlockerHostSupported = (): boolean => {
+  const hostname = window.location.hostname.toLowerCase();
+  return hostname === 'www.youtube.com' || hostname === 'youtube.com';
+};
+
 class RecommendationBlocker {
   private static readonly navigationEventNames = ['yt-navigate-start', 'yt-navigate-finish', 'yt-page-data-updated'];
   private static instance: RecommendationBlocker;
@@ -271,4 +276,6 @@ class RecommendationBlocker {
 }
 
 (window as any).RecommendationBlocker = RecommendationBlocker;
-RecommendationBlocker.getInstance();
+if (isRecommendationBlockerHostSupported()) {
+  RecommendationBlocker.getInstance();
+}

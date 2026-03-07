@@ -3,6 +3,11 @@
  * Adds a deliberate pause on the home page and enforces a short browsing timer.
  */
 
+const isBrowsingModeHostSupported = (): boolean => {
+  const hostname = window.location.hostname.toLowerCase();
+  return hostname === 'www.youtube.com' || hostname === 'youtube.com';
+};
+
 class BrowsingModeController {
   private static readonly navigationEventNames = ['yt-navigate-start', 'yt-navigate-finish', 'yt-page-data-updated'];
   private static instance: BrowsingModeController;
@@ -452,4 +457,6 @@ class BrowsingModeController {
 }
 
 (window as any).BrowsingModeController = BrowsingModeController;
-BrowsingModeController.getInstance();
+if (isBrowsingModeHostSupported()) {
+  BrowsingModeController.getInstance();
+}

@@ -3,6 +3,11 @@
  * Observes page changes and coordinates all other content scripts
  */
 
+const isYouTubeObserverHostSupported = () => {
+  const hostname = window.location.hostname.toLowerCase();
+  return hostname === 'www.youtube.com' || hostname === 'youtube.com';
+};
+
 class YouTubeObserver {
   static navigationEventNames = ['yt-navigate-start', 'yt-navigate-finish', 'yt-page-data-updated'];
 
@@ -562,10 +567,12 @@ class YouTubeObserver {
 }
 
 // Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+if (isYouTubeObserverHostSupported()) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      YouTubeObserver.getInstance();
+    });
+  } else {
     YouTubeObserver.getInstance();
-  });
-} else {
-  YouTubeObserver.getInstance();
+  }
 }
