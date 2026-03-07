@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube Focus Guard</title>
+  <title>Intentional YT</title>
   <link rel="stylesheet" href="../styles/ui.css">
 </head>
 <body class="yfg-modal-page">
   <div class="yfg-modal-overlay">
     <div class="yfg-modal-content" id="modal-content">
       <!-- Modal content will be populated dynamically -->
-      <h3 id="modal-title">Focus Guard</h3>
+      <h3 id="modal-title">Intentional YT</h3>
       <p id="modal-message">Loading...</p>
       <div class="yfg-modal-buttons" id="modal-buttons">
         <button class="yfg-btn yfg-btn-primary" onclick="window.close()">
@@ -30,7 +30,7 @@
       init() {
         const params = new URLSearchParams(window.location.search);
         const type = params.get('type') || 'info';
-        const title = params.get('title') || 'Focus Guard';
+        const title = params.get('title') || 'Intentional YT';
         const message = params.get('message') || 'Modal message';
         
         this.renderModal(type, title, message);

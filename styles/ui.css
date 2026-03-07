@@ -281,6 +281,13 @@ body.yfg-modal-page {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
+.yfg-brand-icon img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+}
+
 .yfg-popup-title {
   margin: 0;
   font-size: 18px;
