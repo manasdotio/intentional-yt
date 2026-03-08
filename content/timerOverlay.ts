@@ -354,23 +354,37 @@ class TimerOverlay {
     
     const nextInterval = this.currentReminderIndex < this.reminderIntervals.length ? 
                         this.reminderIntervals[this.currentReminderIndex] : 0;
-    
-    modal.innerHTML = `
-      <div class="yfg-modal-content">
-        <h3>⏰ Watch Time Reminder</h3>
-        <p>You have been watching for <strong>${watchTime} minutes</strong>.</p>
-        <div class="yfg-modal-buttons">
-          ${nextInterval ? `
-            <button class="yfg-btn yfg-btn-primary" data-action="continue">
-              Continue (${nextInterval} min limit)
-            </button>
-          ` : ''}
-        </div>
-        <div class="yfg-modal-tip">
-          💡 Regular breaks help maintain focus and prevent eye strain
-        </div>
-      </div>
-    `;
+
+    const content = document.createElement('div');
+    content.className = 'yfg-modal-content';
+
+    const title = document.createElement('h3');
+    title.textContent = '⏰ Watch Time Reminder';
+
+    const message = document.createElement('p');
+    message.append('You have been watching for ');
+    const watchTimeValue = document.createElement('strong');
+    watchTimeValue.textContent = `${watchTime} minutes`;
+    message.append(watchTimeValue, '.');
+
+    const buttons = document.createElement('div');
+    buttons.className = 'yfg-modal-buttons';
+
+    if (nextInterval) {
+      const continueButton = document.createElement('button');
+      continueButton.className = 'yfg-btn yfg-btn-primary';
+      continueButton.type = 'button';
+      continueButton.dataset.action = 'continue';
+      continueButton.textContent = `Continue (${nextInterval} min limit)`;
+      buttons.appendChild(continueButton);
+    }
+
+    const tip = document.createElement('div');
+    tip.className = 'yfg-modal-tip';
+    tip.textContent = '💡 Regular breaks help maintain focus and prevent eye strain';
+
+    content.append(title, message, buttons, tip);
+    modal.appendChild(content);
 
     modal.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;

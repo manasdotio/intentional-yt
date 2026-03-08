@@ -407,16 +407,36 @@ class BrowsingModeController {
 
     const modal = document.createElement('div');
     modal.className = 'yfg-browsing-expiry-modal';
-    modal.innerHTML = `
-      <div class="yfg-modal-content">
-        <h3>You've been browsing for a while.</h3>
-        <p>${canExtend ? 'Choose whether to stop now or continue for 10 more minutes.' : 'You have used both extensions. Continuing will start a 30 minute cooldown.'}</p>
-        <div class="yfg-modal-buttons">
-          <button class="yfg-btn yfg-btn-secondary" data-action="stop">Stop Browsing</button>
-          <button class="yfg-btn yfg-btn-warning" data-action="extend">Continue 10 minutes</button>
-        </div>
-      </div>
-    `;
+
+    const content = document.createElement('div');
+    content.className = 'yfg-modal-content';
+
+    const title = document.createElement('h3');
+    title.textContent = 'You\'ve been browsing for a while.';
+
+    const message = document.createElement('p');
+    message.textContent = canExtend
+      ? 'Choose whether to stop now or continue for 10 more minutes.'
+      : 'You have used both extensions. Continuing will start a 30 minute cooldown.';
+
+    const buttons = document.createElement('div');
+    buttons.className = 'yfg-modal-buttons';
+
+    const stopButton = document.createElement('button');
+    stopButton.className = 'yfg-btn yfg-btn-secondary';
+    stopButton.type = 'button';
+    stopButton.dataset.action = 'stop';
+    stopButton.textContent = 'Stop Browsing';
+
+    const extendButton = document.createElement('button');
+    extendButton.className = 'yfg-btn yfg-btn-warning';
+    extendButton.type = 'button';
+    extendButton.dataset.action = 'extend';
+    extendButton.textContent = 'Continue 10 minutes';
+
+    buttons.append(stopButton, extendButton);
+    content.append(title, message, buttons);
+    modal.appendChild(content);
 
     modal.addEventListener('click', async (event: Event) => {
       const target = event.target as HTMLElement | null;

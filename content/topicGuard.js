@@ -788,51 +788,82 @@ class TopicGuard {
     const isSecondWarning = this.currentTopic.driftWarnings >= 2;
     const readableTopic = this.currentTopic.searchQuery || this.currentTopic.keywords.join(', ');
 
-    modal.innerHTML = `
-      <div class="yfg-modal-content">
-        <h3>🚨 Topic Drift Detected</h3>
-        <div class="yfg-drift-info">
-          <p><strong>Current research topic:</strong></p>
-          <p class="yfg-video-title">"${readableTopic}"</p>
-          <div class="yfg-topic-tags">
-            ${this.currentTopic.keywords.map((keyword) =>
-              `<span class="yfg-topic-tag">${keyword}</span>`
-            ).join(' ')}
-          </div>
-        </div>
-        <div class="yfg-drift-video">
-          <p><strong>Clicked video:</strong></p>
-          <p class="yfg-video-title">"${videoTitle}"</p>
-          <p class="yfg-drift-explanation">This video appears unrelated to your research topic.</p>
-        </div>
+    const content = document.createElement('div');
+    content.className = 'yfg-modal-content';
 
-        ${isSecondWarning ? `
-          <div class="yfg-drift-limit">
-            <p><strong>⚠️ Second drift detected</strong></p>
-            <p>Continuing will end your research session.</p>
-          </div>
-        ` : ''}
+    const title = document.createElement('h3');
+    title.textContent = '🚨 Topic Drift Detected';
 
-        <div class="yfg-modal-buttons">
-          <button class="yfg-btn yfg-btn-secondary" data-action="cancel">
-            Stay on Topic
-          </button>
-          ${isSecondWarning ? `
-            <button class="yfg-btn yfg-btn-danger" data-action="continue">
-              End Research Session
-            </button>
-          ` : `
-            <button class="yfg-btn yfg-btn-warning" data-action="continue">
-              Allow Once
-            </button>
-          `}
-        </div>
+    const driftInfo = document.createElement('div');
+    driftInfo.className = 'yfg-drift-info';
+    const currentTopicLabel = document.createElement('p');
+    const currentTopicStrong = document.createElement('strong');
+    currentTopicStrong.textContent = 'Current research topic:';
+    currentTopicLabel.appendChild(currentTopicStrong);
+    const currentTopicValue = document.createElement('p');
+    currentTopicValue.className = 'yfg-video-title';
+    currentTopicValue.textContent = `"${readableTopic}"`;
+    const topicTags = document.createElement('div');
+    topicTags.className = 'yfg-topic-tags';
+    for (const keyword of this.currentTopic.keywords) {
+      const tag = document.createElement('span');
+      tag.className = 'yfg-topic-tag';
+      tag.textContent = keyword;
+      topicTags.appendChild(tag);
+    }
+    driftInfo.append(currentTopicLabel, currentTopicValue, topicTags);
 
-        <div class="yfg-drift-tips">
-          💡 <strong>Tip:</strong> Use search to find videos related to your research topic
-        </div>
-      </div>
-    `;
+    const driftVideo = document.createElement('div');
+    driftVideo.className = 'yfg-drift-video';
+    const clickedLabel = document.createElement('p');
+    const clickedStrong = document.createElement('strong');
+    clickedStrong.textContent = 'Clicked video:';
+    clickedLabel.appendChild(clickedStrong);
+    const clickedValue = document.createElement('p');
+    clickedValue.className = 'yfg-video-title';
+    clickedValue.textContent = `"${videoTitle}"`;
+    const explanation = document.createElement('p');
+    explanation.className = 'yfg-drift-explanation';
+    explanation.textContent = 'This video appears unrelated to your research topic.';
+    driftVideo.append(clickedLabel, clickedValue, explanation);
+
+    const buttons = document.createElement('div');
+    buttons.className = 'yfg-modal-buttons';
+    const cancelButton = document.createElement('button');
+    cancelButton.className = 'yfg-btn yfg-btn-secondary';
+    cancelButton.type = 'button';
+    cancelButton.dataset.action = 'cancel';
+    cancelButton.textContent = 'Stay on Topic';
+    const continueButton = document.createElement('button');
+    continueButton.className = `yfg-btn ${isSecondWarning ? 'yfg-btn-danger' : 'yfg-btn-warning'}`;
+    continueButton.type = 'button';
+    continueButton.dataset.action = 'continue';
+    continueButton.textContent = isSecondWarning ? 'End Research Session' : 'Allow Once';
+    buttons.append(cancelButton, continueButton);
+
+    const tip = document.createElement('div');
+    tip.className = 'yfg-drift-tips';
+    const tipStrong = document.createElement('strong');
+    tipStrong.textContent = 'Tip:';
+    tip.append('💡 ', tipStrong, ' Use search to find videos related to your research topic');
+
+    content.append(title, driftInfo, driftVideo);
+
+    if (isSecondWarning) {
+      const driftLimit = document.createElement('div');
+      driftLimit.className = 'yfg-drift-limit';
+      const warningLine = document.createElement('p');
+      const warningStrong = document.createElement('strong');
+      warningStrong.textContent = '⚠️ Second drift detected';
+      warningLine.appendChild(warningStrong);
+      const warningDetail = document.createElement('p');
+      warningDetail.textContent = 'Continuing will end your research session.';
+      driftLimit.append(warningLine, warningDetail);
+      content.appendChild(driftLimit);
+    }
+
+    content.append(buttons, tip);
+    modal.appendChild(content);
 
     modal.addEventListener('click', (e) => {
       const target = e.target;
@@ -873,21 +904,33 @@ class TopicGuard {
 
     const modal = document.createElement('div');
     modal.className = 'yfg-session-ended-modal';
-    modal.innerHTML = `
-      <div class="yfg-modal-content">
-        <h3>📚 Research Session Ended</h3>
-        <p>Your research session has ended due to topic drift.</p>
-        <p>You are now in <strong>Entertainment Mode</strong> with a ${await this.getEntertainmentLimit()} minute daily limit.</p>
-        <div class="yfg-modal-buttons">
-          <button class="yfg-btn yfg-btn-primary" data-action="continue">
-            Continue Watching
-          </button>
-          <button class="yfg-btn yfg-btn-secondary" data-action="new-research">
-            Start New Research
-          </button>
-        </div>
-      </div>
-    `;
+    const entertainmentLimit = await this.getEntertainmentLimit();
+    const content = document.createElement('div');
+    content.className = 'yfg-modal-content';
+    const title = document.createElement('h3');
+    title.textContent = '📚 Research Session Ended';
+    const summary = document.createElement('p');
+    summary.textContent = 'Your research session has ended due to topic drift.';
+    const limitMessage = document.createElement('p');
+    limitMessage.append('You are now in ');
+    const modeStrong = document.createElement('strong');
+    modeStrong.textContent = 'Entertainment Mode';
+    limitMessage.append(modeStrong, ` with a ${entertainmentLimit} minute daily limit.`);
+    const buttons = document.createElement('div');
+    buttons.className = 'yfg-modal-buttons';
+    const continueButton = document.createElement('button');
+    continueButton.className = 'yfg-btn yfg-btn-primary';
+    continueButton.type = 'button';
+    continueButton.dataset.action = 'continue';
+    continueButton.textContent = 'Continue Watching';
+    const researchButton = document.createElement('button');
+    researchButton.className = 'yfg-btn yfg-btn-secondary';
+    researchButton.type = 'button';
+    researchButton.dataset.action = 'new-research';
+    researchButton.textContent = 'Start New Research';
+    buttons.append(continueButton, researchButton);
+    content.append(title, summary, limitMessage, buttons);
+    modal.appendChild(content);
 
     modal.addEventListener('click', (e) => {
       const target = e.target;

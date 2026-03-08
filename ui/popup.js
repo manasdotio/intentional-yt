@@ -415,16 +415,36 @@ class PopupController {
     }
 
     if (channels.length === 0) {
-      listContainer.innerHTML = '<div class="yfg-allowlist-empty">No allowed research channels yet.</div>';
+      const emptyState = document.createElement('div');
+      emptyState.className = 'yfg-allowlist-empty';
+      emptyState.textContent = 'No allowed research channels yet.';
+      listContainer.replaceChildren(emptyState);
       return;
     }
 
-    listContainer.innerHTML = channels.map((channel) => `
-      <div class="yfg-allowlist-item">
-        <span class="yfg-allowlist-name">${channel}</span>
-        <button class="yfg-allowlist-remove" data-action="remove-channel" data-channel="${channel}" aria-label="Remove ${channel}">×</button>
-      </div>
-    `).join('');
+    const fragment = document.createDocumentFragment();
+
+    for (const channel of channels) {
+      const item = document.createElement('div');
+      item.className = 'yfg-allowlist-item';
+
+      const name = document.createElement('span');
+      name.className = 'yfg-allowlist-name';
+      name.textContent = channel;
+
+      const removeButton = document.createElement('button');
+      removeButton.className = 'yfg-allowlist-remove';
+      removeButton.type = 'button';
+      removeButton.dataset.action = 'remove-channel';
+      removeButton.dataset.channel = channel;
+      removeButton.setAttribute('aria-label', `Remove ${channel}`);
+      removeButton.textContent = '×';
+
+      item.append(name, removeButton);
+      fragment.appendChild(item);
+    }
+
+    listContainer.replaceChildren(fragment);
   }
 
   normalizeTopicInput(value) {
