@@ -1,36 +1,21 @@
 /**
- * Timer Overlay for YouTube Focus Guard
- * Shows watch time and periodic reminders
+ * Ambient Intent Banner & Breathing Breaks for YouTube Focus Guard
+ * Shows active intention, session watch time, and handles periodic breathing breaks.
  */
 
 class TimerOverlay {
   private static instance: TimerOverlay;
-  private readonly renderOverlay: boolean = true;
-  private overlay: HTMLElement | null = null;
-  private timeElement: HTMLElement | null = null;
-  private nextReminderElement: HTMLElement | null = null;
-  private modeElement: HTMLElement | null = null;
-  private topicElement: HTMLElement | null = null;
-  private intervalId: number | null = null;
-  private sessionStart: number = Date.now();
-  private currentWatchTime: number = 0;
-  private lastPlaybackTick: number = 0;
-  private reminderIntervals: number[] = [25, 15, 10, 5];
-  private currentReminderIndex: number = 0;
-  private isVisible: boolean = false;
-  private blockModalShown: boolean = false;
+  private banner: HTMLElement | null = null;
+  private checkInOverlay: HTMLElement | null = null;
+  private trackingInterval: number | null = null;
   private storage: any;
-  private timeUtils: any;
-  private lastContextRefresh: number = 0;
-  private lastPersistedAt: number = 0;
-  private hasLoadedSessionData: boolean = false;
-  private pendingVideoSessionStart: boolean = false;
   private trackingEnabled: boolean = false;
-  private _sessionFresh: boolean = false;
-  private readonly boundPersistSessionState = () => {
-    void this.persistSessionState(true);
-  };
-  
+
+  private sessionStart: number = Date.now();
+  private elapsedSeconds: number = 0;
+  private continuousPlaySeconds: number = 0;
+  private isBreathingActive: boolean = false;
+
   static getInstance(): TimerOverlay {
     if (!TimerOverlay.instance) {
       TimerOverlay.instance = new TimerOverlay();
@@ -43,466 +28,327 @@ class TimerOverlay {
   }
 
   private async init(): Promise<void> {
-    await this.waitForDependencies();
-    
     this.storage = (window as any).StorageManager.getInstance();
-    this.timeUtils = (window as any).TimeUtils.getInstance();
-    
-    this.createOverlay();
-    await this.loadSessionData();
-    this.setupPersistenceListeners();
+    this.createBanner();
+    this.startTrackingLoop();
   }
 
-  private async waitForDependencies(): Promise<void> {
-    return new Promise((resolve) => {
-      const checkDependencies = () => {
-        if ((window as any).StorageManager && (window as any).TimeUtils) {
-          resolve();
-        } else {
-          setTimeout(checkDependencies, 100);
-        }
-      };
-      checkDependencies();
-    });
-  }
-
-  private createOverlay(): void {
-    if (!this.renderOverlay) {
+  private createBanner(): void {
+    if (document.getElementById('yfg-ambient-banner')) {
       return;
     }
 
-    this.overlay = document.createElement('div');
-    this.overlay.className = 'yfg-timer-overlay';
-    this.overlay.innerHTML = `
-      <div class="yfg-timer-content">
-        <div class="yfg-timer-header-row">
-          <div class="yfg-timer-title">Watching</div>
-          <div class="yfg-timer-time" id="yfg-watch-time">00:00</div>
-        </div>
-        <div class="yfg-timer-meta-row">
-          <span class="yfg-timer-chip" id="yfg-overlay-mode">Entertainment</span>
-          <span class="yfg-timer-next" id="yfg-next-reminder">Next reminder: --</span>
-        </div>
-        <div class="yfg-timer-topic" id="yfg-overlay-topic">No active topic</div>
-        <div class="yfg-timer-controls">
-          <button class="yfg-timer-btn" id="yfg-hide-timer" title="Hide timer">
-            ➖
-          </button>
+    this.banner = document.createElement('div');
+    this.banner.id = 'yfg-ambient-banner';
+    this.banner.className = 'yfg-timer-overlay'; // Reuses styles from theme, customized with overrides
+    this.banner.innerHTML = `
+      <div class="yfg-timer-content" style="display: flex; align-items: center; gap: 10px; padding: 6px 12px; border-radius: 99px;">
+        <span class="yfg-banner-pill-icon">🎯</span>
+        <span class="yfg-banner-pill-text" id="yfg-banner-text" style="font-size: 12px; font-weight: 600; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Focusing...</span>
+        <span class="yfg-banner-pill-timer" id="yfg-banner-timer" style="font-family: monospace; font-size: 12px; opacity: 0.8; margin-left: 4px;">00:00</span>
+        <button class="yfg-timer-btn" id="yfg-banner-options-btn" style="min-height: 20px; padding: 0 4px; border-radius: 4px; font-size: 10px; cursor: pointer; opacity: 0.7;">⚙️</button>
+        
+        <div id="yfg-banner-dropdown" style="display: none; position: absolute; top: 100%; right: 0; margin-top: 8px; width: 220px; padding: 12px; border-radius: var(--yfg-radius-md); background: var(--yfg-color-surface-strong); border: 1px solid var(--yfg-color-border-strong); flex-direction: column; gap: 8px; box-shadow: var(--yfg-shadow-lg); z-index: 100000000000;">
+          <input type="text" id="yfg-change-intent-input" class="input-field" placeholder="Change intention..." style="padding: 6px 8px; font-size: 12px;" />
+          <div style="display: flex; gap: 6px;">
+            <button class="yfg-btn yfg-btn-primary" id="yfg-change-intent-btn" style="flex: 1; min-height: 24px; font-size: 11px; padding: 4px;">Change</button>
+            <button class="yfg-btn yfg-btn-danger" id="yfg-finish-intent-btn" style="flex: 1; min-height: 24px; font-size: 11px; padding: 4px; background: var(--yfg-color-danger) !important; color: #fff;">Finish</button>
+          </div>
         </div>
       </div>
     `;
 
-    const hideTimerBtn = this.overlay.querySelector('#yfg-hide-timer');
+    document.body.appendChild(this.banner);
+    this.banner.style.display = 'none';
 
-    hideTimerBtn?.addEventListener('click', () => {
-      this.hide();
+    // Bind dropdown controls
+    const optionsBtn = this.banner.querySelector('#yfg-banner-options-btn');
+    const dropdown = this.banner.querySelector('#yfg-banner-dropdown') as HTMLElement;
+    const changeInput = this.banner.querySelector('#yfg-change-intent-input') as HTMLInputElement;
+    const changeBtn = this.banner.querySelector('#yfg-change-intent-btn');
+    const finishBtn = this.banner.querySelector('#yfg-finish-intent-btn');
+
+    optionsBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.style.display = dropdown.style.display === 'none' ? 'flex' : 'none';
     });
 
-    document.body.appendChild(this.overlay);
+    document.addEventListener('click', () => {
+      if (dropdown) dropdown.style.display = 'none';
+    });
 
-    this.timeElement = this.overlay.querySelector('#yfg-watch-time') as HTMLElement | null;
-    this.nextReminderElement = this.overlay.querySelector('#yfg-next-reminder') as HTMLElement | null;
-    this.modeElement = this.overlay.querySelector('#yfg-overlay-mode') as HTMLElement | null;
-    this.topicElement = this.overlay.querySelector('#yfg-overlay-topic') as HTMLElement | null;
+    dropdown?.addEventListener('click', (e) => e.stopPropagation());
 
-    if (this.isVisible) {
-      this.overlay.style.display = 'block';
-    }
-  }
-
-  private setupPersistenceListeners(): void {
-    window.addEventListener('pagehide', this.boundPersistSessionState);
-    window.addEventListener('beforeunload', this.boundPersistSessionState);
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') {
-        void this.persistSessionState(true);
+    const updateIntention = async () => {
+      const newText = changeInput.value.trim();
+      if (newText) {
+        await this.storage.setIntention(newText);
+        changeInput.value = '';
+        dropdown.style.display = 'none';
+        
+        await browser.runtime.sendMessage({
+          type: 'intent-status-changed',
+          data: { isIntentional: true }
+        });
+        
+        window.location.reload();
       }
+    };
+
+    changeBtn?.addEventListener('click', () => void updateIntention());
+    changeInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') void updateIntention();
+    });
+
+    finishBtn?.addEventListener('click', async () => {
+      await this.storage.setIntention("");
+      dropdown.style.display = 'none';
+      
+      await browser.runtime.sendMessage({
+        type: 'intent-status-changed',
+        data: { isIntentional: false }
+      });
+      
+      window.location.href = 'https://www.youtube.com/';
     });
   }
 
-  private async loadSessionData(): Promise<void> {
-    if (this._sessionFresh) {
-      this.hasLoadedSessionData = true;
-      return;
+  private startTrackingLoop(): void {
+    if (this.trackingInterval) {
+      clearInterval(this.trackingInterval);
     }
 
-    const settings = await this.storage.getSettings();
-    const storedStart = settings.watchTimer.sessionStart || 0;
-    const storedIndex = settings.watchTimer.currentInterval || 0;
-    const storedWatchTime = settings.watchTimer.currentWatchTime || 0;
-
-    const twoHoursMs = 2 * 60 * 60 * 1000;
-    if (!storedStart || (Date.now() - storedStart) > twoHoursMs) {
-      this.sessionStart = Date.now();
-      this.currentReminderIndex = 0;
-      this.currentWatchTime = 0;
-    } else {
-      this.sessionStart = storedStart;
-      this.currentReminderIndex = storedIndex;
-      this.currentWatchTime = storedWatchTime;
-    }
-
-    this.reminderIntervals = settings.watchTimer.reminderIntervals || [25, 15, 10, 5];
-    this.lastPersistedAt = Date.now();
-    this.hasLoadedSessionData = true;
-
-    if (this.pendingVideoSessionStart) {
-      this.pendingVideoSessionStart = false;
-      this.applyVideoSessionStart();
-    }
-  }
-
-  private startTimer(): void {
-    if (this.intervalId) {
-      return;
-    }
-
-    this.intervalId = setInterval(() => {
-      try {
-        this.updateTimer();
-        this.checkReminders();
-      } catch (error) {
-        console.error('[YFG] timer tick error:', error);
+    this.trackingInterval = setInterval(() => {
+      if (this.trackingEnabled) {
+        this.updateTime();
       }
     }, 1000) as any;
   }
 
-  private stopTimer(): void {
-    if (this.intervalId !== null) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
-  }
-
-  private updateTimer(): void {
-    if (!this.timeUtils || !this.trackingEnabled) return;
-
-    if (!window.location.href.includes('/watch')) {
-      this.lastPlaybackTick = 0;
-      this.stopTimer();
-      return;
-    }
-
-    if (this.renderOverlay && this.isVisible) {
-      this.attachOverlayToPlayer();
-    }
-
-    if (this.renderOverlay && this.isVisible && this.overlay && !this.overlay.parentNode) {
-      document.body.appendChild(this.overlay);
-      this.overlay.style.display = 'block';
-    }
-
-    this.syncPlaybackTime();
-
-    if (this.renderOverlay && this.isVisible && Date.now() - this.lastContextRefresh > 2000) {
-      this.lastContextRefresh = Date.now();
-      void this.refreshOverlayContext();
-    }
-
-    if (this.renderOverlay && this.timeElement) {
-      this.timeElement.textContent = this.timeUtils.formatTime(this.currentWatchTime);
-    }
-
-    if (this.renderOverlay) {
-      this.updateNextReminderDisplay();
-    }
-  }
-
-  private syncPlaybackTime(): void {
-    const video = document.querySelector('video') as HTMLVideoElement | null;
-    const isActivelyPlaying = Boolean(video && !video.paused && !video.ended && video.readyState > 2);
-
-    if (!isActivelyPlaying) {
-      this.lastPlaybackTick = 0;
-      return;
-    }
-
-    const now = Date.now();
-    if (!this.lastPlaybackTick) {
-      this.lastPlaybackTick = now;
-      return;
-    }
-
-    const elapsedSeconds = Math.floor((now - this.lastPlaybackTick) / 1000);
-    if (elapsedSeconds <= 0) {
-      return;
-    }
-
-    this.currentWatchTime += elapsedSeconds;
-    this.lastPlaybackTick += elapsedSeconds * 1000;
-
-    if ((now - this.lastPersistedAt) >= 5000) {
-      void this.persistSessionState();
-    }
-  }
-
-  private async persistSessionState(force: boolean = false): Promise<void> {
-    if (!this.storage) {
-      return;
-    }
-
-    const now = Date.now();
-    if (!force && now - this.lastPersistedAt < 5000) {
-      return;
-    }
-
-    this.lastPersistedAt = now;
-    await this.storage.saveSettings({
-      watchTimer: {
-        currentInterval: this.currentReminderIndex,
-        sessionStart: this.sessionStart,
-        currentWatchTime: this.currentWatchTime,
-        reminderIntervals: this.reminderIntervals,
-        enabled: true,
-        totalToday: 0,
-      }
-    });
-  }
-
-  private updateNextReminderDisplay(): void {
-    if (!this.nextReminderElement) return;
-
-    if (this.currentReminderIndex >= this.reminderIntervals.length) {
-      this.nextReminderElement.textContent = 'Session limit reached';
-      return;
-    }
-
-    let cumulativeThreshold = 0;
-    for (let index = 0; index <= this.currentReminderIndex; index++) {
-      cumulativeThreshold += this.reminderIntervals[index];
-    }
-
-    const sessionMinutes = Math.floor(this.currentWatchTime / 60);
-    const minutesUntilReminder = Math.max(0, cumulativeThreshold - sessionMinutes);
-
-    if (minutesUntilReminder === 0) {
-      this.nextReminderElement.textContent = 'Next reminder: now';
-    } else {
-      this.nextReminderElement.textContent = `Next reminder: ${minutesUntilReminder}m`;
-    }
-  }
-
-  private async refreshOverlayContext(): Promise<void> {
-    if (!this.storage) {
-      return;
-    }
-
+  private async updateTime(): Promise<void> {
     const settings = await this.storage.getSettings();
-    const currentTopic = Array.isArray(settings.research.currentTopic) ? settings.research.currentTopic : [];
-    const isEntertainmentMode = settings.research.mode !== 'research';
-
-    if (!window.location.href.includes('/watch') || !isEntertainmentMode) {
+    if (!settings.activeIntention) {
       this.hide();
       return;
     }
 
-    if (!this.isVisible) {
-      this.show();
+    // Initialize/sync elapsed time since session start
+    const now = Date.now();
+    const startTime = settings.intentionStartTime || now;
+    this.elapsedSeconds = Math.max(0, Math.floor((now - startTime) / 1000));
+
+    // Update banner UI text
+    const textEl = document.getElementById('yfg-banner-text');
+    const timerEl = document.getElementById('yfg-banner-timer');
+    if (textEl) textEl.textContent = `Focusing on: "${settings.activeIntention}"`;
+    if (timerEl) {
+      const mins = Math.floor(this.elapsedSeconds / 60);
+      const secs = this.elapsedSeconds % 60;
+      timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    if (this.modeElement) {
-      this.modeElement.textContent = 'Entertainment';
-      this.modeElement.classList.remove('is-research');
-    }
+    // Monitor playback state for breathing break interval
+    const video = document.querySelector('video') as HTMLVideoElement | null;
+    const isPlaying = Boolean(video && !video.paused && !video.ended && video.readyState > 2);
 
-    if (this.topicElement) {
-      this.topicElement.textContent = currentTopic.length > 0 ? 'Entertainment session' : 'Entertainment session';
-    }
-  }
-
-  private attachOverlayToPlayer(): void {
-    if (!this.renderOverlay || !this.overlay) {
-      return;
-    }
-
-    const player = document.querySelector('#movie_player') || document.querySelector('.html5-video-player');
-    if (player && this.overlay.parentNode !== player) {
-      this.overlay.classList.add('yfg-timer-overlay-player');
-      player.appendChild(this.overlay);
-    } else if (!player && this.overlay.parentNode !== document.body) {
-      this.overlay.classList.remove('yfg-timer-overlay-player');
-      document.body.appendChild(this.overlay);
-    }
-  }
-
-  private checkReminders(): void {
-    if (this.blockModalShown || !this.isVisible || !this.timeUtils || !window.location.href.includes('/watch')) return;
-
-    const sessionMinutes = Math.floor(this.currentWatchTime / 60);
-
-    if (this.currentReminderIndex < this.reminderIntervals.length) {
-      let cumulativeThreshold = 0;
-      for (let index = 0; index <= this.currentReminderIndex; index++) {
-        cumulativeThreshold += this.reminderIntervals[index];
-      }
-
-      if (sessionMinutes >= cumulativeThreshold) {
-        this.showReminderModal(sessionMinutes);
-        this.currentReminderIndex++;
-
-        void this.persistSessionState(true);
-      }
-    } else {
-      this.blockModalShown = true;
-      this.showBlockModal();
-    }
-  }
-
-  private showReminderModal(watchTime: number): void {
-    const modal = document.createElement('div');
-    modal.className = 'yfg-reminder-modal';
-    
-    const nextInterval = this.currentReminderIndex < this.reminderIntervals.length ? 
-                        this.reminderIntervals[this.currentReminderIndex] : 0;
-
-    const content = document.createElement('div');
-    content.className = 'yfg-modal-content';
-
-    const title = document.createElement('h3');
-    title.textContent = '⏰ Watch Time Reminder';
-
-    const message = document.createElement('p');
-    message.append('You have been watching for ');
-    const watchTimeValue = document.createElement('strong');
-    watchTimeValue.textContent = `${watchTime} minutes`;
-    message.append(watchTimeValue, '.');
-
-    const buttons = document.createElement('div');
-    buttons.className = 'yfg-modal-buttons';
-
-    if (nextInterval) {
-      const continueButton = document.createElement('button');
-      continueButton.className = 'yfg-btn yfg-btn-primary';
-      continueButton.type = 'button';
-      continueButton.dataset.action = 'continue';
-      continueButton.textContent = `Continue (${nextInterval} min limit)`;
-      buttons.appendChild(continueButton);
-    }
-
-    const tip = document.createElement('div');
-    tip.className = 'yfg-modal-tip';
-    tip.textContent = '💡 Regular breaks help maintain focus and prevent eye strain';
-
-    content.append(title, message, buttons, tip);
-    modal.appendChild(content);
-
-    modal.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement;
-      const action = target.getAttribute('data-action');
+    if (isPlaying && !this.isBreathingActive) {
+      this.continuousPlaySeconds++;
       
-      if (action === 'continue') {
-        modal.remove();
+      // Load configuration for breathing breaks
+      const limitMinutes = settings.breathingBreaks?.intervalMinutes || 20;
+      if (this.continuousPlaySeconds >= limitMinutes * 60) {
+        this.triggerBreathingBreak();
       }
-    });
-
-    document.body.appendChild(modal);
-    
-    // Auto-remove after 30 seconds if no action
-    setTimeout(() => {
-      if (modal.parentNode) {
-        modal.remove();
-      }
-    }, 30000);
+    }
   }
 
-  private showBlockModal(): void {
-    if (document.querySelector('.yfg-block-modal')) {
-      return;
+  private triggerBreathingBreak(): void {
+    const video = document.querySelector('video') as HTMLVideoElement | null;
+    if (video) {
+      video.pause();
     }
 
-    const modal = document.createElement('div');
-    modal.className = 'yfg-block-modal';
-    modal.innerHTML = `
-      <div class="yfg-modal-content">
-        <h3>🛑 Session Limit Reached</h3>
-        <p>You have reached the maximum continuous watch time.</p>
-        <p>Take a break to reset your session.</p>
-        <div class="yfg-modal-buttons">
-          <button class="yfg-btn yfg-btn-primary" data-action="break">
-            Take 5-Minute Break
-          </button>
+    this.isBreathingActive = true;
+    this.continuousPlaySeconds = 0;
+
+    // Create Breathing overlay
+    this.checkInOverlay = document.createElement('div');
+    this.checkInOverlay.id = 'yfg-breathing-overlay';
+    this.checkInOverlay.className = 'yfg-modal-overlay yfg-modal-page';
+    this.checkInOverlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 13, 18, 0.96);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2147483647;
+      color: #fff;
+    `;
+
+    this.checkInOverlay.innerHTML = `
+      <div class="yfg-modal-content" style="text-align: center; max-width: 480px; padding: 40px; display: flex; flex-direction: column; align-items: center; gap: 24px;">
+        <h2 style="font-size: 22px; font-weight: 700; margin: 0;">💨 Mindful Check-in</h2>
+        <p style="font-size: 14px; color: var(--yfg-color-text-muted); margin: 0;">Let's take a 30-second breathing break to break the screen trance.</p>
+        
+        <div class="yfg-breathing-animation-circle" style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--yfg-color-primary); display: flex; align-items: center; justify-content: center; position: relative; animation: yfg-inhale-exhale 8s infinite ease-in-out;">
+          <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--yfg-color-primary); opacity: 0.6;"></div>
+        </div>
+        
+        <div class="yfg-breathing-guide-text" style="font-size: 18px; font-weight: 700; color: var(--yfg-color-primary);">Inhale...</div>
+        <div class="yfg-breathing-countdown" style="font-family: monospace; font-size: 13px; opacity: 0.7;">Breathing space: 30s left</div>
+
+        <div class="yfg-check-in-questions" style="display: none; flex-direction: column; gap: 16px; width: 100%;">
+          <p style="font-size: 14px; margin: 0; font-weight: 600;">You've been watching for a while. Is this video still matching your focus?</p>
+          <div style="display: flex; gap: 12px; width: 100%;">
+            <button class="yfg-btn yfg-btn-primary" id="yfg-break-resume-btn" style="flex: 1;">Yes, Keep Watching</button>
+            <button class="yfg-btn yfg-btn-secondary" id="yfg-break-close-btn" style="flex: 1;">No, Close YouTube</button>
+          </div>
         </div>
       </div>
     `;
 
-    modal.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement;
-      const action = target.getAttribute('data-action');
+    document.body.appendChild(this.checkInOverlay);
+
+    // Style the custom breathing scale animation dynamically
+    if (!document.getElementById('yfg-breathing-animation-style')) {
+      const style = document.createElement('style');
+      style.id = 'yfg-breathing-animation-style';
+      style.textContent = `
+        @keyframes yfg-inhale-exhale {
+          0%, 100% { transform: scale(0.8); }
+          50% { transform: scale(1.3); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const animCircle = this.checkInOverlay.querySelector('.yfg-breathing-animation-circle') as HTMLElement;
+    const guideText = this.checkInOverlay.querySelector('.yfg-breathing-guide-text') as HTMLElement;
+    const countdownEl = this.checkInOverlay.querySelector('.yfg-breathing-countdown') as HTMLElement;
+    const questionsBox = this.checkInOverlay.querySelector('.yfg-check-in-questions') as HTMLElement;
+
+    // Breathing text switcher
+    let textState = 0;
+    const textInterval = setInterval(() => {
+      textState = (textState + 1) % 3;
+      if (guideText) {
+        if (textState === 0) guideText.textContent = 'Inhale...';
+        else if (textState === 1) guideText.textContent = 'Hold...';
+        else guideText.textContent = 'Exhale...';
+      }
+    }, 4000);
+
+    // 30 seconds timer
+    let timeLeft = 30;
+    const countdownInterval = setInterval(() => {
+      timeLeft--;
+      if (countdownEl) countdownEl.textContent = `Breathing space: ${timeLeft}s left`;
       
-      if (action === 'break') {
-        this.forceBreak();
+      if (timeLeft <= 0) {
+        clearInterval(countdownInterval);
+        clearInterval(textInterval);
+        if (animCircle) animCircle.style.animation = 'none';
+        if (guideText) guideText.textContent = 'Relaxed';
+        if (countdownEl) countdownEl.style.display = 'none';
+        if (questionsBox) questionsBox.style.display = 'flex';
+      }
+    }, 1000);
+
+    // Bind checks buttons
+    const resumeBtn = this.checkInOverlay.querySelector('#yfg-break-resume-btn');
+    const closeBtn = this.checkInOverlay.querySelector('#yfg-break-close-btn');
+
+    resumeBtn?.addEventListener('click', () => {
+      clearInterval(countdownInterval);
+      clearInterval(textInterval);
+      this.checkInOverlay?.remove();
+      this.checkInOverlay = null;
+      this.isBreathingActive = false;
+      if (video) {
+        video.play();
       }
     });
 
-    document.body.appendChild(modal);
-  }
+    closeBtn?.addEventListener('click', async () => {
+      clearInterval(countdownInterval);
+      clearInterval(textInterval);
+      this.checkInOverlay?.remove();
+      this.checkInOverlay = null;
+      this.isBreathingActive = false;
+      
+      await this.storage.setIntention("");
+      await browser.runtime.sendMessage({
+        type: 'intent-status-changed',
+        data: { isIntentional: false }
+      });
 
-  private forceBreak(): void {
-    window.location.href = browser.runtime.getURL('ui/blocked.html?reason=session-limit');
-  }
-
-  private applyVideoSessionStart(): void {
-    this._sessionFresh = true;
-    if (this.currentWatchTime <= 0 && this.currentReminderIndex === 0) {
-      this.sessionStart = Date.now();
-    }
-    this.lastPlaybackTick = 0;
-    this.blockModalShown = false;
-    void this.persistSessionState(true);
+      window.location.href = 'https://www.youtube.com/';
+    });
   }
 
   public startNewVideoSession(): void {
-    if (!this.hasLoadedSessionData) {
-      this.pendingVideoSessionStart = true;
-      return;
+    this.sessionStart = Date.now();
+    this.elapsedSeconds = 0;
+    this.continuousPlaySeconds = 0;
+    this.isBreathingActive = false;
+    if (this.checkInOverlay) {
+      this.checkInOverlay.remove();
+      this.checkInOverlay = null;
     }
-
-    this.applyVideoSessionStart();
   }
 
   public setTrackingEnabled(enabled: boolean): void {
     this.trackingEnabled = enabled;
-
-    if (enabled) {
-      this.startTimer();
-      return;
-    }
-
-    this.lastPlaybackTick = 0;
-    this.stopTimer();
-    void this.persistSessionState(true);
   }
 
-  show(): void {
-    this.isVisible = true;
-    if (this.renderOverlay && this.overlay) {
+  public show(): void {
+    if (this.banner) {
+      this.banner.style.display = 'block';
       this.attachOverlayToPlayer();
-      if (!this.overlay.parentNode) {
-        document.body.appendChild(this.overlay);
-      }
-      this.overlay.style.display = 'block';
     }
   }
 
-  hide(): void {
-    if (this.renderOverlay && this.overlay) {
-      this.overlay.style.display = 'none';
+  public hide(): void {
+    if (this.banner) {
+      this.banner.style.display = 'none';
     }
-
-    this.isVisible = false;
   }
 
-  showModal(watchTime: number): void {
-    this.showReminderModal(watchTime);
+  private attachOverlayToPlayer(): void {
+    if (!this.banner) return;
+    
+    // Position fixed to the window top right is best for a top-bar banner
+    this.banner.style.cssText = `
+      position: fixed;
+      top: 12px;
+      right: 180px;
+      z-index: 100000000000;
+      background: var(--yfg-color-surface-strong);
+      border: 1px solid var(--yfg-color-border-strong);
+      box-shadow: var(--yfg-shadow-sm);
+      border-radius: 99px;
+      backdrop-filter: var(--yfg-glass-backdrop);
+    `;
+    
+    if (this.banner.parentNode !== document.body) {
+      document.body.appendChild(this.banner);
+    }
   }
 
   destroy(): void {
-    void this.persistSessionState(true);
-
-    this.stopTimer();
-    
-    if (this.overlay && this.overlay.parentNode) {
-      this.overlay.remove();
+    if (this.trackingInterval) {
+      clearInterval(this.trackingInterval);
+    }
+    if (this.banner) {
+      this.banner.remove();
+    }
+    if (this.checkInOverlay) {
+      this.checkInOverlay.remove();
     }
   }
 }

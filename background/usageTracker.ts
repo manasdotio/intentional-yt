@@ -1,29 +1,19 @@
 /**
- * Usage Tracker for YouTube Focus Guard
- * Tracks watch time, research vs entertainment sessions, and statistics
+ * Usage Tracker for YouTube Focus Guard (Intent-First Mindful Assistant)
+ * Tracks watch time statistics in the background.
  */
 
 interface SessionData {
   startTime: number;
-  mode: 'research' | 'entertainment' | null;
+  isIntentional: boolean;
   videoStartTimes: Map<string, number>;
   totalWatchTime: number;
-  pausedTime: number;
-  lastActivity: number;
-}
-
-interface SessionStatsResponse {
-  mode: 'research' | 'entertainment' | null;
-  currentWatchTimeSeconds: number;
-  isPlaying: boolean;
   lastActivity: number;
 }
 
 class UsageTracker {
   private static instance: UsageTracker;
-  private static readonly periodicCheckIntervalMs = 30000;
   private sessions: Map<number, SessionData> = new Map();
-  private intervalId: number | null = null;
   
   static getInstance(): UsageTracker {
     if (!UsageTracker.instance) {
@@ -42,14 +32,9 @@ class UsageTracker {
     });
 
     browser.runtime.onMessage.addListener((message, sender) => {
-      if (message?.type === 'get-session-stats') {
-        return Promise.resolve(this.getSerializableSessionStats(message?.data?.tabId));
-      }
-
       if (sender.tab?.id) {
         void this.handleContentMessage(message, sender.tab.id);
       }
-
       return false;
     });
   }
@@ -59,19 +44,15 @@ class UsageTracker {
     
     switch (type) {
       case 'session-start':
-        await this.startSession(tabId, data.mode);
+        await this.startSession(tabId, data.isIntentional);
         break;
         
       case 'video-started':
-        await this.trackVideoStart(tabId, data.videoId);
+        await this.trackVideoStart(tabId, data.videoId, data.isIntentional);
         break;
         
       case 'video-paused':
         await this.trackVideoPause(tabId, data.videoId);
-        break;
-        
-      case 'video-resumed':
-        await this.trackVideoResume(tabId, data.videoId);
         break;
         
       case 'video-ended':
@@ -82,8 +63,8 @@ class UsageTracker {
         await this.endSession(tabId);
         break;
         
-      case 'mode-change':
-        await this.updateSessionMode(tabId, data.mode);
+      case 'intent-status-changed':
+        await this.updateIntentStatus(tabId, data.isIntentional);
         break;
         
       case 'activity':
@@ -92,56 +73,36 @@ class UsageTracker {
     }
   }
 
-  private async startSession(tabId: number, mode: 'research' | 'entertainment' | null): Promise<void> {
-    const existingSession = this.sessions.get(tabId);
+  private async startSession(tabId: number, isIntentional: boolean = true): Promise<void> {
     const now = Date.now();
-    const storage = StorageManager.getInstance();
-    const settings = await storage.getSettings();
-    const storedWatchTimeSeconds = settings.watchTimer.currentWatchTime || 0;
-    const storedSessionStart = settings.watchTimer.sessionStart || 0;
-    const canRestoreStoredSession = !existingSession && storedSessionStart > 0 && (now - storedSessionStart) <= (2 * 60 * 60 * 1000);
-    const session: SessionData = existingSession ?? {
-      startTime: canRestoreStoredSession ? storedSessionStart : now,
-      mode: mode,
+    const session: SessionData = {
+      startTime: now,
+      isIntentional: isIntentional,
       videoStartTimes: new Map(),
-      totalWatchTime: canRestoreStoredSession ? storedWatchTimeSeconds * 1000 : 0,
-      pausedTime: 0,
+      totalWatchTime: 0,
       lastActivity: now
     };
-
-    session.mode = mode;
-    session.lastActivity = now;
     
     this.sessions.set(tabId, session);
-    this.ensureTrackingState();
-    
-    await storage.saveSettings({
-      research: {
-        mode: mode,
-        currentTopic: mode === 'research' ? settings.research.currentTopic : [],
-        sessionStart: session.startTime
-      },
-      watchTimer: {
-        enabled: true,
-        reminderIntervals: settings.watchTimer.reminderIntervals || [25, 15, 10, 5],
-        currentInterval: settings.watchTimer.currentInterval || 0,
-        sessionStart: existingSession ? (settings.watchTimer.sessionStart || session.startTime) : session.startTime,
-        currentWatchTime: this.getCurrentWatchTimeSeconds(session, now),
-        totalToday: 0
-      }
-    });
   }
 
-  private async trackVideoStart(tabId: number, videoId: string): Promise<void> {
-    const session = this.sessions.get(tabId);
-    if (!session) return;
+  private async trackVideoStart(tabId: number, videoId: string, isIntentional: boolean = true): Promise<void> {
+    let session = this.sessions.get(tabId);
+    if (!session) {
+      await this.startSession(tabId, isIntentional);
+      session = this.sessions.get(tabId)!;
+    }
 
     if (!videoId) return;
-    if (session.videoStartTimes.has(videoId)) {
-      session.lastActivity = Date.now();
-      return;
-    }
     
+    // If there was a previous playing video, pause it first
+    for (const [vId, _] of session.videoStartTimes) {
+      if (vId !== videoId) {
+        await this.trackVideoPause(tabId, vId);
+      }
+    }
+
+    session.isIntentional = isIntentional;
     session.videoStartTimes.set(videoId, Date.now());
     session.lastActivity = Date.now();
   }
@@ -152,23 +113,17 @@ class UsageTracker {
     
     const startTime = session.videoStartTimes.get(videoId);
     if (startTime) {
-      const watchTime = Date.now() - startTime;
-      session.totalWatchTime += watchTime;
+      const watchTimeMs = Date.now() - startTime;
+      session.totalWatchTime += watchTimeMs;
       session.videoStartTimes.delete(videoId);
       
-      // Update storage with watch time
-      await this.saveWatchTime(session, Math.floor(watchTime / 1000));
+      const seconds = Math.floor(watchTimeMs / 1000);
+      if (seconds > 0) {
+        const storage = StorageManager.getInstance();
+        await storage.updateWatchTime(seconds, session.isIntentional);
+      }
     }
     
-    session.lastActivity = Date.now();
-  }
-
-  private async trackVideoResume(tabId: number, videoId: string): Promise<void> {
-    const session = this.sessions.get(tabId);
-    if (!session) return;
-    if (!videoId) return;
-    
-    session.videoStartTimes.set(videoId, Date.now());
     session.lastActivity = Date.now();
   }
 
@@ -180,153 +135,42 @@ class UsageTracker {
     const session = this.sessions.get(tabId);
     if (!session) return;
     
-    // Track any remaining watch time
+    // Track any remaining watch time for active videos
     for (const [videoId, startTime] of session.videoStartTimes) {
-      const watchTime = Date.now() - startTime;
-      session.totalWatchTime += watchTime;
-      await this.saveWatchTime(session, Math.floor(watchTime / 1000));
+      const watchTimeMs = Date.now() - startTime;
+      const seconds = Math.floor(watchTimeMs / 1000);
+      if (seconds > 0) {
+        const storage = StorageManager.getInstance();
+        await storage.updateWatchTime(seconds, session.isIntentional);
+      }
     }
     
-    // Clear session
     this.sessions.delete(tabId);
-    this.ensureTrackingState();
   }
 
-  private async updateSessionMode(tabId: number, mode: 'research' | 'entertainment'): Promise<void> {
+  private async updateIntentStatus(tabId: number, isIntentional: boolean): Promise<void> {
     const session = this.sessions.get(tabId);
     if (!session) return;
     
-    session.mode = mode;
-    
-    const storage = StorageManager.getInstance();
-    const settings = await storage.getSettings();
-    await storage.saveSettings({
-      research: {
-        mode: mode,
-        currentTopic: mode === 'research' ? settings.research.currentTopic : [],
-        sessionStart: session.startTime
+    // If a video is playing, first save current accumulated time under the old status
+    for (const [videoId, startTime] of session.videoStartTimes) {
+      const watchTimeMs = Date.now() - startTime;
+      const seconds = Math.floor(watchTimeMs / 1000);
+      if (seconds > 0) {
+        const storage = StorageManager.getInstance();
+        await storage.updateWatchTime(seconds, session.isIntentional);
       }
-    });
+      // Reset video start time to now so that subsequent watch time is recorded under new status
+      session.videoStartTimes.set(videoId, Date.now());
+    }
+
+    session.isIntentional = isIntentional;
   }
 
   private updateLastActivity(tabId: number): void {
     const session = this.sessions.get(tabId);
     if (session) {
       session.lastActivity = Date.now();
-    }
-  }
-
-  private async saveWatchTime(session: SessionData, seconds: number): Promise<void> {
-    if (seconds <= 0) return;
-    
-    const storage = StorageManager.getInstance();
-    const mode = session.mode || 'entertainment';
-    await storage.updateWatchTime(seconds, mode);
-  }
-
-  private startTracking(): void {
-    if (this.intervalId !== null) {
-      return;
-    }
-
-    this.intervalId = setInterval(() => {
-      void this.performPeriodicChecks();
-    }, UsageTracker.periodicCheckIntervalMs) as any;
-  }
-
-  private ensureTrackingState(): void {
-    if (this.sessions.size > 0) {
-      this.startTracking();
-      return;
-    }
-
-    this.stopTracking();
-  }
-
-  private async performPeriodicChecks(): Promise<void> {
-    if (this.sessions.size === 0) {
-      this.stopTracking();
-      return;
-    }
-
-    const storage = StorageManager.getInstance();
-    const settings = await storage.getSettings();
-    const now = Date.now();
-    
-    for (const [tabId, session] of this.sessions) {
-      const isPlaying = session.videoStartTimes.size > 0;
-
-      if (isPlaying) {
-        session.lastActivity = now;
-      }
-
-      if (!isPlaying && now - session.lastActivity > 1800000) {
-        await this.endSession(tabId);
-        continue;
-      }
-      
-      // Check entertainment limit
-      if (session.mode === 'entertainment' && 
-          settings.entertainment.todayUsed >= settings.entertainment.dailyLimit) {
-        
-        try {
-          await browser.tabs.update(tabId, {
-            url: browser.runtime.getURL('ui/blocked.html?reason=entertainment-limit')
-          });
-        } catch (error) {
-          // Tab might not exist anymore
-          await this.endSession(tabId);
-        }
-      }
-      
-    }
-  }
-
-  // Public methods for getting stats
-  async getSessionStats(tabId: number): Promise<SessionData | null> {
-    return this.sessions.get(tabId) || null;
-  }
-
-  private getSerializableSessionStats(tabId?: number): SessionStatsResponse | null {
-    if (!tabId) {
-      return null;
-    }
-
-    const session = this.sessions.get(tabId);
-    if (!session) {
-      return null;
-    }
-
-    return {
-      mode: session.mode,
-      currentWatchTimeSeconds: this.getCurrentWatchTimeSeconds(session),
-      isPlaying: session.videoStartTimes.size > 0,
-      lastActivity: session.lastActivity
-    };
-  }
-
-  private getCurrentWatchTimeSeconds(session: SessionData, now: number = Date.now()): number {
-    return Math.max(0, Math.floor(this.getCurrentWatchTimeMs(session, now) / 1000));
-  }
-
-  private getCurrentWatchTimeMs(session: SessionData, now: number = Date.now()): number {
-    let totalWatchTime = session.totalWatchTime;
-
-    for (const startTime of session.videoStartTimes.values()) {
-      totalWatchTime += Math.max(0, now - startTime);
-    }
-
-    return totalWatchTime;
-  }
-
-  async getAllActiveSessions(): Promise<Map<number, SessionData>> {
-    return new Map(this.sessions);
-  }
-
-  stopTracking(): void {
-    if (this.intervalId !== null) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
     }
   }
 }

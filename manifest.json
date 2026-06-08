@@ -47,7 +47,6 @@
       "js": [
         "utils/storage.js",
         "utils/time.js",
-        "content/browsingMode.js",
         "content/timerOverlay.js",
         "content/topicGuard.js",
         "content/youtubeObserver.js"
@@ -69,8 +68,6 @@
   },
 
   "web_accessible_resources": [
-    "ui/blocked.html",
-    "ui/blocked.js",
     "ui/modal.html",
     "ui/modal.js",
     "styles/ui.css"

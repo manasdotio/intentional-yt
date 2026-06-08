@@ -1,41 +1,11 @@
 /**
- * Storage utilities for YouTube Focus Guard (JS version)
- * Handles settings, usage tracking, and persistence
+ * Storage utilities for YouTube Focus Guard (Intent-First Mindful Assistant)
+ * Handles settings, intention tracking, and daily statistics.
  */
 
-// Chrome/Firefox API compatibility shim
-if (typeof browser === 'undefined' && typeof chrome !== 'undefined') {
-  window.browser = {
-    storage: {
-      local: {
-        get: (keys) => new Promise((resolve, reject) => chrome.storage.local.get(keys, (result) => chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve(result))),
-        set: (items) => new Promise((resolve, reject) => chrome.storage.local.set(items, () => chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve())),
-        remove: (keys) => new Promise((resolve, reject) => chrome.storage.local.remove(keys, () => chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve()))
-      }
-    },
-    runtime: {
-      getURL: (path) => chrome.runtime.getURL(path),
-      sendMessage: (msg) => new Promise((resolve, reject) => chrome.runtime.sendMessage(msg, (response) => chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve(response))),
-      onMessage: chrome.runtime.onMessage,
-      lastError: chrome.runtime.lastError
-    },
-    tabs: {
-      create: (props) => new Promise((resolve, reject) => chrome.tabs.create(props, (tab) => chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve(tab))),
-      query: (query) => new Promise((resolve, reject) => chrome.tabs.query(query, (tabs) => chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve(tabs))),
-      get: (tabId) => new Promise((resolve, reject) => chrome.tabs.get(tabId, (tab) => chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve(tab))),
-      update: (tabId, props) => new Promise((resolve, reject) => chrome.tabs.update(tabId, props, (tab) => chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve(tab))),
-      onActivated: chrome.tabs.onActivated,
-      onUpdated: chrome.tabs.onUpdated
-    },
-    alarms: chrome.alarms ? {
-      create: (name, info) => chrome.alarms.create(name, info),
-      onAlarm: chrome.alarms.onAlarm,
-      clear: (name) => new Promise((resolve) => chrome.alarms.clear(name, resolve))
-    } : null
-  };
-}
-
 class StorageManager {
+  static instance;
+  
   static getInstance() {
     if (!StorageManager.instance) {
       StorageManager.instance = new StorageManager();
@@ -46,41 +16,18 @@ class StorageManager {
   getDefaultSettings() {
     return {
       extensionEnabled: true,
-      nightLock: {
+      activeIntention: "",
+      intentionStartTime: 0,
+      intentionHistory: [],
+      breathingBreaks: {
         enabled: true,
-        startTime: "23:30",
-        endTime: "06:00"
+        intervalMinutes: 20
       },
-      entertainment: {
-        dailyLimit: 60,
-        todayUsed: 0,
-        lastResetDate: new Date().toDateString()
-      },
-      research: {
-        mode: null,
-        currentTopic: [],
-        sessionStart: 0,
-        allowedChannels: []
-      },
-      browsingMode: {
-        active: false,
-        startTime: 0,
-        duration: 15 * 60 * 1000,
-        extensionsUsed: 0,
-        cooldownUntil: 0
-      },
-      watchTimer: {
-        enabled: true,
-        reminderIntervals: [25, 15, 10, 5],
-        currentInterval: 0,
-        sessionStart: 0,
-        currentWatchTime: 0,
-        totalToday: 0
-      },
+      shortsBlocked: true,
       stats: {
         todayWatchTime: 0,
-        todayResearchTime: 0,
-        todayEntertainmentTime: 0,
+        todayIntentionalTime: 0,
+        todayDriftTime: 0,
         lastStatsReset: new Date().toDateString()
       }
     };
@@ -96,7 +43,7 @@ class StorageManager {
       if (patchValue && typeof patchValue === 'object' && !Array.isArray(patchValue) &&
           baseValue && typeof baseValue === 'object' && !Array.isArray(baseValue)) {
         merged[key] = { ...baseValue, ...patchValue };
-      } else {
+      } else if (patchValue !== undefined) {
         merged[key] = patchValue;
       }
     });
@@ -109,12 +56,27 @@ class StorageManager {
 
     try {
       const stored = await browser.storage.local.get('settings');
+      let current;
       if (stored.settings) {
-        return this.mergeSettings(defaultSettings, stored.settings);
+        current = this.mergeSettings(defaultSettings, stored.settings);
+      } else {
+        current = defaultSettings;
       }
 
-      await browser.storage.local.set({ settings: defaultSettings });
-      return defaultSettings;
+      // Automatically reset stats if it's a new day
+      const today = new Date().toDateString();
+      if (current.stats.lastStatsReset !== today) {
+        current.stats.todayWatchTime = 0;
+        current.stats.todayIntentionalTime = 0;
+        current.stats.todayDriftTime = 0;
+        current.stats.lastStatsReset = today;
+        // Clean active intention on new day
+        current.activeIntention = "";
+        current.intentionStartTime = 0;
+        await browser.storage.local.set({ settings: current });
+      }
+
+      return current;
     } catch (error) {
       console.error('Failed to load settings:', error);
       return defaultSettings;
@@ -123,8 +85,6 @@ class StorageManager {
 
   async saveSettings(settings) {
     try {
-      // Merge against raw storage and defaults without calling getSettings(),
-      // otherwise first-run initialization can recurse back into saveSettings().
       const stored = await browser.storage.local.get('settings');
       const current = this.mergeSettings(this.getDefaultSettings(), stored.settings || {});
       const updated = this.mergeSettings(current, settings);
@@ -134,68 +94,83 @@ class StorageManager {
     }
   }
 
-  async updateResearchSettings(researchSettings) {
+  async setIntention(intentionText) {
+    const trimmed = intentionText.trim();
+    if (!trimmed) {
+      await this.saveSettings({
+        activeIntention: "",
+        intentionStartTime: 0
+      });
+      return;
+    }
+
+    const now = Date.now();
     const settings = await this.getSettings();
-    await this.saveSettings({
-      research: {
-        mode: typeof researchSettings.mode === 'string' || researchSettings.mode === null ? researchSettings.mode : settings.research.mode,
-        currentTopic: Array.isArray(researchSettings.currentTopic) ? researchSettings.currentTopic : settings.research.currentTopic,
-        sessionStart: typeof researchSettings.sessionStart === 'number' ? researchSettings.sessionStart : settings.research.sessionStart,
-        allowedChannels: Array.isArray(researchSettings.allowedChannels) ? researchSettings.allowedChannels : settings.research.allowedChannels,
+
+    // If there was an old intention, save it to history before overwriting
+    if (settings.activeIntention && settings.intentionStartTime > 0) {
+      const durationMin = Math.round((now - settings.intentionStartTime) / 60000);
+      if (durationMin > 0) {
+        await this.addIntentionToHistory(settings.activeIntention, durationMin);
       }
+    }
+
+    await this.saveSettings({
+      activeIntention: trimmed,
+      intentionStartTime: now
     });
   }
 
-  async updateWatchTime(seconds, mode) {
+  async addIntentionToHistory(text, durationMinutes) {
+    if (!text) return;
     const settings = await this.getSettings();
-    const today = new Date().toDateString();
+    const history = Array.isArray(settings.intentionHistory) ? settings.intentionHistory : [];
     
-    if (settings.stats.lastStatsReset !== today) {
-      settings.stats.todayWatchTime = 0;
-      settings.stats.todayResearchTime = 0;
-      settings.stats.todayEntertainmentTime = 0;
-      settings.stats.lastStatsReset = today;
-      settings.entertainment.todayUsed = 0;
-      settings.entertainment.lastResetDate = today;
-    }
-
-    settings.stats.todayWatchTime += seconds;
-    if (mode === 'research') {
-      settings.stats.todayResearchTime += seconds;
+    // Check if intention exists for today; if so, update duration, otherwise prepend new one
+    const today = new Date().toDateString();
+    const existingIndex = history.findIndex(h => h.text.toLowerCase() === text.toLowerCase() && h.date === today);
+    
+    if (existingIndex > -1) {
+      history[existingIndex].durationMinutes += durationMinutes;
     } else {
-      settings.stats.todayEntertainmentTime += seconds;
-      settings.entertainment.todayUsed += Math.round(seconds / 60);
+      history.unshift({
+        text,
+        durationMinutes,
+        date: today
+      });
     }
 
-    await this.saveSettings(settings);
+    // Cap history length to 50 entries
+    const cappedHistory = history.slice(0, 50);
+    await this.saveSettings({
+      intentionHistory: cappedHistory
+    });
   }
 
-  async resetDailyLimits() {
+  async updateWatchTime(seconds, isIntentional) {
+    const settings = await this.getSettings();
+    
+    settings.stats.todayWatchTime += seconds;
+    if (isIntentional) {
+      settings.stats.todayIntentionalTime += seconds;
+    } else {
+      settings.stats.todayDriftTime += seconds;
+    }
+
+    await this.saveSettings({ stats: settings.stats });
+  }
+
+  async resetDailyStats() {
     const today = new Date().toDateString();
     await this.saveSettings({
-      entertainment: {
-        dailyLimit: 60,
-        todayUsed: 0,
-        lastResetDate: today
-      },
+      activeIntention: "",
+      intentionStartTime: 0,
+      intentionHistory: [],
       stats: {
         todayWatchTime: 0,
-        todayResearchTime: 0,
-        todayEntertainmentTime: 0,
+        todayIntentionalTime: 0,
+        todayDriftTime: 0,
         lastStatsReset: today
-      }
-    });
-  }
-
-  async updateBrowsingMode(browsingMode) {
-    const settings = await this.getSettings();
-    await this.saveSettings({
-      browsingMode: {
-        active: typeof browsingMode.active === 'boolean' ? browsingMode.active : settings.browsingMode.active,
-        startTime: typeof browsingMode.startTime === 'number' ? browsingMode.startTime : settings.browsingMode.startTime,
-        duration: typeof browsingMode.duration === 'number' ? browsingMode.duration : settings.browsingMode.duration,
-        extensionsUsed: typeof browsingMode.extensionsUsed === 'number' ? browsingMode.extensionsUsed : settings.browsingMode.extensionsUsed,
-        cooldownUntil: typeof browsingMode.cooldownUntil === 'number' ? browsingMode.cooldownUntil : settings.browsingMode.cooldownUntil,
       }
     });
   }

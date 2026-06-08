@@ -1,36 +1,20 @@
 /**
- * Topic Guard for YouTube Focus Guard
- * Handles research mode and prevents algorithm rabbit holes
+ * Topic Guard for YouTube Focus Guard (Intent-First Mindful Assistant)
+ * Enforces intention focus on watch pages and handles drift check-ins.
  */
-
-interface TopicData {
-  keywords: string[];
-  searchQuery: string;
-  originalTitle: string;
-  allowedTopics: string[];
-  sessionStart: number;
-  driftWarnings: number;
-}
 
 class TopicGuard {
   private static readonly allowOnceStorageKey = 'yfg-topic-guard-allow-once';
-  private static readonly navigationEventNames = ['yt-navigate-start', 'yt-navigate-finish', 'yt-page-data-updated'];
   private static readonly ignoredTopicWords = new Set([
     'a', 'an', 'and', 'are', 'for', 'from', 'how', 'in', 'into', 'of', 'on', 'or', 'the', 'to', 'with',
     'youtube', 'video', 'videos', 'official', 'channel', 'watch', 'episode', 'live'
   ]);
   private static instance: TopicGuard;
-  private currentTopic: TopicData | null = null;
+  
   private storage: any;
-  private isResearchMode: boolean = false;
-  private allowedChannels: string[] = [];
-  private allowedChannelOverlay: HTMLElement | null = null;
-  private channelActionButton: HTMLButtonElement | null = null;
-  private boundHandleVideoClick = (event: Event) => this.handleVideoClick(event);
   private metadataRetryTimeout: number | null = null;
-  private routeCheckTimeout: number | null = null;
-  private activeWarningKey: string | null = null;
-  private readonly boundHandleNavigationSignal = () => this.scheduleTopicCheck();
+  private activeOverlay: HTMLElement | null = null;
+  private currentVideoId: string | null = null;
 
   static getInstance(): TopicGuard {
     if (!TopicGuard.instance) {
@@ -44,262 +28,328 @@ class TopicGuard {
   }
 
   private async init(): Promise<void> {
-    await this.waitForDependencies();
-
     this.storage = (window as any).StorageManager.getInstance();
-    this.setupMessageListener();
-    await this.loadResearchState();
-    this.setupTopicMonitoring();
   }
 
-  private async waitForDependencies(): Promise<void> {
-    return new Promise((resolve) => {
-      const checkDependencies = () => {
-        if ((window as any).StorageManager) {
-          resolve();
-        } else {
-          setTimeout(checkDependencies, 100);
-        }
-      };
-      checkDependencies();
-    });
+  public hideCheckInOverlays(): void {
+    if (this.activeOverlay) {
+      this.activeOverlay.remove();
+      this.activeOverlay = null;
+    }
   }
 
-  private setupMessageListener(): void {
-    if (!browser.runtime?.onMessage) {
+  public async evaluateCurrentVideoAccess(): Promise<boolean> {
+    const settings = await this.storage.getSettings();
+    if (!settings.activeIntention) return false;
+
+    const videoTitle = this.extractCurrentVideoTitle();
+    const channelName = this.extractCurrentChannelName();
+    
+    if (!videoTitle) {
+      return true; // Let it bypass if metadata not loaded yet
+    }
+
+    if (this.consumeAllowedVideo(window.location.href)) {
+      return true;
+    }
+
+    const keywords = settings.activeIntention.toLowerCase().split(/\s+/).filter((w: string) => w.length > 2);
+    return this.isTitleRelated(videoTitle, keywords) || this.normalizeText(channelName).includes(this.normalizeText(settings.activeIntention));
+  }
+
+  public async checkCurrentVideo(): Promise<void> {
+    if (!window.location.href.includes('/watch')) {
+      this.hideCheckInOverlays();
       return;
     }
 
-    browser.runtime.onMessage.addListener((message: any) => {
-      if (!message?.type) {
-        return undefined;
-      }
+    const videoId = this.extractVideoId(window.location.href);
+    if (videoId !== this.currentVideoId) {
+      this.currentVideoId = videoId;
+      this.hideCheckInOverlays();
+    }
 
-      if (message.type === 'research-settings-updated') {
-        return this.loadResearchState();
-      }
+    const settings = await this.storage.getSettings();
 
-      if (message.type === 'get-current-channel-name') {
-        return Promise.resolve({
-          channelName: this.extractCurrentChannelName() || ''
-        });
-      }
+    // 1. If NO active intention, force setting one via watch-page Intent Portal overlay
+    if (!settings.activeIntention) {
+      this.showWatchPagePortal();
+      return;
+    }
 
-      return undefined;
+    // 2. If active intention exists, check if video is related
+    const videoTitle = this.extractCurrentVideoTitle();
+    const channelName = this.extractCurrentChannelName();
+
+    if (!videoTitle) {
+      this.scheduleMetadataRetry();
+      return;
+    }
+
+    if (this.consumeAllowedVideo(window.location.href)) {
+      this.hideCheckInOverlays();
+      // Notify background that we are in intentional state
+      await browser.runtime.sendMessage({
+        type: 'intent-status-changed',
+        data: { isIntentional: true }
+      });
+      return;
+    }
+
+    const keywords = settings.activeIntention.toLowerCase().split(/\s+/).filter((w: string) => w.length > 2);
+    const isRelated = this.isTitleRelated(videoTitle, keywords) || 
+                      this.normalizeText(channelName).includes(this.normalizeText(settings.activeIntention));
+
+    if (!isRelated) {
+      // Pause video and show Drift Check-in
+      const video = document.querySelector('video') as HTMLVideoElement | null;
+      if (video && !video.paused) {
+        video.pause();
+      }
+      this.showDriftCheckIn(videoTitle, settings.activeIntention);
+      
+      // Notify background that we have drifted
+      await browser.runtime.sendMessage({
+        type: 'intent-status-changed',
+        data: { isIntentional: false }
+      });
+    } else {
+      this.hideCheckInOverlays();
+      // Notify background that we are intentional
+      await browser.runtime.sendMessage({
+        type: 'intent-status-changed',
+        data: { isIntentional: true }
+      });
+    }
+  }
+
+  private showWatchPagePortal(): void {
+    if (document.getElementById('yfg-watch-portal-overlay')) {
+      return;
+    }
+
+    const video = document.querySelector('video') as HTMLVideoElement | null;
+    if (video && !video.paused) {
+      video.pause();
+    }
+
+    this.hideCheckInOverlays();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'yfg-watch-portal-overlay';
+    overlay.className = 'yfg-modal-overlay yfg-modal-page';
+    overlay.style.cssText = `
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 13, 18, 0.95);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2147483640;
+      color: #fff;
+    `;
+
+    overlay.innerHTML = `
+      <div class="yfg-modal-content" style="padding: 30px; text-align: center; max-width: 420px; display: flex; flex-direction: column; gap: 20px;">
+        <h3 style="font-size: 18px; font-weight: 700; margin: 0;">🎯 What is your intention?</h3>
+        <p style="font-size: 13px; color: var(--yfg-color-text-muted); margin: 0;">Please enter your focus for this session before playing this video.</p>
+        <input type="text" id="yfg-watch-portal-input" class="input-field" placeholder="E.g., CSS layout tutorial..." style="width: 100%;" />
+        <button class="yfg-btn yfg-btn-primary" id="yfg-watch-portal-submit" style="width: 100%;">Confirm & Watch</button>
+      </div>
+    `;
+
+    this.attachOverlayToVideoPlayer(overlay);
+    this.activeOverlay = overlay;
+
+    const input = overlay.querySelector('#yfg-watch-portal-input') as HTMLInputElement;
+    const submit = overlay.querySelector('#yfg-watch-portal-submit');
+
+    const saveIntention = async () => {
+      const text = input.value.trim();
+      if (text) {
+        await this.storage.setIntention(text);
+        overlay.remove();
+        this.activeOverlay = null;
+        if (video) {
+          video.play();
+        }
+        await this.checkCurrentVideo();
+      }
+    };
+
+    submit?.addEventListener('click', () => void saveIntention());
+    input?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') void saveIntention();
     });
   }
 
-  private async loadResearchState(): Promise<void> {
-    const settings = await this.storage.getSettings();
+  private showDriftCheckIn(videoTitle: string, activeIntention: string): void {
+    if (document.getElementById('yfg-drift-checkin-overlay')) {
+      return;
+    }
 
-    this.isResearchMode = settings.research.mode === 'research';
-    this.allowedChannels = Array.isArray(settings.research.allowedChannels)
-      ? settings.research.allowedChannels.map((channel: string) => this.normalizeChannelName(channel)).filter(Boolean)
-      : [];
+    this.hideCheckInOverlays();
 
-    if (this.isResearchMode && settings.research.currentTopic.length > 0) {
-      const fallbackSearchQuery = settings.research.currentTopic.join(' ');
-      this.currentTopic = {
-        keywords: settings.research.currentTopic,
-        searchQuery: this.extractSearchQuery() || fallbackSearchQuery,
-        originalTitle: document.title,
-        allowedTopics: settings.research.currentTopic,
-        sessionStart: settings.research.sessionStart,
-        driftWarnings: 0
-      };
+    const overlay = document.createElement('div');
+    overlay.id = 'yfg-drift-checkin-overlay';
+    overlay.className = 'yfg-modal-overlay yfg-modal-page';
+    overlay.style.cssText = `
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 13, 18, 0.95);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2147483640;
+      color: #fff;
+    `;
+
+    overlay.innerHTML = `
+      <div class="yfg-modal-content" style="padding: 30px; text-align: left; max-width: 450px; display: flex; flex-direction: column; gap: 16px;">
+        <h3 style="font-size: 18px; font-weight: 700; margin: 0; color: var(--yfg-color-warning);">🚨 Focus Drift Detector</h3>
+        
+        <div style="padding: 10px; border-radius: var(--yfg-radius-sm); background: rgba(255,255,255,0.02); border: 1px solid var(--yfg-color-border);">
+          <span style="font-size: 11px; text-transform: uppercase; color: var(--yfg-color-text-muted); font-weight: bold;">Your Active Focus:</span>
+          <p style="margin: 4px 0 0; font-size: 14px; font-weight: 600;">"${activeIntention}"</p>
+        </div>
+
+        <div style="padding: 10px; border-radius: var(--yfg-radius-sm); background: rgba(239, 68, 68, 0.04); border: 1px solid rgba(239, 68, 68, 0.15);">
+          <span style="font-size: 11px; text-transform: uppercase; color: var(--yfg-color-text-muted); font-weight: bold;">Clicked Video:</span>
+          <p style="margin: 4px 0 0; font-size: 13px; font-style: italic;">"${videoTitle}"</p>
+        </div>
+
+        <p style="font-size: 13px; color: var(--yfg-color-text-muted); margin: 0;">This video does not seem to match your intention. How would you like to proceed?</p>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <button class="yfg-btn yfg-btn-primary" id="yfg-drift-back-btn" style="width: 100%;">🔙 Go Back to Search Results</button>
+          <div style="display: flex; gap: 8px;">
+            <button class="yfg-btn yfg-btn-secondary" id="yfg-drift-update-btn" style="flex: 1;">Update Intention</button>
+            <button class="yfg-btn yfg-btn-secondary" id="yfg-drift-bypass-btn" style="flex: 1; border-color: rgba(239, 68, 68, 0.3) !important;">Reveal & Watch</button>
+          </div>
+        </div>
+
+        <div id="yfg-drift-update-box" style="display: none; flex-direction: column; gap: 8px; margin-top: 4px;">
+          <input type="text" id="yfg-drift-update-input" class="input-field" placeholder="Enter new intention..." style="padding: 8px 12px; font-size: 13px;" />
+          <button class="yfg-btn yfg-btn-primary" id="yfg-drift-update-submit" style="width: fit-content; align-self: flex-end;">Save & Watch</button>
+        </div>
+      </div>
+    `;
+
+    this.attachOverlayToVideoPlayer(overlay);
+    this.activeOverlay = overlay;
+
+    const backBtn = overlay.querySelector('#yfg-drift-back-btn');
+    const updateBtn = overlay.querySelector('#yfg-drift-update-btn');
+    const bypassBtn = overlay.querySelector('#yfg-drift-bypass-btn');
+    const updateBox = overlay.querySelector('#yfg-drift-update-box') as HTMLElement;
+    const updateInput = overlay.querySelector('#yfg-drift-update-input') as HTMLInputElement;
+    const updateSubmit = overlay.querySelector('#yfg-drift-update-submit');
+
+    backBtn?.addEventListener('click', () => {
+      overlay.remove();
+      this.activeOverlay = null;
+      window.location.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(activeIntention)}`;
+    });
+
+    updateBtn?.addEventListener('click', () => {
+      updateBox.style.display = 'flex';
+      updateInput.focus();
+    });
+
+    const triggerUpdate = async () => {
+      const newIntent = updateInput.value.trim();
+      if (newIntent) {
+        await this.storage.setIntention(newIntent);
+        overlay.remove();
+        this.activeOverlay = null;
+        
+        await browser.runtime.sendMessage({
+          type: 'intent-status-changed',
+          data: { isIntentional: true }
+        });
+
+        const video = document.querySelector('video') as HTMLVideoElement | null;
+        if (video) video.play();
+        await this.checkCurrentVideo();
+      }
+    };
+
+    updateSubmit?.addEventListener('click', () => void triggerUpdate());
+    updateInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') void triggerUpdate();
+    });
+
+    bypassBtn?.addEventListener('click', async () => {
+      // Mark as bypassed/allowed once
+      this.markVideoAllowedOnce(window.location.href);
+      overlay.remove();
+      this.activeOverlay = null;
+      
+      await browser.runtime.sendMessage({
+        type: 'intent-status-changed',
+        data: { isIntentional: false }
+      });
+
+      const video = document.querySelector('video') as HTMLVideoElement | null;
+      if (video) video.play();
+    });
+  }
+
+  private attachOverlayToVideoPlayer(overlay: HTMLElement): void {
+    const player = document.querySelector('#movie_player') || document.querySelector('.html5-video-player');
+    if (player) {
+      player.appendChild(overlay);
     } else {
-      this.currentTopic = null;
-    }
-
-    this.updateAllowedChannelOverlay();
-    this.updateChannelActionButton();
-  }
-
-  async refreshResearchState(): Promise<void> {
-    this.teardownTopicMonitoring();
-
-    await this.loadResearchState();
-
-    if (this.isResearchMode) {
-      this.setupTopicMonitoring();
-    } else {
-      this.hideAllowedChannelOverlay();
+      document.body.appendChild(overlay);
     }
   }
 
-  private teardownTopicMonitoring(): void {
-    document.removeEventListener('click', this.boundHandleVideoClick, true);
-    for (const eventName of TopicGuard.navigationEventNames) {
-      document.removeEventListener(eventName, this.boundHandleNavigationSignal as EventListener);
-    }
-    window.removeEventListener('popstate', this.boundHandleNavigationSignal);
-
-    if (this.metadataRetryTimeout !== null) {
-      window.clearTimeout(this.metadataRetryTimeout);
-      this.metadataRetryTimeout = null;
-    }
-
-    if (this.routeCheckTimeout !== null) {
-      window.clearTimeout(this.routeCheckTimeout);
-      this.routeCheckTimeout = null;
-    }
-  }
-
-  private setupTopicMonitoring(): void {
-    if (!this.isResearchMode) return;
-
-    document.removeEventListener('click', this.boundHandleVideoClick, true);
-    document.addEventListener('click', this.boundHandleVideoClick, true);
-    for (const eventName of TopicGuard.navigationEventNames) {
-      document.addEventListener(eventName, this.boundHandleNavigationSignal as EventListener);
-    }
-    window.addEventListener('popstate', this.boundHandleNavigationSignal);
-
-    this.scheduleTopicCheck(1000);
-  }
-
-  private scheduleTopicCheck(delay: number = 250): void {
-    if (this.routeCheckTimeout !== null) {
-      window.clearTimeout(this.routeCheckTimeout);
-    }
-
-    this.routeCheckTimeout = window.setTimeout(() => {
-      this.routeCheckTimeout = null;
-      this.checkCurrentVideo();
-    }, delay);
-  }
-
-  private handleVideoClick(event: Event): void {
-    if (!this.isResearchMode || !this.currentTopic) return;
-
-    const target = event.target as HTMLElement;
-    const videoLink = this.findVideoLink(target);
-
-    if (videoLink) {
-      const videoTitle = this.extractVideoTitle(videoLink);
-      const channelName = this.extractChannelNameFromLink(videoLink);
-      const channelHost = videoLink.closest('ytd-compact-video-renderer, ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-playlist-video-renderer, ytd-rich-grid-media, ytd-item-section-renderer');
-      const channelCandidates = this.extractChannelCandidatesFromRoot((channelHost as ParentNode | null) || videoLink.parentElement || document);
-
-      if (!channelName && channelCandidates.length === 0) {
-        return;
-      }
-
-      const evaluation = this.evaluateVideoAccess(videoTitle, channelName, channelCandidates);
-
-      if (!evaluation.allowed) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.showTopicDriftWarning(videoTitle, videoLink.href);
-      }
-    }
-  }
-
-  private findVideoLink(element: HTMLElement): HTMLAnchorElement | null {
-    let current: HTMLElement | null = element;
-
-    while (current && current !== document.body) {
-      if (current.tagName === 'A' && current.getAttribute('href')?.includes('/watch')) {
-        return current as HTMLAnchorElement;
-      }
-      current = current.parentElement;
-    }
-
-    return null;
-  }
-
-  private getVideoCardRoot(linkElement: HTMLElement): ParentNode | null {
-    return linkElement.closest(
-      'ytd-compact-video-renderer, ' +
-      'ytd-rich-item-renderer, ' +
-      'ytd-video-renderer, ' +
-      'ytd-grid-video-renderer, ' +
-      'ytd-playlist-video-renderer, ' +
-      'ytd-rich-grid-media, ' +
-      'ytd-item-section-renderer, ' +
-      'ytd-reel-item-renderer'
-    ) || linkElement.parentElement;
-  }
-
-  private isLikelyVideoTitle(value: string): boolean {
-    const trimmedValue = (value || '').trim();
-    if (!trimmedValue) {
-      return false;
-    }
-
-    const normalizedValue = trimmedValue.replace(/\s+/g, ' ');
-    if (/^(?:(?:\d+:)?\d{1,2}:\d{2}\s*)+(?:now playing)?$/i.test(normalizedValue)) {
-      return false;
-    }
-
-    if (/^(?:now playing|live|shorts?)$/i.test(normalizedValue)) {
-      return false;
-    }
-
-    return /[a-z]{2,}/i.test(normalizedValue);
-  }
-
-  private readTitleCandidate(element: Element | null): string {
-    if (!element) {
-      return '';
-    }
-
-    const textCandidate = element.textContent?.trim() || '';
-    if (this.isLikelyVideoTitle(textCandidate)) {
-      return textCandidate;
-    }
-
-    const titleCandidate = element.getAttribute('title') || '';
-    if (this.isLikelyVideoTitle(titleCandidate)) {
-      return titleCandidate;
-    }
-
-    const ariaCandidate = element.getAttribute('aria-label') || '';
-    if (this.isLikelyVideoTitle(ariaCandidate)) {
-      return ariaCandidate;
-    }
-
-    return '';
-  }
-
-  private extractVideoTitle(linkElement: HTMLElement): string {
-    const searchRoots = [this.getVideoCardRoot(linkElement), linkElement];
-    const titleSelectors = [
-      '#video-title',
-      '#video-title-link',
-      'a#video-title-link',
-      'yt-formatted-string#video-title',
-      'h3 a',
-      'h3'
-    ];
-
-    for (const root of searchRoots) {
-      if (!root || !(root as Element).querySelector) {
-        continue;
-      }
-
-      for (const selector of titleSelectors) {
-        const candidate = this.readTitleCandidate((root as Element).querySelector(selector));
-        if (candidate) {
-          return candidate;
+  private isTitleRelated(title: string, keywords: string[]): boolean {
+    const titleLower = title.toLowerCase();
+    const titleNormalized = this.normalizeText(titleLower);
+    const titleTokens = titleNormalized.split(' ').filter(w => w.length > 2);
+    
+    let matches = 0;
+    for (const kw of keywords) {
+      const kwLower = kw.toLowerCase();
+      if (kwLower.includes(' ')) {
+        if (titleLower.includes(kwLower)) {
+          return true;
         }
       }
-    }
-
-    const ownTitle = this.readTitleCandidate(linkElement);
-    if (ownTitle) {
-      return ownTitle;
-    }
-
-    const cardRoot = this.getVideoCardRoot(linkElement);
-    if (cardRoot && (cardRoot as Element).querySelector) {
-      const fallbackTitle = this.readTitleCandidate((cardRoot as Element).querySelector('.ytd-video-meta-block .style-scope, [title], [aria-label]'));
-      if (fallbackTitle) {
-        return fallbackTitle;
+      
+      if (titleTokens.includes(kwLower) || titleLower.includes(kwLower)) {
+        matches++;
       }
     }
 
-    return '';
+    return matches > 0;
+  }
+
+  private normalizeText(text: string): string {
+    return text.toLowerCase()
+      .replace(/[^\w\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  private scheduleMetadataRetry(): void {
+    if (this.metadataRetryTimeout !== null || !window.location.href.includes('/watch')) {
+      return;
+    }
+
+    this.metadataRetryTimeout = window.setTimeout(() => {
+      this.metadataRetryTimeout = null;
+      void this.checkCurrentVideo();
+    }, 600);
   }
 
   private getWatchTitleElement(): Element | null {
@@ -313,45 +363,30 @@ class TopicGuard {
     if (window.location.href.includes('/watch')) {
       return rawWatchTitle ? this.normalizePageTitle(rawWatchTitle) : '';
     }
-
-    const rawTitle = rawWatchTitle || document.title;
-    return this.normalizePageTitle(rawTitle);
+    return '';
   }
 
   private normalizePageTitle(title: string): string {
     return (title || '').replace(/\s*-\s*YouTube$/i, '').trim();
   }
 
-  private normalizeChannelName(channelName: string): string {
-    return (channelName || '').toLowerCase().trim().replace(/^@+/, '').replace(/\s+/g, ' ');
+  private extractCurrentChannelName(): string {
+    const watchOwnerRoot = this.getWatchPageOwnerRoot();
+    if (watchOwnerRoot) {
+      return this.extractChannelNameFromRoot(watchOwnerRoot);
+    }
+    return '';
   }
 
-  private extractChannelCandidates(channelElement: Element | null): string[] {
-    if (!channelElement) {
-      return [];
-    }
-
-    const candidates = new Set<string>();
-    const addCandidate = (value: string): void => {
-      const normalized = this.normalizeChannelName(value);
-      if (normalized) {
-        candidates.add(normalized);
-      }
-    };
-
-    addCandidate(channelElement.textContent?.trim() || '');
-    addCandidate((channelElement.getAttribute('aria-label') || '')
-      .replace(/\s*subscribers?.*$/i, '')
-      .replace(/\s*videos?.*$/i, '')
-      .trim());
-
-    const href = channelElement.getAttribute('href') || '';
-    const hrefMatch = href.match(/^\/(?:@|channel\/|c\/|user\/)([^/?#]+)/i);
-    if (hrefMatch?.[1]) {
-      addCandidate(hrefMatch[1]);
-    }
-
-    return [...candidates];
+  private getWatchPageOwnerRoot(): ParentNode | null {
+    return document.querySelector(
+      'ytd-watch-metadata #owner, ' +
+      'ytd-watch-metadata ytd-video-owner-renderer, ' +
+      'ytd-watch-flexy #owner, ' +
+      'ytd-watch-flexy ytd-video-owner-renderer, ' +
+      '#above-the-fold #owner, ' +
+      '#upload-info'
+    );
   }
 
   private extractChannelCandidatesFromRoot(root: ParentNode | null): string[] {
@@ -371,114 +406,12 @@ class TopicGuard {
       'a[href^="/user/"]'
     );
 
-    return this.extractChannelCandidates(channelElement);
-  }
-
-  private extractCurrentChannelName(): string {
-    const watchOwnerRoot = this.getWatchPageOwnerRoot();
-    if (watchOwnerRoot) {
-      return this.extractChannelNameFromRoot(watchOwnerRoot);
-    }
-
-    return '';
-  }
-
-  private getWatchPageOwnerRoot(): ParentNode | null {
-    return document.querySelector(
-      'ytd-watch-metadata #owner, ' +
-      'ytd-watch-metadata ytd-video-owner-renderer, ' +
-      'ytd-watch-flexy #owner, ' +
-      'ytd-watch-flexy ytd-video-owner-renderer, ' +
-      '#above-the-fold #owner, ' +
-      '#upload-info'
-    );
-  }
-
-  private getCurrentChannelAnchor(): HTMLAnchorElement | null {
-    const watchOwnerRoot = this.getWatchPageOwnerRoot() as Element | null;
-    if (!watchOwnerRoot) {
-      return null;
-    }
-
-    return watchOwnerRoot.querySelector(
-      'ytd-watch-metadata ytd-channel-name a, ' +
-      'ytd-video-owner-renderer ytd-channel-name a, ' +
-      '#owner #channel-name a, ' +
-      '#channel-name a, ' +
-      '#upload-info #channel-name a, ' +
-      'a[href^="/@"], ' +
-      'a[href^="/channel/"], ' +
-      'a[href^="/c/"], ' +
-      'a[href^="/user/"], ' +
-      'a.yt-simple-endpoint.yt-formatted-string[href^="/@"], ' +
-      'a.yt-simple-endpoint.yt-formatted-string[href^="/channel/"]'
-    );
-  }
-
-  private getChannelActionHost(anchor: HTMLAnchorElement | null): HTMLElement | null {
-    const anchorElement = anchor || this.getCurrentChannelAnchor();
-    if (!anchorElement) {
-      return this.getWatchPageOwnerRoot() as HTMLElement | null;
-    }
-
-    return anchorElement.closest('ytd-channel-name, ytd-video-owner-renderer, #channel-name, #owner, #upload-info') as HTMLElement | null;
-  }
-
-  private extractChannelNameFromLink(linkElement: HTMLElement): string {
-    const channelHost = linkElement.closest('ytd-compact-video-renderer, ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-playlist-video-renderer, ytd-rich-grid-media, ytd-item-section-renderer');
-    return this.extractChannelNameFromRoot((channelHost as ParentNode | null) || linkElement.parentElement || document);
+    if (!channelElement) return [];
+    return [channelElement.textContent?.trim() || ''];
   }
 
   private extractChannelNameFromRoot(root: ParentNode | null): string {
     return this.extractChannelCandidatesFromRoot(root)[0] || '';
-  }
-
-  private scheduleMetadataRetry(): void {
-    if (this.metadataRetryTimeout !== null || !window.location.href.includes('/watch')) {
-      return;
-    }
-
-    this.metadataRetryTimeout = window.setTimeout(() => {
-      this.metadataRetryTimeout = null;
-      this.updateChannelActionButton();
-      this.updateAllowedChannelOverlay();
-      if (this.isResearchMode) {
-        this.checkCurrentVideo();
-      }
-    }, 600);
-  }
-
-  private isAllowedChannel(channelName: string): boolean {
-    if (!channelName || this.allowedChannels.length === 0) {
-      return false;
-    }
-
-    return this.allowedChannels.includes(this.normalizeChannelName(channelName));
-  }
-
-  private isAnyAllowedChannel(channelCandidates: string[]): boolean {
-    if (!Array.isArray(channelCandidates) || channelCandidates.length === 0 || this.allowedChannels.length === 0) {
-      return false;
-    }
-
-    return channelCandidates.some((candidate) => this.allowedChannels.includes(this.normalizeChannelName(candidate)));
-  }
-
-  private evaluateVideoAccess(videoTitle: string, channelName: string, channelCandidates: string[] = []): { allowed: boolean; reason: string; channelName: string } {
-    // Trusted research channels bypass keyword matching to avoid false negatives.
-    if (this.isAllowedChannel(channelName) || this.isAnyAllowedChannel(channelCandidates)) {
-      return {
-        allowed: true,
-        reason: 'allowed-channel',
-        channelName: this.normalizeChannelName(channelName)
-      };
-    }
-
-    return {
-      allowed: this.isVideoRelated(videoTitle),
-      reason: 'topic-match',
-      channelName: ''
-    };
   }
 
   private getVideoAccessKey(videoUrl: string): string {
@@ -506,618 +439,13 @@ class TopicGuard {
     return false;
   }
 
-  private isVideoRelated(videoTitle: string): boolean {
-    if (!this.currentTopic || !videoTitle) return true;
-
-    const titleWords = this.normalizeText(videoTitle);
-    const titleTokens = this.tokenizeText(videoTitle);
-    const topicKeywords = this.expandTopicKeywords(this.currentTopic.keywords);
-
-    if (topicKeywords.length === 0) {
-      return true;
-    }
-
-    const normalizedTopicPhrase = this.normalizeText(this.currentTopic.keywords.join(' '));
-    if (normalizedTopicPhrase && titleWords.includes(normalizedTopicPhrase)) {
-      return true;
-    }
-
-    const directMatches = topicKeywords.filter((keyword) => titleTokens.includes(keyword)).length;
-    const keywordCoverage = this.calculateKeywordCoverage(titleTokens, topicKeywords);
-
-    const minimumMatchCount = topicKeywords.length === 1 ? 1 : Math.min(2, topicKeywords.length);
-    if (directMatches >= minimumMatchCount) {
-      return true;
-    }
-
-    if (directMatches >= 1 && keywordCoverage >= 0.4) {
-      return true;
-    }
-
-    const semanticScore = this.calculateSemanticSimilarity(titleTokens, topicKeywords);
-    return semanticScore >= 0.6 || keywordCoverage >= 0.55;
-  }
-
-  private normalizeText(text: string): string {
-    return text.toLowerCase()
-      .replace(/[^\w\s]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-  }
-
-  private tokenizeText(text: string): string[] {
-    return [...new Set(this.normalizeText(text)
-      .split(' ')
-      .map((word) => this.normalizeTopicToken(word))
-      .filter(Boolean))];
-  }
-
-  private expandTopicKeywords(keywords: string[]): string[] {
-    const expandedKeywords: string[] = [];
-
-    for (const keyword of keywords || []) {
-      expandedKeywords.push(...this.tokenizeText(keyword));
-    }
-
-    return [...new Set(expandedKeywords)];
-  }
-
-  private normalizeTopicToken(word: string): string {
-    let normalizedWord = (word || '').toLowerCase().trim();
-
-    if (!normalizedWord || normalizedWord.length <= 2 || TopicGuard.ignoredTopicWords.has(normalizedWord)) {
-      return '';
-    }
-
-    if (normalizedWord.endsWith('ies') && normalizedWord.length > 4) {
-      normalizedWord = `${normalizedWord.slice(0, -3)}y`;
-    } else if (normalizedWord.endsWith('es') && normalizedWord.length > 4) {
-      normalizedWord = normalizedWord.slice(0, -2);
-    } else if (normalizedWord.endsWith('s') && normalizedWord.length > 3 && !normalizedWord.endsWith('ss')) {
-      normalizedWord = normalizedWord.slice(0, -1);
-    }
-
-    if (normalizedWord.length <= 2 || TopicGuard.ignoredTopicWords.has(normalizedWord)) {
-      return '';
-    }
-
-    return normalizedWord;
-  }
-
-  private calculateSemanticSimilarity(titleWords: string[], keywords: string[]): number {
-    if (keywords.length === 0) {
-      return 0;
-    }
-
-    let matches = 0;
-
-    for (const keyword of keywords) {
-      const keywordMatched = titleWords.some((word) => {
-        if (word === keyword) {
-          return true;
-        }
-
-        if (keyword.length < 4 || word.length < 4) {
-          return false;
-        }
-
-        return word.includes(keyword) || keyword.includes(word);
-      });
-
-      if (keywordMatched) {
-        matches++;
-      }
-    }
-
-    return matches / keywords.length;
-  }
-
-  private calculateKeywordCoverage(titleWords: string[], keywords: string[]): number {
-    if (keywords.length === 0) {
-      return 0;
-    }
-
-    const totalWeight = keywords.reduce((sum, keyword) => sum + keyword.length, 0);
-    if (totalWeight === 0) {
-      return 0;
-    }
-
-    const matchedWeight = keywords.reduce((sum, keyword) => {
-      const keywordMatched = titleWords.some((word) => word === keyword || (keyword.length >= 4 && word.length >= 4 && (word.includes(keyword) || keyword.includes(word))));
-      return sum + (keywordMatched ? keyword.length : 0);
-    }, 0);
-
-    return matchedWeight / totalWeight;
-  }
-
-  private ensureAllowedChannelOverlay(): HTMLElement {
-    if (this.allowedChannelOverlay) {
-      return this.allowedChannelOverlay;
-    }
-
-    const overlay = document.createElement('div');
-    overlay.className = 'yfg-timer-overlay yfg-allowed-channel-overlay';
-    overlay.style.display = 'none';
-    overlay.innerHTML = `
-      <div class="yfg-timer-content yfg-allowed-channel-content">
-        <div class="yfg-timer-title">Research Allowlist</div>
-        <div class="yfg-allowed-channel-text" id="yfg-allowed-channel-text"></div>
-      </div>
-    `;
-
-    document.body.appendChild(overlay);
-    this.allowedChannelOverlay = overlay;
-    return overlay;
-  }
-
-  private ensureChannelActionButton(): HTMLButtonElement {
-    if (this.channelActionButton) {
-      return this.channelActionButton;
-    }
-
-    const button = document.createElement('button');
-    button.className = 'yfg-channel-allowlist-btn';
-    button.type = 'button';
-    button.addEventListener('click', (event: MouseEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      void this.handleAddCurrentChannel();
-    });
-    this.channelActionButton = button;
-    return button;
-  }
-
-  private attachChannelActionButton(anchor: HTMLAnchorElement | null): void {
-    const host = this.getChannelActionHost(anchor);
-    const button = this.ensureChannelActionButton();
-    button.dataset.channel = this.extractCurrentChannelName();
-    button.classList.remove('is-floating');
-
-    if (!host) {
-      if (button.parentNode !== document.body) {
-        document.body.appendChild(button);
-      }
-      button.classList.add('is-floating');
-      return;
-    }
-
-    if (anchor?.parentElement && button.previousElementSibling !== anchor) {
-      anchor.insertAdjacentElement('afterend', button);
-      return;
-    }
-
-    if (button.parentNode !== host) {
-      host.appendChild(button);
-    }
-  }
-
-  private removeChannelActionButton(): void {
-    if (this.channelActionButton?.parentNode) {
-      this.channelActionButton.remove();
-    }
-  }
-
-  private async handleAddCurrentChannel(): Promise<void> {
-    const channelName = this.channelActionButton?.dataset.channel || this.extractCurrentChannelName();
-    const normalizedChannel = this.normalizeChannelName(channelName);
-    if (!normalizedChannel || this.isAllowedChannel(normalizedChannel)) {
-      this.updateChannelActionButton();
-      return;
-    }
-
-    if (this.channelActionButton) {
-      this.channelActionButton.disabled = true;
-      this.channelActionButton.classList.add('is-added');
-      this.channelActionButton.textContent = 'Adding...';
-    }
-
-    const nextChannels = [...this.allowedChannels, normalizedChannel];
-    await this.storage.updateResearchSettings({ allowedChannels: nextChannels });
-    this.allowedChannels = [...new Set(nextChannels)];
-    this.updateAllowedChannelOverlay();
-    this.updateChannelActionButton();
-  }
-
-  private updateChannelActionButton(): void {
-    this.removeChannelActionButton();
-  }
-
-  private attachAllowedChannelOverlay(): void {
-    const overlay = this.ensureAllowedChannelOverlay();
-    const player = document.querySelector('#movie_player') || document.querySelector('.html5-video-player');
-
-    if (player && overlay.parentNode !== player) {
-      overlay.classList.add('yfg-allowed-channel-overlay-player');
-      player.appendChild(overlay);
-    } else if (!player && overlay.parentNode !== document.body) {
-      overlay.classList.remove('yfg-allowed-channel-overlay-player');
-      document.body.appendChild(overlay);
-    }
-  }
-
-  private showAllowedChannelOverlay(channelName: string): void {
-    const normalizedChannel = this.normalizeChannelName(channelName);
-    if (!normalizedChannel) {
-      this.hideAllowedChannelOverlay();
-      return;
-    }
-
-    const overlay = this.ensureAllowedChannelOverlay();
-    const textElement = overlay.querySelector('#yfg-allowed-channel-text') as HTMLElement | null;
-    if (textElement) {
-      textElement.textContent = `Allowed Channel: ${normalizedChannel}`;
-    }
-
-    this.attachAllowedChannelOverlay();
-    overlay.style.display = 'block';
-  }
-
-  private hideAllowedChannelOverlay(): void {
-    if (this.allowedChannelOverlay) {
-      this.allowedChannelOverlay.style.display = 'none';
-    }
-  }
-
-  private updateAllowedChannelOverlay(): void {
-    if (!this.isResearchMode || !this.currentTopic || !window.location.href.includes('/watch')) {
-      this.hideAllowedChannelOverlay();
-      return;
-    }
-
-    const channelName = this.extractCurrentChannelName();
-    if (!channelName) {
-      this.hideAllowedChannelOverlay();
-      this.scheduleMetadataRetry();
-      return;
-    }
-
-    if (this.isAllowedChannel(channelName)) {
-      this.showAllowedChannelOverlay(channelName);
-      return;
-    }
-
-    this.hideAllowedChannelOverlay();
-  }
-
-  private showTopicDriftWarning(videoTitle: string, videoUrl: string): void {
-    if (!this.currentTopic) return;
-
-    const warningKey = `${videoUrl}|${videoTitle}`;
-    if (this.activeWarningKey === warningKey || document.querySelector('.yfg-drift-warning-modal')) {
-      return;
-    }
-    this.activeWarningKey = warningKey;
-
-    this.currentTopic.driftWarnings++;
-
-    const modal = document.createElement('div');
-    modal.className = 'yfg-drift-warning-modal';
-
-    const isSecondWarning = this.currentTopic.driftWarnings >= 2;
-    const readableTopic = this.currentTopic.searchQuery || this.currentTopic.keywords.join(', ');
-
-    const content = document.createElement('div');
-    content.className = 'yfg-modal-content';
-
-    const title = document.createElement('h3');
-    title.textContent = '🚨 Topic Drift Detected';
-
-    const driftInfo = document.createElement('div');
-    driftInfo.className = 'yfg-drift-info';
-    const currentTopicLabel = document.createElement('p');
-    const currentTopicStrong = document.createElement('strong');
-    currentTopicStrong.textContent = 'Current research topic:';
-    currentTopicLabel.appendChild(currentTopicStrong);
-    const currentTopicValue = document.createElement('p');
-    currentTopicValue.className = 'yfg-video-title';
-    currentTopicValue.textContent = `"${readableTopic}"`;
-    const topicTags = document.createElement('div');
-    topicTags.className = 'yfg-topic-tags';
-    for (const keyword of this.currentTopic.keywords) {
-      const tag = document.createElement('span');
-      tag.className = 'yfg-topic-tag';
-      tag.textContent = keyword;
-      topicTags.appendChild(tag);
-    }
-    driftInfo.append(currentTopicLabel, currentTopicValue, topicTags);
-
-    const driftVideo = document.createElement('div');
-    driftVideo.className = 'yfg-drift-video';
-    const clickedLabel = document.createElement('p');
-    const clickedStrong = document.createElement('strong');
-    clickedStrong.textContent = 'Clicked video:';
-    clickedLabel.appendChild(clickedStrong);
-    const clickedValue = document.createElement('p');
-    clickedValue.className = 'yfg-video-title';
-    clickedValue.textContent = `"${videoTitle}"`;
-    const explanation = document.createElement('p');
-    explanation.className = 'yfg-drift-explanation';
-    explanation.textContent = 'This video appears unrelated to your research topic.';
-    driftVideo.append(clickedLabel, clickedValue, explanation);
-
-    const buttons = document.createElement('div');
-    buttons.className = 'yfg-modal-buttons';
-    const cancelButton = document.createElement('button');
-    cancelButton.className = 'yfg-btn yfg-btn-secondary';
-    cancelButton.type = 'button';
-    cancelButton.dataset.action = 'cancel';
-    cancelButton.textContent = 'Stay on Topic';
-    const continueButton = document.createElement('button');
-    continueButton.className = `yfg-btn ${isSecondWarning ? 'yfg-btn-danger' : 'yfg-btn-warning'}`;
-    continueButton.type = 'button';
-    continueButton.dataset.action = 'continue';
-    continueButton.textContent = isSecondWarning ? 'End Research Session' : 'Allow Once';
-    buttons.append(cancelButton, continueButton);
-
-    const tip = document.createElement('div');
-    tip.className = 'yfg-drift-tips';
-    const tipStrong = document.createElement('strong');
-    tipStrong.textContent = 'Tip:';
-    tip.append('💡 ', tipStrong, ' Use search to find videos related to your research topic');
-
-    content.append(title, driftInfo, driftVideo);
-
-    if (isSecondWarning) {
-      const driftLimit = document.createElement('div');
-      driftLimit.className = 'yfg-drift-limit';
-      const warningLine = document.createElement('p');
-      const warningStrong = document.createElement('strong');
-      warningStrong.textContent = '⚠️ Second drift detected';
-      warningLine.appendChild(warningStrong);
-      const warningDetail = document.createElement('p');
-      warningDetail.textContent = 'Continuing will end your research session.';
-      driftLimit.append(warningLine, warningDetail);
-      content.appendChild(driftLimit);
-    }
-
-    content.append(buttons, tip);
-    modal.appendChild(content);
-
-    modal.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement;
-      const action = target.getAttribute('data-action');
-
-      if (action === 'cancel') {
-        this.activeWarningKey = null;
-        modal.remove();
-      } else if (action === 'continue') {
-        this.activeWarningKey = null;
-        modal.remove();
-
-        if (isSecondWarning) {
-          this.endResearchSession();
-        } else {
-          this.markVideoAllowedOnce(videoUrl);
-          if (window.location.href !== videoUrl) {
-            window.location.href = videoUrl;
-          }
-        }
-      }
-    });
-
-    document.body.appendChild(modal);
-  }
-
-  private async endResearchSession(): Promise<void> {
-    await this.storage.updateResearchSettings({
-      mode: 'entertainment',
-      currentTopic: [],
-      sessionStart: 0
-    });
-
-    this.isResearchMode = false;
-    this.currentTopic = null;
-    this.hideAllowedChannelOverlay();
-    this.removeChannelActionButton();
-
-    const modal = document.createElement('div');
-    modal.className = 'yfg-session-ended-modal';
-    const entertainmentLimit = await this.getEntertainmentLimit();
-    const content = document.createElement('div');
-    content.className = 'yfg-modal-content';
-    const title = document.createElement('h3');
-    title.textContent = '📚 Research Session Ended';
-    const summary = document.createElement('p');
-    summary.textContent = 'Your research session has ended due to topic drift.';
-    const limitMessage = document.createElement('p');
-    limitMessage.append('You are now in ');
-    const modeStrong = document.createElement('strong');
-    modeStrong.textContent = 'Entertainment Mode';
-    limitMessage.append(modeStrong, ` with a ${entertainmentLimit} minute daily limit.`);
-    const buttons = document.createElement('div');
-    buttons.className = 'yfg-modal-buttons';
-    const continueButton = document.createElement('button');
-    continueButton.className = 'yfg-btn yfg-btn-primary';
-    continueButton.type = 'button';
-    continueButton.dataset.action = 'continue';
-    continueButton.textContent = 'Continue Watching';
-    const researchButton = document.createElement('button');
-    researchButton.className = 'yfg-btn yfg-btn-secondary';
-    researchButton.type = 'button';
-    researchButton.dataset.action = 'new-research';
-    researchButton.textContent = 'Start New Research';
-    buttons.append(continueButton, researchButton);
-    content.append(title, summary, limitMessage, buttons);
-    modal.appendChild(content);
-
-    modal.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement;
-      const action = target.getAttribute('data-action');
-
-      if (action === 'continue') {
-        modal.remove();
-      } else if (action === 'new-research') {
-        modal.remove();
-        this.showResearchPrompt();
-      }
-    });
-
-    document.body.appendChild(modal);
-
-    if (this.observer) {
-      this.observer.disconnect();
-      this.observer = null;
-    }
-  }
-
-  private async getEntertainmentLimit(): Promise<number> {
-    const settings = await this.storage.getSettings();
-    return settings.entertainment.dailyLimit;
-  }
-
-  private showResearchPrompt(): void {
-    const modal = document.createElement('div');
-    modal.className = 'yfg-research-prompt-modal';
-    modal.innerHTML = `
-      <div class="yfg-modal-content">
-        <h3>🔬 Start New Research Session</h3>
-        <p>What would you like to research?</p>
-        <input type="text" class="yfg-research-input" placeholder="Enter research topic..." />
-        <div class="yfg-modal-buttons">
-          <button class="yfg-btn yfg-btn-primary" data-action="start-research">
-            Start Research
-          </button>
-          <button class="yfg-btn yfg-btn-secondary" data-action="cancel">
-            Cancel
-          </button>
-        </div>
-      </div>
-    `;
-
-    const input = modal.querySelector('.yfg-research-input') as HTMLInputElement;
-
-    modal.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement;
-      const action = target.getAttribute('data-action');
-
-      if (action === 'start-research') {
-        const topic = input.value.trim();
-        if (topic) {
-          this.startNewResearchSession(topic);
-          modal.remove();
-        }
-      } else if (action === 'cancel') {
-        modal.remove();
-      }
-    });
-
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        const topic = input.value.trim();
-        if (topic) {
-          this.startNewResearchSession(topic);
-          modal.remove();
-        }
-      }
-    });
-
-    document.body.appendChild(modal);
-    input.focus();
-  }
-
-  private async startNewResearchSession(topic: string): Promise<void> {
-    const keywords = topic.toLowerCase().split(/\s+/).filter((word) => word.length > 2);
-
-    await this.storage.updateResearchSettings({
-      mode: 'research',
-      currentTopic: keywords,
-      sessionStart: Date.now()
-    });
-
-    this.isResearchMode = true;
-    this.currentTopic = {
-      keywords: keywords,
-      searchQuery: topic,
-      originalTitle: topic,
-      allowedTopics: keywords,
-      sessionStart: Date.now(),
-      driftWarnings: 0
-    };
-
-    this.activeWarningKey = null;
-    this.setupTopicMonitoring();
-
-    window.location.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(topic)}`;
-  }
-
-  private checkCurrentVideo(): void {
-    if (!this.isResearchMode) {
-      this.updateChannelActionButton();
-      this.hideAllowedChannelOverlay();
-      return;
-    }
-
-    this.updateChannelActionButton();
-    if (!this.currentTopic) return;
-
-    const videoTitle = this.extractCurrentVideoTitle();
-    if (window.location.href.includes('/watch')) {
-      const channelName = this.extractCurrentChannelName();
-      const channelCandidates = this.extractChannelCandidatesFromRoot(this.getWatchPageOwnerRoot());
-      if (!videoTitle) {
-        this.scheduleMetadataRetry();
-        return;
-      }
-
-      if (this.consumeAllowedVideo(window.location.href)) {
-        this.updateAllowedChannelOverlay();
-        return;
-      }
-
-      const evaluation = this.evaluateVideoAccess(videoTitle, channelName, channelCandidates);
-      if (!evaluation.allowed) {
-        this.hideAllowedChannelOverlay();
-        if (!channelName && channelCandidates.length === 0) {
-          this.scheduleMetadataRetry();
-        }
-        this.showTopicDriftWarning(videoTitle, window.location.href);
-        return;
-      }
-
-      if (!channelName && channelCandidates.length === 0) {
-        this.scheduleMetadataRetry();
-      }
-      this.updateAllowedChannelOverlay();
-    } else {
-      this.hideAllowedChannelOverlay();
-      this.removeChannelActionButton();
-    }
-  }
-
-  private extractSearchQuery(): string {
-    const searchParams = new URLSearchParams(window.location.search);
-    return searchParams.get('search_query') || '';
-  }
-
-  async setResearchMode(mode: 'research' | 'entertainment', topic?: string): Promise<void> {
-    if (mode === 'research') {
-      this.isResearchMode = true;
-      if (topic) {
-        await this.startNewResearchSession(topic);
-      }
-    } else {
-      this.isResearchMode = false;
-      this.currentTopic = null;
-      this.hideAllowedChannelOverlay();
-      this.activeWarningKey = null;
-      this.teardownTopicMonitoring();
-      this.updateChannelActionButton();
-    }
-  }
-
-  getCurrentTopic(): string[] {
-    return this.currentTopic ? this.currentTopic.keywords : [];
-  }
-
-  isInResearchMode(): boolean {
-    return this.isResearchMode;
+  private extractVideoId(url: string): string | null {
+    const match = url.match(/[?&]v=([^&]+)/);
+    return match ? match[1] : null;
   }
 
   destroy(): void {
-    this.teardownTopicMonitoring();
-    this.hideAllowedChannelOverlay();
-    this.removeChannelActionButton();
+    this.hideCheckInOverlays();
   }
 }
 

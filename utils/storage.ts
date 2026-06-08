@@ -1,45 +1,28 @@
 /**
- * Storage utilities for YouTube Focus Guard
- * Handles settings, usage tracking, and persistence
+ * Storage utilities for YouTube Focus Guard (Intent-First Mindful Assistant)
+ * Handles settings, intention tracking, and daily statistics.
  */
 
+interface IntentionHistoryEntry {
+  text: string;
+  durationMinutes: number;
+  date: string;
+}
+
 interface ExtensionSettings {
-  extensionEnabled?: boolean;
-  nightLock: {
+  extensionEnabled: boolean;
+  activeIntention: string;
+  intentionStartTime: number;
+  intentionHistory: IntentionHistoryEntry[];
+  breathingBreaks: {
     enabled: boolean;
-    startTime: string; // "23:30"
-    endTime: string;   // "06:00"
+    intervalMinutes: number; // e.g. 20
   };
-  entertainment: {
-    dailyLimit: number; // minutes
-    todayUsed: number;  
-    lastResetDate: string;
-  };
-  research: {
-    mode: 'research' | 'entertainment' | null;
-    currentTopic: string[];
-    sessionStart: number;
-    allowedChannels: string[];
-  };
-  browsingMode: {
-    active: boolean;
-    startTime: number;
-    duration: number;
-    extensionsUsed: number;
-    cooldownUntil: number;
-  };
-  watchTimer: {
-    enabled: boolean;
-    reminderIntervals: number[]; // [25, 15, 10, 5] minutes
-    currentInterval: number;
-    sessionStart: number;
-    currentWatchTime?: number;
-    totalToday: number;
-  };
+  shortsBlocked: boolean;
   stats: {
-    todayWatchTime: number;
-    todayResearchTime: number; 
-    todayEntertainmentTime: number;
+    todayWatchTime: number;        // total seconds watched today
+    todayIntentionalTime: number;  // seconds spent on matching intent today
+    todayDriftTime: number;        // seconds spent on drift/bypassed videos today
     lastStatsReset: string;
   };
 }
@@ -57,41 +40,18 @@ class StorageManager {
   private getDefaultSettings(): ExtensionSettings {
     return {
       extensionEnabled: true,
-      nightLock: {
+      activeIntention: "",
+      intentionStartTime: 0,
+      intentionHistory: [],
+      breathingBreaks: {
         enabled: true,
-        startTime: "23:30",
-        endTime: "06:00"
+        intervalMinutes: 20
       },
-      entertainment: {
-        dailyLimit: 60,
-        todayUsed: 0,
-        lastResetDate: new Date().toDateString()
-      },
-      research: {
-        mode: null,
-        currentTopic: [],
-        sessionStart: 0,
-        allowedChannels: []
-      },
-      browsingMode: {
-        active: false,
-        startTime: 0,
-        duration: 15 * 60 * 1000,
-        extensionsUsed: 0,
-        cooldownUntil: 0
-      },
-      watchTimer: {
-        enabled: true,
-        reminderIntervals: [25, 15, 10, 5],
-        currentInterval: 0,
-        sessionStart: 0,
-        currentWatchTime: 0,
-        totalToday: 0
-      },
+      shortsBlocked: true,
       stats: {
         todayWatchTime: 0,
-        todayResearchTime: 0,
-        todayEntertainmentTime: 0,
+        todayIntentionalTime: 0,
+        todayDriftTime: 0,
         lastStatsReset: new Date().toDateString()
       }
     };
@@ -121,12 +81,27 @@ class StorageManager {
 
     try {
       const stored = await browser.storage.local.get('settings');
+      let current: ExtensionSettings;
       if (stored.settings) {
-        return this.mergeSettings(defaultSettings, stored.settings as Partial<ExtensionSettings>);
+        current = this.mergeSettings(defaultSettings, stored.settings as Partial<ExtensionSettings>);
+      } else {
+        current = defaultSettings;
       }
 
-      await browser.storage.local.set({ settings: defaultSettings });
-      return defaultSettings;
+      // Automatically reset stats if it's a new day
+      const today = new Date().toDateString();
+      if (current.stats.lastStatsReset !== today) {
+        current.stats.todayWatchTime = 0;
+        current.stats.todayIntentionalTime = 0;
+        current.stats.todayDriftTime = 0;
+        current.stats.lastStatsReset = today;
+        // Clean active intention on new day
+        current.activeIntention = "";
+        current.intentionStartTime = 0;
+        await browser.storage.local.set({ settings: current });
+      }
+
+      return current;
     } catch (error) {
       console.error('Failed to load settings:', error);
       return defaultSettings;
@@ -144,69 +119,83 @@ class StorageManager {
     }
   }
 
-  async updateResearchSettings(settingsPatch: Partial<ExtensionSettings['research']>): Promise<void> {
+  async setIntention(intentionText: string): Promise<void> {
+    const trimmed = intentionText.trim();
+    if (!trimmed) {
+      await this.saveSettings({
+        activeIntention: "",
+        intentionStartTime: 0
+      });
+      return;
+    }
+
+    const now = Date.now();
     const settings = await this.getSettings();
-    await this.saveSettings({
-      research: {
-        mode: settingsPatch.mode === undefined ? settings.research.mode : settingsPatch.mode,
-        currentTopic: Array.isArray(settingsPatch.currentTopic) ? settingsPatch.currentTopic : settings.research.currentTopic,
-        sessionStart: typeof settingsPatch.sessionStart === 'number' ? settingsPatch.sessionStart : settings.research.sessionStart,
-        allowedChannels: Array.isArray(settingsPatch.allowedChannels) ? settingsPatch.allowedChannels : settings.research.allowedChannels,
+
+    // If there was an old intention, save it to history before overwriting
+    if (settings.activeIntention && settings.intentionStartTime > 0) {
+      const durationMin = Math.round((now - settings.intentionStartTime) / 60000);
+      if (durationMin > 0) {
+        await this.addIntentionToHistory(settings.activeIntention, durationMin);
       }
+    }
+
+    await this.saveSettings({
+      activeIntention: trimmed,
+      intentionStartTime: now
     });
   }
 
-  async updateWatchTime(seconds: number, mode: 'research' | 'entertainment'): Promise<void> {
+  async addIntentionToHistory(text: string, durationMinutes: number): Promise<void> {
+    if (!text) return;
     const settings = await this.getSettings();
-    const today = new Date().toDateString();
+    const history = Array.isArray(settings.intentionHistory) ? settings.intentionHistory : [];
     
-    // Reset daily stats if new day
-    if (settings.stats.lastStatsReset !== today) {
-      settings.stats.todayWatchTime = 0;
-      settings.stats.todayResearchTime = 0;
-      settings.stats.todayEntertainmentTime = 0;
-      settings.stats.lastStatsReset = today;
-      settings.entertainment.todayUsed = 0;
-      settings.entertainment.lastResetDate = today;
-    }
-
-    settings.stats.todayWatchTime += seconds;
-    if (mode === 'research') {
-      settings.stats.todayResearchTime += seconds;
+    // Check if intention exists for today; if so, update duration, otherwise prepend new one
+    const today = new Date().toDateString();
+    const existingIndex = history.findIndex(h => h.text.toLowerCase() === text.toLowerCase() && h.date === today);
+    
+    if (existingIndex > -1) {
+      history[existingIndex].durationMinutes += durationMinutes;
     } else {
-      settings.stats.todayEntertainmentTime += seconds;
-      settings.entertainment.todayUsed += Math.round(seconds / 60);
+      history.unshift({
+        text,
+        durationMinutes,
+        date: today
+      });
     }
 
-    await this.saveSettings(settings);
+    // Cap history length to 50 entries
+    const cappedHistory = history.slice(0, 50);
+    await this.saveSettings({
+      intentionHistory: cappedHistory
+    });
   }
 
-  async resetDailyLimits(): Promise<void> {
+  async updateWatchTime(seconds: number, isIntentional: boolean): Promise<void> {
+    const settings = await this.getSettings();
+    
+    settings.stats.todayWatchTime += seconds;
+    if (isIntentional) {
+      settings.stats.todayIntentionalTime += seconds;
+    } else {
+      settings.stats.todayDriftTime += seconds;
+    }
+
+    await this.saveSettings({ stats: settings.stats });
+  }
+
+  async resetDailyStats(): Promise<void> {
     const today = new Date().toDateString();
     await this.saveSettings({
-      entertainment: {
-        dailyLimit: 60,
-        todayUsed: 0,
-        lastResetDate: today
-      },
+      activeIntention: "",
+      intentionStartTime: 0,
+      intentionHistory: [],
       stats: {
         todayWatchTime: 0,
-        todayResearchTime: 0,
-        todayEntertainmentTime: 0,
+        todayIntentionalTime: 0,
+        todayDriftTime: 0,
         lastStatsReset: today
-      }
-    });
-  }
-
-  async updateBrowsingMode(settingsPatch: Partial<ExtensionSettings['browsingMode']>): Promise<void> {
-    const settings = await this.getSettings();
-    await this.saveSettings({
-      browsingMode: {
-        active: typeof settingsPatch.active === 'boolean' ? settingsPatch.active : settings.browsingMode.active,
-        startTime: typeof settingsPatch.startTime === 'number' ? settingsPatch.startTime : settings.browsingMode.startTime,
-        duration: typeof settingsPatch.duration === 'number' ? settingsPatch.duration : settings.browsingMode.duration,
-        extensionsUsed: typeof settingsPatch.extensionsUsed === 'number' ? settingsPatch.extensionsUsed : settings.browsingMode.extensionsUsed,
-        cooldownUntil: typeof settingsPatch.cooldownUntil === 'number' ? settingsPatch.cooldownUntil : settings.browsingMode.cooldownUntil,
       }
     });
   }
