@@ -3,17 +3,153 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Intentional YT — Turn YouTube into a Focus Tool, Not a Dopamine Trap</title>
-  <meta name="description" content="A minimal, zero-flash browser extension that strips algorithmic rabbit holes, clickbait thumbnails, and endless feeds from YouTube. 100% private and local." />
   
-  <!-- OpenGraph / Social Meta -->
+  <!-- Primary SEO Meta Tags -->
+  <title>Intentional YT — Distraction-Free YouTube Extension | Block Shorts, Feeds & Clickbait</title>
+  <meta name="title" content="Intentional YT — Distraction-Free YouTube Extension | Block Shorts, Feeds & Clickbait" />
+  <meta name="description" content="Transform YouTube into a mindful focus tool. Block YouTube Shorts, hide home feed recommendations, neutralize clickbait thumbnails, and set daily watch timers. 100% private, zero-flash, and open source." />
+  <meta name="keywords" content="intentional yt, youtube distraction free, block youtube shorts, hide youtube feed, block youtube recommendations, unhook youtube alternative, df tube alternative, youtube focus mode, minimal youtube extension, hide youtube clickbait, youtube watch time limiter, focus extension firefox, focus extension chrome" />
+  <meta name="author" content="manasdotio" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="application-name" content="Intentional YT" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="canonical" href="https://manasdotio.github.io/intentional-yt/" />
+
+  <!-- Open Graph / Facebook / LinkedIn -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Intentional YT — Mindful, Distraction-Free YouTube" />
-  <meta property="og:description" content="Reclaim your attention. Zero content flash, granular toggle control, clickbait de-stimulation, and local time tracking." />
-  <meta property="og:image" content="icons/icon-512.png" />
+  <meta property="og:url" content="https://manasdotio.github.io/intentional-yt/" />
+  <meta property="og:title" content="Intentional YT — Mindful, Distraction-Free YouTube Browser Extension" />
+  <meta property="og:description" content="Reclaim your attention. Zero-flash content blocking, granular toggle control, Shorts suppression, clickbait neutralization, and local watch time tracking." />
+  <meta property="og:image" content="https://manasdotio.github.io/intentional-yt/screenshots/store/1_homepage.png" />
+  <meta property="og:image:alt" content="Intentional YT - Distraction Free Minimal YouTube Interface" />
+  <meta property="og:site_name" content="Intentional YT" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://manasdotio.github.io/intentional-yt/" />
+  <meta name="twitter:title" content="Intentional YT — Mindful, Distraction-Free YouTube" />
+  <meta name="twitter:description" content="Reclaim your attention. Zero-flash content blocking, Shorts suppression, clickbait neutralization, and 100% local privacy." />
+  <meta name="twitter:image" content="https://manasdotio.github.io/intentional-yt/screenshots/store/1_homepage.png" />
+  <meta name="twitter:image:alt" content="Intentional YT - Distraction Free YouTube Interface" />
+
+  <!-- Mobile & Favicons -->
   <meta name="theme-color" content="#fbfbfe" id="meta-theme-color" />
   <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
   <link rel="alternate icon" type="image/png" href="icons/icon-32.png" />
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- Structured Data (JSON-LD) for Search Engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://manasdotio.github.io/intentional-yt/#website",
+        "url": "https://manasdotio.github.io/intentional-yt/",
+        "name": "Intentional YT",
+        "description": "Distraction-free, minimal YouTube browser extension for deep focus and digital well-being.",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://manasdotio.github.io/intentional-yt/#software",
+        "name": "Intentional YT",
+        "operatingSystem": "Mozilla Firefox, Google Chrome, Brave, Microsoft Edge, Arc",
+        "applicationCategory": "ProductivityApplication",
+        "applicationSubCategory": "Browser Extension",
+        "softwareVersion": "2.0.1",
+        "license": "https://github.com/manasdotio/intentional-yt/blob/main/LICENSE",
+        "description": "A minimal, zero-flash browser extension that strips algorithmic rabbit holes, clickbait thumbnails, and endless feeds from YouTube. 100% private and local.",
+        "url": "https://manasdotio.github.io/intentional-yt/",
+        "downloadUrl": "https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "ratingCount": "18",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "featureList": [
+          "Zero-flash CSS injection at document_start",
+          "Complete suppression of YouTube Shorts across shelves, sidebar, and search",
+          "Clickbait thumbnail neutralization while preserving duration stamps",
+          "Granular toggles for 20+ distraction points",
+          "Built-in daily playback time tracker and reminder toasts",
+          "100% private with strictly zero telemetry or remote analytics"
+        ],
+        "author": {
+          "@type": "Organization",
+          "name": "manasdotio",
+          "url": "https://github.com/manasdotio"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://manasdotio.github.io/intentional-yt/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does Intentional YT achieve zero-flash blocking on YouTube?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Unlike traditional blockers that wait for the DOM to finish rendering and mutate elements dynamically (causing distracting content to flash briefly), Intentional YT injects high-specificity CSS class tokens into the <html> element at document_start before the browser paints the first pixel. This guarantees zero visual pop-in and 0ms layout lag."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I completely block YouTube Shorts with Intentional YT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Intentional YT provides deep suppression of Shorts across all entry points, including home feed shelves, sidebar navigation links, search result shelves, channel Shorts tabs, and video watch recommendations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is Intentional YT different from extensions like Unhook or DF Tube?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Intentional YT provides 20+ granular independent toggles without rigid all-or-nothing trade-offs, unique clickbait thumbnail neutralization that preserves essential duration badges, integrated daily playback time tracking with mindful interval toasts, zero-flash document_start styling, and strict 0% telemetry."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Intentional YT collect any personal data or browsing history?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Intentional YT has zero telemetry, zero analytics, and makes zero external network requests. All user preferences, toggles, and daily watch metrics are stored strictly inside your browser's private local sandbox storage (browser.storage.local)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which web browsers are supported by Intentional YT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Intentional YT is officially available on Mozilla Firefox via the Firefox Add-ons Store (AMO) and can also be installed unpacked in developer mode on all Chromium-based browsers, including Google Chrome, Brave, Microsoft Edge, and Arc."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Intentional YT open source and free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Intentional YT is 100% free and open-source software distributed under the permissive MIT License. You can review the full source code or contribute on GitHub."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1026,6 +1162,8 @@
       border-radius: var(--radius-xl);
       overflow-x: auto;
       box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
     .comp-table {
       width: 100%;
@@ -1035,58 +1173,261 @@
     }
     .comp-table th {
       background: var(--bg-subtle);
-      padding: 16px 20px;
-      font-weight: 600;
+      padding: 18px 20px;
+      font-weight: 700;
+      font-size: 13.5px;
       border-bottom: 1px solid var(--border);
       color: var(--text-secondary);
     }
     .comp-table td {
-      padding: 16px 20px;
+      padding: 18px 20px;
       border-bottom: 1px solid var(--border);
       color: var(--text-secondary);
+      vertical-align: middle;
     }
     .comp-table tr:last-child td {
       border-bottom: none;
     }
+    .comp-table th.highlight-col {
+      background: var(--accent-blue-subtle);
+      color: var(--accent-blue);
+      border-left: 1px solid var(--border-accent);
+      border-right: 1px solid var(--border-accent);
+    }
     .comp-table td.highlight-col {
       background: var(--accent-blue-subtle);
       color: var(--text-primary);
-      font-weight: 600;
+      border-left: 1px solid var(--border-accent);
+      border-right: 1px solid var(--border-accent);
     }
-    /* Footer */
+    .table-feat-name {
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+      display: block;
+    }
+    .table-feat-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .status-good {
+      background: var(--accent-emerald-subtle);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(5, 150, 105, 0.25);
+    }
+    .status-warn {
+      background: rgba(234, 179, 8, 0.12);
+      color: #b45309;
+      border: 1px solid rgba(234, 179, 8, 0.25);
+    }
+    [data-theme="dark"] .status-warn {
+      color: #facc15;
+    }
+    .status-bad {
+      background: rgba(225, 29, 72, 0.1);
+      color: var(--accent-red);
+      border: 1px solid rgba(225, 29, 72, 0.2);
+    }
+    .status-neutral {
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      margin-bottom: 100px;
+    }
+    .faq-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      background: var(--surface-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: all 0.2s ease;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .faq-item:hover {
+      border-color: var(--border-strong);
+    }
+    .faq-item[open] {
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-question {
+      padding: 20px 24px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style: none;
+      user-select: none;
+    }
+    .faq-question::-webkit-details-marker {
+      display: none;
+    }
+    .faq-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease, color 0.2s ease;
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+    .faq-item[open] .faq-icon {
+      transform: rotate(180deg);
+      color: var(--accent-blue);
+    }
+    .faq-answer {
+      padding: 0 24px 22px;
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .faq-answer p:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    /* Footer — Modern Multi-Column Layout */
     .footer {
       border-top: 1px solid var(--border);
-      padding: 60px 0 40px;
-      color: var(--text-muted);
-      font-size: 13.5px;
-      background: var(--surface);
-    }
-    .footer-grid {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 24px;
-      margin-bottom: 30px;
-    }
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .footer-link {
+      padding: 70px 0 36px;
       color: var(--text-secondary);
-      transition: color 0.15s;
+      background: var(--surface);
+      margin-top: 40px;
     }
-    .footer-link:hover {
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 16px;
       color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .footer-brand-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+      max-width: 320px;
+    }
+    .footer-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-tag {
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .footer-col-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .footer-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .footer-nav-link {
+      color: var(--text-secondary);
+      font-size: 13.5px;
+      transition: color 0.15s ease, transform 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-nav-link:hover {
+      color: var(--accent-blue);
+      transform: translateX(2px);
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .footer-back-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 13px;
+      transition: color 0.15s ease;
+    }
+    .footer-back-top:hover {
+      color: var(--accent-blue);
+    }
+    @media (max-width: 992px) {
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+      }
     }
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hero { padding: 36px 0 44px; }
       .calc-box { padding: 28px 20px; }
       .tab-content { padding: 24px 16px; }
-      .comp-table th, .comp-table td { padding: 12px 10px; font-size: 12.5px; }
+      .comp-table th, .comp-table td { padding: 14px 12px; font-size: 12.5px; }
+      .faq-question { padding: 16px 18px; font-size: 15px; }
+      .faq-answer { padding: 0 18px 18px; font-size: 13.5px; }
+    }
+    @media (max-width: 580px) {
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
     }
   
 </style>
@@ -1102,8 +1443,8 @@
     <!-- Top Navigation -->
     <header class="nav-wrap">
       <nav class="nav">
-        <a href="#" class="brand">
-          <img src="icons/icon.svg" alt="Intentional YT Logo" class="brand-logo" />
+        <a href="#" class="brand" aria-label="Intentional YT Home">
+          <img src="icons/icon.svg" alt="Intentional YT Logo" class="brand-logo" width="28" height="28" />
           <span>Intentional YT</span>
           <span class="brand-badge">v2.0</span>
         </a>
@@ -1111,6 +1452,8 @@
           <a href="#demo" class="nav-link">Interactive Demo</a>
           <a href="#features" class="nav-link">Features</a>
           <a href="#calculator" class="nav-link">Focus Calculator</a>
+          <a href="#comparison" class="nav-link">Comparison</a>
+          <a href="#faq" class="nav-link">FAQ</a>
           <a href="#install" class="nav-link">Installation</a>
         </div>
         <div class="nav-actions">
@@ -1288,7 +1631,7 @@
                 </div>
                 <!-- Intentional Minimal Zen View -->
                 <div class="intentional-zen-view" id="sim-zen-view" style="display:flex;">
-                  <img src="icons/icon.svg" width="48" height="48" alt="" style="margin-bottom:16px; opacity:0.9;" />
+                  <img src="icons/icon.svg" width="48" height="48" alt="Intentional YT Zen Icon" style="margin-bottom:16px; opacity:0.9;" />
                   <h4 style="font-size:18px; font-weight:700; margin-bottom:8px; color:#f1f5f9;">Intentional Search Mode Active</h4>
                   <p style="font-size:13px; color:#94a3b8; max-width:320px; margin-bottom:24px;">No infinite feed, no algorithmic rabbit holes. Search directly for what you came here to learn.</p>
                   <div class="zen-search-box">
@@ -1303,7 +1646,7 @@
           <!-- Live Popup Replica Controller -->
           <div class="mock-popup-container">
             <div class="mock-popup-hd">
-              <img src="icons/icon.svg" width="18" height="18" alt="" />
+              <img src="icons/icon.svg" width="18" height="18" alt="Intentional YT Icon" />
               <strong style="font-size:13px; flex:1;">Intentional YT</strong>
               <span style="font-size:10px; font-weight:600; padding:2px 6px; background:#dcfce7; color:#15803d; border-radius:12px;">Active</span>
             </div>
@@ -1481,57 +1824,206 @@
 </section>
 
     <!-- Comparison Section -->
-    <section class="comparison-section">
+    <section id="comparison" class="comparison-section">
       <div class="section-head">
-        <div class="section-eyebrow">Comparison</div>
-        <h2 class="section-title">Why Intentional YT stands apart.</h2>
+        <div class="section-eyebrow">Clear Comparison</div>
+        <h2 class="section-title">How Intentional YT compares.</h2>
+        <p class="section-desc">See why Intentional YT gives you a calmer, faster, and more private YouTube experience without compromises.</p>
       </div>
       <div class="table-card">
         <table class="comp-table">
           <thead>
             <tr>
-              <th>Feature</th>
-              <th class="highlight-col">Intentional YT</th>
-              <th>Generic Ad Blockers</th>
-              <th>Other Distraction Plugins</th>
+              <th style="min-width: 220px;">Key Capability</th>
+              <th class="highlight-col" style="min-width: 220px;">Intentional YT</th>
+              <th style="min-width: 170px;">Standard Ad Blockers</th>
+              <th style="min-width: 180px;">Other Focus Plugins</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>DOM Injection Timing</td>
-              <td class="highlight-col"><code>document_start</code> (Zero Flash)</td>
-              <td>DOM complete (Flashes)</td>
-              <td>DOM complete / Polling</td>
+              <td>
+                <span class="table-feat-name">No Screen Flashing</span>
+                <span class="table-feat-desc">Does distracting content briefly appear before vanishing?</span>
+              </td>
+              <td class="highlight-col">
+                <span class="status-badge status-good">✓ Instant (0 Flicker)</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Blocked before the page paints</div>
+              </td>
+              <td>
+                <span class="status-badge status-warn">⚠️ Flickers on Load</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Thumbnails flash for a second</div>
+              </td>
+              <td>
+                <span class="status-badge status-warn">⚠️ Sluggish Delay</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Elements jump as you scroll</div>
+              </td>
             </tr>
             <tr>
-              <td>Shorts Deep Suppression</td>
-              <td class="highlight-col">Full (Shelves, Sidebar, Search)</td>
-              <td>Partial or None</td>
-              <td>Often breaks on SPA nav</td>
+              <td>
+                <span class="table-feat-name">Blocks YouTube Shorts</span>
+                <span class="table-feat-desc">Removes Shorts shelves, sidebar tabs, search results &amp; player links</span>
+              </td>
+              <td class="highlight-col">
+                <span class="status-badge status-good">✓ 100% Removed</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Strips Shorts across all pages</div>
+              </td>
+              <td>
+                <span class="status-badge status-bad">✗ Not Blocked</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Only targets video ads</div>
+              </td>
+              <td>
+                <span class="status-badge status-warn">⚠️ Incomplete</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Frequently breaks while navigating</div>
+              </td>
             </tr>
             <tr>
-              <td>Granular Toggle Control</td>
-              <td class="highlight-col">20+ Independent Toggles</td>
-              <td>Rule-based CSS hacks</td>
-              <td>Rigid All-or-Nothing</td>
+              <td>
+                <span class="table-feat-name">Flexible Controls</span>
+                <span class="table-feat-desc">Keep your subscriptions while hiding recommendations</span>
+              </td>
+              <td class="highlight-col">
+                <span class="status-badge status-good">✓ 20+ Independent Toggles</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">You choose what to keep or hide</div>
+              </td>
+              <td>
+                <span class="status-badge status-bad">✗ No Controls</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Manual custom rule editing only</div>
+              </td>
+              <td>
+                <span class="status-badge status-warn">⚠️ Rigid &amp; Limited</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Forced all-or-nothing settings</div>
+              </td>
             </tr>
             <tr>
-              <td>Clickbait Thumbnail Neutralizer</td>
-              <td class="highlight-col">Yes (Preserves Durations)</td>
-              <td>No</td>
-              <td>Rarely supported</td>
+              <td>
+                <span class="table-feat-name">Calm Clickbait Thumbnails</span>
+                <span class="table-feat-desc">Mask screaming covers without losing video titles or timestamps</span>
+              </td>
+              <td class="highlight-col">
+                <span class="status-badge status-good">✓ Included</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Preserves duration tags &amp; titles</div>
+              </td>
+              <td>
+                <span class="status-badge status-bad">✗ Not Supported</span>
+              </td>
+              <td>
+                <span class="status-badge status-bad">✗ Rarely Supported</span>
+              </td>
             </tr>
             <tr>
-              <td>Telemetry &amp; Tracking</td>
-              <td class="highlight-col">0% (Strictly Local)</td>
-              <td>Varies</td>
-              <td>Varies</td>
+              <td>
+                <span class="table-feat-name">Daily Watch Timer &amp; Limits</span>
+                <span class="table-feat-desc">Mindful toast reminders and automated daily watch time limits</span>
+              </td>
+              <td class="highlight-col">
+                <span class="status-badge status-good">✓ Built-in</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Gentle nudge toasts &amp; hard limits</div>
+              </td>
+              <td>
+                <span class="status-badge status-bad">✗ No Time Limits</span>
+              </td>
+              <td>
+                <span class="status-badge status-bad">✗ Missing</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="table-feat-name">Privacy &amp; Data Security</span>
+                <span class="table-feat-desc">Is your browsing history or extension activity monitored?</span>
+              </td>
+              <td class="highlight-col">
+                <span class="status-badge status-good">✓ 100% Private (0% Telemetry)</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Stored solely on your device</div>
+              </td>
+              <td>
+                <span class="status-badge status-neutral">Varies</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Some send network telemetry</div>
+              </td>
+              <td>
+                <span class="status-badge status-neutral">Varies</span>
+                <div class="table-feat-desc" style="margin-top: 4px;">Often requires accounts or tracking</div>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-    
-</section>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+      <div class="section-head">
+        <div class="section-eyebrow">Got Questions?</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">Everything you need to know about Intentional YT's architecture, privacy, and distraction blocking capabilities.</p>
+      </div>
+      <div class="faq-grid">
+        <details class="faq-item" open>
+          <summary class="faq-question">
+            <span>How does Intentional YT achieve zero-flash blocking on YouTube?</span>
+            <svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Traditional distraction blockers wait for the webpage DOM to finish parsing before applying mutation observers or basic CSS rules. This creates an irritating, visual "flicker" where clickbait thumbnails and recommendations flash for 100–300ms before vanishing.</p>
+            <p>Intentional YT eliminates this by attaching CSS class tokens to the <code>&lt;html&gt;</code> root at <code>document_start</code>—before the browser paints even the very first pixel. Distracting components are styled away instantly at 0ms latency with zero layout jump.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Can I block YouTube Shorts completely across the entire site?</span>
+            <svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes. Intentional YT implements comprehensive suppression for Shorts across all surfaces: homepage shelves, sidebar navigation items, search result carousels, channel tab navigation, and watch-page recommendations.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>How is Intentional YT different from Unhook or DF Tube?</span>
+            <svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>While legacy extensions offer basic binary toggles, Intentional YT is built with modern web architecture in mind:</p>
+            <p>• <strong>20+ Granular Toggles</strong>: Freely hide what distracts you while preserving what you need (e.g. keeping subscriptions while hiding recommended feeds).</p>
+            <p>• <strong>Clickbait De-stimulation</strong>: Gray out or mask shouting thumbnails while keeping video durations intact.</p>
+            <p>• <strong>Mindful Watch Timers</strong>: Real-time daily active playback counter and gentle interval reminders.</p>
+            <p>• <strong>Zero Telemetry</strong>: No external server calls, tracking scripts, or data collection whatsoever.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Does Intentional YT collect any data or browsing history?</span>
+            <svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Strictly zero. Intentional YT does not include any analytics libraries, telemetry, error reporting beacons, or remote tracking. All your settings and watch-time counters remain 100% local inside your browser's private <code>browser.storage.local</code> storage.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Which browsers are supported?</span>
+            <svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Intentional YT is verified and published on the <strong>Firefox Add-ons Store</strong>. It also runs smoothly across all Chromium-based browsers (Google Chrome, Brave, Microsoft Edge, Opera, and Arc) by loading the unpacked folder in Developer Mode.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Is Intentional YT open source and free to use?</span>
+            <svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes. Intentional YT is free, fully open source under the MIT License, and maintained publicly on GitHub. You can view, audit, fork, or contribute to the code anytime.</p>
+          </div>
+        </details>
+      </div>
+    </section>
 
     <!-- Installation Section -->
     <section id="install" class="install-section">
@@ -1607,6 +2099,8 @@
           </div>
         </div>
       </div>
+    </section>
+
     <!-- Review & Community CTA -->
     <section style="margin-bottom: 90px; text-align: center; background: var(--surface-glass); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 40px 24px; box-shadow: var(--shadow-sm);">
       <div style="font-size: 24px; margin-bottom: 12px; color: #f59e0b;">★★★★★</div>
@@ -1627,25 +2121,73 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <div class="footer-grid">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <img src="icons/icon.svg" width="22" height="22" alt="" />
-          <span style="font-weight:700; color:var(--text-primary);">Intentional YT</span>
-          <span style="font-size:12px; color:var(--text-muted);">— Open Source Focus Utility (MIT)</span>
+      <div class="footer-top">
+        <!-- Brand / About Column -->
+        <div class="footer-brand-col">
+          <div class="footer-brand-title">
+            <img src="icons/icon.svg" width="24" height="24" alt="Intentional YT Logo" />
+            <span>Intentional YT</span>
+          </div>
+          <p class="footer-brand-desc">
+            A minimalist, zero-flash browser extension engineered to strip distraction surfaces, endless recommendations, and clickbait from YouTube.
+          </p>
+          <div class="footer-badges">
+            <span class="footer-tag">MIT Open Source</span>
+            <span class="footer-tag">100% Local</span>
+            <span class="footer-tag">Zero Telemetry</span>
+          </div>
         </div>
-        <div class="footer-links">
-          <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/" target="_blank" rel="noopener noreferrer" class="footer-link" style="color:var(--accent-blue); font-weight:600;">Firefox Add-on Store ↗</a>
-          <a href="https://github.com/manasdotio/intentional-yt" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Repository</a>
-          <a href="PRIVACY.md" class="footer-link">Privacy Policy</a>
-          <a href="SECURITY.md" class="footer-link">Security</a>
-          <a href="CONTRIBUTING.md" class="footer-link">Contributing</a>
+
+        <!-- Product & Features Column -->
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-nav-list">
+            <li><a href="#demo" class="footer-nav-link">Interactive Demo</a></li>
+            <li><a href="#features" class="footer-nav-link">Core Features</a></li>
+            <li><a href="#calculator" class="footer-nav-link">Focus Calculator</a></li>
+            <li><a href="#comparison" class="footer-nav-link">Why Us?</a></li>
+            <li><a href="#faq" class="footer-nav-link">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Installation & Stores -->
+        <div>
+          <h4 class="footer-col-title">Installation</h4>
+          <ul class="footer-nav-list">
+            <li><a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/" target="_blank" rel="noopener noreferrer" class="footer-nav-link">Firefox Add-on Store ↗</a></li>
+            <li><a href="#install" class="footer-nav-link">Chrome &amp; Brave Setup</a></li>
+            <li><a href="#install" class="footer-nav-link">Edge &amp; Arc Setup</a></li>
+            <li><a href="https://github.com/manasdotio/intentional-yt/releases" target="_blank" rel="noopener noreferrer" class="footer-nav-link">Release Packages ↗</a></li>
+          </ul>
+        </div>
+
+        <!-- Open Source & Resources -->
+        <div>
+          <h4 class="footer-col-title">Resources</h4>
+          <ul class="footer-nav-list">
+            <li><a href="https://github.com/manasdotio/intentional-yt" target="_blank" rel="noopener noreferrer" class="footer-nav-link">GitHub Repository ↗</a></li>
+            <li><a href="PRIVACY.md" class="footer-nav-link">Privacy Policy</a></li>
+            <li><a href="SECURITY.md" class="footer-nav-link">Security Audit</a></li>
+            <li><a href="CONTRIBUTING.md" class="footer-nav-link">Contributing</a></li>
+            <li><a href="https://github.com/manasdotio/intentional-yt/issues" target="_blank" rel="noopener noreferrer" class="footer-nav-link">Report an Issue ↗</a></li>
+          </ul>
         </div>
       </div>
-      <div style="font-size:12px; color:var(--text-muted); text-align:center;">
-        Designed for human agency, deep work, and digital well-being.
+
+      <div class="footer-bottom">
+        <div>
+          <span>© 2026 Intentional YT • Free &amp; Open Source under MIT License</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <span>Designed for deep focus &amp; digital well-being</span>
+          <span>•</span>
+          <a href="#" class="footer-back-top" aria-label="Scroll back to top">
+            <span>Back to top</span>
+            <span>↑</span>
+          </a>
+        </div>
       </div>
-    
-</footer>
+    </footer>
 
   </div>
   <!-- Interactive Controller Scripts -->
