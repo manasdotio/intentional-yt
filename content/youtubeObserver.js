@@ -1,49 +1,11 @@
 /**
- * YouTube Observer - Main content script coordinator
- * Observes page changes and coordinates all other content scripts
+ * YouTube Route Observer for Intentional YT
+ * Coordinates blockers, timers, and redirects across YouTube SPA updates.
  */
 
-const isYouTubeObserverHostSupported = () => {
-  const hostname = window.location.hostname.toLowerCase();
-  return hostname === 'www.youtube.com' || hostname === 'youtube.com';
-};
-
 class YouTubeObserver {
-  static navigationEventNames = ['yt-navigate-start', 'yt-navigate-finish', 'yt-page-data-updated'];
-  static activityPingIntervalMs = 15000;
   static instance;
-  
-  currentVideoId = null;
-  currentUrl = '';
-  previousUrl = '';
-  isWatching = false;
-  watchFlexyObserver = null;
-  observedWatchFlexy = null;
-  navigationCheckTimeout = null;
-  lastActivityPingAt = 0;
-  _navigationInProgress = false;
-  _videoAbortController = null;
-  
-  boundHandleBeforeUnload = () => {
-    browser.runtime.sendMessage({
-      type: 'page-unload',
-      data: {}
-    }).catch(() => {});
-  };
 
-  boundTrackActivity = () => this.trackActivity();
-  
-  boundHandleNavigationSignal = () => {
-    this.attachWatchFlexyObserver();
-    this.scheduleUrlChangeCheck();
-  };
-
-  storage;
-  timeUtils;
-  recommendationBlocker;
-  timerOverlay;
-  topicGuard;
-  
   static getInstance() {
     if (!YouTubeObserver.instance) {
       YouTubeObserver.instance = new YouTubeObserver();
@@ -52,380 +14,117 @@ class YouTubeObserver {
   }
 
   constructor() {
+    this.currentUrl = window.location.href;
+    this.currentVideoId = this.extractVideoId(this.currentUrl);
     this.init();
   }
 
-  async init() {
-    await this.waitForDependencies();
-    
-    this.storage = window.StorageManager.getInstance();
-    this.timeUtils = window.TimeUtils.getInstance();
-
-    this.initializeComponents();
-    this.setupEventListeners();
-    this.observePageChanges();
-    this.detectCurrentState();
+  /**
+   * Bind event listeners for routing and storage changes.
+   */
+  init() {
+    this.setupListeners();
+    this.handleRouteChange();
   }
 
-  async waitForDependencies() {
-    return new Promise((resolve) => {
-      const checkDependencies = () => {
-        if (window.StorageManager && window.TimeUtils) {
-          resolve();
-        } else {
-          setTimeout(checkDependencies, 100);
-        }
-      };
-      checkDependencies();
-    });
-  }
+  setupListeners() {
+    // Listen to standard YouTube Polymer SPA navigation events
+    document.addEventListener('yt-navigate-finish', () => this.handleRouteChange());
+    document.addEventListener('yt-page-data-updated', () => this.handleRouteChange());
+    window.addEventListener('popstate', () => this.handleRouteChange());
 
-  setupEventListeners() {
-    // Listen for background messages
-    browser.runtime.onMessage.addListener((message) => {
-      this.handleBackgroundMessage(message);
-    });
-
-    // Page unload - end session
-    window.addEventListener('beforeunload', this.boundHandleBeforeUnload);
-
-    // User activity tracking
-    document.addEventListener('click', this.boundTrackActivity);
-    document.addEventListener('keypress', this.boundTrackActivity);
-    document.addEventListener('scroll', this.boundTrackActivity, { passive: true });
-  }
-
-  observePageChanges() {
-    for (const eventName of YouTubeObserver.navigationEventNames) {
-      document.addEventListener(eventName, this.boundHandleNavigationSignal);
-    }
-
-    this.attachWatchFlexyObserver();
-    this.scheduleUrlChangeCheck();
-
-    window.addEventListener('popstate', this.boundHandleNavigationSignal);
-  }
-
-  attachWatchFlexyObserver() {
-    const watchFlexy = document.querySelector('ytd-watch-flexy');
-
-    if (watchFlexy === this.observedWatchFlexy) {
-      return;
-    }
-
-    this.watchFlexyObserver?.disconnect();
-    this.observedWatchFlexy = watchFlexy;
-
-    if (!watchFlexy) {
-      this.scheduleUrlChangeCheck();
-      return;
-    }
-
-    this.watchFlexyObserver = new MutationObserver(() => {
-      this.scheduleUrlChangeCheck();
-    });
-
-    this.watchFlexyObserver.observe(watchFlexy, {
-      attributes: true,
-      attributeFilter: ['video-id', 'hidden']
-    });
-
-    this.scheduleUrlChangeCheck();
-  }
-
-  scheduleUrlChangeCheck() {
-    if (this.navigationCheckTimeout !== null) {
-      window.clearTimeout(this.navigationCheckTimeout);
-    }
-
-    this.navigationCheckTimeout = window.setTimeout(() => {
-      this.navigationCheckTimeout = null;
-
-      const nextUrl = window.location.href;
-      if (nextUrl !== this.currentUrl) {
-        this.handleUrlChange(nextUrl);
+    // Fallback URL checker to capture transitions missed by events
+    setInterval(() => {
+      if (window.location.href !== this.currentUrl) {
+        this.handleRouteChange();
       }
-    }, 50);
-  }
+    }, 500);
 
-  async handleUrlChange(nextUrl = window.location.href) {
-    if (this._navigationInProgress) return;
-    this._navigationInProgress = true;
-    
-    try {
-      // Immediately block/redirect Shorts
-      if (nextUrl.includes('/shorts/')) {
-        window.location.href = 'https://www.youtube.com/';
-        return;
-      }
-
-      const previousUrl = this.currentUrl;
-      this.previousUrl = previousUrl;
-      this.currentUrl = nextUrl;
-
-      const newVideoId = this.extractVideoId(nextUrl);
-      
-      if (newVideoId !== this.currentVideoId) {
-        if (this.currentVideoId && this.isWatching) {
-          this.endVideoWatch(this.currentVideoId);
-        }
-        
-        this.currentVideoId = newVideoId;
-        
-        if (newVideoId) {
-          await this.startVideoWatch(newVideoId);
+    // Apply storage updates immediately on user toggle inside popup
+    browser.storage.onChanged.addListener(async (changes) => {
+      if (changes.settings) {
+        const settings = changes.settings.newValue;
+        if (settings) {
+          this.applySettingsState(settings);
+          // Also check watch limit immediately if we are on /watch
+          if (window.location.pathname === '/watch' && typeof TimerToast !== 'undefined') {
+            TimerToast.checkWatchLimit();
+          }
         }
       }
-
-      // Route layout updates
-      if (nextUrl.includes('/watch')) {
-        await this.handleWatchPage();
-      } else if (nextUrl.includes('/results')) {
-        this.handleSearchResultsPage();
-      } else {
-        await this.handleNonWatchPage();
-      }
-    } finally {
-      this._navigationInProgress = false;
-    }
-  }
-
-  async startVideoWatch(videoId) {
-    this.isWatching = false;
-
-    if (this.timerOverlay) {
-      this.timerOverlay.startNewVideoSession();
-    }
-
-    const settings = await this.storage.getSettings();
-    const isIntentional = await this.checkVideoIntentionality(videoId, settings);
-
-    browser.runtime.sendMessage({
-      type: 'session-start',
-      data: { isIntentional: isIntentional }
-    });
-
-    this.setupVideoEventListeners();
-    this.syncVideoPlaybackState(videoId);
-  }
-
-  async checkVideoIntentionality(videoId, settings) {
-    if (!settings.activeIntention) {
-      return false;
-    }
-    if (this.topicGuard) {
-      const allowed = await this.topicGuard.evaluateCurrentVideoAccess();
-      return allowed;
-    }
-    return true;
-  }
-
-  endVideoWatch(videoId) {
-    this.isWatching = false;
-    this._videoAbortController?.abort();
-    this._videoAbortController = null;
-    
-    browser.runtime.sendMessage({
-      type: 'video-ended',
-      data: { videoId: videoId }
     });
   }
 
-  setupVideoEventListeners() {
-    const video = document.querySelector('video');
-    if (!video) return;
-
-    this._videoAbortController?.abort();
-    this._videoAbortController = new AbortController();
-    const { signal } = this._videoAbortController;
-
-    const videoId = this.currentVideoId;
-    
-    video.addEventListener('play', async () => {
-      if (videoId && !this.isWatching) {
-        this.isWatching = true;
-        const settings = await this.storage.getSettings();
-        const isIntentional = await this.checkVideoIntentionality(videoId, settings);
-
-        browser.runtime.sendMessage({
-          type: 'video-started',
-          data: { videoId: videoId, isIntentional: isIntentional }
-        });
-      }
-    }, { signal });
-
-    video.addEventListener('pause', () => {
-      if (videoId && this.isWatching) {
-        this.isWatching = false;
-        browser.runtime.sendMessage({
-          type: 'video-paused',
-          data: { videoId: videoId }
-        });
-      }
-    }, { signal });
-
-    video.addEventListener('ended', () => {
-      if (videoId) {
-        this.isWatching = false;
-        browser.runtime.sendMessage({
-          type: 'video-ended',
-          data: { videoId: videoId }
-        });
-      }
-    }, { signal });
-  }
-
-  syncVideoPlaybackState(videoId) {
-    if (!videoId) {
-      this.isWatching = false;
-      return;
-    }
-
-    const video = document.querySelector('video');
-    const isActivelyPlaying = Boolean(video && !video.paused && !video.ended && video.readyState > 2);
-
-    if (isActivelyPlaying && !this.isWatching) {
-      this.isWatching = true;
-      
-      this.storage.getSettings().then((settings) => {
-        return this.checkVideoIntentionality(videoId, settings);
-      }).then((isIntentional) => {
-        browser.runtime.sendMessage({
-          type: 'video-started',
-          data: { videoId, isIntentional }
-        });
-      });
-      return;
-    }
-
-    if (!isActivelyPlaying) {
-      this.isWatching = false;
-    }
-  }
-
-  async handleWatchPage() {
-    if (this.recommendationBlocker) {
-      this.recommendationBlocker.hidePortal();
-    }
-
-    const settings = await this.storage.getSettings();
-
-    // Trigger drift check-in and portal overlay logic
-    if (this.topicGuard) {
-      this.topicGuard.checkCurrentVideo();
-    }
-
-    if (this.timerOverlay) {
-      this.timerOverlay.setTrackingEnabled(true);
-      if (settings.activeIntention) {
-        this.timerOverlay.show();
-      } else {
-        this.timerOverlay.hide();
-      }
-    }
-  }
-
-  handleSearchResultsPage() {
-    if (this.recommendationBlocker) {
-      this.recommendationBlocker.hidePortal();
-    }
-    if (this.topicGuard) {
-      this.topicGuard.hideCheckInOverlays();
-    }
-    if (this.timerOverlay) {
-      this.timerOverlay.setTrackingEnabled(false);
-      this.timerOverlay.show(); // keeps active intention visible
-    }
-  }
-
-  async handleNonWatchPage() {
-    if (this.timerOverlay) {
-      this.timerOverlay.setTrackingEnabled(false);
-      this.timerOverlay.hide();
-    }
-    if (this.topicGuard) {
-      this.topicGuard.hideCheckInOverlays();
-    }
-
-    // Render Mindful Portal on homepage
-    if (this.recommendationBlocker && this.isHomePage()) {
-      await this.recommendationBlocker.showPortal();
-    }
-  }
-
-  isHomePage() {
-    const url = window.location.href;
-    return (url === 'https://www.youtube.com/' ||
-      url === 'https://youtube.com/' ||
-      url.includes('youtube.com/?') ||
-      url.includes('youtube.com/feed/subscriptions')) &&
-      !url.includes('/watch') &&
-      !url.includes('/results');
-  }
-
-  trackActivity() {
-    const now = Date.now();
-    if ((now - this.lastActivityPingAt) < YouTubeObserver.activityPingIntervalMs) {
-      return;
-    }
-
-    this.lastActivityPingAt = now;
-    browser.runtime.sendMessage({
-      type: 'activity',
-      data: { timestamp: now }
-    }).catch(() => {});
-  }
-
-  handleBackgroundMessage(message) {
-    const { type } = message;
-    
-    switch (type) {
-      case 'intent-updated':
-        this.handleUrlChange(window.location.href);
-        break;
-    }
-  }
-
-  detectCurrentState() {
-    this.currentUrl = window.location.href;
-    this.previousUrl = document.referrer;
-    this.currentVideoId = this.extractVideoId(this.currentUrl);
-    
-    if (this.currentVideoId && document.querySelector('video')) {
-      this.startVideoWatch(this.currentVideoId);
-      this.handleWatchPage();
-    } else {
-      this.handleNonWatchPage();
-    }
-  }
-
-  initializeComponents() {
-    if (window.RecommendationBlocker) {
-      this.recommendationBlocker = window.RecommendationBlocker.getInstance();
-    }
-    
-    if (window.TimerOverlay) {
-      this.timerOverlay = window.TimerOverlay.getInstance();
-    }
-    
-    if (window.TopicGuard) {
-      this.topicGuard = window.TopicGuard.getInstance();
-    }
-  }
-
+  /**
+   * Extract video ID parameter from YouTube URLs.
+   */
   extractVideoId(url) {
-    const match = url.match(/[?&]v=([^&]+)/);
-    return match ? match[1] : null;
+    try {
+      const parsed = new URL(url);
+      return parsed.searchParams.get('v');
+    } catch (error) {
+      return null;
+    }
+  }
+
+  /**
+   * Evaluate route changes and invoke appropriate features.
+   */
+  async handleRouteChange() {
+    const nextUrl = window.location.href;
+    this.currentUrl = nextUrl;
+
+    const newVideoId = this.extractVideoId(nextUrl);
+    const videoIdChanged = newVideoId !== this.currentVideoId;
+    this.currentVideoId = newVideoId;
+
+    const settings = await StorageManager.getSettings();
+
+    // Force redirect to homepage if blockShorts is active and user accesses a Shorts page
+    if (settings.extensionEnabled && settings.blockShorts && window.location.pathname.startsWith('/shorts/')) {
+      window.location.replace('https://www.youtube.com/');
+      return;
+    }
+
+    // Refresh active settings based on route
+    this.applySettingsState(settings, videoIdChanged);
+  }
+
+  /**
+   * Toggle blockers and session timers based on configuration and current route.
+   */
+  applySettingsState(settings, forceVideoReset = false) {
+    if (!settings.extensionEnabled) {
+      Blocker.removeCSS();
+      TimerToast.stopTimer();
+      return;
+    }
+
+    // Always inject blocker CSS when extension is enabled, since all blocker/toggles rules are in blocker.css
+    Blocker.injectCSS();
+
+    // Toggle classes on html based on settings
+    Blocker.updateToggles(settings);
+
+    // Handle watch vs non-watch paths
+    if (window.location.pathname === '/watch') {
+      if (settings.blockAutoplay) {
+        Blocker.disableAutoplay();
+      }
+
+      if (forceVideoReset) {
+        TimerToast.startTimer();
+      } else {
+        // Safe check to start tracking if not actively running
+        TimerToast.startTimer();
+      }
+    } else {
+      TimerToast.stopTimer();
+    }
   }
 }
 
-// Initialize when DOM is ready
-if (isYouTubeObserverHostSupported()) {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      YouTubeObserver.getInstance();
-    });
-  } else {
-    YouTubeObserver.getInstance();
-  }
+// Start observing if we are on a YouTube page
+if (window.location.hostname.endsWith('youtube.com')) {
+  YouTubeObserver.getInstance();
 }

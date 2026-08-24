@@ -6,137 +6,157 @@
   <title>Intentional YT</title>
   <link rel="stylesheet" href="../styles/ui.css">
 </head>
-<body class="yfg-popup" style="width: 352px; height: 500px; overflow-x: hidden; overflow-y: auto;">
-  <main class="yfg-popup-shell" style="padding: 16px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box;">
-    
-    <!-- Header Hero Card -->
-    <header class="yfg-card card" style="display: flex; align-items: center; justify-content: space-between; padding: 16px;">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <img src="../icons/icon.png" alt="" style="width: 32px; height: 32px;" />
-        <div>
-          <h1 class="yfg-popup-title" style="font-size: 16px; font-weight: 700; margin: 0; line-height: 1.2;">Intentional YT</h1>
-          <p style="font-size: 10px; margin: 2px 0 0; color: var(--yfg-color-text-muted); font-weight: 500;">Mindful Watch Companion</p>
-        </div>
-      </div>
+<body>
+  <!-- Extension Header with Master Switch -->
+  <header>
+    <div class="logo-container">
+      <span class="logo-icon">🎯</span>
+      <h1>Intentional YT</h1>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="master-toggle">
+      <span class="slider"></span>
+    </label>
+  </header>
+
+  <main>
+    <!-- Controls Configuration Card -->
+    <section class="card">
+      <h2 class="card-title">Settings</h2>
       
-      <!-- Enable Toggle -->
-      <button class="yfg-toggle-button" id="extension-toggle" type="button" aria-label="Toggle extension">
-        <span class="yfg-toggle-button-track" style="width: 36px; height: 20px; padding: 1px;">
-          <span class="yfg-toggle-button-thumb" style="width: 16px; height: 16px;"></span>
-        </span>
-      </button>
-    </header>
-
-    <!-- Intention Portal / Active Intention Area -->
-    <section class="yfg-card card" style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
-      <h2 class="section-title">Current Focus</h2>
-      
-      <!-- View state: When there is an active intention -->
-      <div id="active-intent-box" style="display: none; flex-direction: column; gap: 10px;">
-        <div style="background: rgba(59, 130, 246, 0.05); border: 1px dashed rgba(59, 130, 246, 0.2); border-radius: var(--yfg-radius-sm); padding: 12px;">
-          <p style="margin: 0; font-size: 10px; text-transform: uppercase; color: var(--yfg-color-primary); font-weight: 700;">Focusing on:</p>
-          <p id="active-intent-text" style="margin: 4px 0 0; font-size: 14px; font-weight: 600; line-height: 1.4;">"Learn React hooks"</p>
-          <p id="active-intent-timer" style="margin: 4px 0 0; font-family: monospace; font-size: 12px; color: var(--yfg-color-text-muted);">00:00 elapsed</p>
+      <!-- Block Recommendations -->
+      <div class="control-row">
+        <div class="control-label">
+          <span class="control-title">Block Recommendations</span>
+          <span class="control-desc">Hides home feed, sidebar list, and end screens</span>
         </div>
-        <div style="display: flex; gap: 8px;">
-          <button class="yfg-btn yfg-btn-primary" id="popup-change-intent-btn" style="flex: 1; min-height: 28px; padding: 4px; font-size: 11px;">Change</button>
-          <button class="yfg-btn yfg-btn-danger" id="popup-finish-intent-btn" style="flex: 1; min-height: 28px; padding: 4px; font-size: 11px; background: var(--yfg-color-danger) !important; border-color: transparent !important;">Finish Focus</button>
-        </div>
+        <label class="checkbox-switch">
+          <input type="checkbox" id="recommendations-toggle">
+          <span class="checkbox-slider"></span>
+        </label>
       </div>
 
-      <!-- Input state: When there is NO active intention -->
-      <div id="no-intent-box" style="display: flex; flex-direction: column; gap: 8px;">
-        <input type="text" id="popup-intent-input" class="input-field" placeholder="What is your intention for YouTube today?" style="font-size: 12px; padding: 8px 12px;" />
-        <button class="yfg-btn yfg-btn-primary" id="popup-start-intent-btn" style="width: fit-content; min-height: 30px; font-size: 11px; padding: 4px 12px;">Start Session</button>
-      </div>
-    </section>
-
-    <!-- Analytics Dashboard Card (Intentionality Index & History) -->
-    <section class="yfg-card card" style="padding: 16px; display: flex; flex-direction: column; gap: 14px;">
-      <h2 class="section-title">Today's Balance</h2>
-      
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--yfg-color-border); padding-bottom: 14px;">
-        <!-- Stats details -->
-        <div style="display: flex; flex-direction: column; gap: 8px; flex: 1;">
-          <div style="display: flex; justify-content: space-between; font-size: 12px;">
-            <span style="color: var(--yfg-color-text-muted);">Intentional Watch:</span>
-            <span id="stat-intentional-time" style="font-weight: 700; color: var(--yfg-color-success);">0m</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-size: 12px;">
-            <span style="color: var(--yfg-color-text-muted);">Aimless Drift:</span>
-            <span id="stat-drift-time" style="font-weight: 700; color: var(--yfg-color-danger);">0m</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-size: 12px;">
-            <span style="color: var(--yfg-color-text-muted);">Total Watch:</span>
-            <span id="stat-total-time" style="font-weight: 700;">0m</span>
-          </div>
+      <!-- Disable Autoplay -->
+      <div class="control-row">
+        <div class="control-label">
+          <span class="control-title">Disable Autoplay</span>
+          <span class="control-desc">Forcibly stops automatic video sequencing</span>
         </div>
-
-        <!-- SVG Ring -->
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 0 0 auto;">
-          <div class="yfg-progress-ring-container" style="width: 68px; height: 68px; position: relative; display: flex; align-items: center; justify-content: center;">
-            <svg class="yfg-progress-ring" width="68" height="68" style="transform: rotate(-90deg);">
-              <defs>
-                <linearGradient id="yfg-ring-gradient-popup" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#3b82f6" />
-                  <stop offset="100%" stop-color="#8b5cf6" />
-                </linearGradient>
-              </defs>
-              <circle class="yfg-progress-ring-circle-bg" cx="34" cy="34" r="28" stroke-width="4.5" style="fill: none; stroke: rgba(255,255,255,0.03);" />
-              <circle class="yfg-progress-ring-circle-fill" id="yfg-popup-ring-fill" cx="34" cy="34" r="28" stroke-width="4.5" style="fill: none; stroke: url(#yfg-ring-gradient-popup); stroke-linecap: round; transition: stroke-dashoffset 0.4s ease;" />
-            </svg>
-            <span class="yfg-progress-ring-text" id="yfg-popup-ring-text" style="position: absolute; font-size: 13px; font-weight: 700; color: var(--yfg-color-text); font-family: ui-monospace, monospace;">100%</span>
-          </div>
-          <span style="font-size: 8px; text-transform: uppercase; color: var(--yfg-color-text-muted); font-weight: 700; margin-top: 4px; letter-spacing: 0.05em;">Index</span>
-        </div>
+        <label class="checkbox-switch">
+          <input type="checkbox" id="autoplay-toggle">
+          <span class="checkbox-slider"></span>
+        </label>
       </div>
 
-      <!-- History list -->
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        <h3 style="font-size: 11px; text-transform: uppercase; color: var(--yfg-color-text-muted); font-weight: bold; margin: 0;">Today's Timeline</h3>
-        <div id="intent-history-list" style="max-height: 100px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px;">
-          <p style="font-size: 11px; color: var(--yfg-color-text-muted); font-style: italic; margin: 0; text-align: center;">No focus sessions logged today.</p>
+      <!-- Hide Shorts -->
+      <div class="control-row">
+        <div class="control-label">
+          <span class="control-title">Hide Shorts</span>
+          <span class="control-desc">Removes Shorts from sidebar, feed, and channel tabs</span>
         </div>
+        <label class="checkbox-switch">
+          <input type="checkbox" id="shorts-toggle">
+          <span class="checkbox-slider"></span>
+        </label>
       </div>
-    </section>
 
-    <!-- Settings Controls Card -->
-    <section class="yfg-card card" style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
-      <h2 class="section-title">Settings</h2>
-      
-      <!-- Breathing breaks selector -->
-      <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;">
-        <div>
-          <span style="font-weight: 600; display: block;">Breathing Breaks</span>
-          <span style="font-size: 10px; color: var(--yfg-color-text-muted);">Pauseless screen-trance alert</span>
+      <!-- Hide Comments -->
+      <div class="control-row">
+        <div class="control-label">
+          <span class="control-title">Hide Comments</span>
+          <span class="control-desc">Removes the comment section from all video pages</span>
         </div>
-        <select id="breathing-break-select" style="background: rgba(10,12,16,0.85); color: #fff; border: 1px solid var(--yfg-color-border-strong); border-radius: 6px; padding: 4px 8px; font-size: 11px; outline: none; transition: var(--yfg-transition);">
-          <option value="15">Every 15 mins</option>
-          <option value="20" selected>Every 20 mins</option>
-          <option value="30">Every 30 mins</option>
+        <label class="checkbox-switch">
+          <input type="checkbox" id="comments-toggle">
+          <span class="checkbox-slider"></span>
+        </label>
+      </div>
+
+      <!-- Hide Thumbnails -->
+      <div class="control-row">
+        <div class="control-label">
+          <span class="control-title">Hide Thumbnails</span>
+          <span class="control-desc">Replaces video previews with neutral placeholders to reduce clickbait</span>
+        </div>
+        <label class="checkbox-switch">
+          <input type="checkbox" id="thumbnails-toggle">
+          <span class="checkbox-slider"></span>
+        </label>
+      </div>
+
+      <!-- Grayscale Mode -->
+      <div class="control-row">
+        <div class="control-label">
+          <span class="control-title">Grayscale Mode</span>
+          <span class="control-desc">Removes colour from YouTube to reduce visual stimulation</span>
+        </div>
+        <label class="checkbox-switch">
+          <input type="checkbox" id="grayscale-toggle">
+          <span class="checkbox-slider"></span>
+        </label>
+      </div>
+
+      <!-- Soft Time Reminder Selection -->
+      <div class="control-row">
+        <div class="control-label">
+          <span class="control-title">Soft Time Reminder</span>
+          <span class="control-desc">Small notification at watch intervals</span>
+        </div>
+        <select id="reminder-select">
           <option value="0">Off</option>
+          <option value="30">30 min</option>
+          <option value="60">60 min</option>
+          <option value="90">90 min</option>
         </select>
       </div>
 
-      <!-- Block Shorts toggle -->
-      <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px; margin-top: 4px;">
-        <div>
-          <span style="font-weight: 600; display: block;">Block Shorts Pages</span>
-          <span style="font-size: 10px; color: var(--yfg-color-text-muted);">Redirect back to home portal</span>
+      <!-- Subtle Divider -->
+      <div class="divider" style="height: 1px; background: var(--iy-border); margin: 12px 0;"></div>
+
+      <!-- Daily Time Limit -->
+      <div class="control-row">
+        <div class="control-label">
+          <span class="control-title">Daily Time Limit</span>
+          <span class="control-desc">Stop playback when daily watch time is reached</span>
         </div>
-        <button class="yfg-toggle-button" id="shorts-block-toggle" type="button" aria-label="Toggle Shorts blocking">
-          <span class="yfg-toggle-button-track" style="width: 36px; height: 20px; padding: 1px;">
-            <span class="yfg-toggle-button-thumb" style="width: 16px; height: 16px;"></span>
-          </span>
-        </button>
+        <label class="checkbox-switch">
+          <input type="checkbox" id="watch-limit-toggle">
+          <span class="checkbox-slider"></span>
+        </label>
       </div>
 
-      <!-- Reset Stats button -->
-      <button class="yfg-btn yfg-btn-secondary" id="reset-stats-btn" style="width: 100%; min-height: 28px; font-size: 11px; margin-top: 8px;">Reset Daily Stats</button>
+      <!-- Daily Time Limit Dropdown -->
+      <div class="control-row" id="watch-limit-dropdown-row" style="display: none; padding-left: 12px; border-left: 2px solid var(--iy-accent); margin-top: 8px;">
+        <div class="control-label">
+          <span class="control-title">Limit Duration</span>
+          <span class="control-desc">Choose daily maximum limit</span>
+        </div>
+        <select id="watch-limit-select">
+          <option value="60">60 min</option>
+          <option value="90">90 min</option>
+          <option value="120">120 min</option>
+          <option value="30">30 min</option>
+        </select>
+      </div>
     </section>
 
+    <!-- Daily Statistics and Progress Bar Card -->
+    <section class="card">
+      <h2 class="card-title">Today's Usage</h2>
+      <div class="stats-container">
+        <div class="stats-row">
+          <span class="control-desc" style="font-size: 13px;">Watched today</span>
+          <span class="stats-val" id="watch-time-display">0m</span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progress-bar-fill"></div>
+        </div>
+        <div class="progress-label" id="progress-text">0% of target limit</div>
+      </div>
+    </section>
   </main>
 
+  <!-- Script Modules -->
   <script src="../utils/storage.js"></script>
   <script src="popup.js"></script>
 </body>

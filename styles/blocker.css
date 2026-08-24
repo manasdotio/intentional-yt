@@ -1,0 +1,257 @@
+/**
+ * Blocker Stylesheet for Intentional YT
+ * Injected into YouTube pages at document_start to hide recommendations and format overlays.
+ */
+
+/* Hide Home Feed */
+html.block-recommendations ytd-rich-grid-renderer,
+html.block-recommendations ytd-browse[page-subtype="home"] #primary ytd-rich-grid-renderer,
+html.block-recommendations ytd-browse[page-subtype="home"] #contents {
+  display: none !important;
+}
+
+/* Hide Watch Page Sidebar Recommendations */
+html.block-recommendations #related,
+html.block-recommendations ytd-watch-next-secondary-results-renderer,
+html.block-recommendations #secondary ytd-compact-video-renderer,
+html.block-recommendations ytd-item-section-renderer[section-identifier="related-items"] {
+  display: none !important;
+}
+
+/* Hide Video End-Screen Overlays & Autoplay Next Panels */
+html.block-recommendations .ytp-endscreen-content,
+html.block-recommendations .ytp-ce-element,
+html.block-recommendations ytd-endscreen-element-renderer,
+html.block-recommendations .ytp-suggestion-set,
+html.block-recommendations .ytp-autonav-endscreen-upnext-container,
+html.block-recommendations .ytp-upnext {
+  display: none !important;
+}
+
+/* Hide Shorts Shelves and Racks in Recommendations */
+html.block-recommendations ytd-reel-shelf-renderer,
+html.block-recommendations ytd-rich-shelf-renderer[is-shorts],
+html.block-recommendations ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+html.block-recommendations ytd-rich-section-renderer:has(ytd-reel-shelf-renderer) {
+  display: none !important;
+}
+
+/* Hide Trending and Explore Guide Sidebar Entries */
+html.block-recommendations a[href*="/feed/trending"],
+html.block-recommendations a[href*="/feed/explore"],
+html.block-recommendations ytd-guide-entry-renderer:has(a[href*="/feed/trending"]),
+html.block-recommendations ytd-guide-entry-renderer:has(a[href*="/feed/explore"]),
+html.block-recommendations ytd-mini-guide-entry-renderer:has(a[href*="/feed/trending"]),
+html.block-recommendations ytd-mini-guide-entry-renderer:has(a[href*="/feed/explore"]) {
+  display: none !important;
+}
+
+/* --- Shorts Blocker CSS Hiding --- */
+/* Shorts sidebar button & mini-guide */
+html.blockShorts ytd-guide-entry-renderer:has(a[href*="/shorts"]),
+html.blockShorts ytd-mini-guide-entry-renderer:has(a[href*="/shorts"]),
+html.blockShorts ytd-guide-entry-renderer a[title="Shorts"],
+html.blockShorts ytd-mini-guide-entry-renderer a[title="Shorts"],
+html.blockShorts ytd-guide-entry-renderer a[href*="/shorts"],
+html.blockShorts ytd-mini-guide-entry-renderer a[href*="/shorts"] {
+  display: none !important;
+}
+
+/* Shorts shelves and sections in feeds, home, and search */
+html.blockShorts ytd-reel-shelf-renderer,
+html.blockShorts ytd-rich-shelf-renderer[is-shorts],
+html.blockShorts ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+html.blockShorts ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
+html.blockShorts ytd-rich-section-renderer:has(a[href*="/shorts"]),
+html.blockShorts ytd-shelf-renderer:has(a[href*="/shorts"]),
+html.blockShorts ytd-item-section-renderer:has(ytd-reel-shelf-renderer),
+html.blockShorts ytd-item-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]) {
+  display: none !important;
+}
+
+/* Individual Shorts video items in grids, search results, and watch sidebar */
+html.blockShorts ytd-rich-item-renderer:has(a[href*="/shorts/"]),
+html.blockShorts ytd-grid-video-renderer:has(a[href*="/shorts/"]),
+html.blockShorts ytd-video-renderer:has(a[href*="/shorts/"]),
+html.blockShorts ytd-compact-video-renderer:has(a[href*="/shorts/"]) {
+  display: none !important;
+}
+
+/* Shorts tab on channel pages */
+html.blockShorts tp-yt-paper-tab:has(> .tab-content[title="Shorts"]),
+html.blockShorts tp-yt-paper-tab:has(a[href*="/shorts"]),
+html.blockShorts yt-tab-shape[tab-title="Shorts"],
+html.blockShorts yt-tab-shape:has(div[title="Shorts"]),
+html.blockShorts yt-tab-shape:has(a[href*="/shorts"]),
+html.blockShorts yt-tab-group-shape yt-tab-shape:has(a[href*="/shorts"]) {
+  display: none !important;
+}
+
+/* Shorts chips in search filters */
+html.blockShorts yt-chip-cloud-chip-renderer:has([title="Shorts"]),
+html.blockShorts yt-chip-cloud-chip-renderer:has(a[href*="shorts"]),
+html.blockShorts yt-chip-cloud-chip-renderer:has(yt-formatted-string[title="Shorts"]),
+html.blockShorts yt-chip-cloud-chip-renderer:has(span[title="Shorts"]) {
+  display: none !important;
+}
+
+/* Shorts notifications & pivot bar items */
+html.blockShorts ytd-notification-renderer:has(a[href*="/shorts/"]),
+html.blockShorts ytm-pivot-bar-item-renderer:has(a[href*="/shorts"]) {
+  display: none !important;
+}
+
+/* --- Hide Comments Section --- */
+html.hide-comments #comments,
+html.hide-comments ytd-comments {
+  display: none !important;
+}
+
+/* --- Hide Video Thumbnails --- */
+html.hide-thumbnails ytd-thumbnail img,
+html.hide-thumbnails ytd-playlist-thumbnail img,
+html.hide-thumbnails ytd-hero-playlist-thumbnail-renderer img,
+html.hide-thumbnails yt-collections-stack-renderer img,
+html.hide-thumbnails yt-image img,
+html.hide-thumbnails yt-img-shadow img,
+html.hide-thumbnails #thumbnail img,
+html.hide-thumbnails a#thumbnail img,
+html.hide-thumbnails #thumbnail .yt-core-image,
+html.hide-thumbnails a#thumbnail .yt-core-image,
+html.hide-thumbnails ytd-thumbnail .yt-core-image,
+html.hide-thumbnails ytd-playlist-thumbnail .yt-core-image,
+html.hide-thumbnails ytd-moving-thumbnail-renderer,
+html.hide-thumbnails ytd-video-preview,
+html.hide-thumbnails .ytp-inline-preview-ui,
+html.hide-thumbnails .ytp-videowall-still-image-img {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+html.hide-thumbnails ytd-thumbnail,
+html.hide-thumbnails ytd-playlist-thumbnail,
+html.hide-thumbnails ytd-hero-playlist-thumbnail-renderer,
+html.hide-thumbnails #thumbnail,
+html.hide-thumbnails a#thumbnail {
+  background-color: #1a1a1a !important;
+  border-radius: 8px !important;
+}
+
+/* --- Grayscale Mode --- */
+html.grayscale-mode {
+  filter: grayscale(100%) !important;
+}
+
+/* --- Daily Watch Time Limit Overlay --- */
+.iy-limit-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(8, 9, 12, 0.98) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 99999 !important; /* Above video and standard overlays */
+  color: #f3f4f6 !important;
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif !important;
+  gap: 16px !important;
+  border-radius: inherit !important;
+}
+
+.iy-limit-message {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  color: #fff !important;
+  margin: 0 20px !important;
+  line-height: 1.4 !important;
+}
+
+.iy-limit-button {
+  background: #3b82f6 !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  font-family: inherit !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+}
+
+.iy-limit-button:hover {
+  background: #2563eb !important;
+}
+
+/* --- Premium Soft Reminder Toast Alert --- */
+.iy-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647;
+  background: rgba(18, 20, 26, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #f3f4f6;
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 340px;
+  pointer-events: auto;
+}
+
+.iy-toast-container.iy-toast-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.iy-toast-icon {
+  font-size: 18px;
+  animation: iy-bounce 2s infinite ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.iy-toast-message {
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.iy-toast-close {
+  opacity: 0.4;
+  font-size: 12px;
+  margin-left: 12px;
+  padding: 4px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iy-toast-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+@keyframes iy-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}

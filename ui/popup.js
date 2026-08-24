@@ -1,275 +1,168 @@
 /**
- * Popup Control Panel (Intent-First Mindful Assistant)
- * Manages active focus sessions, statistics visualization, and options toggles.
+ * Popup Script for Intentional YT
+ * Binds UI components and updates watch stats in real-time.
  */
 
-class PopupManager {
-  storage;
-  timerInterval = null;
-  activeStartTime = 0;
+document.addEventListener('DOMContentLoaded', async () => {
+  const masterToggle = document.getElementById('master-toggle');
+  const recsToggle = document.getElementById('recommendations-toggle');
+  const autoplayToggle = document.getElementById('autoplay-toggle');
+  const shortsToggle = document.getElementById('shorts-toggle');
+  const commentsToggle = document.getElementById('comments-toggle');
+  const thumbnailsToggle = document.getElementById('thumbnails-toggle');
+  const grayscaleToggle = document.getElementById('grayscale-toggle');
+  const reminderSelect = document.getElementById('reminder-select');
+  
+  const watchLimitToggle = document.getElementById('watch-limit-toggle');
+  const watchLimitSelect = document.getElementById('watch-limit-select');
+  const watchLimitDropdownRow = document.getElementById('watch-limit-dropdown-row');
 
-  constructor() {
-    this.init();
-  }
+  const watchTimeDisplay = document.getElementById('watch-time-display');
+  const progressBarFill = document.getElementById('progress-bar-fill');
+  const progressText = document.getElementById('progress-text');
 
-  async init() {
-    this.storage = window.StorageManager.getInstance();
+  /**
+   * Read settings from storage and populate the popup interface.
+   */
+  async function loadSettings() {
+    const settings = await StorageManager.getSettings();
+
+    masterToggle.checked = settings.extensionEnabled;
+    recsToggle.checked = settings.blockRecommendations;
+    autoplayToggle.checked = settings.blockAutoplay;
+    shortsToggle.checked = settings.blockShorts;
+    commentsToggle.checked = settings.hideComments;
+    thumbnailsToggle.checked = settings.hideThumbnails;
+    grayscaleToggle.checked = settings.grayscaleMode;
     
-    await this.loadAndRender();
-    this.setupEventListeners();
-  }
-
-  async loadAndRender() {
-    const settings = await this.storage.getSettings();
-
-    // 1. Sync Toggles and Settings
-    this.setToggleState('extension-toggle', settings.extensionEnabled);
-    this.setToggleState('shorts-block-toggle', settings.shortsBlocked);
-    
-    const select = document.getElementById('breathing-break-select');
-    if (select) {
-      if (!settings.breathingBreaks.enabled) {
-        select.value = "0";
-      } else {
-        select.value = settings.breathingBreaks.intervalMinutes.toString();
-      }
-    }
-
-    // 2. Render Focus Area (Active vs Idle input)
-    const activeBox = document.getElementById('active-intent-box');
-    const noBox = document.getElementById('no-intent-box');
-    const activeText = document.getElementById('active-intent-text');
-    const inputField = document.getElementById('popup-intent-input');
-
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
-      this.timerInterval = null;
-    }
-
-    if (settings.activeIntention) {
-      if (activeBox) activeBox.style.display = 'flex';
-      if (noBox) noBox.style.display = 'none';
-      if (activeText) activeText.textContent = `"${settings.activeIntention}"`;
-      
-      this.activeStartTime = settings.intentionStartTime || Date.now();
-      this.startTimerUpdate();
+    // Set reminder dropdown option
+    if (settings.softReminder && settings.softReminder.enabled) {
+      reminderSelect.value = settings.softReminder.intervalMinutes.toString();
     } else {
-      if (activeBox) activeBox.style.display = 'none';
-      if (noBox) noBox.style.display = 'flex';
-      if (inputField) {
-        inputField.value = '';
-        inputField.focus();
-      }
+      reminderSelect.value = "0";
     }
 
-    // 3. Render Today's Balance Statistics & SVG Ring
-    const intentionalStat = document.getElementById('stat-intentional-time');
-    const driftStat = document.getElementById('stat-drift-time');
-    const totalStat = document.getElementById('stat-total-time');
-    const indexText = document.getElementById('yfg-popup-ring-text');
+    // Set watch limit settings
+    if (settings.watchLimit) {
+      watchLimitToggle.checked = settings.watchLimit.enabled;
+      watchLimitSelect.value = (settings.watchLimit.limitMinutes || 60).toString();
+    } else {
+      watchLimitToggle.checked = false;
+      watchLimitSelect.value = "60";
+    }
 
-    const todayWatch = settings.stats.todayWatchTime || 0;
-    const todayIntentional = settings.stats.todayIntentionalTime || 0;
-    const todayDrift = settings.stats.todayDriftTime || 0;
-    
-    const index = todayWatch > 0 
-      ? Math.round((todayIntentional / todayWatch) * 100) 
-      : 100;
+    // Toggle dropdown visibility inline
+    watchLimitDropdownRow.style.display = watchLimitToggle.checked ? 'flex' : 'none';
 
-    if (intentionalStat) intentionalStat.textContent = `${Math.round(todayIntentional / 60)}m`;
-    if (driftStat) driftStat.textContent = `${Math.round(todayDrift / 60)}m`;
-    if (totalStat) totalStat.textContent = `${Math.round(todayWatch / 60)}m`;
-    if (indexText) indexText.textContent = `${index}%`;
+    updateUIState(settings);
+    updateStatsDisplay(settings);
+  }
 
-    this.setProgressOffset(index);
-
-    // 4. Render Today's Timeline History
-    const historyList = document.getElementById('intent-history-list');
-    if (historyList) {
-      historyList.innerHTML = '';
-      const history = settings.intentionHistory || [];
-      const today = new Date().toDateString();
-      const todayHistory = history.filter((h) => h.date === today);
-
-      if (todayHistory.length === 0) {
-        historyList.innerHTML = `<p style="font-size: 11px; color: var(--yfg-color-text-muted); font-style: italic; margin: 0; text-align: center;">No focus sessions logged today.</p>`;
-      } else {
-        todayHistory.forEach((h) => {
-          const item = document.createElement('div');
-          item.style.cssText = `
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            padding: 4px 8px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 4px;
-            border: 1px solid var(--yfg-color-border);
-          `;
-          item.innerHTML = `
-            <span style="font-weight: 500; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 200px;">🎯 ${h.text}</span>
-            <span style="color: var(--yfg-color-primary); font-weight: bold;">${h.durationMinutes}m</span>
-          `;
-          historyList.appendChild(item);
-        });
-      }
+  /**
+   * Adjust body styling when the master toggle switches.
+   */
+  function updateUIState(settings) {
+    if (settings.extensionEnabled) {
+      document.body.classList.remove('disabled-mode');
+    } else {
+      document.body.classList.add('disabled-mode');
     }
   }
 
-  setupEventListeners() {
-    const extToggle = document.getElementById('extension-toggle');
-    const shortsToggle = document.getElementById('shorts-block-toggle');
-    const breakSelect = document.getElementById('breathing-break-select');
+  /**
+   * Render total daily watch time and percentage progress.
+   */
+  function updateStatsDisplay(settings) {
+    const totalSeconds = (settings.stats && settings.stats.todayWatchSeconds) || 0;
+
+    // Format display string: e.g. "1h 14m" or "25m" or "0m"
+    let displayStr = '0m';
+    if (totalSeconds >= 3600) {
+      const hrs = Math.floor(totalSeconds / 3600);
+      const mins = Math.floor((totalSeconds % 3600) / 60);
+      displayStr = `${hrs}h ${mins}m`;
+    } else {
+      const mins = Math.floor(totalSeconds / 60);
+      displayStr = `${mins}m`;
+    }
+    watchTimeDisplay.textContent = displayStr;
+
+    // Determine watch limit target (use configured soft reminder threshold, default to 60 minutes)
+    let targetMinutes = 60;
+    if (settings.softReminder && settings.softReminder.enabled && settings.softReminder.intervalMinutes > 0) {
+      targetMinutes = settings.softReminder.intervalMinutes;
+    }
     
-    const startBtn = document.getElementById('popup-start-intent-btn');
-    const inputField = document.getElementById('popup-intent-input');
+    const targetSeconds = targetMinutes * 60;
+    const percent = Math.min(100, Math.round((totalSeconds / targetSeconds) * 100));
+
+    // Update progress bar GUI
+    progressBarFill.style.width = `${percent}%`;
+    progressText.textContent = `${percent}% of reminder interval (${targetMinutes}m)`;
+  }
+
+  /**
+   * Read DOM control values and persist them to storage.
+   */
+  async function saveSettingsFromUI() {
+    const enabled = masterToggle.checked;
+    const recs = recsToggle.checked;
+    const autoplay = autoplayToggle.checked;
+    const shorts = shortsToggle.checked;
+    const comments = commentsToggle.checked;
+    const thumbnails = thumbnailsToggle.checked;
+    const grayscale = grayscaleToggle.checked;
+    const reminderVal = parseInt(reminderSelect.value, 10);
+
+    const watchLimitEnabled = watchLimitToggle.checked;
+    const watchLimitVal = parseInt(watchLimitSelect.value, 10);
+
+    const settings = await StorageManager.getSettings();
+    settings.extensionEnabled = enabled;
+    settings.blockRecommendations = recs;
+    settings.blockAutoplay = autoplay;
+    settings.blockShorts = shorts;
+    settings.hideComments = comments;
+    settings.hideThumbnails = thumbnails;
+    settings.grayscaleMode = grayscale;
     
-    const changeBtn = document.getElementById('popup-change-intent-btn');
-    const finishBtn = document.getElementById('popup-finish-intent-btn');
-    const resetBtn = document.getElementById('reset-stats-btn');
-
-    // Enable/Disable toggles
-    extToggle?.addEventListener('click', async () => {
-      const settings = await this.storage.getSettings();
-      const nextVal = !settings.extensionEnabled;
-      await this.storage.saveSettings({ extensionEnabled: nextVal });
-      this.setToggleState('extension-toggle', nextVal);
-      this.notifyTabsOfChange();
-    });
-
-    shortsToggle?.addEventListener('click', async () => {
-      const settings = await this.storage.getSettings();
-      const nextVal = !settings.shortsBlocked;
-      await this.storage.saveSettings({ shortsBlocked: nextVal });
-      this.setToggleState('shorts-block-toggle', nextVal);
-      this.notifyTabsOfChange();
-    });
-
-    breakSelect?.addEventListener('change', async (e) => {
-      const select = e.target;
-      const val = parseInt(select.value);
-      await this.storage.saveSettings({
-        breathingBreaks: {
-          enabled: val > 0,
-          intervalMinutes: val > 0 ? val : 20
-        }
-      });
-      this.notifyTabsOfChange();
-    });
-
-    // Intention actions
-    const triggerStart = async () => {
-      if (!inputField) return;
-      const text = inputField.value.trim();
-      if (text) {
-        await this.storage.setIntention(text);
-        
-        await browser.runtime.sendMessage({
-          type: 'intent-status-changed',
-          data: { isIntentional: true }
-        });
-
-        await this.loadAndRender();
-        this.notifyTabsOfChange();
-      }
+    settings.softReminder = {
+      enabled: reminderVal > 0,
+      intervalMinutes: reminderVal > 0 ? reminderVal : (settings.softReminder ? settings.softReminder.intervalMinutes : 60)
     };
 
-    startBtn?.addEventListener('click', () => triggerStart());
-    inputField?.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') triggerStart();
-    });
-
-    changeBtn?.addEventListener('click', async () => {
-      const settings = await this.storage.getSettings();
-      // Remove active state temporarily so user can edit in input
-      if (inputField) {
-        inputField.value = settings.activeIntention;
-      }
-      
-      const activeBox = document.getElementById('active-intent-box');
-      const noBox = document.getElementById('no-intent-box');
-      if (activeBox) activeBox.style.display = 'none';
-      if (noBox) noBox.style.display = 'flex';
-      if (inputField) inputField.focus();
-    });
-
-    finishBtn?.addEventListener('click', async () => {
-      await this.storage.setIntention("");
-      
-      await browser.runtime.sendMessage({
-        type: 'intent-status-changed',
-        data: { isIntentional: false }
-      });
-
-      await this.loadAndRender();
-      this.notifyTabsOfChange();
-    });
-
-    // Reset daily statistics
-    resetBtn?.addEventListener('click', async () => {
-      const confirmed = confirm('Are you sure you want to reset today\'s intention statistics?');
-      if (confirmed) {
-        await this.storage.resetDailyStats();
-        
-        await browser.runtime.sendMessage({
-          type: 'intent-status-changed',
-          data: { isIntentional: false }
-        });
-
-        await this.loadAndRender();
-        this.notifyTabsOfChange();
-      }
-    });
-  }
-
-  startTimerUpdate() {
-    const timerText = document.getElementById('active-intent-timer');
-    const update = () => {
-      if (!timerText) return;
-      const elapsedSecs = Math.max(0, Math.floor((Date.now() - this.activeStartTime) / 1000));
-      const mins = Math.floor(elapsedSecs / 60);
-      const secs = elapsedSecs % 60;
-      timerText.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')} elapsed`;
+    settings.watchLimit = {
+      enabled: watchLimitEnabled,
+      limitMinutes: watchLimitVal
     };
-    
-    update();
-    this.timerInterval = setInterval(update, 1000);
+
+    await StorageManager.saveSettings(settings);
+
+    // Toggle dropdown visibility inline
+    watchLimitDropdownRow.style.display = watchLimitEnabled ? 'flex' : 'none';
+
+    updateUIState(settings);
+    updateStatsDisplay(settings);
   }
 
-  setToggleState(id, active) {
-    const toggle = document.getElementById(id);
-    if (toggle) {
-      toggle.classList.toggle('is-active', active);
-      const thumb = toggle.querySelector('.yfg-toggle-button-thumb');
-      if (thumb) {
-        thumb.style.transform = active ? 'translateX(16px)' : 'translateX(0)';
-      }
-    }
-  }
+  // Bind change event listeners
+  masterToggle.addEventListener('change', saveSettingsFromUI);
+  recsToggle.addEventListener('change', saveSettingsFromUI);
+  autoplayToggle.addEventListener('change', saveSettingsFromUI);
+  shortsToggle.addEventListener('change', saveSettingsFromUI);
+  commentsToggle.addEventListener('change', saveSettingsFromUI);
+  thumbnailsToggle.addEventListener('change', saveSettingsFromUI);
+  grayscaleToggle.addEventListener('change', saveSettingsFromUI);
+  reminderSelect.addEventListener('change', saveSettingsFromUI);
+  watchLimitToggle.addEventListener('change', saveSettingsFromUI);
+  watchLimitSelect.addEventListener('change', saveSettingsFromUI);
 
-  setProgressOffset(percent) {
-    const circle = document.getElementById('yfg-popup-ring-fill');
-    if (!circle) return;
-    const radius = 28;
-    const circumference = radius * 2 * Math.PI;
-    
-    circle.style.strokeDasharray = `${circumference} ${circumference}`;
-    const offset = circumference - (percent / 100) * circumference;
-    circle.style.strokeDashoffset = offset.toString();
-  }
+  // Run initial population
+  await loadSettings();
 
-  notifyTabsOfChange() {
-    browser.tabs.query({ url: ['*://www.youtube.com/*', '*://youtube.com/*'] }).then((tabs) => {
-      for (const tab of tabs) {
-        if (tab.id) {
-          browser.tabs.sendMessage(tab.id, { type: 'intent-updated' }).catch(() => {});
-        }
-      }
-    });
-  }
-}
-
-// Start
-document.addEventListener('DOMContentLoaded', () => {
-  new PopupManager();
+  // Periodically refresh stats counters while the popup is open
+  setInterval(async () => {
+    const settings = await StorageManager.getSettings();
+    updateStatsDisplay(settings);
+  }, 1000);
 });
