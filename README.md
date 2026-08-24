@@ -6,6 +6,7 @@
 
 **Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.**
 
+[![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install%20Extension-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-2.0.0-brightgreen.svg)
 ![Browsers](https://img.shields.io/badge/browsers-Firefox%20%7C%20Chromium-informational.svg)
@@ -14,7 +15,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 <p align="center">
-  <a href="https://manasdotio.github.io/intentional-yt/"><strong>🌐 Live Landing Page</strong></a> •
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"><strong>🦊 Install for Firefox</strong></a> •
+  <a href="https://manasdotio.github.io/intentional-yt/"><strong>🌐 Live Website</strong></a> •
   <a href="#-why-intentional-yt">Why Intentional YT?</a> •
   <a href="#-features">Features</a> •
   <a href="#-installation">Installation</a> •
@@ -73,9 +75,11 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 ## 🚀 Installation
 
 ### Firefox
-1. In Firefox, navigate to `about:debugging#/runtime/this-firefox`.
-2. Click **Load Temporary Add-on...**.
-3. Browse to the cloned directory and select [`manifest.json`](manifest.json).
+- **Official Store (Recommended)**: Install directly from [**Firefox Add-ons (AMO)**](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/).
+- **From Source**:
+  1. In Firefox, navigate to `about:debugging#/runtime/this-firefox`.
+  2. Click **Load Temporary Add-on...**.
+  3. Browse to the cloned directory and select [`manifest.json`](manifest.json).
 
 ### Chromium (Google Chrome, Brave, Microsoft Edge, Arc)
 1. Navigate to `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
