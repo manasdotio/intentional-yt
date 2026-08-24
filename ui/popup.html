@@ -1,163 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
   <title>Intentional YT</title>
-  <link rel="stylesheet" href="../styles/ui.css">
+  <link rel="stylesheet" href="../styles/popup.css" />
 </head>
 <body>
-  <!-- Extension Header with Master Switch -->
-  <header>
-    <div class="logo-container">
-      <span class="logo-icon">🎯</span>
-      <h1>Intentional YT</h1>
+<div id="shell">
+
+  <!-- Header -->
+  <div id="hd">
+    <img src="../icons/icon.png" alt="" class="hd-icon" />
+    <span class="hd-name">Intentional YT</span>
+    <span id="ext-badge">Active</span>
+    <input type="checkbox" class="chk" id="toggle-extensionEnabled" />
+  </div>
+
+  <!-- Controls -->
+  <div id="scroll">
+
+    <!-- Feed -->
+    <div class="sh"><span class="sh-label">Feed</span></div>
+    <div class="rows">
+      <label class="row"><span class="row-text">Hide home feed</span><input type="checkbox" class="chk" id="toggle-blockHomeFeed" /></label>
+      <label class="row"><span class="row-text">Hide subscriptions</span><input type="checkbox" class="chk" id="toggle-blockSubscriptionsFeed" /></label>
+      <label class="row"><span class="row-text">Hide recommended sidebar</span><input type="checkbox" class="chk" id="toggle-blockRecommended" /></label>
+      <label class="row"><span class="row-text">Hide Shorts</span><input type="checkbox" class="chk" id="toggle-blockShorts" /></label>
+      <label class="row"><span class="row-text">Hide Explore &amp; Trending</span><input type="checkbox" class="chk" id="toggle-blockExploreAndTrending" /></label>
+      <label class="row"><span class="row-text">Hide "More from YouTube"</span><input type="checkbox" class="chk" id="toggle-blockMoreFromYouTube" /></label>
+      <label class="row"><span class="row-text">Hide irrelevant search shelves</span><input type="checkbox" class="chk" id="toggle-blockIrrelevantSearchResults" /></label>
     </div>
-    <label class="switch">
-      <input type="checkbox" id="master-toggle">
-      <span class="slider"></span>
-    </label>
-  </header>
 
-  <main>
-    <!-- Controls Configuration Card -->
-    <section class="card">
-      <h2 class="card-title">Settings</h2>
-      
-      <!-- Block Recommendations -->
-      <div class="control-row">
-        <div class="control-label">
-          <span class="control-title">Block Recommendations</span>
-          <span class="control-desc">Hides home feed, sidebar list, and end screens</span>
-        </div>
-        <label class="checkbox-switch">
-          <input type="checkbox" id="recommendations-toggle">
-          <span class="checkbox-slider"></span>
-        </label>
+    <!-- Video -->
+    <div class="sh"><span class="sh-label">Video</span></div>
+    <div class="rows">
+      <label class="row"><span class="row-text">Hide end screen recommendations</span><input type="checkbox" class="chk" id="toggle-blockEndScreenVideowall" /></label>
+      <label class="row"><span class="row-text">Hide end screen cards</span><input type="checkbox" class="chk" id="toggle-blockEndScreenCards" /></label>
+      <label class="row"><span class="row-text">Hide live chat</span><input type="checkbox" class="chk" id="toggle-blockLiveChat" /></label>
+      <label class="row"><span class="row-text">Hide playlist panel</span><input type="checkbox" class="chk" id="toggle-blockPlaylist" /></label>
+      <label class="row"><span class="row-text">Disable autoplay</span><input type="checkbox" class="chk" id="toggle-disableAutoplay" /></label>
+      <label class="row"><span class="row-text">Hide annotations</span><input type="checkbox" class="chk" id="toggle-disableAnnotations" /></label>
+      <label class="row"><span class="row-text">Hide video info panel</span><input type="checkbox" class="chk" id="toggle-blockVideoInfo" /></label>
+      <div id="video-info-children" style="display:none">
+        <label class="row sub"><span class="row-text">Action buttons</span><input type="checkbox" class="chk" id="toggle-blockVideoButtons" /></label>
+        <label class="row sub"><span class="row-text">Channel info</span><input type="checkbox" class="chk" id="toggle-blockChannelInfo" /></label>
+        <label class="row sub"><span class="row-text">Description</span><input type="checkbox" class="chk" id="toggle-blockVideoDescription" /></label>
       </div>
+    </div>
 
-      <!-- Disable Autoplay -->
-      <div class="control-row">
-        <div class="control-label">
-          <span class="control-title">Disable Autoplay</span>
-          <span class="control-desc">Forcibly stops automatic video sequencing</span>
-        </div>
-        <label class="checkbox-switch">
-          <input type="checkbox" id="autoplay-toggle">
-          <span class="checkbox-slider"></span>
-        </label>
-      </div>
+    <!-- Social -->
+    <div class="sh"><span class="sh-label">Social</span></div>
+    <div class="rows">
+      <label class="row"><span class="row-text">Hide comments</span><input type="checkbox" class="chk" id="toggle-blockComments" /></label>
+      <label class="row"><span class="row-text">Hide commenter photos</span><input type="checkbox" class="chk" id="toggle-blockProfilePhotos" /></label>
+    </div>
 
-      <!-- Hide Shorts -->
-      <div class="control-row">
-        <div class="control-label">
-          <span class="control-title">Hide Shorts</span>
-          <span class="control-desc">Removes Shorts from sidebar, feed, and channel tabs</span>
-        </div>
-        <label class="checkbox-switch">
-          <input type="checkbox" id="shorts-toggle">
-          <span class="checkbox-slider"></span>
-        </label>
-      </div>
+    <!-- Interface -->
+    <div class="sh"><span class="sh-label">Interface</span></div>
+    <div class="rows">
+      <label class="row"><span class="row-text">Hide left sidebar</span><input type="checkbox" class="chk" id="toggle-blockSidebar" /></label>
+      <label class="row"><span class="row-text">Hide top header</span><input type="checkbox" class="chk" id="toggle-blockTopHeader" /></label>
+      <label class="row"><span class="row-text">Hide notification bell</span><input type="checkbox" class="chk" id="toggle-blockNotificationBell" /></label>
+      <label class="row"><span class="row-text">Hide merch &amp; offers</span><input type="checkbox" class="chk" id="toggle-blockMerch" /></label>
+      <label class="row"><span class="row-text">Hide mix playlists</span><input type="checkbox" class="chk" id="toggle-blockMixPlaylists" /></label>
+    </div>
 
-      <!-- Hide Comments -->
-      <div class="control-row">
-        <div class="control-label">
-          <span class="control-title">Hide Comments</span>
-          <span class="control-desc">Removes the comment section from all video pages</span>
-        </div>
-        <label class="checkbox-switch">
-          <input type="checkbox" id="comments-toggle">
-          <span class="checkbox-slider"></span>
-        </label>
-      </div>
+    <!-- Appearance -->
+    <div class="sh"><span class="sh-label">Appearance</span></div>
+    <div class="rows">
+      <label class="row"><span class="row-text">Hide thumbnails</span><input type="checkbox" class="chk" id="toggle-hideThumbnails" /></label>
+      <label class="row"><span class="row-text">Grayscale</span><input type="checkbox" class="chk" id="toggle-grayscaleMode" /></label>
+    </div>
 
-      <!-- Hide Thumbnails -->
-      <div class="control-row">
-        <div class="control-label">
-          <span class="control-title">Hide Thumbnails</span>
-          <span class="control-desc">Replaces video previews with neutral placeholders to reduce clickbait</span>
-        </div>
-        <label class="checkbox-switch">
-          <input type="checkbox" id="thumbnails-toggle">
-          <span class="checkbox-slider"></span>
-        </label>
-      </div>
-
-      <!-- Grayscale Mode -->
-      <div class="control-row">
-        <div class="control-label">
-          <span class="control-title">Grayscale Mode</span>
-          <span class="control-desc">Removes colour from YouTube to reduce visual stimulation</span>
-        </div>
-        <label class="checkbox-switch">
-          <input type="checkbox" id="grayscale-toggle">
-          <span class="checkbox-slider"></span>
-        </label>
-      </div>
-
-      <!-- Soft Time Reminder Selection -->
-      <div class="control-row">
-        <div class="control-label">
-          <span class="control-title">Soft Time Reminder</span>
-          <span class="control-desc">Small notification at watch intervals</span>
-        </div>
-        <select id="reminder-select">
-          <option value="0">Off</option>
+    <!-- Time -->
+    <div class="sh"><span class="sh-label">Time</span></div>
+    <div class="rows">
+      <label class="row"><span class="row-text">Soft reminder</span><input type="checkbox" class="chk" id="toggle-softReminder" /></label>
+      <div class="time-expand" id="soft-reminder-expand">
+        <span class="time-hint">Every</span>
+        <select class="time-sel" id="select-softReminderInterval">
+          <option value="15">15 min</option>
           <option value="30">30 min</option>
+          <option value="45">45 min</option>
           <option value="60">60 min</option>
           <option value="90">90 min</option>
+          <option value="custom">Custom...</option>
         </select>
-      </div>
-
-      <!-- Subtle Divider -->
-      <div class="divider" style="height: 1px; background: var(--iy-border); margin: 12px 0;"></div>
-
-      <!-- Daily Time Limit -->
-      <div class="control-row">
-        <div class="control-label">
-          <span class="control-title">Daily Time Limit</span>
-          <span class="control-desc">Stop playback when daily watch time is reached</span>
+        <div class="custom-time-wrap" id="soft-reminder-custom-wrap" style="display:none">
+          <input type="number" class="time-input" id="input-softReminderCustom" min="1" max="1440" placeholder="min" />
+          <span class="time-unit">min</span>
         </div>
-        <label class="checkbox-switch">
-          <input type="checkbox" id="watch-limit-toggle">
-          <span class="checkbox-slider"></span>
-        </label>
       </div>
-
-      <!-- Daily Time Limit Dropdown -->
-      <div class="control-row" id="watch-limit-dropdown-row" style="display: none; padding-left: 12px; border-left: 2px solid var(--iy-accent); margin-top: 8px;">
-        <div class="control-label">
-          <span class="control-title">Limit Duration</span>
-          <span class="control-desc">Choose daily maximum limit</span>
-        </div>
-        <select id="watch-limit-select">
+      <label class="row"><span class="row-text">Daily limit</span><input type="checkbox" class="chk" id="toggle-dailyLimit" /></label>
+      <div class="time-expand" id="daily-limit-expand">
+        <span class="time-hint">Stop after</span>
+        <select class="time-sel" id="select-dailyLimitMinutes">
+          <option value="15">15 min</option>
+          <option value="30">30 min</option>
+          <option value="45">45 min</option>
           <option value="60">60 min</option>
           <option value="90">90 min</option>
           <option value="120">120 min</option>
-          <option value="30">30 min</option>
+          <option value="custom">Custom...</option>
         </select>
-      </div>
-    </section>
-
-    <!-- Daily Statistics and Progress Bar Card -->
-    <section class="card">
-      <h2 class="card-title">Today's Usage</h2>
-      <div class="stats-container">
-        <div class="stats-row">
-          <span class="control-desc" style="font-size: 13px;">Watched today</span>
-          <span class="stats-val" id="watch-time-display">0m</span>
+        <div class="custom-time-wrap" id="daily-limit-custom-wrap" style="display:none">
+          <input type="number" class="time-input" id="input-dailyLimitCustom" min="1" max="1440" placeholder="min" />
+          <span class="time-unit">min</span>
         </div>
-        <div class="progress-bar-container">
-          <div class="progress-bar" id="progress-bar-fill"></div>
-        </div>
-        <div class="progress-label" id="progress-text">0% of target limit</div>
       </div>
-    </section>
-  </main>
+    </div>
 
-  <!-- Script Modules -->
-  <script src="../utils/storage.js"></script>
-  <script src="popup.js"></script>
+  </div><!-- /#scroll -->
+
+  <!-- Stats -->
+  <div id="stats">
+    <div class="stats-header">
+      <span class="stats-title">Today</span>
+      <span class="iyt-tooltip-wrap">
+        <span class="iyt-info-icon" aria-label="About daily watchtime">ⓘ</span>
+        <span class="iyt-tooltip-text">Tracks how many minutes you've watched YouTube today. Resets automatically at midnight. Use the daily limit toggle above to cap your session.</span>
+      </span>
+    </div>
+    <div class="stats-row">
+      <span id="stats-time">0 min</span>
+      <div class="stats-meta">
+        <span id="stats-limit-label">no limit</span>
+        <button id="stats-reset">reset</button>
+      </div>
+    </div>
+    <div class="prog"><div id="prog-fill"></div></div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer">
+    <span>No data leaves your browser</span>
+    <span>v2.0.0</span>
+  </div>
+
+</div>
+<script src="../utils/storage.js"></script>
+<script src="popup.js"></script>
 </body>
 </html>

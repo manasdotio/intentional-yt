@@ -1,331 +1,409 @@
 /**
- * Timer and Toast Alert Component for Intentional YT
- * Passive session watch timer + soft toast reminder.
+ * timerToast.js — Intentional YT v3
+ * Passive watch timer, soft reminder toast, and daily limit enforcement.
+ * Attached per watch/video page by youtubeObserver.js.
  */
 
-class TimerToast {
-  static trackingInterval = null;
-  static sessionSeconds = 0;
-  static unsavedSeconds = 0;
-  static videoElement = null;
-  static listenersAttached = false;
-  static isTracking = false;
+'use strict';
 
-  /**
-   * Start tracking watch time on the watch page.
-   * Flushes any previous session state first.
-   */
-  static startTimer() {
-    // If we are already tracking on the same video element, don't duplicate
-    if (TimerToast.isTracking && TimerToast.videoElement && document.body.contains(TimerToast.videoElement)) {
-      TimerToast.checkWatchLimit();
-      return;
-    }
+const IYT_Timer = (() => {
+  let _video = null;
+  let _settings = null;
+  let _sessionSeconds = 0;
+  let _intervalHandle = null;
+  let _batchAccumulator = 0;   // seconds accumulated since last storage write
+  let _baseWatchSeconds = 0;   // todayWatchSeconds value in storage
+  let _reminderIntervalCount = 0;
+  let _limitOverlayActive = false;
 
-    TimerToast.stopTimer(); // Flush any unsaved time and reset
-    TimerToast.isTracking = true;
-    TimerToast.sessionSeconds = 0;
-    TimerToast.unsavedSeconds = 0;
-
-    let attempts = 0;
-    const locateInterval = setInterval(() => {
-      attempts++;
-      const video = document.querySelector('video');
-      
-      if (video) {
-        TimerToast.videoElement = video;
-        TimerToast.attachVideoListeners();
-        clearInterval(locateInterval);
-
-        // Check watch limit
-        TimerToast.checkWatchLimit();
-
-        // If the video is already playing, start timer loop
-        if (!video.paused && !video.ended) {
-          TimerToast.startAccumulating();
-        }
-      }
-
-      if (attempts >= 15) {
-        clearInterval(locateInterval);
-      }
-    }, 400);
+  function _findActiveVideo() {
+    return document.querySelector('video.html5-main-video')
+      || document.querySelector('#movie_player video')
+      || document.querySelector('.html5-video-player video')
+      || document.querySelector('ytd-watch-flexy video')
+      || document.querySelector('ytd-player video')
+      || document.querySelector('video');
   }
 
-  /**
-   * Stop tracking, flush pending seconds, and clean listeners.
-   */
-  static stopTimer() {
-    TimerToast.isTracking = false;
-    TimerToast.stopAccumulating();
-    TimerToast.flushPendingSeconds();
-    TimerToast.detachVideoListeners();
-    TimerToast.videoElement = null;
-    TimerToast.sessionSeconds = 0;
+  function _isLimitExceeded() {
+    if (!_settings?.dailyLimit?.enabled) return false;
+    if (_settings.stats?.limitDismissedToday) return false;
+    const limitMin = Number(_settings.dailyLimit.limitMinutes) || 60;
+    const currentTotalSec = (_baseWatchSeconds || 0) + _batchAccumulator;
+    return (currentTotalSec / 60) >= limitMin;
   }
 
-  /**
-   * Attach playback state event listeners to the video element.
-   */
-  static attachVideoListeners() {
-    if (!TimerToast.videoElement || TimerToast.listenersAttached) return;
-    
-    TimerToast.videoElement.addEventListener('play', TimerToast.handlePlay);
-    TimerToast.videoElement.addEventListener('pause', TimerToast.handlePause);
-    TimerToast.videoElement.addEventListener('ended', TimerToast.handleEnded);
-    
-    TimerToast.listenersAttached = true;
-  }
-
-  /**
-   * Remove playback event listeners.
-   */
-  static detachVideoListeners() {
-    if (!TimerToast.videoElement || !TimerToast.listenersAttached) return;
-    
-    TimerToast.videoElement.removeEventListener('play', TimerToast.handlePlay);
-    TimerToast.videoElement.removeEventListener('pause', TimerToast.handlePause);
-    TimerToast.videoElement.removeEventListener('ended', TimerToast.handleEnded);
-    
-    TimerToast.listenersAttached = false;
-  }
-
-  static handlePlay = async () => {
-    await TimerToast.checkWatchLimit();
-    if (document.getElementById('iy-limit-overlay')) {
-      const video = TimerToast.videoElement || document.querySelector('video');
-      if (video) {
-        video.pause();
-      }
-      return;
-    }
-    TimerToast.startAccumulating();
-  };
-
-  static handlePause = () => {
-    TimerToast.stopAccumulating();
-    TimerToast.flushPendingSeconds();
-  };
-
-  static handleEnded = () => {
-    TimerToast.stopAccumulating();
-    TimerToast.flushPendingSeconds();
-    TimerToast.sessionSeconds = 0; // Reset session count for new video replay
-  };
-
-  /**
-   * Start the 1-second watch timer loop.
-   */
-  static startAccumulating() {
-    if (TimerToast.trackingInterval) return;
-
-    TimerToast.trackingInterval = setInterval(async () => {
-      const video = TimerToast.videoElement;
-      
-      // Ensure the video is actively playing (not buffering, paused, or ended)
-      if (video && !video.paused && !video.ended && video.readyState >= 3) {
-        TimerToast.sessionSeconds++;
-        TimerToast.unsavedSeconds++;
-
-        // Batch storage updates every 10 seconds
-        if (TimerToast.unsavedSeconds >= 10) {
-          await TimerToast.flushPendingSeconds();
-        }
-
-        // Check soft reminder criteria
-        const settings = await StorageManager.getSettings();
-        if (settings.extensionEnabled && settings.softReminder && settings.softReminder.enabled) {
-          const intervalSecs = settings.softReminder.intervalMinutes * 60;
-          if (intervalSecs > 0 && TimerToast.sessionSeconds >= intervalSecs) {
-            TimerToast.showToast(settings.softReminder.intervalMinutes);
-            TimerToast.sessionSeconds = 0; // Reset session interval count after showing toast
-          }
-        }
-      }
-    }, 1000);
-  }
-
-  /**
-   * Pause the watch timer loop.
-   */
-  static stopAccumulating() {
-    if (TimerToast.trackingInterval) {
-      clearInterval(TimerToast.trackingInterval);
-      TimerToast.trackingInterval = null;
-    }
-  }
-
-  /**
-   * Flush in-memory watch time directly to the browser storage.
-   */
-  static async flushPendingSeconds() {
-    if (TimerToast.unsavedSeconds > 0) {
-      const seconds = TimerToast.unsavedSeconds;
-      TimerToast.unsavedSeconds = 0; // Reset to avoid double counts on race conditions
-      
-      try {
-        await StorageManager.incrementWatchSeconds(seconds);
-        await TimerToast.checkWatchLimit();
-      } catch (error) {
-        console.error('Failed to flush watch time seconds:', error);
-        TimerToast.unsavedSeconds += seconds; // Restore on failure
-      }
-    }
-  }
-
-  /**
-   * Check if today's watch limit is exceeded and apply pause + overlay.
-   */
-  static async checkWatchLimit() {
-    if (window.location.pathname !== '/watch') {
-      TimerToast.removeOverlay();
-      return;
-    }
-
-    const settings = await StorageManager.getSettings();
-    if (!settings.extensionEnabled) {
-      TimerToast.removeOverlay();
-      return;
-    }
-
-    const limitEnabled = settings.watchLimit && settings.watchLimit.enabled;
-    if (!limitEnabled) {
-      TimerToast.removeOverlay();
-      return;
-    }
-
-    const todayWatchSeconds = (settings.stats && settings.stats.todayWatchSeconds) || 0;
-    const limitMinutes = settings.watchLimit.limitMinutes || 60;
-    const limitDismissed = settings.stats && settings.stats.limitDismissedToday;
-
-    if (todayWatchSeconds / 60 >= limitMinutes) {
-      if (!limitDismissed) {
-        TimerToast.injectOverlay(limitMinutes);
-      } else {
-        TimerToast.removeOverlay();
-      }
-    } else {
-      TimerToast.removeOverlay();
-    }
-  }
-
-  /**
-   * Inject the limit overlay into the video player.
-   */
-  static injectOverlay(limitMinutes) {
-    if (document.getElementById('iy-limit-overlay')) {
-      // Keep video paused
-      const video = TimerToast.videoElement || document.querySelector('video');
-      if (video && !video.paused) {
-        video.pause();
-      }
-      return;
-    }
-
-    const playerContainer = document.getElementById('movie_player') || 
-                            document.querySelector('.html5-video-player') || 
-                            (TimerToast.videoElement ? TimerToast.videoElement.parentElement : null);
-    if (!playerContainer) return;
-
-    // Pause video
-    const video = TimerToast.videoElement || document.querySelector('video');
-    if (video && !video.paused) {
-      video.pause();
-    }
-
-    const overlay = document.createElement('div');
-    overlay.id = 'iy-limit-overlay';
-    overlay.className = 'iy-limit-overlay';
-    overlay.innerHTML = `
-      <div class="iy-limit-message">
-        You've reached your ${limitMinutes} min daily limit.
-      </div>
-      <button id="iy-limit-dismiss-btn" class="iy-limit-button">Dismiss for today</button>
-    `;
-
-    playerContainer.appendChild(overlay);
-
-    const dismissBtn = overlay.querySelector('#iy-limit-dismiss-btn');
-    if (dismissBtn) {
-      dismissBtn.addEventListener('click', async () => {
-        try {
-          const settings = await StorageManager.getSettings();
-          if (!settings.stats) {
-            settings.stats = {};
-          }
-          settings.stats.limitDismissedToday = true;
-          await StorageManager.saveSettings(settings);
-          overlay.remove();
-        } catch (error) {
-          console.error('Failed to dismiss watch limit:', error);
-        }
-      });
-    }
-  }
-
-  /**
-   * Remove the limit overlay.
-   */
-  static removeOverlay() {
-    const overlay = document.getElementById('iy-limit-overlay');
-    if (overlay) {
-      overlay.remove();
-    }
-  }
-
-  /**
-   * Create and display the non-blocking, premium soft toast reminder.
-   */
-  static showToast(minutes) {
-    const oldToast = document.getElementById('iy-soft-toast');
-    if (oldToast) {
-      oldToast.remove();
-    }
+  // ─── Toast ─────────────────────────────────────────────────────────────────
+  function _showToast(minutes) {
+    document.getElementById('iyt-toast')?.remove();
 
     const toast = document.createElement('div');
-    toast.id = 'iy-soft-toast';
-    toast.className = 'iy-toast-container';
-    toast.innerHTML = `
-      <div class="iy-toast-icon">⏳</div>
-      <div class="iy-toast-message">You've been watching for ${minutes} minutes.</div>
-      <div class="iy-toast-close">✕</div>
-    `;
+    toast.id = 'iyt-toast';
+    toast.className = 'iyt-toast-container';
 
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'iyt-toast-icon';
+    iconSpan.textContent = '⏱';
+
+    const msgSpan = document.createElement('span');
+    msgSpan.className = 'iyt-toast-message';
+    msgSpan.textContent = `You've been watching for ${minutes} minute${minutes !== 1 ? 's' : ''}.`;
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'iyt-toast-close';
+    closeBtn.setAttribute('aria-label', 'Dismiss');
+    closeBtn.textContent = '✕';
+
+    toast.appendChild(iconSpan);
+    toast.appendChild(msgSpan);
+    toast.appendChild(closeBtn);
     document.body.appendChild(toast);
 
-    // Subtle micro-animation to slide in
-    setTimeout(() => {
-      toast.classList.add('iy-toast-show');
-    }, 50);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => toast.classList.add('iyt-toast-show'));
+    });
 
-    const dismiss = () => {
-      toast.classList.remove('iy-toast-show');
-      setTimeout(() => {
-        toast.remove();
-      }, 300);
-    };
+    let dismissed = false;
+    function dismiss() {
+      if (dismissed) return;
+      dismissed = true;
+      toast.classList.remove('iyt-toast-show');
+      setTimeout(() => toast.remove(), 350);
+    }
 
-    // Auto-remove after 5 seconds
-    const autoDismissTimer = setTimeout(dismiss, 5000);
-
-    // Dismiss immediately on user click
-    toast.addEventListener('click', (e) => {
-      clearTimeout(autoDismissTimer);
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       dismiss();
     });
+    setTimeout(dismiss, 6000);
   }
-}
 
-// Ensure flush runs on page leave or backgrounding
-window.addEventListener('beforeunload', () => {
-  TimerToast.flushPendingSeconds();
-});
+  // ─── Daily Limit Overlay ───────────────────────────────────────────────────
+  function _showLimitOverlay() {
+    if (_limitOverlayActive && document.getElementById('iyt-limit-overlay')) return;
 
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') {
-    TimerToast.flushPendingSeconds();
+    let playerEl = document.querySelector('#movie_player')
+      || document.querySelector('.html5-video-player')
+      || document.querySelector('ytd-player')
+      || (_video ? _video.closest('.html5-video-player') : null)
+      || (_video ? _video.parentElement : null);
+
+    if (!playerEl) {
+      playerEl = document.querySelector('#player') || document.querySelector('ytd-watch-flexy') || document.body;
+    }
+    if (!playerEl) return;
+
+    if (getComputedStyle(playerEl).position === 'static') {
+      playerEl.style.position = 'relative';
+    }
+
+    document.getElementById('iyt-limit-overlay')?.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'iyt-limit-overlay';
+    overlay.className = 'iy-limit-overlay';
+
+    const limitMin = _settings?.dailyLimit?.limitMinutes || 60;
+
+    const icon = document.createElement('div');
+    icon.className = 'iy-limit-icon';
+    icon.textContent = '⏳';
+
+    const title = document.createElement('h2');
+    title.className = 'iy-limit-title';
+    title.textContent = 'Daily Limit Reached';
+
+    const p = document.createElement('p');
+    p.className = 'iy-limit-message';
+    p.textContent = `You've reached your ${limitMin}-minute daily watch limit for YouTube today.`;
+
+    const btnGroup = document.createElement('div');
+    btnGroup.className = 'iy-limit-btn-group';
+
+    const stopBtn = document.createElement('button');
+    stopBtn.className = 'iy-limit-button';
+    stopBtn.textContent = 'Stop Watching (Go Home)';
+
+    const overrideBtn = document.createElement('button');
+    overrideBtn.className = 'iy-limit-button-secondary';
+    overrideBtn.textContent = 'Dismiss for today';
+
+    btnGroup.appendChild(stopBtn);
+    btnGroup.appendChild(overrideBtn);
+
+    overlay.appendChild(icon);
+    overlay.appendChild(title);
+    overlay.appendChild(p);
+    overlay.appendChild(btnGroup);
+
+    playerEl.appendChild(overlay);
+    _limitOverlayActive = true;
+
+    // Prevent clicks from penetrating through overlay to player
+    overlay.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    stopBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      _video?.pause();
+      window.location.href = 'https://www.youtube.com/';
+    });
+
+    overrideBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      await StorageManager.updateNestedSetting('stats', 'limitDismissedToday', true);
+      if (_settings?.stats) _settings.stats.limitDismissedToday = true;
+      overlay.remove();
+      _limitOverlayActive = false;
+    });
   }
-});
 
-// Export for global access
-window.TimerToast = TimerToast;
+  function _removeLimitOverlay() {
+    document.getElementById('iyt-limit-overlay')?.remove();
+    _limitOverlayActive = false;
+  }
+
+  // ─── Write accumulated seconds to storage ─────────────────────────────────
+  function _flushToStorage(seconds) {
+    if (seconds <= 0) return Promise.resolve();
+    return StorageManager._enqueue(async () => {
+      try {
+        const stored = await browser.storage.local.get('settings');
+        const settings = stored.settings
+          ? StorageManager._merge(StorageManager.getDefaultSettings(), stored.settings)
+          : StorageManager.getDefaultSettings();
+
+        const today = StorageManager.getTodayString();
+        if (!settings.stats || settings.stats.lastStatsReset !== today) {
+          settings.stats = {
+            todayWatchSeconds: 0,
+            limitDismissedToday: false,
+            lastStatsReset: today
+          };
+        }
+
+        settings.stats.todayWatchSeconds = (settings.stats.todayWatchSeconds || 0) + seconds;
+        _baseWatchSeconds = settings.stats.todayWatchSeconds;
+        await browser.storage.local.set({ settings });
+
+        _settings = settings;
+
+        // Daily limit check after flush
+        if (_isLimitExceeded()) {
+          if (_video && !_video.paused) {
+            _video.pause();
+          }
+          _showLimitOverlay();
+        }
+      } catch (err) {
+        console.warn('[IYT] flush failed', err);
+      }
+    });
+  }
+
+  // ─── Tick (runs every second while playing) ────────────────────────────────
+  function _tick() {
+    // If video element became detached, try to re-find
+    if (!_video || !_video.isConnected) {
+      const newVideo = _findActiveVideo();
+      if (newVideo && newVideo !== _video) {
+        attach();
+        return;
+      }
+    }
+
+    if (_video && _video.paused) {
+      _onPause();
+      return;
+    }
+
+    _sessionSeconds++;
+    _batchAccumulator++;
+
+    // Check daily limit every second in real time
+    if (_isLimitExceeded()) {
+      const toFlush = _batchAccumulator;
+      _batchAccumulator = 0;
+      _flushToStorage(toFlush);
+      if (_video && !_video.paused) {
+        _video.pause();
+      }
+      _showLimitOverlay();
+      return;
+    }
+
+    // Batch-write every 5 seconds
+    if (_batchAccumulator >= 5) {
+      const toFlush = _batchAccumulator;
+      _batchAccumulator = 0;
+      _flushToStorage(toFlush);
+    }
+
+    // Soft reminder check (every intervalMinutes of SESSION time)
+    if (_settings?.softReminder?.enabled) {
+      const intervalSec = (_settings.softReminder.intervalMinutes || 30) * 60;
+      const expectedCount = Math.floor(_sessionSeconds / intervalSec);
+      if (expectedCount > _reminderIntervalCount) {
+        _reminderIntervalCount = expectedCount;
+        _showToast(Math.round(_sessionSeconds / 60));
+      }
+    }
+  }
+
+  // ─── Video event handlers ──────────────────────────────────────────────────
+  function _onPlay() {
+    if (_isLimitExceeded()) {
+      if (_video && !_video.paused) {
+        _video.pause();
+      }
+      _showLimitOverlay();
+      return;
+    }
+
+    if (_intervalHandle) return; // guard against duplicate intervals
+    _intervalHandle = setInterval(_tick, 1000);
+  }
+
+  function _onPause() {
+    if (_intervalHandle) {
+      clearInterval(_intervalHandle);
+      _intervalHandle = null;
+    }
+    // Flush any un-flushed seconds immediately on pause
+    if (_batchAccumulator > 0) {
+      const toFlush = _batchAccumulator;
+      _batchAccumulator = 0;
+      _flushToStorage(toFlush);
+    }
+  }
+
+  function _onTimeUpdate() {
+    if (_isLimitExceeded()) {
+      if (_video && !_video.paused) {
+        _video.pause();
+      }
+      _showLimitOverlay();
+      return;
+    }
+    // Fallback: if video is actively progressing and not paused, ensure timer runs
+    if (_video && !_video.paused && !_intervalHandle) {
+      _onPlay();
+    }
+  }
+
+  // ─── Attach to video element ───────────────────────────────────────────────
+  async function attach() {
+    // Poll up to 6 seconds for the video element
+    let video = null;
+    for (let i = 0; i < 20; i++) {
+      video = _findActiveVideo();
+      if (video && video.isConnected) break;
+      await new Promise(r => setTimeout(r, 300));
+    }
+    if (!video) {
+      console.warn('[IYT] No video element found');
+      return;
+    }
+
+    if (_video === video && _intervalHandle) {
+      return;
+    }
+
+    detach(); // clean up any previous session
+
+    _video = video;
+    _sessionSeconds = 0;
+    _batchAccumulator = 0;
+    _reminderIntervalCount = 0;
+    _limitOverlayActive = false;
+
+    // Read settings at session start
+    _settings = await StorageManager.getSettings();
+    _baseWatchSeconds = _settings.stats?.todayWatchSeconds || 0;
+
+    // If limit already exceeded and not dismissed, intercept immediately
+    if (_isLimitExceeded()) {
+      _video.pause();
+      _showLimitOverlay();
+    }
+
+    _video.addEventListener('play', _onPlay);
+    _video.addEventListener('playing', _onPlay);
+    _video.addEventListener('timeupdate', _onTimeUpdate);
+    _video.addEventListener('pause', _onPause);
+    _video.addEventListener('ended', _onPause);
+    _video.addEventListener('waiting', _onPause);
+
+    // If video is already playing when we attach, start counting immediately
+    if (!_video.paused) {
+      _onPlay();
+    }
+  }
+
+  // ─── Detach / reset ────────────────────────────────────────────────────────
+  function detach() {
+    _onPause(); // flushes remaining accumulator and clears interval
+    if (_video) {
+      _video.removeEventListener('play', _onPlay);
+      _video.removeEventListener('playing', _onPlay);
+      _video.removeEventListener('timeupdate', _onTimeUpdate);
+      _video.removeEventListener('pause', _onPause);
+      _video.removeEventListener('ended', _onPause);
+      _video.removeEventListener('waiting', _onPause);
+      _video = null;
+    }
+    _removeLimitOverlay();
+    document.getElementById('iyt-toast')?.remove();
+    _sessionSeconds = 0;
+    _batchAccumulator = 0;
+    _reminderIntervalCount = 0;
+    _baseWatchSeconds = 0;
+    _limitOverlayActive = false;
+  }
+
+  // Flush on tab close, hide, or navigation
+  window.addEventListener('beforeunload', () => {
+    if (_batchAccumulator > 0) {
+      const toFlush = _batchAccumulator;
+      _batchAccumulator = 0;
+      _flushToStorage(toFlush);
+    }
+  });
+
+  window.addEventListener('pagehide', () => {
+    if (_batchAccumulator > 0) {
+      const toFlush = _batchAccumulator;
+      _batchAccumulator = 0;
+      _flushToStorage(toFlush);
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden' && _batchAccumulator > 0) {
+      const toFlush = _batchAccumulator;
+      _batchAccumulator = 0;
+      _flushToStorage(toFlush);
+    }
+  });
+
+  // Keep _settings in sync when popup or another tab changes settings
+  browser.storage.onChanged.addListener((changes) => {
+    if (changes.settings?.newValue) {
+      _settings = changes.settings.newValue;
+      _baseWatchSeconds = _settings.stats?.todayWatchSeconds || 0;
+      if (_isLimitExceeded()) {
+        if (_video && !_video.paused) {
+          _video.pause();
+        }
+        _showLimitOverlay();
+      } else {
+        _removeLimitOverlay();
+      }
+    }
+  });
+
+  return { attach, detach };
+})();
+
+window.__iytTimer = IYT_Timer;

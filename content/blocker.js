@@ -1,102 +1,75 @@
 /**
- * Blocker Component for Intentional YT
- * Handles CSS injection for layout blocking and autoplay disable features.
+ * blocker.js — Intentional YT v3
+ * Applies CSS classes to <html> based on settings. No dynamic JS blocking.
+ * Purely event-driven and zero-overhead.
  */
 
-class Blocker {
-  /**
-   * Inject the blocker stylesheet from the extension assets.
-   */
-  static injectCSS() {
-    if (document.getElementById('iy-blocker-style')) {
-      return;
+'use strict';
+
+const CLASS_MAP = {
+  blockHomeFeed:               'iyt-no-home-feed',
+  blockSidebar:                'iyt-no-sidebar',
+  blockRecommended:            'iyt-no-recommended',
+  blockLiveChat:               'iyt-no-live-chat',
+  blockPlaylist:               'iyt-no-playlist',
+  blockEndScreenVideowall:     'iyt-no-endscreen-wall',
+  blockEndScreenCards:         'iyt-no-endscreen-cards',
+  blockComments:               'iyt-no-comments',
+  blockProfilePhotos:          'iyt-no-profile-photos',
+  blockMixPlaylists:           'iyt-no-mix-playlists',
+  blockMerch:                  'iyt-no-merch',
+  blockVideoInfo:              'iyt-no-video-info',
+  blockVideoButtons:           'iyt-no-video-buttons',
+  blockChannelInfo:            'iyt-no-channel-info',
+  blockVideoDescription:       'iyt-no-video-desc',
+  blockTopHeader:              'iyt-no-top-header',
+  blockNotificationBell:       'iyt-no-notif-bell',
+  blockIrrelevantSearchResults:'iyt-no-irrelevant-search',
+  blockExploreAndTrending:     'iyt-no-explore',
+  blockMoreFromYouTube:        'iyt-no-more-yt',
+  blockShorts:                 'iyt-no-shorts',
+  blockSubscriptionsFeed:      'iyt-no-subscriptions',
+  disableAnnotations:          'iyt-no-annotations',
+  hideThumbnails:              'iyt-no-thumbnails',
+  grayscaleMode:               'iyt-grayscale',
+};
+
+const html = document.documentElement;
+let _settings = null;
+
+function applyAllClasses(settings) {
+  const enabled = settings.extensionEnabled !== false;
+  for (const [key, cls] of Object.entries(CLASS_MAP)) {
+    if (enabled && settings[key]) {
+      html.classList.add(cls);
+    } else {
+      html.classList.remove(cls);
     }
-    
-    const link = document.createElement('link');
-    link.id = 'iy-blocker-style';
-    link.rel = 'stylesheet';
-    link.href = browser.runtime.getURL('styles/blocker.css');
-    
-    // Append to document.head, fallback to documentElement if head doesn't exist yet
-    (document.head || document.documentElement).appendChild(link);
-  }
-
-  /**
-   * Remove the blocker stylesheet to restore standard YouTube elements.
-   */
-  static removeCSS() {
-    const link = document.getElementById('iy-blocker-style');
-    if (link) {
-      link.remove();
-    }
-    const html = document.documentElement;
-    if (html) {
-      html.classList.remove(
-        'block-recommendations',
-        'blockShorts',
-        'hide-comments',
-        'hide-thumbnails',
-        'grayscale-mode'
-      );
-    }
-  }
-
-  /**
-   * Toggle CSS blocker classes on document.documentElement.
-   */
-  static updateToggles(settings) {
-    const html = document.documentElement;
-    if (!html) return;
-
-    const enabled = settings.extensionEnabled;
-
-    html.classList.toggle('block-recommendations', !!(enabled && settings.blockRecommendations));
-    html.classList.toggle('blockShorts', !!(enabled && settings.blockShorts));
-    html.classList.toggle('hide-comments', !!(enabled && settings.hideComments));
-    html.classList.toggle('hide-thumbnails', !!(enabled && settings.hideThumbnails));
-    html.classList.toggle('grayscale-mode', !!(enabled && settings.grayscaleMode));
-  }
-
-  /**
-   * Find and forcefully turn off YouTube's autoplay toggles and player parameters.
-   */
-  static disableAutoplay() {
-    let attempts = 0;
-    
-    // Check at intervals since YouTube players load asynchronously
-    const autoplayInterval = setInterval(() => {
-      attempts++;
-      
-      const autoplayButton = document.querySelector(
-        '.ytp-autonav-toggle-button, ' +
-        '[data-tooltip-text*="autoplay" i], ' +
-        'button[aria-label*="Autoplay" i]'
-      );
-
-      if (autoplayButton) {
-        const isChecked = 
-          autoplayButton.getAttribute('aria-checked') === 'true' || 
-          autoplayButton.getAttribute('aria-pressed') === 'true' ||
-          autoplayButton.classList.contains('ytp-autonav-toggle-button-checked'); // Fallback class check
-
-        if (isChecked) {
-          autoplayButton.click();
-        }
-        clearInterval(autoplayInterval);
-      }
-
-      // Also strip autoplay attribute from all video elements
-      const videos = document.querySelectorAll('video');
-      videos.forEach((video) => {
-        video.removeAttribute('autoplay');
-      });
-
-      if (attempts >= 15) {
-        clearInterval(autoplayInterval);
-      }
-    }, 400);
   }
 }
 
-// Export for global access in content script sandbox
-window.Blocker = Blocker;
+function applyAutoplay(settings) {
+  if (!settings || !settings.extensionEnabled || !settings.disableAutoplay) return;
+  document.querySelectorAll('video[autoplay]').forEach(v => v.removeAttribute('autoplay'));
+  const btn = document.querySelector('.ytp-autonav-toggle-button[aria-checked="true"]');
+  if (btn) btn.click();
+}
+
+async function applyAllSettings() {
+  _settings = await StorageManager.getSettings();
+  applyAllClasses(_settings);
+  applyAutoplay(_settings);
+}
+
+// React instantly when user toggles settings
+browser.storage.onChanged.addListener((changes) => {
+  if (!changes.settings?.newValue) return;
+  _settings = changes.settings.newValue;
+  applyAllClasses(_settings);
+  applyAutoplay(_settings);
+});
+
+// Initial injection at document_start
+applyAllSettings();
+
+window.__iytBlocker = { applyAllSettings, applyAutoplay };
