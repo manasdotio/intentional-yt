@@ -107,34 +107,97 @@ html.hide-comments ytd-comments {
   display: none !important;
 }
 
-/* --- Hide Video Thumbnails --- */
+/* --- Hide Video Thumbnails & Replace with Neutral Placeholders --- */
 html.hide-thumbnails ytd-thumbnail img,
 html.hide-thumbnails ytd-playlist-thumbnail img,
 html.hide-thumbnails ytd-hero-playlist-thumbnail-renderer img,
 html.hide-thumbnails yt-collections-stack-renderer img,
+html.hide-thumbnails yt-collections-stack-view-model img,
+html.hide-thumbnails yt-thumbnail-view-model img,
+html.hide-thumbnails yt-image-view-model img,
 html.hide-thumbnails yt-image img,
-html.hide-thumbnails yt-img-shadow img,
+html.hide-thumbnails yt-img-shadow:not(#avatar) img,
 html.hide-thumbnails #thumbnail img,
 html.hide-thumbnails a#thumbnail img,
 html.hide-thumbnails #thumbnail .yt-core-image,
 html.hide-thumbnails a#thumbnail .yt-core-image,
 html.hide-thumbnails ytd-thumbnail .yt-core-image,
 html.hide-thumbnails ytd-playlist-thumbnail .yt-core-image,
+html.hide-thumbnails yt-thumbnail-view-model .yt-core-image,
+html.hide-thumbnails .yt-thumbnail-view-model__image,
+html.hide-thumbnails a.yt-lockup-view-model__content-image img,
 html.hide-thumbnails ytd-moving-thumbnail-renderer,
 html.hide-thumbnails ytd-video-preview,
+html.hide-thumbnails yt-animated-image,
+html.hide-thumbnails #mouseover-overlay,
+html.hide-thumbnails #hover-overlays,
+html.hide-thumbnails yt-thumbnail-hover-overlay-view-model,
 html.hide-thumbnails .ytp-inline-preview-ui,
-html.hide-thumbnails .ytp-videowall-still-image-img {
+html.hide-thumbnails .ytp-videowall-still-image-img,
+html.hide-thumbnails .ytp-cued-thumbnail-overlay-image {
   opacity: 0 !important;
   visibility: hidden !important;
 }
 
+/* Disable video hover previews that override placeholders */
+html.hide-thumbnails ytd-video-preview,
+html.hide-thumbnails ytd-moving-thumbnail-renderer,
+html.hide-thumbnails #mouseover-overlay,
+html.hide-thumbnails #hover-overlays,
+html.hide-thumbnails yt-thumbnail-hover-overlay-view-model,
+html.hide-thumbnails .ytp-inline-preview-ui {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Neutral Placeholder Container Styling */
 html.hide-thumbnails ytd-thumbnail,
 html.hide-thumbnails ytd-playlist-thumbnail,
 html.hide-thumbnails ytd-hero-playlist-thumbnail-renderer,
+html.hide-thumbnails yt-collections-stack-renderer,
+html.hide-thumbnails yt-collections-stack-view-model,
+html.hide-thumbnails yt-thumbnail-view-model,
+html.hide-thumbnails .yt-thumbnail-view-model,
+html.hide-thumbnails yt-image-view-model,
 html.hide-thumbnails #thumbnail,
-html.hide-thumbnails a#thumbnail {
-  background-color: #1a1a1a !important;
-  border-radius: 8px !important;
+html.hide-thumbnails a#thumbnail,
+html.hide-thumbnails a.yt-lockup-view-model__content-image,
+html.hide-thumbnails .ytp-cued-thumbnail-overlay {
+  background-color: var(--yt-spec-badge-chip-background, #1e2029) !important;
+  border-radius: 12px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Subtle Centered Neutral Icon Placeholder */
+html.hide-thumbnails ytd-thumbnail::after,
+html.hide-thumbnails yt-thumbnail-view-model::after,
+html.hide-thumbnails ytd-playlist-thumbnail::after,
+html.hide-thumbnails a.yt-lockup-view-model__content-image::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23808080'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") no-repeat center center;
+  background-size: contain;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ensure Video Duration and Progress Badges remain visible on top of placeholder */
+html.hide-thumbnails ytd-thumbnail-overlay-time-status-renderer,
+html.hide-thumbnails ytd-thumbnail-overlay-bottom-panel-renderer,
+html.hide-thumbnails yt-thumbnail-overlay-badge-view-model,
+html.hide-thumbnails .badge-shape-wiz--thumbnail-badge,
+html.hide-thumbnails ytd-thumbnail-overlay-progress-bar-renderer,
+html.hide-thumbnails yt-thumbnail-overlay-progress-bar-view-model {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 2 !important;
 }
 
 /* --- Grayscale Mode --- */
