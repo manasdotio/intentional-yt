@@ -1,32 +1,22 @@
 # AMO Submission Checklist
 
-## Ready in repo
+## Ready in Repository
+- [x] WebExtension Manifest V2 configured in `manifest.json` with Gecko ID (`intentional-yt@intentional-yt.local`).
+- [x] No remote code loading or third-party network requests.
+- [x] No eval or inline script execution.
+- [x] Complete local storage privacy policy documented in `PRIVACY.md`.
+- [x] Full icon set provided in `icons/` (16, 32, 48, 128, 512px).
 
-- Firefox-specific metadata added in `manifest.json` with a stable Gecko add-on ID and minimum Firefox version.
-- No remote code loading or third-party network requests are present in the extension runtime.
-- Extension pages avoid inline scripts by using external JS files for `ui/blocked.html` and `ui/modal.html`.
-- Privacy policy added in `PRIVACY.md`.
-- Existing icon asset is present at `icons/icon.png`.
-
-## Manual submission items still required
-
-- Create the AMO listing entry.
-- Add store listing copy: summary, description, categories, and support details.
-- Provide screenshots of the popup, blocked page, and a watch-page overlay.
-- Upload the packaged extension zip or xpi with `manifest.json` at the archive root.
-- Review the requested permissions text in AMO and confirm it matches the current feature set.
-
-## Recommended reviewer notes
-
-- The add-on only runs on `youtube.com` and `www.youtube.com` and explicitly excludes `music.youtube.com`.
-- All settings and usage state are stored locally in `browser.storage.local`.
-- The add-on does not communicate with remote services.
-- The `tabs` permission is used to detect active YouTube tabs and redirect blocked tabs to the bundled blocked page.
-
-## Pre-upload sanity check
-
-- Load the extension in Firefox via `about:debugging`.
-- Confirm the popup opens and saves settings.
-- Confirm the blocked page renders correctly.
-- Confirm no behavior runs on `music.youtube.com`.
-- Confirm the packaged archive contains the same files as the workspace root.
+## Submission Steps for addons.mozilla.org (AMO)
+1. **Package the add-on**:
+   - Run `./package-firefox.ps1` (or `zip -r intentional-yt-firefox.zip manifest.json background content icons styles ui utils`).
+2. **Submit to AMO Developer Hub**:
+   - Log into https://addons.mozilla.org/developers/
+   - Click **Submit a New Add-on** and upload `intentional-yt-firefox.zip`.
+3. **Store Listing Details**:
+   - **Name**: Intentional YT
+   - **Summary**: Distraction-free YouTube experience. Granular controls for feeds, Shorts, comments, and watch time limits.
+   - **Category**: Privacy & Security / Photos, Music & Videos / Productivity.
+   - **Reviewer notes**:
+     - *Only executes on `youtube.com` and `m.youtube.com`, explicitly excluding `music.youtube.com`.*
+     - *All user settings and daily watch-time metrics are stored strictly in `browser.storage.local` with zero telemetry or network calls.*
