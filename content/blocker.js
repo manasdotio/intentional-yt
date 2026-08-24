@@ -6,6 +6,9 @@
 
 'use strict';
 
+var browser = globalThis.browser || globalThis.chrome;
+
+
 const CLASS_MAP = {
   blockHomeFeed:               'iyt-no-home-feed',
   blockSidebar:                'iyt-no-sidebar',

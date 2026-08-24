@@ -1,19 +1,31 @@
 # Installation Guide
 
-## Requirements
-- Firefox (desktop) or Firefox Developer Edition / Nightly
+## Supported Browsers
+- **Firefox** (desktop / Developer Edition / Nightly)
+- **Chromium Browsers** (Google Chrome, Brave, Microsoft Edge, Opera, Arc, Vivaldi)
 
 ---
 
-## 1. Load as a Temporary Add-on (Development / Testing)
+## 1. Load in Firefox (Temporary Add-on)
 
-1. Clone or download this repository to your machine.
-2. In Firefox, open a new tab and go to `about:debugging#/runtime/this-firefox`.
-3. Click **Load Temporary Add-on...**
-4. Browse to this directory and select the `manifest.json` file.
-5. The extension icon will appear in your Firefox toolbar. Click it to configure which YouTube elements to hide or set your watch limits.
+1. In Firefox, open a new tab and go to `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on...**
+3. Select the `manifest.json` file in this directory.
+4. Click the Intentional YT icon in your toolbar to configure settings.
 
-> **Note**: Temporary add-ons stay installed until you restart Firefox. To reload code changes while developing, just click the **Reload** button on the `about:debugging` page.
+---
+
+## 2. Load in Chromium (Chrome / Brave / Edge / Arc)
+
+1. Open your browser and navigate to the extensions page:
+   - **Chrome**: `chrome://extensions`
+   - **Brave**: `brave://extensions`
+   - **Edge**: `edge://extensions`
+2. Enable **Developer mode** (toggle in the top-right corner).
+3. Click **Load unpacked** (top-left button).
+4. Select the `intentional-yt` project root folder.
+5. Pin **Intentional YT** to your toolbar.
+
 
 ---
 

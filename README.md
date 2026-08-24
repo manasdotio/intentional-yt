@@ -47,20 +47,19 @@ YouTube is built around recommendation algorithms designed to keep you watching.
 ---
 
 ## Installation
+### Firefox
+1. In Firefox, go to `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on...** and select `manifest.json`.
 
-### Load as Temporary Add-on (Firefox)
+### Chromium (Chrome / Brave / Edge / Arc)
+1. Go to `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
+2. Toggle on **Developer mode** (top right).
+3. Click **Load unpacked** and select the `intentional-yt` project folder.
 
-1. Clone or download this repository.
-2. In Firefox, navigate to `about:debugging#/runtime/this-firefox`.
-3. Click **Load Temporary Add-on...**
-4. Select the `manifest.json` file in this directory.
-5. Click the Intentional YT icon in your toolbar to adjust your settings.
-
-### Package for Firefox (.xpi / .zip)
-
-To create a distributable zip:
+### Package Extension (.zip)
 - **Windows (PowerShell)**: Run `./package-firefox.ps1`
-- **Linux / macOS**: `zip -r intentional-yt-firefox.zip manifest.json background content icons styles ui utils`
+- **Linux / macOS**: `zip -r intentional-yt.zip manifest.json background content icons styles ui utils`
+
 
 ---
 

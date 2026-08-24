@@ -4,6 +4,9 @@
 
 'use strict';
 
+var browser = globalThis.browser || globalThis.chrome;
+
+
 const TOGGLES = [
   'extensionEnabled',
   'blockHomeFeed', 'blockSidebar', 'blockRecommended',

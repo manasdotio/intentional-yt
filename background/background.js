@@ -4,6 +4,9 @@
 
 'use strict';
 
+var browser = globalThis.browser || globalThis.chrome;
+
+
 const ALARM_NAME = 'iyt-daily-reset';
 
 function msUntilMidnight() {

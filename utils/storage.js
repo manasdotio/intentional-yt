@@ -4,6 +4,12 @@
 
 'use strict';
 
+var browser = globalThis.browser || globalThis.chrome;
+if (typeof globalThis !== 'undefined' && !globalThis.browser && globalThis.chrome) {
+  globalThis.browser = globalThis.chrome;
+}
+
+
 class StorageManager {
   static getTodayString() {
     const d = new Date();

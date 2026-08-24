@@ -6,6 +6,9 @@
 
 'use strict';
 
+var browser = globalThis.browser || globalThis.chrome;
+
+
 const IYT_Timer = (() => {
   let _video = null;
   let _settings = null;
