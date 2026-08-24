@@ -14,6 +14,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 <p align="center">
+  <a href="https://manasdotio.github.io/intentional-yt/"><strong>🌐 Live Landing Page</strong></a> •
   <a href="#-why-intentional-yt">Why Intentional YT?</a> •
   <a href="#-features">Features</a> •
   <a href="#-installation">Installation</a> •

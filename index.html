@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intentional YT — Turn YouTube into a Focus Tool, Not a Dopamine Trap</title>
+  <meta name="description" content="A minimal, zero-flash browser extension that strips algorithmic rabbit holes, clickbait thumbnails, and endless feeds from YouTube. 100% private and local." />
+  
+  <!-- OpenGraph / Social Meta -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Intentional YT — Mindful, Distraction-Free YouTube" />
+  <meta property="og:description" content="Reclaim your attention. Zero content flash, granular toggle control, clickbait de-stimulation, and local time tracking." />
+  <meta property="og:image" content="icons/icon-512.png" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+  <link rel="alternate icon" type="image/png" href="icons/icon-32.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #09090b;
+      --bg-subtle: #121216;
+      --surface: #18181f;
+      --surface-hover: #22222b;
+      --surface-glass: rgba(24, 24, 31, 0.75);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --border-accent: rgba(59, 130, 246, 0.35);
+      
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-subtle: #475569;
+      
+      --accent-blue: #3b82f6;
+      --accent-blue-light: #60a5fa;
+      --accent-red: #f43f5e;
+      --accent-emerald: #10b981;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-pill: 9999px;
+      
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.7);
+      --shadow-glow: 0 0 60px -15px rgba(59, 130, 246, 0.35);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: rgba(59, 130, 246, 0.3);
+      color: #fff;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* Ambient Background Effects */
+    .ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      max-width: 1400px;
+      height: 650px;
+      background: radial-gradient(circle 550px at 50% 10%, rgba(37, 99, 235, 0.14), rgba(244, 63, 94, 0.04), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
+    .nav-wrap {
+      position: sticky;
+      top: 16px;
+      z-index: 50;
+      margin-bottom: 36px;
+    }
+    
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 22px;
+      background: rgba(18, 18, 22, 0.8);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease;
+    }
+    .nav:hover { border-color: var(--border-strong); }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      background: rgba(59, 130, 246, 0.12);
+      color: var(--accent-blue-light);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.15s ease;
+    }
+    .nav-link:hover { color: var(--text-primary); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #ffffff;
+      color: #09090b;
+      box-shadow: 0 2px 14px rgba(255, 255, 255, 0.2);
+    }
+    .btn-primary:hover {
+      background: #f1f5f9;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+
+    .btn-glow {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-glow:hover {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      box-shadow: 0 6px 28px rgba(37, 99, 235, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .btn-lg {
+      font-size: 15px;
+      padding: 13px 26px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 60px 0 70px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      padding: 5px 15px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      backdrop-filter: blur(8px);
+      animation: floatPill 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatPill {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-3px); }
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--accent-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-emerald);
+    }
+
+    .hero-title {
+      font-size: clamp(38px, 6vw, 68px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      max-width: 900px;
+      margin: 0 auto 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-accent {
+      background: linear-gradient(135deg, #60a5fa 20%, #3b82f6 50%, #f43f5e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    .hero-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Live Playground & Simulator */
+    .playground-section {
+      margin: 40px 0 100px;
+    }
+
+    .playground-card {
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .playground-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .playground-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      background: rgba(16, 185, 129, 0.1);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    .mode-switch-group {
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      gap: 4px;
+    }
+
+    .mode-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .mode-btn.active {
+      background: var(--surface-hover);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .simulator-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 992px) {
+      .simulator-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Mock YouTube Window */
+    .mock-yt-window {
+      background: #0f0f0f;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: filter 0.3s ease;
+    }
+
+    .mock-yt-window.grayscale-active {
+      filter: grayscale(100%);
+    }
+
+    .mock-browser-bar {
+      background: #1e1e24;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .traffic-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .traffic-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #eab308; }
+    .dot-green { background: #22c55e; }
+
+    .mock-url-bar {
+      flex: 1;
+      background: #111115;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mock-yt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #0f0f0f;
+      border-bottom: 1px solid #222;
+      transition: opacity 0.2s ease, max-height 0.2s ease;
+    }
+
+    .mock-yt-search {
+      flex: 1;
+      max-width: 440px;
+      margin: 0 16px;
+      background: #121212;
+      border: 1px solid #303030;
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 12px;
+      color: #888;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mock-yt-body {
+      display: flex;
+      min-height: 480px;
+      background: #0f0f0f;
+    }
+
+    .mock-yt-sidebar {
+      width: 180px;
+      background: #0f0f0f;
+      border-right: 1px solid #1f1f1f;
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: all 0.25s ease;
+    }
+
+    .mock-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      color: #aaa;
+    }
+    .mock-nav-item.active {
+      background: #272727;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .mock-yt-content {
+      flex: 1;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Content states */
+    .yt-feed-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      transition: opacity 0.25s ease;
+    }
+
+    .yt-card {
+      background: #161616;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #222;
+    }
+
+    .yt-thumb {
+      width: 100%;
+      height: 110px;
+      background: linear-gradient(135deg, #2a2a35, #1f1f28);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 11px;
+      transition: all 0.2s;
+    }
+
+    .yt-thumb-badge {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+
+    .yt-thumb-placeholder {
+      background: #1c1c22 !important;
+      color: #444 !important;
+    }
+
+    .yt-card-info {
+      padding: 10px;
+    }
+
+    .yt-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #eee;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .yt-card-sub {
+      font-size: 11px;
+      color: #777;
+    }
+
+    /* Intentional Zen View */
+    .intentional-zen-view {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      min-height: 400px;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .zen-search-box {
+      width: 100%;
+      max-width: 480px;
+      background: #18181c;
+      border: 1px solid #333;
+      border-radius: var(--radius-pill);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      margin-bottom: 20px;
+    }
+
+    .zen-quote {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Mock Extension Popup */
+    .mock-popup-container {
+      background: #ffffff;
+      color: #111111;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .mock-popup-hd {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+
+    .mock-popup-scroll {
+      max-height: 380px;
+      overflow-y: auto;
+      padding: 4px 0;
+    }
+
+    .mock-popup-sh {
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      padding: 10px 14px 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mock-popup-sh::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #f0f0f0;
+    }
+
+    .mock-popup-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: #111;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.1s;
+    }
+    .mock-popup-row:hover {
+      background: #f8fafc;
+    }
+
+    .demo-switch {
+      position: relative;
+      display: inline-block;
+      width: 32px;
+      height: 18px;
+    }
+    .demo-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .demo-slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #cbd5e1;
+      transition: .2s;
+      border-radius: 9px;
+    }
+    .demo-slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    input:checked + .demo-slider {
+      background-color: #111827;
+    }
+    input:checked + .demo-slider:before {
+      transform: translateX(14px);
+    }
+
+    .mock-popup-stats {
+      border-top: 1px solid #f0f0f0;
+      padding: 12px 14px;
+      background: #fafafa;
+    }
+    .mock-stats-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #999;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .mock-stats-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+    }
+
+    /* Features Bento Grid */
+    .section-head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 50px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-blue-light);
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+      margin-bottom: 100px;
+    }
+
+    .bento-card {
+      background: var(--surface-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bento-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .bento-card-8 { grid-column: span 8; }
+    .bento-card-4 { grid-column: span 4; }
+
+    @media (max-width: 900px) {
+      .bento-card-8, .bento-card-4 {
+        grid-column: span 12;
+      }
+    }
+
+    .bento-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-blue-light);
+      margin-bottom: 20px;
+    }
+
+    .bento-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .bento-text {
+      color: var(--text-secondary);
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+
+    .bento-visual {
+      margin-top: 24px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    /* ROI / Time Calculator */
+    .calc-box {
+      background: linear-gradient(180deg, var(--surface) 0%, #0d0d12 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 48px 40px;
+      margin-bottom: 100px;
+      position: relative;
+      box-shadow: var(--shadow-md);
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (max-width: 860px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .range-wrap {
+      margin: 28px 0;
+    }
+
+    .range-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .range-val {
+      font-weight: 700;
+      color: var(--accent-blue-light);
+      font-size: 18px;
+    }
+
+    .calc-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #282834;
+      outline: none;
+    }
+
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+    }
+
+    .calc-results-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 12px;
+    }
+    .result-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .result-label {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+
+    .result-num {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+    }
+    .result-num.highlight {
+      color: #38bdf8;
+    }
+
+    /* Installation Section */
+    .install-section {
+      margin-bottom: 100px;
+    }
+
+    .tabs-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 30px;
+    }
+
+    .tab-btn {
+      padding: 10px 22px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    .tab-btn.active {
+      background: #ffffff;
+      color: #09090b;
+      border-color: #ffffff;
+    }
+
+    .tab-content {
+      display: none;
+      background: var(--surface-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: var(--shadow-md);
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-blue-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .step-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .code-snippet {
+      background: #0d0d11;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #e2e8f0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    /* Comparison Table */
+    .comparison-section {
+      margin-bottom: 100px;
+    }
+
+    .table-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow-x: auto;
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .comp-table th {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 16px 20px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .comp-table td {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+    }
+
+    .comp-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comp-table td.highlight-col {
+      background: rgba(59, 130, 246, 0.04);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 0 40px;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      background: #060608;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      transition: color 0.15s;
+    }
+    .footer-link:hover {
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 40px 0 50px; }
+      .calc-box { padding: 28px 20px; }
+      .tab-content { padding: 24px 16px; }
+      .comp-table th, .comp-table td { padding: 12px 10px; font-size: 12.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+  <div class="ambient-grid"></div>
+
+  <div class="container">
+    
+    <!-- Top Navigation -->
+    <header class="nav-wrap">
+      <nav class="nav">
+        <a href="#" class="brand">
+          <img src="icons/icon.svg" alt="Intentional YT Logo" class="brand-logo" />
+          <span>Intentional YT</span>
+          <span class="brand-badge">v2.0</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="#demo" class="nav-link">Interactive Demo</a>
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#calculator" class="nav-link">Focus Calculator</a>
+          <a href="#install" class="nav-link">Installation</a>
+        </div>
+
+        <div class="nav-actions">
+          <a href="https://github.com/manasdotio/intentional-yt" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a href="#install" class="btn btn-primary">
+            <span>Get Extension</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-pill">
+        <span class="pill-dot"></span>
+        <span>Zero-Flash DOM Ingestion • 100% Local Privacy</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="gradient-text">Turn YouTube into a</span><br />
+        <span class="gradient-accent">mindful focus tool</span><span class="gradient-text">, not a trap.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Eliminate infinite feeds, algorithm rabbit holes, clickbait thumbnails, and Shorts. Intentional YT gives you granular, instant control over every distraction surface on YouTube.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#install" class="btn btn-glow btn-lg">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span>Install Extension</span>
+        </a>
+        <a href="#demo" class="btn btn-secondary btn-lg">
+          <span>Try Interactive Demo</span>
+        </a>
+      </div>
+
+      <div class="hero-badges">
+        <div class="badge-item">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+          <span>Zero Content Pop-in</span>
+        </div>
+        <div class="badge-item">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+          <span>0% Telemetry &amp; Analytics</span>
+        </div>
+        <div class="badge-item">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+          <span>Firefox &amp; Chromium Compatible</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Demo & Simulator -->
+    <section id="demo" class="playground-section">
+      <div class="playground-card">
+        
+        <div class="playground-header">
+          <div class="playground-title-group">
+            <h3 style="font-size: 16px; font-weight: 700;">Live Interactive Simulator</h3>
+            <div class="status-indicator">
+              <span style="width:6px; height:6px; border-radius:50%; background:#10b981;"></span>
+              <span>Simulation Active</span>
+            </div>
+          </div>
+
+          <div class="mode-switch-group">
+            <button class="mode-btn" id="btn-chaos" onclick="setPreset('chaos')">Default Clutter</button>
+            <button class="mode-btn active" id="btn-intentional" onclick="setPreset('intentional')">Intentional Zen</button>
+          </div>
+        </div>
+
+        <div class="simulator-grid">
+          
+          <!-- Mock YouTube Window -->
+          <div class="mock-yt-window" id="mock-yt-window">
+            <div class="mock-browser-bar">
+              <div class="traffic-dots">
+                <span class="traffic-dot dot-red"></span>
+                <span class="traffic-dot dot-yellow"></span>
+                <span class="traffic-dot dot-green"></span>
+              </div>
+              <div class="mock-url-bar">
+                <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span>https://www.youtube.com</span>
+              </div>
+            </div>
+
+            <div class="mock-yt-header" id="sim-top-header">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <svg width="20" height="20" fill="none" stroke="#aaa" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <div style="display:flex; align-items:center; gap:4px; font-weight:700; font-size:13px;">
+                  <span style="color:#ff0000; font-size:16px;">▶</span> YouTube
+                </div>
+              </div>
+
+              <div class="mock-yt-search">
+                <span>Search intentional videos...</span>
+                <svg width="14" height="14" fill="none" stroke="#777" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:12px;">
+                <div id="sim-notif-bell">
+                  <svg width="16" height="16" fill="none" stroke="#aaa" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </div>
+                <div style="width:24px; height:24px; border-radius:50%; background:#444;" id="sim-avatar"></div>
+              </div>
+            </div>
+
+            <div class="mock-yt-body">
+              
+              <!-- Left Sidebar -->
+              <div class="mock-yt-sidebar" id="sim-sidebar">
+                <div class="mock-nav-item active">
+                  <span>🏠</span> <span>Home</span>
+                </div>
+                <div class="mock-nav-item" id="sim-shorts-nav">
+                  <span>⚡</span> <span>Shorts</span>
+                </div>
+                <div class="mock-nav-item" id="sim-subs-nav">
+                  <span>📺</span> <span>Subscriptions</span>
+                </div>
+                <div style="height:1px; background:#222; margin:6px 0;"></div>
+                <div class="mock-nav-item" id="sim-trending-nav">
+                  <span>🔥</span> <span>Trending</span>
+                </div>
+              </div>
+
+              <!-- Content Stage -->
+              <div class="mock-yt-content">
+                
+                <!-- Infinite Recommendations (Chaos View) -->
+                <div class="yt-feed-grid" id="sim-feed-grid" style="display:none;">
+                  <div class="yt-card">
+                    <div class="yt-thumb" id="thumb-1">
+                      <span class="yt-thumb-text">😱 YOU WON'T BELIEVE THIS!</span>
+                      <span class="yt-thumb-badge">12:40</span>
+                    </div>
+                    <div class="yt-card-info">
+                      <div class="yt-card-title">How I Built a 10M SaaS In 48 Hours</div>
+                      <div class="yt-card-sub">Algorithm Hacker • 840K views</div>
+                    </div>
+                  </div>
+
+                  <div class="yt-card" id="sim-shorts-card">
+                    <div class="yt-thumb" style="background:#3b1d28;">
+                      <span style="color:#f43f5e; font-weight:700;">⚡ SHORTS SHELF</span>
+                      <span class="yt-thumb-badge">0:45</span>
+                    </div>
+                    <div class="yt-card-info">
+                      <div class="yt-card-title">Crazy Life Hacks You Must Try</div>
+                      <div class="yt-card-sub">Dopamine Rush • 2.4M views</div>
+                    </div>
+                  </div>
+
+                  <div class="yt-card">
+                    <div class="yt-thumb" id="thumb-2">
+                      <span class="yt-thumb-text">🔥 STOP DOING THIS NOW!</span>
+                      <span class="yt-thumb-badge">18:02</span>
+                    </div>
+                    <div class="yt-card-info">
+                      <div class="yt-card-title">The Ultimate Productivity Trap</div>
+                      <div class="yt-card-sub">Focus Guru • 310K views</div>
+                    </div>
+                  </div>
+
+                  <div class="yt-card">
+                    <div class="yt-thumb" id="thumb-3">
+                      <span class="yt-thumb-text">⚠️ 99% OF PEOPLE FAIL</span>
+                      <span class="yt-thumb-badge">08:15</span>
+                    </div>
+                    <div class="yt-card-info">
+                      <div class="yt-card-title">Learn Deep Work in 10 Minutes</div>
+                      <div class="yt-card-sub">Mastery Hub • 1.2M views</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Intentional Minimal Zen View -->
+                <div class="intentional-zen-view" id="sim-zen-view" style="display:flex;">
+                  <img src="icons/icon.svg" width="48" height="48" alt="" style="margin-bottom:16px; opacity:0.85;" />
+                  <h4 style="font-size:18px; font-weight:700; margin-bottom:8px; color:#f1f5f9;">Intentional Search Mode Active</h4>
+                  <p style="font-size:13px; color:#94a3b8; max-width:320px; margin-bottom:24px;">No infinite feed, no algorithmic rabbit holes. Search directly for what you came here to learn.</p>
+                  <div class="zen-search-box">
+                    <svg width="16" height="16" fill="none" stroke="#60a5fa" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <span style="font-size:13px; color:#e2e8f0; font-weight:500;">Calculus 3 Lecture 4: Vector Fields</span>
+                  </div>
+                  <span class="zen-quote">"Attention is the currency of intention."</span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Live Popup Replica Controller -->
+          <div class="mock-popup-container">
+            <div class="mock-popup-hd">
+              <img src="icons/icon.svg" width="18" height="18" alt="" />
+              <strong style="font-size:13px; flex:1;">Intentional YT</strong>
+              <span style="font-size:10px; font-weight:600; padding:2px 6px; background:#dcfce7; color:#15803d; border-radius:12px;">Active</span>
+            </div>
+
+            <div class="mock-popup-scroll">
+              <div class="mock-popup-sh">Feed Controls</div>
+              
+              <label class="mock-popup-row">
+                <span>Hide home feed</span>
+                <label class="demo-switch">
+                  <input type="checkbox" id="ctrl-home-feed" checked onchange="handleToggleChange()" />
+                  <span class="demo-slider"></span>
+                </label>
+              </label>
+
+              <label class="mock-popup-row">
+                <span>Hide Shorts</span>
+                <label class="demo-switch">
+                  <input type="checkbox" id="ctrl-shorts" checked onchange="handleToggleChange()" />
+                  <span class="demo-slider"></span>
+                </label>
+              </label>
+
+              <label class="mock-popup-row">
+                <span>Hide sidebar</span>
+                <label class="demo-switch">
+                  <input type="checkbox" id="ctrl-sidebar" onchange="handleToggleChange()" />
+                  <span class="demo-slider"></span>
+                </label>
+              </label>
+
+              <div class="mock-popup-sh">Appearance</div>
+
+              <label class="mock-popup-row">
+                <span>Hide thumbnails</span>
+                <label class="demo-switch">
+                  <input type="checkbox" id="ctrl-thumbnails" onchange="handleToggleChange()" />
+                  <span class="demo-slider"></span>
+                </label>
+              </label>
+
+              <label class="mock-popup-row">
+                <span>Grayscale mode</span>
+                <label class="demo-switch">
+                  <input type="checkbox" id="ctrl-grayscale" onchange="handleToggleChange()" />
+                  <span class="demo-slider"></span>
+                </label>
+              </label>
+
+              <div class="mock-popup-sh">Playback &amp; Social</div>
+
+              <label class="mock-popup-row">
+                <span>Disable autoplay</span>
+                <label class="demo-switch">
+                  <input type="checkbox" id="ctrl-autoplay" checked />
+                  <span class="demo-slider"></span>
+                </label>
+              </label>
+
+              <label class="mock-popup-row">
+                <span>Hide comments</span>
+                <label class="demo-switch">
+                  <input type="checkbox" id="ctrl-comments" checked />
+                  <span class="demo-slider"></span>
+                </label>
+              </label>
+            </div>
+
+            <div class="mock-popup-stats">
+              <div class="mock-stats-label">Today's Active Watch Time</div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <div class="mock-stats-val">18 min</div>
+                <span style="font-size:11px; color:#888;">Cap: 45 min</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bento Grid Features -->
+    <section id="features" style="padding-top: 40px;">
+      <div class="section-head">
+        <div class="section-eyebrow">Crafted for Deep Focus</div>
+        <h2 class="section-title">Built with strict architectural principles.</h2>
+        <p class="section-desc">Traditional blockers use slow DOM mutations that flash distracting content for a split second. Intentional YT is built fundamentally differently.</p>
+      </div>
+
+      <div class="bento-grid">
+        
+        <!-- Card 1: Zero Flash -->
+        <div class="bento-card bento-card-8">
+          <div class="bento-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="bento-title">Zero-Flash Injection Engine</h3>
+          <p class="bento-text">
+            Styles are injected onto <code>&lt;html&gt;</code> at <code>document_start</code> before the browser renders the first pixel. You will never see a thumbnail or recommendation briefly flash onto the screen before disappearing.
+          </p>
+          <div class="bento-visual">
+            <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#94a3b8; font-family:var(--font-mono);">
+              <span>document_start &gt; &lt;html class="yt-block-home-feed"&gt;</span>
+              <span style="color:#10b981;">0ms render lag</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: 100% Local Privacy -->
+        <div class="bento-card bento-card-4">
+          <div class="bento-icon" style="background:rgba(16, 185, 129, 0.1); border-color:rgba(16, 185, 129, 0.2); color:#34d399;">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="bento-title">Strict 0% Telemetry</h3>
+          <p class="bento-text">
+            No remote analytics, no tracking pixels, and no external network calls. All preferences stay stored strictly within your browser's local sandbox storage.
+          </p>
+        </div>
+
+        <!-- Card 3: Granular Distraction Matrix -->
+        <div class="bento-card bento-card-4">
+          <div class="bento-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          </div>
+          <h3 class="bento-title">Surgical Customization</h3>
+          <p class="bento-text">
+            No forced all-or-nothing blocking. Keep your subscribed channels while wiping out algorithmic recommendations and Shorts everywhere.
+          </p>
+        </div>
+
+        <!-- Card 4: Dopamine De-stimulation -->
+        <div class="bento-card bento-card-4">
+          <div class="bento-icon" style="background:rgba(244, 63, 94, 0.1); border-color:rgba(244, 63, 94, 0.2); color:#fb7185;">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </div>
+          <h3 class="bento-title">Clickbait Neutralization</h3>
+          <p class="bento-text">
+            Replace screaming high-saturation thumbnails with calming placeholders while preserving critical video titles and duration tags.
+          </p>
+        </div>
+
+        <!-- Card 5: Mindful Time Limits -->
+        <div class="bento-card bento-card-4">
+          <div class="bento-icon" style="background:rgba(234, 179, 8, 0.1); border-color:rgba(234, 179, 8, 0.2); color:#fde047;">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="bento-title">Mindful Time Caps</h3>
+          <p class="bento-text">
+            Set soft interval toast reminders (15m, 30m, 45m) or a hard daily playback ceiling with automated midnight stat resets.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Focus & Time Calculator -->
+    <section id="calculator" class="calc-box">
+      <div class="calc-grid">
+        
+        <div>
+          <div class="section-eyebrow">Attention ROI</div>
+          <h2 style="font-size: 28px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px;">Calculate your reclaimed life.</h2>
+          <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 20px;">
+            The average user spends 60–90% of their YouTube time falling into unintended autoplay and recommendation loops.
+          </p>
+
+          <div class="range-wrap">
+            <div class="range-header">
+              <span>Daily YouTube Time:</span>
+              <span class="range-val" id="calc-slider-display">2.0 Hours</span>
+            </div>
+            <input type="range" min="0.5" max="8.0" step="0.5" value="2.0" class="calc-slider" id="calc-range-input" oninput="updateCalculator(this.value)" />
+          </div>
+        </div>
+
+        <div class="calc-results-card">
+          <div class="result-item">
+            <span class="result-label">Reclaimed Focus per Year</span>
+            <span class="result-num highlight" id="calc-yearly-hours">511 hrs</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Extra Waking Days Won Back</span>
+            <span class="result-num" id="calc-waking-days">32 days</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Books You Could Read Instead</span>
+            <span class="result-num" id="calc-books-read">~51 books</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+      <div class="section-head">
+        <div class="section-eyebrow">Comparison</div>
+        <h2 class="section-title">Why Intentional YT stands apart.</h2>
+      </div>
+
+      <div class="table-card">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th class="highlight-col">Intentional YT</th>
+              <th>Generic Ad Blockers</th>
+              <th>Other Distraction Plugins</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>DOM Injection Timing</td>
+              <td class="highlight-col"><code>document_start</code> (Zero Flash)</td>
+              <td>DOM complete (Flashes)</td>
+              <td>DOM complete / Polling</td>
+            </tr>
+            <tr>
+              <td>Shorts Deep Suppression</td>
+              <td class="highlight-col">Full (Shelves, Sidebar, Search)</td>
+              <td>Partial or None</td>
+              <td>Often breaks on SPA nav</td>
+            </tr>
+            <tr>
+              <td>Granular Toggle Control</td>
+              <td class="highlight-col">20+ Independent Toggles</td>
+              <td>Rule-based CSS hacks</td>
+              <td>Rigid All-or-Nothing</td>
+            </tr>
+            <tr>
+              <td>Clickbait Thumbnail Neutralizer</td>
+              <td class="highlight-col">Yes (Preserves Durations)</td>
+              <td>No</td>
+              <td>Rarely supported</td>
+            </tr>
+            <tr>
+              <td>Telemetry &amp; Tracking</td>
+              <td class="highlight-col">0% (Strictly Local)</td>
+              <td>Varies</td>
+              <td>Varies</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="install" class="install-section">
+      <div class="section-head">
+        <div class="section-eyebrow">Get Started in 30 Seconds</div>
+        <h2 class="section-title">Install Intentional YT</h2>
+        <p class="section-desc">Fully open-source. Load directly into your favorite browser.</p>
+      </div>
+
+      <div class="tabs-nav">
+        <button class="tab-btn active" id="tab-btn-ff" onclick="switchTab('ff')">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.666 8.358c-.144 1.348-.718 2.597-1.637 3.541.205-.733.243-1.499.112-2.247-.074-.426-.226-.837-.446-1.21-.064.382-.213.746-.437 1.066-.312.444-.737.799-1.233 1.028.188-.696.168-1.433-.058-2.115-.175-.526-.49-.993-.909-1.352a4.49 4.49 0 00-.77 2.052c-.417-.611-1.025-1.066-1.733-1.298-.707-.232-1.472-.197-2.158.1a4.836 4.836 0 00-1.854 1.83 5.39 5.39 0 00-.638 2.544c.05 1.545.748 3.003 1.932 4.037 1.184 1.034 2.748 1.56 4.331 1.455a6.046 6.046 0 004.896-3.238 6.55 6.55 0 00.598-3.924c-.035-.297-.09-.592-.164-.882-.047-.19-.107-.376-.179-.558-.094.275-.224.536-.388.775-.246.36-.57.65-.947.85z"/></svg>
+          <span>Firefox</span>
+        </button>
+        <button class="tab-btn" id="tab-btn-cr" onclick="switchTab('cr')">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.73c-1.884-3.987-5.966-6.545-10.73-6.545zM1.948 5.76A11.968 11.968 0 0 0 0 12c0 5.213 3.328 9.65 7.96 11.302l3.953-6.847a5.454 5.454 0 0 1-5.69-3.287L1.948 5.76zm10.052 6.24a5.454 5.454 0 0 1 2.727 4.727 5.454 5.454 0 0 1-2.727 4.728h10.052c1.238-1.52 1.948-3.447 1.948-5.552 0-3.666-1.642-6.953-4.227-9.155l-3.953 6.848A5.454 5.454 0 0 1 12 12z"/></svg>
+          <span>Chrome / Brave / Edge / Arc</span>
+        </button>
+      </div>
+
+      <!-- Firefox instructions -->
+      <div class="tab-content active" id="tab-content-ff">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Download or Clone Repository</h4>
+              <p>Clone the repository or download the packaged release <code>.zip</code>.</p>
+              <div class="code-snippet">git clone https://github.com/manasdotio/intentional-yt.git</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Open Debugging Console</h4>
+              <p>In Firefox, enter this URL into your address bar:</p>
+              <div class="code-snippet">about:debugging#/runtime/this-firefox</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Load Extension</h4>
+              <p>Click <strong>"Load Temporary Add-on..."</strong> and select <code>manifest.json</code> in the folder.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chromium instructions -->
+      <div class="tab-content" id="tab-content-cr">
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Download Intentional YT</h4>
+              <p>Clone the repository locally onto your machine.</p>
+              <div class="code-snippet">git clone https://github.com/manasdotio/intentional-yt.git</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Enable Developer Mode</h4>
+              <p>Navigate to <code>chrome://extensions</code> (or <code>brave://extensions</code>, <code>edge://extensions</code>) and toggle <strong>Developer mode</strong> in the top-right corner.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Load Unpacked</h4>
+              <p>Click <strong>"Load unpacked"</strong> and choose the cloned <code>intentional-yt</code> root directory.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <img src="icons/icon.svg" width="20" height="20" alt="" />
+          <span style="font-weight:600; color:var(--text-primary);">Intentional YT</span>
+          <span style="font-size:12px; color:var(--text-muted);">— MIT Licensed</span>
+        </div>
+
+        <div class="footer-links">
+          <a href="https://github.com/manasdotio/intentional-yt" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Repository</a>
+          <a href="PRIVACY.md" class="footer-link">Privacy Policy</a>
+          <a href="SECURITY.md" class="footer-link">Security</a>
+          <a href="CONTRIBUTING.md" class="footer-link">Contributing</a>
+        </div>
+      </div>
+
+      <div style="font-size:12px; color:#555; text-align:center;">
+        Designed for human agency, deep work, and digital well-being.
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Controller Scripts -->
+  <script>
+    // Tab Switcher
+    function switchTab(browser) {
+      document.getElementById('tab-btn-ff').classList.toggle('active', browser === 'ff');
+      document.getElementById('tab-btn-cr').classList.toggle('active', browser === 'cr');
+      document.getElementById('tab-content-ff').classList.toggle('active', browser === 'ff');
+      document.getElementById('tab-content-cr').classList.toggle('active', browser === 'cr');
+    }
+
+    // Interactive Simulator State Handler
+    function handleToggleChange() {
+      const hideHomeFeed = document.getElementById('ctrl-home-feed').checked;
+      const hideShorts = document.getElementById('ctrl-shorts').checked;
+      const hideSidebar = document.getElementById('ctrl-sidebar').checked;
+      const hideThumbs = document.getElementById('ctrl-thumbnails').checked;
+      const grayscale = document.getElementById('ctrl-grayscale').checked;
+
+      // Update Zen vs Feed View
+      const feedGrid = document.getElementById('sim-feed-grid');
+      const zenView = document.getElementById('sim-zen-view');
+      if (hideHomeFeed) {
+        feedGrid.style.display = 'none';
+        zenView.style.display = 'flex';
+      } else {
+        feedGrid.style.display = 'grid';
+        zenView.style.display = 'none';
+      }
+
+      // Update Shorts
+      const shortsNav = document.getElementById('sim-shorts-nav');
+      const shortsCard = document.getElementById('sim-shorts-card');
+      if (shortsNav) shortsNav.style.display = hideShorts ? 'none' : 'flex';
+      if (shortsCard) shortsCard.style.display = hideShorts ? 'none' : 'block';
+
+      // Update Sidebar
+      const sidebar = document.getElementById('sim-sidebar');
+      if (sidebar) sidebar.style.display = hideSidebar ? 'none' : 'flex';
+
+      // Update Thumbnails
+      const thumbs = [document.getElementById('thumb-1'), document.getElementById('thumb-2'), document.getElementById('thumb-3')];
+      thumbs.forEach(t => {
+        if (t) {
+          const textSpan = t.querySelector('.yt-thumb-text');
+          if (hideThumbs) {
+            t.classList.add('yt-thumb-placeholder');
+            if (textSpan) textSpan.style.opacity = '0.3';
+          } else {
+            t.classList.remove('yt-thumb-placeholder');
+            if (textSpan) textSpan.style.opacity = '1';
+          }
+        }
+      });
+
+      // Update Grayscale
+      const ytWin = document.getElementById('mock-yt-window');
+      if (ytWin) {
+        if (grayscale) ytWin.classList.add('grayscale-active');
+        else ytWin.classList.remove('grayscale-active');
+      }
+
+      // Sync preset buttons
+      const isChaos = !hideHomeFeed && !hideShorts && !hideSidebar && !hideThumbs && !grayscale;
+      const isZen = hideHomeFeed && hideShorts && !hideSidebar && !hideThumbs && !grayscale;
+      document.getElementById('btn-chaos').classList.toggle('active', isChaos);
+      document.getElementById('btn-intentional').classList.toggle('active', isZen);
+    }
+
+    function setPreset(mode) {
+      if (mode === 'chaos') {
+        document.getElementById('ctrl-home-feed').checked = false;
+        document.getElementById('ctrl-shorts').checked = false;
+        document.getElementById('ctrl-sidebar').checked = false;
+        document.getElementById('ctrl-thumbnails').checked = false;
+        document.getElementById('ctrl-grayscale').checked = false;
+      } else {
+        document.getElementById('ctrl-home-feed').checked = true;
+        document.getElementById('ctrl-shorts').checked = true;
+        document.getElementById('ctrl-sidebar').checked = false;
+        document.getElementById('ctrl-thumbnails').checked = false;
+        document.getElementById('ctrl-grayscale').checked = false;
+      }
+      handleToggleChange();
+    }
+
+    // Focus / ROI Calculator
+    function updateCalculator(hours) {
+      document.getElementById('calc-slider-display').textContent = hours + ' Hours';
+      
+      const dailySaved = hours * 0.70;
+      const yearlySaved = Math.round(dailySaved * 365);
+      const wakingDays = Math.round(yearlySaved / 16);
+      const booksRead = Math.round(yearlySaved / 10);
+
+      document.getElementById('calc-yearly-hours').textContent = yearlySaved + ' hrs';
+      document.getElementById('calc-waking-days').textContent = wakingDays + ' days';
+      document.getElementById('calc-books-read').textContent = '~' + booksRead + ' books';
+    }
+
+    // Initialize calculator
+    updateCalculator(2.0);
+  </script>
+</body>
+</html>
