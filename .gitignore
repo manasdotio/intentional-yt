@@ -12,6 +12,8 @@ desktop.ini
 dist/
 build/
 web-ext-artifacts/
+*.zip
+
 
 # Dependencies
 node_modules/

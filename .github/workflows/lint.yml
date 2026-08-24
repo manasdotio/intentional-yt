@@ -1,0 +1,31 @@
+name: Lint and Validate Extension
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    name: Validate Manifest & Lint Add-on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate manifest.json format
+        run: |
+          node -e "const m = JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')); console.log('Manifest is valid JSON: v' + m.version);"
+
+      - name: Install addons-linter
+        run: npm install -g addons-linter
+
+      - name: Lint Extension with Mozilla Addons-Linter
+        run: addons-linter . --warnings-as-errors=false

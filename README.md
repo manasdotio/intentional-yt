@@ -1,126 +1,164 @@
+<div align="center">
+
+<img src="icons/icon.svg" alt="Intentional YT Logo" width="100" height="100" />
+
 # Intentional YT
 
-A lightweight, distraction-free Firefox extension for YouTube. Granular control over feeds, recommendations, Shorts, comments, and watch time—with zero tracking and no remote dependencies.
+**Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Version](https://img.shields.io/badge/version-2.0.0-brightgreen.svg)
+![Browsers](https://img.shields.io/badge/browsers-Firefox%20%7C%20Chromium-informational.svg)
+![Manifest](https://img.shields.io/badge/manifest-v2-orange.svg)
+![Privacy](https://img.shields.io/badge/telemetry-0%25%20(strictly%20local)-success.svg)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+<p align="center">
+  <a href="#-why-intentional-yt">Why Intentional YT?</a> •
+  <a href="#-features">Features</a> •
+  <a href="#-installation">Installation</a> •
+  <a href="#-how-it-works">Architecture</a> •
+  <a href="#-permissions">Permissions</a> •
+  <a href="#-contributing">Contributing</a>
+</p>
+
+</div>
 
 ---
 
-## Why Intentional YT?
+## 💡 Why Intentional YT?
 
-YouTube is built around recommendation algorithms designed to keep you watching. Intentional YT gives you back control:
+Modern YouTube is engineered around hyper-optimized recommendation algorithms designed to capture and hold your attention. **Intentional YT** reclaims your headspace by turning YouTube into a clean, search-first, and intentional video utility.
 
-- **No content flash**: Blocking rules are applied at `document_start` via CSS classes directly on `<html>`. No layout jumping, no flickers, and no sluggish DOM polling.
-- **Granular toggles**: Don't want the home feed, but still want subscriptions? Want to hide comments, but keep the description? Every distraction surface is independently toggleable.
-- **Dopamine reduction**: Optional thumbnail hiding (with duration badges preserved) and site-wide grayscale mode.
-- **Mindful watch tracking**: Passive watch time tracking that resets at midnight, with optional session reminders and daily limits.
-- **Zero data collection**: All settings and metrics stay strictly in your browser (`browser.storage.local`). No telemetry, no analytics, no external servers.
-
----
-
-## Features
-
-### 🎛️ Feed & Discovery
-- **Hide Home Feed**: Replaces the algorithmic homepage feed with a clean, empty workspace.
-- **Hide Subscriptions**: Suppresses the subscriptions feed when you only want search.
-- **Hide Recommended Sidebar**: Removes the infinite video suggestions next to watch pages.
-- **Hide Shorts**: Strips Shorts from sidebars, search results, home shelves, and channel tabs.
-- **Hide Explore & Trending**: Cleans out trending sections and explore navigation.
-- **Hide "More from YouTube"**: Removes promotional links in the navigation drawer.
-- **Clean Search Results**: Strips out irrelevant algorithm shelves (*"People also watched"*, *"For you"*, etc.) in search results.
-
-### 🎬 Video & Playback
-- **Hide End Screens**: Blocks end-screen videowalls and overlay cards at the end of videos.
-- **Hide Live Chat & Playlists**: Toggle off live chat streams and playlist side-drawers.
-- **Disable Autoplay**: Prevents YouTube from auto-playing the next video.
-- **Hide Annotations**: Suppresses interactive overlay boxes on video playback.
-- **Granular Video Info**: Independently hide the video action buttons (like/share), channel info header, or description box.
-
-### 🎨 Visual & Social
-- **Hide Comments & Avatars**: Hide comments entirely or just remove user profile pictures to reduce noise.
-- **Hide Thumbnails**: Replaces clickbait thumbnails with neutral placeholders while keeping video titles and duration badges visible.
-- **Grayscale Mode**: Strips color across YouTube to make browsing noticeably less stimulating.
-
-### ⏱️ Time Awareness & Limits
-- **Daily Watch Tracker**: Real-time counter of total video playback today (resets at midnight).
-- **Soft Reminders**: Gentle toast notification every *N* minutes of continuous viewing (e.g., 15m, 30m, 45m, or custom).
-- **Daily Watch Limit**: Optional daily cap (e.g., 60 minutes). When reached, pauses video playback and shows an overlay prompt to stop watching.
+| Principle | How We Achieve It |
+|---|---|
+| ⚡ **Zero Content Flash** | Injects high-specificity CSS rules onto `<html>` at `document_start` before the DOM renders. No layout jumps, no visual pop-in, and zero sluggish DOM polling. |
+| 🎛️ **Granular Control** | No rigid "all-or-nothing" blockers. Want to hide the infinite home feed but keep your subscriptions? Want to remove recommendations but keep video descriptions? Every distraction surface is independently customizable. |
+| 🧠 **Dopamine Reduction** | Clickbait thumbnail neutralization (with video duration tags preserved) and site-wide grayscale mode to reduce visual overstimulation. |
+| ⏱️ **Mindful Time Tracking** | Built-in passive daily watch counter, custom continuous session toasts, and enforce-able daily watch limits. |
+| 🔒 **100% Privacy & Local** | Zero telemetry, zero analytics, zero external network requests. All preferences and time metrics reside solely within `browser.storage.local`. |
 
 ---
 
-## Installation
+## ✨ Features
+
+### 🎛️ Feed & Algorithmic Discovery
+- **Hide Home Feed**: Replaces the addictive infinite homepage recommendations with a clean, distraction-free search interface.
+- **Hide Subscriptions Feed**: Suppresses subscription grid when you only want to search for specific topics.
+- **Hide Recommended Sidebar**: Completely removes the "Up next" infinite scroll column on video watch pages.
+- **Hide Shorts Everywhere**: Strips YouTube Shorts shelves, sidebar tabs, search result inserts, and channel Shorts tabs.
+- **Clean Search Results**: Filters out intrusive algorithm shelves (*"People also watched"*, *"For you"*, *"Previously watched"*).
+- **Hide Explore & Trending**: Cleans out trending hubs and promotional links in navigation menus.
+
+### 🎬 Video Player & Playback Experience
+- **Hide End Screens**: Suppresses fullscreen recommendation videowalls and interactive end cards when videos finish.
+- **Hide Live Chat & Playlists**: Disables distracting live chat streams and playlist side drawers.
+- **Disable Autoplay**: Prevents YouTube from automatically queuing and playing the next video.
+- **Hide Annotations**: Strips video overlay cards and promotional popups during playback.
+- **Granular Video Meta**: Independently hide like/share buttons, channel subscriber counters, or video description panels.
+
+### 🎨 Visual De-stimulation & Social Noise
+- **Hide Thumbnails**: Replaces clickbait thumbnails with neutral placeholders while retaining video titles and duration badges.
+- **Site-Wide Grayscale Mode**: Strips saturated colors across YouTube to make the browsing experience calm and non-stimulative.
+- **Hide Comments & Profile Avatars**: Hide comments completely or simply mask commenter avatars to keep conversations distraction-free.
+
+### ⏱️ Time Awareness & Watch Limits
+- **Real-Time Daily Counter**: Automatically tracks active video playback throughout the day (automatically resets at midnight).
+- **Soft Interval Reminders**: Gentle floating toast reminders after continuous watch intervals (15m, 30m, 45m, or custom).
+- **Daily Watch Limit**: Set a hard daily cap (e.g. 60 min). Once reached, playback pauses with a mindful stop-screen prompt.
+
+---
+
+## 🚀 Installation
+
 ### Firefox
-1. In Firefox, go to `about:debugging#/runtime/this-firefox`.
-2. Click **Load Temporary Add-on...** and select `manifest.json`.
+1. In Firefox, navigate to `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on...**.
+3. Browse to the cloned directory and select [`manifest.json`](manifest.json).
 
-### Chromium (Chrome / Brave / Edge / Arc)
-1. Go to `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
-2. Toggle on **Developer mode** (top right).
-3. Click **Load unpacked** and select the `intentional-yt` project folder.
+### Chromium (Google Chrome, Brave, Microsoft Edge, Arc)
+1. Navigate to `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
+2. Enable **Developer mode** via the toggle in the top-right corner.
+3. Click **Load unpacked** and select the root `intentional-yt` folder.
 
-### Package Extension (.zip)
-- **Windows (PowerShell)**: Run `./package-firefox.ps1`
-- **Linux / macOS**: `zip -r intentional-yt.zip manifest.json background content icons styles ui utils`
-
-
----
-
-## How It Works
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                      manifest.json                      │
-└───────────────────────────┬─────────────────────────────┘
-                            │
-       ┌────────────────────┴───────────────────┐
-       ▼                                        ▼
-┌───────────────────────┐            ┌───────────────────────┐
-│   Content Scripts     │            │   Background Script   │
-│ (Injected at Start)   │            │                       │
-│                       │            │ background.js         │
-│ blocker.js            │            │ - Alarms API          │
-│ - Injects <html> CSS  │            │ - Midnight stats reset│
-│                       │            └───────────────────────┘
-│ youtubeObserver.js    │
-│ - Hooks SPA navigation│
-│                       │
-│ timerToast.js         │
-│ - HTML5 video events  │
-│ - Real-time counter   │
-│ - Toast & limit modal │
-└───────────┬───────────┘
-            │
-            ▼
-┌───────────────────────┐            ┌───────────────────────┐
-│ utils/storage.js      │ ◄────────► │ ui/popup.html + js    │
-│ - browser.storage.local            │ - User settings UI    │
-│ - Async write queue   │            │ - Live stats progress │
-└───────────────────────┘            └───────────────────────┘
-```
-
-1. **`content/blocker.js`**: Injected at `document_start`. Reads settings from local storage and toggles high-specificity CSS classes on `document.documentElement` (`styles/blocker.css`).
-2. **`content/youtubeObserver.js`**: Listens to YouTube SPA navigation events (`yt-navigate-finish`, `yt-page-data-updated`, `popstate`) to ensure timers and styles sync across route changes without page reloads.
-3. **`content/timerToast.js`**: Observes video element `play`, `pause`, and `timeupdate` events to track active watch time and trigger soft reminder toasts or daily limit blockers.
-4. **`utils/storage.js`**: Provides promise-based access to `browser.storage.local` with a FIFO write queue to prevent race conditions during rapid state updates.
+### 📦 Packaging for Release
+To package the extension into a distributable `.zip` file:
+- **Linux / macOS**:
+  ```bash
+  ./package.sh
+  ```
+- **Windows (PowerShell)**:
+  ```powershell
+  ./package-firefox.ps1
+  ```
 
 ---
 
-## Permissions
+## 🏗️ Architecture & How It Works
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                        manifest.json                         │
+└──────────────────────────────┬───────────────────────────────┘
+                               │
+         ┌─────────────────────┴─────────────────────┐
+         ▼                                           ▼
+┌─────────────────────────┐             ┌─────────────────────────┐
+│     Content Scripts     │             │    Background Script    │
+│  (document_start hook)  │             │                         │
+│                         │             │ background.js           │
+│ blocker.js              │             │ - Alarms API            │
+│ - Injects <html> CSS    │             │ - Midnight stats reset  │
+│                         │             └─────────────────────────┘
+│ youtubeObserver.js      │
+│ - Hooks SPA navigation  │
+│                         │
+│ timerToast.js           │
+│ - HTML5 video events    │
+│ - Live playback metrics │
+│ - Break reminder toasts │
+└────────────┬────────────┘
+             │
+             ▼
+┌─────────────────────────┐             ┌─────────────────────────┐
+│ utils/storage.js        │ ◄─────────► │ ui/popup.html + js      │
+│ - browser.storage.local │             │ - User settings UI      │
+│ - Async write queue     │             │ - Live daily progress   │
+└─────────────────────────┘             └─────────────────────────┘
+```
+
+1. **`content/blocker.js`**: Executes at `document_start` to read stored configurations and inject corresponding CSS helper classes (e.g., `yt-block-home-feed`) onto `document.documentElement`.
+2. **`styles/blocker.css`**: Contains pure CSS selectors targeting YouTube elements under these root classes, guaranteeing instant suppression with zero visual flicker.
+3. **`content/youtubeObserver.js`**: Hooks YouTube SPA navigation lifecycle (`yt-navigate-finish`, `yt-page-data-updated`, `popstate`) to keep state perfectly synchronized across seamless page transitions.
+4. **`content/timerToast.js`**: Tracks playback time via HTML5 video events (`play`, `pause`, `timeupdate`) and presents mindful reminder toasts or daily limit blockers.
+5. **`utils/storage.js`**: Cross-browser unified storage interface with an asynchronous write queue to eliminate race conditions during rapid user adjustments.
+
+---
+
+## 🔒 Permissions & Privacy
+
+We believe in maximum privacy. Intentional YT requires only the bare minimum permissions necessary to function:
 
 | Permission | Purpose |
-|------------|---------|
-| `storage` | Stores your toggle preferences and local daily watch statistics. |
-| `alarms` | Schedules the automatic daily stats reset at midnight. |
-| `*://www.youtube.com/*`, `*://m.youtube.com/*` | Injects style rules and watch timer scripts onto YouTube pages. |
+|---|---|
+| `storage` | Persists your toggle preferences and local watch stats locally. |
+| `alarms` | Triggers the local midnight reset for your daily watch time. |
+| `*://www.youtube.com/*`, `*://m.youtube.com/*` | Injects CSS rules and time tracking scripts onto YouTube. |
+
+Intentional YT contains **no tracking, no analytics, and makes zero external requests**.
 
 ---
 
-## Contributing & Issues
+## 🤝 Contributing
 
-Bug reports and pull requests are welcome! If YouTube updates their DOM and breaks a selector:
-1. Check `styles/blocker.css` for the relevant selector.
-2. Submit a PR or open an issue with the broken element and URL context.
+Contributions, feature suggestions, and selector updates are always welcome!
+
+- Please read our [**Contributing Guide**](CONTRIBUTING.md) for local setup, architecture conventions, and PR instructions.
+- Found a bug or broken YouTube selector? Open an issue using our [**Bug Report Template**](.github/ISSUE_TEMPLATE/bug_report.yml).
+- Security concerns? Review our [**Security Policy**](SECURITY.md).
 
 ---
 
-## License
+## 📄 License
 
-MIT License. Free and open source for personal and educational use.
+Distributed under the [MIT License](LICENSE). Built for intentional, mindful internet use.

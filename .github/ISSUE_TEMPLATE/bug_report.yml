@@ -1,0 +1,56 @@
+name: 🐛 Bug Report
+description: Report something broken or unexpected in Intentional YT
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue! Please ensure YouTube hasn't recently updated their layout or that conflicting extensions aren't causing the issue.
+  - type: input
+    id: browser
+    attributes:
+      label: Browser & Version
+      description: What browser and version are you using?
+      placeholder: e.g., Firefox 142.0, Chrome 125, Brave
+    validations:
+      required: true
+  - type: input
+    id: extension-version
+    attributes:
+      label: Extension Version
+      description: Which version of Intentional YT are you using?
+      placeholder: e.g., 2.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the behavior.
+      value: |
+        1. Open YouTube on '...'
+        2. Enable/disable toggle '...'
+        3. Navigate to '...'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: console-errors
+    attributes:
+      label: Browser Console Log / Screenshots
+      description: Paste any errors from Developer Tools Console (F12) or drag and drop screenshots here.
