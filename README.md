@@ -45,30 +45,94 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 
 ## ✨ Features
 
-### 🎛️ Feed & Algorithmic Discovery
-- **Hide Home Feed**: Replaces the addictive infinite homepage recommendations with a clean, distraction-free search interface.
-- **Hide Subscriptions Feed**: Suppresses subscription grid when you only want to search for specific topics.
-- **Hide Recommended Sidebar**: Completely removes the "Up next" infinite scroll column on video watch pages.
-- **Hide Shorts Everywhere**: Strips YouTube Shorts shelves, sidebar tabs, search result inserts, and channel Shorts tabs.
-- **Clean Search Results**: Filters out intrusive algorithm shelves (*"People also watched"*, *"For you"*, *"Previously watched"*).
-- **Hide Explore & Trending**: Cleans out trending hubs and promotional links in navigation menus.
+### 🎛️ Feed & Homepage Discovery
+- **Hide Home Feed (`blockHomeFeed`)**: Replaces the addictive infinite homepage recommendations with a clean, distraction-free search interface.
+- **Hide Subscriptions Feed (`blockSubscriptionsFeed`)**: Suppresses the subscription grid when you want to look up specific topics without inbox-style pressure.
+- **Hide Explore & Trending (`blockExploreAndTrending`)**: Cleans out trending hubs, gaming, movies, and promotional navigation sections.
+- **Hide "More from YouTube" (`blockMoreFromYouTube`)**: Removes YouTube Premium, Studio, Kids, TV, and Music cross-promotions from the sidebar.
+- **Hide Top Masthead / Header (`blockTopHeader`)**: Completely hides the top navigation bar for an ultra-clean, full-focus reading/viewing environment.
+- **Hide Notification Bell (`blockNotificationBell`)**: Eliminates red unread notification badges and alert popups.
 
-### 🎬 Video Player & Playback Experience
-- **Hide End Screens**: Suppresses fullscreen recommendation videowalls and interactive end cards when videos finish.
-- **Hide Live Chat & Playlists**: Disables distracting live chat streams and playlist side drawers.
-- **Disable Autoplay**: Prevents YouTube from automatically queuing and playing the next video.
-- **Hide Annotations**: Strips video overlay cards and promotional popups during playback.
-- **Granular Video Meta**: Independently hide like/share buttons, channel subscriber counters, or video description panels.
+### ⚡ Deep Shorts Suppression
+- **Universal Shorts Removal (`blockShorts`)**: Deep multi-surface suppression of YouTube Shorts across:
+  - Homepage Shorts shelves and carousel drawers.
+  - Left navigation sidebar Shorts links.
+  - Search result Shorts inserts and vertical video carousels.
+  - Channel page "Shorts" tabs.
+  - Watch page recommendation Shorts rows.
 
-### 🎨 Visual De-stimulation & Social Noise
-- **Hide Thumbnails**: Replaces clickbait thumbnails with neutral placeholders while retaining video titles and duration badges.
-- **Site-Wide Grayscale Mode**: Strips saturated colors across YouTube to make the browsing experience calm and non-stimulative.
-- **Hide Comments & Profile Avatars**: Hide comments completely or simply mask commenter avatars to keep conversations distraction-free.
+### 🔍 Search Results Cleansing
+- **Clean Search Results (`blockIrrelevantSearchResults`)**: Strips disruptive algorithmic injection rows from search results:
+  - *"People also watched"*
+  - *"For you"*
+  - *"Previously watched"*
+  - *"Related to your search"*
+  - *"Latest from channel"* shelves
 
-### ⏱️ Time Awareness & Watch Limits
-- **Real-Time Daily Counter**: Automatically tracks active video playback throughout the day (automatically resets at midnight).
-- **Soft Interval Reminders**: Gentle floating toast reminders after continuous watch intervals (15m, 30m, 45m, or custom).
-- **Daily Watch Limit**: Set a hard daily cap (e.g. 60 min). Once reached, playback pauses with a mindful stop-screen prompt.
+### 🎬 Watch Page & Playback Control
+- **Hide Recommended Sidebar (`blockSidebar` & `blockRecommended`)**: Completely removes the "Up next" infinite recommendation column and centers the video player.
+- **Suppress Algorithmic Mixes (`blockMixPlaylists`)**: Hides endless automated "Mix" and "Radio" station playlists.
+- **Hide Playlist Drawers (`blockPlaylist`)**: Collapses playlist side panels during active viewing.
+- **Hide End Screen Videowalls (`blockEndScreenVideowall`)**: Prevents grids of suggested video tiles from taking over the screen at video completion.
+- **Hide End Screen Cards (`blockEndScreenCards`)**: Blocks floating thumbnail cards and channel subscribe overlays during the final seconds of a video.
+- **Disable Autoplay (`disableAutoplay`)**: Removes the autoplay video attribute and unchecks YouTube's native autonav toggle button.
+- **Hide Annotations (`disableAnnotations`)**: Blocks creator cards, promotional popups, and banner overlays during playback.
+
+### 🏷️ Granular Video Meta & Social Distractions
+- **Hide Video Info Block (`blockVideoInfo`)**: Hides the video title and primary metadata container below the player.
+- **Hide Interaction Buttons (`blockVideoButtons`)**: Strips Like, Dislike, Share, Download, Clip, and Save buttons.
+- **Hide Channel Info (`blockChannelInfo`)**: Hides channel avatar, channel name, and subscriber count badges.
+- **Hide Video Description (`blockVideoDescription`)**: Suppresses the expandable video description panel and show-more details.
+- **Hide Comments Section (`blockComments`)**: Completely removes the entire comments thread.
+- **Mask Profile Avatars (`blockProfilePhotos`)**: Replaces user comment avatars with blank circles to reduce visual stimulation while keeping discussion readable.
+- **Hide Live Chat (`blockLiveChat`)**: Disables live streaming chat drawers and replay streams.
+- **Hide Merch & Shopping (`blockMerch`)**: Suppresses product carousels, store shelves, and shopping tags.
+
+### 🎨 Visual De-stimulation & Dopamine Reducers
+- **Clickbait Thumbnail Neutralization (`hideThumbnails`)**: Replaces saturated, shouting video thumbnails with clean, calming placeholders while preserving video titles and exact duration stamps.
+- **Site-Wide Grayscale Mode (`grayscaleMode`)**: Applies a native hardware-accelerated grayscale filter across the entire YouTube interface to eliminate visual overstimulation.
+
+### ⏱️ Time Awareness & Mindful Watch Limits
+- **Passive Active Watch Meter**: Accurately tracks active `<video>` playback seconds (ignoring paused time), writing in 5-second batches to protect storage.
+- **Automatic Midnight Reset**: Alarms API ensures daily watch time counters seamlessly reset at 00:00 local time every night.
+- **Soft Break Reminder Toasts**: Gentle, floating notification toasts at customizable intervals (e.g. every 15, 30, or 45 minutes of continuous watching).
+- **Hard Daily Playback Ceilings**: Optional daily watch quota (e.g. 45 or 60 minutes). When exceeded, video playback locks with a mindful pause overlay.
+
+---
+
+### 📋 Full Feature Matrix & CSS Class Tokens
+
+| Feature Name | Storage Key | Injected Class on `<html>` | Default |
+| :--- | :--- | :--- | :---: |
+| **Hide Home Feed** | `blockHomeFeed` | `iyt-no-home-feed` | `true` |
+| **Hide Recommended Sidebar** | `blockRecommended` | `iyt-no-recommended` | `true` |
+| **Hide Left Sidebar** | `blockSidebar` | `iyt-no-sidebar` | `true` |
+| **Hide Shorts Everywhere** | `blockShorts` | `iyt-no-shorts` | `true` |
+| **Clean Search Algorithmic Shelves** | `blockIrrelevantSearchResults` | `iyt-no-irrelevant-search` | `true` |
+| **Hide Explore & Trending** | `blockExploreAndTrending` | `iyt-no-explore` | `true` |
+| **Hide More From YouTube** | `blockMoreFromYouTube` | `iyt-no-more-yt` | `true` |
+| **Hide Notification Bell** | `blockNotificationBell` | `iyt-no-notif-bell` | `true` |
+| **Hide End Screen Videowall** | `blockEndScreenVideowall` | `iyt-no-endscreen-wall` | `true` |
+| **Hide End Screen Cards** | `blockEndScreenCards` | `iyt-no-endscreen-cards` | `true` |
+| **Hide Mix / Radio Playlists** | `blockMixPlaylists` | `iyt-no-mix-playlists` | `true` |
+| **Hide Merch & Shopping Shelves** | `blockMerch` | `iyt-no-merch` | `true` |
+| **Disable Autoplay** | `disableAutoplay` | *(player script action)* | `true` |
+| **Disable Annotations** | `disableAnnotations` | `iyt-no-annotations` | `true` |
+| **Hide Comments** | `blockComments` | `iyt-no-comments` | `false` |
+| **Hide Profile Avatars** | `blockProfilePhotos` | `iyt-no-profile-photos` | `false` |
+| **Hide Live Chat** | `blockLiveChat` | `iyt-no-live-chat` | `true` |
+| **Hide Playlist Panel** | `blockPlaylist` | `iyt-no-playlist` | `false` |
+| **Hide Video Info (Title/Views)** | `blockVideoInfo` | `iyt-no-video-info` | `false` |
+| **Hide Like/Share Buttons** | `blockVideoButtons` | `iyt-no-video-buttons` | `false` |
+| **Hide Channel Info & Subs** | `blockChannelInfo` | `iyt-no-channel-info` | `false` |
+| **Hide Video Description** | `blockVideoDescription` | `iyt-no-video-desc` | `false` |
+| **Hide Top Header** | `blockTopHeader` | `iyt-no-top-header` | `false` |
+| **Hide Subscriptions Feed** | `blockSubscriptionsFeed` | `iyt-no-subscriptions` | `false` |
+| **Neutralize Thumbnails** | `hideThumbnails` | `iyt-no-thumbnails` | `false` |
+| **Site-Wide Grayscale** | `grayscaleMode` | `iyt-grayscale` | `false` |
+| **Soft Interval Reminder** | `softReminder.enabled` | *(timerToast)* | `false` |
+| **Daily Watch Limit** | `dailyLimit.enabled` | *(timerToast)* | `false` |
+
 
 ---
 
