@@ -1,0 +1,27 @@
+{
+  "name": "Intentional YT — Distraction-Free YouTube",
+  "short_name": "Intentional YT",
+  "description": "Turn YouTube into a mindful focus tool. Block YouTube Shorts, recommendations, and clickbait.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfbfe",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

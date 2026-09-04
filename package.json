@@ -1,0 +1,35 @@
+{
+  "name": "intentional-yt",
+  "version": "2.0.1",
+  "description": "Distraction-Free YouTube Extension Landing Page & Web App",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manasdotio/intentional-yt.git"
+  },
+  "keywords": [
+    "youtube",
+    "focus",
+    "distraction-free",
+    "browser-extension",
+    "react",
+    "vite"
+  ],
+  "author": "manasdotio",
+  "license": "MIT",
+  "dependencies": {
+    "lucide-react": "^1.41.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.2.2"
+  }
+}
+
