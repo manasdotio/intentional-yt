@@ -1321,13 +1321,18 @@ input:checked + .demo-slider:before {
   margin-bottom: 10px;
 }
 
-/* Footer — Modern Multi-Column Layout */
+/* Footer — Modern Rounded Island Layout */
 .footer {
-  border-top: 1px solid var(--border);
-  padding: 70px 0 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 48px 40px 32px;
   color: var(--text-secondary);
-  background: var(--surface);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-sm);
   margin-top: 40px;
+  margin-bottom: 48px;
 }
 
 .footer-top {
@@ -1443,9 +1448,11 @@ input:checked + .demo-slider:before {
   .comp-table th, .comp-table td { padding: 14px 12px; font-size: 12.5px; }
   .faq-question { padding: 16px 18px; font-size: 15px; }
   .faq-answer { padding: 0 18px 18px; font-size: 13.5px; }
+  .footer { padding: 36px 24px 24px; border-radius: var(--radius-lg); margin-bottom: 32px; }
 }
 
 @media (max-width: 580px) {
+  .footer { padding: 28px 18px 20px; }
   .footer-top {
     grid-template-columns: 1fr;
     gap: 30px;

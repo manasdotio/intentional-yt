@@ -1,4 +1,5 @@
 import React from 'react'
+import { APP_CONFIG } from '../config/constants'
 
 export default function ReviewCta() {
   return (
@@ -12,7 +13,7 @@ export default function ReviewCta() {
       </p>
       <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
         <a
-          href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"
+          href={APP_CONFIG.firefoxAddonUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-amo"
@@ -21,7 +22,7 @@ export default function ReviewCta() {
           <span>→</span>
         </a>
         <a
-          href="https://github.com/manasdotio/intentional-yt"
+          href={APP_CONFIG.githubRepoUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-secondary"

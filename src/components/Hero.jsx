@@ -1,4 +1,5 @@
 import React from 'react'
+import { APP_CONFIG } from '../config/constants'
 
 export default function Hero() {
   return (
@@ -16,7 +17,7 @@ export default function Hero() {
       </p>
       <div className="hero-actions">
         <a
-          href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"
+          href={APP_CONFIG.firefoxAddonUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-amo btn-lg"

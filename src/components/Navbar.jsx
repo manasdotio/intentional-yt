@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTheme } from '../context/ThemeContext'
+import { APP_CONFIG } from '../config/constants'
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
@@ -9,8 +10,8 @@ export default function Navbar() {
       <nav className="nav">
         <a href="#" className="brand" aria-label="Intentional YT Home">
           <img src="/icons/icon.svg" alt="Intentional YT Logo" className="brand-logo" width="28" height="28" />
-          <span>Intentional YT</span>
-          <span className="brand-badge">v2.1</span>
+          <span>{APP_CONFIG.name}</span>
+          <span className="brand-badge">{APP_CONFIG.versionShort}</span>
         </a>
 
         <div className="nav-links">
@@ -44,7 +45,7 @@ export default function Navbar() {
           </button>
 
           <a
-            href="https://github.com/manasdotio/intentional-yt"
+            href={APP_CONFIG.githubRepoUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-secondary"
@@ -56,7 +57,7 @@ export default function Navbar() {
           </a>
 
           <a
-            href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"
+            href={APP_CONFIG.firefoxAddonUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-amo"

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { APP_CONFIG } from '../config/constants'
 
 export default function Installation() {
   const [activeTab, setActiveTab] = useState('ff')
@@ -46,7 +47,7 @@ export default function Installation() {
                 </p>
                 <div style={{ marginTop: '14px' }}>
                   <a
-                    href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"
+                    href={APP_CONFIG.firefoxAddonUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-amo"
@@ -96,8 +97,8 @@ export default function Installation() {
                 </p>
                 <div style={{ marginTop: '14px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                   <a
-                    href="/intentional-yt.zip"
-                    download="intentional-yt-v2.1.0.zip"
+                    href={APP_CONFIG.chromeZipUrl}
+                    download={APP_CONFIG.chromeZipFilename}
                     className="btn btn-primary"
                   >
                     <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -106,7 +107,7 @@ export default function Installation() {
                     <span>Download for Chrome (.zip)</span>
                   </a>
                   <a
-                    href="https://github.com/manasdotio/intentional-yt/releases"
+                    href={APP_CONFIG.githubReleasesUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-secondary"
