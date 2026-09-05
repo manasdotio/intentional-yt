@@ -64,7 +64,7 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 - Immediately flushes pending time on `beforeunload`, `pagehide`, and `visibilitychange (hidden)`.
 - Renders:
   - **Soft Reminder Toast**: Non-intrusive floating toast notifying viewers of watch duration every *N* minutes.
-  - **Daily Limit Overlay**: High-priority modal locking video playback when the daily watch threshold is exhausted (with options to stop watching or dismiss for the rest of today).
+  - **Daily Limit Overlay**: High-priority modal locking video playback when the daily watch threshold is exhausted (with options to finish the active video, stop watching, or dismiss for the rest of today).
 
 ### `background/background.js`
 - Lightweight event-driven background script (non-persistent).
@@ -300,7 +300,7 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 
 #### 28. Hard Daily Playback Ceiling
 - **Configuration**: `dailyLimit.enabled` (Boolean), `dailyLimit.limitMinutes` (Integer).
-- **Behavior**: When daily accumulated watch time exceeds the configured threshold, a high-priority fullscreen modal pauses the video and presents a mindful break screen with options to stop watching or dismiss for the rest of today.
+- **Behavior**: When daily accumulated watch time exceeds the configured threshold, a high-priority fullscreen modal pauses the video and presents a mindful break screen with options to finish the current video (allowing completion without enabling further autoplay/videos), stop watching, or dismiss for the rest of today.
 
 ---
 

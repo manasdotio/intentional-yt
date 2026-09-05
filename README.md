@@ -8,7 +8,7 @@
 
 [![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install%20Extension-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-2.0.1-brightgreen.svg)
+![Version](https://img.shields.io/badge/version-2.1.0-brightgreen.svg)
 ![Browsers](https://img.shields.io/badge/browsers-Firefox%20%7C%20Chromium-informational.svg)
 ![Manifest](https://img.shields.io/badge/manifest-v2-orange.svg)
 ![Privacy](https://img.shields.io/badge/telemetry-0%25%20(strictly%20local)-success.svg)

@@ -18,6 +18,8 @@ const IYT_Timer = (() => {
   let _baseWatchSeconds = 0;   // todayWatchSeconds value in storage
   let _reminderIntervalCount = 0;
   let _limitOverlayActive = false;
+  let _allowedVideoId = null;
+  let _graceConsumedFor = null;
 
   function _findActiveVideo() {
     return document.querySelector('video.html5-main-video')
@@ -28,9 +30,43 @@ const IYT_Timer = (() => {
       || document.querySelector('video');
   }
 
+  function _getVideoId() {
+    const p = window.location.pathname;
+    if (p === '/watch') {
+      return new URLSearchParams(window.location.search).get('v') || window.location.href;
+    }
+    if (p.startsWith('/shorts/')) {
+      return p.split('/shorts/')[1]?.split(/[?#/]/)[0] || window.location.href;
+    }
+    return window.location.pathname + window.location.search;
+  }
+
+  function _canOfferFinishVideo() {
+    if (window.location.pathname.startsWith('/live')) return false;
+    if (!_video) return false;
+    if (_video.ended) return false;
+    if (_video.duration === Infinity) return false;
+
+    // If the user already used "Finish this video" on this video and it ended, do not offer again
+    if (_graceConsumedFor && _graceConsumedFor === _getVideoId()) return false;
+
+    // Check if the video is already within 2 seconds of the end
+    if (Number.isFinite(_video.duration) && _video.duration > 0) {
+      const remSec = _video.duration - (_video.currentTime || 0);
+      if (remSec <= 2) return false;
+    }
+
+    // Crucial: Only offer "Finish this video" if the user was actively watching this video
+    // when the limit expired (session seconds > 0 or currentTime > 5), NOT when navigating
+    // to a brand new video while the limit is already exhausted!
+    const isMidWatch = _sessionSeconds > 0 || ((_video.currentTime || 0) > 5 && !_video.paused);
+    return isMidWatch;
+  }
+
   function _isLimitExceeded() {
     if (!_settings?.dailyLimit?.enabled) return false;
     if (_settings.stats?.limitDismissedToday) return false;
+    if (_allowedVideoId && _allowedVideoId === _getVideoId()) return false;
     const limitMin = Number(_settings.dailyLimit.limitMinutes) || 60;
     const currentTotalSec = (_baseWatchSeconds || 0) + _batchAccumulator;
     return (currentTotalSec / 60) >= limitMin;
@@ -123,8 +159,34 @@ const IYT_Timer = (() => {
     const btnGroup = document.createElement('div');
     btnGroup.className = 'iy-limit-btn-group';
 
+    const canFinish = _canOfferFinishVideo();
+
+    if (canFinish) {
+      const finishBtn = document.createElement('button');
+      finishBtn.className = 'iy-limit-button';
+      let label = 'Finish this video';
+      if (_video && Number.isFinite(_video.duration) && _video.duration > 0) {
+        const remSec = Math.max(0, _video.duration - (_video.currentTime || 0));
+        const remMin = Math.ceil(remSec / 60);
+        if (remMin > 0) {
+          label = `Finish this video (${remMin}m left)`;
+        }
+      }
+      finishBtn.textContent = label;
+      finishBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        _allowedVideoId = _getVideoId();
+        overlay.remove();
+        _limitOverlayActive = false;
+        if (_video && _video.paused) {
+          _video.play().catch(() => {});
+        }
+      });
+      btnGroup.appendChild(finishBtn);
+    }
+
     const stopBtn = document.createElement('button');
-    stopBtn.className = 'iy-limit-button';
+    stopBtn.className = canFinish ? 'iy-limit-button-secondary' : 'iy-limit-button';
     stopBtn.textContent = 'Stop Watching (Go Home)';
 
     const overrideBtn = document.createElement('button');
@@ -149,6 +211,7 @@ const IYT_Timer = (() => {
 
     stopBtn.addEventListener('click', (e) => {
       e.stopPropagation();
+      _allowedVideoId = null;
       _video?.pause();
       window.location.href = 'https://www.youtube.com/';
     });
@@ -157,6 +220,7 @@ const IYT_Timer = (() => {
       e.stopPropagation();
       await StorageManager.updateNestedSetting('stats', 'limitDismissedToday', true);
       if (_settings?.stats) _settings.stats.limitDismissedToday = true;
+      _allowedVideoId = null;
       overlay.remove();
       _limitOverlayActive = false;
     });
@@ -221,6 +285,10 @@ const IYT_Timer = (() => {
       return;
     }
 
+    if (_allowedVideoId && _allowedVideoId !== _getVideoId()) {
+      _allowedVideoId = null;
+    }
+
     _sessionSeconds++;
     _batchAccumulator++;
 
@@ -256,6 +324,10 @@ const IYT_Timer = (() => {
 
   // ─── Video event handlers ──────────────────────────────────────────────────
   function _onPlay() {
+    if (_allowedVideoId && _allowedVideoId !== _getVideoId()) {
+      _allowedVideoId = null;
+    }
+
     if (_isLimitExceeded()) {
       if (_video && !_video.paused) {
         _video.pause();
@@ -281,7 +353,27 @@ const IYT_Timer = (() => {
     }
   }
 
+  function _onEnded() {
+    _onPause();
+    // Ignore ad endings
+    if (document.querySelector('.ad-showing, .ad-interrupting') || (_video && _video.closest('.ad-showing'))) {
+      return;
+    }
+    _graceConsumedFor = _getVideoId();
+    _allowedVideoId = null;
+    if (_isLimitExceeded()) {
+      if (_video && !_video.paused) {
+        _video.pause();
+      }
+      _showLimitOverlay();
+    }
+  }
+
   function _onTimeUpdate() {
+    if (_allowedVideoId && _allowedVideoId !== _getVideoId()) {
+      _allowedVideoId = null;
+    }
+
     if (_isLimitExceeded()) {
       if (_video && !_video.paused) {
         _video.pause();
@@ -321,6 +413,12 @@ const IYT_Timer = (() => {
     _reminderIntervalCount = 0;
     _limitOverlayActive = false;
 
+    // Reset allowed video if route/videoId changed
+    const currentVid = _getVideoId();
+    if (_allowedVideoId && _allowedVideoId !== currentVid) {
+      _allowedVideoId = null;
+    }
+
     // Read settings at session start
     _settings = await StorageManager.getSettings();
     _baseWatchSeconds = _settings.stats?.todayWatchSeconds || 0;
@@ -335,7 +433,7 @@ const IYT_Timer = (() => {
     _video.addEventListener('playing', _onPlay);
     _video.addEventListener('timeupdate', _onTimeUpdate);
     _video.addEventListener('pause', _onPause);
-    _video.addEventListener('ended', _onPause);
+    _video.addEventListener('ended', _onEnded);
     _video.addEventListener('waiting', _onPause);
 
     // If video is already playing when we attach, start counting immediately
@@ -352,7 +450,7 @@ const IYT_Timer = (() => {
       _video.removeEventListener('playing', _onPlay);
       _video.removeEventListener('timeupdate', _onTimeUpdate);
       _video.removeEventListener('pause', _onPause);
-      _video.removeEventListener('ended', _onPause);
+      _video.removeEventListener('ended', _onEnded);
       _video.removeEventListener('waiting', _onPause);
       _video = null;
     }
@@ -363,6 +461,7 @@ const IYT_Timer = (() => {
     _reminderIntervalCount = 0;
     _baseWatchSeconds = 0;
     _limitOverlayActive = false;
+    _allowedVideoId = null;
   }
 
   // Flush on tab close, hide, or navigation

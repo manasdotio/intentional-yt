@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Intentional YT",
   "short_name": "Intentional YT",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "The best YouTube distraction-removal extension. Granular controls, watch time tracking, channel & keyword blocklists. Zero tracking, all local.",
   "browser_specific_settings": {
     "gecko": {

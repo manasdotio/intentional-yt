@@ -6,7 +6,7 @@
 
 ## 📌 Executive Summary
 - **Name**: Intentional YT
-- **Version**: 2.0.1
+- **Version**: 2.1.0
 - **License**: MIT (100% Free & Open Source)
 - **Tagline**: Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.
 - **One-Liner**: A zero-flash, privacy-first browser extension and modern React web app that turns YouTube into a distraction-free, search-first utility by stripping algorithmic rabbit holes, Shorts carousels, clickbait thumbnails, and infinite feeds.

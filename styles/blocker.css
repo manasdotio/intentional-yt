@@ -375,7 +375,9 @@ html.iyt-grayscale {
 .iy-limit-btn-group {
   display: flex !important;
   align-items: center !important;
-  gap: 12px !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
   margin-top: 10px !important;
 }
 
