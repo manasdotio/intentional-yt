@@ -10,7 +10,7 @@ export default function Navbar() {
         <a href="#" className="brand" aria-label="Intentional YT Home">
           <img src="/icons/icon.svg" alt="Intentional YT Logo" className="brand-logo" width="28" height="28" />
           <span>Intentional YT</span>
-          <span className="brand-badge">v2.0</span>
+          <span className="brand-badge">v2.1</span>
         </a>
 
         <div className="nav-links">

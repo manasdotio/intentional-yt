@@ -36,38 +36,47 @@ export default function Installation() {
       {/* Firefox instructions */}
       {activeTab === 'ff' && (
         <div className="tab-content">
-          <div style={{ marginBottom: '24px', padding: '20px', background: 'var(--accent-blue-subtle)', border: '1px solid var(--border-accent)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
-            <div>
-              <h4 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '4px' }}>Official Firefox Add-ons Listing</h4>
-              <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)' }}>One-click installation directly verified on Mozilla Add-ons Store.</p>
-            </div>
-            <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/" target="_blank" rel="noopener noreferrer" className="btn btn-amo">
-              <span>Install from Firefox Add-ons</span>
-              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-          </div>
-
           <div className="step-list">
             <div className="step-item">
-              <div className="step-num">⚡</div>
+              <div className="step-num">1</div>
               <div className="step-content">
-                <h4>Direct 1-Click Install</h4>
+                <h4>Open the Mozilla Add-ons Store</h4>
                 <p>
-                  Visit <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'underline' }}>addons.mozilla.org/en-US/firefox/addon/intentional-yt/</a> and click <strong>"Add to Firefox"</strong>.
+                  Intentional YT is verified and hosted directly on the official Firefox Add-ons marketplace.
+                </p>
+                <div style={{ marginTop: '14px' }}>
+                  <a
+                    href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-amo"
+                  >
+                    <span>Install on Firefox</span>
+                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="step-item">
+              <div className="step-num">2</div>
+              <div className="step-content">
+                <h4>Click "Add to Firefox"</h4>
+                <p>
+                  Confirm the prompt in your browser toolbar. The extension activates immediately with zero configuration needed.
                 </p>
               </div>
             </div>
 
             <div className="step-item">
-              <div className="step-num">🛠️</div>
+              <div className="step-num">3</div>
               <div className="step-content">
-                <h4>Or Load Developer Source Locally</h4>
+                <h4>Open YouTube &amp; Focus</h4>
                 <p>
-                  Open <code>about:debugging#/runtime/this-firefox</code> in Firefox, click <strong>"Load Temporary Add-on..."</strong> and select <code>manifest.json</code>.
+                  Visit YouTube to enjoy an intentional, distraction-free environment. Click the toolbar icon anytime to customize your preferences.
                 </p>
-                <div className="code-snippet">git clone https://github.com/manasdotio/intentional-yt.git</div>
               </div>
             </div>
           </div>
@@ -81,9 +90,30 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">1</div>
               <div className="step-content">
-                <h4>Download Intentional YT</h4>
-                <p>Clone the repository locally onto your machine.</p>
-                <div className="code-snippet">git clone https://github.com/manasdotio/intentional-yt.git</div>
+                <h4>Download &amp; Extract the Extension</h4>
+                <p>
+                  Download the ready-to-load ZIP file and extract (unzip) it to a folder on your computer.
+                </p>
+                <div style={{ marginTop: '14px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <a
+                    href="/intentional-yt.zip"
+                    download="intentional-yt-v2.1.0.zip"
+                    className="btn btn-primary"
+                  >
+                    <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <span>Download for Chrome (.zip)</span>
+                  </a>
+                  <a
+                    href="https://github.com/manasdotio/intentional-yt/releases"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                  >
+                    <span>GitHub Releases</span>
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -92,7 +122,7 @@ export default function Installation() {
               <div className="step-content">
                 <h4>Enable Developer Mode</h4>
                 <p>
-                  Navigate to <code>chrome://extensions</code> (or <code>brave://extensions</code>, <code>edge://extensions</code>) and toggle <strong>Developer mode</strong> in the top-right corner.
+                  Open <code>chrome://extensions</code> (or <code>brave://extensions</code>, <code>edge://extensions</code>) in your browser and switch on <strong>Developer mode</strong> in the top-right corner.
                 </p>
               </div>
             </div>
@@ -100,9 +130,9 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">3</div>
               <div className="step-content">
-                <h4>Load Unpacked</h4>
+                <h4>Click "Load unpacked"</h4>
                 <p>
-                  Click <strong>"Load unpacked"</strong> and choose the cloned <code>intentional-yt</code> root directory.
+                  Click the <strong>Load unpacked</strong> button in the top-left corner and select the extracted folder. Intentional YT is installed and ready!
                 </p>
               </div>
             </div>

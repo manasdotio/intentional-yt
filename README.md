@@ -17,6 +17,7 @@
 <p align="center">
   <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"><strong>🦊 Install for Firefox</strong></a> •
   <a href="https://manasdotio.github.io/intentional-yt/"><strong>🌐 Live Website</strong></a> •
+  <a href="#-preview">Preview</a> •
   <a href="#-why-intentional-yt">Why Intentional YT?</a> •
   <a href="#-features">Features</a> •
   <a href="#-installation">Installation</a> •
@@ -25,7 +26,21 @@
   <a href="#-contributing">Contributing</a>
 </p>
 
+<p align="center">
+  <img src="screenshots/store/1_homepage.png" alt="Intentional YT Preview" width="800" style="border-radius: 8px;" />
+</p>
+
 </div>
+
+---
+
+## 📸 Preview
+
+| Distraction-Free Search Mode | Granular Extension Popup |
+| :---: | :---: |
+| <img src="screenshots/store/1_homepage.png" alt="Clean Homepage" width="400" /> | <img src="screenshots/store/2_popup_controls.png" alt="Popup Controls" width="400" /> |
+| **Clean Video Playback (No Recommendations)** | **Clickbait Thumbnail Neutralization** |
+| <img src="screenshots/store/3_video_playback.png" alt="Clean Watch Page" width="400" /> | <img src="screenshots/store/4_thumbnails.png" alt="Thumbnail Neutralization" width="400" /> |
 
 ---
 
