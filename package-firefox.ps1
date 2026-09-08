@@ -1,5 +1,5 @@
 param(
-  [string]$OutputPath = $(Join-Path $PSScriptRoot 'intentional-yt-firefox.zip')
+  [string]$OutputPath = $(Join-Path $PSScriptRoot 'intentional-yt.zip')
 )
 
 Add-Type -AssemblyName System.IO.Compression

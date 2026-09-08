@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OUTPUT_FILE="${1:-"$SCRIPT_DIR/intentional-yt-firefox.zip"}"
+OUTPUT_FILE="${1:-"$SCRIPT_DIR/intentional-yt.zip"}"
 
 PACKAGE_ITEMS=(
   "manifest.json"

@@ -3,7 +3,7 @@
 Intentional YT is built to be completely private and offline-first.
 
 ## Data Storage
-All preferences and watch-time counters are stored exclusively on your device using Firefox's local extension storage API (`browser.storage.local`).
+All preferences and watch-time counters are stored exclusively on your device using the browser's local extension storage API (`chrome.storage.local` / `browser.storage.local`).
 
 The data stored includes:
 - Your UI toggle preferences (e.g., whether the home feed, comments, or thumbnails are hidden).
@@ -21,4 +21,4 @@ The data stored includes:
 - **Zero User Identification**: We do not collect cookies, search queries, account details, or browsing history.
 
 ## Data Removal
-All stored data is wiped automatically when you uninstall the extension from Firefox. You can also manually reset today's watch statistics at any time by clicking the "reset" button in the extension popup.
+All stored data is wiped automatically when you uninstall the extension from your browser. You can also manually reset today's watch statistics at any time by clicking the "reset" button in the extension popup.

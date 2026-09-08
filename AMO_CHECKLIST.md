@@ -1,7 +1,7 @@
 # AMO Submission Checklist
 
 ## Ready in Repository
-- [x] WebExtension Manifest V2 configured in `manifest.json` with Gecko ID (`intentional-yt@intentional-yt.local`).
+- [x] WebExtension Manifest V3 configured in `manifest.json` with Gecko ID (`intentional-yt@intentional-yt.local`).
 - [x] No remote code loading or third-party network requests.
 - [x] No eval or inline script execution.
 - [x] Complete local storage privacy policy documented in `PRIVACY.md`.
@@ -9,10 +9,10 @@
 
 ## Submission Steps for addons.mozilla.org (AMO)
 1. **Package the add-on**:
-   - Run `./package-firefox.ps1` (or `zip -r intentional-yt-firefox.zip manifest.json background content icons styles ui utils`).
+   - Run `./package.sh` (creates `intentional-yt.zip`).
 2. **Submit to AMO Developer Hub**:
    - Log into https://addons.mozilla.org/developers/
-   - Click **Submit a New Add-on** and upload `intentional-yt-firefox.zip`.
+   - Click **Submit a New Add-on** and upload `intentional-yt.zip`.
 3. **Store Listing Details**:
    - **Name**: Intentional YT
    - **Summary**: Distraction-free YouTube experience. Granular controls for feeds, Shorts, comments, and watch time limits.

@@ -1,32 +1,28 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Intentional YT",
   "short_name": "Intentional YT",
   "version": "2.1.0",
-  "description": "The best YouTube distraction-removal extension. Granular controls, watch time tracking, channel & keyword blocklists. Zero tracking, all local.",
+  "description": "Distraction-free YouTube with granular controls for feeds, Shorts, comments, and watch time limits. 100% private & local.",
   "browser_specific_settings": {
     "gecko": {
       "id": "intentional-yt@intentional-yt.local",
-      "strict_min_version": "142.0",
-      "data_collection_permissions": {
-        "required": ["none"]
-      }
+      "strict_min_version": "121.0"
     }
   },
 
   "permissions": [
     "storage",
-    "alarms",
+    "alarms"
+  ],
+
+  "host_permissions": [
     "*://www.youtube.com/*",
     "*://m.youtube.com/*"
   ],
 
   "background": {
-    "scripts": [
-      "utils/storage.js",
-      "background/background.js"
-    ],
-    "persistent": false
+    "service_worker": "background/background.js"
   },
 
   "content_scripts": [
@@ -51,7 +47,7 @@
     }
   ],
 
-  "browser_action": {
+  "action": {
     "default_popup": "ui/popup.html",
     "default_title": "Intentional YT",
     "default_icon": {
@@ -63,7 +59,15 @@
   },
 
   "web_accessible_resources": [
-    "styles/blocker.css"
+    {
+      "resources": [
+        "styles/blocker.css"
+      ],
+      "matches": [
+        "*://www.youtube.com/*",
+        "*://m.youtube.com/*"
+      ]
+    }
   ],
 
   "icons": {
@@ -73,3 +77,4 @@
     "128": "icons/icon-128.png"
   }
 }
+

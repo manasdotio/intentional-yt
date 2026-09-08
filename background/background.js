@@ -4,6 +4,14 @@
 
 'use strict';
 
+if (typeof importScripts === 'function') {
+  try {
+    importScripts('/utils/storage.js');
+  } catch (e) {
+    importScripts('../utils/storage.js');
+  }
+}
+
 var browser = globalThis.browser || globalThis.chrome;
 
 
