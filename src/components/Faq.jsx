@@ -52,7 +52,7 @@ const FAQ_ITEMS = [
     question: 'Which browsers are supported?',
     answer: (
       <p>
-        Intentional YT is verified and published on the <strong>Firefox Add-ons Store</strong>. It also runs smoothly across all Chromium-based browsers (Google Chrome, Brave, Microsoft Edge, Opera, and Arc) by loading the unpacked folder in Developer Mode.
+        Intentional YT is verified and published on both the <strong>Chrome Web Store</strong> (for Google Chrome, Brave, Microsoft Edge, Opera, and Arc) and the <strong>Firefox Add-ons Store (AMO)</strong>. It can also be loaded unpacked from source in Developer Mode.
       </p>
     )
   },

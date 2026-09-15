@@ -6,7 +6,15 @@
 
 ---
 
-## 1. Load in Firefox (Temporary Add-on)
+## Official Store Installations (Recommended)
+- **Google Chrome & Chromium (Chrome, Brave, Edge, Arc)**: [**Install from Chrome Web Store**](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)
+- **Mozilla Firefox**: [**Install from Firefox Add-ons (AMO)**](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
+
+---
+
+## Manual Installation (From Source)
+
+### 1. Load in Firefox (Temporary Add-on)
 
 1. In Firefox, open a new tab and go to `about:debugging#/runtime/this-firefox`.
 2. Click **Load Temporary Add-on...**
@@ -15,7 +23,7 @@
 
 ---
 
-## 2. Load in Chromium (Chrome / Brave / Edge / Arc)
+### 2. Load in Chromium (Chrome / Brave / Edge / Arc)
 
 1. Open your browser and navigate to the extensions page:
    - **Chrome**: `chrome://extensions`

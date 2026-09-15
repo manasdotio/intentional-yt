@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://manasdotio.github.io/intentional-yt/sitemap.xml
+Sitemap: https://intentionalyt.manassingh.dev/sitemap.xml

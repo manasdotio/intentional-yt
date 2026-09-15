@@ -17,8 +17,8 @@ export default function Comparison() {
             <tr>
               <th style={{ minWidth: '220px' }}>Key Capability</th>
               <th className="highlight-col" style={{ minWidth: '220px' }}>Intentional YT</th>
-              <th style={{ minWidth: '170px' }}>Standard Ad Blockers</th>
               <th style={{ minWidth: '180px' }}>Other Focus Plugins</th>
+              <th style={{ minWidth: '170px' }}>Default YouTube</th>
             </tr>
           </thead>
           <tbody>
@@ -33,11 +33,11 @@ export default function Comparison() {
               </td>
               <td>
                 <span className="status-badge status-warn">⚠️ Flickers on Load</span>
-                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Thumbnails flash for a second</div>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Feeds flash for a fraction of a second</div>
               </td>
               <td>
-                <span className="status-badge status-warn">⚠️ Sluggish Delay</span>
-                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Elements jump as you scroll</div>
+                <span className="status-badge status-bad">✗ Distraction Loaded</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Full feeds load instantly</div>
               </td>
             </tr>
 
@@ -51,12 +51,12 @@ export default function Comparison() {
                 <div className="table-feat-desc" style={{ marginTop: '4px' }}>Strips Shorts across all pages</div>
               </td>
               <td>
-                <span className="status-badge status-bad">✗ Not Blocked</span>
-                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Only targets video ads</div>
-              </td>
-              <td>
                 <span className="status-badge status-warn">⚠️ Incomplete</span>
                 <div className="table-feat-desc" style={{ marginTop: '4px' }}>Frequently breaks while navigating</div>
+              </td>
+              <td>
+                <span className="status-badge status-bad">✗ Full Exposure</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Shorts pushed across every view</div>
               </td>
             </tr>
 
@@ -70,12 +70,12 @@ export default function Comparison() {
                 <div className="table-feat-desc" style={{ marginTop: '4px' }}>You choose what to keep or hide</div>
               </td>
               <td>
-                <span className="status-badge status-bad">✗ No Controls</span>
-                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Manual custom rule editing only</div>
-              </td>
-              <td>
                 <span className="status-badge status-warn">⚠️ Rigid &amp; Limited</span>
                 <div className="table-feat-desc" style={{ marginTop: '4px' }}>Forced all-or-nothing settings</div>
+              </td>
+              <td>
+                <span className="status-badge status-bad">✗ Zero Control</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>YouTube decides what you see</div>
               </td>
             </tr>
 
@@ -89,10 +89,12 @@ export default function Comparison() {
                 <div className="table-feat-desc" style={{ marginTop: '4px' }}>Preserves duration tags &amp; titles</div>
               </td>
               <td>
-                <span className="status-badge status-bad">✗ Not Supported</span>
+                <span className="status-badge status-bad">✗ Rarely Supported</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Leaves shouting covers visible</div>
               </td>
               <td>
-                <span className="status-badge status-bad">✗ Rarely Supported</span>
+                <span className="status-badge status-bad">✗ High Stimulation</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Bright, saturated clickbait covers</div>
               </td>
             </tr>
 
@@ -106,10 +108,12 @@ export default function Comparison() {
                 <div className="table-feat-desc" style={{ marginTop: '4px' }}>Gentle nudge toasts &amp; hard limits</div>
               </td>
               <td>
-                <span className="status-badge status-bad">✗ No Time Limits</span>
+                <span className="status-badge status-bad">✗ Missing</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>No playback time tracking</div>
               </td>
               <td>
-                <span className="status-badge status-bad">✗ Missing</span>
+                <span className="status-badge status-bad">✗ Infinite Bingeing</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Engineered for endless watch time</div>
               </td>
             </tr>
 
@@ -124,11 +128,11 @@ export default function Comparison() {
               </td>
               <td>
                 <span className="status-badge status-neutral">Varies</span>
-                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Some send network telemetry</div>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Often requires accounts or tracking</div>
               </td>
               <td>
-                <span className="status-badge status-neutral">Varies</span>
-                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Often requires accounts or tracking</div>
+                <span className="status-badge status-bad">✗ Full Profiling</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Full algorithmic user tracking</div>
               </td>
             </tr>
           </tbody>

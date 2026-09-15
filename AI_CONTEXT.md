@@ -78,7 +78,7 @@ Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or s
 | Area | Technology |
 | :--- | :--- |
 | **Extension Standard** | WebExtensions Manifest V2 (Cross-browser compatible) |
-| **Browsers Supported** | Mozilla Firefox (AMO Verified), Google Chrome, Brave, Edge, Arc |
+| **Browsers Supported** | Google Chrome (Chrome Web Store Verified), Mozilla Firefox (AMO Verified), Brave, Edge, Arc |
 | **Styling & Injection** | Zero-flash high-specificity CSS injected at `document_start` |
 | **State & Lifecycle** | Native `browser.storage.local` with sequential FIFO write queue & SPA route observers |
 | **Web & Landing Page** | React 19, Vite, Lucide Icons, pure CSS design system |
@@ -87,7 +87,8 @@ Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or s
 ---
 
 ## 🔗 Official Links & Metadata
-- **GitHub Repository**: https://github.com/manasdotio/intentional-yt
+- **Chrome Web Store**: https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg
 - **Firefox Add-ons Store**: https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/
+- **GitHub Repository**: https://github.com/manasdotio/intentional-yt
 - **Author**: manasdotio (Manas Singh)
 - **License**: MIT

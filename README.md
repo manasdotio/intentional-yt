@@ -6,17 +6,19 @@
 
 **Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.**
 
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install%20Extension-4285F4?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)
 [![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install%20Extension-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-2.1.0-brightgreen.svg)
-![Browsers](https://img.shields.io/badge/browsers-Firefox%20%7C%20Chromium-informational.svg)
+![Browsers](https://img.shields.io/badge/browsers-Chrome%20%7C%20Firefox-informational.svg)
 ![Manifest](https://img.shields.io/badge/manifest-v2-orange.svg)
 ![Privacy](https://img.shields.io/badge/telemetry-0%25%20(strictly%20local)-success.svg)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg"><strong>🌐 Install for Chrome</strong></a> •
   <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"><strong>🦊 Install for Firefox</strong></a> •
-  <a href="https://manasdotio.github.io/intentional-yt/"><strong>🌐 Live Website</strong></a> •
+  <a href="https://intentionalyt.manassingh.dev/"><strong>🚀 Live Website</strong></a> •
   <a href="#-preview">Preview</a> •
   <a href="#-why-intentional-yt">Why Intentional YT?</a> •
   <a href="#-features">Features</a> •
@@ -161,9 +163,11 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
   3. Browse to the cloned directory and select [`manifest.json`](manifest.json).
 
 ### Chromium (Google Chrome, Brave, Microsoft Edge, Arc)
-1. Navigate to `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
-2. Enable **Developer mode** via the toggle in the top-right corner.
-3. Click **Load unpacked** and select the root `intentional-yt` folder.
+- **Official Store (Recommended)**: Install directly from the [**Chrome Web Store**](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg).
+- **From Source**:
+  1. Navigate to `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
+  2. Enable **Developer mode** via the toggle in the top-right corner.
+  3. Click **Load unpacked** and select the root `intentional-yt` folder.
 
 ### 📦 Packaging for Release
 To package the extension into a distributable `.zip` file:
@@ -236,6 +240,7 @@ Intentional YT contains **no tracking, no analytics, and makes zero external req
 ## ⭐ Support & Feedback
 
 If Intentional YT helps you reclaim your time and focus:
+- ⭐ **[Leave a 5-Star Review on Chrome Web Store](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)** — Reviews help new users discover the extension!
 - ⭐ **[Leave a 5-Star Review on Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)** — Every review helps more people discover mindful internet use.
 - 🌟 **Star this repository** on GitHub to support open-source development.
 - 💬 Have ideas or selector updates? Open a discussion or feature request!

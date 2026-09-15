@@ -13,15 +13,15 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="application-name" content="Intentional YT" />
   <meta name="color-scheme" content="light dark" />
-  <link rel="canonical" href="https://manasdotio.github.io/intentional-yt/" />
+  <link rel="canonical" href="https://intentionalyt.manassingh.dev/" />
 
   <!-- Open Graph / Facebook / LinkedIn -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://manasdotio.github.io/intentional-yt/" />
+  <meta property="og:url" content="https://intentionalyt.manassingh.dev/" />
   <meta property="og:title" content="Intentional YT — Mindful, Distraction-Free YouTube Browser Extension" />
   <meta property="og:description" content="Reclaim your attention. Zero-flash content blocking, granular toggle control, Shorts suppression, clickbait neutralization, and local watch time tracking." />
-  <meta property="og:image" content="https://manasdotio.github.io/intentional-yt/screenshots/store/1_homepage.png" />
-  <meta property="og:image:secure_url" content="https://manasdotio.github.io/intentional-yt/screenshots/store/1_homepage.png" />
+  <meta property="og:image" content="https://intentionalyt.manassingh.dev/screenshots/store/1_homepage.png" />
+  <meta property="og:image:secure_url" content="https://intentionalyt.manassingh.dev/screenshots/store/1_homepage.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="800" />
@@ -31,10 +31,10 @@
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://manasdotio.github.io/intentional-yt/" />
+  <meta name="twitter:url" content="https://intentionalyt.manassingh.dev/" />
   <meta name="twitter:title" content="Intentional YT — Mindful, Distraction-Free YouTube" />
   <meta name="twitter:description" content="Reclaim your attention. Zero-flash content blocking, Shorts suppression, clickbait neutralization, and 100% local privacy." />
-  <meta name="twitter:image" content="https://manasdotio.github.io/intentional-yt/screenshots/store/1_homepage.png" />
+  <meta name="twitter:image" content="https://intentionalyt.manassingh.dev/screenshots/store/1_homepage.png" />
   <meta name="twitter:image:alt" content="Intentional YT - Distraction Free YouTube Interface" />
 
   <!-- Mobile & Favicons -->
@@ -51,24 +51,29 @@
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://manasdotio.github.io/intentional-yt/#website",
-        "url": "https://manasdotio.github.io/intentional-yt/",
+        "@id": "https://intentionalyt.manassingh.dev/#website",
+        "url": "https://intentionalyt.manassingh.dev/",
         "name": "Intentional YT",
         "description": "Distraction-free, minimal YouTube browser extension for deep focus and digital well-being.",
         "inLanguage": "en-US"
       },
       {
         "@type": "SoftwareApplication",
-        "@id": "https://manasdotio.github.io/intentional-yt/#software",
+        "@id": "https://intentionalyt.manassingh.dev/#software",
         "name": "Intentional YT",
-        "operatingSystem": "Mozilla Firefox, Google Chrome, Brave, Microsoft Edge, Arc",
+        "operatingSystem": "Google Chrome, Mozilla Firefox, Brave, Microsoft Edge, Arc",
         "applicationCategory": "ProductivityApplication",
         "applicationSubCategory": "Browser Extension",
         "softwareVersion": "2.1.0",
         "license": "https://github.com/manasdotio/intentional-yt/blob/main/LICENSE",
         "description": "A minimal, zero-flash browser extension that strips algorithmic rabbit holes, clickbait thumbnails, and endless feeds from YouTube. 100% private and local.",
-        "url": "https://manasdotio.github.io/intentional-yt/",
-        "downloadUrl": "https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/",
+        "url": "https://intentionalyt.manassingh.dev/",
+        "downloadUrl": "https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg",
+        "sameAs": [
+          "https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg",
+          "https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/",
+          "https://github.com/manasdotio/intentional-yt"
+        ],
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -98,7 +103,7 @@
       },
       {
         "@type": "FAQPage",
-        "@id": "https://manasdotio.github.io/intentional-yt/#faq",
+        "@id": "https://intentionalyt.manassingh.dev/#faq",
         "mainEntity": [
           {
             "@type": "Question",
@@ -137,7 +142,7 @@
             "name": "Which web browsers are supported by Intentional YT?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Intentional YT is officially available on Mozilla Firefox via the Firefox Add-ons Store (AMO) and can also be installed unpacked in developer mode on all Chromium-based browsers, including Google Chrome, Brave, Microsoft Edge, and Arc."
+              "text": "Intentional YT is officially available on the Google Chrome Web Store (for Chrome, Brave, Edge, and Arc) and Mozilla Firefox via the Firefox Add-ons Store (AMO). It can also be installed manually via unpacked developer mode."
             }
           },
           {
@@ -161,6 +166,41 @@
 </head>
 <body>
   <div id="root"></div>
+  <noscript>
+    <div style="max-width: 800px; margin: 40px auto; padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1e293b;">
+      <h1>Intentional YT — Distraction-Free YouTube Extension</h1>
+      <p>
+        <strong>Turn YouTube into a mindful focus tool, not an algorithm trap.</strong> Intentional YT is a 100% private, zero-flash browser extension engineered to eliminate distraction surfaces, endless recommendations, clickbait thumbnails, and YouTube Shorts.
+      </p>
+
+      <h2>Key Features</h2>
+      <ul>
+        <li><strong>Zero-Flash DOM Ingestion:</strong> Injects styles at <code>document_start</code> before page paint to eliminate visual flicker and layout jump.</li>
+        <li><strong>Complete YouTube Shorts Suppression:</strong> Removes Shorts shelves, sidebar tabs, channel tabs, search carousels, and player links.</li>
+        <li><strong>20+ Granular Independent Toggles:</strong> Customize your environment freely—keep subscriptions and notifications while hiding recommendations.</li>
+        <li><strong>Clickbait Thumbnail De-stimulation:</strong> Grays out or blurs screaming thumbnails while preserving duration timestamps.</li>
+        <li><strong>Daily Watch Timer &amp; Limits:</strong> Built-in active playback tracker with gentle nudge toasts and custom daily limits.</li>
+        <li><strong>Strict 0% Telemetry:</strong> No external network calls, tracking scripts, or analytics. All settings stay 100% local.</li>
+      </ul>
+
+      <h2>Available on Official Browser Stores</h2>
+      <p>
+        <a href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg"><strong>Install from Google Chrome Web Store</strong></a> (Chrome, Brave, Microsoft Edge, Opera, Arc)<br />
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"><strong>Install from Mozilla Firefox Add-ons (AMO)</strong></a><br />
+        <a href="https://github.com/manasdotio/intentional-yt"><strong>View Source Code on GitHub</strong></a> (MIT Licensed Open Source)
+      </p>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>How does Intentional YT achieve zero-flash blocking?</h3>
+      <p>Traditional blockers wait for the DOM to parse, causing distracting elements to flash for 100–300ms. Intentional YT injects high-specificity CSS tokens at document_start before paint, guaranteeing 0ms layout lag and zero pop-in.</p>
+      
+      <h3>Can I block YouTube Shorts completely?</h3>
+      <p>Yes. Intentional YT completely suppresses Shorts shelves, sidebar tabs, channel tabs, and search results.</p>
+      
+      <h3>Is Intentional YT private and free?</h3>
+      <p>Yes. It is 100% free, open-source under the MIT license, and collects strictly zero telemetry or browsing data.</p>
+    </div>
+  </noscript>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

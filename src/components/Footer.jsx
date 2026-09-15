@@ -45,7 +45,18 @@ export default function Footer() {
         <div>
           <h4 className="footer-col-title">Installation</h4>
           <ul className="footer-nav-list">
-            <li><a href={APP_CONFIG.firefoxAddonUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Firefox Add-on Store ↗</a></li>
+            <li>
+              <a href={APP_CONFIG.chromeWebStoreUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <img src="/icons/chrome.svg" width="14" height="14" alt="Chrome" />
+                <span>Chrome Web Store ↗</span>
+              </a>
+            </li>
+            <li>
+              <a href={APP_CONFIG.firefoxAddonUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <img src="/icons/firefox.svg" width="14" height="14" alt="Firefox" />
+                <span>Firefox Add-on Store ↗</span>
+              </a>
+            </li>
             <li>
               <a 
                 href={APP_CONFIG.chromeZipUrl} 
@@ -55,7 +66,7 @@ export default function Footer() {
                 Download Chrome (.zip) ↓
               </a>
             </li>
-            <li><a href="#install" className="footer-nav-link">Chromium Setup Guide</a></li>
+            <li><a href="#install" className="footer-nav-link">Installation Guide</a></li>
             <li><a href={APP_CONFIG.githubReleasesUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Release Packages ↗</a></li>
           </ul>
         </div>
@@ -66,7 +77,7 @@ export default function Footer() {
           <ul className="footer-nav-list">
             <li><a href={APP_CONFIG.githubRepoUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link">GitHub Repository ↗</a></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">MIT License</a></li>
-            <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Privacy Policy</a></li>
+            <li><a href="/privacy" className="footer-nav-link">Privacy Policy</a></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/SECURITY.md`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Security Audit</a></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Contributing</a></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/issues`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Report an Issue ↗</a></li>

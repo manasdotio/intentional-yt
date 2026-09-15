@@ -8,17 +8,28 @@ export default function ReviewCta() {
       <h3 style={{ fontSize: '22px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '8px', color: 'var(--text-primary)' }}>
         Help others reclaim their attention
       </h3>
-      <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', maxWidth: '520px', margin: '0 auto 24px' }}>
-        If Intentional YT has helped you focus, a 5-star review on Firefox Add-ons goes a long way in helping others find distraction-free video viewing.
+      <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', maxWidth: '560px', margin: '0 auto 24px' }}>
+        If Intentional YT has helped you focus, a 5-star review on the Chrome Web Store or Firefox Add-ons goes a long way in helping others find distraction-free video viewing.
       </p>
       <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+        <a
+          href={APP_CONFIG.chromeWebStoreUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-chrome"
+        >
+          <img src="/icons/chrome.svg" width="16" height="16" alt="Chrome" />
+          <span>Review on Chrome Store</span>
+          <span>→</span>
+        </a>
         <a
           href={APP_CONFIG.firefoxAddonUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-amo"
         >
-          <span>Leave a Review on Firefox Add-ons</span>
+          <img src="/icons/firefox.svg" width="16" height="16" alt="Firefox" />
+          <span>Review on Firefox Add-ons</span>
           <span>→</span>
         </a>
         <a
