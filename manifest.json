@@ -25,7 +25,11 @@
   ],
 
   "background": {
-    "service_worker": "background/background.js"
+    "service_worker": "background/background.js",
+    "scripts": [
+      "utils/storage.js",
+      "background/background.js"
+    ]
   },
 
   "content_scripts": [

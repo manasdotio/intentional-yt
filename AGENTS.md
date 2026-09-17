@@ -35,6 +35,7 @@ intentional-yt/
 - **Zero npm Dependencies**: Never import external libraries or node packages into extension scripts. Must run natively in browser runtimes.
 - **Zero-Flash Blocking**: All visual blockers in `styles/blocker.css` MUST be high-specificity CSS injected at `document_start`. Never hide core feeds via delayed JS DOM mutations that cause content to flicker.
 - **Cross-Browser Compatibility**: Support both Chrome MV3 and Firefox AMO. Do not use Chrome-only or Firefox-only proprietary APIs in `manifest.json`.
+- **Dual Background Invariant**: In `manifest.json`, keep BOTH `"service_worker"` (for Chrome) and `"scripts"` (mandatory fallback for Firefox AMO validation). Removing `"scripts"` causes Firefox AMO automated validation failure.
 - **100% Local Privacy**: 0% telemetry, no analytics, no external tracking network calls. Everything stays in `chrome.storage.local` / `browser.storage.local`.
 
 ### B. Landing Page Website (`src/`, `index.html`)
