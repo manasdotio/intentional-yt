@@ -93,27 +93,27 @@ export default function Simulator() {
             </div>
 
             <div className="mock-yt-header">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <svg width="20" height="20" fill="none" stroke="#aaa" viewBox="0 0 24 24">
+              <div className="mock-yt-header-left">
+                <svg width="20" height="20" fill="none" stroke="#aaa" viewBox="0 0 24 24" className="mock-yt-hamburger">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 700, fontSize: '13px', color: '#fff' }}>
+                <div className="mock-yt-brand">
                   <span style={{ color: '#ff0000', fontSize: '16px' }}>▶</span> YouTube
                 </div>
               </div>
               <div className="mock-yt-search">
-                <span>Search intentional videos...</span>
-                <svg width="14" height="14" fill="none" stroke="#777" viewBox="0 0 24 24">
+                <span className="mock-yt-search-text">Search intentional videos...</span>
+                <svg width="14" height="14" fill="none" stroke="#777" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div>
+              <div className="mock-yt-header-right">
+                <div className="mock-yt-bell">
                   <svg width="16" height="16" fill="none" stroke="#aaa" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                   </svg>
                 </div>
-                <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#444' }}></div>
+                <div className="mock-yt-avatar"></div>
               </div>
             </div>
 

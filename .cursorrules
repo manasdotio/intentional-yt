@@ -1,0 +1,5 @@
+# Refer to AGENTS.md for full instructions and repository map.
+# Key summary:
+# 1. Extension: Native Vanilla JS/CSS (no npm dependencies, zero-flash CSS injection at document_start, 0% telemetry).
+# 2. Website: React 19 + Vite + pure CSS variables. Always test with `npm run build`.
+# 3. Always check AGENTS.md before making structural changes.

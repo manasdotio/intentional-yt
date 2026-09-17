@@ -322,6 +322,71 @@ html.iyt-grayscale {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   INJECTED OVERLAY & TOAST THEME TOKENS
+═══════════════════════════════════════════════════════════ */
+:root {
+  --iyt-overlay-bg: rgba(8, 9, 12, 0.98);
+  --iyt-overlay-text: #f3f4f6;
+  --iyt-overlay-title: #ffffff;
+  --iyt-overlay-message: #94a3b8;
+  --iyt-overlay-btn-sec-bg: rgba(255, 255, 255, 0.08);
+  --iyt-overlay-btn-sec-color: #cbd5e1;
+  --iyt-overlay-btn-sec-border: rgba(255, 255, 255, 0.14);
+  --iyt-overlay-btn-sec-hover-bg: rgba(255, 255, 255, 0.15);
+  --iyt-overlay-btn-sec-hover-color: #ffffff;
+
+  --iyt-toast-bg: rgba(14, 16, 22, 0.95);
+  --iyt-toast-border: rgba(255, 255, 255, 0.10);
+  --iyt-toast-text: #f3f4f6;
+  --iyt-toast-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --iyt-toast-close: rgba(255, 255, 255, 0.45);
+  --iyt-toast-close-hover: #ffffff;
+  --iyt-toast-close-hover-bg: rgba(255, 255, 255, 0.10);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --iyt-overlay-bg: rgba(246, 247, 249, 0.98);
+    --iyt-overlay-text: #0f172a;
+    --iyt-overlay-title: #0f172a;
+    --iyt-overlay-message: #475569;
+    --iyt-overlay-btn-sec-bg: rgba(15, 23, 42, 0.06);
+    --iyt-overlay-btn-sec-color: #334155;
+    --iyt-overlay-btn-sec-border: rgba(15, 23, 42, 0.14);
+    --iyt-overlay-btn-sec-hover-bg: rgba(15, 23, 42, 0.10);
+    --iyt-overlay-btn-sec-hover-color: #0f172a;
+
+    --iyt-toast-bg: rgba(255, 255, 255, 0.94);
+    --iyt-toast-border: rgba(15, 23, 42, 0.10);
+    --iyt-toast-text: #0f172a;
+    --iyt-toast-shadow: 0 12px 36px rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    --iyt-toast-close: rgba(15, 23, 42, 0.45);
+    --iyt-toast-close-hover: #0f172a;
+    --iyt-toast-close-hover-bg: rgba(15, 23, 42, 0.08);
+  }
+}
+
+html[dark] {
+  --iyt-overlay-bg: rgba(8, 9, 12, 0.98);
+  --iyt-overlay-text: #f3f4f6;
+  --iyt-overlay-title: #ffffff;
+  --iyt-overlay-message: #94a3b8;
+  --iyt-overlay-btn-sec-bg: rgba(255, 255, 255, 0.08);
+  --iyt-overlay-btn-sec-color: #cbd5e1;
+  --iyt-overlay-btn-sec-border: rgba(255, 255, 255, 0.14);
+  --iyt-overlay-btn-sec-hover-bg: rgba(255, 255, 255, 0.15);
+  --iyt-overlay-btn-sec-hover-color: #ffffff;
+
+  --iyt-toast-bg: rgba(14, 16, 22, 0.95);
+  --iyt-toast-border: rgba(255, 255, 255, 0.10);
+  --iyt-toast-text: #f3f4f6;
+  --iyt-toast-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --iyt-toast-close: rgba(255, 255, 255, 0.45);
+  --iyt-toast-close-hover: #ffffff;
+  --iyt-toast-close-hover-bg: rgba(255, 255, 255, 0.10);
+}
+
+/* ═══════════════════════════════════════════════════════════
    DAILY LIMIT OVERLAY (injected by timerToast.js)
 ═══════════════════════════════════════════════════════════ */
 .iy-limit-overlay {
@@ -331,13 +396,13 @@ html.iyt-grayscale {
   width: 100% !important;
   height: 100% !important;
   min-height: 260px !important;
-  background: rgba(8, 9, 12, 0.98) !important;
+  background: var(--iyt-overlay-bg) !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   z-index: 99999 !important;
-  color: #f3f4f6 !important;
+  color: var(--iyt-overlay-text) !important;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   gap: 12px !important;
   border-radius: inherit !important;
@@ -345,6 +410,7 @@ html.iyt-grayscale {
   padding: 24px !important;
   pointer-events: auto !important;
   user-select: none !important;
+  transition: background 0.2s ease, color 0.2s ease !important;
 }
 
 .iy-limit-icon {
@@ -357,7 +423,7 @@ html.iyt-grayscale {
   font-size: 22px !important;
   font-weight: 700 !important;
   text-align: center !important;
-  color: #fff !important;
+  color: var(--iyt-overlay-title) !important;
   margin: 0 !important;
   letter-spacing: -0.02em !important;
 }
@@ -366,7 +432,7 @@ html.iyt-grayscale {
   font-size: 14px !important;
   font-weight: 400 !important;
   text-align: center !important;
-  color: #aaa !important;
+  color: var(--iyt-overlay-message) !important;
   margin: 0 !important;
   max-width: 420px !important;
   line-height: 1.5 !important;
@@ -404,22 +470,22 @@ html.iyt-grayscale {
 }
 
 .iy-limit-button-secondary {
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: #ccc !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: var(--iyt-overlay-btn-sec-bg) !important;
+  color: var(--iyt-overlay-btn-sec-color) !important;
+  border: 1px solid var(--iyt-overlay-btn-sec-border) !important;
   padding: 9px 18px !important;
   border-radius: 8px !important;
   font-family: inherit !important;
   font-weight: 500 !important;
   font-size: 13px !important;
   cursor: pointer !important;
-  transition: background 0.15s, color 0.15s !important;
+  transition: background 0.15s, color 0.15s, border-color 0.15s !important;
   outline: none !important;
 }
 
 .iy-limit-button-secondary:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #fff !important;
+  background: var(--iyt-overlay-btn-sec-hover-bg) !important;
+  color: var(--iyt-overlay-btn-sec-hover-color) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -430,14 +496,14 @@ html.iyt-grayscale {
   bottom: 24px;
   right: 24px;
   z-index: 2147483647;
-  background: rgba(14, 16, 22, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--iyt-toast-bg);
+  border: 1px solid var(--iyt-toast-border);
   border-radius: 12px;
   padding: 13px 16px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: var(--iyt-toast-shadow);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  color: #f3f4f6;
+  color: var(--iyt-toast-text);
   font-family: 'Outfit', system-ui, -apple-system, sans-serif;
   font-size: 14px;
   display: flex;
@@ -448,7 +514,9 @@ html.iyt-grayscale {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.2s ease,
+              color 0.2s ease;
 }
 
 .iyt-toast-container.iyt-toast-show {
@@ -470,7 +538,7 @@ html.iyt-grayscale {
 .iyt-toast-close {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--iyt-toast-close);
   font-size: 13px;
   cursor: pointer;
   padding: 3px 5px;
@@ -481,6 +549,6 @@ html.iyt-grayscale {
 }
 
 .iyt-toast-close:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--iyt-toast-close-hover);
+  background: var(--iyt-toast-close-hover-bg);
 }

@@ -3,7 +3,7 @@ import { APP_CONFIG } from '../config/constants'
 
 export default function ReviewCta() {
   return (
-    <section style={{ marginBottom: '90px', textAlign: 'center', background: 'var(--surface-glass)', border: '1px solid var(--border)', borderRadius: 'var(--radius-xl)', padding: '40px 24px', boxShadow: 'var(--shadow-sm)' }}>
+    <section className="review-cta-card">
       <div style={{ fontSize: '24px', marginBottom: '12px', color: '#f59e0b' }}>★★★★★</div>
       <h3 style={{ fontSize: '22px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '8px', color: 'var(--text-primary)' }}>
         Help others reclaim their attention
@@ -11,7 +11,7 @@ export default function ReviewCta() {
       <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', maxWidth: '560px', margin: '0 auto 24px' }}>
         If Intentional YT has helped you focus, a 5-star review on the Chrome Web Store or Firefox Add-ons goes a long way in helping others find distraction-free video viewing.
       </p>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+      <div className="review-cta-actions">
         <a
           href={APP_CONFIG.chromeWebStoreUrl}
           target="_blank"
@@ -39,6 +39,14 @@ export default function ReviewCta() {
           className="btn btn-secondary"
         >
           <span>Star on GitHub ⭐</span>
+        </a>
+        <a
+          href={APP_CONFIG.feedbackFormUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-secondary"
+        >
+          <span>Suggest a Feature 💡</span>
         </a>
       </div>
     </section>

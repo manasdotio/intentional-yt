@@ -45,7 +45,7 @@ export default function Navbar() {
             href={APP_CONFIG.githubRepoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="nav-icon-btn"
+            className="nav-icon-btn nav-github"
             aria-label="GitHub Repository"
             title="View source on GitHub"
           >
@@ -56,7 +56,8 @@ export default function Navbar() {
 
           <div className="nav-dropdown-wrap">
             <a href="#install" className="btn btn-primary nav-install-btn">
-              <span>Get Extension</span>
+              <span className="install-text-desktop">Get Extension</span>
+              <span className="install-text-mobile">Install</span>
               <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>

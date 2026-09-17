@@ -1,0 +1,25 @@
+# Dependencies & Lockfiles (high token waste)
+node_modules/
+package-lock.json
+
+# Build outputs & Release Archives
+dist/
+build/
+web-ext-artifacts/
+*.zip
+public/*.zip
+
+# Media & Screenshots (binary tokens)
+screenshots/
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.ico
+
+# Version control, logs & agent internals
+.git/
+.system_generated/
+.gemini/
+*.log

@@ -6,7 +6,7 @@
 
 ## 📌 Executive Summary
 - **Name**: Intentional YT
-- **Version**: 2.1.0
+- **Version**: 2.1.1
 - **License**: MIT (100% Free & Open Source)
 - **Tagline**: Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.
 - **One-Liner**: A zero-flash, privacy-first browser extension and modern React web app that turns YouTube into a distraction-free, search-first utility by stripping algorithmic rabbit holes, Shorts carousels, clickbait thumbnails, and infinite feeds.
@@ -77,7 +77,7 @@ Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or s
 
 | Area | Technology |
 | :--- | :--- |
-| **Extension Standard** | WebExtensions Manifest V2 (Cross-browser compatible) |
+| **Extension Standard** | WebExtensions Manifest V3 (Cross-browser compatible) |
 | **Browsers Supported** | Google Chrome (Chrome Web Store Verified), Mozilla Firefox (AMO Verified), Brave, Edge, Arc |
 | **Styling & Injection** | Zero-flash high-specificity CSS injected at `document_start` |
 | **State & Lifecycle** | Native `browser.storage.local` with sequential FIFO write queue & SPA route observers |
@@ -89,6 +89,7 @@ Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or s
 ## 🔗 Official Links & Metadata
 - **Chrome Web Store**: https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg
 - **Firefox Add-ons Store**: https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/
+- **Feedback & Feature Requests**: https://forms.gle/EFixUed5F5bmVvFX7
 - **GitHub Repository**: https://github.com/manasdotio/intentional-yt
 - **Author**: manasdotio (Manas Singh)
 - **License**: MIT

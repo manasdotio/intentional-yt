@@ -81,6 +81,7 @@ export default function Footer() {
             <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/SECURITY.md`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Security Audit</a></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Contributing</a></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/issues`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Report an Issue ↗</a></li>
+            <li><a href={APP_CONFIG.feedbackFormUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link" style={{ color: 'var(--accent-blue)', fontWeight: 600 }}>Share Feedback &amp; Ideas ↗</a></li>
           </ul>
         </div>
       </div>

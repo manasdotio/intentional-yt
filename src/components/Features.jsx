@@ -24,9 +24,9 @@ export default function Features() {
             Styles are injected onto <code>&lt;html&gt;</code> at <code>document_start</code> before the browser renders the first pixel. You will never see a thumbnail or recommendation briefly flash onto the screen before disappearing.
           </p>
           <div className="bento-visual">
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)' }}>
+            <div className="bento-visual-inner">
               <span>document_start &gt; &lt;html class="yt-block-home-feed"&gt;</span>
-              <span style={{ color: 'var(--accent-emerald)', fontWeight: 600 }}>0ms render lag</span>
+              <span className="bento-visual-badge">0ms render lag</span>
             </div>
           </div>
         </div>

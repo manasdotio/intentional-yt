@@ -4,7 +4,7 @@
  */
 export const APP_CONFIG = {
   name: 'Intentional YT',
-  version: '2.1.0',
+  version: '2.1.1',
   versionShort: 'v2.1',
   description: 'Distraction-Free YouTube Extension for Deep Focus',
   chromeWebStoreUrl: 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg',
@@ -12,8 +12,9 @@ export const APP_CONFIG = {
   githubRepoUrl: 'https://github.com/manasdotio/intentional-yt',
   githubReleasesUrl: 'https://github.com/manasdotio/intentional-yt/releases',
   chromeZipUrl: '/intentional-yt.zip',
-  chromeZipFilename: 'intentional-yt-v2.1.0.zip',
-  liveWebsiteUrl: 'https://intentionalyt.manassingh.dev/'
+  chromeZipFilename: 'intentional-yt-v2.1.1.zip',
+  liveWebsiteUrl: 'https://intentionalyt.manassingh.dev/',
+  feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7'
 }
 
 export const APP_VERSION = APP_CONFIG.version
@@ -24,3 +25,4 @@ export const GITHUB_REPO_URL = APP_CONFIG.githubRepoUrl
 export const GITHUB_RELEASES_URL = APP_CONFIG.githubReleasesUrl
 export const CHROME_ZIP_URL = APP_CONFIG.chromeZipUrl
 export const CHROME_ZIP_FILENAME = APP_CONFIG.chromeZipFilename
+export const FEEDBACK_FORM_URL = APP_CONFIG.feedbackFormUrl
