@@ -4,14 +4,14 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>https://intentionalyt.manassingh.dev/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <loc>https://intentionalyt.me/</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://intentionalyt.manassingh.dev/privacy</loc>
-    <lastmod>2026-09-15</lastmod>
+    <loc>https://intentionalyt.me/privacy</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -13,7 +13,7 @@ export const APP_CONFIG = {
   githubReleasesUrl: 'https://github.com/manasdotio/intentional-yt/releases',
   chromeZipUrl: '/intentional-yt.zip',
   chromeZipFilename: 'intentional-yt-v2.1.1.zip',
-  liveWebsiteUrl: 'https://intentionalyt.manassingh.dev/',
+  liveWebsiteUrl: 'https://intentionalyt.me/',
   feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7'
 }
 

@@ -19,7 +19,7 @@
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg"><strong>🌐 Install for Chrome</strong></a> •
   <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"><strong>🦊 Install for Firefox</strong></a> •
-  <a href="https://intentionalyt.manassingh.dev/"><strong>🚀 Live Website</strong></a> •
+  <a href="https://intentionalyt.me/"><strong>🚀 Live Website</strong></a> •
   <a href="https://forms.gle/EFixUed5F5bmVvFX7"><strong>💡 Request a Feature</strong></a> •
   <a href="#-preview">Preview</a> •
   <a href="#-why-intentional-yt">Why Intentional YT?</a> •
@@ -31,7 +31,7 @@
 </p>
 
 <p align="center">
-  <img src="screenshots/store/1_homepage.png" alt="Intentional YT Preview" width="800" style="border-radius: 8px;" />
+  <img src="screenshots/1.png" alt="Intentional YT Overview" width="100%" style="border-radius: 8px;" />
 </p>
 
 </div>
@@ -40,11 +40,30 @@
 
 ## 📸 Preview
 
-| Distraction-Free Search Mode | Granular Extension Popup |
-| :---: | :---: |
-| <img src="screenshots/store/1_homepage.png" alt="Clean Homepage" width="400" /> | <img src="screenshots/store/2_popup_controls.png" alt="Popup Controls" width="400" /> |
-| **Clean Video Playback (No Recommendations)** | **Clickbait Thumbnail Neutralization** |
-| <img src="screenshots/store/3_video_playback.png" alt="Clean Watch Page" width="400" /> | <img src="screenshots/store/4_thumbnails.png" alt="Thumbnail Neutralization" width="400" /> |
+### 🏠 A Cleaner Homepage (Before & After)
+<p align="center">
+  <img src="screenshots/2.png" alt="Clean Homepage Before and After" width="100%" style="border-radius: 8px;" />
+</p>
+
+### 🎬 Distraction-Free Watching
+<p align="center">
+  <img src="screenshots/3.png" alt="Distraction-Free Watching" width="100%" style="border-radius: 8px;" />
+</p>
+
+### 🔍 Search Without Algorithmic Clutter
+<p align="center">
+  <img src="screenshots/4.png" alt="Clean Search Results" width="100%" style="border-radius: 8px;" />
+</p>
+
+### 🎛️ 20+ Granular Focus Controls
+<p align="center">
+  <img src="screenshots/5.png" alt="Extension Popup Controls" width="100%" style="border-radius: 8px;" />
+</p>
+
+### ⏱️ Mindful Watch Time Tracking & Limits
+<p align="center">
+  <img src="screenshots/6.png" alt="Watch Time Tracking and Limits" width="100%" style="border-radius: 8px;" />
+</p>
 
 ---
 
