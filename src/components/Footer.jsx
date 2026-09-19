@@ -88,7 +88,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <div>
-          <span>© {currentYear} {APP_CONFIG.name} • Free &amp; Open Source under <a href={`${APP_CONFIG.githubRepoUrl}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>MIT License</a></span>
+          <span>© {currentYear} {APP_CONFIG.shortName || APP_CONFIG.name} • Free &amp; Open Source under <a href={`${APP_CONFIG.githubRepoUrl}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>MIT License</a></span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
           <span>Designed for deep focus &amp; digital well-being</span>

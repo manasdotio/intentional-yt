@@ -1,0 +1,330 @@
+{
+  "extensionName": {
+    "message": "Intentional YT - YouTube 집중 모드 & 일일 시청 제한",
+    "description": "Official extension name in stores and browser management pages"
+  },
+  "extensionShortName": {
+    "message": "Intentional YT",
+    "description": "Short name of the extension"
+  },
+  "extensionDescription": {
+    "message": "피드, 쇼츠, 댓글, 시청 시간 제한을 정밀하게 제어하여 방해 요소 없는 깔끔한 YouTube를 만들어 드립니다. 100% 로컬 및 개인정보 보호.",
+    "description": "Extension description in stores and browser management pages"
+  },
+  "popup_window_title": {
+    "message": "Intentional YT - YouTube 집중 모드 & 일일 시청 제한",
+    "description": "Title tag of the popup document"
+  },
+  "header_title": {
+    "message": "Intentional YT",
+    "description": "Header brand name in the extension popup"
+  },
+  "status_active": {
+    "message": "활성",
+    "description": "Badge status when the extension is active"
+  },
+  "status_paused": {
+    "message": "일시 중지",
+    "description": "Badge status when the extension is paused"
+  },
+  "section_feed": {
+    "message": "피드",
+    "description": "Feed controls section header"
+  },
+  "toggle_block_home_feed": {
+    "message": "홈 피드 숨기기",
+    "description": "Toggle label to hide YouTube home recommendations feed"
+  },
+  "toggle_block_subscriptions": {
+    "message": "구독 피드 숨기기",
+    "description": "Toggle label to hide YouTube subscriptions feed"
+  },
+  "toggle_block_recommended": {
+    "message": "추천 영상 사이드바 숨기기",
+    "description": "Toggle label to hide recommended video sidebar on watch page"
+  },
+  "toggle_block_shorts": {
+    "message": "Shorts 숨기기",
+    "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "toggle_block_explore_trending": {
+    "message": "탐색 및 인기 급상승 숨기기",
+    "description": "Toggle label to hide Explore and Trending navigation items"
+  },
+  "toggle_block_more_from_youtube": {
+    "message": "YouTube 더보기 숨기기",
+    "description": "Toggle label to hide More from YouTube section in left sidebar"
+  },
+  "toggle_block_irrelevant_search": {
+    "message": "검색 결과 추천 목록 숨기기",
+    "description": "Toggle label to hide People also watched, For you, and related search shelves"
+  },
+  "section_video": {
+    "message": "동영상",
+    "description": "Video controls section header"
+  },
+  "toggle_block_endscreen_videowall": {
+    "message": "최종 화면 추천 영상 숨기기",
+    "description": "Toggle label to hide grid of recommended videos at video end"
+  },
+  "toggle_block_endscreen_cards": {
+    "message": "최종 화면 카드 숨기기",
+    "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "toggle_block_live_chat": {
+    "message": "실시간 채팅 숨기기",
+    "description": "Toggle label to hide live chat panel"
+  },
+  "toggle_block_playlist": {
+    "message": "재생목록 패널 숨기기",
+    "description": "Toggle label to hide playlist side panel on watch page"
+  },
+  "toggle_disable_autoplay": {
+    "message": "자동 재생 비활성화",
+    "description": "Toggle label to prevent YouTube from automatically playing next video"
+  },
+  "toggle_disable_annotations": {
+    "message": "동영상 내 주석 숨기기",
+    "description": "Toggle label to hide in-video popups and annotations"
+  },
+  "toggle_block_video_info": {
+    "message": "동영상 정보 패널 숨기기",
+    "description": "Toggle label to hide video metadata panel below player"
+  },
+  "toggle_block_video_buttons": {
+    "message": "작업 버튼",
+    "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "toggle_block_channel_info": {
+    "message": "채널 정보",
+    "description": "Nested toggle label to hide channel subscriber count and avatar"
+  },
+  "toggle_block_video_description": {
+    "message": "설명",
+    "description": "Nested toggle label to hide video description box"
+  },
+  "section_social": {
+    "message": "소셜",
+    "description": "Social controls section header"
+  },
+  "toggle_block_comments": {
+    "message": "댓글 숨기기",
+    "description": "Toggle label to hide YouTube comments section"
+  },
+  "toggle_block_profile_photos": {
+    "message": "댓글 프로필 사진 숨기기",
+    "description": "Toggle label to hide profile avatars of commenters"
+  },
+  "section_interface": {
+    "message": "인터페이스",
+    "description": "Interface controls section header"
+  },
+  "toggle_block_sidebar": {
+    "message": "왼쪽 사이드바 숨기기",
+    "description": "Toggle label to hide YouTube left drawer/guide navigation"
+  },
+  "toggle_block_top_header": {
+    "message": "상단 헤더 숨기기",
+    "description": "Toggle label to hide YouTube top search and navigation header"
+  },
+  "toggle_block_notification_bell": {
+    "message": "알림 종 숨기기",
+    "description": "Toggle label to hide notification bell icon"
+  },
+  "toggle_block_merch": {
+    "message": "쇼핑 및 제휴 상품 숨기기",
+    "description": "Toggle label to hide merchandise shelf and product offers"
+  },
+  "toggle_block_mix_playlists": {
+    "message": "맞춤 믹스 재생목록 숨기기",
+    "description": "Toggle label to hide algorithmic YouTube mix playlists"
+  },
+  "section_appearance": {
+    "message": "디자인",
+    "description": "Appearance controls section header"
+  },
+  "toggle_hide_thumbnails": {
+    "message": "썸네일 숨기기",
+    "description": "Toggle label to neutralize/blur video thumbnail images"
+  },
+  "toggle_grayscale_mode": {
+    "message": "흑백 모드",
+    "description": "Toggle label for black and white desaturation mode"
+  },
+  "section_time": {
+    "message": "시간 관리",
+    "description": "Time controls section header"
+  },
+  "toggle_soft_reminder": {
+    "message": "휴식 알림",
+    "description": "Toggle label for mindful interval toast notification"
+  },
+  "time_hint_every": {
+    "message": "주기",
+    "description": "Prefix label before interval dropdown"
+  },
+  "time_option_minutes": {
+    "message": "$MINUTES$분",
+    "description": "Preset time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "time_option_custom": {
+    "message": "직접 입력...",
+    "description": "Option in dropdown to enter a custom duration"
+  },
+  "time_placeholder_min": {
+    "message": "분",
+    "description": "Placeholder text inside custom minutes input field"
+  },
+  "time_unit_min": {
+    "message": "분",
+    "description": "Unit label beside custom minutes input"
+  },
+  "toggle_daily_limit": {
+    "message": "일일 시청 제한",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "time_hint_stop_after": {
+    "message": "제한 시간",
+    "description": "Prefix label before daily limit duration dropdown"
+  },
+  "stats_title_today": {
+    "message": "오늘",
+    "description": "Heading for daily watch stats card"
+  },
+  "aria_about_daily_watchtime": {
+    "message": "일일 시청 시간 정보",
+    "description": "Accessibility label for daily watchtime info icon"
+  },
+  "stats_tooltip_info": {
+    "message": "오늘 YouTube를 시청한 시간을 기록합니다. 매일 자정에 자동으로 초기화됩니다. 일일 제한 기능을 켜서 시청 시간을 조절하세요.",
+    "description": "Tooltip text explaining watchtime tracking"
+  },
+  "stats_no_limit": {
+    "message": "제한 없음",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  },
+  "stats_limit_progress": {
+    "message": "$MINUTES$분 중 $PERCENT$%",
+    "description": "Stats progress indicator showing percentage of daily limit",
+    "placeholders": {
+      "percent": {
+        "content": "$1",
+        "example": "50"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "60"
+      }
+    }
+  },
+  "stats_button_reset": {
+    "message": "초기화",
+    "description": "Button to reset today's accumulated watch time"
+  },
+  "time_fmt_zero_min": {
+    "message": "0분",
+    "description": "Formatted time for 0 minutes"
+  },
+  "time_fmt_seconds": {
+    "message": "$SECONDS$초",
+    "description": "Formatted time in seconds",
+    "placeholders": {
+      "seconds": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "time_fmt_minutes": {
+    "message": "$MINUTES$분",
+    "description": "Formatted time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "time_fmt_hours_minutes": {
+    "message": "$HOURS$시간 $MINUTES$분",
+    "description": "Formatted time in hours and minutes",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "1"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "15"
+      }
+    }
+  },
+  "footer_local_privacy": {
+    "message": "100% 로컬 저장",
+    "description": "Footer badge indicating offline-first local storage"
+  },
+  "footer_feedback_link": {
+    "message": "의견 및 제안 ↗",
+    "description": "Footer link text to submit feedback form"
+  },
+  "toast_reminder_message": {
+    "message": "$MINUTES$분 동안 시청 중입니다.",
+    "description": "Toast notification message when mindful interval triggers (plural)",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "toast_reminder_message_singular": {
+    "message": "1분 동안 시청 중입니다.",
+    "description": "Toast notification message when mindful interval triggers (singular)"
+  },
+  "toast_dismiss_aria": {
+    "message": "닫기",
+    "description": "Accessibility aria-label for closing toast notification"
+  },
+  "overlay_limit_title": {
+    "message": "일일 시청 제한에 도달했습니다",
+    "description": "Title on full-player limit overlay modal"
+  },
+  "overlay_limit_message": {
+    "message": "오늘 설정한 YouTube 시청 제한 시간($LIMIT$분)에 도달했습니다.",
+    "description": "Explanation message on limit overlay modal",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "60"
+      }
+    }
+  },
+  "overlay_button_finish_video": {
+    "message": "이 동영상 끝까지 보기",
+    "description": "Button label to allow completing current video before blocking"
+  },
+  "overlay_button_finish_video_remaining": {
+    "message": "이 동영상 끝까지 보기 ($MINUTES$분 남음)",
+    "description": "Button label with remaining duration to allow completing current video",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "overlay_button_stop_watching": {
+    "message": "시청 멈추기 (홈으로 이동)",
+    "description": "Primary action button to leave video and return to homepage"
+  },
+  "overlay_button_dismiss_today": {
+    "message": "오늘 하루 해제",
+    "description": "Secondary action button to override limit for remainder of today"
+  }
+}

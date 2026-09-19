@@ -14,7 +14,7 @@
    - Log into https://addons.mozilla.org/developers/
    - Click **Submit a New Add-on** and upload `intentional-yt.zip`.
 3. **Store Listing Details**:
-   - **Name**: Intentional YT
+   - **Name**: Intentional YT - YouTube Distraction Blocker & Daily Time Limit
    - **Summary**: Distraction-free YouTube experience. Granular controls for feeds, Shorts, comments, and watch time limits.
    - **Category**: Privacy & Security / Photos, Music & Videos / Productivity.
    - **Reviewer notes**:

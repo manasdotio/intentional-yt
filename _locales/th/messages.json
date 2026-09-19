@@ -1,0 +1,330 @@
+{
+  "extensionName": {
+    "message": "Intentional YT - บล็อกสิ่งรบกวนและจำกัดเวลาการใช้ YouTube รายวัน",
+    "description": "Official extension name in stores and browser management pages"
+  },
+  "extensionShortName": {
+    "message": "Intentional YT",
+    "description": "Short name of the extension"
+  },
+  "extensionDescription": {
+    "message": "สัมผัสประสบการณ์ YouTube ที่ปราศจากสิ่งรบกวน ควบคุมฟีด, Shorts, ความคิดเห็น และจำกัดเวลาดูวิดีโอได้อย่างละเอียด เป็นส่วนตัว 100% บนเครื่องของคุณ.",
+    "description": "Extension description in stores and browser management pages"
+  },
+  "popup_window_title": {
+    "message": "Intentional YT - บล็อกสิ่งรบกวนและจำกัดเวลาการใช้ YouTube รายวัน",
+    "description": "Title tag of the popup document"
+  },
+  "header_title": {
+    "message": "Intentional YT",
+    "description": "Header brand name in the extension popup"
+  },
+  "status_active": {
+    "message": "เปิดใช้งาน",
+    "description": "Badge status when the extension is active"
+  },
+  "status_paused": {
+    "message": "หยุดชั่วคราว",
+    "description": "Badge status when the extension is paused"
+  },
+  "section_feed": {
+    "message": "ฟีด",
+    "description": "Feed controls section header"
+  },
+  "toggle_block_home_feed": {
+    "message": "ซ่อนฟีดหน้าแรก",
+    "description": "Toggle label to hide YouTube home recommendations feed"
+  },
+  "toggle_block_subscriptions": {
+    "message": "ซ่อนฟีดการติดตาม",
+    "description": "Toggle label to hide YouTube subscriptions feed"
+  },
+  "toggle_block_recommended": {
+    "message": "ซ่อนแถบวิดีโอแนะนำด้านข้าง",
+    "description": "Toggle label to hide recommended video sidebar on watch page"
+  },
+  "toggle_block_shorts": {
+    "message": "ซ่อน Shorts",
+    "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "toggle_block_explore_trending": {
+    "message": "ซ่อนสำรวจและมาแรง",
+    "description": "Toggle label to hide Explore and Trending navigation items"
+  },
+  "toggle_block_more_from_youtube": {
+    "message": "ซ่อน \"เพิ่มเติมจาก YouTube\"",
+    "description": "Toggle label to hide More from YouTube section in left sidebar"
+  },
+  "toggle_block_irrelevant_search": {
+    "message": "ซ่อนผลการค้นหาที่ไม่เกี่ยวข้อง",
+    "description": "Toggle label to hide People also watched, For you, and related search shelves"
+  },
+  "section_video": {
+    "message": "วิดีโอ",
+    "description": "Video controls section header"
+  },
+  "toggle_block_endscreen_videowall": {
+    "message": "ซ่อนวิดีโอแนะนำท้ายคลิป",
+    "description": "Toggle label to hide grid of recommended videos at video end"
+  },
+  "toggle_block_endscreen_cards": {
+    "message": "ซ่อนการ์ดท้ายคลิป",
+    "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "toggle_block_live_chat": {
+    "message": "ซ่อนแชทสด",
+    "description": "Toggle label to hide live chat panel"
+  },
+  "toggle_block_playlist": {
+    "message": "ซ่อนแผงเพลย์ลิสต์",
+    "description": "Toggle label to hide playlist side panel on watch page"
+  },
+  "toggle_disable_autoplay": {
+    "message": "ปิดการเล่นอัตโนมัติ",
+    "description": "Toggle label to prevent YouTube from automatically playing next video"
+  },
+  "toggle_disable_annotations": {
+    "message": "ซ่อนคำอธิบายประกอบในวิดีโอ",
+    "description": "Toggle label to hide in-video popups and annotations"
+  },
+  "toggle_block_video_info": {
+    "message": "ซ่อนข้อมูลวิดีโอ",
+    "description": "Toggle label to hide video metadata panel below player"
+  },
+  "toggle_block_video_buttons": {
+    "message": "ปุ่มการดำเนินการ",
+    "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "toggle_block_channel_info": {
+    "message": "ข้อมูลช่อง",
+    "description": "Nested toggle label to hide channel subscriber count and avatar"
+  },
+  "toggle_block_video_description": {
+    "message": "คำอธิบาย",
+    "description": "Nested toggle label to hide video description box"
+  },
+  "section_social": {
+    "message": "โซเชียล",
+    "description": "Social controls section header"
+  },
+  "toggle_block_comments": {
+    "message": "ซ่อนความคิดเห็น",
+    "description": "Toggle label to hide YouTube comments section"
+  },
+  "toggle_block_profile_photos": {
+    "message": "ซ่อนรูปโปรไฟล์ผู้แสดงความคิดเห็น",
+    "description": "Toggle label to hide profile avatars of commenters"
+  },
+  "section_interface": {
+    "message": "อินเทอร์เฟซ",
+    "description": "Interface controls section header"
+  },
+  "toggle_block_sidebar": {
+    "message": "ซ่อนแถบด้านข้างซ้าย",
+    "description": "Toggle label to hide YouTube left drawer/guide navigation"
+  },
+  "toggle_block_top_header": {
+    "message": "ซ่อนแถบด้านบน",
+    "description": "Toggle label to hide YouTube top search and navigation header"
+  },
+  "toggle_block_notification_bell": {
+    "message": "ซ่อนกระดิ่งแจ้งเตือน",
+    "description": "Toggle label to hide notification bell icon"
+  },
+  "toggle_block_merch": {
+    "message": "ซ่อนสินค้าและข้อเสนอ",
+    "description": "Toggle label to hide merchandise shelf and product offers"
+  },
+  "toggle_block_mix_playlists": {
+    "message": "ซ่อนเพลย์ลิสต์มิกซ์",
+    "description": "Toggle label to hide algorithmic YouTube mix playlists"
+  },
+  "section_appearance": {
+    "message": "การแสดงผล",
+    "description": "Appearance controls section header"
+  },
+  "toggle_hide_thumbnails": {
+    "message": "ซ่อนภาพขนาดย่อ",
+    "description": "Toggle label to neutralize/blur video thumbnail images"
+  },
+  "toggle_grayscale_mode": {
+    "message": "โหมดขาวดำ",
+    "description": "Toggle label for black and white desaturation mode"
+  },
+  "section_time": {
+    "message": "การจัดการเวลา",
+    "description": "Time controls section header"
+  },
+  "toggle_soft_reminder": {
+    "message": "เตือนให้พักสายตา",
+    "description": "Toggle label for mindful interval toast notification"
+  },
+  "time_hint_every": {
+    "message": "ทุกๆ",
+    "description": "Prefix label before interval dropdown"
+  },
+  "time_option_minutes": {
+    "message": "$MINUTES$ นาที",
+    "description": "Preset time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "time_option_custom": {
+    "message": "กำหนดเอง...",
+    "description": "Option in dropdown to enter a custom duration"
+  },
+  "time_placeholder_min": {
+    "message": "นาที",
+    "description": "Placeholder text inside custom minutes input field"
+  },
+  "time_unit_min": {
+    "message": "นาที",
+    "description": "Unit label beside custom minutes input"
+  },
+  "toggle_daily_limit": {
+    "message": "จำกัดเวลารายวัน",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "time_hint_stop_after": {
+    "message": "หยุดหลังจาก",
+    "description": "Prefix label before daily limit duration dropdown"
+  },
+  "stats_title_today": {
+    "message": "วันนี้",
+    "description": "Heading for daily watch stats card"
+  },
+  "aria_about_daily_watchtime": {
+    "message": "เกี่ยวกับเวลาดูรายวัน",
+    "description": "Accessibility label for daily watchtime info icon"
+  },
+  "stats_tooltip_info": {
+    "message": "บันทึกเวลาที่คุณดู YouTube ในวันนี้ รีเซ็ตอัตโนมัติเมื่อถึงเที่ยงคืน เปิดใช้การจำกัดเวลารายวันเพื่อช่วยควบคุมเวลา.",
+    "description": "Tooltip text explaining watchtime tracking"
+  },
+  "stats_no_limit": {
+    "message": "ไม่จำกัด",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  },
+  "stats_limit_progress": {
+    "message": "$PERCENT$% จาก $MINUTES$ นาที",
+    "description": "Stats progress indicator showing percentage of daily limit",
+    "placeholders": {
+      "percent": {
+        "content": "$1",
+        "example": "50"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "60"
+      }
+    }
+  },
+  "stats_button_reset": {
+    "message": "รีเซ็ต",
+    "description": "Button to reset today's accumulated watch time"
+  },
+  "time_fmt_zero_min": {
+    "message": "0 นาที",
+    "description": "Formatted time for 0 minutes"
+  },
+  "time_fmt_seconds": {
+    "message": "$SECONDS$ วินาที",
+    "description": "Formatted time in seconds",
+    "placeholders": {
+      "seconds": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "time_fmt_minutes": {
+    "message": "$MINUTES$ นาที",
+    "description": "Formatted time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "time_fmt_hours_minutes": {
+    "message": "$HOURS$ ชม. $MINUTES$ นาที",
+    "description": "Formatted time in hours and minutes",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "1"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "15"
+      }
+    }
+  },
+  "footer_local_privacy": {
+    "message": "ข้อมูลอยู่ในเครื่อง 100%",
+    "description": "Footer badge indicating offline-first local storage"
+  },
+  "footer_feedback_link": {
+    "message": "ข้อเสนอแนะและไอเดีย ↗",
+    "description": "Footer link text to submit feedback form"
+  },
+  "toast_reminder_message": {
+    "message": "คุณรับชมมาแล้ว $MINUTES$ นาที.",
+    "description": "Toast notification message when mindful interval triggers (plural)",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "toast_reminder_message_singular": {
+    "message": "คุณรับชมมาแล้ว 1 นาที.",
+    "description": "Toast notification message when mindful interval triggers (singular)"
+  },
+  "toast_dismiss_aria": {
+    "message": "ปิด",
+    "description": "Accessibility aria-label for closing toast notification"
+  },
+  "overlay_limit_title": {
+    "message": "ถึงเวลาจำกัดรายวันแล้ว",
+    "description": "Title on full-player limit overlay modal"
+  },
+  "overlay_limit_message": {
+    "message": "คุณรับชม YouTube ครบตามเวลาที่จำกัดไว้ $LIMIT$ นาทีสำหรับวันนี้แล้ว.",
+    "description": "Explanation message on limit overlay modal",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "60"
+      }
+    }
+  },
+  "overlay_button_finish_video": {
+    "message": "ดูวิดีโอนี้ให้จบ",
+    "description": "Button label to allow completing current video before blocking"
+  },
+  "overlay_button_finish_video_remaining": {
+    "message": "ดูวิดีโอนี้ให้จบ (เหลือ $MINUTES$ นาที)",
+    "description": "Button label with remaining duration to allow completing current video",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "overlay_button_stop_watching": {
+    "message": "หยุดดู (กลับหน้าแรก)",
+    "description": "Primary action button to leave video and return to homepage"
+  },
+  "overlay_button_dismiss_today": {
+    "message": "ปิดการเตือนสำหรับวันนี้",
+    "description": "Secondary action button to override limit for remainder of today"
+  }
+}

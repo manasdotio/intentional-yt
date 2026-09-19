@@ -6,6 +6,7 @@ OUTPUT_FILE="${1:-"$SCRIPT_DIR/intentional-yt.zip"}"
 
 PACKAGE_ITEMS=(
   "manifest.json"
+  "_locales"
   "background"
   "content"
   "icons"

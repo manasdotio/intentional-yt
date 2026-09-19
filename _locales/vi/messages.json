@@ -1,0 +1,330 @@
+{
+  "extensionName": {
+    "message": "Intentional YT - Chặn xao nhãng & Giới hạn thời gian YouTube hàng ngày",
+    "description": "Official extension name in stores and browser management pages"
+  },
+  "extensionShortName": {
+    "message": "Intentional YT",
+    "description": "Short name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Trải nghiệm YouTube không xao nhãng với các tùy chỉnh chi tiết cho bảng tin, Shorts, bình luận và giới hạn thời gian xem. 100% riêng tư và cục bộ.",
+    "description": "Extension description in stores and browser management pages"
+  },
+  "popup_window_title": {
+    "message": "Intentional YT - Chặn xao nhãng & Giới hạn thời gian YouTube hàng ngày",
+    "description": "Title tag of the popup document"
+  },
+  "header_title": {
+    "message": "Intentional YT",
+    "description": "Header brand name in the extension popup"
+  },
+  "status_active": {
+    "message": "Hoạt động",
+    "description": "Badge status when the extension is active"
+  },
+  "status_paused": {
+    "message": "Tạm dừng",
+    "description": "Badge status when the extension is paused"
+  },
+  "section_feed": {
+    "message": "Bảng tin",
+    "description": "Feed controls section header"
+  },
+  "toggle_block_home_feed": {
+    "message": "Ẩn bảng tin trang chủ",
+    "description": "Toggle label to hide YouTube home recommendations feed"
+  },
+  "toggle_block_subscriptions": {
+    "message": "Ẩn kênh đăng ký",
+    "description": "Toggle label to hide YouTube subscriptions feed"
+  },
+  "toggle_block_recommended": {
+    "message": "Ẩn thanh đề xuất bên cạnh",
+    "description": "Toggle label to hide recommended video sidebar on watch page"
+  },
+  "toggle_block_shorts": {
+    "message": "Ẩn Shorts",
+    "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "toggle_block_explore_trending": {
+    "message": "Ẩn Khám phá & Thịnh hành",
+    "description": "Toggle label to hide Explore and Trending navigation items"
+  },
+  "toggle_block_more_from_youtube": {
+    "message": "Ẩn \"Thêm từ YouTube\"",
+    "description": "Toggle label to hide More from YouTube section in left sidebar"
+  },
+  "toggle_block_irrelevant_search": {
+    "message": "Ẩn mục tìm kiếm không liên quan",
+    "description": "Toggle label to hide People also watched, For you, and related search shelves"
+  },
+  "section_video": {
+    "message": "Video",
+    "description": "Video controls section header"
+  },
+  "toggle_block_endscreen_videowall": {
+    "message": "Ẩn đề xuất màn hình kết thúc",
+    "description": "Toggle label to hide grid of recommended videos at video end"
+  },
+  "toggle_block_endscreen_cards": {
+    "message": "Ẩn thẻ màn hình kết thúc",
+    "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "toggle_block_live_chat": {
+    "message": "Ẩn trò chuyện trực tiếp",
+    "description": "Toggle label to hide live chat panel"
+  },
+  "toggle_block_playlist": {
+    "message": "Ẩn danh sách phát bên cạnh",
+    "description": "Toggle label to hide playlist side panel on watch page"
+  },
+  "toggle_disable_autoplay": {
+    "message": "Tắt tự động phát",
+    "description": "Toggle label to prevent YouTube from automatically playing next video"
+  },
+  "toggle_disable_annotations": {
+    "message": "Ẩn chú thích trong video",
+    "description": "Toggle label to hide in-video popups and annotations"
+  },
+  "toggle_block_video_info": {
+    "message": "Ẩn bảng thông tin video",
+    "description": "Toggle label to hide video metadata panel below player"
+  },
+  "toggle_block_video_buttons": {
+    "message": "Nút thao tác",
+    "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "toggle_block_channel_info": {
+    "message": "Thông tin kênh",
+    "description": "Nested toggle label to hide channel subscriber count and avatar"
+  },
+  "toggle_block_video_description": {
+    "message": "Mô tả",
+    "description": "Nested toggle label to hide video description box"
+  },
+  "section_social": {
+    "message": "Cộng đồng",
+    "description": "Social controls section header"
+  },
+  "toggle_block_comments": {
+    "message": "Ẩn bình luận",
+    "description": "Toggle label to hide YouTube comments section"
+  },
+  "toggle_block_profile_photos": {
+    "message": "Ẩn ảnh đại diện người bình luận",
+    "description": "Toggle label to hide profile avatars of commenters"
+  },
+  "section_interface": {
+    "message": "Giao diện",
+    "description": "Interface controls section header"
+  },
+  "toggle_block_sidebar": {
+    "message": "Ẩn thanh bên trái",
+    "description": "Toggle label to hide YouTube left drawer/guide navigation"
+  },
+  "toggle_block_top_header": {
+    "message": "Ẩn thanh tiêu đề trên cùng",
+    "description": "Toggle label to hide YouTube top search and navigation header"
+  },
+  "toggle_block_notification_bell": {
+    "message": "Ẩn chuông thông báo",
+    "description": "Toggle label to hide notification bell icon"
+  },
+  "toggle_block_merch": {
+    "message": "Ẩn sản phẩm & ưu đãi",
+    "description": "Toggle label to hide merchandise shelf and product offers"
+  },
+  "toggle_block_mix_playlists": {
+    "message": "Ẩn danh sách phát kết hợp (Mix)",
+    "description": "Toggle label to hide algorithmic YouTube mix playlists"
+  },
+  "section_appearance": {
+    "message": "Giao diện hiển thị",
+    "description": "Appearance controls section header"
+  },
+  "toggle_hide_thumbnails": {
+    "message": "Ẩn hình thu nhỏ",
+    "description": "Toggle label to neutralize/blur video thumbnail images"
+  },
+  "toggle_grayscale_mode": {
+    "message": "Chế độ đen trắng",
+    "description": "Toggle label for black and white desaturation mode"
+  },
+  "section_time": {
+    "message": "Thời gian",
+    "description": "Time controls section header"
+  },
+  "toggle_soft_reminder": {
+    "message": "Nhắc nhở nhẹ nhàng",
+    "description": "Toggle label for mindful interval toast notification"
+  },
+  "time_hint_every": {
+    "message": "Mỗi",
+    "description": "Prefix label before interval dropdown"
+  },
+  "time_option_minutes": {
+    "message": "$MINUTES$ phút",
+    "description": "Preset time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "time_option_custom": {
+    "message": "Tùy chỉnh...",
+    "description": "Option in dropdown to enter a custom duration"
+  },
+  "time_placeholder_min": {
+    "message": "phút",
+    "description": "Placeholder text inside custom minutes input field"
+  },
+  "time_unit_min": {
+    "message": "phút",
+    "description": "Unit label beside custom minutes input"
+  },
+  "toggle_daily_limit": {
+    "message": "Giới hạn hàng ngày",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "time_hint_stop_after": {
+    "message": "Dừng sau",
+    "description": "Prefix label before daily limit duration dropdown"
+  },
+  "stats_title_today": {
+    "message": "Hôm nay",
+    "description": "Heading for daily watch stats card"
+  },
+  "aria_about_daily_watchtime": {
+    "message": "Về thời gian xem hàng ngày",
+    "description": "Accessibility label for daily watchtime info icon"
+  },
+  "stats_tooltip_info": {
+    "message": "Ghi nhận số phút bạn xem YouTube hôm nay. Tự động đặt lại vào lúc nửa đêm. Sử dụng giới hạn hàng ngày để kiểm soát thời gian.",
+    "description": "Tooltip text explaining watchtime tracking"
+  },
+  "stats_no_limit": {
+    "message": "không giới hạn",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  },
+  "stats_limit_progress": {
+    "message": "$PERCENT$% của $MINUTES$p",
+    "description": "Stats progress indicator showing percentage of daily limit",
+    "placeholders": {
+      "percent": {
+        "content": "$1",
+        "example": "50"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "60"
+      }
+    }
+  },
+  "stats_button_reset": {
+    "message": "đặt lại",
+    "description": "Button to reset today's accumulated watch time"
+  },
+  "time_fmt_zero_min": {
+    "message": "0 phút",
+    "description": "Formatted time for 0 minutes"
+  },
+  "time_fmt_seconds": {
+    "message": "$SECONDS$ giây",
+    "description": "Formatted time in seconds",
+    "placeholders": {
+      "seconds": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "time_fmt_minutes": {
+    "message": "$MINUTES$ phút",
+    "description": "Formatted time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "time_fmt_hours_minutes": {
+    "message": "$HOURS$h $MINUTES$p",
+    "description": "Formatted time in hours and minutes",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "1"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "15"
+      }
+    }
+  },
+  "footer_local_privacy": {
+    "message": "100% Cục bộ",
+    "description": "Footer badge indicating offline-first local storage"
+  },
+  "footer_feedback_link": {
+    "message": "Góp ý & Ý tưởng ↗",
+    "description": "Footer link text to submit feedback form"
+  },
+  "toast_reminder_message": {
+    "message": "Bạn đã xem được $MINUTES$ phút.",
+    "description": "Toast notification message when mindful interval triggers (plural)",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "toast_reminder_message_singular": {
+    "message": "Bạn đã xem được 1 phút.",
+    "description": "Toast notification message when mindful interval triggers (singular)"
+  },
+  "toast_dismiss_aria": {
+    "message": "Đóng",
+    "description": "Accessibility aria-label for closing toast notification"
+  },
+  "overlay_limit_title": {
+    "message": "Đã đạt giới hạn hàng ngày",
+    "description": "Title on full-player limit overlay modal"
+  },
+  "overlay_limit_message": {
+    "message": "Bạn đã đạt giới hạn xem YouTube $LIMIT$ phút cho ngày hôm nay.",
+    "description": "Explanation message on limit overlay modal",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "60"
+      }
+    }
+  },
+  "overlay_button_finish_video": {
+    "message": "Xem nốt video này",
+    "description": "Button label to allow completing current video before blocking"
+  },
+  "overlay_button_finish_video_remaining": {
+    "message": "Xem nốt video này (còn $MINUTES$p)",
+    "description": "Button label with remaining duration to allow completing current video",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "overlay_button_stop_watching": {
+    "message": "Dừng xem (Về trang chủ)",
+    "description": "Primary action button to leave video and return to homepage"
+  },
+  "overlay_button_dismiss_today": {
+    "message": "Bỏ qua cho hôm nay",
+    "description": "Secondary action button to override limit for remainder of today"
+  }
+}

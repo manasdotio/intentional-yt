@@ -1,0 +1,330 @@
+{
+  "extensionName": {
+    "message": "Intentional YT - YouTube 防沉迷與每日時間限制",
+    "description": "Official extension name in stores and browser management pages"
+  },
+  "extensionShortName": {
+    "message": "Intentional YT",
+    "description": "Short name of the extension"
+  },
+  "extensionDescription": {
+    "message": "透過細緻控制首頁推薦、Shorts 短影音、留言與觀看時間上限，打造專注無干擾的 YouTube 體驗。100% 本地隱私安全。",
+    "description": "Extension description in stores and browser management pages"
+  },
+  "popup_window_title": {
+    "message": "Intentional YT - YouTube 防沉迷與每日時間限制",
+    "description": "Title tag of the popup document"
+  },
+  "header_title": {
+    "message": "Intentional YT",
+    "description": "Header brand name in the extension popup"
+  },
+  "status_active": {
+    "message": "啟用中",
+    "description": "Badge status when the extension is active"
+  },
+  "status_paused": {
+    "message": "已暫停",
+    "description": "Badge status when the extension is paused"
+  },
+  "section_feed": {
+    "message": "動態牆",
+    "description": "Feed controls section header"
+  },
+  "toggle_block_home_feed": {
+    "message": "隱藏首頁推薦影片",
+    "description": "Toggle label to hide YouTube home recommendations feed"
+  },
+  "toggle_block_subscriptions": {
+    "message": "隱藏訂閱動態",
+    "description": "Toggle label to hide YouTube subscriptions feed"
+  },
+  "toggle_block_recommended": {
+    "message": "隱藏側邊欄推薦影片",
+    "description": "Toggle label to hide recommended video sidebar on watch page"
+  },
+  "toggle_block_shorts": {
+    "message": "隱藏 Shorts 短影音",
+    "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "toggle_block_explore_trending": {
+    "message": "隱藏探索與發燒影片",
+    "description": "Toggle label to hide Explore and Trending navigation items"
+  },
+  "toggle_block_more_from_youtube": {
+    "message": "隱藏「YouTube 更多功能」",
+    "description": "Toggle label to hide More from YouTube section in left sidebar"
+  },
+  "toggle_block_irrelevant_search": {
+    "message": "隱藏搜尋無關推薦區塊",
+    "description": "Toggle label to hide People also watched, For you, and related search shelves"
+  },
+  "section_video": {
+    "message": "影片播放",
+    "description": "Video controls section header"
+  },
+  "toggle_block_endscreen_videowall": {
+    "message": "隱藏片尾推薦影片",
+    "description": "Toggle label to hide grid of recommended videos at video end"
+  },
+  "toggle_block_endscreen_cards": {
+    "message": "隱藏片尾資訊卡",
+    "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "toggle_block_live_chat": {
+    "message": "隱藏即時聊天室",
+    "description": "Toggle label to hide live chat panel"
+  },
+  "toggle_block_playlist": {
+    "message": "隱藏播放清單面板",
+    "description": "Toggle label to hide playlist side panel on watch page"
+  },
+  "toggle_disable_autoplay": {
+    "message": "關閉自動播放下一部",
+    "description": "Toggle label to prevent YouTube from automatically playing next video"
+  },
+  "toggle_disable_annotations": {
+    "message": "隱藏影片內註釋",
+    "description": "Toggle label to hide in-video popups and annotations"
+  },
+  "toggle_block_video_info": {
+    "message": "隱藏影片資訊面板",
+    "description": "Toggle label to hide video metadata panel below player"
+  },
+  "toggle_block_video_buttons": {
+    "message": "操作按鈕",
+    "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "toggle_block_channel_info": {
+    "message": "頻道資訊",
+    "description": "Nested toggle label to hide channel subscriber count and avatar"
+  },
+  "toggle_block_video_description": {
+    "message": "影片說明",
+    "description": "Nested toggle label to hide video description box"
+  },
+  "section_social": {
+    "message": "社群互動",
+    "description": "Social controls section header"
+  },
+  "toggle_block_comments": {
+    "message": "隱藏留言區",
+    "description": "Toggle label to hide YouTube comments section"
+  },
+  "toggle_block_profile_photos": {
+    "message": "隱藏留言者頭像",
+    "description": "Toggle label to hide profile avatars of commenters"
+  },
+  "section_interface": {
+    "message": "介面元件",
+    "description": "Interface controls section header"
+  },
+  "toggle_block_sidebar": {
+    "message": "隱藏左側導覽列",
+    "description": "Toggle label to hide YouTube left drawer/guide navigation"
+  },
+  "toggle_block_top_header": {
+    "message": "隱藏頂端搜尋列",
+    "description": "Toggle label to hide YouTube top search and navigation header"
+  },
+  "toggle_block_notification_bell": {
+    "message": "隱藏通知鈴鐺",
+    "description": "Toggle label to hide notification bell icon"
+  },
+  "toggle_block_merch": {
+    "message": "隱藏商品與優惠推廣",
+    "description": "Toggle label to hide merchandise shelf and product offers"
+  },
+  "toggle_block_mix_playlists": {
+    "message": "隱藏合輯播放清單",
+    "description": "Toggle label to hide algorithmic YouTube mix playlists"
+  },
+  "section_appearance": {
+    "message": "外觀樣式",
+    "description": "Appearance controls section header"
+  },
+  "toggle_hide_thumbnails": {
+    "message": "隱藏影片縮圖",
+    "description": "Toggle label to neutralize/blur video thumbnail images"
+  },
+  "toggle_grayscale_mode": {
+    "message": "灰階黑白模式",
+    "description": "Toggle label for black and white desaturation mode"
+  },
+  "section_time": {
+    "message": "時間管理",
+    "description": "Time controls section header"
+  },
+  "toggle_soft_reminder": {
+    "message": "溫和休息提醒",
+    "description": "Toggle label for mindful interval toast notification"
+  },
+  "time_hint_every": {
+    "message": "每隔",
+    "description": "Prefix label before interval dropdown"
+  },
+  "time_option_minutes": {
+    "message": "$MINUTES$ 分鐘",
+    "description": "Preset time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "time_option_custom": {
+    "message": "自訂...",
+    "description": "Option in dropdown to enter a custom duration"
+  },
+  "time_placeholder_min": {
+    "message": "分鐘",
+    "description": "Placeholder text inside custom minutes input field"
+  },
+  "time_unit_min": {
+    "message": "分鐘",
+    "description": "Unit label beside custom minutes input"
+  },
+  "toggle_daily_limit": {
+    "message": "每日時間上限",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "time_hint_stop_after": {
+    "message": "達上限後停止",
+    "description": "Prefix label before daily limit duration dropdown"
+  },
+  "stats_title_today": {
+    "message": "今日觀看",
+    "description": "Heading for daily watch stats card"
+  },
+  "aria_about_daily_watchtime": {
+    "message": "關於今日觀看時間",
+    "description": "Accessibility label for daily watchtime info icon"
+  },
+  "stats_tooltip_info": {
+    "message": "記錄今日 YouTube 觀看分鐘數。每天午夜零點自動重設。可開啟上方每日限制管理觀看時間。",
+    "description": "Tooltip text explaining watchtime tracking"
+  },
+  "stats_no_limit": {
+    "message": "無限制",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  },
+  "stats_limit_progress": {
+    "message": "$MINUTES$分鐘的 $PERCENT$%",
+    "description": "Stats progress indicator showing percentage of daily limit",
+    "placeholders": {
+      "percent": {
+        "content": "$1",
+        "example": "50"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "60"
+      }
+    }
+  },
+  "stats_button_reset": {
+    "message": "重設",
+    "description": "Button to reset today's accumulated watch time"
+  },
+  "time_fmt_zero_min": {
+    "message": "0 分鐘",
+    "description": "Formatted time for 0 minutes"
+  },
+  "time_fmt_seconds": {
+    "message": "$SECONDS$秒",
+    "description": "Formatted time in seconds",
+    "placeholders": {
+      "seconds": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "time_fmt_minutes": {
+    "message": "$MINUTES$ 分鐘",
+    "description": "Formatted time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "time_fmt_hours_minutes": {
+    "message": "$HOURS$小時 $MINUTES$分鐘",
+    "description": "Formatted time in hours and minutes",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "1"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "15"
+      }
+    }
+  },
+  "footer_local_privacy": {
+    "message": "100% 本地安全",
+    "description": "Footer badge indicating offline-first local storage"
+  },
+  "footer_feedback_link": {
+    "message": "意見回饋 ↗",
+    "description": "Footer link text to submit feedback form"
+  },
+  "toast_reminder_message": {
+    "message": "您已連續觀看 $MINUTES$ 分鐘。",
+    "description": "Toast notification message when mindful interval triggers (plural)",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "toast_reminder_message_singular": {
+    "message": "您已連續觀看 1 分鐘。",
+    "description": "Toast notification message when mindful interval triggers (singular)"
+  },
+  "toast_dismiss_aria": {
+    "message": "關閉",
+    "description": "Accessibility aria-label for closing toast notification"
+  },
+  "overlay_limit_title": {
+    "message": "已達今日觀看上限",
+    "description": "Title on full-player limit overlay modal"
+  },
+  "overlay_limit_message": {
+    "message": "您已達到今天設定的 $LIMIT$ 分鐘 YouTube 觀看上限。",
+    "description": "Explanation message on limit overlay modal",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "60"
+      }
+    }
+  },
+  "overlay_button_finish_video": {
+    "message": "看完這部影片",
+    "description": "Button label to allow completing current video before blocking"
+  },
+  "overlay_button_finish_video_remaining": {
+    "message": "看完這部影片（剩餘 $MINUTES$ 分鐘）",
+    "description": "Button label with remaining duration to allow completing current video",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "overlay_button_stop_watching": {
+    "message": "停止觀看（回到首頁）",
+    "description": "Primary action button to leave video and return to homepage"
+  },
+  "overlay_button_dismiss_today": {
+    "message": "今天不再限制",
+    "description": "Secondary action button to override limit for remainder of today"
+  }
+}

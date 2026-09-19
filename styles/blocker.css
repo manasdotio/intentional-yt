@@ -504,7 +504,7 @@ html[dark] {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   color: var(--iyt-toast-text);
-  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Hiragino Kaku Gothic ProN', Meiryo, 'Malgun Gothic', system-ui, sans-serif;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -551,4 +551,13 @@ html[dark] {
 .iyt-toast-close:hover {
   color: var(--iyt-toast-close-hover);
   background: var(--iyt-toast-close-hover-bg);
+}
+
+.iyt-toast-container[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+.iyt-limit-dialog[dir="rtl"] {
+  direction: rtl;
 }

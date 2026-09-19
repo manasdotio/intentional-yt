@@ -1,0 +1,330 @@
+{
+  "extensionName": {
+    "message": "Intentional YT - Bloqueador de distracciones y límite diario en YouTube",
+    "description": "Official extension name in stores and browser management pages"
+  },
+  "extensionShortName": {
+    "message": "Intentional YT",
+    "description": "Short name of the extension"
+  },
+  "extensionDescription": {
+    "message": "YouTube sin distracciones con controles granulares para feeds, Shorts, comentarios y límites de tiempo. 100% privado y local.",
+    "description": "Extension description in stores and browser management pages"
+  },
+  "popup_window_title": {
+    "message": "Intentional YT - Bloqueador de distracciones y límite diario en YouTube",
+    "description": "Title tag of the popup document"
+  },
+  "header_title": {
+    "message": "Intentional YT",
+    "description": "Header brand name in the extension popup"
+  },
+  "status_active": {
+    "message": "Activo",
+    "description": "Badge status when the extension is active"
+  },
+  "status_paused": {
+    "message": "Pausado",
+    "description": "Badge status when the extension is paused"
+  },
+  "section_feed": {
+    "message": "Feed",
+    "description": "Feed controls section header"
+  },
+  "toggle_block_home_feed": {
+    "message": "Ocultar feed de inicio",
+    "description": "Toggle label to hide YouTube home recommendations feed"
+  },
+  "toggle_block_subscriptions": {
+    "message": "Ocultar suscripciones",
+    "description": "Toggle label to hide YouTube subscriptions feed"
+  },
+  "toggle_block_recommended": {
+    "message": "Ocultar barra lateral de recomendados",
+    "description": "Toggle label to hide recommended video sidebar on watch page"
+  },
+  "toggle_block_shorts": {
+    "message": "Ocultar Shorts",
+    "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "toggle_block_explore_trending": {
+    "message": "Ocultar Explorar y Tendencias",
+    "description": "Toggle label to hide Explore and Trending navigation items"
+  },
+  "toggle_block_more_from_youtube": {
+    "message": "Ocultar «Más de YouTube»",
+    "description": "Toggle label to hide More from YouTube section in left sidebar"
+  },
+  "toggle_block_irrelevant_search": {
+    "message": "Ocultar secciones irrelevantes de búsqueda",
+    "description": "Toggle label to hide People also watched, For you, and related search shelves"
+  },
+  "section_video": {
+    "message": "Video",
+    "description": "Video controls section header"
+  },
+  "toggle_block_endscreen_videowall": {
+    "message": "Ocultar recomendaciones de pantalla final",
+    "description": "Toggle label to hide grid of recommended videos at video end"
+  },
+  "toggle_block_endscreen_cards": {
+    "message": "Ocultar tarjetas de pantalla final",
+    "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "toggle_block_live_chat": {
+    "message": "Ocultar chat en vivo",
+    "description": "Toggle label to hide live chat panel"
+  },
+  "toggle_block_playlist": {
+    "message": "Ocultar panel de lista de reproducción",
+    "description": "Toggle label to hide playlist side panel on watch page"
+  },
+  "toggle_disable_autoplay": {
+    "message": "Desactivar reproducción automática",
+    "description": "Toggle label to prevent YouTube from automatically playing next video"
+  },
+  "toggle_disable_annotations": {
+    "message": "Ocultar anotaciones",
+    "description": "Toggle label to hide in-video popups and annotations"
+  },
+  "toggle_block_video_info": {
+    "message": "Ocultar panel de información del video",
+    "description": "Toggle label to hide video metadata panel below player"
+  },
+  "toggle_block_video_buttons": {
+    "message": "Botones de acción",
+    "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "toggle_block_channel_info": {
+    "message": "Información del canal",
+    "description": "Nested toggle label to hide channel subscriber count and avatar"
+  },
+  "toggle_block_video_description": {
+    "message": "Descripción",
+    "description": "Nested toggle label to hide video description box"
+  },
+  "section_social": {
+    "message": "Social",
+    "description": "Social controls section header"
+  },
+  "toggle_block_comments": {
+    "message": "Ocultar comentarios",
+    "description": "Toggle label to hide YouTube comments section"
+  },
+  "toggle_block_profile_photos": {
+    "message": "Ocultar fotos de comentaristas",
+    "description": "Toggle label to hide profile avatars of commenters"
+  },
+  "section_interface": {
+    "message": "Interfaz",
+    "description": "Interface controls section header"
+  },
+  "toggle_block_sidebar": {
+    "message": "Ocultar barra lateral izquierda",
+    "description": "Toggle label to hide YouTube left drawer/guide navigation"
+  },
+  "toggle_block_top_header": {
+    "message": "Ocultar encabezado superior",
+    "description": "Toggle label to hide YouTube top search and navigation header"
+  },
+  "toggle_block_notification_bell": {
+    "message": "Ocultar campana de notificaciones",
+    "description": "Toggle label to hide notification bell icon"
+  },
+  "toggle_block_merch": {
+    "message": "Ocultar productos y ofertas",
+    "description": "Toggle label to hide merchandise shelf and product offers"
+  },
+  "toggle_block_mix_playlists": {
+    "message": "Ocultar listas de reproducción Mix",
+    "description": "Toggle label to hide algorithmic YouTube mix playlists"
+  },
+  "section_appearance": {
+    "message": "Apariencia",
+    "description": "Appearance controls section header"
+  },
+  "toggle_hide_thumbnails": {
+    "message": "Ocultar miniaturas",
+    "description": "Toggle label to neutralize/blur video thumbnail images"
+  },
+  "toggle_grayscale_mode": {
+    "message": "Escala de grises",
+    "description": "Toggle label for black and white desaturation mode"
+  },
+  "section_time": {
+    "message": "Tiempo",
+    "description": "Time controls section header"
+  },
+  "toggle_soft_reminder": {
+    "message": "Recordatorio suave",
+    "description": "Toggle label for mindful interval toast notification"
+  },
+  "time_hint_every": {
+    "message": "Cada",
+    "description": "Prefix label before interval dropdown"
+  },
+  "time_option_minutes": {
+    "message": "$MINUTES$ min",
+    "description": "Preset time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "time_option_custom": {
+    "message": "Personalizado...",
+    "description": "Option in dropdown to enter a custom duration"
+  },
+  "time_placeholder_min": {
+    "message": "min",
+    "description": "Placeholder text inside custom minutes input field"
+  },
+  "time_unit_min": {
+    "message": "min",
+    "description": "Unit label beside custom minutes input"
+  },
+  "toggle_daily_limit": {
+    "message": "Límite diario",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "time_hint_stop_after": {
+    "message": "Detener tras",
+    "description": "Prefix label before daily limit duration dropdown"
+  },
+  "stats_title_today": {
+    "message": "Hoy",
+    "description": "Heading for daily watch stats card"
+  },
+  "aria_about_daily_watchtime": {
+    "message": "Acerca del tiempo de reproducción diario",
+    "description": "Accessibility label for daily watchtime info icon"
+  },
+  "stats_tooltip_info": {
+    "message": "Registra los minutos que has visto YouTube hoy. Se reinicia automáticamente a medianoche. Usa el límite diario para controlar tu sesión.",
+    "description": "Tooltip text explaining watchtime tracking"
+  },
+  "stats_no_limit": {
+    "message": "sin límite",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  },
+  "stats_limit_progress": {
+    "message": "$PERCENT$% de $MINUTES$m",
+    "description": "Stats progress indicator showing percentage of daily limit",
+    "placeholders": {
+      "percent": {
+        "content": "$1",
+        "example": "50"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "60"
+      }
+    }
+  },
+  "stats_button_reset": {
+    "message": "restablecer",
+    "description": "Button to reset today's accumulated watch time"
+  },
+  "time_fmt_zero_min": {
+    "message": "0 min",
+    "description": "Formatted time for 0 minutes"
+  },
+  "time_fmt_seconds": {
+    "message": "$SECONDS$s",
+    "description": "Formatted time in seconds",
+    "placeholders": {
+      "seconds": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "time_fmt_minutes": {
+    "message": "$MINUTES$ min",
+    "description": "Formatted time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "time_fmt_hours_minutes": {
+    "message": "$HOURS$h $MINUTES$m",
+    "description": "Formatted time in hours and minutes",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "1"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "15"
+      }
+    }
+  },
+  "footer_local_privacy": {
+    "message": "100% Local",
+    "description": "Footer badge indicating offline-first local storage"
+  },
+  "footer_feedback_link": {
+    "message": "Comentarios e ideas ↗",
+    "description": "Footer link text to submit feedback form"
+  },
+  "toast_reminder_message": {
+    "message": "Llevas viendo videos $MINUTES$ minutos.",
+    "description": "Toast notification message when mindful interval triggers (plural)",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "toast_reminder_message_singular": {
+    "message": "Llevas viendo videos 1 minuto.",
+    "description": "Toast notification message when mindful interval triggers (singular)"
+  },
+  "toast_dismiss_aria": {
+    "message": "Descartar",
+    "description": "Accessibility aria-label for closing toast notification"
+  },
+  "overlay_limit_title": {
+    "message": "Límite diario alcanzado",
+    "description": "Title on full-player limit overlay modal"
+  },
+  "overlay_limit_message": {
+    "message": "Has alcanzado tu límite diario de visualización de $LIMIT$ minutos en YouTube hoy.",
+    "description": "Explanation message on limit overlay modal",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "60"
+      }
+    }
+  },
+  "overlay_button_finish_video": {
+    "message": "Terminar este video",
+    "description": "Button label to allow completing current video before blocking"
+  },
+  "overlay_button_finish_video_remaining": {
+    "message": "Terminar este video (quedan $MINUTES$m)",
+    "description": "Button label with remaining duration to allow completing current video",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "overlay_button_stop_watching": {
+    "message": "Dejar de mirar (Ir al inicio)",
+    "description": "Primary action button to leave video and return to homepage"
+  },
+  "overlay_button_dismiss_today": {
+    "message": "Descartar por hoy",
+    "description": "Secondary action button to override limit for remainder of today"
+  }
+}

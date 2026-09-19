@@ -2,14 +2,14 @@
 
 <img src="icons/icon.svg" alt="Intentional YT Logo" width="100" height="100" />
 
-# Intentional YT
+# Intentional YT - YouTube Distraction Blocker & Daily Time Limit
 
 **Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.**
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install%20Extension-4285F4?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)
 [![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install%20Extension-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-2.1.1-brightgreen.svg)
+![Version](https://img.shields.io/badge/version-2.1.2-brightgreen.svg)
 ![Browsers](https://img.shields.io/badge/browsers-Chrome%20%7C%20Firefox-informational.svg)
 ![Manifest](https://img.shields.io/badge/manifest-v3-blue.svg)
 [![Privacy](https://img.shields.io/badge/telemetry-0%25%20(strictly%20local)-success.svg)](PRIVACY.md)
@@ -21,7 +21,6 @@
   <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"><strong>🦊 Install for Firefox</strong></a> •
   <a href="https://intentionalyt.me/"><strong>🚀 Live Website</strong></a> •
   <a href="https://forms.gle/EFixUed5F5bmVvFX7"><strong>💡 Request a Feature</strong></a> •
-  <a href="#-preview">Preview</a> •
   <a href="#-why-intentional-yt">Why Intentional YT?</a> •
   <a href="#-features">Features</a> •
   <a href="#-installation">Installation</a> •
@@ -31,39 +30,10 @@
 </p>
 
 <p align="center">
-  <img src="screenshots/1.png" alt="Intentional YT Overview" width="100%" style="border-radius: 8px;" />
+  <img src="screenshots/1.png" alt="Intentional YT Preview" width="800" style="border-radius: 8px;" />
 </p>
 
 </div>
-
----
-
-## 📸 Preview
-
-### 🏠 A Cleaner Homepage (Before & After)
-<p align="center">
-  <img src="screenshots/2.png" alt="Clean Homepage Before and After" width="100%" style="border-radius: 8px;" />
-</p>
-
-### 🎬 Distraction-Free Watching
-<p align="center">
-  <img src="screenshots/3.png" alt="Distraction-Free Watching" width="100%" style="border-radius: 8px;" />
-</p>
-
-### 🔍 Search Without Algorithmic Clutter
-<p align="center">
-  <img src="screenshots/4.png" alt="Clean Search Results" width="100%" style="border-radius: 8px;" />
-</p>
-
-### 🎛️ 20+ Granular Focus Controls
-<p align="center">
-  <img src="screenshots/5.png" alt="Extension Popup Controls" width="100%" style="border-radius: 8px;" />
-</p>
-
-### ⏱️ Mindful Watch Time Tracking & Limits
-<p align="center">
-  <img src="screenshots/6.png" alt="Watch Time Tracking and Limits" width="100%" style="border-radius: 8px;" />
-</p>
 
 ---
 
@@ -171,6 +141,37 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 | **Soft Interval Reminder** | `softReminder.enabled` | *(timerToast)* | `false` |
 | **Daily Watch Limit** | `dailyLimit.enabled` | *(timerToast)* | `false` |
 
+<details>
+<summary><strong>📸 Click to expand visual walkthrough & screenshots</strong></summary>
+
+<br />
+
+<p align="center">
+  <strong>A Cleaner Homepage (Before & After)</strong><br />
+  <img src="screenshots/2.png" alt="Clean Homepage Before and After" width="750" style="border-radius: 8px;" />
+</p>
+
+<p align="center">
+  <strong>Distraction-Free Video Playback</strong><br />
+  <img src="screenshots/3.png" alt="Distraction-Free Watching" width="750" style="border-radius: 8px;" />
+</p>
+
+<p align="center">
+  <strong>Clean Search Results</strong><br />
+  <img src="screenshots/4.png" alt="Clean Search Results" width="750" style="border-radius: 8px;" />
+</p>
+
+<p align="center">
+  <strong>20+ Granular Focus Controls</strong><br />
+  <img src="screenshots/5.png" alt="Extension Popup Controls" width="750" style="border-radius: 8px;" />
+</p>
+
+<p align="center">
+  <strong>Mindful Watch Time Tracking & Limits</strong><br />
+  <img src="screenshots/6.png" alt="Watch Time Tracking and Limits" width="750" style="border-radius: 8px;" />
+</p>
+
+</details>
 
 ---
 

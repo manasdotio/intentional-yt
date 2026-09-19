@@ -3,8 +3,9 @@
  * Single source of truth for versioning, links, and metadata.
  */
 export const APP_CONFIG = {
-  name: 'Intentional YT',
-  version: '2.1.1',
+  name: 'Intentional YT - YouTube Distraction Blocker & Daily Time Limit',
+  shortName: 'Intentional YT',
+  version: '2.1.2',
   versionShort: 'v2.1',
   description: 'Distraction-Free YouTube Extension for Deep Focus',
   chromeWebStoreUrl: 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg',
@@ -12,7 +13,7 @@ export const APP_CONFIG = {
   githubRepoUrl: 'https://github.com/manasdotio/intentional-yt',
   githubReleasesUrl: 'https://github.com/manasdotio/intentional-yt/releases',
   chromeZipUrl: '/intentional-yt.zip',
-  chromeZipFilename: 'intentional-yt-v2.1.1.zip',
+  chromeZipFilename: 'intentional-yt-v2.1.2.zip',
   liveWebsiteUrl: 'https://intentionalyt.me/',
   feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7'
 }

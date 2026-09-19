@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <title>Intentional YT - YouTube Distraction Blocker & Time Limit</title>
+  <title data-i18n="popup_window_title">Intentional YT - YouTube Distraction Blocker & Daily Time Limit</title>
   <link rel="stylesheet" href="../styles/popup.css" />
 </head>
 <body>
@@ -13,101 +13,135 @@
   <!-- Header -->
   <div id="hd">
     <img src="../icons/icon.png" alt="" class="hd-icon" />
-    <span class="hd-name">Intentional YT</span>
-    <span id="ext-badge">Active</span>
+    <span class="hd-name" data-i18n="header_title">Intentional YT</span>
+    <span id="ext-badge" data-i18n="status_active">Active</span>
     <input type="checkbox" class="chk" id="toggle-extensionEnabled" />
   </div>
 
   <!-- Controls -->
   <div id="scroll">
 
+    <!-- Language -->
+    <div class="lang-row">
+      <span class="row-text">Language</span>
+      <select id="select-userLanguage" class="lang-sel" aria-label="Language">
+        <option value="auto">Auto (match browser)</option>
+        <option value="id">Bahasa Indonesia</option>
+        <option value="cs">Čeština</option>
+        <option value="de">Deutsch</option>
+        <option value="el">Ελληνικά</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="it">Italiano</option>
+        <option value="nl">Nederlands</option>
+        <option value="pl">Polski</option>
+        <option value="pt_BR">Português (Brasil)</option>
+        <option value="ro">Română</option>
+        <option value="sv">Svenska</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="tr">Türkçe</option>
+        <option value="ru">Русский</option>
+        <option value="uk">Українська</option>
+        <option value="he">עברית</option>
+        <option value="ar">العربية</option>
+        <option value="hi">हिन्दी</option>
+        <option value="bn">বাংলা</option>
+        <option value="th">ไทย</option>
+        <option value="ja">日本語</option>
+        <option value="zh_CN">简体中文</option>
+        <option value="zh_TW">繁體中文</option>
+        <option value="ko">한국어</option>
+      </select>
+    </div>
+
     <!-- Feed -->
-    <div class="sh"><span class="sh-label">Feed</span></div>
+    <div class="sh"><span class="sh-label" data-i18n="section_feed">Feed</span></div>
     <div class="rows">
-      <label class="row"><span class="row-text">Hide home feed</span><input type="checkbox" class="chk" id="toggle-blockHomeFeed" /></label>
-      <label class="row"><span class="row-text">Hide subscriptions</span><input type="checkbox" class="chk" id="toggle-blockSubscriptionsFeed" /></label>
-      <label class="row"><span class="row-text">Hide recommended sidebar</span><input type="checkbox" class="chk" id="toggle-blockRecommended" /></label>
-      <label class="row"><span class="row-text">Hide Shorts</span><input type="checkbox" class="chk" id="toggle-blockShorts" /></label>
-      <label class="row"><span class="row-text">Hide Explore &amp; Trending</span><input type="checkbox" class="chk" id="toggle-blockExploreAndTrending" /></label>
-      <label class="row"><span class="row-text">Hide "More from YouTube"</span><input type="checkbox" class="chk" id="toggle-blockMoreFromYouTube" /></label>
-      <label class="row"><span class="row-text">Hide irrelevant search shelves</span><input type="checkbox" class="chk" id="toggle-blockIrrelevantSearchResults" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_home_feed">Hide home feed</span><input type="checkbox" class="chk" id="toggle-blockHomeFeed" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_subscriptions">Hide subscriptions</span><input type="checkbox" class="chk" id="toggle-blockSubscriptionsFeed" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_recommended">Hide recommended sidebar</span><input type="checkbox" class="chk" id="toggle-blockRecommended" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_shorts">Hide Shorts</span><input type="checkbox" class="chk" id="toggle-blockShorts" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_explore_trending">Hide Explore &amp; Trending</span><input type="checkbox" class="chk" id="toggle-blockExploreAndTrending" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_more_from_youtube">Hide "More from YouTube"</span><input type="checkbox" class="chk" id="toggle-blockMoreFromYouTube" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_irrelevant_search">Hide irrelevant search shelves</span><input type="checkbox" class="chk" id="toggle-blockIrrelevantSearchResults" /></label>
     </div>
 
     <!-- Video -->
-    <div class="sh"><span class="sh-label">Video</span></div>
+    <div class="sh"><span class="sh-label" data-i18n="section_video">Video</span></div>
     <div class="rows">
-      <label class="row"><span class="row-text">Hide end screen recommendations</span><input type="checkbox" class="chk" id="toggle-blockEndScreenVideowall" /></label>
-      <label class="row"><span class="row-text">Hide end screen cards</span><input type="checkbox" class="chk" id="toggle-blockEndScreenCards" /></label>
-      <label class="row"><span class="row-text">Hide live chat</span><input type="checkbox" class="chk" id="toggle-blockLiveChat" /></label>
-      <label class="row"><span class="row-text">Hide playlist panel</span><input type="checkbox" class="chk" id="toggle-blockPlaylist" /></label>
-      <label class="row"><span class="row-text">Disable autoplay</span><input type="checkbox" class="chk" id="toggle-disableAutoplay" /></label>
-      <label class="row"><span class="row-text">Hide annotations</span><input type="checkbox" class="chk" id="toggle-disableAnnotations" /></label>
-      <label class="row"><span class="row-text">Hide video info panel</span><input type="checkbox" class="chk" id="toggle-blockVideoInfo" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_endscreen_videowall">Hide end screen recommendations</span><input type="checkbox" class="chk" id="toggle-blockEndScreenVideowall" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_endscreen_cards">Hide end screen cards</span><input type="checkbox" class="chk" id="toggle-blockEndScreenCards" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_live_chat">Hide live chat</span><input type="checkbox" class="chk" id="toggle-blockLiveChat" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_playlist">Hide playlist panel</span><input type="checkbox" class="chk" id="toggle-blockPlaylist" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_disable_autoplay">Disable autoplay</span><input type="checkbox" class="chk" id="toggle-disableAutoplay" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_disable_annotations">Hide annotations</span><input type="checkbox" class="chk" id="toggle-disableAnnotations" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_video_info">Hide video info panel</span><input type="checkbox" class="chk" id="toggle-blockVideoInfo" /></label>
       <div id="video-info-children" style="display:none">
-        <label class="row sub"><span class="row-text">Action buttons</span><input type="checkbox" class="chk" id="toggle-blockVideoButtons" /></label>
-        <label class="row sub"><span class="row-text">Channel info</span><input type="checkbox" class="chk" id="toggle-blockChannelInfo" /></label>
-        <label class="row sub"><span class="row-text">Description</span><input type="checkbox" class="chk" id="toggle-blockVideoDescription" /></label>
+        <label class="row sub"><span class="row-text" data-i18n="toggle_block_video_buttons">Action buttons</span><input type="checkbox" class="chk" id="toggle-blockVideoButtons" /></label>
+        <label class="row sub"><span class="row-text" data-i18n="toggle_block_channel_info">Channel info</span><input type="checkbox" class="chk" id="toggle-blockChannelInfo" /></label>
+        <label class="row sub"><span class="row-text" data-i18n="toggle_block_video_description">Description</span><input type="checkbox" class="chk" id="toggle-blockVideoDescription" /></label>
       </div>
     </div>
 
     <!-- Social -->
-    <div class="sh"><span class="sh-label">Social</span></div>
+    <div class="sh"><span class="sh-label" data-i18n="section_social">Social</span></div>
     <div class="rows">
-      <label class="row"><span class="row-text">Hide comments</span><input type="checkbox" class="chk" id="toggle-blockComments" /></label>
-      <label class="row"><span class="row-text">Hide commenter photos</span><input type="checkbox" class="chk" id="toggle-blockProfilePhotos" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_comments">Hide comments</span><input type="checkbox" class="chk" id="toggle-blockComments" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_profile_photos">Hide commenter photos</span><input type="checkbox" class="chk" id="toggle-blockProfilePhotos" /></label>
     </div>
 
     <!-- Interface -->
-    <div class="sh"><span class="sh-label">Interface</span></div>
+    <div class="sh"><span class="sh-label" data-i18n="section_interface">Interface</span></div>
     <div class="rows">
-      <label class="row"><span class="row-text">Hide left sidebar</span><input type="checkbox" class="chk" id="toggle-blockSidebar" /></label>
-      <label class="row"><span class="row-text">Hide top header</span><input type="checkbox" class="chk" id="toggle-blockTopHeader" /></label>
-      <label class="row"><span class="row-text">Hide notification bell</span><input type="checkbox" class="chk" id="toggle-blockNotificationBell" /></label>
-      <label class="row"><span class="row-text">Hide merch &amp; offers</span><input type="checkbox" class="chk" id="toggle-blockMerch" /></label>
-      <label class="row"><span class="row-text">Hide mix playlists</span><input type="checkbox" class="chk" id="toggle-blockMixPlaylists" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_sidebar">Hide left sidebar</span><input type="checkbox" class="chk" id="toggle-blockSidebar" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_top_header">Hide top header</span><input type="checkbox" class="chk" id="toggle-blockTopHeader" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_notification_bell">Hide notification bell</span><input type="checkbox" class="chk" id="toggle-blockNotificationBell" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_merch">Hide merch &amp; offers</span><input type="checkbox" class="chk" id="toggle-blockMerch" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_block_mix_playlists">Hide mix playlists</span><input type="checkbox" class="chk" id="toggle-blockMixPlaylists" /></label>
     </div>
 
     <!-- Appearance -->
-    <div class="sh"><span class="sh-label">Appearance</span></div>
+    <div class="sh"><span class="sh-label" data-i18n="section_appearance">Appearance</span></div>
     <div class="rows">
-      <label class="row"><span class="row-text">Hide thumbnails</span><input type="checkbox" class="chk" id="toggle-hideThumbnails" /></label>
-      <label class="row"><span class="row-text">Grayscale</span><input type="checkbox" class="chk" id="toggle-grayscaleMode" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_hide_thumbnails">Hide thumbnails</span><input type="checkbox" class="chk" id="toggle-hideThumbnails" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_grayscale_mode">Grayscale</span><input type="checkbox" class="chk" id="toggle-grayscaleMode" /></label>
     </div>
 
     <!-- Time -->
-    <div class="sh"><span class="sh-label">Time</span></div>
+    <div class="sh"><span class="sh-label" data-i18n="section_time">Time</span></div>
     <div class="rows">
-      <label class="row"><span class="row-text">Soft reminder</span><input type="checkbox" class="chk" id="toggle-softReminder" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_soft_reminder">Soft reminder</span><input type="checkbox" class="chk" id="toggle-softReminder" /></label>
       <div class="time-expand" id="soft-reminder-expand">
-        <span class="time-hint">Every</span>
+        <span class="time-hint" data-i18n="time_hint_every">Every</span>
         <select class="time-sel" id="select-softReminderInterval">
-          <option value="15">15 min</option>
-          <option value="30">30 min</option>
-          <option value="45">45 min</option>
-          <option value="60">60 min</option>
-          <option value="90">90 min</option>
-          <option value="custom">Custom...</option>
+          <option value="15" data-i18n="time_option_minutes" data-i18n-arg="15">15 min</option>
+          <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
+          <option value="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</option>
+          <option value="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</option>
+          <option value="90" data-i18n="time_option_minutes" data-i18n-arg="90">90 min</option>
+          <option value="custom" data-i18n="time_option_custom">Custom...</option>
         </select>
         <div class="custom-time-wrap" id="soft-reminder-custom-wrap" style="display:none">
-          <input type="number" class="time-input" id="input-softReminderCustom" min="1" max="1440" placeholder="min" />
-          <span class="time-unit">min</span>
+          <input type="number" class="time-input" id="input-softReminderCustom" min="1" max="1440" placeholder="min" data-i18n-placeholder="time_placeholder_min" />
+          <span class="time-unit" data-i18n="time_unit_min">min</span>
         </div>
       </div>
-      <label class="row"><span class="row-text">Daily limit</span><input type="checkbox" class="chk" id="toggle-dailyLimit" /></label>
+      <label class="row"><span class="row-text" data-i18n="toggle_daily_limit">Daily limit</span><input type="checkbox" class="chk" id="toggle-dailyLimit" /></label>
       <div class="time-expand" id="daily-limit-expand">
-        <span class="time-hint">Stop after</span>
+        <span class="time-hint" data-i18n="time_hint_stop_after">Stop after</span>
         <select class="time-sel" id="select-dailyLimitMinutes">
-          <option value="15">15 min</option>
-          <option value="30">30 min</option>
-          <option value="45">45 min</option>
-          <option value="60">60 min</option>
-          <option value="90">90 min</option>
-          <option value="120">120 min</option>
-          <option value="custom">Custom...</option>
+          <option value="15" data-i18n="time_option_minutes" data-i18n-arg="15">15 min</option>
+          <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
+          <option value="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</option>
+          <option value="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</option>
+          <option value="90" data-i18n="time_option_minutes" data-i18n-arg="90">90 min</option>
+          <option value="120" data-i18n="time_option_minutes" data-i18n-arg="120">120 min</option>
+          <option value="custom" data-i18n="time_option_custom">Custom...</option>
         </select>
         <div class="custom-time-wrap" id="daily-limit-custom-wrap" style="display:none">
-          <input type="number" class="time-input" id="input-dailyLimitCustom" min="1" max="1440" placeholder="min" />
-          <span class="time-unit">min</span>
+          <input type="number" class="time-input" id="input-dailyLimitCustom" min="1" max="1440" placeholder="min" data-i18n-placeholder="time_placeholder_min" />
+          <span class="time-unit" data-i18n="time_unit_min">min</span>
         </div>
       </div>
     </div>
@@ -117,17 +151,17 @@
   <!-- Stats -->
   <div id="stats">
     <div class="stats-header">
-      <span class="stats-title">Today</span>
+      <span class="stats-title" data-i18n="stats_title_today">Today</span>
       <span class="iyt-tooltip-wrap">
-        <span class="iyt-info-icon" aria-label="About daily watchtime">ⓘ</span>
-        <span class="iyt-tooltip-text">Tracks how many minutes you've watched YouTube today. Resets automatically at midnight. Use the daily limit toggle above to cap your session.</span>
+        <span class="iyt-info-icon" aria-label="About daily watchtime" data-i18n-aria="aria_about_daily_watchtime">ⓘ</span>
+        <span class="iyt-tooltip-text" data-i18n="stats_tooltip_info">Tracks how many minutes you've watched YouTube today. Resets automatically at midnight. Use the daily limit toggle above to cap your session.</span>
       </span>
     </div>
     <div class="stats-row">
       <span id="stats-time">0 min</span>
       <div class="stats-meta">
-        <span id="stats-limit-label">no limit</span>
-        <button id="stats-reset">reset</button>
+        <span id="stats-limit-label" data-i18n="stats_no_limit">no limit</span>
+        <button id="stats-reset" data-i18n="stats_button_reset">reset</button>
       </div>
     </div>
     <div class="prog"><div id="prog-fill"></div></div>
@@ -135,13 +169,14 @@
 
   <!-- Footer -->
   <div id="footer">
-    <span>100% Local</span>
-    <a href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer">Feedback &amp; Ideas ↗</a>
-    <span>v2.1.1</span>
+    <span data-i18n="footer_local_privacy">100% Local</span>
+    <a href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" data-i18n="footer_feedback_link">Feedback &amp; Ideas ↗</a>
+    <span>v2.1.2</span>
   </div>
 
 </div>
 <script src="../utils/storage.js"></script>
+<script src="../utils/i18n.js"></script>
 <script src="popup.js"></script>
 </body>
 </html>

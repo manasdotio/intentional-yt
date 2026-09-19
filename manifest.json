@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "Intentional YT",
-  "short_name": "Intentional YT",
-  "version": "2.1.1",
-  "description": "Distraction-free YouTube with granular controls for feeds, Shorts, comments, and watch time limits. 100% private & local.",
+  "default_locale": "en",
+  "name": "__MSG_extensionName__",
+  "short_name": "__MSG_extensionShortName__",
+  "version": "2.1.2",
+  "description": "__MSG_extensionDescription__",
   "browser_specific_settings": {
     "gecko": {
       "id": "intentional-yt@intentional-yt.local",
@@ -43,6 +44,7 @@
       ],
       "js": [
         "utils/storage.js",
+        "utils/i18n.js",
         "content/blocker.js",
         "content/timerToast.js",
         "content/youtubeObserver.js"
@@ -68,7 +70,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "styles/blocker.css"
+        "styles/blocker.css",
+        "_locales/*/*.json"
       ],
       "matches": [
         "*://www.youtube.com/*",

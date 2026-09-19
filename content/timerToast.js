@@ -72,6 +72,19 @@ const IYT_Timer = (() => {
     return (currentTotalSec / 60) >= limitMin;
   }
 
+  function _t(key, subs, fallback) {
+    if (typeof I18N !== 'undefined' && I18N.getMessage) {
+      return I18N.getMessage(key, subs, fallback);
+    }
+    try {
+      if (browser && browser.i18n && typeof browser.i18n.getMessage === 'function') {
+        const msg = browser.i18n.getMessage(key, subs);
+        if (msg) return msg;
+      }
+    } catch (e) {}
+    return fallback;
+  }
+
   // ─── Toast ─────────────────────────────────────────────────────────────────
   function _showToast(minutes) {
     document.getElementById('iyt-toast')?.remove();
@@ -79,6 +92,8 @@ const IYT_Timer = (() => {
     const toast = document.createElement('div');
     toast.id = 'iyt-toast';
     toast.className = 'iyt-toast-container';
+    const dir = (typeof I18N !== 'undefined' && I18N.getDirection) ? I18N.getDirection() : 'ltr';
+    toast.setAttribute('dir', dir);
 
     const iconSpan = document.createElement('span');
     iconSpan.className = 'iyt-toast-icon';
@@ -86,11 +101,14 @@ const IYT_Timer = (() => {
 
     const msgSpan = document.createElement('span');
     msgSpan.className = 'iyt-toast-message';
-    msgSpan.textContent = `You've been watching for ${minutes} minute${minutes !== 1 ? 's' : ''}.`;
+    const msgText = minutes === 1
+      ? _t('toast_reminder_message_singular', null, "You've been watching for 1 minute.")
+      : _t('toast_reminder_message', [String(minutes)], `You've been watching for ${minutes} minutes.`);
+    msgSpan.textContent = msgText;
 
     const closeBtn = document.createElement('button');
     closeBtn.className = 'iyt-toast-close';
-    closeBtn.setAttribute('aria-label', 'Dismiss');
+    closeBtn.setAttribute('aria-label', _t('toast_dismiss_aria', null, 'Dismiss'));
     closeBtn.textContent = '✕';
 
     toast.appendChild(iconSpan);
@@ -141,6 +159,8 @@ const IYT_Timer = (() => {
     const overlay = document.createElement('div');
     overlay.id = 'iyt-limit-overlay';
     overlay.className = 'iy-limit-overlay';
+    const dir = (typeof I18N !== 'undefined' && I18N.getDirection) ? I18N.getDirection() : 'ltr';
+    overlay.setAttribute('dir', dir);
 
     const limitMin = _settings?.dailyLimit?.limitMinutes || 60;
 
@@ -150,11 +170,11 @@ const IYT_Timer = (() => {
 
     const title = document.createElement('h2');
     title.className = 'iy-limit-title';
-    title.textContent = 'Daily Limit Reached';
+    title.textContent = _t('overlay_limit_title', null, 'Daily Limit Reached');
 
     const p = document.createElement('p');
     p.className = 'iy-limit-message';
-    p.textContent = `You've reached your ${limitMin}-minute daily watch limit for YouTube today.`;
+    p.textContent = _t('overlay_limit_message', [String(limitMin)], `You've reached your ${limitMin}-minute daily watch limit for YouTube today.`);
 
     const btnGroup = document.createElement('div');
     btnGroup.className = 'iy-limit-btn-group';
@@ -164,12 +184,12 @@ const IYT_Timer = (() => {
     if (canFinish) {
       const finishBtn = document.createElement('button');
       finishBtn.className = 'iy-limit-button';
-      let label = 'Finish this video';
+      let label = _t('overlay_button_finish_video', null, 'Finish this video');
       if (_video && Number.isFinite(_video.duration) && _video.duration > 0) {
         const remSec = Math.max(0, _video.duration - (_video.currentTime || 0));
         const remMin = Math.ceil(remSec / 60);
         if (remMin > 0) {
-          label = `Finish this video (${remMin}m left)`;
+          label = _t('overlay_button_finish_video_remaining', [String(remMin)], `Finish this video (${remMin}m left)`);
         }
       }
       finishBtn.textContent = label;
@@ -187,11 +207,11 @@ const IYT_Timer = (() => {
 
     const stopBtn = document.createElement('button');
     stopBtn.className = canFinish ? 'iy-limit-button-secondary' : 'iy-limit-button';
-    stopBtn.textContent = 'Stop Watching (Go Home)';
+    stopBtn.textContent = _t('overlay_button_stop_watching', null, 'Stop Watching (Go Home)');
 
     const overrideBtn = document.createElement('button');
     overrideBtn.className = 'iy-limit-button-secondary';
-    overrideBtn.textContent = 'Dismiss for today';
+    overrideBtn.textContent = _t('overlay_button_dismiss_today', null, 'Dismiss for today');
 
     btnGroup.appendChild(stopBtn);
     btnGroup.appendChild(overrideBtn);
@@ -421,6 +441,9 @@ const IYT_Timer = (() => {
 
     // Read settings at session start
     _settings = await StorageManager.getSettings();
+    if (typeof I18N !== 'undefined') {
+      await I18N.setLanguage(_settings?.userLanguage || 'auto');
+    }
     _baseWatchSeconds = _settings.stats?.todayWatchSeconds || 0;
 
     // If limit already exceeded and not dismissed, intercept immediately
@@ -490,9 +513,13 @@ const IYT_Timer = (() => {
   });
 
   // Keep _settings in sync when popup or another tab changes settings
-  browser.storage.onChanged.addListener((changes) => {
+  browser.storage.onChanged.addListener(async (changes) => {
     if (changes.settings?.newValue) {
+      const oldLang = _settings?.userLanguage;
       _settings = changes.settings.newValue;
+      if (typeof I18N !== 'undefined' && oldLang !== _settings.userLanguage) {
+        await I18N.setLanguage(_settings.userLanguage || 'auto');
+      }
       _baseWatchSeconds = _settings.stats?.todayWatchSeconds || 0;
       if (_isLimitExceeded()) {
         if (_video && !_video.paused) {

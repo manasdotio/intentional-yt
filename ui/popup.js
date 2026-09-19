@@ -6,6 +6,52 @@
 
 var browser = globalThis.browser || globalThis.chrome;
 
+function getMsg(key, subs, fallback) {
+  if (typeof I18N !== 'undefined' && I18N.getMessage) {
+    return I18N.getMessage(key, subs, fallback);
+  }
+  try {
+    if (browser && browser.i18n && typeof browser.i18n.getMessage === 'function') {
+      const msg = browser.i18n.getMessage(key, subs);
+      if (msg) return msg;
+    }
+  } catch (e) {}
+  return fallback !== undefined ? fallback : null;
+}
+
+const t = getMsg; // Alias so all existing calls to t() route through getMsg()
+
+function localizeDOM() {
+  const dir = (typeof I18N !== 'undefined' && I18N.getDirection)
+    ? I18N.getDirection()
+    : (getMsg('@@bidi_dir') || 'ltr');
+  document.documentElement.setAttribute('dir', dir);
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const arg = el.getAttribute('data-i18n-arg');
+    const msg = arg ? getMsg(key, [arg]) : getMsg(key);
+    if (msg) el.textContent = msg;
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    const msg = getMsg(key);
+    if (msg) el.setAttribute('placeholder', msg);
+  });
+
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria');
+    const msg = getMsg(key);
+    if (msg) el.setAttribute('aria-label', msg);
+  });
+
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    const msg = getMsg(key);
+    if (msg) el.setAttribute('title', msg);
+  });
+}
 
 const TOGGLES = [
   'extensionEnabled',
@@ -26,13 +72,13 @@ let _dailyCustomMode = false;
 const $ = id => document.getElementById(id);
 
 function fmtTime(secs) {
-  if (!secs || secs <= 0) return '0 min';
+  if (!secs || secs <= 0) return t('time_fmt_zero_min') || '0 min';
   const h = Math.floor(secs / 3600);
   const m = Math.floor((secs % 3600) / 60);
   const s = secs % 60;
-  if (h > 0) return `${h}h ${m}m`;
-  if (m > 0) return `${m} min`;
-  return `${s}s`;
+  if (h > 0) return t('time_fmt_hours_minutes', [String(h), String(m)]) || `${h}h ${m}m`;
+  if (m > 0) return t('time_fmt_minutes', [String(m)]) || `${m} min`;
+  return t('time_fmt_seconds', [String(s)]) || `${s}s`;
 }
 
 function renderAll(s) {
@@ -46,7 +92,9 @@ function renderAll(s) {
   const on = s.extensionEnabled !== false;
   document.body.classList.toggle('ext-off', !on);
   const badge = $('ext-badge');
-  if (badge) { badge.textContent = on ? 'Active' : 'Paused'; }
+  if (badge) {
+    badge.textContent = on ? (t('status_active') || 'Active') : (t('status_paused') || 'Paused');
+  }
 
   $('video-info-children').style.display = s.blockVideoInfo ? 'block' : 'none';
 
@@ -82,6 +130,12 @@ function renderAll(s) {
     $('daily-limit-custom-wrap').style.display = 'none';
   }
 
+  // Language selector
+  const langSel = $('select-userLanguage');
+  if (langSel) {
+    langSel.value = s.userLanguage || 'auto';
+  }
+
   renderStats(s);
 }
 
@@ -90,13 +144,14 @@ function renderStats(s) {
   $('stats-time').textContent = fmtTime(secs);
 
   if (s.dailyLimit?.enabled) {
-    const pct = Math.min(100, Math.round((secs / ((s.dailyLimit.limitMinutes || 60) * 60)) * 100));
+    const limitMin = s.dailyLimit.limitMinutes || 60;
+    const pct = Math.min(100, Math.round((secs / (limitMin * 60)) * 100));
     $('prog-fill').style.width = `${pct}%`;
-    $('stats-limit-label').textContent = `${pct}% of ${s.dailyLimit.limitMinutes}m`;
+    $('stats-limit-label').textContent = t('stats_limit_progress', [String(pct), String(limitMin)]) || `${pct}% of ${limitMin}m`;
   } else {
     const pct = Math.min(100, Math.round((secs / 7200) * 100));
     $('prog-fill').style.width = `${pct}%`;
-    $('stats-limit-label').textContent = 'no limit';
+    $('stats-limit-label').textContent = t('stats_no_limit') || 'no limit';
   }
 }
 
@@ -111,7 +166,9 @@ function bindAll() {
       if (key === 'extensionEnabled') {
         document.body.classList.toggle('ext-off', !el.checked);
         const badge = $('ext-badge');
-        if (badge) badge.textContent = el.checked ? 'Active' : 'Paused';
+        if (badge) {
+          badge.textContent = el.checked ? (t('status_active') || 'Active') : (t('status_paused') || 'Paused');
+        }
       }
       if (key === 'blockVideoInfo') {
         $('video-info-children').style.display = el.checked ? 'block' : 'none';
@@ -201,14 +258,43 @@ function bindAll() {
     await StorageManager.resetDailyStats();
   });
 
-  // Live update when timer writes while popup is open
-  browser.storage.onChanged.addListener(changes => {
-    if (changes.settings?.newValue) renderAll(changes.settings.newValue);
+  // Language selector
+  const langSel = $('select-userLanguage');
+  if (langSel) {
+    langSel.addEventListener('change', async e => {
+      const selectedLang = e.target.value;
+      await StorageManager.updateSetting('userLanguage', selectedLang);
+      if (_s) _s.userLanguage = selectedLang;
+      if (typeof I18N !== 'undefined') {
+        await I18N.setLanguage(selectedLang);
+      }
+      localizeDOM();
+      if (_s) renderAll(_s);
+    });
+  }
+
+  // Live update when timer or settings write while popup is open
+  browser.storage.onChanged.addListener(async changes => {
+    if (changes.settings?.newValue) {
+      const newSettings = changes.settings.newValue;
+      if (changes.settings.oldValue?.userLanguage !== newSettings.userLanguage) {
+        if (typeof I18N !== 'undefined') {
+          await I18N.setLanguage(newSettings.userLanguage || 'auto');
+        }
+        localizeDOM();
+      }
+      renderAll(newSettings);
+    }
   });
 }
 
 async function init() {
   const s = await StorageManager.getSettings();
+  if (typeof I18N !== 'undefined') {
+    await I18N.setLanguage(s.userLanguage || 'auto');
+  }
+  localizeDOM();
+
   const softPresets = ['15', '30', '45', '60', '90'];
   _softCustomMode = !softPresets.includes(String(s.softReminder?.intervalMinutes || 30));
 

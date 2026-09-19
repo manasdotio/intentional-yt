@@ -22,6 +22,7 @@ class StorageManager {
   static getDefaultSettings() {
     return {
       extensionEnabled: true,
+      userLanguage: 'auto',
 
       blockHomeFeed: true,
       blockSidebar: true,

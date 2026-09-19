@@ -226,7 +226,7 @@ body {
   overflow-x: hidden;   /* kills horizontal scroll */
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Hiragino Kaku Gothic ProN', Meiryo, 'Malgun Gothic', system-ui, sans-serif;
   font-size: 13px;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -320,6 +320,44 @@ body.ext-off #scroll { opacity: 0.38; pointer-events: none; }
 /* ── Rows ────────────────────────────────────────────── */
 .rows { padding-bottom: 2px; }
 
+/* ── Language Selector Row ───────────────────────────── */
+.lang-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.lang-sel {
+  background: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 11.5px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  max-width: 175px;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.lang-sel:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: var(--input-focus-shadow);
+}
+.lang-sel option {
+  background: var(--input-option-bg);
+  color: var(--text-primary);
+}
+
+body.ext-off .lang-row {
+  pointer-events: auto;
+  opacity: 1;
+}
+
 .row {
   display: flex;
   align-items: center;
@@ -339,6 +377,7 @@ body.ext-off #scroll { opacity: 0.38; pointer-events: none; }
   font-weight: 450;
   color: var(--text-primary);
   line-height: 1.3;
+  word-break: break-word;
 }
 
 /* sub-rows indented */
@@ -554,6 +593,7 @@ body.ext-off #scroll { opacity: 0.38; pointer-events: none; }
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 #stats-limit-label {
   font-size: 11px;
@@ -605,4 +645,37 @@ body.ext-off #scroll { opacity: 0.38; pointer-events: none; }
   color: var(--accent);
   text-decoration: underline;
 }
+
+/* ── RTL Layout Overrides (Arabic, Hebrew) ──────────── */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .row.sub .row-text {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+[dir="rtl"] .time-expand {
+  padding: 0 14px 8px 14px;
+}
+
+[dir="rtl"] .time-hint {
+  margin-right: 0;
+  margin-left: 4px;
+}
+
+[dir="rtl"] .iyt-tooltip-text {
+  left: auto;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+[dir="rtl"] .iyt-tooltip-text::after {
+  left: auto;
+  right: 50%;
+  transform: translateX(50%);
+}
+
 
