@@ -193,6 +193,14 @@
     "message": "Stop after",
     "description": "Prefix label before daily limit duration dropdown"
   },
+  "blocklist_stub_alert": {
+    "message": "Channel & keyword filtering is coming in the next release. Core feed blockers are active!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "Your daily watch time is shown below, always.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
+  },
   "stats_title_today": {
     "message": "Today",
     "description": "Heading for daily watch stats card"
@@ -326,5 +334,426 @@
   "overlay_button_dismiss_today": {
     "message": "Dismiss for today",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "Block",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "Blocklists",
+    "description": "Label for the Blocklists tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "Focus",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "Stats",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "Settings",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "section_channel_blocklist": {
+    "message": "Channel Blocklist",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "Block specific channels from appearing in feeds and recommendations.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "No blocked channels.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "Keyword Blocklist",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "Hide videos whose titles match blocked keywords.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "No blocked keywords.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "Add Channel",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "Add Keyword",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "Focus Lock",
+    "description": "Section header for Focus Lock feature"
+  },
+  "desc_focus_lock": {
+    "message": "Require a delay before disabling protections",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "Focus Lock",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "Cooldown delay",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 min",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 min",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 min",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 min",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "Set 4-Digit PIN",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "Enter 4-digit PIN",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "Confirm 4-digit PIN",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "If you forget this PIN, the only way to reset it is to uninstall and reinstall the extension, which will erase all your settings. Write it down somewhere safe.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "Save PIN & Enable",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "Cancel",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "Focus Lock Protected",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "Enter your 4-digit PIN to begin the cooldown delay:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "Start Cooldown",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "PINs do not match. Please try again.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "PIN must be exactly 4 digits.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "Incorrect PIN. Try again.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "Unlocking: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "Unlocks in $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "Cancel",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "An unlock countdown is already active. Cancel it before unlocking another setting.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "Scheduled Blocking",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "Automatically block YouTube during set times",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "Scheduled Blocking",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ Add Schedule",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "No schedules yet. Click Add Schedule to create one.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "New Schedule",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "Edit Schedule",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "Label",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "e.g. Work hours, Study time",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "Days of week",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "Start time",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "End time",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "Blocking Mode",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "Block YouTube entirely",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "Replaces YouTube with a locked commitment screen",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "Force all protections on",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "Enforces maximum distraction blocking without fully locking site",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "Save Schedule",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "Cancel",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "Edit",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "Delete",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "Every day",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "Mon-Fri",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "Sun, Sat",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "Sun",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "Mon",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "Tue",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "Wed",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "Thu",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "Fri",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "Sat",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "Please select at least one day.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "Please enter a schedule label.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "Please specify both start and end times.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube is unavailable right now",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "Reopens at $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "This schedule is enforced by Intentional YT to protect your focus.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "Settings",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "Language",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "Reset Settings",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "Restore all default options and clear custom schedules.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "Reset all settings to default",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "Are you sure you want to reset all settings to default? This will clear all your custom preferences and schedules.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "Activity Overview",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "Today's YouTube Playback",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "total watch time",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "Watch time accumulates only while a YouTube video is actively playing. It resets automatically every midnight. Your persistent status bar stays visible at the bottom on every tab.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "Configure Limit",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "Reset Today",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "Automate distraction-free study blocks or quiet hours.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "Appearance",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "Auto (match system)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "Dark mode",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "Light mode",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "Backup & Restore",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "Export your settings to a JSON file or import a previous backup.",
+    "description": "Description for import and export section in Settings"
+  },
+  "btn_export_settings": {
+    "message": "Export",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "Import",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "Settings exported successfully",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "Settings imported successfully",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "Failed to import settings: Invalid JSON file",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ active",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   }
 }
+

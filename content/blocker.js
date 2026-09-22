@@ -64,13 +64,24 @@ async function applyAllSettings() {
   applyAutoplay(_settings);
 }
 
-// React instantly when user toggles settings
+// React instantly when user toggles settings via storage event
 browser.storage.onChanged.addListener((changes) => {
   if (!changes.settings?.newValue) return;
   _settings = changes.settings.newValue;
   applyAllClasses(_settings);
   applyAutoplay(_settings);
 });
+
+// Also react immediately to direct runtime messages from popup
+if (browser && browser.runtime && browser.runtime.onMessage) {
+  browser.runtime.onMessage.addListener((msg) => {
+    if (msg && msg.type === 'IYT_APPLY_SETTINGS' && msg.settings) {
+      _settings = msg.settings;
+      applyAllClasses(_settings);
+      applyAutoplay(_settings);
+    }
+  });
+}
 
 // Initial injection at document_start
 applyAllSettings();

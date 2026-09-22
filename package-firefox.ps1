@@ -7,6 +7,7 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 $packageItems = @(
   'manifest.json',
+  '_locales',
   'background',
   'content',
   'icons',

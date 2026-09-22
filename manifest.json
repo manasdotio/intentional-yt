@@ -46,6 +46,7 @@
         "utils/storage.js",
         "utils/i18n.js",
         "content/blocker.js",
+        "content/scheduledBlocker.js",
         "content/timerToast.js",
         "content/youtubeObserver.js"
       ],

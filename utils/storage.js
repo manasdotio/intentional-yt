@@ -23,6 +23,7 @@ class StorageManager {
     return {
       extensionEnabled: true,
       userLanguage: 'auto',
+      themeMode: 'auto',
 
       blockHomeFeed: true,
       blockSidebar: true,
@@ -54,6 +55,19 @@ class StorageManager {
 
       softReminder: { enabled: false, intervalMinutes: 30 },
       dailyLimit:   { enabled: false, limitMinutes: 60 },
+
+      focusLock: {
+        enabled: false,
+        pin: null,
+        cooldownMinutes: 10,
+        lockedSettings: [],
+        pendingUnlock: null
+      },
+
+      scheduledBlocking: {
+        enabled: false,
+        schedules: []
+      },
 
       stats: {
         todayWatchSeconds: 0,
@@ -150,6 +164,26 @@ class StorageManager {
       settings.stats.lastStatsReset = StorageManager.getTodayString();
       await browser.storage.local.set({ settings });
       return settings;
+    });
+  }
+
+  static async importSettings(newSettings) {
+    return StorageManager._enqueue(async () => {
+      if (!newSettings || typeof newSettings !== 'object' || Array.isArray(newSettings)) {
+        throw new Error('Invalid settings object');
+      }
+      const defaults = StorageManager.getDefaultSettings();
+      const merged = StorageManager._merge(defaults, newSettings);
+      await browser.storage.local.set({ settings: merged });
+      return merged;
+    });
+  }
+
+  static async resetToDefaults() {
+    return StorageManager._enqueue(async () => {
+      const defaults = StorageManager.getDefaultSettings();
+      await browser.storage.local.set({ settings: defaults });
+      return defaults;
     });
   }
 }
