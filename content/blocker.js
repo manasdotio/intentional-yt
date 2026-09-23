@@ -8,7 +8,6 @@
 
 var browser = globalThis.browser || globalThis.chrome;
 
-
 const CLASS_MAP = {
   blockHomeFeed:               'iyt-no-home-feed',
   blockSidebar:                'iyt-no-sidebar',
@@ -39,20 +38,160 @@ const CLASS_MAP = {
 
 const html = document.documentElement;
 let _settings = null;
+let _snoozeTimer = null;
 
-function applyAllClasses(settings) {
-  const enabled = settings.extensionEnabled !== false;
-  for (const [key, cls] of Object.entries(CLASS_MAP)) {
-    if (enabled && settings[key]) {
-      html.classList.add(cls);
-    } else {
-      html.classList.remove(cls);
+function isEffectiveActive(settings) {
+  if (!settings) return false;
+  if (settings.extensionEnabled === false) return false;
+  if (settings.snoozeUntil && Date.now() < settings.snoozeUntil) return false;
+  return true;
+}
+
+function scheduleSnoozeWakeup(settings) {
+  clearTimeout(_snoozeTimer);
+  if (settings?.snoozeUntil && Date.now() < settings.snoozeUntil) {
+    const ms = Math.max(100, settings.snoozeUntil - Date.now());
+    _snoozeTimer = setTimeout(() => {
+      applyAllSettings();
+    }, ms + 250);
+  }
+}
+
+function checkShortsRedirect(settings) {
+  if (!isEffectiveActive(settings) || !settings.redirectShorts) return;
+  const path = window.location.pathname;
+  if (path === '/shorts' || path === '/shorts/') {
+    window.location.replace('/');
+    return;
+  }
+  const match = path.match(/^\/shorts\/([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    const videoId = match[1];
+    const searchParams = new URLSearchParams(window.location.search);
+    const qs = searchParams.toString() ? '&' + searchParams.toString() : '';
+    window.location.replace('/watch?v=' + encodeURIComponent(videoId) + qs);
+  }
+}
+
+// Intercept in-page SPA navigation to shorts
+document.addEventListener('yt-navigate-start', (e) => {
+  if (!isEffectiveActive(_settings) || !_settings.redirectShorts) return;
+  const url = e && e.detail && e.detail.url;
+  if (typeof url === 'string') {
+    if (url === '/shorts' || url === '/shorts/' || url.startsWith('/shorts?')) {
+      window.location.replace('/');
+      return;
+    }
+    const match = url.match(/^\/shorts\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      window.location.replace('/watch?v=' + encodeURIComponent(match[1]));
+    }
+  }
+});
+
+function purgeShortsFromDOM() {
+  if (!isEffectiveActive(_settings) || !_settings.blockShorts) return;
+
+  // 1. All anchors pointing to shorts
+  const shortsAnchors = document.querySelectorAll('a[href*="/shorts/"], a[href^="/shorts/"]');
+  for (const a of shortsAnchors) {
+    const container = a.closest(
+      'grid-shelf-view-model, ytd-reel-shelf-renderer, yt-reel-shelf-view-model, ' +
+      'reel-shelf-view-model, ytm-reel-shelf-renderer, ytd-rich-section-renderer, ' +
+      'ytm-shorts-lockup-view-model-v2, ytm-shorts-lockup-view-model, ytd-shorts-lockup-view-model, ' +
+      'yt-shorts-lockup-view-model, ytd-reel-item-renderer, reel-item-view-model, ' +
+      'yt-reel-item-view-model, ytd-video-renderer, yt-lockup-view-model, ' +
+      'ytd-rich-item-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ' +
+      'ytd-guide-entry-renderer, ytd-mini-guide-entry-renderer, yt-guide-entry-view-model'
+    );
+    if (container && container.tagName.toLowerCase() !== 'ytd-item-section-renderer' && container.getAttribute('data-iyt-shorts-hidden') !== 'true') {
+      container.setAttribute('data-iyt-shorts-hidden', 'true');
+      container.style.setProperty('display', 'none', 'important');
+    }
+  }
+
+  // 2. All shorts shelves & lockups by tag or attribute
+  const shortsElements = document.querySelectorAll(
+    'grid-shelf-view-model, ytm-shorts-lockup-view-model-v2, ytm-shorts-lockup-view-model, ' +
+    'ytd-shorts-lockup-view-model, ytd-shorts-lockup-view-model-renderer, yt-shorts-lockup-view-model, ' +
+    'ytd-reel-shelf-renderer, yt-reel-shelf-view-model, reel-shelf-view-model, ytm-reel-shelf-renderer, ' +
+    'ytd-reel-item-renderer, reel-item-view-model, yt-reel-item-view-model, ' +
+    'ytd-rich-shelf-renderer[is-shorts], [overlay-style="SHORTS"]'
+  );
+  for (const el of shortsElements) {
+    const target = el.closest(
+      'grid-shelf-view-model, ytd-rich-section-renderer, ytd-reel-shelf-renderer, ' +
+      'ytd-video-renderer, ytd-rich-item-renderer, yt-lockup-view-model'
+    ) || el;
+    if (target && target.tagName.toLowerCase() !== 'ytd-item-section-renderer' && target.getAttribute('data-iyt-shorts-hidden') !== 'true') {
+      target.setAttribute('data-iyt-shorts-hidden', 'true');
+      target.style.setProperty('display', 'none', 'important');
     }
   }
 }
 
+function unpurgeShortsFromDOM() {
+  document.querySelectorAll('[data-iyt-shorts-hidden="true"]').forEach(el => {
+    el.removeAttribute('data-iyt-shorts-hidden');
+    el.style.removeProperty('display');
+  });
+}
+
+let _domPurgeScheduled = false;
+function scheduleShortsPurge() {
+  if (_domPurgeScheduled || !isEffectiveActive(_settings) || !_settings.blockShorts) return;
+  _domPurgeScheduled = true;
+  requestAnimationFrame(() => {
+    _domPurgeScheduled = false;
+    purgeShortsFromDOM();
+  });
+}
+
+let _isApplyingClasses = false;
+
+function applyAllClasses(settings) {
+  _isApplyingClasses = true;
+  try {
+    const active = isEffectiveActive(settings);
+    for (const [key, cls] of Object.entries(CLASS_MAP)) {
+      if (active && settings[key]) {
+        html.classList.add(cls);
+      } else {
+        html.classList.remove(cls);
+      }
+    }
+    if (active && settings.blockShorts) {
+      purgeShortsFromDOM();
+    } else {
+      unpurgeShortsFromDOM();
+    }
+    // Ensure search results container is never hidden
+    document.querySelectorAll('ytd-item-section-renderer[data-iyt-shorts-hidden]').forEach(el => {
+      el.removeAttribute('data-iyt-shorts-hidden');
+      el.style.removeProperty('display');
+    });
+    // Ensure any leftover intentional home element is removed
+    const existing = document.getElementById('iyt-intentional-home');
+    if (existing) existing.remove();
+  } finally {
+    _isApplyingClasses = false;
+  }
+}
+
+// Ensure YouTube's internal SPA router doesn't strip our classes from <html>
+const _classObserver = new MutationObserver(() => {
+  if (_isApplyingClasses || !_settings || !isEffectiveActive(_settings)) return;
+  for (const [key, cls] of Object.entries(CLASS_MAP)) {
+    if (_settings[key] && !html.classList.contains(cls)) {
+      applyAllClasses(_settings);
+      break;
+    }
+  }
+});
+_classObserver.observe(html, { attributes: true, attributeFilter: ['class'] });
+
 function applyAutoplay(settings) {
-  if (!settings || !settings.extensionEnabled || !settings.disableAutoplay) return;
+  if (!isEffectiveActive(settings) || !settings.disableAutoplay) return;
   document.querySelectorAll('video[autoplay]').forEach(v => v.removeAttribute('autoplay'));
   const btn = document.querySelector('.ytp-autonav-toggle-button[aria-checked="true"]');
   if (btn) btn.click();
@@ -60,6 +199,8 @@ function applyAutoplay(settings) {
 
 async function applyAllSettings() {
   _settings = await StorageManager.getSettings();
+  scheduleSnoozeWakeup(_settings);
+  checkShortsRedirect(_settings);
   applyAllClasses(_settings);
   applyAutoplay(_settings);
 }
@@ -68,6 +209,8 @@ async function applyAllSettings() {
 browser.storage.onChanged.addListener((changes) => {
   if (!changes.settings?.newValue) return;
   _settings = changes.settings.newValue;
+  scheduleSnoozeWakeup(_settings);
+  checkShortsRedirect(_settings);
   applyAllClasses(_settings);
   applyAutoplay(_settings);
 });
@@ -77,6 +220,8 @@ if (browser && browser.runtime && browser.runtime.onMessage) {
   browser.runtime.onMessage.addListener((msg) => {
     if (msg && msg.type === 'IYT_APPLY_SETTINGS' && msg.settings) {
       _settings = msg.settings;
+      scheduleSnoozeWakeup(_settings);
+      checkShortsRedirect(_settings);
       applyAllClasses(_settings);
       applyAutoplay(_settings);
     }
@@ -86,4 +231,36 @@ if (browser && browser.runtime && browser.runtime.onMessage) {
 // Initial injection at document_start
 applyAllSettings();
 
-window.__iytBlocker = { applyAllSettings, applyAutoplay };
+function initShortsDomObserver() {
+  const target = document.body || document.documentElement;
+  if (!target) {
+    document.addEventListener('DOMContentLoaded', initShortsDomObserver, { once: true });
+    return;
+  }
+  const observer = new MutationObserver((mutations) => {
+    if (!isEffectiveActive(_settings) || !_settings.blockShorts) return;
+    for (let i = 0; i < mutations.length; i++) {
+      if (mutations[i].addedNodes.length > 0) {
+        scheduleShortsPurge();
+        break;
+      }
+    }
+  });
+  observer.observe(target, { childList: true, subtree: true });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initShortsDomObserver, { once: true });
+} else {
+  initShortsDomObserver();
+}
+
+document.addEventListener('yt-navigate-finish', () => scheduleShortsPurge());
+document.addEventListener('yt-page-data-updated', () => scheduleShortsPurge());
+
+window.__iytBlocker = {
+  applyAllSettings,
+  applyAutoplay,
+  purgeShortsFromDOM,
+  checkShortsRedirect: () => checkShortsRedirect(_settings)
+};

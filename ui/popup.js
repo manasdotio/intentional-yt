@@ -75,6 +75,7 @@ const TOGGLES = [
   'blockVideoButtons', 'blockChannelInfo', 'blockVideoDescription',
   'blockTopHeader', 'blockNotificationBell', 'blockIrrelevantSearchResults',
   'blockExploreAndTrending', 'blockMoreFromYouTube', 'blockShorts',
+  'redirectShorts',
   'blockSubscriptionsFeed', 'disableAutoplay', 'disableAnnotations',
   'hideThumbnails', 'grayscaleMode',
 ];
@@ -102,6 +103,7 @@ const TOGGLE_LABELS = {
   blockExploreAndTrending: 'toggle_block_explore_trending',
   blockMoreFromYouTube: 'toggle_block_more_from_youtube',
   blockShorts: 'toggle_block_shorts',
+  redirectShorts: 'toggle_redirect_shorts',
   blockSubscriptionsFeed: 'toggle_block_subscriptions',
   disableAutoplay: 'toggle_disable_autoplay',
   disableAnnotations: 'toggle_disable_annotations',
@@ -119,6 +121,7 @@ const SECTION_TOGGLES = {
     'blockSubscriptionsFeed',
     'blockRecommended',
     'blockShorts',
+    'redirectShorts',
     'blockExploreAndTrending',
     'blockMoreFromYouTube',
     'blockIrrelevantSearchResults'
@@ -152,6 +155,93 @@ const SECTION_TOGGLES = {
   ]
 };
 
+const PRESET_DEFINITIONS = {
+  balanced: {
+    blockHomeFeed: true,
+    blockSidebar: true,
+    blockRecommended: true,
+    blockLiveChat: true,
+    blockPlaylist: false,
+    blockEndScreenVideowall: true,
+    blockEndScreenCards: true,
+    blockComments: false,
+    blockProfilePhotos: false,
+    blockMixPlaylists: true,
+    blockMerch: true,
+    blockVideoInfo: false,
+    blockVideoButtons: false,
+    blockChannelInfo: false,
+    blockVideoDescription: false,
+    blockTopHeader: false,
+    blockNotificationBell: true,
+    blockIrrelevantSearchResults: true,
+    blockExploreAndTrending: true,
+    blockMoreFromYouTube: true,
+    blockShorts: true,
+    blockSubscriptionsFeed: false,
+    disableAutoplay: true,
+    disableAnnotations: true,
+    hideThumbnails: false,
+    grayscaleMode: false
+  },
+  zen: {
+    blockHomeFeed: true,
+    blockSidebar: true,
+    blockRecommended: true,
+    blockLiveChat: true,
+    blockPlaylist: true,
+    blockEndScreenVideowall: true,
+    blockEndScreenCards: true,
+    blockComments: true,
+    blockProfilePhotos: true,
+    blockMixPlaylists: true,
+    blockMerch: true,
+    blockVideoInfo: false,
+    blockVideoButtons: false,
+    blockChannelInfo: false,
+    blockVideoDescription: false,
+    blockTopHeader: false,
+    blockNotificationBell: true,
+    blockIrrelevantSearchResults: true,
+    blockExploreAndTrending: true,
+    blockMoreFromYouTube: true,
+    blockShorts: true,
+    blockSubscriptionsFeed: true,
+    disableAutoplay: true,
+    disableAnnotations: true,
+    hideThumbnails: true,
+    grayscaleMode: false
+  },
+  player: {
+    blockHomeFeed: true,
+    blockSidebar: true,
+    blockRecommended: true,
+    blockLiveChat: true,
+    blockPlaylist: false,
+    blockEndScreenVideowall: true,
+    blockEndScreenCards: true,
+    blockComments: true,
+    blockProfilePhotos: true,
+    blockMixPlaylists: true,
+    blockMerch: true,
+    blockVideoInfo: false,
+    blockVideoButtons: false,
+    blockChannelInfo: false,
+    blockVideoDescription: false,
+    blockTopHeader: false,
+    blockNotificationBell: false,
+    blockIrrelevantSearchResults: true,
+    blockExploreAndTrending: true,
+    blockMoreFromYouTube: true,
+    blockShorts: true,
+    blockSubscriptionsFeed: false,
+    disableAutoplay: true,
+    disableAnnotations: true,
+    hideThumbnails: false,
+    grayscaleMode: false
+  }
+};
+
 let _s = null;
 let _softCustomMode = false;
 let _dailyCustomMode = false;
@@ -164,6 +254,11 @@ const $ = id => document.getElementById(id);
 function getSettingFriendlyName(settingKey) {
   if (TOGGLE_LABELS[settingKey]) {
     return t(TOGGLE_LABELS[settingKey]) || settingKey;
+  }
+  if (settingKey.startsWith('preset:')) {
+    const pName = settingKey.split(':')[1];
+    const pLabel = t(`preset_${pName}`) || pName;
+    return `${t('presets_title') || 'Preset'}: ${pLabel}`;
   }
   if (settingKey === 'dailyLimit.enabled' || settingKey === 'dailyLimit') {
     return t('toggle_daily_limit') || 'Daily Limit';
@@ -217,6 +312,334 @@ async function hashPin(pin) {
   const enc = new TextEncoder().encode(pin);
   const buf = await crypto.subtle.digest('SHA-256', enc);
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/* ── Block Tab Accordion Cards & Active Badges ─────────── */
+
+const ACCORDION_SECTIONS = ['feed', 'video', 'social', 'interface', 'appearance'];
+
+function getSectionActiveCount(secName, s) {
+  const settings = s || _s;
+  if (!settings) return 0;
+  const toggleKeys = SECTION_TOGGLES[secName] || [];
+  let count = 0;
+  for (const key of toggleKeys) {
+    if (['blockVideoButtons', 'blockChannelInfo', 'blockVideoDescription'].includes(key)) {
+      if (settings.blockVideoInfo && settings[key]) {
+        count++;
+      }
+    } else if (settings[key]) {
+      count++;
+    }
+  }
+  return count;
+}
+
+function updateAccordionBadges(s) {
+  const settings = s || _s;
+  if (!settings) return;
+
+  for (const sec of ACCORDION_SECTIONS) {
+    const secEl = $(`sec-${sec}`);
+    const badgeEl = $(`count-${sec}`);
+    if (!secEl || !badgeEl) continue;
+
+    const count = getSectionActiveCount(sec, settings);
+    const total = (SECTION_TOGGLES[sec] || []).length;
+    const isCollapsed = secEl.classList.contains('collapsed');
+
+    if (isCollapsed) {
+      badgeEl.textContent = `${count}/${total}`;
+      badgeEl.style.display = 'inline-flex';
+    } else {
+      badgeEl.style.display = 'none';
+    }
+  }
+}
+
+async function toggleAccordion(secName) {
+  const secEl = $(`sec-${secName}`);
+  const btn = secEl?.querySelector('.sh-btn');
+  if (!secEl || !btn) return;
+
+  const isCollapsed = secEl.classList.toggle('collapsed');
+  btn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+
+  updateAccordionBadges(_s);
+  updateToggleAllAccordionsBtn();
+  await saveAccordionState();
+}
+
+async function saveAccordionState() {
+  const collapsedMap = {};
+  for (const sec of ACCORDION_SECTIONS) {
+    const el = $(`sec-${sec}`);
+    if (el) {
+      collapsedMap[sec] = el.classList.contains('collapsed');
+    }
+  }
+  try {
+    await browser.storage.local.set({ accordionCollapsed: collapsedMap });
+  } catch (err) {
+    console.warn('[IYT] Failed to save accordionCollapsed state:', err);
+  }
+}
+
+function restoreAccordionState(state) {
+  const collapsedMap = state || {};
+  for (const sec of ACCORDION_SECTIONS) {
+    const secEl = $(`sec-${sec}`);
+    const btn = secEl?.querySelector('.sh-btn');
+    if (!secEl || !btn) continue;
+
+    const shouldCollapse = !!collapsedMap[sec];
+    secEl.classList.toggle('collapsed', shouldCollapse);
+    btn.setAttribute('aria-expanded', shouldCollapse ? 'false' : 'true');
+  }
+  updateAccordionBadges(_s);
+  updateToggleAllAccordionsBtn();
+}
+
+function updateToggleAllAccordionsBtn() {
+  const btn = $('btn-toggle-all-accordions');
+  const label = $('label-toggle-all-accordions');
+  if (!btn || !label) return;
+  const anyOpen = ACCORDION_SECTIONS.some(sec => {
+    const el = $(`sec-${sec}`);
+    return el && !el.classList.contains('collapsed');
+  });
+  const key = anyOpen ? 'action_collapse_all' : 'action_expand_all';
+  const text = getMsg(key) || (anyOpen ? 'Collapse All' : 'Expand All');
+  label.textContent = text;
+  btn.setAttribute('data-action', anyOpen ? 'collapse' : 'expand');
+}
+
+async function toggleAllAccordions() {
+  const btn = $('btn-toggle-all-accordions');
+  if (!btn) return;
+  const shouldCollapse = btn.getAttribute('data-action') === 'collapse';
+  for (const sec of ACCORDION_SECTIONS) {
+    const secEl = $(`sec-${sec}`);
+    const shBtn = secEl?.querySelector('.sh-btn');
+    if (secEl && shBtn) {
+      secEl.classList.toggle('collapsed', shouldCollapse);
+      shBtn.setAttribute('aria-expanded', shouldCollapse ? 'false' : 'true');
+    }
+  }
+  updateAccordionBadges(_s);
+  updateToggleAllAccordionsBtn();
+  await saveAccordionState();
+}
+
+/* ── Quick Modes / Presets & Quick Strip ───────────────── */
+
+function detectActivePreset(s) {
+  const settings = s || _s;
+  if (!settings) return 'custom';
+  for (const [name, def] of Object.entries(PRESET_DEFINITIONS)) {
+    let match = true;
+    for (const [k, v] of Object.entries(def)) {
+      if (Boolean(settings[k]) !== Boolean(v)) {
+        match = false;
+        break;
+      }
+    }
+    if (match) return name;
+  }
+  return 'custom';
+}
+
+function updatePresetUI(s) {
+  const active = detectActivePreset(s);
+
+  // Update preset dropdown
+  const selectPreset = $('select-preset');
+  if (selectPreset) {
+    selectPreset.value = active;
+  }
+
+  // Update dropdown icon
+  const icon = document.querySelector('.preset-dropdown-icon');
+  if (icon) {
+    const icons = {
+      balanced: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+      zen: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 0-20"/>',
+      player: '<polygon points="5 3 19 12 5 21 5 3"/>',
+      custom: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>'
+    };
+    if (icons[active]) {
+      icon.innerHTML = icons[active];
+    }
+  }
+
+  // Backward compatibility with chips if present
+  ['balanced', 'zen', 'player', 'custom'].forEach(p => {
+    const chip = $(`chip-preset-${p}`);
+    if (chip) {
+      const isActive = (p === active);
+      chip.classList.toggle('active', isActive);
+      chip.setAttribute('aria-checked', isActive ? 'true' : 'false');
+    }
+  });
+
+  const descEl = $('preset-active-desc');
+  if (descEl) {
+    const descKey = `preset_desc_${active}`;
+    descEl.textContent = t(descKey) || '';
+  }
+}
+
+function getPresetRelaxedKeys(targetPreset) {
+  if (!_s) return [];
+  const relaxed = [];
+  for (const [key, val] of Object.entries(targetPreset)) {
+    if (_s[key] === true && val === false) {
+      relaxed.push(key);
+    }
+  }
+  return relaxed;
+}
+
+async function doApplyPreset(preset, presetName) {
+  dismissWelcomeCard();
+  const updated = await StorageManager.updateSettings(preset);
+  _s = updated;
+  broadcastSettingsToTabs(updated);
+  renderAll(updated);
+  const pLabel = t(`preset_${presetName}`) || presetName;
+  showToast(t('preset_applied', [pLabel]) || `Switched to ${pLabel} mode`);
+}
+
+async function applyPreset(presetName) {
+  if (presetName === 'custom') {
+    const detailedHeader = document.querySelector('.detailed-header');
+    if (detailedHeader) {
+      detailedHeader.scrollIntoView({ behavior: 'smooth' });
+    }
+    return;
+  }
+
+  const targetPreset = PRESET_DEFINITIONS[presetName];
+  if (!targetPreset) return;
+
+  if (detectActivePreset(_s) === presetName) return;
+
+  const relaxedKeys = getPresetRelaxedKeys(targetPreset);
+  if (isFocusLockActive() && relaxedKeys.length > 0) {
+    await interceptSettingChange(
+      `preset:${presetName}`,
+      presetName,
+      () => { updatePresetUI(_s); },
+      async () => {
+        await doApplyPreset(targetPreset, presetName);
+      }
+    );
+  } else {
+    await doApplyPreset(targetPreset, presetName);
+  }
+}
+
+/* ── 1st-Run Welcome Card ──────────────────────────────── */
+
+async function dismissWelcomeCard() {
+  const card = $('welcome-card');
+  if (card && card.style.display !== 'none') {
+    card.style.transition = 'opacity 0.2s ease, max-height 0.25s ease, margin 0.25s ease, padding 0.25s ease';
+    card.style.opacity = '0';
+    card.style.maxHeight = '0';
+    card.style.padding = '0 12px';
+    card.style.margin = '0 12px';
+    setTimeout(() => { card.style.display = 'none'; }, 260);
+    try {
+      await browser.storage.local.set({ welcomeDismissed: true });
+    } catch (e) {}
+  }
+}
+
+/* ── In-Popup Toggle Quick Search ──────────────────────── */
+
+let _searchPrevCollapsed = null;
+
+function filterToggles(query) {
+  const q = (query || '').trim().toLowerCase();
+  const clearBtn = $('btn-clear-search');
+  const noResultsEl = $('search-no-results');
+  const detailedHeader = document.querySelector('.detailed-header');
+
+  if (clearBtn) clearBtn.style.display = q ? 'flex' : 'none';
+
+  if (!q) {
+    if (noResultsEl) noResultsEl.style.display = 'none';
+    if (detailedHeader) detailedHeader.style.display = 'flex';
+
+    for (const sec of ACCORDION_SECTIONS) {
+      const secEl = $(`sec-${sec}`);
+      if (secEl) {
+        secEl.style.display = '';
+        if (_searchPrevCollapsed && _searchPrevCollapsed[sec] !== undefined) {
+          const btn = secEl.querySelector('.sh-btn');
+          secEl.classList.toggle('collapsed', _searchPrevCollapsed[sec]);
+          btn?.setAttribute('aria-expanded', _searchPrevCollapsed[sec] ? 'false' : 'true');
+        }
+      }
+      const body = $(`sec-${sec}-body`);
+      if (body) {
+        body.querySelectorAll('.row').forEach(row => {
+          row.style.display = '';
+        });
+      }
+    }
+    _searchPrevCollapsed = null;
+    updateAccordionBadges(_s);
+    return;
+  }
+
+  // Save previous collapsed state on first keystroke
+  if (!_searchPrevCollapsed) {
+    _searchPrevCollapsed = {};
+    for (const sec of ACCORDION_SECTIONS) {
+      const secEl = $(`sec-${sec}`);
+      if (secEl) {
+        _searchPrevCollapsed[sec] = secEl.classList.contains('collapsed');
+      }
+    }
+  }
+
+  let totalMatches = 0;
+
+  for (const sec of ACCORDION_SECTIONS) {
+    const secEl = $(`sec-${sec}`);
+    const body = $(`sec-${sec}-body`);
+    if (!secEl || !body) continue;
+
+    let secMatches = 0;
+    const rows = body.querySelectorAll('.row');
+    rows.forEach(row => {
+      const text = row.querySelector('.row-text')?.textContent || '';
+      const desc = row.querySelector('.row-desc')?.textContent || '';
+      const combined = (text + ' ' + desc).toLowerCase();
+
+      if (combined.includes(q)) {
+        row.style.display = 'flex';
+        secMatches++;
+        totalMatches++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    if (secMatches > 0) {
+      secEl.style.display = '';
+      secEl.classList.remove('collapsed');
+      const btn = secEl.querySelector('.sh-btn');
+      btn?.setAttribute('aria-expanded', 'true');
+    } else {
+      secEl.style.display = 'none';
+    }
+  }
+
+  if (noResultsEl) noResultsEl.style.display = totalMatches === 0 ? 'flex' : 'none';
+  if (detailedHeader) detailedHeader.style.display = totalMatches === 0 ? 'none' : 'flex';
 }
 
 /* ── Tab Management ──────────────────────────────────── */
@@ -387,6 +810,12 @@ async function applyPendingUnlock(pendingUnlock) {
         ..._s.scheduledBlocking,
         schedules
       });
+    } else if (settingKey.startsWith('preset:')) {
+      const pName = settingKey.split(':')[1];
+      const preset = PRESET_DEFINITIONS[pName];
+      if (preset) {
+        await StorageManager.updateSettings(preset);
+      }
     } else if (settingKey === 'resetDefaults') {
       await StorageManager.resetToDefaults();
     } else if (settingKey === 'importSettings') {
@@ -404,6 +833,7 @@ async function applyPendingUnlock(pendingUnlock) {
     await StorageManager.updateNestedSetting('focusLock', 'pendingUnlock', null);
     if (_s?.focusLock) _s.focusLock.pendingUnlock = null;
     const fresh = await StorageManager.getSettings();
+    broadcastSettingsToTabs(fresh);
     renderAll(fresh);
   }
 }
@@ -443,6 +873,89 @@ function renderPendingUnlockBanner() {
   if (!_bannerInterval) {
     _bannerInterval = setInterval(updateTimer, 1000);
   }
+}
+
+/* ── Snooze / Temporary Pause Mechanics ───────────────── */
+
+let _snoozeCountdownInterval = null;
+
+function updateSnoozeBanner(s) {
+  const banner = $('snooze-banner');
+  if (!banner) return;
+  const isSnoozed = s && s.extensionEnabled !== false && !!(s.snoozeUntil && Date.now() < s.snoozeUntil);
+  if (!isSnoozed) {
+    banner.style.display = 'none';
+    if (_snoozeCountdownInterval) {
+      clearInterval(_snoozeCountdownInterval);
+      _snoozeCountdownInterval = null;
+    }
+    return;
+  }
+
+  banner.style.display = 'flex';
+  const renderRemaining = () => {
+    const remainingMs = Math.max(0, (s.snoozeUntil || 0) - Date.now());
+    if (remainingMs <= 0) {
+      banner.style.display = 'none';
+      if (_snoozeCountdownInterval) {
+        clearInterval(_snoozeCountdownInterval);
+        _snoozeCountdownInterval = null;
+      }
+      StorageManager.getSettings().then(latest => renderAll(latest));
+      return;
+    }
+    const totalSec = Math.ceil(remainingMs / 1000);
+    const mins = Math.floor(totalSec / 60);
+    const secs = totalSec % 60;
+    const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    const timerEl = $('snooze-banner-timer');
+    if (timerEl) {
+      timerEl.textContent = t('snooze_banner_remaining', [formatted], `${formatted} remaining`);
+    }
+  };
+
+  renderRemaining();
+  if (!_snoozeCountdownInterval) {
+    _snoozeCountdownInterval = setInterval(renderRemaining, 1000);
+  }
+}
+
+function openSnoozeModal() {
+  const modal = $('modal-snooze');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeSnoozeModal() {
+  const modal = $('modal-snooze');
+  if (modal) modal.style.display = 'none';
+}
+
+async function handleSnoozeSelection(minutes) {
+  closeSnoozeModal();
+  if (isFocusLockActive()) {
+    promptForPinVerification(async () => {
+      await executeSnooze(minutes);
+    }, t('action_snooze') || 'Snooze Protections');
+  } else {
+    await executeSnooze(minutes);
+  }
+}
+
+async function executeSnooze(minutes) {
+  const snoozeUntil = Date.now() + minutes * 60 * 1000;
+  await StorageManager.updateSetting('snoozeUntil', snoozeUntil);
+  if (_s) _s.snoozeUntil = snoozeUntil;
+  broadcastSettingsToTabs(_s);
+  renderAll(_s);
+  showToast(t('snooze_activated', [String(minutes)]) || `Protections paused for ${minutes} minutes`);
+}
+
+async function cancelSnooze() {
+  await StorageManager.updateSetting('snoozeUntil', null);
+  if (_s) _s.snoozeUntil = null;
+  broadcastSettingsToTabs(_s);
+  renderAll(_s);
+  showToast(t('snooze_resumed') || 'Protections resumed');
 }
 
 /* ── Scheduled Blocking Form & Cards ─────────────────── */
@@ -656,11 +1169,18 @@ function renderAll(s) {
   }
 
   const on = s.extensionEnabled !== false;
+  const isSnoozed = on && !!(s.snoozeUntil && Date.now() < s.snoozeUntil);
   document.body.classList.toggle('ext-off', !on);
+  document.body.classList.toggle('ext-snoozed', isSnoozed);
   const badge = $('ext-badge');
   if (badge) {
-    badge.textContent = on ? (t('status_active') || 'Active') : (t('status_paused') || 'Paused');
+    if (isSnoozed) {
+      badge.textContent = t('status_snoozed') || 'Snoozed';
+    } else {
+      badge.textContent = on ? (t('status_active') || 'Active') : (t('status_paused') || 'Paused');
+    }
   }
+  updateSnoozeBanner(s);
 
   $('video-info-children').style.display = s.blockVideoInfo ? 'block' : 'none';
 
@@ -724,6 +1244,12 @@ function renderAll(s) {
 
   // Stats
   renderStats(s);
+
+  // Preset UI update
+  updatePresetUI(s);
+
+  // Accordion Badges
+  updateAccordionBadges(s);
 }
 
 function renderStats(s) {
@@ -766,17 +1292,6 @@ function renderStats(s) {
   }
 }
 
-/* ── Event Bindings ──────────────────────────────────── */
-
-function bindAll() {
-  // Tab Bar navigation
-  document.querySelectorAll('#tab-bar .tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tab = btn.getAttribute('data-tab');
-      if (tab) switchTab(tab);
-    });
-  });
-
 async function broadcastSettingsToTabs(settings) {
   try {
     if (browser && browser.tabs && typeof browser.tabs.query === 'function') {
@@ -790,11 +1305,98 @@ async function broadcastSettingsToTabs(settings) {
   } catch (e) {}
 }
 
+/* ── Event Bindings ──────────────────────────────────── */
+
+function bindAll() {
+  // Tab Bar navigation
+  document.querySelectorAll('#tab-bar .tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.getAttribute('data-tab');
+      if (tab) switchTab(tab);
+    });
+  });
+
+  // Block tab accordion section header buttons
+  for (const sec of ACCORDION_SECTIONS) {
+    const secEl = $(`sec-${sec}`);
+    const btn = secEl?.querySelector('.sh-btn');
+    if (btn) {
+      btn.addEventListener('click', () => toggleAccordion(sec));
+    }
+  }
+
+  // Toggle all accordions (Collapse All / Expand All)
+  const btnToggleAll = $('btn-toggle-all-accordions');
+  if (btnToggleAll) {
+    btnToggleAll.addEventListener('click', toggleAllAccordions);
+  }
+
   // Pending Unlock banner cancel
   $('btn-cancel-unlock').addEventListener('click', async () => {
     await StorageManager.updateNestedSetting('focusLock', 'pendingUnlock', null);
     if (_s?.focusLock) _s.focusLock.pendingUnlock = null;
     renderPendingUnlockBanner();
+  });
+
+  // 1st-Run Welcome Card dismiss
+  $('btn-dismiss-welcome')?.addEventListener('click', dismissWelcomeCard);
+
+  // Snooze Button, Modal & Banner actions
+  $('btn-snooze')?.addEventListener('click', openSnoozeModal);
+  $('btn-cancel-snooze')?.addEventListener('click', closeSnoozeModal);
+  $('btn-resume-snooze')?.addEventListener('click', cancelSnooze);
+  document.querySelectorAll('.snooze-opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mins = parseInt(btn.getAttribute('data-minutes'), 10) || 15;
+      handleSnoozeSelection(mins);
+    });
+  });
+  $('modal-snooze')?.addEventListener('click', (e) => {
+    if (e.target === $('modal-snooze')) closeSnoozeModal();
+  });
+
+  // Quick Search Bar in Distractions Tab
+  const searchInput = $('input-toggle-search');
+  const clearBtn = $('btn-clear-search');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', e => {
+      filterToggles(e.target.value);
+    });
+
+    searchInput.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        filterToggles('');
+        searchInput.blur();
+      }
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (searchInput) {
+        searchInput.value = '';
+        filterToggles('');
+        searchInput.focus();
+      }
+    });
+  }
+
+  // Quick Modes Preset dropdown
+  const selectPreset = $('select-preset');
+  if (selectPreset) {
+    selectPreset.addEventListener('change', (e) => {
+      applyPreset(e.target.value);
+    });
+  }
+
+  // Quick Modes Preset chips
+  ['balanced', 'zen', 'player', 'custom'].forEach(p => {
+    const chip = $(`chip-preset-${p}`);
+    if (chip) {
+      chip.addEventListener('click', () => applyPreset(p));
+    }
   });
 
   // Simple distraction toggles
@@ -818,6 +1420,8 @@ async function broadcastSettingsToTabs(settings) {
             if (key === 'blockVideoInfo') {
               $('video-info-children').style.display = 'none';
             }
+            updateAccordionBadges(_s);
+            updatePresetUI(_s);
           }
         );
       } else {
@@ -834,6 +1438,8 @@ async function broadcastSettingsToTabs(settings) {
         if (key === 'blockVideoInfo') {
           $('video-info-children').style.display = targetVal ? 'block' : 'none';
         }
+        updateAccordionBadges(_s);
+        updatePresetUI(_s);
       }
     });
   }
@@ -1375,9 +1981,11 @@ async function broadcastSettingsToTabs(settings) {
 }
 
 async function init() {
-  const [s, storedTab] = await Promise.all([
+  const [s, storedTab, storedAccordions, storedWelcome] = await Promise.all([
     StorageManager.getSettings(),
-    browser.storage.local.get('activeTab')
+    browser.storage.local.get('activeTab'),
+    browser.storage.local.get('accordionCollapsed'),
+    browser.storage.local.get('welcomeDismissed')
   ]);
 
   applyTheme(s.themeMode || 'auto');
@@ -1393,8 +2001,15 @@ async function init() {
   const dailyPresets = ['15', '30', '45', '60', '90', '120'];
   _dailyCustomMode = !dailyPresets.includes(String(s.dailyLimit?.limitMinutes || 60));
 
+  restoreAccordionState(storedAccordions?.accordionCollapsed);
   renderAll(s);
   bindAll();
+
+  // Show 1st-run welcome card if not dismissed yet
+  if (!storedWelcome?.welcomeDismissed) {
+    const welcomeCard = $('welcome-card');
+    if (welcomeCard) welcomeCard.style.display = 'flex';
+  }
 
   // Restore persisted active tab (default 'block')
   const initialTab = storedTab?.activeTab || 'block';

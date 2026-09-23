@@ -16,6 +16,7 @@ var browser = globalThis.browser || globalThis.chrome;
 
 
 const ALARM_NAME = 'iyt-daily-reset';
+const SNOOZE_ALARM = 'iyt-snooze-restore';
 
 function msUntilMidnight() {
   const now = new Date();
@@ -28,6 +29,17 @@ function scheduleNextReset() {
   browser.alarms.create(ALARM_NAME, { delayInMinutes: delayMinutes });
 }
 
+async function checkSnoozeState() {
+  const stored = await browser.storage.local.get('settings');
+  const snoozeUntil = stored.settings?.snoozeUntil;
+  if (!snoozeUntil) return;
+  if (Date.now() >= snoozeUntil) {
+    await StorageManager.updateSetting('snoozeUntil', null);
+  } else {
+    browser.alarms.create(SNOOZE_ALARM, { when: snoozeUntil });
+  }
+}
+
 browser.runtime.onInstalled.addListener(async () => {
   // Ensure settings always exist in storage from first install.
   // Without this, _flushToStorage reads an empty store and silently returns.
@@ -37,11 +49,32 @@ browser.runtime.onInstalled.addListener(async () => {
     await browser.storage.local.set({ settings: defaults });
   }
   scheduleNextReset();
+  checkSnoozeState();
+});
+
+if (browser.runtime.onStartup) {
+  browser.runtime.onStartup.addListener(() => {
+    checkSnoozeState();
+  });
+}
+
+browser.storage.onChanged.addListener((changes) => {
+  if (changes.settings) {
+    const newSnooze = changes.settings.newValue?.snoozeUntil;
+    const oldSnooze = changes.settings.oldValue?.snoozeUntil;
+    if (newSnooze && newSnooze > Date.now()) {
+      browser.alarms.create(SNOOZE_ALARM, { when: newSnooze });
+    } else if (!newSnooze && oldSnooze) {
+      browser.alarms.clear(SNOOZE_ALARM);
+    }
+  }
 });
 
 browser.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === ALARM_NAME) {
     await StorageManager.resetDailyStats();
     scheduleNextReset();
+  } else if (alarm.name === SNOOZE_ALARM) {
+    await StorageManager.updateSetting('snoozeUntil', null);
   }
 });

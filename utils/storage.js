@@ -22,6 +22,7 @@ class StorageManager {
   static getDefaultSettings() {
     return {
       extensionEnabled: true,
+      snoozeUntil: null,
       userLanguage: 'auto',
       themeMode: 'auto',
 
@@ -46,6 +47,7 @@ class StorageManager {
       blockExploreAndTrending: true,
       blockMoreFromYouTube: true,
       blockShorts: true,
+      redirectShorts: true,
       blockSubscriptionsFeed: false,
       disableAutoplay: true,
       disableAnnotations: true,
@@ -130,6 +132,20 @@ class StorageManager {
         : StorageManager.getDefaultSettings();
       settings[key] = value;
       await browser.storage.local.set({ settings });
+    });
+  }
+
+  static updateSettings(updates) {
+    return StorageManager._enqueue(async () => {
+      const stored = await browser.storage.local.get('settings');
+      const settings = stored.settings
+        ? StorageManager._merge(StorageManager.getDefaultSettings(), stored.settings)
+        : StorageManager.getDefaultSettings();
+      for (const [k, v] of Object.entries(updates)) {
+        settings[k] = v;
+      }
+      await browser.storage.local.set({ settings });
+      return settings;
     });
   }
 

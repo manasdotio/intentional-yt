@@ -60,32 +60,59 @@ html.iyt-no-playlist ytd-playlist-panel-renderer {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   END SCREEN VIDEOWALL & RECOMMENDATIONS
+   END SCREEN VIDEOWALL & RECOMMENDATIONS (After Video Ends)
 ═══════════════════════════════════════════════════════════ */
+html.iyt-no-endscreen-wall .ytp-endscreen,
 html.iyt-no-endscreen-wall .ytp-endscreen-content,
 html.iyt-no-endscreen-wall .html5-endscreen,
+html.iyt-no-endscreen-wall [class*="html5-endscreen"],
+html.iyt-no-endscreen-wall [class*="ytp-endscreen"],
+html.iyt-no-endscreen-wall .ytp-videowall,
+html.iyt-no-endscreen-wall [class*="ytp-videowall"],
 html.iyt-no-endscreen-wall .ytp-videowall-still,
 html.iyt-no-endscreen-wall .ytp-videowall-still-image,
 html.iyt-no-endscreen-wall .ytp-videowall-still-info,
+html.iyt-no-endscreen-wall .ytp-videowall-still-info-title,
+html.iyt-no-endscreen-wall .ytp-videowall-still-info-author,
+html.iyt-no-endscreen-wall .ytp-videowall-still-roundattribution,
 html.iyt-no-endscreen-wall .ytp-endscreen-paginate,
+html.iyt-no-endscreen-wall .ytp-endscreen-paginate-button,
+html.iyt-no-endscreen-wall .ytp-endscreen-previous,
+html.iyt-no-endscreen-wall .ytp-endscreen-next,
+html.iyt-no-endscreen-wall .ytp-fullscreen-grid,
+html.iyt-no-endscreen-wall .ytp-fullscreen-grid-content,
+html.iyt-no-endscreen-wall .ytp-modern-videowall,
+html.iyt-no-endscreen-wall .ytp-show-tiles,
 html.iyt-no-endscreen-wall ytd-endscreen-element-renderer,
+html.iyt-no-endscreen-wall .ytp-autonav-endscreen,
+html.iyt-no-endscreen-wall .ytp-autonav-endscreen-large-videowall,
 html.iyt-no-endscreen-wall .ytp-autonav-endscreen-upnext-container,
 html.iyt-no-endscreen-wall .ytp-autonav-endscreen-upnext-header,
+html.iyt-no-endscreen-wall .ytp-autonav-endscreen-upnext-title,
 html.iyt-no-endscreen-wall .ytp-autonav-endscreen-button-container,
+html.iyt-no-endscreen-wall .ytp-autonav-endscreen-countdown-overlay,
 html.iyt-no-endscreen-wall .ytp-upnext,
 html.iyt-no-endscreen-wall .ytp-upnext-autoplay-icon,
+html.iyt-no-endscreen-wall .ytp-upnext-content,
+html.iyt-no-endscreen-wall .ytp-cued-thumbnail-overlay,
 html.iyt-no-endscreen-wall .ytp-cued-thumbnail-overlay-image,
 html.iyt-no-endscreen-wall .ytp-suggested-action,
-html.iyt-no-endscreen-wall .ytp-autonav-endscreen-countdown-overlay {
+html.iyt-no-endscreen-wall .html5-video-player.ytp-ended .ytp-ce-element,
+html.iyt-no-endscreen-wall .html5-video-player.ytp-endscreen-shown .ytp-ce-element,
+html.iyt-no-endscreen-wall .html5-video-player.ended-mode .ytp-ce-element,
+html.iyt-no-endscreen-wall #movie_player.ytp-ended .ytp-ce-element,
+html.iyt-no-endscreen-wall #movie_player.ended-mode .ytp-ce-element {
   display: none !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  visibility: hidden !important;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   END SCREEN CARDS / INFO CARDS
+   END SCREEN CARDS / INFO CARDS (Creator-placed in last 20s)
 ═══════════════════════════════════════════════════════════ */
 html.iyt-no-endscreen-cards .ytp-ce-element,
+html.iyt-no-endscreen-cards [class*="ytp-ce-"],
 html.iyt-no-endscreen-cards .ytp-ce-video,
 html.iyt-no-endscreen-cards .ytp-ce-playlist,
 html.iyt-no-endscreen-cards .ytp-ce-channel,
@@ -93,13 +120,25 @@ html.iyt-no-endscreen-cards .ytp-ce-website,
 html.iyt-no-endscreen-cards .ytp-ce-covering-overlay,
 html.iyt-no-endscreen-cards .ytp-ce-covering-image,
 html.iyt-no-endscreen-cards .ytp-ce-element-show,
+html.iyt-no-endscreen-cards .ytp-ce-expanding-overlay,
+html.iyt-no-endscreen-cards .ytp-ce-expanding-image,
+html.iyt-no-endscreen-cards .ytp-ce-shadow,
+html.iyt-no-endscreen-cards .ytp-ce-video-title,
+html.iyt-no-endscreen-cards .ytp-ce-video-duration,
+html.iyt-no-endscreen-cards .ytp-ce-channel-metadata,
+html.iyt-no-endscreen-cards .ytp-ce-covering-shadow-top,
+html.iyt-no-endscreen-cards .ytp-ce-element-shadow,
 html.iyt-no-endscreen-cards .ytp-cards-teaser,
 html.iyt-no-endscreen-cards .ytp-cards-button,
 html.iyt-no-endscreen-cards .ytp-cards-teaser-box,
-html.iyt-no-endscreen-cards .ytp-cards-teaser-text {
+html.iyt-no-endscreen-cards .ytp-cards-teaser-text,
+html.iyt-no-endscreen-cards .ytp-cards-teaser-icon,
+html.iyt-no-endscreen-cards .ytp-info-panel-preview,
+html.iyt-no-endscreen-cards .iv-branding {
   display: none !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  visibility: hidden !important;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -177,7 +216,8 @@ html.iyt-no-notif-bell ytd-notification-topbar-button-renderer {
    IRRELEVANT SEARCH RESULTS (shelf rows in search)
 ═══════════════════════════════════════════════════════════ */
 html.iyt-no-irrelevant-search ytd-shelf-renderer,
-html.iyt-no-irrelevant-search ytd-horizontal-card-list-renderer {
+html.iyt-no-irrelevant-search ytd-horizontal-card-list-renderer,
+html.iyt-no-irrelevant-search ytd-search grid-shelf-view-model {
   display: none !important;
 }
 
@@ -201,43 +241,122 @@ html.iyt-no-more-yt ytd-guide-section-renderer:last-child {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SHORTS
+   SHORTS — Complete site-wide purge
 ═══════════════════════════════════════════════════════════ */
-/* Sidebar entry */
-html.iyt-no-shorts ytd-guide-entry-renderer a[title="Shorts"],
-html.iyt-no-shorts ytd-mini-guide-entry-renderer a[title="Shorts"],
+/* 1. Sidebar & Guide navigation entries */
+html.iyt-no-shorts ytd-guide-entry-renderer a[title="Shorts" i],
+html.iyt-no-shorts ytd-mini-guide-entry-renderer a[title="Shorts" i],
 html.iyt-no-shorts ytd-guide-entry-renderer:has(a[href*="/shorts"]),
-html.iyt-no-shorts ytd-mini-guide-entry-renderer:has(a[href*="/shorts"]) {
+html.iyt-no-shorts ytd-mini-guide-entry-renderer:has(a[href*="/shorts"]),
+html.iyt-no-shorts ytd-guide-entry-renderer a[href*="/shorts"],
+html.iyt-no-shorts ytd-mini-guide-entry-renderer a[href*="/shorts"],
+html.iyt-no-shorts yt-guide-entry-view-model:has(a[href*="/shorts"]),
+html.iyt-no-shorts yt-mini-guide-entry-view-model:has(a[href*="/shorts"]),
+html.iyt-no-shorts yt-navigation-rail-item-view-model:has(a[href*="/shorts"]),
+html.iyt-no-shorts a#endpoint[title="Shorts" i],
+html.iyt-no-shorts ytm-pivot-bar-item-renderer:has([aria-label*="Shorts" i]),
+html.iyt-no-shorts ytd-guide-entry-renderer:has([title="Shorts" i]),
+html.iyt-no-shorts ytd-mini-guide-entry-renderer:has([title="Shorts" i]) {
   display: none !important;
 }
-/* Shelves in home/search */
+
+/* 2. Shorts Shelves & Carousels (Home, Search, Channel, Watch Next) */
+html.iyt-no-shorts grid-shelf-view-model,
+html.iyt-no-shorts grid-shelf-view-model:has(a[href*="/shorts"]),
 html.iyt-no-shorts ytd-reel-shelf-renderer,
+html.iyt-no-shorts yt-reel-shelf-view-model,
+html.iyt-no-shorts reel-shelf-view-model,
+html.iyt-no-shorts ytm-reel-shelf-renderer,
 html.iyt-no-shorts ytd-rich-shelf-renderer[is-shorts],
+html.iyt-no-shorts ytd-rich-shelf-renderer:has(ytd-shorts-lockup-view-model),
+html.iyt-no-shorts ytd-rich-shelf-renderer:has(yt-shorts-lockup-view-model),
+html.iyt-no-shorts ytd-rich-shelf-renderer:has(ytd-reel-item-renderer),
+html.iyt-no-shorts ytd-rich-shelf-renderer:has(a[href*="/shorts/"]),
 html.iyt-no-shorts ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+html.iyt-no-shorts ytd-rich-section-renderer:has(ytd-shorts-lockup-view-model),
+html.iyt-no-shorts ytd-rich-section-renderer:has(ytm-shorts-lockup-view-model),
+html.iyt-no-shorts ytd-rich-section-renderer:has(yt-shorts-lockup-view-model),
 html.iyt-no-shorts ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
-html.iyt-no-shorts ytd-item-section-renderer:has(ytd-reel-shelf-renderer) {
+html.iyt-no-shorts ytd-rich-section-renderer:has(yt-reel-shelf-view-model),
+html.iyt-no-shorts ytd-rich-section-renderer:has(reel-shelf-view-model),
+html.iyt-no-shorts ytd-rich-section-renderer:has(grid-shelf-view-model),
+html.iyt-no-shorts ytd-rich-section-renderer:has(a[href*="/shorts/"]),
+html.iyt-no-shorts ytd-rich-section-renderer:has(a[href^="/shorts/"]),
+html.iyt-no-shorts ytd-rich-section-renderer:has([overlay-style="SHORTS"]),
+html.iyt-no-shorts ytd-shelf-renderer:has(a[href*="/shorts/"]),
+html.iyt-no-shorts ytd-shelf-renderer:has([overlay-style="SHORTS"]),
+html.iyt-no-shorts ytd-shelf-renderer:has([title="Shorts" i]),
+html.iyt-no-shorts ytd-shelf-renderer:has(yt-formatted-string[title="Shorts" i]),
+html.iyt-no-shorts yt-shelf-header-layout-view-model:has(a[href*="/shorts/"]),
+html.iyt-no-shorts yt-shelf-header-layout-view-model:has([aria-label*="Shorts" i]),
+html.iyt-no-shorts ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer,
+html.iyt-no-shorts ytd-watch-next-secondary-results-renderer yt-reel-shelf-view-model,
+html.iyt-no-shorts ytd-watch-next-secondary-results-renderer reel-shelf-view-model,
+html.iyt-no-shorts ytd-watch-next-secondary-results-renderer grid-shelf-view-model {
   display: none !important;
 }
-/* Individual short video cards */
-html.iyt-no-shorts ytd-rich-item-renderer:has(a[href*="/shorts/"]),
-html.iyt-no-shorts ytd-grid-video-renderer:has(a[href*="/shorts/"]),
+
+/* 3. Individual Shorts Video Cards & Modern View Models */
+html.iyt-no-shorts ytd-shorts-lockup-view-model,
+html.iyt-no-shorts ytd-shorts-lockup-view-model-renderer,
+html.iyt-no-shorts ytm-shorts-lockup-view-model,
+html.iyt-no-shorts ytm-shorts-lockup-view-model-v2,
+html.iyt-no-shorts yt-shorts-lockup-view-model,
+html.iyt-no-shorts ytd-reel-item-renderer,
+html.iyt-no-shorts reel-item-view-model,
+html.iyt-no-shorts yt-reel-item-view-model,
 html.iyt-no-shorts ytd-video-renderer:has(a[href*="/shorts/"]),
+html.iyt-no-shorts ytd-video-renderer:has(a[href^="/shorts/"]),
+html.iyt-no-shorts ytd-video-renderer:has([overlay-style="SHORTS"]),
+html.iyt-no-shorts ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]),
+html.iyt-no-shorts ytd-video-renderer:has(badge-shape[aria-label*="Shorts" i]),
+html.iyt-no-shorts ytd-video-renderer:has(span[aria-label*="Shorts" i]),
+html.iyt-no-shorts yt-lockup-view-model:has(a[href*="/shorts/"]),
+html.iyt-no-shorts yt-lockup-view-model:has(a[href^="/shorts/"]),
+html.iyt-no-shorts yt-lockup-view-model:has([overlay-style="SHORTS"]),
+html.iyt-no-shorts yt-lockup-view-model:has(badge-shape[aria-label*="Shorts" i]),
+html.iyt-no-shorts yt-lockup-view-model:has(span[aria-label*="Shorts" i]),
+html.iyt-no-shorts ytd-rich-item-renderer:has(a[href*="/shorts/"]),
+html.iyt-no-shorts ytd-rich-item-renderer:has(a[href^="/shorts/"]),
+html.iyt-no-shorts ytd-rich-item-renderer:has([overlay-style="SHORTS"]),
+html.iyt-no-shorts ytd-rich-item-renderer:has(ytd-shorts-lockup-view-model),
+html.iyt-no-shorts ytd-rich-item-renderer:has(yt-shorts-lockup-view-model),
+html.iyt-no-shorts ytd-rich-item-renderer:has(ytd-reel-item-renderer),
+html.iyt-no-shorts ytd-rich-item-renderer:has(yt-lockup-view-model:has(a[href*="/shorts/"])),
+html.iyt-no-shorts ytd-rich-item-renderer:has(yt-lockup-view-model:has([overlay-style="SHORTS"])),
+html.iyt-no-shorts ytd-grid-video-renderer:has(a[href*="/shorts/"]),
+html.iyt-no-shorts ytd-grid-video-renderer:has(a[href^="/shorts/"]),
+html.iyt-no-shorts ytd-grid-video-renderer:has([overlay-style="SHORTS"]),
 html.iyt-no-shorts ytd-compact-video-renderer:has(a[href*="/shorts/"]),
+html.iyt-no-shorts ytd-compact-video-renderer:has(a[href^="/shorts/"]),
+html.iyt-no-shorts ytd-compact-video-renderer:has([overlay-style="SHORTS"]),
+html.iyt-no-shorts ytd-notification-renderer:has(a[href*="/shorts/"]),
+html.iyt-no-shorts [data-iyt-shorts-hidden="true"],
 html.iyt-no-shorts ytd-shorts,
-html.iyt-no-shorts #shorts-container {
+html.iyt-no-shorts #shorts-container,
+html.iyt-no-shorts #shorts-player {
   display: none !important;
 }
-/* Channel page Shorts tab */
-html.iyt-no-shorts tp-yt-paper-tab:has(> .tab-content[title="Shorts"]),
+
+/* 4. Channel page Shorts tab */
+html.iyt-no-shorts tp-yt-paper-tab:has(> .tab-content[title="Shorts" i]),
 html.iyt-no-shorts tp-yt-paper-tab:has(a[href*="/shorts"]),
-html.iyt-no-shorts yt-tab-shape[tab-title="Shorts"],
+html.iyt-no-shorts yt-tab-shape[tab-title="Shorts" i],
 html.iyt-no-shorts yt-tab-shape:has(a[href*="/shorts"]),
-html.iyt-no-shorts yt-tab-group-shape yt-tab-shape:has(a[href*="/shorts"]) {
+html.iyt-no-shorts yt-tab-group-shape yt-tab-shape:has(a[href*="/shorts"]),
+html.iyt-no-shorts yt-tab-view-model:has(a[href*="/shorts"]) {
   display: none !important;
 }
-/* Search filter chips */
-html.iyt-no-shorts yt-chip-cloud-chip-renderer:has([title="Shorts"]),
-html.iyt-no-shorts yt-chip-cloud-chip-renderer:has(a[href*="shorts"]) {
+
+/* 5. Search filter chips */
+html.iyt-no-shorts yt-chip-cloud-chip-renderer:has([title="Shorts" i]),
+html.iyt-no-shorts yt-chip-cloud-chip-renderer:has([aria-label*="Shorts" i]),
+html.iyt-no-shorts yt-chip-cloud-chip-renderer:has(chip-shape[aria-label*="Shorts" i]),
+html.iyt-no-shorts yt-chip-cloud-chip-renderer:has(yt-formatted-string[title="Shorts" i]),
+html.iyt-no-shorts yt-chip-cloud-chip-renderer:has(span[title*="Shorts" i]),
+html.iyt-no-shorts yt-chip-cloud-chip-renderer:has(a[href*="shorts"]),
+html.iyt-no-shorts chip-shape:has(span[title*="Shorts" i]),
+html.iyt-no-shorts chip-shape:has([aria-label*="Shorts" i]) {
   display: none !important;
 }
 
@@ -579,8 +698,21 @@ html[dark] {
 /* ═══════════════════════════════════════════════════════════
    SCHEDULED BLOCKING FULL OVERLAY
 ═══════════════════════════════════════════════════════════ */
+html.iyt-scheduled-full-block,
 html.iyt-scheduled-full-block body {
   overflow: hidden !important;
+}
+
+/* Suppress all YouTube player containers and video/audio tags during scheduled full lock */
+html.iyt-scheduled-full-block #movie_player,
+html.iyt-scheduled-full-block ytd-player,
+html.iyt-scheduled-full-block #player-container,
+html.iyt-scheduled-full-block #player,
+html.iyt-scheduled-full-block video,
+html.iyt-scheduled-full-block audio {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 #iyt-scheduled-block-screen {
@@ -588,69 +720,189 @@ html.iyt-scheduled-full-block body {
   inset: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-  background: #0f1117 !important;
-  color: #f8fafc !important;
+  background: rgba(14, 16, 20, 0.95) !important;
+  color: #ededf2 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   z-index: 2147483647 !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", Helvetica, Arial, sans-serif !important;
   padding: 24px !important;
   box-sizing: border-box !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  animation: iytScheduleFadeIn 180ms ease-out forwards !important;
 }
 
 .iyt-scheduled-card {
-  max-width: 440px !important;
+  max-width: 380px !important;
   width: 100% !important;
-  background: #181a23 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: #181a20 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 16px !important;
-  padding: 36px 32px !important;
+  padding: 32px 28px 24px !important;
   text-align: center !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35) !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 14px !important;
+  box-sizing: border-box !important;
 }
 
-.iyt-scheduled-icon {
-  width: 56px !important;
-  height: 56px !important;
-  border-radius: 14px !important;
-  margin-bottom: 4px !important;
+/* Icon */
+.iyt-scheduled-icon-wrap {
+  margin-bottom: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
+.iyt-scheduled-icon-svg {
+  width: 42px !important;
+  height: 42px !important;
+  display: block !important;
+}
+
+/* Typography */
 .iyt-scheduled-title {
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  color: #f8fafc !important;
-  margin: 0 !important;
-  line-height: 1.3 !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #ededf2 !important;
+  margin: 0 0 10px 0 !important;
+  line-height: 1.35 !important;
+  letter-spacing: -0.01em !important;
 }
 
-.iyt-scheduled-label {
-  font-size: 13.5px !important;
-  font-weight: 600 !important;
+/* Metadata Row (Schedule name + Reopen time) */
+.iyt-scheduled-meta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin: 0 0 12px 0 !important;
+  font-size: 13px !important;
+  color: #949cae !important;
+}
+
+.iyt-scheduled-pill {
+  display: inline-block !important;
+  font-size: 11.5px !important;
+  font-weight: 550 !important;
   color: #3b82f6 !important;
-  background: rgba(59, 130, 246, 0.12) !important;
-  border: 1px solid rgba(59, 130, 246, 0.25) !important;
-  padding: 4px 14px !important;
-  border-radius: 20px !important;
-  margin: 0 !important;
+  background: rgba(59, 130, 246, 0.09) !important;
+  border: 1px solid rgba(59, 130, 246, 0.18) !important;
+  padding: 2px 9px !important;
+  border-radius: 12px !important;
 }
 
 .iyt-scheduled-reopens {
-  font-size: 15px !important;
-  font-weight: 500 !important;
-  color: #cbd5e1 !important;
-  margin: 0 !important;
+  font-size: 13px !important;
+  color: #949cae !important;
+  font-weight: 450 !important;
 }
 
+/* Micro-copy */
 .iyt-scheduled-commitment {
-  font-size: 12px !important;
-  color: #64748b !important;
-  margin-top: 8px !important;
-  line-height: 1.4 !important;
+  font-size: 12.5px !important;
+  line-height: 1.45 !important;
+  color: #63697b !important;
+  margin: 0 0 22px 0 !important;
+  max-width: 320px !important;
 }
+
+/* Actions */
+.iyt-scheduled-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+.iyt-scheduled-btn-close {
+  flex: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 36px !important;
+  padding: 0 16px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 550 !important;
+  color: #ffffff !important;
+  background: #2563eb !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  cursor: pointer !important;
+  transition: background 120ms ease !important;
+  font-family: inherit !important;
+  outline: none !important;
+}
+
+.iyt-scheduled-btn-close:hover {
+  background: #1d4ed8 !important;
+}
+
+.iyt-scheduled-btn-close:active {
+  background: #1e40af !important;
+}
+
+.iyt-scheduled-btn-leave {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 36px !important;
+  padding: 0 14px !important;
+  border-radius: 8px !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #828a9a !important;
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  cursor: pointer !important;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease !important;
+  font-family: inherit !important;
+  outline: none !important;
+}
+
+.iyt-scheduled-btn-leave:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #d1d5db !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.iyt-scheduled-btn-leave:active {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Backward-compatibility selectors */
+.iyt-scheduled-icon {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 10px !important;
+  margin-bottom: 8px !important;
+}
+
+.iyt-scheduled-label {
+  font-size: 12px !important;
+  color: #3b82f6 !important;
+}
+
+.iyt-scheduled-badge-wrap,
+.iyt-scheduled-halo {
+  display: none !important;
+}
+
+/* Animations */
+@keyframes iytScheduleFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+
 

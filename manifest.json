@@ -71,12 +71,22 @@
   "web_accessible_resources": [
     {
       "resources": [
+        "icons/*",
+        "icons/icon-128.png",
+        "icons/icon.svg"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    },
+    {
+      "resources": [
         "styles/blocker.css",
         "_locales/*/*.json"
       ],
       "matches": [
-        "*://www.youtube.com/*",
-        "*://m.youtube.com/*"
+        "*://*.youtube.com/*",
+        "*://youtube.com/*"
       ]
     }
   ],
