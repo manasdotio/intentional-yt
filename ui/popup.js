@@ -2260,15 +2260,7 @@ function bindAll() {
     }
   });
 
-  // Blocklists tab "+ Add" stub buttons
-  const stubNotice = () => {
-    showToast(
-      t('blocklist_stub_alert') ||
-      'Channel and keyword blocklists are coming in the next update. All feed blockers are active!'
-    );
-  };
-  $('btn-add-channel-stub')?.addEventListener('click', stubNotice);
-  $('btn-add-keyword-stub')?.addEventListener('click', stubNotice);
+
 
   // Stats dashboard action buttons
   $('btn-stats-goto-focus')?.addEventListener('click', () => {

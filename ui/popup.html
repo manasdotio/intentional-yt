@@ -397,63 +397,74 @@
     </div><!-- /#panel-block -->
 
 
-    <!-- ── TAB 2: BLOCKLISTS ───────────────────────────────────── -->
+    <!-- ── TAB 2: BLOCKLISTS / FILTERS ────────────────────────── -->
     <div id="panel-blocklists" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-blocklists">
       <div class="panel-header">
         <div class="panel-title" data-i18n="panel_filters_title">Channel &amp; Keyword Filters</div>
-        <div class="panel-subtitle" data-i18n="panel_filters_subtitle">Block specific channels and filter videos by keyword.</div>
+        <div class="panel-subtitle" data-i18n="panel_filters_subtitle">Fine-grained control over what creators and topics appear.</div>
       </div>
 
-      <!-- Channel Blocklist -->
-      <div class="sh">
-        <svg class="sh-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span class="sh-label" data-i18n="section_channel_blocklist">Channel Blocklist</span>
-      </div>
-      <div class="blocklist-box">
-        <p class="blocklist-desc" data-i18n="desc_channel_blocklist">Block specific channels from appearing in feeds and recommendations.</p>
-        <div class="blocklist-empty-state">
-          <div class="empty-icon-bubble bubble-rose">
-            <svg class="empty-icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
-          </div>
-          <div class="empty-text-wrap">
-            <span class="empty-title" data-i18n="blocklist_channels_empty">No blocked channels.</span>
-            <span class="empty-subtitle">Channels you block won't appear in recommendations.</span>
-          </div>
-        </div>
-        <div class="blocklist-actions">
-          <button type="button" class="btn-secondary" id="btn-add-channel-stub">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-            <span data-i18n="btn_add_channel">+ Add Channel</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Keyword Blocklist -->
-      <div class="sh">
-        <svg class="sh-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-        <span class="sh-label" data-i18n="section_keyword_blocklist">Keyword Blocklist</span>
-      </div>
-      <div class="blocklist-box">
-        <p class="blocklist-desc" data-i18n="desc_keyword_blocklist">Hide videos whose titles match blocked keywords.</p>
-        
-        <!-- High-craft in-flow roadmap card replacing confusing stub -->
-        <div class="roadmap-card">
-          <div class="roadmap-badge-row">
-            <span class="roadmap-badge">Planned for v2.2</span>
-            <span class="roadmap-tag">In Development</span>
-          </div>
-          <div class="roadmap-content">
-            <span class="roadmap-title">Custom Keyword &amp; Title Filters</span>
-            <p class="roadmap-desc">Hide videos and search results matching specific keywords or patterns.</p>
-          </div>
-          <div class="roadmap-preview-box">
-            <div class="roadmap-preview-input">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <span>e.g. podcast, spoilers, react...</span>
+      <div class="filters-card-wrap">
+        <div class="filters-roadmap-card">
+          <!-- Top badge and status -->
+          <div class="filters-roadmap-header">
+            <div class="filters-icon-circle">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+              </svg>
             </div>
-            <button type="button" class="btn-secondary roadmap-btn" id="btn-add-keyword-stub">
-              <span>Preview</span>
-            </button>
+            <div class="filters-header-text">
+              <div class="filters-pill">
+                <span class="filters-dot"></span>
+                <span>In Development · v2.2</span>
+              </div>
+              <h3 class="filters-card-heading">Custom Content Filters</h3>
+              <p class="filters-card-sub">Fine-tuned client-side rules to filter out unwanted creators, titles, and topics.</p>
+            </div>
+          </div>
+
+          <!-- Feature items -->
+          <div class="filters-items-group">
+            <div class="filters-item-row">
+              <div class="filters-item-icon">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="filters-item-content">
+                <div class="filters-item-title">Channel Muting</div>
+                <div class="filters-item-desc">Mute specific YouTube channels from home feed, recommendations, and search.</div>
+              </div>
+            </div>
+
+            <div class="filters-item-row">
+              <div class="filters-item-icon">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </div>
+              <div class="filters-item-content">
+                <div class="filters-item-title">Keyword &amp; Topic Blocking</div>
+                <div class="filters-item-desc">Hide videos containing blocked keywords, spoilers, rage-bait, or tags.</div>
+              </div>
+            </div>
+
+            <div class="filters-item-row">
+              <div class="filters-item-icon">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+              </div>
+              <div class="filters-item-content">
+                <div class="filters-item-title">In-Page Quick Mute</div>
+                <div class="filters-item-desc">Quickly block channels directly from YouTube's 3-dot context menu.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer / Feedback link -->
+          <div class="filters-roadmap-footer">
+            <span class="filters-privacy-badge">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>100% Local · Zero Telemetry</span>
+            </span>
+            <a href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" class="filters-feedback-btn">
+              <span>Suggest ideas ↗</span>
+            </a>
           </div>
         </div>
       </div>

@@ -2208,169 +2208,185 @@ body.ext-off .lang-row {
 }
 
 /* ============================================================
-   BLOCKLISTS TAB
+   BLOCKLISTS / FILTERS TAB (UPCOMING ROADMAP CARDS)
+   Clean, low-noise, high-craft preview for upcoming v2.2 features
    ============================================================ */
-.blocklist-box {
-  margin: 0;
-  padding: 12px 18px 18px;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--rule-hairline);
-  border-radius: 0;
-  box-shadow: none;
+.filters-card-wrap {
+  padding: 2px 14px 16px;
 }
 
-.blocklist-desc {
-  font-size: 13px;
-  color: var(--ink-secondary);
-  line-height: 1.45;
-  margin-bottom: 10px;
-}
-
-.blocklist-empty-state {
+.filters-roadmap-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--rule-strong);
+  border-radius: 9px;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: var(--surface-inset);
-  border: 1px solid var(--rule-hairline);
-  border-radius: 5px;
-  margin-bottom: 9px;
+  flex-direction: column;
 }
 
-.empty-icon-bubble {
+.filters-roadmap-header {
+  padding: 13px 14px 12px;
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--rule-hairline);
+  background: var(--surface-elevated);
+}
+
+.filters-icon-circle {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: var(--surface-inset);
-  border: 1px solid var(--rule-hairline);
+  background: var(--accent-subtle);
+  border: 1px solid var(--accent-border);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--accent);
   flex-shrink: 0;
+  margin-top: 1px;
 }
 
-.empty-icon-svg {
-  stroke: var(--ink-secondary);
-}
-
-.empty-icon-bubble.bubble-rose,
-.empty-icon-bubble.bubble-amber {
-  background: var(--surface-inset);
-}
-
-.empty-icon-bubble.bubble-rose .empty-icon-svg,
-.empty-icon-bubble.bubble-amber .empty-icon-svg {
-  stroke: var(--ink-secondary);
-}
-
-.empty-text-wrap {
+.filters-header-text {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  min-width: 0;
+  gap: 2px;
 }
 
-.empty-title {
-  font-size: 13px;
-  font-weight: 600;
+.filters-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: var(--accent-subtle);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  margin-bottom: 2px;
+}
+
+.filters-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.filters-card-heading {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 650;
   color: var(--ink-primary);
+  line-height: 1.25;
 }
 
-.empty-subtitle {
-  font-size: 12px;
+.filters-card-sub {
+  margin: 0;
+  font-size: 11.5px;
   color: var(--ink-secondary);
   line-height: 1.4;
 }
 
-.blocklist-actions {
-  display: flex;
-  justify-content: flex-start;
-}
-
-/* ── Blocklists Tab: In-flow Roadmap Preview Card ──────── */
-.roadmap-card {
-  padding: 12px 14px;
-  background: var(--surface-inset);
-  border: 1px dashed var(--rule-strong);
-  border-radius: 6px;
+/* Feature items group */
+.filters-items-group {
+  padding: 9px 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 4px;
+  gap: 7px;
+  background: var(--surface);
 }
 
-.roadmap-badge-row {
+.filters-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 7px 9px;
+  border-radius: 6px;
+  background: var(--surface-inset);
+  border: 1px solid var(--rule-hairline);
+}
+
+.filters-item-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--rule-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-secondary);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.filters-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+  min-width: 0;
+}
+
+.filters-item-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-primary);
+  line-height: 1.2;
+}
+
+.filters-item-desc {
+  font-size: 11px;
+  color: var(--ink-secondary);
+  line-height: 1.35;
+}
+
+/* Bottom footer */
+.filters-roadmap-footer {
+  padding: 9px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
+  background: var(--surface-inset);
+  border-top: 1px solid var(--rule-hairline);
 }
 
-.roadmap-badge {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 4px;
-  background: var(--accent-subtle);
-  color: var(--accent);
-  border: 1px solid var(--accent-border);
-}
-
-.roadmap-tag {
+.filters-privacy-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-size: 10.5px;
-  font-weight: 550;
+  font-weight: 500;
   color: var(--ink-tertiary);
 }
 
-.roadmap-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.roadmap-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink-primary);
-}
-
-.roadmap-desc {
-  font-size: 11.5px;
-  color: var(--ink-secondary);
-  line-height: 1.45;
-}
-
-.roadmap-preview-box {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-top: 4px;
-}
-
-.roadmap-preview-input {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 10px;
-  background: var(--surface-elevated);
-  border: 1px solid var(--rule-hairline);
-  border-radius: 4px;
-  font-size: 11.5px;
-  color: var(--ink-ghost);
-  user-select: none;
-}
-
-.roadmap-preview-input svg {
-  stroke: var(--ink-ghost);
+.filters-privacy-badge svg {
+  stroke: var(--ink-tertiary);
   flex-shrink: 0;
 }
 
-.roadmap-btn {
-  padding: 5px 10px;
-  font-size: 11.5px;
+.filters-feedback-btn {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--accent-subtle);
+  border: 1px solid var(--accent-border);
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+}
+
+.filters-feedback-btn:hover {
   opacity: 0.85;
 }
 
