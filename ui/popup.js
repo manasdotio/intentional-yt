@@ -436,6 +436,117 @@ async function toggleAllAccordions() {
   await saveAccordionState();
 }
 
+/* ── Focus Tab Modular Feature Cards ───────────────────── */
+
+const FOCUS_CARD_NAMES = ['time', 'lock', 'schedule'];
+
+function updateFocusCardBadges(s) {
+  const settings = s || _s;
+  if (!settings) return;
+
+  // 1. Time & Limits Card
+  const timeBadge = $('badge-focus-time');
+  const timeCard = $('card-focus-time');
+  if (timeBadge) {
+    const softOn = !!settings.softReminder?.enabled;
+    const dailyOn = !!settings.dailyLimit?.enabled;
+    const softMin = settings.softReminder?.intervalMinutes || 30;
+    const dailyMin = settings.dailyLimit?.limitMinutes || 60;
+
+    if (softOn && dailyOn) {
+      timeBadge.textContent = '2 Active';
+      timeBadge.className = 'focus-card-badge badge-active';
+      timeCard?.classList.add('is-active');
+    } else if (softOn) {
+      timeBadge.textContent = `Every ${softMin}m`;
+      timeBadge.className = 'focus-card-badge badge-active';
+      timeCard?.classList.add('is-active');
+    } else if (dailyOn) {
+      timeBadge.textContent = `Limit ${dailyMin}m`;
+      timeBadge.className = 'focus-card-badge badge-active';
+      timeCard?.classList.add('is-active');
+    } else {
+      timeBadge.textContent = t('status_off') || 'Off';
+      timeBadge.className = 'focus-card-badge';
+      timeCard?.classList.remove('is-active');
+    }
+  }
+
+  // 2. Focus Lock Card
+  const lockBadge = $('badge-focus-lock');
+  const lockCard = $('card-focus-lock');
+  if (lockBadge) {
+    const lockOn = !!settings.focusLock?.enabled;
+    const cooldown = settings.focusLock?.cooldownMinutes || 10;
+    if (lockOn) {
+      lockBadge.textContent = `${cooldown}m Delay`;
+      lockBadge.className = 'focus-card-badge badge-warning';
+      lockCard?.classList.add('is-active');
+    } else {
+      lockBadge.textContent = t('status_off') || 'Off';
+      lockBadge.className = 'focus-card-badge';
+      lockCard?.classList.remove('is-active');
+    }
+  }
+
+  // 3. Scheduled Blocking Card
+  const schedBadge = $('badge-focus-schedule');
+  const schedCard = $('card-focus-schedule');
+  if (schedBadge) {
+    const schedOn = !!settings.scheduledBlocking?.enabled;
+    const schedules = settings.scheduledBlocking?.schedules || [];
+    const activeScheds = schedules.filter(x => !x.disabled);
+
+    if (schedOn) {
+      schedBadge.textContent = activeScheds.length > 0 ? `${activeScheds.length} Active` : 'Enabled';
+      schedBadge.className = 'focus-card-badge badge-active';
+      schedCard?.classList.add('is-active');
+    } else {
+      schedBadge.textContent = schedules.length > 0 ? `${schedules.length} Saved` : (t('status_off') || 'Off');
+      schedBadge.className = 'focus-card-badge';
+      schedCard?.classList.remove('is-active');
+    }
+  }
+}
+
+async function toggleFocusCard(cardName) {
+  const cardEl = $(`card-focus-${cardName}`);
+  if (!cardEl) return;
+  const isCollapsed = cardEl.classList.toggle('collapsed');
+  const header = cardEl.querySelector('.focus-card-header');
+  if (header) {
+    header.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+  }
+  await saveFocusCardState();
+}
+
+async function saveFocusCardState() {
+  const state = {};
+  for (const name of FOCUS_CARD_NAMES) {
+    const cardEl = $(`card-focus-${name}`);
+    if (cardEl) {
+      state[name] = cardEl.classList.contains('collapsed');
+    }
+  }
+  try {
+    await browser.storage.local.set({ focusCardsCollapsed: state });
+  } catch (err) {
+    console.warn('[IYT] Failed to save focusCardsCollapsed state:', err);
+  }
+}
+
+function restoreFocusCardState(storedState) {
+  const state = storedState || {};
+  for (const name of FOCUS_CARD_NAMES) {
+    const cardEl = $(`card-focus-${name}`);
+    if (cardEl && state[name]) {
+      cardEl.classList.add('collapsed');
+      const header = cardEl.querySelector('.focus-card-header');
+      if (header) header.setAttribute('aria-expanded', 'false');
+    }
+  }
+}
+
 /* ── Quick Modes / Presets & Quick Strip ───────────────── */
 
 function detectActivePreset(s) {
@@ -1260,6 +1371,9 @@ function renderAll(s) {
 
   // Accordion Badges
   updateAccordionBadges(s);
+
+  // Focus Cards Badges
+  updateFocusCardBadges(s);
 }
 
 function renderStats(s) {
@@ -1353,6 +1467,21 @@ function bindAll() {
   if (btnToggleAll) {
     btnToggleAll.addEventListener('click', toggleAllAccordions);
   }
+
+  // Focus tab modular feature card collapse/expand
+  document.querySelectorAll('.focus-card-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const cardName = header.getAttribute('data-card');
+      if (cardName) toggleFocusCard(cardName);
+    });
+    header.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const cardName = header.getAttribute('data-card');
+        if (cardName) toggleFocusCard(cardName);
+      }
+    });
+  });
 
   // Pending Unlock banner cancel
   $('btn-cancel-unlock').addEventListener('click', async () => {
@@ -2058,11 +2187,12 @@ function bindAll() {
 }
 
 async function init() {
-  const [s, storedTab, storedAccordions, storedWelcome] = await Promise.all([
+  const [s, storedTab, storedAccordions, storedWelcome, storedFocusCards] = await Promise.all([
     StorageManager.getSettings(),
     browser.storage.local.get('activeTab'),
     browser.storage.local.get('accordionCollapsed'),
-    browser.storage.local.get('welcomeDismissed')
+    browser.storage.local.get('welcomeDismissed'),
+    browser.storage.local.get('focusCardsCollapsed')
   ]);
 
   applyTheme(s.themeMode || 'auto');
@@ -2079,6 +2209,7 @@ async function init() {
   _dailyCustomMode = !dailyPresets.includes(String(s.dailyLimit?.limitMinutes || 60));
 
   restoreAccordionState(storedAccordions?.accordionCollapsed);
+  restoreFocusCardState(storedFocusCards?.focusCardsCollapsed);
   renderAll(s);
   bindAll();
 

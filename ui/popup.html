@@ -455,184 +455,232 @@
         <div class="panel-subtitle" data-i18n="panel_focus_subtitle">Break reminders, daily limits, and scheduled blocking.</div>
       </div>
 
-      <!-- Time: Soft reminder & Daily limit -->
-      <div class="sh">
-        <svg class="sh-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <span class="sh-label" data-i18n="section_time">Time</span>
-      </div>
-      <div class="rows">
-        <label class="row row-tier1">
-          <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div class="row-text-group">
-            <span class="row-text" data-i18n="toggle_soft_reminder">Soft reminder</span>
-            <span class="row-desc" data-i18n="desc_soft_reminder">Calm on-screen nudge at regular intervals to keep you mindful of time without blocking you.</span>
-          </div>
-          <input type="checkbox" class="chk" id="toggle-softReminder" />
-        </label>
-        <div class="time-expand" id="soft-reminder-expand">
-          <span class="time-hint" data-i18n="time_hint_every">Every</span>
-          <select class="time-sel" id="select-softReminderInterval">
-            <option value="15" data-i18n="time_option_minutes" data-i18n-arg="15">15 min</option>
-            <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
-            <option value="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</option>
-            <option value="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</option>
-            <option value="90" data-i18n="time_option_minutes" data-i18n-arg="90">90 min</option>
-            <option value="custom" data-i18n="time_option_custom">Custom...</option>
-          </select>
-          <div class="custom-time-wrap" id="soft-reminder-custom-wrap" style="display:none">
-            <input type="number" class="time-input" id="input-softReminderCustom" min="1" max="1440" placeholder="min" data-i18n-placeholder="time_placeholder_min" />
-            <span class="time-unit" data-i18n="time_unit_min">min</span>
-          </div>
-          <button type="button" id="btn-preview-soft-reminder" class="btn-time-preview" title="Preview on-screen reminder on active YouTube tab">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            <span data-i18n="btn_preview_reminder">Preview</span>
-          </button>
-        </div>
+      <div class="focus-cards-wrap">
 
-        <label class="row row-tier1">
-          <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-          <span class="row-text" data-i18n="toggle_daily_limit">Daily limit</span>
-          <input type="checkbox" class="chk" id="toggle-dailyLimit" />
-        </label>
-        <div class="time-expand" id="daily-limit-expand">
-          <span class="time-hint" data-i18n="time_hint_stop_after">Stop after</span>
-          <select class="time-sel" id="select-dailyLimitMinutes">
-            <option value="15" data-i18n="time_option_minutes" data-i18n-arg="15">15 min</option>
-            <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
-            <option value="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</option>
-            <option value="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</option>
-            <option value="90" data-i18n="time_option_minutes" data-i18n-arg="90">90 min</option>
-            <option value="120" data-i18n="time_option_minutes" data-i18n-arg="120">120 min</option>
-            <option value="custom" data-i18n="time_option_custom">Custom...</option>
-          </select>
-          <div class="custom-time-wrap" id="daily-limit-custom-wrap" style="display:none">
-            <input type="number" class="time-input" id="input-dailyLimitCustom" min="1" max="1440" placeholder="min" data-i18n-placeholder="time_placeholder_min" />
-            <span class="time-unit" data-i18n="time_unit_min">min</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Focus Lock -->
-      <div class="sh">
-        <svg class="sh-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span class="sh-label" data-i18n="section_focus_lock">Focus Lock</span>
-      </div>
-      <div class="rows">
-        <label class="row row-tier1">
-          <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <div class="row-text-group">
-            <span class="row-text" data-i18n="toggle_focus_lock">Focus Lock</span>
-            <span class="row-desc" data-i18n="desc_focus_lock">Require a delay before disabling protections</span>
-          </div>
-          <input type="checkbox" class="chk" id="toggle-focusLockEnabled" />
-        </label>
-        <div class="focus-lock-config" id="focus-lock-config-wrap" style="display:none">
-          <div class="config-row">
-            <span class="time-hint" data-i18n="focus_lock_cooldown_label">Cooldown delay</span>
-            <select class="time-sel" id="select-focusLockCooldown">
-              <option value="5" data-i18n="focus_lock_duration_5m">5 min</option>
-              <option value="10" data-i18n="focus_lock_duration_10m" selected>10 min</option>
-              <option value="30" data-i18n="focus_lock_duration_30m">30 min</option>
-              <option value="60" data-i18n="focus_lock_duration_60m">60 min</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scheduled Blocking -->
-      <div class="sh">
-        <svg class="sh-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span class="sh-label" data-i18n="section_scheduled_blocking">Scheduled Blocking</span>
-      </div>
-      <div class="rows">
-        <label class="row row-tier1">
-          <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <div class="row-text-group">
-            <span class="row-text" data-i18n="toggle_scheduled_blocking">Scheduled Blocking</span>
-            <span class="row-desc" data-i18n="desc_scheduled_blocking">Automatically block YouTube during set times</span>
-          </div>
-          <input type="checkbox" class="chk" id="toggle-scheduledBlockingEnabled" />
-        </label>
-      </div>
-
-      <div class="schedules-container" id="schedules-container">
-        <div class="schedules-header">
-          <button type="button" id="btn-add-schedule" class="btn-primary-small">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            <span data-i18n="scheduled_blocking_add_btn">+ Add Schedule</span>
-          </button>
-        </div>
-
-        <!-- Inline Add/Edit Schedule Form -->
-        <div id="schedule-form-wrap" class="schedule-form-card" style="display:none">
-          <div class="schedule-form-title" id="schedule-form-title" data-i18n="schedule_form_title_add">New Schedule</div>
-          <input type="hidden" id="schedule-edit-id" value="" />
-
-          <div class="form-field">
-            <label for="schedule-input-label" class="field-label" data-i18n="schedule_form_label">Label</label>
-            <input type="text" id="schedule-input-label" class="text-input" placeholder="e.g. Work hours, Study time" data-i18n-placeholder="schedule_form_label_placeholder" maxlength="40" />
-          </div>
-
-          <div class="form-field">
-            <span class="field-label" data-i18n="schedule_form_days">Active Days</span>
-            <div class="day-chips" id="schedule-day-chips">
-              <button type="button" class="day-chip active" data-day="1" data-i18n="day_mon">Mon</button>
-              <button type="button" class="day-chip active" data-day="2" data-i18n="day_tue">Tue</button>
-              <button type="button" class="day-chip active" data-day="3" data-i18n="day_wed">Wed</button>
-              <button type="button" class="day-chip active" data-day="4" data-i18n="day_thu">Thu</button>
-              <button type="button" class="day-chip active" data-day="5" data-i18n="day_fri">Fri</button>
-              <button type="button" class="day-chip" data-day="6" data-i18n="day_sat">Sat</button>
-              <button type="button" class="day-chip" data-day="0" data-i18n="day_sun">Sun</button>
+        <!-- Card 1: Time & Limits -->
+        <div class="focus-section-card" id="card-focus-time">
+          <div class="focus-card-header" data-card="time" role="button" tabindex="0" aria-expanded="true">
+            <div class="focus-card-header-left">
+              <div class="focus-card-icon-box icon-box-violet">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="focus-card-title-wrap">
+                <span class="focus-card-title" data-i18n="section_time_limits_title">Mindful Time &amp; Limits</span>
+                <span class="focus-card-sub" data-i18n="section_time_limits_sub">Gentle break nudges &amp; daily screen time boundaries</span>
+              </div>
+            </div>
+            <div class="focus-card-header-right">
+              <span class="focus-card-badge" id="badge-focus-time">Off</span>
+              <svg class="focus-card-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
           </div>
-
-          <div class="form-row-2col">
-            <div class="form-field">
-              <label for="schedule-input-start" class="field-label" data-i18n="schedule_form_start_time">Start Time</label>
-              <input type="time" id="schedule-input-start" class="time-picker-input" value="09:00" />
+          <div class="focus-card-body" id="card-focus-time-body">
+            <label class="row row-tier1">
+              <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div class="row-text-group">
+                <span class="row-text" data-i18n="toggle_soft_reminder">Soft reminder</span>
+                <span class="row-desc" data-i18n="desc_soft_reminder">Calm on-screen nudge at regular intervals to keep you mindful of time without blocking you.</span>
+              </div>
+              <input type="checkbox" class="chk" id="toggle-softReminder" />
+            </label>
+            <div class="time-expand" id="soft-reminder-expand">
+              <span class="time-hint" data-i18n="time_hint_every">Every</span>
+              <select class="time-sel" id="select-softReminderInterval">
+                <option value="15" data-i18n="time_option_minutes" data-i18n-arg="15">15 min</option>
+                <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
+                <option value="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</option>
+                <option value="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</option>
+                <option value="90" data-i18n="time_option_minutes" data-i18n-arg="90">90 min</option>
+                <option value="custom" data-i18n="time_option_custom">Custom...</option>
+              </select>
+              <div class="custom-time-wrap" id="soft-reminder-custom-wrap" style="display:none">
+                <input type="number" class="time-input" id="input-softReminderCustom" min="1" max="1440" placeholder="min" data-i18n-placeholder="time_placeholder_min" />
+                <span class="time-unit" data-i18n="time_unit_min">min</span>
+              </div>
+              <button type="button" id="btn-preview-soft-reminder" class="btn-time-preview" title="Preview on-screen reminder on active YouTube tab">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span data-i18n="btn_preview_reminder">Preview</span>
+              </button>
             </div>
-            <div class="form-field">
-              <label for="schedule-input-end" class="field-label" data-i18n="schedule_form_end_time">End Time</label>
-              <input type="time" id="schedule-input-end" class="time-picker-input" value="17:00" />
+
+            <div class="focus-card-divider"></div>
+
+            <label class="row row-tier1">
+              <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              <div class="row-text-group">
+                <span class="row-text" data-i18n="toggle_daily_limit">Daily limit</span>
+                <span class="row-desc" data-i18n="desc_daily_limit">Pause video playback when your daily watch threshold is reached</span>
+              </div>
+              <input type="checkbox" class="chk" id="toggle-dailyLimit" />
+            </label>
+            <div class="time-expand" id="daily-limit-expand">
+              <span class="time-hint" data-i18n="time_hint_stop_after">Stop after</span>
+              <select class="time-sel" id="select-dailyLimitMinutes">
+                <option value="15" data-i18n="time_option_minutes" data-i18n-arg="15">15 min</option>
+                <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
+                <option value="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</option>
+                <option value="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</option>
+                <option value="90" data-i18n="time_option_minutes" data-i18n-arg="90">90 min</option>
+                <option value="120" data-i18n="time_option_minutes" data-i18n-arg="120">120 min</option>
+                <option value="custom" data-i18n="time_option_custom">Custom...</option>
+              </select>
+              <div class="custom-time-wrap" id="daily-limit-custom-wrap" style="display:none">
+                <input type="number" class="time-input" id="input-dailyLimitCustom" min="1" max="1440" placeholder="min" data-i18n-placeholder="time_placeholder_min" />
+                <span class="time-unit" data-i18n="time_unit_min">min</span>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div class="form-field">
-            <span class="field-label" data-i18n="schedule_form_mode">Blocking Mode</span>
-            <div class="mode-options">
-              <label class="mode-radio-label">
-                <input type="radio" name="schedule-mode" value="full" checked />
-                <div class="mode-info">
-                  <span class="mode-title" data-i18n="schedule_mode_full">Block YouTube entirely</span>
-                  <span class="mode-desc" data-i18n="schedule_mode_full_desc">Replaces YouTube with a locked commitment screen</span>
+        <!-- Card 2: Focus Lock -->
+        <div class="focus-section-card" id="card-focus-lock">
+          <div class="focus-card-header" data-card="lock" role="button" tabindex="0" aria-expanded="true">
+            <div class="focus-card-header-left">
+              <div class="focus-card-icon-box icon-box-amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="focus-card-title-wrap">
+                <span class="focus-card-title" data-i18n="section_focus_lock_title">Focus Lock Shield</span>
+                <span class="focus-card-sub" data-i18n="section_focus_lock_sub">Prevent impulsive changes with an intentional delay</span>
+              </div>
+            </div>
+            <div class="focus-card-header-right">
+              <span class="focus-card-badge" id="badge-focus-lock">Off</span>
+              <svg class="focus-card-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="focus-card-body" id="card-focus-lock-body">
+            <label class="row row-tier1">
+              <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <div class="row-text-group">
+                <span class="row-text" data-i18n="toggle_focus_lock">Focus Lock</span>
+                <span class="row-desc" data-i18n="desc_focus_lock">Require a delay before disabling protections</span>
+              </div>
+              <input type="checkbox" class="chk" id="toggle-focusLockEnabled" />
+            </label>
+            <div class="focus-lock-config" id="focus-lock-config-wrap" style="display:none">
+              <div class="config-row">
+                <span class="time-hint" data-i18n="focus_lock_cooldown_label">Cooldown delay</span>
+                <select class="time-sel" id="select-focusLockCooldown">
+                  <option value="5" data-i18n="focus_lock_duration_5m">5 min</option>
+                  <option value="10" data-i18n="focus_lock_duration_10m" selected>10 min</option>
+                  <option value="30" data-i18n="focus_lock_duration_30m">30 min</option>
+                  <option value="60" data-i18n="focus_lock_duration_60m">60 min</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Scheduled Blocking -->
+        <div class="focus-section-card" id="card-focus-schedule">
+          <div class="focus-card-header" data-card="schedule" role="button" tabindex="0" aria-expanded="true">
+            <div class="focus-card-header-left">
+              <div class="focus-card-icon-box icon-box-indigo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="focus-card-title-wrap">
+                <span class="focus-card-title" data-i18n="section_scheduled_title">Scheduled Focus Sessions</span>
+                <span class="focus-card-sub" data-i18n="section_scheduled_sub">Auto-block YouTube during work, study, or sleep</span>
+              </div>
+            </div>
+            <div class="focus-card-header-right">
+              <span class="focus-card-badge" id="badge-focus-schedule">Off</span>
+              <svg class="focus-card-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="focus-card-body" id="card-focus-schedule-body">
+            <label class="row row-tier1">
+              <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <div class="row-text-group">
+                <span class="row-text" data-i18n="toggle_scheduled_blocking">Scheduled Blocking</span>
+                <span class="row-desc" data-i18n="desc_scheduled_blocking">Automatically block YouTube during set times</span>
+              </div>
+              <input type="checkbox" class="chk" id="toggle-scheduledBlockingEnabled" />
+            </label>
+
+            <div class="schedules-container" id="schedules-container">
+              <div class="schedules-header">
+                <button type="button" id="btn-add-schedule" class="btn-primary-small">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span data-i18n="scheduled_blocking_add_btn">+ Add Schedule</span>
+                </button>
+              </div>
+
+              <!-- Inline Add/Edit Schedule Form -->
+              <div id="schedule-form-wrap" class="schedule-form-card" style="display:none">
+                <div class="schedule-form-title" id="schedule-form-title" data-i18n="schedule_form_title_add">New Schedule</div>
+                <input type="hidden" id="schedule-edit-id" value="" />
+
+                <div class="form-field">
+                  <label for="schedule-input-label" class="field-label" data-i18n="schedule_form_label">Label</label>
+                  <input type="text" id="schedule-input-label" class="text-input" placeholder="e.g. Work hours, Study time" data-i18n-placeholder="schedule_form_label_placeholder" maxlength="40" />
                 </div>
-              </label>
-              <label class="mode-radio-label">
-                <input type="radio" name="schedule-mode" value="strict" />
-                <div class="mode-info">
-                  <span class="mode-title" data-i18n="schedule_mode_strict">Force all protections on</span>
-                  <span class="mode-desc" data-i18n="schedule_mode_strict_desc">Forces all block toggles on during this time</span>
+
+                <div class="form-field">
+                  <span class="field-label" data-i18n="schedule_form_days">Active Days</span>
+                  <div class="day-chips" id="schedule-day-chips">
+                    <button type="button" class="day-chip active" data-day="1" data-i18n="day_mon">Mon</button>
+                    <button type="button" class="day-chip active" data-day="2" data-i18n="day_tue">Tue</button>
+                    <button type="button" class="day-chip active" data-day="3" data-i18n="day_wed">Wed</button>
+                    <button type="button" class="day-chip active" data-day="4" data-i18n="day_thu">Thu</button>
+                    <button type="button" class="day-chip active" data-day="5" data-i18n="day_fri">Fri</button>
+                    <button type="button" class="day-chip" data-day="6" data-i18n="day_sat">Sat</button>
+                    <button type="button" class="day-chip" data-day="0" data-i18n="day_sun">Sun</button>
+                  </div>
                 </div>
-              </label>
+
+                <div class="form-row-2col">
+                  <div class="form-field">
+                    <label for="schedule-input-start" class="field-label" data-i18n="schedule_form_start_time">Start Time</label>
+                    <input type="time" id="schedule-input-start" class="time-picker-input" value="09:00" />
+                  </div>
+                  <div class="form-field">
+                    <label for="schedule-input-end" class="field-label" data-i18n="schedule_form_end_time">End Time</label>
+                    <input type="time" id="schedule-input-end" class="time-picker-input" value="17:00" />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <span class="field-label" data-i18n="schedule_form_mode">Blocking Mode</span>
+                  <div class="mode-options">
+                    <label class="mode-radio-label">
+                      <input type="radio" name="schedule-mode" value="full" checked />
+                      <div class="mode-info">
+                        <span class="mode-title" data-i18n="schedule_mode_full">Block YouTube entirely</span>
+                        <span class="mode-desc" data-i18n="schedule_mode_full_desc">Replaces YouTube with a locked commitment screen</span>
+                      </div>
+                    </label>
+                    <label class="mode-radio-label">
+                      <input type="radio" name="schedule-mode" value="strict" />
+                      <div class="mode-info">
+                        <span class="mode-title" data-i18n="schedule_mode_strict">Force all protections on</span>
+                        <span class="mode-desc" data-i18n="schedule_mode_strict_desc">Forces all block toggles on during this time</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div id="schedule-form-error" class="form-error" style="display:none"></div>
+
+                <div class="form-actions">
+                  <button type="button" id="btn-save-schedule" class="btn-primary">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span data-i18n="schedule_btn_save">Save Schedule</span>
+                  </button>
+                  <button type="button" id="btn-cancel-schedule" class="btn-secondary" data-i18n="schedule_btn_cancel">Cancel</button>
+                </div>
+              </div>
+
+              <!-- Schedule Cards List -->
+              <div id="schedules-list" class="schedules-list">
+                <!-- Dynamically injected schedule cards -->
+              </div>
             </div>
           </div>
-
-          <div id="schedule-form-error" class="form-error" style="display:none"></div>
-
-          <div class="form-actions">
-            <button type="button" id="btn-save-schedule" class="btn-primary">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="schedule_btn_save">Save Schedule</span>
-            </button>
-            <button type="button" id="btn-cancel-schedule" class="btn-secondary" data-i18n="schedule_btn_cancel">Cancel</button>
-          </div>
         </div>
 
-        <!-- Schedule Cards List -->
-        <div id="schedules-list" class="schedules-list">
-          <!-- Dynamically injected schedule cards -->
-        </div>
-      </div>
+      </div><!-- /.focus-cards-wrap -->
 
     </div><!-- /#panel-focus -->
 

@@ -1950,24 +1950,234 @@ body.ext-off .lang-row {
 }
 
 /* ============================================================
-   FOCUS TAB
+   FOCUS TAB: MODULAR ELEVATED FEATURE CARDS
    ============================================================ */
-#panel-focus .rows {
-  margin: 0;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--rule-hairline);
-  border-radius: 0;
-  box-shadow: none;
+.focus-cards-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 18px 24px;
 }
 
-/* ============================================================
-   FOCUS LOCK CONFIG INLINE EXPAND
-   ============================================================ */
-.focus-lock-config {
+.focus-section-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: border-color var(--duration-snap) var(--ease-out-gentle),
+              box-shadow var(--duration-snap) var(--ease-out-gentle);
+}
+
+.focus-section-card:hover {
+  border-color: var(--rule-strong);
+}
+
+.focus-section-card.is-active {
+  border-color: var(--accent-border);
+}
+
+/* Card Header Button */
+.focus-card-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--surface-header);
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+  transition: background var(--duration-snap) var(--ease-out-gentle);
+  gap: 10px;
+}
+
+.focus-card-header:hover {
   background: var(--surface-inset);
-  border-bottom: 1px solid var(--rule-hairline);
-  padding: 10px 18px;
+}
+
+.focus-card-header:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.focus-card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Icon Bubble */
+.focus-card-icon-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+}
+
+.focus-card-icon-box svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.2;
+}
+
+.focus-card-icon-box.icon-box-violet {
+  background: var(--accent-subtle);
+  border: 1px solid var(--accent-border);
+}
+.focus-card-icon-box.icon-box-violet svg {
+  stroke: var(--accent);
+}
+
+.focus-card-icon-box.icon-box-amber {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+}
+.focus-card-icon-box.icon-box-amber svg {
+  stroke: #D97706;
+}
+
+.focus-card-icon-box.icon-box-indigo {
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.28);
+}
+.focus-card-icon-box.icon-box-indigo svg {
+  stroke: #6366F1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .focus-card-icon-box.icon-box-amber svg {
+    stroke: #FBBF24;
+  }
+  :root:not([data-theme="light"]) .focus-card-icon-box.icon-box-indigo svg {
+    stroke: #A5B4FC;
+  }
+}
+[data-theme="dark"] .focus-card-icon-box.icon-box-amber svg {
+  stroke: #FBBF24;
+}
+[data-theme="dark"] .focus-card-icon-box.icon-box-indigo svg {
+  stroke: #A5B4FC;
+}
+
+/* Title & Subtitle */
+.focus-card-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+  min-width: 0;
+}
+
+.focus-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-primary);
+  line-height: 1.3;
+}
+
+.focus-card-sub {
+  font-size: 11px;
+  color: var(--ink-secondary);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right Header Group: Badge + Chevron */
+.focus-card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Dynamic Live Status Badge */
+.focus-card-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7.5px;
+  border-radius: 9999px;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  background: var(--surface-inset);
+  color: var(--ink-secondary);
+  border: 1px solid var(--rule-hairline);
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+}
+
+.focus-card-badge.badge-active {
+  background: var(--badge-active-bg);
+  color: var(--badge-active-ink);
+  border-color: rgba(16, 185, 129, 0.28);
+}
+
+.focus-card-badge.badge-warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #D97706;
+  border-color: rgba(245, 158, 11, 0.28);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .focus-card-badge.badge-warning {
+    color: #FBBF24;
+  }
+}
+[data-theme="dark"] .focus-card-badge.badge-warning {
+  color: #FBBF24;
+}
+
+/* Directional Chevron */
+.focus-card-chevron {
+  stroke: var(--ink-ghost);
+  transition: transform var(--duration-snap) var(--ease-out-gentle),
+              stroke var(--duration-snap) var(--ease-out-gentle);
+}
+
+.focus-section-card.collapsed .focus-card-chevron {
+  transform: rotate(-90deg);
+}
+
+[dir="rtl"] .focus-section-card.collapsed .focus-card-chevron {
+  transform: rotate(90deg);
+}
+
+[dir="rtl"] .focus-card-header {
+  text-align: right;
+}
+
+/* Card Body */
+.focus-card-body {
+  border-top: 1px solid var(--rule-hairline);
+  padding: 8px 12px 12px;
+  background: var(--surface-elevated);
+}
+
+.focus-section-card.collapsed .focus-card-body {
+  display: none;
+}
+
+/* Inset Sub-Drawers for Time & Cooldown inputs */
+.focus-card-body .time-expand,
+.focus-card-body .focus-lock-config {
+  background: var(--surface-inset);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 9px;
+  margin: 6px 4px 10px;
+  padding: 10px 14px;
+}
+
+.focus-card-body .row {
+  padding: 8px 4px;
 }
 
 .config-row {
@@ -1975,6 +2185,18 @@ body.ext-off .lang-row {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+}
+
+/* Subtle divider between items within the same card */
+.focus-card-divider {
+  height: 1px;
+  background: var(--rule-hairline);
+  margin: 6px 4px;
+}
+
+/* Nested Schedules Container inside Card 3 */
+.focus-card-body .schedules-container {
+  padding: 6px 2px 2px;
 }
 
 /* ============================================================

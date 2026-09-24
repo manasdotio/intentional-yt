@@ -213,6 +213,10 @@
     "message": "Daily limit",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "Pause video playback when your daily watch threshold is reached",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "Stop after",
     "description": "Prefix label before daily limit duration dropdown"
@@ -454,6 +458,30 @@
   "section_focus_lock": {
     "message": "Focus Lock",
     "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "Mindful Time & Limits",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "Gentle break nudges & daily screen time boundaries",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "Focus Lock Shield",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "Prevent impulsive changes with an intentional delay",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "Scheduled Focus Sessions",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "Auto-block YouTube during work, study, or sleep",
+    "description": "Card header subtitle for Scheduled Blocking section"
   },
   "desc_focus_lock": {
     "message": "Require a delay before disabling protections",
