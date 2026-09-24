@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { APP_CONFIG } from '../config/constants'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Simulator() {
+  const { theme: siteTheme } = useTheme()
+  const [ytThemeOverride, setYtThemeOverride] = useState(null) // null = match site theme
+  const effectiveYtTheme = ytThemeOverride || siteTheme
+
   const [extensionEnabled, setExtensionEnabled] = useState(true)
   const [activeTab, setActiveTab] = useState('block') // 'block' | 'filters' | 'focus' | 'stats' | 'settings'
   const [searchQuery, setSearchQuery] = useState('')
@@ -159,254 +164,345 @@ export default function Simulator() {
         </div>
 
         <div className="simulator-grid">
-          {/* Mock YouTube Window */}
+          {/* Mock YouTube Window (Theme-Aware & Highly Authentic) */}
           <div
-            className={`mock-yt-window ${extensionEnabled && controls.grayscale ? 'grayscale-active' : ''}`}
+            className={`mock-yt-window ${effectiveYtTheme === 'light' ? 'yt-theme-light' : 'yt-theme-dark'} ${extensionEnabled && controls.grayscale ? 'grayscale-active' : ''}`}
             id="mock-yt-window"
           >
+            {/* Mock Browser Title Bar */}
             <div className="mock-browser-bar">
-              <div className="traffic-dots">
-                <span className="traffic-dot dot-red"></span>
-                <span className="traffic-dot dot-yellow"></span>
-                <span className="traffic-dot dot-green"></span>
+              <div className="mock-browser-bar-left">
+                <div className="traffic-dots">
+                  <span className="traffic-dot dot-red"></span>
+                  <span className="traffic-dot dot-yellow"></span>
+                  <span className="traffic-dot dot-green"></span>
+                </div>
+                <div className="mock-url-bar">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <span>https://www.youtube.com</span>
+                </div>
               </div>
-              <div className="mock-url-bar">
-                <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                <span>https://www.youtube.com</span>
-              </div>
+
+              {/* YouTube Theme Switcher (Light / Dark) */}
+              <button
+                type="button"
+                className="mock-yt-theme-btn"
+                onClick={() => setYtThemeOverride(effectiveYtTheme === 'dark' ? 'light' : 'dark')}
+                title={`Switch YouTube to ${effectiveYtTheme === 'dark' ? 'Light' : 'Dark'} Theme`}
+              >
+                {effectiveYtTheme === 'dark' ? (
+                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                  </svg>
+                )}
+              </button>
             </div>
 
+            {/* YouTube Authentic Header */}
             <div className="mock-yt-header">
               <div className="mock-yt-header-left">
-                <svg width="20" height="20" fill="none" stroke="#aaa" viewBox="0 0 24 24" className="mock-yt-hamburger">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="mock-yt-hamburger">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
                 <div className="mock-yt-brand">
-                  <span style={{ color: '#ff0000', fontSize: '16px' }}>▶</span> YouTube
+                  <span className="mock-yt-logo-badge">▶</span>
+                  <span>YouTube</span>
+                  <span style={{ fontSize: '9px', fontWeight: 600, color: 'var(--yt-text-muted)', marginLeft: '-2px' }}>US</span>
                 </div>
               </div>
-              <div className="mock-yt-search">
-                <span className="mock-yt-search-text">
-                  {extensionEnabled && controls.homeFeed ? 'Calculus 3 Lecture 4: Vector Fields' : 'Search videos...'}
-                </span>
-                <svg width="14" height="14" fill="none" stroke="#777" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+
+              {/* YouTube Search Bar */}
+              <div className="mock-yt-search-container">
+                <div className="mock-yt-search">
+                  <span className="mock-yt-search-text">
+                    {extensionEnabled && controls.homeFeed ? 'Calculus 3 Lecture 4: Vector Fields' : 'Search'}
+                  </span>
+                  <button type="button" className="mock-yt-search-btn" title="Search">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </button>
+                </div>
+                <button type="button" className="mock-yt-mic-btn" title="Search with your voice">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  </svg>
+                </button>
               </div>
+
               <div className="mock-yt-header-right">
-                <div className="mock-yt-bell">
-                  <svg width="16" height="16" fill="none" stroke="#aaa" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                <div className="mock-yt-header-icon" title="Create">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <div className="mock-yt-avatar"></div>
+                <div className="mock-yt-header-icon" title="Notifications">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  {!extensionEnabled && <span className="mock-yt-notif-dot">9+</span>}
+                </div>
+                <div className="mock-yt-avatar">J</div>
               </div>
             </div>
 
+            {/* YouTube Body */}
             <div className="mock-yt-body">
               {/* Left Sidebar */}
               {(!extensionEnabled || !controls.sidebar) && (
                 <div className="mock-yt-sidebar">
                   <div className="mock-nav-item active">
-                    <span>🏠</span> <span>Home</span>
+                    <span className="mock-nav-icon">🏠</span>
+                    <span>Home</span>
                   </div>
                   {(!extensionEnabled || !controls.shorts) && (
                     <div className="mock-nav-item">
-                      <span>⚡</span> <span>Shorts</span>
+                      <span className="mock-nav-icon" style={{ color: '#ff0000' }}>⚡</span>
+                      <span>Shorts</span>
                     </div>
                   )}
                   {(!extensionEnabled || !controls.subscriptions) && (
                     <div className="mock-nav-item">
-                      <span>📺</span> <span>Subscriptions</span>
+                      <span className="mock-nav-icon">📺</span>
+                      <span>Subscriptions</span>
                     </div>
                   )}
-                  <div style={{ height: '1px', background: '#222', margin: '6px 0' }}></div>
+                  <div className="mock-nav-divider"></div>
                   <div className="mock-nav-item">
-                    <span>🔥</span> <span>Trending</span>
+                    <span className="mock-nav-icon">📁</span>
+                    <span>You</span>
+                  </div>
+                  <div className="mock-nav-item">
+                    <span className="mock-nav-icon">🕒</span>
+                    <span>History</span>
+                  </div>
+                  <div className="mock-nav-divider"></div>
+                  <div className="mock-nav-heading">Subscriptions</div>
+                  <div className="mock-sub-row">
+                    <span className="mock-sub-avatar" style={{ background: '#3b82f6' }}></span>
+                    <span>3Blue1Brown</span>
+                  </div>
+                  <div className="mock-sub-row">
+                    <span className="mock-sub-avatar" style={{ background: '#10b981' }}></span>
+                    <span>Veritasium</span>
+                  </div>
+                  <div className="mock-sub-row">
+                    <span className="mock-sub-avatar" style={{ background: '#f59e0b' }}></span>
+                    <span>Fireship</span>
                   </div>
                 </div>
               )}
 
               {/* Content Stage */}
               <div className="mock-yt-content">
-                {!extensionEnabled ? (
-                  /* YouTube Default Clutter View (When extension is toggled OFF) */
-                  <div className="yt-feed-grid">
-                    <div className="yt-card">
-                      <div className="yt-thumb">
-                        <span>😱 YOU WON'T BELIEVE THIS!</span>
-                        <span className="yt-thumb-badge">12:40</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">How I Built a 10M SaaS In 48 Hours</div>
-                        <div className="yt-card-sub">Algorithm Hacker • 840K views</div>
-                      </div>
-                    </div>
-
-                    <div className="yt-card">
-                      <div className="yt-thumb" style={{ background: '#3b1d28' }}>
-                        <span style={{ color: '#f43f5e', fontWeight: 700 }}>⚡ SHORTS SHELF</span>
-                        <span className="yt-thumb-badge">0:45</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">Crazy Life Hacks You Must Try</div>
-                        <div className="yt-card-sub">Dopamine Rush • 2.4M views</div>
-                      </div>
-                    </div>
-
-                    <div className="yt-card">
-                      <div className="yt-thumb">
-                        <span>🔥 STOP DOING THIS NOW!</span>
-                        <span className="yt-thumb-badge">18:02</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">The Ultimate Productivity Trap</div>
-                        <div className="yt-card-sub">Focus Guru • 310K views</div>
-                      </div>
-                    </div>
-
-                    <div className="yt-card">
-                      <div className="yt-thumb">
-                        <span>⚠️ 99% OF PEOPLE FAIL</span>
-                        <span className="yt-thumb-badge">08:15</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">Learn Deep Work in 10 Minutes</div>
-                        <div className="yt-card-sub">Mastery Hub • 1.2M views</div>
-                      </div>
-                    </div>
-                  </div>
-                ) : controls.homeFeed ? (
-                  /* Intentional Minimal Zen View */
+                {/* Intentional Zen View */}
+                {extensionEnabled && controls.homeFeed ? (
                   <div className="intentional-zen-view">
                     <img
                       src="/icons/icon.svg"
                       width="48"
                       height="48"
                       alt="Intentional YT Zen Icon"
-                      style={{ marginBottom: '16px', opacity: 0.9 }}
+                      style={{ marginBottom: '16px', opacity: 0.95 }}
                     />
-                    <h4 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '8px', color: '#f1f5f9' }}>
+                    <h4 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '8px', color: 'var(--yt-text-primary)' }}>
                       Intentional Search Mode Active
                     </h4>
-                    <p style={{ fontSize: '13px', color: '#94a3b8', maxWidth: '320px', marginBottom: '24px' }}>
-                      No infinite feed, no algorithmic rabbit holes. Search directly for what you came here to learn.
+                    <p style={{ fontSize: '13px', color: 'var(--yt-text-secondary)', maxWidth: '340px', marginBottom: '22px' }}>
+                      No infinite recommendations or clickbait traps. Search directly for the topic you came here to learn.
                     </p>
                     <div className="zen-search-box">
-                      <svg width="16" height="16" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
+                      <svg width="16" height="16" fill="none" stroke="var(--accent-blue)" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
-                      <span style={{ fontSize: '13px', color: '#e2e8f0', fontWeight: 500 }}>
+                      <span style={{ fontSize: '13px', fontWeight: 500 }}>
                         Calculus 3 Lecture 4: Vector Fields
                       </span>
                     </div>
                     <span className="zen-quote">"Attention is the currency of intention."</span>
                   </div>
-                ) : controls.limitHomeFeed ? (
-                  /* Anti-Doomscroll Limited Feed (15 Videos Max + Calm Caught-up Banner) */
-                  <div className="yt-feed-grid">
-                    <div className="yt-card">
-                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>🧠 DEEP WORK HABITS</span>
-                        <span className="yt-thumb-badge">18:45</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">How to Build 4 Hours of Unbroken Focus Every Day</div>
-                        <div className="yt-card-sub">Mindful Creator • 420K views</div>
-                      </div>
-                    </div>
-
-                    <div className="yt-card">
-                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>📐 VECTOR CALCULUS</span>
-                        <span className="yt-thumb-badge">24:10</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">Multivariable Calculus: Intuition Behind Vector Fields</div>
-                        <div className="yt-card-sub">Academic Hub • 180K views</div>
-                      </div>
-                    </div>
-
-                    <div className="yt-card">
-                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>⚡ SYSTEM ARCHITECTURE</span>
-                        <span className="yt-thumb-badge">31:15</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">Designing Distributed Systems with Zero Dependencies</div>
-                        <div className="Tech Lead">Tech Lead • 95K views</div>
-                      </div>
-                    </div>
-
-                    <div className="yt-card">
-                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>🌿 DIGITAL DETOX</span>
-                        <span className="yt-thumb-badge">14:02</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">Why Leaving Algorithmic Feeds Restored My Attention Span</div>
-                        <div className="yt-card-sub">Slow Living • 310K views</div>
-                      </div>
-                    </div>
-
-                    {/* Calm End of Feed Banner */}
-                    <div className="calm-end-banner">
-                      <div className="calm-end-badge">✦ You're all caught up</div>
-                      <div className="calm-end-text">Home feed limit active • Infinite scroll blocked</div>
-                      <p className="calm-end-sub">Take a breath, or search directly for what you came here to learn.</p>
-                    </div>
-                  </div>
                 ) : (
-                  /* Infinite Recommendations (Chaos View) */
-                  <div className="yt-feed-grid">
-                    <div className="yt-card">
-                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>😱 YOU WON'T BELIEVE THIS!</span>
-                        <span className="yt-thumb-badge">12:40</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">How I Built a 10M SaaS In 48 Hours</div>
-                        <div className="yt-card-sub">Algorithm Hacker • 840K views</div>
-                      </div>
+                  <>
+                    {/* YouTube Filter Chips */}
+                    <div className="yt-chips-bar">
+                      <span className="yt-chip active">All</span>
+                      <span className="yt-chip">Deep Work</span>
+                      <span className="yt-chip">Calculus</span>
+                      <span className="yt-chip">Computer Science</span>
+                      <span className="yt-chip">Physics</span>
+                      <span className="yt-chip">Podcasts</span>
                     </div>
 
-                    {!controls.shorts && (
-                      <div className="yt-card">
-                        <div className="yt-thumb" style={{ background: '#3b1d28' }}>
-                          <span style={{ color: '#f43f5e', fontWeight: 700 }}>⚡ SHORTS SHELF</span>
-                          <span className="yt-thumb-badge">0:45</span>
-                        </div>
-                        <div className="yt-card-info">
-                          <div className="yt-card-title">Crazy Life Hacks You Must Try</div>
-                          <div className="yt-card-sub">Dopamine Rush • 2.4M views</div>
-                        </div>
-                      </div>
-                    )}
+                    {/* Feed Content */}
+                    <div className="yt-feed-grid">
+                      {!extensionEnabled ? (
+                        /* Default Clutter / Chaos View */
+                        <>
+                          <div className="yt-card">
+                            <div className="yt-thumb" style={{ background: 'linear-gradient(135deg, #450a0a, #7f1d1d)' }}>
+                              <span style={{ color: '#fca5a5', fontWeight: 700 }}>😱 YOU WON'T BELIEVE THIS!</span>
+                              <span className="yt-thumb-badge">12:40</span>
+                            </div>
+                            <div className="yt-card-body">
+                              <div className="yt-channel-avatar" style={{ background: '#dc2626' }}>AH</div>
+                              <div className="yt-card-info">
+                                <div className="yt-card-title">How I Built a 10M SaaS In 48 Hours</div>
+                                <div className="yt-card-channel">Algorithm Hacker • 8.4M views</div>
+                              </div>
+                            </div>
+                          </div>
 
-                    <div className="yt-card">
-                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>🔥 STOP DOING THIS NOW!</span>
-                        <span className="yt-thumb-badge">18:02</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">The Ultimate Productivity Trap</div>
-                        <div className="yt-card-sub">Focus Guru • 310K views</div>
-                      </div>
-                    </div>
+                          {/* Clutter Shorts Shelf */}
+                          <div className="yt-shorts-shelf">
+                            <div className="yt-shorts-header">
+                              <span className="yt-shorts-badge">⚡</span>
+                              <span className="yt-shorts-title">Shorts</span>
+                            </div>
+                            <div className="yt-shorts-grid">
+                              <div className="yt-short-card">
+                                <span className="yt-short-badge">0:45</span>
+                                <div className="yt-short-title">Crazy 10-Second Life Hacks You Must Try</div>
+                              </div>
+                              <div className="yt-short-card">
+                                <span className="yt-short-badge">0:30</span>
+                                <div className="yt-short-title">Never drink water like this 💀</div>
+                              </div>
+                              <div className="yt-short-card">
+                                <span className="yt-short-badge">0:58</span>
+                                <div className="yt-short-title">Top 5 Hidden Phone Tricks in 2026</div>
+                              </div>
+                            </div>
+                          </div>
 
-                    <div className="yt-card">
-                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>⚠️ 99% OF PEOPLE FAIL</span>
-                        <span className="yt-thumb-badge">08:15</span>
-                      </div>
-                      <div className="yt-card-info">
-                        <div className="yt-card-title">Learn Deep Work in 10 Minutes</div>
-                        <div className="yt-card-sub">Mastery Hub • 1.2M views</div>
-                      </div>
+                          <div className="yt-card">
+                            <div className="yt-thumb" style={{ background: 'linear-gradient(135deg, #7c2d12, #c2410c)' }}>
+                              <span style={{ color: '#fed7aa', fontWeight: 700 }}>🔥 STOP DOING THIS NOW!</span>
+                              <span className="yt-thumb-badge">18:02</span>
+                            </div>
+                            <div className="yt-card-body">
+                              <div className="yt-channel-avatar" style={{ background: '#ea580c' }}>FG</div>
+                              <div className="yt-card-info">
+                                <div className="yt-card-title">The Ultimate Productivity Trap That Ruins Focus</div>
+                                <div className="yt-card-channel">Focus Guru • 3.1M views</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="yt-card">
+                            <div className="yt-thumb" style={{ background: 'linear-gradient(135deg, #713f12, #ca8a04)' }}>
+                              <span style={{ color: '#fef08a', fontWeight: 700 }}>⚠️ 99% OF PEOPLE FAIL</span>
+                              <span className="yt-thumb-badge">08:15</span>
+                            </div>
+                            <div className="yt-card-body">
+                              <div className="yt-channel-avatar" style={{ background: '#ca8a04' }}>MH</div>
+                              <div className="yt-card-info">
+                                <div className="yt-card-title">Learn Deep Work in 10 Minutes Before It's Gone</div>
+                                <div className="yt-card-channel">Mastery Hub • 4.8M views</div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        /* Mindful / Intentional Feed (Anti-Doomscroll or Filtered) */
+                        <>
+                          <div className="yt-card">
+                            <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
+                              {controls.thumbnails ? (
+                                <span style={{ opacity: 0.6 }}>Focus Placeholder</span>
+                              ) : (
+                                <span>🧠 4 Hours of Unbroken Focus</span>
+                              )}
+                              <span className="yt-thumb-badge">18:45</span>
+                            </div>
+                            <div className="yt-card-body">
+                              <div className="yt-channel-avatar" style={{ background: '#10b981' }}>V</div>
+                              <div className="yt-card-info">
+                                <div className="yt-card-title">How to Build 4 Hours of Unbroken Focus Every Day</div>
+                                <div className="yt-card-channel">Veritasium ✓</div>
+                                <div className="yt-card-meta">1.4M views • 3 days ago</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="yt-card">
+                            <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
+                              {controls.thumbnails ? (
+                                <span style={{ opacity: 0.6 }}>Focus Placeholder</span>
+                              ) : (
+                                <span>📐 Vector Fields &amp; Flux</span>
+                              )}
+                              <span className="yt-thumb-badge">24:10</span>
+                            </div>
+                            <div className="yt-card-body">
+                              <div className="yt-channel-avatar" style={{ background: '#3b82f6' }}>3B</div>
+                              <div className="yt-card-info">
+                                <div className="yt-card-title">The Intuition Behind Vector Fields &amp; Fluid Flow</div>
+                                <div className="yt-card-channel">3Blue1Brown ✓</div>
+                                <div className="yt-card-meta">890K views • 1 week ago</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="yt-card">
+                            <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
+                              {controls.thumbnails ? (
+                                <span style={{ opacity: 0.6 }}>Focus Placeholder</span>
+                              ) : (
+                                <span>⚡ Systems With Zero Dependencies</span>
+                              )}
+                              <span className="yt-thumb-badge">31:15</span>
+                            </div>
+                            <div className="yt-card-body">
+                              <div className="yt-channel-avatar" style={{ background: '#f59e0b' }}>FS</div>
+                              <div className="yt-card-info">
+                                <div className="yt-card-title">Designing Distributed Systems with Zero Dependencies</div>
+                                <div className="yt-card-channel">Fireship ✓</div>
+                                <div className="yt-card-meta">420K views • 5 days ago</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="yt-card">
+                            <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
+                              {controls.thumbnails ? (
+                                <span style={{ opacity: 0.6 }}>Focus Placeholder</span>
+                              ) : (
+                                <span>🌿 Digital Detox &amp; Calm</span>
+                              )}
+                              <span className="yt-thumb-badge">14:02</span>
+                            </div>
+                            <div className="yt-card-body">
+                              <div className="yt-channel-avatar" style={{ background: '#8b5cf6' }}>AA</div>
+                              <div className="yt-card-info">
+                                <div className="yt-card-title">Why Leaving Algorithmic Feeds Restored My Attention Span</div>
+                                <div className="yt-card-channel">Ali Abdaal ✓</div>
+                                <div className="yt-card-meta">680K views • 2 weeks ago</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Anti-Doomscroll Calm Caught-up Banner */}
+                          {controls.limitHomeFeed && (
+                            <div className="calm-end-banner">
+                              <div className="calm-end-badge">✦ You're all caught up</div>
+                              <div className="calm-end-text">Home feed limit active • Infinite scroll blocked</div>
+                              <p className="calm-end-sub">Take a deep breath, or search directly for what you came here to learn.</p>
+                            </div>
+                          )}
+                        </>
+                      )}
                     </div>
-                  </div>
+                  </>
                 )}
               </div>
             </div>
@@ -502,7 +598,7 @@ export default function Simulator() {
                 >
                   <svg className="mock-nav-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="3" />
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
                   </svg>
                   <span>Settings</span>
                 </button>
