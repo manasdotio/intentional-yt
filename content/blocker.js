@@ -10,6 +10,7 @@ var browser = globalThis.browser || globalThis.chrome;
 
 const CLASS_MAP = {
   blockHomeFeed:               'iyt-no-home-feed',
+  limitHomeFeed:               'iyt-limit-home-feed',
   blockSidebar:                'iyt-no-sidebar',
   blockRecommended:            'iyt-no-recommended',
   blockLiveChat:               'iyt-no-live-chat',

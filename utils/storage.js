@@ -27,6 +27,7 @@ class StorageManager {
       themeMode: 'auto',
 
       blockHomeFeed: true,
+      limitHomeFeed: false,
       blockSidebar: true,
       blockRecommended: true,
       blockLiveChat: true,

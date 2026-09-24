@@ -21,6 +21,39 @@ html.iyt-no-home-feed ytd-page-manager > ytd-browse:not([page-subtype]) #content
 }
 
 /* ═══════════════════════════════════════════════════════════
+   HOME FEED LIMIT (Anti-Doomscroll)
+   Limits home feed to first row of videos & stops infinite scroll
+═══════════════════════════════════════════════════════════ */
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-row:nth-of-type(n+2),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-row:nth-of-type(n+2),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] #contents > ytd-rich-item-renderer:nth-of-type(n+5),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] #contents > ytd-rich-item-renderer:nth-of-type(n+5),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] #contents > ytd-rich-section-renderer,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] #contents > ytd-rich-section-renderer,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-continuation-item-renderer,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-continuation-item-renderer,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] #continuation,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-browse ytm-item-section-renderer:nth-of-type(n+2),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-browse ytm-continuation-item-renderer {
+  display: none !important;
+}
+
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents::after,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-renderer #contents::after {
+  content: "✦ You're all caught up • Feed limit active";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 32px 16px 56px;
+  color: var(--yt-spec-text-secondary, #909090);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════════════
    LEFT SIDEBAR (guide sections beyond the first)
 ═══════════════════════════════════════════════════════════ */
 html.iyt-no-sidebar ytd-guide-section-renderer:not(:first-child) {

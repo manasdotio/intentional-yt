@@ -68,7 +68,7 @@ function localizeDOM() {
 
 const TOGGLES = [
   'extensionEnabled',
-  'blockHomeFeed', 'blockSidebar', 'blockRecommended',
+  'blockHomeFeed', 'limitHomeFeed', 'blockSidebar', 'blockRecommended',
   'blockLiveChat', 'blockPlaylist', 'blockEndScreenVideowall',
   'blockEndScreenCards', 'blockComments', 'blockProfilePhotos',
   'blockMixPlaylists', 'blockMerch', 'blockVideoInfo',
@@ -83,6 +83,7 @@ const TOGGLES = [
 const TOGGLE_LABELS = {
   extensionEnabled: 'toggle_extension_enabled',
   blockHomeFeed: 'toggle_block_home_feed',
+  limitHomeFeed: 'toggle_limit_home_feed',
   blockSidebar: 'toggle_block_sidebar',
   blockRecommended: 'toggle_block_recommended',
   blockLiveChat: 'toggle_block_live_chat',
@@ -118,6 +119,7 @@ const TOGGLE_LABELS = {
 const SECTION_TOGGLES = {
   feed: [
     'blockHomeFeed',
+    'limitHomeFeed',
     'blockSubscriptionsFeed',
     'blockRecommended',
     'blockShorts',
@@ -158,6 +160,7 @@ const SECTION_TOGGLES = {
 const PRESET_DEFINITIONS = {
   balanced: {
     blockHomeFeed: true,
+    limitHomeFeed: false,
     blockSidebar: true,
     blockRecommended: true,
     blockLiveChat: true,
@@ -186,6 +189,7 @@ const PRESET_DEFINITIONS = {
   },
   zen: {
     blockHomeFeed: true,
+    limitHomeFeed: false,
     blockSidebar: true,
     blockRecommended: true,
     blockLiveChat: true,
@@ -214,6 +218,7 @@ const PRESET_DEFINITIONS = {
   },
   player: {
     blockHomeFeed: true,
+    limitHomeFeed: false,
     blockSidebar: true,
     blockRecommended: true,
     blockLiveChat: true,
