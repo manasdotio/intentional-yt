@@ -1531,14 +1531,39 @@ function renderStats(s) {
 }
 
 async function broadcastSettingsToTabs(settings) {
+  if (!browser || !browser.tabs) return;
+  const contactedTabIds = new Set();
+
+  const sendToTab = (tabId) => {
+    if (tabId && !contactedTabIds.has(tabId)) {
+      contactedTabIds.add(tabId);
+      try {
+        browser.tabs.sendMessage(tabId, { type: 'IYT_APPLY_SETTINGS', settings }).catch(() => {});
+      } catch (e) {}
+    }
+  };
+
+  // 1. Primary: match all YouTube URL patterns
   try {
-    if (browser && browser.tabs && typeof browser.tabs.query === 'function') {
-      const tabs = await browser.tabs.query({ url: ['*://*.youtube.com/*', '*://m.youtube.com/*'] });
+    const tabs = await browser.tabs.query({
+      url: [
+        '*://*.youtube.com/*',
+        '*://youtube.com/*',
+        '*://m.youtube.com/*'
+      ]
+    });
+    if (Array.isArray(tabs)) {
       for (const tab of tabs) {
-        if (tab.id) {
-          browser.tabs.sendMessage(tab.id, { type: 'IYT_APPLY_SETTINGS', settings }).catch(() => {});
-        }
+        sendToTab(tab.id);
       }
+    }
+  } catch (e) {}
+
+  // 2. Active tab fallback (requires no tabs permission in MV3)
+  try {
+    const activeTabs = await browser.tabs.query({ active: true, currentWindow: true });
+    if (Array.isArray(activeTabs) && activeTabs[0]?.id) {
+      sendToTab(activeTabs[0].id);
     }
   } catch (e) {}
 }
@@ -1683,26 +1708,51 @@ function bindAll() {
           }
         );
       } else {
-        await StorageManager.updateSetting(key, targetVal);
+        // Mutual exclusivity between blockHomeFeed and limitHomeFeed
+        // If enabling limitHomeFeed while blockHomeFeed was on and Focus Lock is active,
+        // intercept since turning off blockHomeFeed relaxes full feed blocking.
+        if (key === 'limitHomeFeed' && targetVal && _s?.blockHomeFeed && isFocusLockActive()) {
+          await interceptSettingChange(
+            'blockHomeFeed',
+            false,
+            () => { el.checked = false; },
+            async () => {
+              const blockFeedEl = $('toggle-blockHomeFeed');
+              if (blockFeedEl) blockFeedEl.checked = false;
+              const updated = await StorageManager.updateSettings({
+                limitHomeFeed: true,
+                blockHomeFeed: false
+              });
+              if (updated) _s = updated;
+              broadcastSettingsToTabs(_s);
+              updateAccordionBadges(_s);
+              updatePresetUI(_s);
+            }
+          );
+          return;
+        }
+
+        const updates = { [key]: targetVal };
         if (_s) _s[key] = targetVal;
 
-        // Mutual exclusivity between blockHomeFeed and limitHomeFeed
         if (key === 'limitHomeFeed' && targetVal) {
           const blockFeedEl = $('toggle-blockHomeFeed');
           if (blockFeedEl && blockFeedEl.checked) {
             blockFeedEl.checked = false;
-            await StorageManager.updateSetting('blockHomeFeed', false);
+            updates.blockHomeFeed = false;
             if (_s) _s.blockHomeFeed = false;
           }
         } else if (key === 'blockHomeFeed' && targetVal) {
           const limitFeedEl = $('toggle-limitHomeFeed');
           if (limitFeedEl && limitFeedEl.checked) {
             limitFeedEl.checked = false;
-            await StorageManager.updateSetting('limitHomeFeed', false);
+            updates.limitHomeFeed = false;
             if (_s) _s.limitHomeFeed = false;
           }
         }
 
+        const updated = await StorageManager.updateSettings(updates);
+        if (updated) _s = updated;
         broadcastSettingsToTabs(_s);
         if (key === 'extensionEnabled') {
           document.body.classList.toggle('ext-off', !targetVal);

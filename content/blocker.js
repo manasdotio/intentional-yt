@@ -209,21 +209,45 @@ function scheduleShortsPurge() {
   });
 }
 
+let _nudgeTimer = null;
+function triggerScrollerNudge() {
+  if (_nudgeTimer) return;
+  _nudgeTimer = setTimeout(() => {
+    _nudgeTimer = null;
+    try {
+      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event('scroll'));
+      const scroller = document.querySelector('ytd-app') || document.querySelector('ytd-rich-grid-renderer');
+      if (scroller) {
+        scroller.dispatchEvent(new CustomEvent('iron-resize', { bubbles: true, composed: true }));
+      }
+      if (window.scrollY === 0 && document.documentElement.scrollHeight > window.innerHeight) {
+        window.scrollBy(0, 1);
+        setTimeout(() => window.scrollBy(0, -1), 50);
+      }
+    } catch (e) {}
+  }, 80);
+}
+
 function limitHomeFeedEnforce() {
   if (!isEffectiveActive(_settings) || !_settings.limitHomeFeed || !isHomePage()) return;
 
   const grid = document.querySelector('ytd-rich-grid-renderer #contents');
   if (!grid) return;
 
-  const items = grid.querySelectorAll(':scope > ytd-rich-item-renderer');
-  if (!items || items.length === 0) return;
+  let items = grid.querySelectorAll(':scope > ytd-rich-item-renderer');
+  if (!items || items.length === 0) {
+    items = grid.querySelectorAll('ytd-rich-grid-row ytd-rich-item-renderer');
+  }
 
   // Determine items per row (default 3 or from attribute)
   let perRow = 3;
-  const firstAttr = items[0].getAttribute('items-per-row');
-  if (firstAttr) {
-    const parsed = parseInt(firstAttr, 10);
-    if (!isNaN(parsed) && parsed > 0) perRow = parsed;
+  if (items && items.length > 0) {
+    const firstAttr = items[0].getAttribute('items-per-row');
+    if (firstAttr) {
+      const parsed = parseInt(firstAttr, 10);
+      if (!isNaN(parsed) && parsed > 0) perRow = parsed;
+    }
   }
 
   // Calculate target limit: at least 15 items, multiple of perRow
@@ -239,11 +263,26 @@ function limitHomeFeedEnforce() {
     targetLimit = Math.ceil(15 / perRow) * perRow;
   }
 
+  const count = items ? items.length : 0;
+
   // If we haven't reached the target limit yet, let YouTube load more
-  if (items.length < targetLimit) {
+  if (count < targetLimit) {
+    grid.removeAttribute('data-iyt-limit-reached');
+    grid.querySelectorAll('ytd-continuation-item-renderer, #continuation').forEach(c => {
+      c.style.removeProperty('display');
+    });
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].hasAttribute('data-iyt-feed-hidden')) {
+          items[i].removeAttribute('data-iyt-feed-hidden');
+        }
+      }
+    }
+    triggerScrollerNudge();
     return;
   }
 
+  grid.setAttribute('data-iyt-limit-reached', 'true');
   for (let i = 0; i < items.length; i++) {
     if (i < targetLimit) {
       if (items[i].hasAttribute('data-iyt-feed-hidden')) {
@@ -263,10 +302,14 @@ function limitHomeFeedEnforce() {
 }
 
 function unlimitHomeFeed() {
-  document.querySelectorAll('[data-iyt-feed-hidden="true"]').forEach(el => {
+  const grid = document.querySelector('ytd-rich-grid-renderer #contents');
+  if (grid) {
+    grid.removeAttribute('data-iyt-limit-reached');
+  }
+  document.querySelectorAll('[data-iyt-feed-hidden]').forEach(el => {
     el.removeAttribute('data-iyt-feed-hidden');
   });
-  document.querySelectorAll('ytd-rich-grid-renderer ytd-continuation-item-renderer, ytd-rich-grid-renderer #continuation').forEach(c => {
+  document.querySelectorAll('ytd-continuation-item-renderer, #continuation').forEach(c => {
     c.style.removeProperty('display');
   });
 }
@@ -289,6 +332,10 @@ function applyAllClasses(settings) {
     const active = isEffectiveActive(settings);
     updateHomePageState();
     for (const [key, cls] of Object.entries(CLASS_MAP)) {
+      if (key === 'blockHomeFeed' && settings.limitHomeFeed) {
+        html.classList.remove(cls);
+        continue;
+      }
       if (active && settings[key]) {
         html.classList.add(cls);
       } else {
@@ -296,11 +343,13 @@ function applyAllClasses(settings) {
       }
     }
     // Conflict resolution: limitHomeFeed vs blockHomeFeed
-    // If limitHomeFeed is active, prioritize limiting to 1 row over completely hiding the feed
+    // If limitHomeFeed is active, prioritize limiting over completely hiding the feed
     if (active && settings.limitHomeFeed) {
       html.classList.remove('iyt-no-home-feed');
       html.classList.add('iyt-limit-home-feed');
+      unlimitHomeFeed();
       scheduleHomeFeedLimit();
+      triggerScrollerNudge();
     } else {
       unlimitHomeFeed();
     }
@@ -326,6 +375,7 @@ function applyAllClasses(settings) {
 const _classObserver = new MutationObserver(() => {
   if (_isApplyingClasses || !_settings || !isEffectiveActive(_settings)) return;
   for (const [key, cls] of Object.entries(CLASS_MAP)) {
+    if (key === 'blockHomeFeed' && _settings.limitHomeFeed) continue;
     if (_settings[key] && !html.classList.contains(cls)) {
       applyAllClasses(_settings);
       break;
