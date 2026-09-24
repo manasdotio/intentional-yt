@@ -42,6 +42,22 @@ let _settings = null;
 let _snoozeTimer = null;
 let _snoozeInterval = null;
 
+function isHomePage() {
+  const p = window.location.pathname;
+  return p === '/' || p === '';
+}
+
+function updateHomePageState() {
+  if (isHomePage()) {
+    html.setAttribute('data-iyt-is-home', 'true');
+  } else {
+    html.removeAttribute('data-iyt-is-home');
+  }
+}
+
+// Initial home page state detection
+updateHomePageState();
+
 function isEffectiveActive(settings) {
   if (!settings) return false;
   if (settings.extensionEnabled === false) return false;
@@ -119,6 +135,7 @@ function checkShortsRedirect(settings) {
 
 // Intercept in-page SPA navigation to shorts
 document.addEventListener('yt-navigate-start', (e) => {
+  updateHomePageState();
   checkSnoozeExpiry();
   if (!isEffectiveActive(_settings) || !_settings.redirectShorts) return;
   const url = e && e.detail && e.detail.url;
@@ -192,12 +209,93 @@ function scheduleShortsPurge() {
   });
 }
 
+function limitHomeFeedEnforce() {
+  if (!isEffectiveActive(_settings) || !_settings.limitHomeFeed || !isHomePage()) return;
+
+  const grid = document.querySelector('ytd-rich-grid-renderer #contents');
+  if (!grid) return;
+
+  const items = grid.querySelectorAll(':scope > ytd-rich-item-renderer');
+  if (!items || items.length === 0) return;
+
+  let secondRowIdx = -1;
+  // 1. YouTube marks the start of each row with [is-in-first-column]
+  for (let i = 1; i < items.length; i++) {
+    if (items[i].hasAttribute('is-in-first-column')) {
+      secondRowIdx = i;
+      break;
+    }
+  }
+
+  // 2. Check items-per-row attribute on items
+  if (secondRowIdx === -1) {
+    const perRowAttr = items[0].getAttribute('items-per-row');
+    if (perRowAttr) {
+      const perRow = parseInt(perRowAttr, 10);
+      if (!isNaN(perRow) && perRow > 0) {
+        secondRowIdx = perRow;
+      }
+    }
+  }
+
+  // 3. Fallback: compare offsetTop with first item
+  if (secondRowIdx === -1) {
+    const firstTop = items[0].offsetTop;
+    for (let i = 1; i < items.length; i++) {
+      if (Math.abs(items[i].offsetTop - firstTop) > 20) {
+        secondRowIdx = i;
+        break;
+      }
+    }
+  }
+
+  // 4. Ultimate fallback to 4 items
+  if (secondRowIdx === -1) secondRowIdx = 4;
+
+  for (let i = 0; i < items.length; i++) {
+    if (i < secondRowIdx) {
+      if (items[i].hasAttribute('data-iyt-feed-hidden')) {
+        items[i].removeAttribute('data-iyt-feed-hidden');
+      }
+    } else {
+      if (!items[i].hasAttribute('data-iyt-feed-hidden')) {
+        items[i].setAttribute('data-iyt-feed-hidden', 'true');
+      }
+    }
+  }
+
+  // Ensure continuations and spinners remain hidden
+  grid.querySelectorAll('ytd-continuation-item-renderer, #continuation').forEach(c => {
+    c.style.setProperty('display', 'none', 'important');
+  });
+}
+
+function unlimitHomeFeed() {
+  document.querySelectorAll('[data-iyt-feed-hidden="true"]').forEach(el => {
+    el.removeAttribute('data-iyt-feed-hidden');
+  });
+  document.querySelectorAll('ytd-rich-grid-renderer ytd-continuation-item-renderer, ytd-rich-grid-renderer #continuation').forEach(c => {
+    c.style.removeProperty('display');
+  });
+}
+
+let _feedLimitScheduled = false;
+function scheduleHomeFeedLimit() {
+  if (_feedLimitScheduled || !isEffectiveActive(_settings) || !_settings.limitHomeFeed) return;
+  _feedLimitScheduled = true;
+  requestAnimationFrame(() => {
+    _feedLimitScheduled = false;
+    limitHomeFeedEnforce();
+  });
+}
+
 let _isApplyingClasses = false;
 
 function applyAllClasses(settings) {
   _isApplyingClasses = true;
   try {
     const active = isEffectiveActive(settings);
+    updateHomePageState();
     for (const [key, cls] of Object.entries(CLASS_MAP)) {
       if (active && settings[key]) {
         html.classList.add(cls);
@@ -210,6 +308,9 @@ function applyAllClasses(settings) {
     if (active && settings.limitHomeFeed) {
       html.classList.remove('iyt-no-home-feed');
       html.classList.add('iyt-limit-home-feed');
+      scheduleHomeFeedLimit();
+    } else {
+      unlimitHomeFeed();
     }
     if (active && settings.blockShorts) {
       purgeShortsFromDOM();
@@ -282,17 +383,18 @@ if (browser && browser.runtime && browser.runtime.onMessage) {
 // Initial injection at document_start
 applyAllSettings();
 
-function initShortsDomObserver() {
+function initDomObserver() {
   const target = document.body || document.documentElement;
   if (!target) {
-    document.addEventListener('DOMContentLoaded', initShortsDomObserver, { once: true });
+    document.addEventListener('DOMContentLoaded', initDomObserver, { once: true });
     return;
   }
   const observer = new MutationObserver((mutations) => {
-    if (!isEffectiveActive(_settings) || !_settings.blockShorts) return;
+    if (!isEffectiveActive(_settings)) return;
     for (let i = 0; i < mutations.length; i++) {
       if (mutations[i].addedNodes.length > 0) {
-        scheduleShortsPurge();
+        if (_settings.blockShorts) scheduleShortsPurge();
+        if (_settings.limitHomeFeed) scheduleHomeFeedLimit();
         break;
       }
     }
@@ -301,18 +403,29 @@ function initShortsDomObserver() {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initShortsDomObserver, { once: true });
+  document.addEventListener('DOMContentLoaded', initDomObserver, { once: true });
 } else {
-  initShortsDomObserver();
+  initDomObserver();
 }
 
 document.addEventListener('yt-navigate-finish', () => {
+  updateHomePageState();
   checkSnoozeExpiry();
   scheduleShortsPurge();
+  scheduleHomeFeedLimit();
 });
 document.addEventListener('yt-page-data-updated', () => {
+  updateHomePageState();
   checkSnoozeExpiry();
   scheduleShortsPurge();
+  scheduleHomeFeedLimit();
+});
+window.addEventListener('popstate', () => {
+  updateHomePageState();
+  scheduleHomeFeedLimit();
+});
+window.addEventListener('resize', () => {
+  scheduleHomeFeedLimit();
 });
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
@@ -327,5 +440,6 @@ window.__iytBlocker = {
   applyAllSettings,
   applyAutoplay,
   purgeShortsFromDOM,
+  limitHomeFeedEnforce,
   checkShortsRedirect: () => checkShortsRedirect(_settings)
 };
