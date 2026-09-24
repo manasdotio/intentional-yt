@@ -330,7 +330,7 @@ function getSectionActiveCount(secName, s) {
   let count = 0;
   for (const key of toggleKeys) {
     if (['blockVideoButtons', 'blockChannelInfo', 'blockVideoDescription'].includes(key)) {
-      if (settings.blockVideoInfo && settings[key]) {
+      if (!settings.blockVideoInfo && settings[key]) {
         count++;
       }
     } else if (settings[key]) {
@@ -674,6 +674,36 @@ async function dismissWelcomeCard() {
 
 /* ── In-Popup Toggle Quick Search ──────────────────────── */
 
+const SEARCH_ALIASES = {
+  blockVideoInfo: 'metadata details title header author panel video info',
+  blockVideoButtons: 'like dislike share clip download save action buttons video buttons',
+  blockChannelInfo: 'channel info owner creator author avatar subscribe subscriber count',
+  blockVideoDescription: 'description text summary details expandable video description hide description sub toggle',
+  limitHomeFeed: 'limit home feed doomscroll anti-doomscroll scroll infinite',
+  blockHomeFeed: 'home feed recommendations homepage algorithmic feed',
+  blockShorts: 'shorts reel reels tiktok vertical videos',
+  redirectShorts: 'redirect shorts normal player standard view',
+  blockEndScreenVideowall: 'end screen videowall next watch grid recommendations',
+  blockEndScreenCards: 'end screen cards creator cards annotations',
+  blockLiveChat: 'live chat stream chat replay',
+  blockPlaylist: 'playlist panel playlist queue',
+  disableAutoplay: 'disable autoplay next video auto play',
+  disableAnnotations: 'annotations cards popups notes',
+  blockComments: 'comments replies discussion community',
+  blockProfilePhotos: 'profile photos avatars pictures',
+  blockSidebar: 'sidebar guide drawer navigation menu left panel',
+  blockRecommended: 'recommended sidebar up next related suggestions related videos',
+  blockExploreAndTrending: 'explore trending popular destination fire',
+  blockMoreFromYouTube: 'more from youtube premium movies music gaming',
+  blockIrrelevantSearchResults: 'search shelves for you people also watched searches related',
+  blockTopHeader: 'top header masthead search bar top bar',
+  blockNotificationBell: 'notification bell bell alerts',
+  blockMerch: 'merch offers shopping products merchandise',
+  blockMixPlaylists: 'mix playlists mixes radio endless mix',
+  hideThumbnails: 'thumbnails preview images blur picture',
+  grayscaleMode: 'grayscale black and white monochrome bw gray colour'
+};
+
 let _searchPrevCollapsed = null;
 
 function filterToggles(query) {
@@ -705,6 +735,13 @@ function filterToggles(query) {
         });
       }
     }
+
+    // Restore subordinate container to stored toggle state
+    const videoInfoChildren = $('video-info-children');
+    if (videoInfoChildren) {
+      videoInfoChildren.style.display = _s?.blockVideoInfo ? 'block' : 'none';
+    }
+
     _searchPrevCollapsed = null;
     updateAccordionBadges(_s);
     return;
@@ -721,6 +758,7 @@ function filterToggles(query) {
     }
   }
 
+  const queryTerms = q.split(/\s+/).filter(Boolean);
   let totalMatches = 0;
 
   for (const sec of ACCORDION_SECTIONS) {
@@ -729,13 +767,30 @@ function filterToggles(query) {
     if (!secEl || !body) continue;
 
     let secMatches = 0;
-    const rows = body.querySelectorAll('.row');
-    rows.forEach(row => {
+    const regularRows = body.querySelectorAll('.row:not(.sub)');
+    const subRows = body.querySelectorAll('.row.sub');
+    const videoInfoChildren = $('video-info-children');
+    const videoInfoRow = $('toggle-blockVideoInfo')?.closest('.row');
+
+    // Helper to evaluate row match against all query tokens
+    const checkRowMatch = (row) => {
+      const chk = row.querySelector('input.chk');
+      const key = chk?.id?.replace(/^toggle-/, '') || '';
       const text = row.querySelector('.row-text')?.textContent || '';
       const desc = row.querySelector('.row-desc')?.textContent || '';
-      const combined = (text + ' ' + desc).toLowerCase();
+      const aliases = (key && SEARCH_ALIASES[key]) ? SEARCH_ALIASES[key] : '';
+      const isSub = row.classList.contains('sub');
+      const parentContext = isSub ? 'video info panel metadata ' : '';
+      const combined = (text + ' ' + desc + ' ' + aliases + ' ' + parentContext).toLowerCase();
 
-      if (combined.includes(q)) {
+      return queryTerms.every(term => combined.includes(term));
+    };
+
+    // Evaluate regular rows
+    regularRows.forEach(row => {
+      if (row === videoInfoRow) return;
+
+      if (checkRowMatch(row)) {
         row.style.display = 'flex';
         secMatches++;
         totalMatches++;
@@ -743,6 +798,47 @@ function filterToggles(query) {
         row.style.display = 'none';
       }
     });
+
+    // Handle video info parent + sub-rows coordination in sec-video
+    if (sec === 'video') {
+      let anySubMatches = false;
+      subRows.forEach(subRow => {
+        if (checkRowMatch(subRow)) {
+          subRow.style.display = 'flex';
+          anySubMatches = true;
+          secMatches++;
+          totalMatches++;
+        } else {
+          subRow.style.display = 'none';
+        }
+      });
+
+      const parentMatches = videoInfoRow ? checkRowMatch(videoInfoRow) : false;
+
+      if (anySubMatches) {
+        // A sub-toggle (e.g. "Description") matched!
+        // Show video-info-children container AND show the parent row for context & tree rail
+        if (videoInfoChildren) videoInfoChildren.style.display = 'block';
+        if (videoInfoRow) videoInfoRow.style.display = 'flex';
+        if (parentMatches) {
+          secMatches++;
+          totalMatches++;
+        }
+      } else if (parentMatches) {
+        // Parent matched (e.g. "video info"), show parent AND open drawer with all sub-toggles
+        if (videoInfoRow) videoInfoRow.style.display = 'flex';
+        if (videoInfoChildren) videoInfoChildren.style.display = 'block';
+        subRows.forEach(subRow => {
+          subRow.style.display = 'flex';
+        });
+        secMatches++;
+        totalMatches++;
+      } else {
+        // Neither parent nor sub-rows matched
+        if (videoInfoRow) videoInfoRow.style.display = 'none';
+        if (videoInfoChildren) videoInfoChildren.style.display = 'none';
+      }
+    }
 
     if (secMatches > 0) {
       secEl.style.display = '';
@@ -1303,7 +1399,12 @@ function renderAll(s) {
   }
   updateSnoozeBanner(s);
 
-  $('video-info-children').style.display = s.blockVideoInfo ? 'block' : 'none';
+  const searchInput = $('input-toggle-search');
+  if (searchInput?.value?.trim()) {
+    filterToggles(searchInput.value);
+  } else {
+    $('video-info-children').style.display = s.blockVideoInfo ? 'block' : 'none';
+  }
 
   // Soft reminder
   const softMin = s.softReminder?.intervalMinutes || 30;
@@ -1570,7 +1671,12 @@ function bindAll() {
             if (_s) _s[key] = false;
             broadcastSettingsToTabs(_s);
             if (key === 'blockVideoInfo') {
-              $('video-info-children').style.display = 'none';
+              const searchInput = $('input-toggle-search');
+              if (searchInput?.value?.trim()) {
+                filterToggles(searchInput.value);
+              } else {
+                $('video-info-children').style.display = 'none';
+              }
             }
             updateAccordionBadges(_s);
             updatePresetUI(_s);
@@ -1588,7 +1694,12 @@ function bindAll() {
           }
         }
         if (key === 'blockVideoInfo') {
-          $('video-info-children').style.display = targetVal ? 'block' : 'none';
+          const searchInput = $('input-toggle-search');
+          if (searchInput?.value?.trim()) {
+            filterToggles(searchInput.value);
+          } else {
+            $('video-info-children').style.display = targetVal ? 'block' : 'none';
+          }
         }
         updateAccordionBadges(_s);
         updatePresetUI(_s);

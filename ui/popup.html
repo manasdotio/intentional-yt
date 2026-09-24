@@ -258,23 +258,35 @@
               </label>
               <label class="row">
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                <span class="row-text" data-i18n="toggle_block_video_info">Hide video info panel</span>
+                <div class="row-text-group">
+                  <span class="row-text" data-i18n="toggle_block_video_info">Hide video info panel</span>
+                  <span class="row-desc" data-i18n="desc_block_video_info">Hides all information and actions under the video player</span>
+                </div>
                 <input type="checkbox" class="chk" id="toggle-blockVideoInfo" />
               </label>
               <div id="video-info-children" style="display:none">
                 <label class="row sub">
                   <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-                  <span class="row-text" data-i18n="toggle_block_video_buttons">Action buttons</span>
+                  <div class="row-text-group">
+                    <span class="row-text" data-i18n="toggle_block_video_buttons">Action buttons</span>
+                    <span class="row-desc" data-i18n="desc_block_video_buttons">Hides like, dislike, share, download, and clip buttons</span>
+                  </div>
                   <input type="checkbox" class="chk" id="toggle-blockVideoButtons" />
                 </label>
                 <label class="row sub">
                   <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  <span class="row-text" data-i18n="toggle_block_channel_info">Channel info</span>
+                  <div class="row-text-group">
+                    <span class="row-text" data-i18n="toggle_block_channel_info">Channel info</span>
+                    <span class="row-desc" data-i18n="desc_block_channel_info">Hides channel name, avatar, and subscribe button</span>
+                  </div>
                   <input type="checkbox" class="chk" id="toggle-blockChannelInfo" />
                 </label>
                 <label class="row sub">
                   <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="18" y1="18" x2="3" y2="18"/></svg>
-                  <span class="row-text" data-i18n="toggle_block_video_description">Description</span>
+                  <div class="row-text-group">
+                    <span class="row-text" data-i18n="toggle_block_video_description">Description</span>
+                    <span class="row-desc" data-i18n="desc_block_video_description">Hides expandable video description text and details</span>
+                  </div>
                   <input type="checkbox" class="chk" id="toggle-blockVideoDescription" />
                 </label>
               </div>
