@@ -218,42 +218,34 @@ function limitHomeFeedEnforce() {
   const items = grid.querySelectorAll(':scope > ytd-rich-item-renderer');
   if (!items || items.length === 0) return;
 
-  let secondRowIdx = -1;
-  // 1. YouTube marks the start of each row with [is-in-first-column]
-  for (let i = 1; i < items.length; i++) {
-    if (items[i].hasAttribute('is-in-first-column')) {
-      secondRowIdx = i;
-      break;
-    }
+  // Determine items per row (default 3 or from attribute)
+  let perRow = 3;
+  const firstAttr = items[0].getAttribute('items-per-row');
+  if (firstAttr) {
+    const parsed = parseInt(firstAttr, 10);
+    if (!isNaN(parsed) && parsed > 0) perRow = parsed;
   }
 
-  // 2. Check items-per-row attribute on items
-  if (secondRowIdx === -1) {
-    const perRowAttr = items[0].getAttribute('items-per-row');
-    if (perRowAttr) {
-      const perRow = parseInt(perRowAttr, 10);
-      if (!isNaN(perRow) && perRow > 0) {
-        secondRowIdx = perRow;
-      }
-    }
+  // Calculate target limit: at least 18 items, multiple of perRow
+  // 3 per row -> 18 items (6 rows)
+  // 4 per row -> 20 items (5 rows)
+  // 5 per row -> 20 items (4 rows)
+  // 6 per row -> 18 items (3 rows)
+  // 2 per row -> 18 items (9 rows)
+  let targetLimit = 18;
+  if (perRow === 4 || perRow === 5) {
+    targetLimit = 20;
+  } else if (perRow > 0) {
+    targetLimit = Math.ceil(18 / perRow) * perRow;
   }
 
-  // 3. Fallback: compare offsetTop with first item
-  if (secondRowIdx === -1) {
-    const firstTop = items[0].offsetTop;
-    for (let i = 1; i < items.length; i++) {
-      if (Math.abs(items[i].offsetTop - firstTop) > 20) {
-        secondRowIdx = i;
-        break;
-      }
-    }
+  // If we haven't reached the target limit yet, let YouTube load more
+  if (items.length < targetLimit) {
+    return;
   }
-
-  // 4. Ultimate fallback to 4 items
-  if (secondRowIdx === -1) secondRowIdx = 4;
 
   for (let i = 0; i < items.length; i++) {
-    if (i < secondRowIdx) {
+    if (i < targetLimit) {
       if (items[i].hasAttribute('data-iyt-feed-hidden')) {
         items[i].removeAttribute('data-iyt-feed-hidden');
       }
@@ -264,7 +256,7 @@ function limitHomeFeedEnforce() {
     }
   }
 
-  // Ensure continuations and spinners remain hidden
+  // Ensure continuations and spinners remain hidden once limit is reached
   grid.querySelectorAll('ytd-continuation-item-renderer, #continuation').forEach(c => {
     c.style.setProperty('display', 'none', 'important');
   });

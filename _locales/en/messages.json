@@ -44,7 +44,7 @@
     "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
   },
   "desc_limit_home_feed": {
-    "message": "Limits the home feed to the first row of videos and disables infinite scroll",
+    "message": "Limits the home feed to 18 videos and disables infinite scroll",
     "description": "Helper explanation for limiting home feed videos"
   },
   "toggle_block_subscriptions": {

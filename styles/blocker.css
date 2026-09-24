@@ -24,81 +24,68 @@ html[data-iyt-is-home="true"].iyt-no-home-feed #contents {
 
 /* ═══════════════════════════════════════════════════════════
    HOME FEED LIMIT (Anti-Doomscroll)
-   Limits home feed to first row of videos & stops infinite scroll
+   Limits home feed to at least 18 videos & stops infinite scroll
 ═══════════════════════════════════════════════════════════ */
-/* 1. is-in-first-column attribute: Every row starts with an element having [is-in-first-column].
-   The 2nd row's first column is the first [is-in-first-column] element that is NOT :first-of-type.
-   Target it and all general sibling items (~) following it! */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[is-in-first-column]:not(:first-of-type),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[is-in-first-column]:not(:first-of-type) ~ ytd-rich-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[is-in-first-column]:not(:first-of-type) ~ ytd-rich-section-renderer,
+/* 1. items-per-row grid: Show at least 18 videos (complete full rows)
+   - 3 items per row: 6 rows = 18 videos (hide from 19)
+   - 4 items per row: 5 rows = 20 videos (hide from 21)
+   - 5 items per row: 4 rows = 20 videos (hide from 21)
+   - 6 items per row: 3 rows = 18 videos (hide from 19)
+   - 2 items per row: 9 rows = 18 videos (hide from 19) */
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="3"]:nth-of-type(n+19),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="4"]:nth-of-type(n+21),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="5"]:nth-of-type(n+21),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="6"]:nth-of-type(n+19),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="2"]:nth-of-type(n+19),
 
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[is-in-first-column]:not(:first-of-type),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[is-in-first-column]:not(:first-of-type) ~ ytd-rich-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[is-in-first-column]:not(:first-of-type) ~ ytd-rich-section-renderer,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="3"]:nth-of-type(n+19),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="4"]:nth-of-type(n+21),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="5"]:nth-of-type(n+21),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="6"]:nth-of-type(n+19),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="2"]:nth-of-type(n+19),
 
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[is-in-first-column]:not(:first-of-type),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[is-in-first-column]:not(:first-of-type) ~ ytd-rich-item-renderer,
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[is-in-first-column]:not(:first-of-type) ~ ytd-rich-section-renderer,
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="3"]:nth-of-type(n+19),
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="4"]:nth-of-type(n+21),
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="5"]:nth-of-type(n+21),
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="6"]:nth-of-type(n+19),
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="2"]:nth-of-type(n+19),
 
-/* 2. items-per-row attribute (modern YouTube attaches items-per-row directly to ytd-rich-item-renderer) */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="2"]:nth-of-type(n+3),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="3"]:nth-of-type(n+4),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="4"]:nth-of-type(n+5),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="5"]:nth-of-type(n+6),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="6"]:nth-of-type(n+7),
+/* 2. Direct index fallback (18 items) */
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+19),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+19),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+19),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+19),
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+19),
 
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="2"]:nth-of-type(n+3),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="3"]:nth-of-type(n+4),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="4"]:nth-of-type(n+5),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="5"]:nth-of-type(n+6),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="6"]:nth-of-type(n+7),
+/* 3. Legacy row-based grid fallback (6 rows visible, hide from row 7) */
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-row:nth-of-type(n+7),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-row:nth-of-type(n+7),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-row:nth-of-type(n+7),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-row:nth-of-type(n+7),
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-row:nth-of-type(n+7),
 
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="2"]:nth-of-type(n+3),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="3"]:nth-of-type(n+4),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="4"]:nth-of-type(n+5),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="5"]:nth-of-type(n+6),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="6"]:nth-of-type(n+7),
-
-/* 3. Legacy row-based grid fallback (ytd-rich-grid-row) */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-row:nth-of-type(n+2),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-row:nth-of-type(n+2),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-row:nth-of-type(n+2),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-row:nth-of-type(n+2),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-row:nth-of-type(n+2),
-
-/* 4. Direct index fallback (defaults to 4 items max if attributes are stripped) */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+5),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+5),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+5),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+5),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+5),
-
-/* 5. Dynamically tagged items via JS runtime guard */
+/* 4. Dynamically tagged items via JS runtime guard */
 html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[data-iyt-feed-hidden="true"],
 
-/* 6. In-feed sections (Shorts shelves, breaking news shelves, ad slots) - preserve top chip bar if nested */
+/* 5. In-feed sections (Shorts shelves, breaking news shelves, ad slots) - preserve top chip bar if nested */
 html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
 html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
 html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
 html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
 html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+18) ~ ytd-rich-section-renderer,
 
-/* 7. Continuations and infinite scroll loaders */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-continuation-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-continuation-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-continuation-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-continuation-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) #continuation,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] #continuation,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer ytd-continuation-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #continuation,
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-continuation-item-renderer,
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) #continuation,
+/* 6. Continuations and infinite scroll loaders - hide once at least 18 items are present */
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+18) ~ ytd-continuation-item-renderer,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+18) ~ #continuation,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+18) ~ ytd-continuation-item-renderer,
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+18) ~ ytd-continuation-item-renderer,
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+18) ~ ytd-continuation-item-renderer,
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+18) ~ #continuation,
 
-/* 8. Mobile web layout */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-browse ytm-item-section-renderer:nth-of-type(n+2),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-browse ytm-continuation-item-renderer {
+/* 7. Mobile web layout (approx 18 items) */
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-browse ytm-item-section-renderer:nth-of-type(n+19),
+html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-browse ytm-item-section-renderer:nth-of-type(n+18) ~ ytm-continuation-item-renderer {
   display: none !important;
 }
 
