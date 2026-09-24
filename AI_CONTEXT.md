@@ -19,10 +19,12 @@ Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or s
 **Intentional YT solves this with:**
 1. **Zero-Flash DOM Ingestion**: Injects high-specificity CSS rules onto `<html>` at `document_start` before the browser renders the first pixel (0ms render lag, 0 flicker).
 2. **Surgical Granularity (20+ Independent Toggles)**: Keep subscriptions while hiding home feed recommendations; hide comments but keep descriptions; etc.
-3. **Deep Shorts Elimination**: Completely suppresses YouTube Shorts across homepage shelves, sidebar tabs, search results, channel tabs, and watch recommendations.
-4. **Dopamine De-stimulation**: Clickbait thumbnail neutralization (with duration badges and video titles preserved) and site-wide hardware-accelerated grayscale mode.
-5. **Mindful Watch Tracking**: Local active playback meter (HTML5 video tracking), customizable soft break reminder toasts, and hard daily watch ceilings with automated midnight resets.
-6. **100% Local Privacy (0% Telemetry)**: No remote analytics, no tracking pixels, zero external network requests. Everything is strictly sandboxed in `browser.storage.local`.
+3. **Anti-Doomscroll Feed Limiter**: Option to limit the homepage feed to a single calm batch of 15 recommendations, stopping infinite scroll with a peaceful caught-up banner.
+4. **Deep Shorts Elimination**: Completely suppresses YouTube Shorts across homepage shelves, sidebar tabs, search results, channel tabs, and watch recommendations.
+5. **Dopamine De-stimulation**: Clickbait thumbnail neutralization (with duration badges and video titles preserved) and site-wide hardware-accelerated grayscale mode.
+6. **Mindful Watch Tracking & Focus Lock**: Local active playback meter (HTML5 video tracking), customizable soft break reminder toasts, weekly automation scheduling, and hard daily watch ceilings.
+7. **Modern 4-Tab Popup UI**: Focus (with instant presets and live filter search), Schedule, Filters (content rules preview), and Settings (smart review CTAs, backups).
+8. **100% Local Privacy (0% Telemetry)**: No remote analytics, no tracking pixels, zero external network requests. Everything is strictly sandboxed in `browser.storage.local`.
 
 ---
 
@@ -30,6 +32,7 @@ Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or s
 
 ### 1. Feed & Algorithmic Discovery
 - `blockHomeFeed`: Replaces infinite homepage recommendations with a clean, distraction-free search interface.
+- `limitHomeFeed`: Caps homepage recommendations to the first 15 videos, halts infinite scroll pagination, and displays the mindful caught-up banner (`✦ You're all caught up • Feed limit active`). Mutually exclusive with `blockHomeFeed`.
 - `blockSubscriptionsFeed`: Suppresses subscription feed grid when intentional search-only browsing is desired.
 - `blockExploreAndTrending`: Removes trending hubs, gaming, movies, and promotional sidebar menus.
 - `blockMoreFromYouTube`: Removes YouTube Premium, Studio, Kids, TV, and Music cross-promotions.

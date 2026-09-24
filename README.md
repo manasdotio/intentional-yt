@@ -55,6 +55,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 
 ### 🎛️ Feed & Homepage Discovery
 - **Hide Home Feed (`blockHomeFeed`)**: Replaces the addictive infinite homepage recommendations with a clean, distraction-free search interface.
+- **Limit Home Feed / Anti-Doomscroll (`limitHomeFeed`)**: Caps homepage recommendations to the first 15 videos (first screen) and hard-stops infinite scroll with an intentional caught-up banner (`✦ You're all caught up • Feed limit active`). Ideal when you want a quick check without falling into an algorithmic rabbit hole.
 - **Hide Subscriptions Feed (`blockSubscriptionsFeed`)**: Suppresses the subscription grid when you want to look up specific topics without inbox-style pressure.
 - **Hide Explore & Trending (`blockExploreAndTrending`)**: Cleans out trending hubs, gaming, movies, and promotional navigation sections.
 - **Hide "More from YouTube" (`blockMoreFromYouTube`)**: Removes YouTube Premium, Studio, Kids, TV, and Music cross-promotions from the sidebar.
@@ -106,6 +107,14 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 - **Soft Break Reminder Toasts**: Gentle, floating notification toasts at customizable intervals (e.g. every 15, 30, or 45 minutes of continuous watching).
 - **Hard Daily Playback Ceilings**: Optional daily watch quota (e.g. 45 or 60 minutes). When exceeded, video playback locks with a mindful pause overlay.
 
+### 🧭 Modern Popup Interface & Automation
+- **Tabbed Experience**: Clean division across **Focus** (presets & toggles), **Schedule** (automation), **Filters** (content keyword blocking preview), and **Settings** (review links, stats reset, backups).
+- **3 One-Click Presets**: **Deep Work** (maximum shielding), **Balanced Focus** (mindful feed + blocked Shorts), and **Video Only** (pure cinema player).
+- **Quick Search Filter**: Instant real-time filtering across all 20+ toggles with keyboard navigation and aliases.
+- **Focus Lock**: Lock toggles for set durations during study or work sessions to avoid impulsive override.
+- **Automated Scheduling**: Automatically activate focus modes during custom daily or weekday time windows.
+- **Smart Store Review CTAs**: Automatically detects whether running on Chrome or Firefox and routes you directly to the right extension store review modal.
+
 ---
 
 ### 📋 Full Feature Matrix & CSS Class Tokens
@@ -113,6 +122,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 | Feature Name | Storage Key | Injected Class on `<html>` | Default |
 | :--- | :--- | :--- | :---: |
 | **Hide Home Feed** | `blockHomeFeed` | `iyt-no-home-feed` | `true` |
+| **Limit Home Feed (Anti-Doomscroll)** | `limitHomeFeed` | `iyt-limit-home-feed` | `false` |
 | **Hide Recommended Sidebar** | `blockRecommended` | `iyt-no-recommended` | `true` |
 | **Hide Left Sidebar** | `blockSidebar` | `iyt-no-sidebar` | `true` |
 | **Hide Shorts Everywhere** | `blockShorts` | `iyt-no-shorts` | `true` |

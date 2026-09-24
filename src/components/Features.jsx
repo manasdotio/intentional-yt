@@ -53,7 +53,7 @@ export default function Features() {
           </div>
           <h3 className="bento-title">Surgical Customization</h3>
           <p className="bento-text">
-            No forced all-or-nothing blocking. Keep your subscribed channels while wiping out algorithmic recommendations and Shorts everywhere.
+            No forced all-or-nothing blocking. Keep your subscribed channels while wiping out algorithmic recommendations and Shorts everywhere, or use Anti-Doomscroll to cap the home feed to 15 calm videos.
           </p>
         </div>
 

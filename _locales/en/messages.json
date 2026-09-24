@@ -1072,6 +1072,22 @@
   "snooze_resumed": {
     "message": "Protections resumed",
     "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "Off",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "Extension Master Toggle",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "Daily watch time reset",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "In Development",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }
 

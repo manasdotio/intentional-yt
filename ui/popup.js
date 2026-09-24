@@ -495,7 +495,7 @@ function updateFocusCardBadges(s) {
   if (schedBadge) {
     const schedOn = !!settings.scheduledBlocking?.enabled;
     const schedules = settings.scheduledBlocking?.schedules || [];
-    const activeScheds = schedules.filter(x => !x.disabled);
+    const activeScheds = schedules.filter(x => x.enabled);
 
     if (schedOn) {
       schedBadge.textContent = activeScheds.length > 0 ? `${activeScheds.length} Active` : 'Enabled';
@@ -681,6 +681,7 @@ const SEARCH_ALIASES = {
   blockVideoDescription: 'description text summary details expandable video description hide description sub toggle',
   limitHomeFeed: 'limit home feed doomscroll anti-doomscroll scroll infinite',
   blockHomeFeed: 'home feed recommendations homepage algorithmic feed',
+  blockSubscriptionsFeed: 'subscriptions subs feed channels subscribed subscription',
   blockShorts: 'shorts reel reels tiktok vertical videos',
   redirectShorts: 'redirect shorts normal player standard view',
   blockEndScreenVideowall: 'end screen videowall next watch grid recommendations',
@@ -1692,19 +1693,11 @@ function bindAll() {
           false,
           () => { el.checked = true; },
           async () => {
-            await StorageManager.updateSetting(key, false);
-            if (_s) _s[key] = false;
+            const updated = await StorageManager.updateSetting(key, false);
+            if (updated) _s = updated;
+            else if (_s) _s[key] = false;
             broadcastSettingsToTabs(_s);
-            if (key === 'blockVideoInfo') {
-              const searchInput = $('input-toggle-search');
-              if (searchInput?.value?.trim()) {
-                filterToggles(searchInput.value);
-              } else {
-                $('video-info-children').style.display = 'none';
-              }
-            }
-            updateAccordionBadges(_s);
-            updatePresetUI(_s);
+            renderAll(_s);
           }
         );
       } else {
@@ -2203,9 +2196,14 @@ function bindAll() {
       ? 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/reviews/'
       : 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews';
   }
-  if (labelRateStore && isFirefox) {
-    labelRateStore.setAttribute('data-i18n', 'setting_rate_firefox');
-    labelRateStore.textContent = t('setting_rate_firefox') || 'Rate on Firefox AMO';
+  if (isFirefox) {
+    if (linkRateStore) {
+      linkRateStore.title = t('setting_rate_firefox') || 'Rate on Firefox AMO';
+    }
+    if (labelRateStore) {
+      labelRateStore.setAttribute('data-i18n', 'setting_rate_firefox');
+      labelRateStore.textContent = t('setting_rate_firefox') || 'Rate on Firefox AMO';
+    }
   }
 
   // Backup & Restore: Export Settings
@@ -2332,7 +2330,7 @@ function bindAll() {
   });
   $('btn-stats-panel-reset')?.addEventListener('click', async () => {
     await StorageManager.resetDailyStats();
-    showToast('Daily watch time reset');
+    showToast(t('stats_reset_toast') || 'Daily watch time reset');
   });
 
   // Backdrop click dismisses any active modal overlay
@@ -2341,6 +2339,7 @@ function bindAll() {
       if (e.target === overlay) {
         hidePinModals();
         hideConfirmResetModal();
+        closeSnoozeModal();
       }
     });
   });
@@ -2350,6 +2349,7 @@ function bindAll() {
     if (e.key === 'Escape') {
       hidePinModals();
       hideConfirmResetModal();
+      closeSnoozeModal();
     }
   });
 

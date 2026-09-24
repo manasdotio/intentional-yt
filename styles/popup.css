@@ -37,6 +37,8 @@
   --surface-header:    #FFFFFF;
   --surface-footer:    #F9FAFB;
   --surface-inset:     #F3F4F6;
+  --surface:           var(--surface-elevated);
+  --surface-card:      var(--surface-elevated);
 
   /* Ink — high-clarity humanist contrast */
   --ink-primary:       #0F172A;   /* Deep charcoal ink */
@@ -116,6 +118,7 @@
   --ease-spring:       cubic-bezier(0.16, 1, 0.3, 1);
   --duration-snap:     140ms;
   --duration-enter:    220ms;
+  --duration-normal:   200ms;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -2216,7 +2219,7 @@ body.ext-off .lang-row {
 
 /* ============================================================
    BLOCKLISTS / FILTERS TAB (UPCOMING ROADMAP CARDS)
-   Clean, low-noise, high-craft preview for upcoming v2.2 features
+   Clean, low-noise, high-craft preview for upcoming features
    ============================================================ */
 .filters-card-wrap {
   padding: 2px 14px 16px;

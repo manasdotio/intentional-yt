@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 export default function Simulator() {
   const [controls, setControls] = useState({
     homeFeed: true,
+    limitHomeFeed: false,
     shorts: true,
     sidebar: false,
     thumbnails: false,
@@ -11,20 +12,31 @@ export default function Simulator() {
     comments: true
   })
 
-  const isChaos = !controls.homeFeed && !controls.shorts && !controls.sidebar && !controls.thumbnails && !controls.grayscale
-  const isZen = controls.homeFeed && controls.shorts && !controls.sidebar && !controls.thumbnails && !controls.grayscale
+  const isChaos = !controls.homeFeed && !controls.limitHomeFeed && !controls.shorts && !controls.sidebar && !controls.thumbnails && !controls.grayscale
+  const isLimited = !controls.homeFeed && controls.limitHomeFeed
+  const isZen = controls.homeFeed && !controls.limitHomeFeed && controls.shorts && !controls.sidebar && !controls.thumbnails && !controls.grayscale
 
   const handleToggle = (key) => {
-    setControls((prev) => ({
-      ...prev,
-      [key]: !prev[key]
-    }))
+    setControls((prev) => {
+      const next = {
+        ...prev,
+        [key]: !prev[key]
+      }
+      // Enforce mutual exclusivity between hiding home feed and limiting home feed
+      if (key === 'homeFeed' && next.homeFeed) {
+        next.limitHomeFeed = false
+      } else if (key === 'limitHomeFeed' && next.limitHomeFeed) {
+        next.homeFeed = false
+      }
+      return next
+    })
   }
 
   const setPreset = (mode) => {
     if (mode === 'chaos') {
       setControls({
         homeFeed: false,
+        limitHomeFeed: false,
         shorts: false,
         sidebar: false,
         thumbnails: false,
@@ -32,9 +44,21 @@ export default function Simulator() {
         autoplay: false,
         comments: false
       })
+    } else if (mode === 'limited') {
+      setControls({
+        homeFeed: false,
+        limitHomeFeed: true,
+        shorts: true,
+        sidebar: false,
+        thumbnails: false,
+        grayscale: false,
+        autoplay: true,
+        comments: false
+      })
     } else {
       setControls({
         homeFeed: true,
+        limitHomeFeed: false,
         shorts: true,
         sidebar: false,
         thumbnails: false,
@@ -62,6 +86,12 @@ export default function Simulator() {
               onClick={() => setPreset('chaos')}
             >
               Default Clutter
+            </button>
+            <button
+              className={`mode-btn ${isLimited ? 'active' : ''}`}
+              onClick={() => setPreset('limited')}
+            >
+              Anti-Doomscroll
             </button>
             <button
               className={`mode-btn ${isZen ? 'active' : ''}`}
@@ -167,6 +197,60 @@ export default function Simulator() {
                     </div>
                     <span className="zen-quote">"Attention is the currency of intention."</span>
                   </div>
+                ) : controls.limitHomeFeed ? (
+                  /* Anti-Doomscroll Limited Feed (15 Videos Max + Calm Caught-up Banner) */
+                  <div className="yt-feed-grid">
+                    <div className="yt-card">
+                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
+                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>🧠 DEEP WORK HABITS</span>
+                        <span className="yt-thumb-badge">18:45</span>
+                      </div>
+                      <div className="yt-card-info">
+                        <div className="yt-card-title">How to Build 4 Hours of Unbroken Focus Every Day</div>
+                        <div className="yt-card-sub">Mindful Creator • 420K views</div>
+                      </div>
+                    </div>
+
+                    <div className="yt-card">
+                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
+                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>📐 VECTOR CALCULUS</span>
+                        <span className="yt-thumb-badge">24:10</span>
+                      </div>
+                      <div className="yt-card-info">
+                        <div className="yt-card-title">Multivariable Calculus: Intuition Behind Vector Fields</div>
+                        <div className="yt-card-sub">Academic Hub • 180K views</div>
+                      </div>
+                    </div>
+
+                    <div className="yt-card">
+                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
+                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>⚡ SYSTEM ARCHITECTURE</span>
+                        <span className="yt-thumb-badge">31:15</span>
+                      </div>
+                      <div className="yt-card-info">
+                        <div className="yt-card-title">Designing Distributed Systems with Zero Dependencies</div>
+                        <div className="yt-card-sub">Tech Lead • 95K views</div>
+                      </div>
+                    </div>
+
+                    <div className="yt-card">
+                      <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
+                        <span style={{ opacity: controls.thumbnails ? 0.3 : 1 }}>🌿 DIGITAL DETOX</span>
+                        <span className="yt-thumb-badge">14:02</span>
+                      </div>
+                      <div className="yt-card-info">
+                        <div className="yt-card-title">Why Leaving Algorithmic Feeds Restored My Attention Span</div>
+                        <div className="yt-card-sub">Slow Living • 310K views</div>
+                      </div>
+                    </div>
+
+                    {/* Calm End of Feed Banner */}
+                    <div className="calm-end-banner">
+                      <div className="calm-end-badge">✦ You're all caught up</div>
+                      <div className="calm-end-text">Home feed limit active • Infinite scroll blocked</div>
+                      <p className="calm-end-sub">Take a breath, or search directly for what you came here to learn.</p>
+                    </div>
+                  </div>
                 ) : (
                   /* Infinite Recommendations (Chaos View) */
                   <div className="yt-feed-grid">
@@ -231,6 +315,13 @@ export default function Simulator() {
               </span>
             </div>
 
+            <div className="mock-popup-tabs">
+              <span className="mock-popup-tab active">Focus</span>
+              <span className="mock-popup-tab">Schedule</span>
+              <span className="mock-popup-tab">Filters</span>
+              <span className="mock-popup-tab">Settings</span>
+            </div>
+
             <div className="mock-popup-scroll">
               <div className="mock-popup-sh">Feed Controls</div>
 
@@ -241,6 +332,21 @@ export default function Simulator() {
                     type="checkbox"
                     checked={controls.homeFeed}
                     onChange={() => handleToggle('homeFeed')}
+                  />
+                  <span className="demo-slider"></span>
+                </span>
+              </label>
+
+              <label className="mock-popup-row">
+                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  Limit home feed
+                  <span className="mock-badge-tag">NEW</span>
+                </span>
+                <span className="demo-switch">
+                  <input
+                    type="checkbox"
+                    checked={controls.limitHomeFeed}
+                    onChange={() => handleToggle('limitHomeFeed')}
                   />
                   <span className="demo-slider"></span>
                 </span>
