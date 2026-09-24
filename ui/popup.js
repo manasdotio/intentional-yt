@@ -1685,6 +1685,24 @@ function bindAll() {
       } else {
         await StorageManager.updateSetting(key, targetVal);
         if (_s) _s[key] = targetVal;
+
+        // Mutual exclusivity between blockHomeFeed and limitHomeFeed
+        if (key === 'limitHomeFeed' && targetVal) {
+          const blockFeedEl = $('toggle-blockHomeFeed');
+          if (blockFeedEl && blockFeedEl.checked) {
+            blockFeedEl.checked = false;
+            await StorageManager.updateSetting('blockHomeFeed', false);
+            if (_s) _s.blockHomeFeed = false;
+          }
+        } else if (key === 'blockHomeFeed' && targetVal) {
+          const limitFeedEl = $('toggle-limitHomeFeed');
+          if (limitFeedEl && limitFeedEl.checked) {
+            limitFeedEl.checked = false;
+            await StorageManager.updateSetting('limitHomeFeed', false);
+            if (_s) _s.limitHomeFeed = false;
+          }
+        }
+
         broadcastSettingsToTabs(_s);
         if (key === 'extensionEnabled') {
           document.body.classList.toggle('ext-off', !targetVal);

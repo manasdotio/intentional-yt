@@ -205,6 +205,12 @@ function applyAllClasses(settings) {
         html.classList.remove(cls);
       }
     }
+    // Conflict resolution: limitHomeFeed vs blockHomeFeed
+    // If limitHomeFeed is active, prioritize limiting to 1 row over completely hiding the feed
+    if (active && settings.limitHomeFeed) {
+      html.classList.remove('iyt-no-home-feed');
+      html.classList.add('iyt-limit-home-feed');
+    }
     if (active && settings.blockShorts) {
       purgeShortsFromDOM();
     } else {
