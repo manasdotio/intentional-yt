@@ -226,17 +226,17 @@ function limitHomeFeedEnforce() {
     if (!isNaN(parsed) && parsed > 0) perRow = parsed;
   }
 
-  // Calculate target limit: at least 18 items, multiple of perRow
-  // 3 per row -> 18 items (6 rows)
-  // 4 per row -> 20 items (5 rows)
-  // 5 per row -> 20 items (4 rows)
-  // 6 per row -> 18 items (3 rows)
-  // 2 per row -> 18 items (9 rows)
-  let targetLimit = 18;
-  if (perRow === 4 || perRow === 5) {
-    targetLimit = 20;
+  // Calculate target limit: at least 15 items, multiple of perRow
+  // 3 per row -> 15 items (5 rows)
+  // 5 per row -> 15 items (3 rows)
+  // 4 per row -> 16 items (4 rows)
+  // 6 per row -> 15-18 items
+  // 2 per row -> 15-16 items
+  let targetLimit = 15;
+  if (perRow === 4) {
+    targetLimit = 16;
   } else if (perRow > 0) {
-    targetLimit = Math.ceil(18 / perRow) * perRow;
+    targetLimit = Math.ceil(15 / perRow) * perRow;
   }
 
   // If we haven't reached the target limit yet, let YouTube load more
