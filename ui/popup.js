@@ -1263,27 +1263,40 @@ function renderStats(s) {
   if (panelTimeEl) panelTimeEl.textContent = timeFormatted;
 
   const panelStatusEl = $('stats-panel-status');
+  const progWrap = $('watch-prog-wrap');
+  const progEl = $('prog-fill');
+  const limitLabelEl = $('stats-limit-label');
 
   if (s.dailyLimit?.enabled) {
     const limitMin = s.dailyLimit.limitMinutes || 60;
     const pct = Math.min(100, Math.round((secs / (limitMin * 60)) * 100));
-    const progEl = $('prog-fill');
-    if (progEl) progEl.style.width = `${pct}%`;
-    const limitLabelEl = $('stats-limit-label');
+
+    if (progWrap) progWrap.style.display = 'block';
+    if (progEl) {
+      progEl.style.width = `${pct}%`;
+      progEl.classList.toggle('prog-warning', pct >= 80 && pct < 100);
+      progEl.classList.toggle('prog-danger', pct >= 100);
+    }
     if (limitLabelEl) {
       limitLabelEl.textContent = t('stats_limit_progress', [String(pct), String(limitMin)]) || `${pct}% of ${limitMin}m`;
+      limitLabelEl.classList.remove('limit-unrestricted');
+      limitLabelEl.title = `${limitMin} minute daily limit`;
     }
     if (panelStatusEl) {
       panelStatusEl.textContent = `${pct}% of ${limitMin} min limit used today`;
       panelStatusEl.classList.toggle('status-warning', pct >= 80);
     }
   } else {
-    const pct = Math.min(100, Math.round((secs / 7200) * 100));
-    const progEl = $('prog-fill');
-    if (progEl) progEl.style.width = `${pct}%`;
-    const limitLabelEl = $('stats-limit-label');
+    // When no daily limit is active, hide the arbitrary progress bar
+    if (progWrap) progWrap.style.display = 'none';
+    if (progEl) {
+      progEl.style.width = '0%';
+      progEl.classList.remove('prog-warning', 'prog-danger');
+    }
     if (limitLabelEl) {
-      limitLabelEl.textContent = t('stats_no_limit') || 'no limit';
+      limitLabelEl.textContent = t('stats_no_limit') || 'No Limit';
+      limitLabelEl.classList.add('limit-unrestricted');
+      limitLabelEl.title = 'Click to set a daily limit';
     }
     if (panelStatusEl) {
       panelStatusEl.textContent = 'No daily limit active (unrestricted)';
@@ -1494,6 +1507,38 @@ function bindAll() {
     e.target.value = val;
     await StorageManager.updateNestedSetting('softReminder', 'intervalMinutes', val);
   });
+
+  // Preview soft reminder toast on active YouTube tab
+  const btnPreviewSoft = $('btn-preview-soft-reminder');
+  if (btnPreviewSoft) {
+    btnPreviewSoft.addEventListener('click', async () => {
+      try {
+        const softMin = _s?.softReminder?.intervalMinutes || 30;
+        const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+        const activeTab = tabs && tabs[0];
+        const isYt = activeTab?.url && (activeTab.url.includes('youtube.com') || activeTab.url.includes('youtu.be'));
+
+        if (activeTab?.id && isYt) {
+          await browser.tabs.sendMessage(activeTab.id, {
+            type: 'IYT_PREVIEW_TOAST',
+            minutes: softMin
+          });
+          const span = btnPreviewSoft.querySelector('span');
+          const originalText = span ? span.textContent : 'Preview';
+          if (span) span.textContent = t('btn_preview_sent') || 'Sent!';
+          btnPreviewSoft.classList.add('is-sent');
+          setTimeout(() => {
+            if (span) span.textContent = originalText;
+            btnPreviewSoft.classList.remove('is-sent');
+          }, 1500);
+        } else {
+          showToast(t('toast_preview_need_yt') || 'Open a YouTube tab to preview the reminder toast');
+        }
+      } catch (e) {
+        showToast(t('toast_preview_need_yt') || 'Open a YouTube tab to preview the reminder toast');
+      }
+    });
+  }
 
   // Nested: daily limit
   $('toggle-dailyLimit').addEventListener('change', async e => {
@@ -1778,9 +1823,31 @@ function bindAll() {
     renderSchedulesList(_s);
   });
 
-  // Stats reset
-  $('stats-reset').addEventListener('click', async () => {
-    await StorageManager.resetDailyStats();
+  // Stats reset with spinning icon animation
+  const statsResetBtn = $('stats-reset');
+  if (statsResetBtn) {
+    statsResetBtn.addEventListener('click', async () => {
+      const icon = statsResetBtn.querySelector('.watch-reset-icon');
+      if (icon) {
+        icon.classList.add('is-spinning');
+        setTimeout(() => icon.classList.remove('is-spinning'), 500);
+      }
+      await StorageManager.resetDailyStats();
+    });
+  }
+
+  // Watch bar capsule click -> navigate to Stats tab
+  $('watch-capsule')?.addEventListener('click', () => {
+    switchTab('stats');
+  });
+
+  // Watch bar unrestricted limit click -> navigate to Focus tab
+  $('stats-limit-label')?.addEventListener('click', () => {
+    if ($('stats-limit-label')?.classList.contains('limit-unrestricted')) {
+      switchTab('focus');
+    } else {
+      switchTab('stats');
+    }
   });
 
   // Appearance / Theme selector in Settings tab

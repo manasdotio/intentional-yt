@@ -95,25 +95,69 @@ const IYT_Timer = (() => {
     const dir = (typeof I18N !== 'undefined' && I18N.getDirection) ? I18N.getDirection() : 'ltr';
     toast.setAttribute('dir', dir);
 
-    const iconSpan = document.createElement('span');
-    iconSpan.className = 'iyt-toast-icon';
-    iconSpan.textContent = '⏱';
+    // Header: Icon + Badge + Close button
+    const header = document.createElement('div');
+    header.className = 'iyt-toast-header';
 
-    const msgSpan = document.createElement('span');
+    const headerLeft = document.createElement('div');
+    headerLeft.className = 'iyt-toast-header-left';
+
+    const iconWrap = document.createElement('div');
+    iconWrap.className = 'iyt-toast-icon-wrap';
+    iconWrap.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+
+    const badge = document.createElement('span');
+    badge.className = 'iyt-toast-badge';
+    badge.textContent = _t('toast_reminder_badge', null, 'Gentle Reminder');
+
+    headerLeft.appendChild(iconWrap);
+    headerLeft.appendChild(badge);
+
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'iyt-toast-close';
+    closeBtn.setAttribute('aria-label', _t('toast_dismiss_aria', null, 'Dismiss'));
+    closeBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+    header.appendChild(headerLeft);
+    header.appendChild(closeBtn);
+
+    // Body Message
+    const msgSpan = document.createElement('div');
     msgSpan.className = 'iyt-toast-message';
     const msgText = minutes === 1
       ? _t('toast_reminder_message_singular', null, "You've been watching for 1 minute.")
       : _t('toast_reminder_message', [String(minutes)], `You've been watching for ${minutes} minutes.`);
     msgSpan.textContent = msgText;
 
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'iyt-toast-close';
-    closeBtn.setAttribute('aria-label', _t('toast_dismiss_aria', null, 'Dismiss'));
-    closeBtn.textContent = '✕';
+    // Action Buttons Row
+    const actionsRow = document.createElement('div');
+    actionsRow.className = 'iyt-toast-actions';
 
-    toast.appendChild(iconSpan);
+    const pauseBtn = document.createElement('button');
+    pauseBtn.type = 'button';
+    pauseBtn.className = 'iyt-toast-btn iyt-toast-btn-pause';
+    pauseBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg><span>' + _t('toast_button_pause', null, 'Pause Video') + '</span>';
+
+    const dismissBtn = document.createElement('button');
+    dismissBtn.type = 'button';
+    dismissBtn.className = 'iyt-toast-btn iyt-toast-btn-dismiss';
+    dismissBtn.textContent = _t('toast_button_continue', null, 'Keep Watching');
+
+    actionsRow.appendChild(pauseBtn);
+    actionsRow.appendChild(dismissBtn);
+
+    // 6-second countdown progress bar
+    const progressTrack = document.createElement('div');
+    progressTrack.className = 'iyt-toast-progress';
+    const progressBar = document.createElement('div');
+    progressBar.className = 'iyt-toast-progress-bar';
+    progressTrack.appendChild(progressBar);
+
+    toast.appendChild(header);
     toast.appendChild(msgSpan);
-    toast.appendChild(closeBtn);
+    toast.appendChild(actionsRow);
+    toast.appendChild(progressTrack);
     document.body.appendChild(toast);
 
     requestAnimationFrame(() => {
@@ -121,18 +165,62 @@ const IYT_Timer = (() => {
     });
 
     let dismissed = false;
+    let autoDismissTimer = null;
+    let remainingMs = 6000;
+    let timerStartedAt = Date.now();
+
     function dismiss() {
       if (dismissed) return;
       dismissed = true;
+      if (autoDismissTimer) clearTimeout(autoDismissTimer);
       toast.classList.remove('iyt-toast-show');
       setTimeout(() => toast.remove(), 350);
     }
+
+    function startTimer(duration) {
+      timerStartedAt = Date.now();
+      remainingMs = duration;
+      autoDismissTimer = setTimeout(dismiss, duration);
+    }
+
+    function pauseTimer() {
+      if (dismissed || !autoDismissTimer) return;
+      clearTimeout(autoDismissTimer);
+      autoDismissTimer = null;
+      const elapsed = Date.now() - timerStartedAt;
+      remainingMs = Math.max(0, remainingMs - elapsed);
+    }
+
+    function resumeTimer() {
+      if (dismissed || autoDismissTimer || remainingMs <= 0) return;
+      startTimer(remainingMs);
+    }
+
+    toast.addEventListener('mouseenter', pauseTimer);
+    toast.addEventListener('mouseleave', resumeTimer);
 
     closeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       dismiss();
     });
-    setTimeout(dismiss, 6000);
+
+    dismissBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dismiss();
+    });
+
+    pauseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!_video) _video = _findActiveVideo();
+      if (_video && !_video.paused) {
+        _video.pause();
+      }
+      pauseBtn.classList.add('is-paused');
+      pauseBtn.innerHTML = '<span>' + _t('toast_status_paused', null, 'Paused ✓') + '</span>';
+      setTimeout(dismiss, 1200);
+    });
+
+    startTimer(6000);
   }
 
   // ─── Daily Limit Overlay ───────────────────────────────────────────────────
@@ -532,7 +620,17 @@ const IYT_Timer = (() => {
     }
   });
 
-  return { attach, detach };
+  // Listen for preview messages from extension popup
+  if (browser && browser.runtime && browser.runtime.onMessage) {
+    browser.runtime.onMessage.addListener((msg) => {
+      if (msg && msg.type === 'IYT_PREVIEW_TOAST') {
+        const mins = msg.minutes || (_settings?.softReminder?.intervalMinutes || 30);
+        _showToast(mins);
+      }
+    });
+  }
+
+  return { attach, detach, showToast: _showToast };
 })();
 
 window.__iytTimer = IYT_Timer;

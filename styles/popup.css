@@ -39,10 +39,10 @@
   --surface-inset:     #F3F4F6;
 
   /* Ink — high-clarity humanist contrast */
-  --ink-primary:       #111827;   /* Deep charcoal ink */
-  --ink-secondary:     #4B5563;   /* Slate reading text */
-  --ink-tertiary:      #6B7280;   /* Quiet helper text */
-  --ink-ghost:         #9CA3AF;   /* Muted icons and placeholders */
+  --ink-primary:       #0F172A;   /* Deep charcoal ink */
+  --ink-secondary:     #334155;   /* Slate reading text */
+  --ink-tertiary:      #475569;   /* High-legibility helper text */
+  --ink-ghost:         #64748B;   /* Crisp icons and placeholders */
 
   /* Structure */
   --rule-hairline:     rgba(0, 0, 0, 0.07);
@@ -123,17 +123,17 @@
     color-scheme: dark;
 
     /* Surface stack — Deep obsidian & bone */
-    --surface-ground:    #0F1115;
-    --surface-elevated:  #181A20;
-    --surface-header:    #14161A;
-    --surface-footer:    #0F1115;
-    --surface-inset:     #1E2128;
+    --surface-ground:    #0B0D11;
+    --surface-elevated:  #181B22;
+    --surface-header:    #111318;
+    --surface-footer:    #0B0D11;
+    --surface-inset:     #1E222B;
 
     /* Ink — luminous bone white & balanced cool slate */
-    --ink-primary:       #F3F4F6;
-    --ink-secondary:     #9CA3AF;
-    --ink-tertiary:      #6B7280;
-    --ink-ghost:         #4B5563;
+    --ink-primary:       #F9FAFB;
+    --ink-secondary:     #CBD5E1;
+    --ink-tertiary:      #94A3B8;
+    --ink-ghost:         #64748B;
 
     /* Structure */
     --rule-hairline:     rgba(255, 255, 255, 0.08);
@@ -207,16 +207,16 @@
 /* ── Explicit [data-theme] overrides (manual mode toggle) ─ */
 [data-theme="dark"] {
   color-scheme: dark;
-  --surface-ground:    #0F1115;
-  --surface-elevated:  #181A20;
-  --surface-header:    #14161A;
-  --surface-footer:    #0F1115;
-  --surface-inset:     #1E2128;
+  --surface-ground:    #0B0D11;
+  --surface-elevated:  #181B22;
+  --surface-header:    #111318;
+  --surface-footer:    #0B0D11;
+  --surface-inset:     #1E222B;
 
-  --ink-primary:       #F3F4F6;
-  --ink-secondary:     #9CA3AF;
-  --ink-tertiary:      #6B7280;
-  --ink-ghost:         #4B5563;
+  --ink-primary:       #F9FAFB;
+  --ink-secondary:     #CBD5E1;
+  --ink-tertiary:      #94A3B8;
+  --ink-ghost:         #64748B;
 
   --rule-hairline:     rgba(255, 255, 255, 0.08);
   --rule-section:      rgba(255, 255, 255, 0.04);
@@ -283,10 +283,10 @@
   --surface-footer:    #F9FAFB;
   --surface-inset:     #F3F4F6;
 
-  --ink-primary:       #111827;
-  --ink-secondary:     #4B5563;
-  --ink-tertiary:      #6B7280;
-  --ink-ghost:         #9CA3AF;
+  --ink-primary:       #0F172A;
+  --ink-secondary:     #334155;
+  --ink-tertiary:      #475569;
+  --ink-ghost:         #64748B;
 
   --rule-hairline:     rgba(0, 0, 0, 0.07);
   --rule-section:      rgba(0, 0, 0, 0.04);
@@ -607,7 +607,7 @@ body.ext-snoozed #ext-badge::before {
 
 /* ── Sidebar Tab Navigation ───────────────────────────────── */
 #tab-bar {
-  width: 86px;
+  width: 90px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -624,9 +624,9 @@ body.ext-snoozed #ext-badge::before {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  width: calc(100% - 14px);
-  margin: 0 7px;
-  padding: 10px 4px 9px;
+  width: calc(100% - 12px);
+  margin: 0 6px;
+  padding: 9px 4px 8px;
   border-radius: 8px;
   background: transparent;
   border: 1px solid transparent;
@@ -638,9 +638,9 @@ body.ext-snoozed #ext-badge::before {
 }
 
 .tab-btn span {
-  font-size: 11.5px;
-  font-weight: 500;
-  line-height: 1.15;
+  font-size: 12.5px;
+  font-weight: 550;
+  line-height: 1.2;
   letter-spacing: -0.01em;
   max-width: 100%;
   overflow: hidden;
@@ -651,10 +651,13 @@ body.ext-snoozed #ext-badge::before {
 
 .tab-btn .tab-icon {
   flex-shrink: 0;
-  width: 17px;
-  height: 17px;
-  stroke: var(--ink-ghost);
-  transition: stroke var(--duration-snap) var(--ease-out-gentle);
+  width: 18px;
+  height: 18px;
+  stroke: var(--ink-secondary);
+  opacity: 0.88;
+  transition:
+    stroke var(--duration-snap) var(--ease-out-gentle),
+    opacity var(--duration-snap) var(--ease-out-gentle);
 }
 
 .tab-btn:hover {
@@ -664,6 +667,7 @@ body.ext-snoozed #ext-badge::before {
 
 .tab-btn:hover .tab-icon {
   stroke: var(--ink-primary);
+  opacity: 1;
 }
 
 .tab-btn:active {
@@ -674,17 +678,18 @@ body.ext-snoozed #ext-badge::before {
 .tab-btn.active {
   background: var(--surface-elevated);
   color: var(--ink-primary);
-  border-color: var(--rule-hairline);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-color: var(--accent-border);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
 }
 
 .tab-btn.active span {
-  font-weight: 600;
+  font-weight: 650;
   color: var(--ink-primary);
 }
 
 .tab-btn.active .tab-icon {
   stroke: var(--accent);
+  opacity: 1;
 }
 
 .tab-btn:focus-visible {
@@ -1833,6 +1838,41 @@ body.ext-off .lang-row {
 .time-unit {
   font-size: 12.5px;
   color: var(--ink-secondary);
+}
+
+.btn-time-preview {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 550;
+  color: var(--ink-secondary);
+  background: var(--surface-elevated);
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+  user-select: none;
+}
+
+.btn-time-preview:hover {
+  background: var(--surface-ground);
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
+.btn-time-preview.is-sent {
+  color: var(--tint-emerald);
+  border-color: var(--tint-emerald-border);
+  background: var(--tint-emerald-subtle);
+}
+
+.btn-time-preview svg {
+  stroke: currentColor;
+  flex-shrink: 0;
 }
 
 /* ============================================================
@@ -3094,131 +3134,187 @@ body.ext-off .lang-row {
 }
 
 /* ============================================================
-   PERSISTENT WATCH-TIME STATUS BAR
-   Calm, single-row 34px status bar keeping popup height under control.
-   Always visible across all tabs.
-   Left: live dot + today label + time
-   Center: slim 2px progress track
-   Right: limit label + reset button
+   PERSISTENT WATCH-TIME STATUS BAR (Option A: Inset Capsule Widget)
+   A sleek, modern status capsule keeping watch time visible & clear.
    ============================================================ */
 #watch-bar {
   background: var(--surface-header);
   border-top: 1px solid var(--rule-hairline);
-  height: 36px;
-  min-height: 36px;
-  max-height: 36px;
-  padding: 0 18px;
+  height: 42px;
+  min-height: 42px;
+  max-height: 42px;
+  padding: 0 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
   user-select: none;
+  position: relative;
+  z-index: 10;
 }
 
-.watch-bar-left {
-  display: flex;
+/* ── Watch Time Inset Capsule ──────────────────────────────── */
+.watch-capsule {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  flex-shrink: 0;
+  padding: 4px 10px 4px 8px;
+  background: var(--surface-inset);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
 }
 
-.watch-live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--tint-emerald);
-  box-shadow: 0 0 5px rgba(16, 185, 129, 0.6);
-  flex-shrink: 0;
+.watch-capsule:hover {
+  background: var(--surface-elevated);
+  border-color: var(--rule-strong);
 }
 
-.watch-bar-label {
+.watch-capsule:active {
+  transform: scale(0.97);
+}
+
+.watch-capsule-icon {
+  flex-shrink: 0;
+  stroke: var(--accent);
+}
+
+.watch-capsule-label {
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--ink-secondary);
 }
 
-#stats-time {
-  font-size: 13.5px;
+.watch-capsule-time {
+  font-size: 13px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--ink-primary);
   line-height: 1;
-  margin-left: 2px;
 }
 
+/* ── Progress Track & Limit Information ────────────────────── */
 .watch-bar-center {
   flex: 1;
-  min-width: 60px;
-  max-width: 140px;
-  margin: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  justify-content: center;
 }
 
 #watch-bar .prog {
-  height: 3px;
+  height: 4px;
+  flex: 1;
+  max-width: 130px;
   background: var(--surface-inset);
-  border-radius: 2px;
+  border-radius: 3px;
   overflow: hidden;
-  width: 100%;
   margin: 0;
+  border: 1px solid var(--rule-hairline);
 }
 
 #prog-fill {
   height: 100%;
   width: 0%;
   background: var(--accent);
-  border-radius: 2px;
-  transition: width 600ms var(--ease-out-gentle);
+  border-radius: 3px;
+  transition: width 600ms var(--ease-out-gentle), background-color 300ms ease;
 }
 
+#prog-fill.prog-warning {
+  background: var(--tint-amber);
+}
+
+#prog-fill.prog-danger {
+  background: var(--danger);
+}
+
+.watch-limit-badge {
+  font-size: 11px;
+  font-weight: 550;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.watch-limit-badge.limit-unrestricted {
+  font-size: 10.5px;
+  color: var(--ink-tertiary);
+  background: var(--surface-inset);
+  padding: 2px 7px;
+  border-radius: 10px;
+  border: 1px solid var(--rule-hairline);
+  cursor: pointer;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+}
+
+.watch-limit-badge.limit-unrestricted:hover {
+  color: var(--accent);
+  border-color: var(--accent-border);
+  background: var(--surface-elevated);
+}
+
+/* ── Reset Action Button ───────────────────────────────────── */
 .watch-bar-right {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11.5px;
-  color: var(--ink-tertiary);
-  white-space: nowrap;
   flex-shrink: 0;
 }
 
-#stats-limit-label {
-  font-size: 11.5px;
-  color: var(--ink-secondary);
-  font-weight: 500;
-}
-
-.watch-bar-sep {
-  font-size: 9px;
-  color: var(--ink-ghost);
-  opacity: 0.6;
-}
-
-#stats-reset {
-  font-size: 10.5px;
+.btn-watch-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
   font-weight: 550;
   color: var(--ink-secondary);
   background: var(--surface-inset);
   border: 1px solid var(--rule-hairline);
-  border-radius: 4px;
+  border-radius: 6px;
+  padding: 3.5px 8px;
   cursor: pointer;
   font-family: inherit;
-  padding: 2px 7px;
   line-height: 1.3;
-  text-decoration: none;
   transition: all var(--duration-snap) var(--ease-out-gentle);
+  user-select: none;
 }
 
-#stats-reset:hover {
+.btn-watch-reset svg {
+  flex-shrink: 0;
+  stroke: var(--ink-secondary);
+  transition: stroke var(--duration-snap) var(--ease-out-gentle);
+}
+
+.btn-watch-reset:hover {
   color: var(--ink-primary);
   background: var(--surface-elevated);
   border-color: var(--rule-strong);
 }
 
-#stats-reset:focus-visible {
+.btn-watch-reset:hover svg {
+  stroke: var(--ink-primary);
+}
+
+.btn-watch-reset:active {
+  transform: scale(0.96);
+}
+
+.btn-watch-reset:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
-  border-radius: 4px;
+}
+
+.watch-reset-icon.is-spinning {
+  animation: watch-spin 500ms var(--ease-out-gentle);
+}
+
+@keyframes watch-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
 }
 
 /* Disabled state: bar goes ghosted when extension is off */
