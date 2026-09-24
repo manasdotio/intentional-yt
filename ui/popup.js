@@ -2144,6 +2144,20 @@ function bindAll() {
     });
   }
 
+  // Smart Store Review link detection (Firefox AMO vs Chrome Web Store)
+  const linkRateStore = $('link-rate-store');
+  const labelRateStore = $('label-rate-store');
+  const isFirefox = typeof navigator !== 'undefined' && navigator.userAgent.includes('Firefox');
+  if (linkRateStore) {
+    linkRateStore.href = isFirefox
+      ? 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/reviews/'
+      : 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews';
+  }
+  if (labelRateStore && isFirefox) {
+    labelRateStore.setAttribute('data-i18n', 'setting_rate_firefox');
+    labelRateStore.textContent = t('setting_rate_firefox') || 'Rate on Firefox AMO';
+  }
+
   // Backup & Restore: Export Settings
   $('btn-export-settings')?.addEventListener('click', async () => {
     try {

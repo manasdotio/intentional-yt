@@ -762,104 +762,163 @@
         <div class="panel-subtitle" data-i18n="panel_settings_subtitle">Theme, language, and configuration backup.</div>
       </div>
 
-      <!-- Appearance & Language Card -->
-      <div class="settings-card">
-        <!-- Appearance / Theme Row -->
-        <div class="lang-row">
-          <div class="lang-row-left">
-            <svg class="row-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            <span class="row-text" data-i18n="setting_theme">Appearance</span>
+      <div class="settings-wrap">
+        <!-- Section 1: General Preferences -->
+        <div class="settings-group">
+          <div class="settings-group-title">General</div>
+          <div class="settings-card">
+            <!-- Appearance / Theme Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-violet">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label" data-i18n="setting_theme">Appearance</span>
+                  <span class="settings-row-sub">Choose interface color theme</span>
+                </div>
+              </div>
+              <div class="settings-row-right">
+                <select id="select-themeMode" class="settings-dropdown" aria-label="Theme">
+                  <option value="auto" data-i18n="theme_auto">Auto (match system)</option>
+                  <option value="dark" data-i18n="theme_dark">Dark mode</option>
+                  <option value="light" data-i18n="theme_light">Light mode</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <!-- Relocated Language Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-indigo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label" data-i18n="setting_language">Language</span>
+                  <span class="settings-row-sub">Extension display language</span>
+                </div>
+              </div>
+              <div class="settings-row-right">
+                <select id="select-userLanguage" class="settings-dropdown" aria-label="Language">
+                  <option value="auto">Auto (match browser)</option>
+                  <option value="id">Bahasa Indonesia</option>
+                  <option value="cs">Čeština</option>
+                  <option value="de">Deutsch</option>
+                  <option value="el">Ελληνικά</option>
+                  <option value="en">English</option>
+                  <option value="es">Español</option>
+                  <option value="fr">Français</option>
+                  <option value="it">Italiano</option>
+                  <option value="nl">Nederlands</option>
+                  <option value="pl">Polski</option>
+                  <option value="pt_BR">Português (Brasil)</option>
+                  <option value="ro">Română</option>
+                  <option value="sv">Svenska</option>
+                  <option value="vi">Tiếng Việt</option>
+                  <option value="tr">Türkçe</option>
+                  <option value="ru">Русский</option>
+                  <option value="uk">Українська</option>
+                  <option value="he">עברית</option>
+                  <option value="ar">العربية</option>
+                  <option value="hi">हिन्दी</option>
+                  <option value="bn">বাংলা</option>
+                  <option value="th">ไทย</option>
+                  <option value="ja">日本語</option>
+                  <option value="zh_CN">简体中文</option>
+                  <option value="zh_TW">繁體中文</option>
+                  <option value="ko">한국어</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <select id="select-themeMode" class="lang-sel" aria-label="Theme">
-            <option value="auto" data-i18n="theme_auto">Auto (match system)</option>
-            <option value="dark" data-i18n="theme_dark">Dark mode</option>
-            <option value="light" data-i18n="theme_light">Light mode</option>
-          </select>
         </div>
 
-        <!-- Relocated Language Row -->
-        <div class="lang-row">
-          <div class="lang-row-left">
-            <svg class="row-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            <span class="row-text" data-i18n="setting_language">Language</span>
-          </div>
-          <select id="select-userLanguage" class="lang-sel" aria-label="Language">
-            <option value="auto">Auto (match browser)</option>
-            <option value="id">Bahasa Indonesia</option>
-            <option value="cs">Čeština</option>
-            <option value="de">Deutsch</option>
-            <option value="el">Ελληνικά</option>
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="it">Italiano</option>
-            <option value="nl">Nederlands</option>
-            <option value="pl">Polski</option>
-            <option value="pt_BR">Português (Brasil)</option>
-            <option value="ro">Română</option>
-            <option value="sv">Svenska</option>
-            <option value="vi">Tiếng Việt</option>
-            <option value="tr">Türkçe</option>
-            <option value="ru">Русский</option>
-            <option value="uk">Українська</option>
-            <option value="he">עברית</option>
-            <option value="ar">العربية</option>
-            <option value="hi">हिन्दी</option>
-            <option value="bn">বাংলা</option>
-            <option value="th">ไทย</option>
-            <option value="ja">日本語</option>
-            <option value="zh_CN">简体中文</option>
-            <option value="zh_TW">繁體中文</option>
-            <option value="ko">한국어</option>
-          </select>
-        </div>
-      </div>
+        <!-- Section 2: Data & Backup -->
+        <div class="settings-group">
+          <div class="settings-group-title">Data &amp; Backup</div>
+          <div class="settings-card">
+            <!-- Backup & Restore Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-emerald">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label" data-i18n="setting_backup_title">Configuration Backup</span>
+                  <span class="settings-row-sub" data-i18n="setting_backup_desc">Export your settings to a JSON file or import a previous backup.</span>
+                </div>
+              </div>
+              <div class="settings-row-actions">
+                <button type="button" id="btn-export-settings" class="btn-settings-pill" title="Export settings to JSON">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span data-i18n="btn_export_settings">Export</span>
+                </button>
+                <button type="button" id="btn-import-settings" class="btn-settings-pill" title="Import settings from JSON">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span data-i18n="btn_import_settings">Import</span>
+                </button>
+                <input type="file" id="input-import-file" accept=".json,application/json" style="display:none;" />
+              </div>
+            </div>
 
-      <!-- Backup & Restore Settings -->
-      <div class="settings-action-block">
-        <div class="settings-action-meta">
-          <div class="settings-title-row">
-            <svg class="row-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-            <span class="settings-action-title" data-i18n="setting_backup_title">Backup &amp; Restore</span>
-          </div>
-          <span class="settings-action-desc" data-i18n="setting_backup_desc">Export your settings to a JSON file or import a previous backup.</span>
-        </div>
-        <div class="settings-btn-row">
-          <button type="button" id="btn-export-settings" class="btn-secondary settings-action-btn">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span data-i18n="btn_export_settings">Export</span>
-          </button>
-          <button type="button" id="btn-import-settings" class="btn-secondary settings-action-btn">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <span data-i18n="btn_import_settings">Import</span>
-          </button>
-          <input type="file" id="input-import-file" accept=".json,application/json" style="display:none;" />
-        </div>
-      </div>
+            <div class="settings-divider"></div>
 
-      <!-- Reset All Settings to Default -->
-      <div class="settings-action-block">
-        <div class="settings-action-meta">
-          <div class="settings-title-row">
-            <svg class="row-icon row-icon-danger" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
-            <span class="settings-action-title" data-i18n="setting_reset_title">Reset Settings</span>
+            <!-- Reset All Settings to Default Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-danger">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label" data-i18n="setting_reset_title">Reset Preferences</span>
+                  <span class="settings-row-sub" data-i18n="setting_reset_desc">Restore all default options and clear custom schedules.</span>
+                </div>
+              </div>
+              <div class="settings-row-actions">
+                <button type="button" id="btn-reset-defaults" class="btn-settings-pill btn-pill-danger" title="Reset all settings to default">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  <span data-i18n="btn_reset_defaults">Reset Defaults</span>
+                </button>
+              </div>
+            </div>
           </div>
-          <span class="settings-action-desc" data-i18n="setting_reset_desc">Restore all default options and clear custom schedules.</span>
         </div>
-        <button type="button" id="btn-reset-defaults" class="btn-danger-outline">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
-          <span data-i18n="btn_reset_defaults">Reset all settings to default</span>
-        </button>
-      </div>
 
-      <!-- Settings Metadata Footer: Relocated from persistent footer -->
-      <div class="settings-meta-footer">
-        <div class="meta-footer-info">
-          <span class="meta-footer-title">Intentional YT <span class="meta-footer-ver">v2.1.2</span></span>
-          <span class="meta-footer-privacy" data-i18n="footer_local_privacy">100% Local • Zero Telemetry</span>
+        <!-- Section 3: About & Community Support -->
+        <div class="settings-group">
+          <div class="settings-group-title">About &amp; Support</div>
+          <div class="settings-about-card">
+            <div class="settings-about-brand">
+              <img src="../icons/icon.png" alt="" class="settings-about-icon" />
+              <div class="settings-about-info">
+                <div class="settings-about-title-row">
+                  <span class="settings-about-title">Intentional YT</span>
+                  <span class="settings-about-ver">v2.1.2</span>
+                </div>
+                <div class="settings-about-privacy">
+                  <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <span data-i18n="footer_local_privacy">100% Local · Zero Telemetry</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-about-actions">
+              <a id="link-rate-store" href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-highlight" title="Leave a review on Web Store">
+                <svg class="about-action-star" viewBox="0 0 24 24" width="12" height="12" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span id="label-rate-store" data-i18n="setting_rate_store">Rate on Web Store</span>
+                <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" class="btn-about-action" title="Submit feedback and feature ideas">
+                <svg class="about-action-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span data-i18n="footer_feedback_link">Feedback &amp; Ideas ↗</span>
+              </a>
+            </div>
+          </div>
         </div>
-        <a href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" class="meta-footer-link" data-i18n="footer_feedback_link">Feedback &amp; Ideas ↗</a>
-      </div>
+
+      </div><!-- /.settings-wrap -->
     </div><!-- /#panel-settings -->
 
   </div><!-- /#scroll -->

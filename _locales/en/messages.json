@@ -833,6 +833,14 @@
     "message": "Export your settings to a JSON file or import a previous backup.",
     "description": "Description for import and export section in Settings"
   },
+  "setting_rate_store": {
+    "message": "Rate on Web Store",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Rate on Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
   "btn_export_settings": {
     "message": "Export",
     "description": "Button label to export settings JSON"
