@@ -44,30 +44,30 @@ export default function Features() {
           </p>
         </div>
 
-        {/* Card 3: Granular Distraction Matrix */}
+        {/* Card 3: Granular Distraction Matrix & Anti-Doomscroll */}
         <div className="bento-card bento-card-4">
           <div className="bento-icon">
             <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
             </svg>
           </div>
-          <h3 className="bento-title">Surgical Customization</h3>
+          <h3 className="bento-title">Surgical Customization &amp; Anti-Doomscroll</h3>
           <p className="bento-text">
-            No forced all-or-nothing blocking. Keep your subscribed channels while wiping out algorithmic recommendations and Shorts everywhere, or use Anti-Doomscroll to cap the home feed to 15 calm videos.
+            No forced all-or-nothing blocking. Keep your subscribed channels while wiping out algorithmic recommendations and Shorts everywhere, or use Anti-Doomscroll to cap the home feed to 15 calm videos with a peaceful caught-up banner.
           </p>
         </div>
 
-        {/* Card 4: Dopamine De-stimulation */}
+        {/* Card 4: Focus Lock & Scheduling */}
         <div className="bento-card bento-card-4">
-          <div className="bento-icon" style={{ background: 'rgba(225, 29, 72, 0.1)', borderColor: 'rgba(225, 29, 72, 0.2)', color: 'var(--accent-red)' }}>
+          <div className="bento-icon" style={{ background: 'rgba(99, 102, 241, 0.1)', borderColor: 'rgba(99, 102, 241, 0.2)', color: 'var(--accent-blue)' }}>
             <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
           </div>
-          <h3 className="bento-title">Clickbait Neutralization</h3>
+          <h3 className="bento-title">Focus Lock &amp; Automation</h3>
           <p className="bento-text">
-            Replace screaming high-saturation thumbnails with calming placeholders while preserving critical video titles and duration tags.
+            Arm Focus Lock to enforce a mandatory cooldown delay before disabling rules during study sessions. Schedule automatic focus windows across custom workdays and hours.
           </p>
         </div>
 
@@ -80,7 +80,34 @@ export default function Features() {
           </div>
           <h3 className="bento-title">Mindful Time Caps</h3>
           <p className="bento-text">
-            Set soft interval toast reminders (15m, 30m, 45m) or a hard daily playback ceiling with automated midnight stat resets.
+            Set soft interval toast reminders (15m, 30m, 45m) or a hard daily playback ceiling with automated midnight stat resets and streak tracking.
+          </p>
+        </div>
+
+        {/* Card 6: Dopamine De-stimulation */}
+        <div className="bento-card bento-card-6">
+          <div className="bento-icon" style={{ background: 'rgba(225, 29, 72, 0.1)', borderColor: 'rgba(225, 29, 72, 0.2)', color: 'var(--accent-red)' }}>
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+          <h3 className="bento-title">Clickbait Neutralization &amp; Grayscale</h3>
+          <p className="bento-text">
+            Replace screaming high-saturation thumbnails with calming placeholders while preserving video titles and duration tags. Turn on site-wide hardware-accelerated grayscale to reduce dopamine spikes.
+          </p>
+        </div>
+
+        {/* Card 7: Presets & Live Filter */}
+        <div className="bento-card bento-card-6">
+          <div className="bento-icon" style={{ background: 'rgba(147, 51, 234, 0.1)', borderColor: 'rgba(147, 51, 234, 0.2)', color: '#9333ea' }}>
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <h3 className="bento-title">One-Click Presets &amp; Instant Search</h3>
+          <p className="bento-text">
+            Switch between Deep Work, Balanced Focus, and Video Only with a single click. Filter through 20+ granular toggles instantly with keyboard-accessible real-time search.
           </p>
         </div>
       </div>

@@ -39,6 +39,38 @@ const FAQ_ITEMS = [
     )
   },
   {
+    id: 'anti-doomscroll',
+    question: 'What is Anti-Doomscroll mode and how does it work?',
+    answer: (
+      <p>
+        Instead of completely blanking out the homepage feed, Anti-Doomscroll limits the recommendations to a single calm batch of 15 videos and hard-blocks infinite scroll pagination. When you reach the end of the batch, a peaceful <em>"✦ You're all caught up"</em> banner appears, preventing mindless endless scrolling while still allowing you to quickly check the home page.
+      </p>
+    )
+  },
+  {
+    id: 'focus-lock-schedule',
+    question: 'How do Focus Lock and Scheduled Focus sessions work?',
+    answer: (
+      <>
+        <p>
+          <strong>Focus Lock</strong> prevents impulsive override by enforcing an intentional cooldown delay (e.g. 5, 10, or 30 minutes) before you can disable any focus rules during deep work or study sessions.
+        </p>
+        <p>
+          <strong>Scheduled Focus</strong> lets you automate distraction shielding by setting specific active days and time ranges (e.g. Mon–Fri, 9:00 AM – 5:00 PM), automatically applying your focus settings during work hours.
+        </p>
+      </>
+    )
+  },
+  {
+    id: 'presets',
+    question: 'What one-click Focus Presets are included?',
+    answer: (
+      <p>
+        Intentional YT includes 3 instant presets: <strong>Deep Work</strong> (maximum distraction shielding, home feed hidden, recommendations and comments blocked), <strong>Balanced Focus</strong> (home feed limited to 15 calm videos, Shorts blocked, subscriptions preserved), and <strong>Video Only</strong> (pure cinematic player with all recommendations and sidebar wiped out). You can also customize any individual toggle.
+      </p>
+    )
+  },
+  {
     id: 'privacy',
     question: 'Does Intentional YT collect any data or browsing history?',
     answer: (

@@ -6,14 +6,14 @@ export default function Hero() {
     <section className="hero">
       <div className="hero-pill">
         <span className="pill-dot"></span>
-        <span>Zero-Flash DOM Ingestion • 100% Local Privacy</span>
+        <span>Zero-Flash Ingestion • Anti-Doomscroll • Focus Lock • 100% Local Privacy</span>
       </div>
       <h1 className="hero-title">
         Turn YouTube into a<br />
         <span className="serif-accent">mindful focus tool</span>, not a trap.
       </h1>
       <p className="hero-subtitle">
-        Eliminate infinite feeds, algorithm rabbit holes, clickbait thumbnails, and Shorts. Intentional YT gives you granular, instant control over every distraction surface on YouTube.
+        Eliminate infinite feeds, algorithm rabbit holes, clickbait thumbnails, and Shorts. Intentional YT gives you granular, instant control over every distraction surface on YouTube with one-click presets, scheduled focus, and anti-doomscroll limits.
       </p>
       <div className="hero-actions">
         <a
@@ -50,11 +50,15 @@ export default function Hero() {
         </div>
         <div className="badge-item">
           <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '14px' }}>✓</span>
-          <span>Zero Content Pop-in</span>
+          <span>Zero-Flash &amp; Anti-Doomscroll</span>
         </div>
         <div className="badge-item">
           <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '14px' }}>✓</span>
-          <span>0% Telemetry &amp; Local</span>
+          <span>Focus Lock &amp; Scheduling</span>
+        </div>
+        <div className="badge-item">
+          <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '14px' }}>✓</span>
+          <span>100% Local Privacy</span>
         </div>
       </div>
     </section>

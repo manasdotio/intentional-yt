@@ -119,6 +119,44 @@ export default function Comparison() {
 
             <tr>
               <td>
+                <span className="table-feat-name">Anti-Doomscroll Feed Limit</span>
+                <span className="table-feat-desc">Limits homepage to 15 calm videos &amp; stops infinite scroll with a serene banner</span>
+              </td>
+              <td className="highlight-col">
+                <span className="status-badge status-good">✓ Built-in (15 Videos)</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Peaceful caught-up banner</div>
+              </td>
+              <td>
+                <span className="status-badge status-bad">✗ Missing</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>All-or-nothing only</div>
+              </td>
+              <td>
+                <span className="status-badge status-bad">✗ Infinite Scroll</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Endless recommendations</div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span className="table-feat-name">Focus Lock &amp; Automation</span>
+                <span className="table-feat-desc">Mandatory delay before unlocking rules, plus scheduled weekly focus sessions</span>
+              </td>
+              <td className="highlight-col">
+                <span className="status-badge status-good">✓ Included</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Cooldown delay &amp; schedule planner</div>
+              </td>
+              <td>
+                <span className="status-badge status-bad">✗ Missing</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Toggles easily turned off impulsively</div>
+              </td>
+              <td>
+                <span className="status-badge status-bad">✗ None</span>
+                <div className="table-feat-desc" style={{ marginTop: '4px' }}>Constant algorithmic pull</div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
                 <span className="table-feat-name">Privacy &amp; Data Security</span>
                 <span className="table-feat-desc">Is your browsing history or extension activity monitored?</span>
               </td>
