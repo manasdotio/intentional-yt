@@ -381,16 +381,37 @@ button {
   box-shadow: 0 6px 24px rgba(26, 115, 232, 0.5);
 }
 
+.btn-chrome img {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+  transition: transform 0.2s ease;
+}
+
+.btn-chrome:hover img {
+  transform: scale(1.06);
+}
+
 .btn-amo {
-  background: linear-gradient(135deg, #ff7139 0%, #e11d48 100%);
+  background: linear-gradient(135deg, #240b36 0%, #7c1458 48%, #e64a00 100%);
   color: #ffffff !important;
-  box-shadow: 0 4px 18px rgba(255, 113, 57, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 18px rgba(124, 20, 88, 0.35), 0 2px 8px rgba(230, 74, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.22);
 }
 
 .btn-amo:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(255, 113, 57, 0.5);
+  background: linear-gradient(135deg, #2f0e47 0%, #911867 48%, #f25507 100%);
+  box-shadow: 0 6px 24px rgba(124, 20, 88, 0.5), 0 3px 10px rgba(230, 74, 0, 0.35);
+}
+
+.btn-amo img {
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.45));
+  transition: transform 0.2s ease;
+}
+
+.btn-amo:hover img {
+  transform: scale(1.06);
 }
 
 .btn-primary {
