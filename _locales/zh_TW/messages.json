@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "隱藏首頁推薦影片",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "隱藏 YouTube 首頁的演算法推薦影片牆",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "限制首頁推薦（防無止盡滑動）",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "將首頁推薦限制為 15 部影片並停用無限滾動",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "隱藏訂閱動態",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "隱藏 Shorts 短影音",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "在側邊欄、動態牆、搜尋結果和頻道等所有位置隱藏 Shorts 短影音",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "隱藏探索與發燒影片",
@@ -67,9 +83,17 @@
     "message": "隱藏片尾推薦影片",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "影片播放結束時，隱藏推薦影片網格與後續影片牆",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "隱藏片尾資訊卡",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "隱藏影片最後 20 秒創作者放置的推薦影片、播放清單和訂閱資訊卡",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "隱藏即時聊天室",
@@ -91,17 +115,33 @@
     "message": "隱藏影片資訊面板",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "隱藏影片播放器下方的所有資訊與操作按鈕",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "操作按鈕",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "隱藏喜歡、不喜歡、分享、下載和剪輯按鈕",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "頻道資訊",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "隱藏頻道名稱、頭像和訂閱按鈕",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "影片說明",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "隱藏可展開的影片說明欄文字與詳細資訊",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "社群互動",
@@ -189,9 +229,21 @@
     "message": "每日時間上限",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "達到每日觀看時數上限時暫停影片播放",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "達上限後停止",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "頻道與關鍵字過濾功能即將在下個版本推出。核心動態阻擋功能已生效！",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "您的每日觀看時間始終顯示在底部狀態列。",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "今日觀看",
@@ -291,6 +343,38 @@
     "message": "關閉",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "溫和提醒",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "暫停影片",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "繼續觀看",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "已暫停 ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "按設定間隔在螢幕上顯示溫和提醒，在不強制封鎖的情況下協助您維持時間意識。",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "預覽",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "已傳送！",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "請開啟 YouTube 分頁以預覽提醒通知",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "已達今日觀看上限",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "今天不再限制",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "阻擋",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "過濾",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "專注",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "統計",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "設定",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "全部折疊",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "全部展開",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "頻道黑名單",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "封鎖特定頻道，使其不在推薦牆與相關影片中出現。",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "尚無已封鎖的頻道。",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "關鍵字黑名單",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "隱藏標題包含指定關鍵字的影片。",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "尚無已封鎖的關鍵字。",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "新增頻道",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "新增關鍵字",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "專注鎖",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "正念時間與上限",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "溫和休息提醒與每日螢幕使用邊界",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "專注鎖保護盾",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "透過預設延遲防止衝動修改防護設定",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "排程專注時段",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "在工作、學習或睡眠時段自動阻擋 YouTube",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "解除防護前需要等待一段冷卻時間",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "專注鎖",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "冷卻延遲時間",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 分鐘",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 分鐘",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 分鐘",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 分鐘",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "設定 4 位數 PIN 碼",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "輸入 4 位數 PIN 碼",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "確認 4 位數 PIN 碼",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "如果忘記此 PIN 碼，唯一的重設方法是解除安裝並重新安裝擴充功能，這將會清除所有設定。請務必記在安全的地方。",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "儲存 PIN 並啟用",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "取消",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "受專注鎖保護",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "請輸入 4 位數 PIN 碼以開始冷卻倒數：",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "開始冷卻",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "兩次輸入的 PIN 碼不相符，請重試。",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "PIN 碼必須為 4 位數字。",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "PIN 碼錯誤，請重試。",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "正在解除鎖定：$SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "$TIME$ 後解除",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "取消",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "已有正在進行的解鎖倒數。在解除其他設定前請先取消當前倒數。",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "排程封鎖",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "在設定時段內自動阻擋 YouTube",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "排程封鎖",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ 新增排程",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "尚無排程。點擊「新增排程」即可建立。",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "新增排程",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "編輯排程",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "標籤名稱",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "例如：工作時間、讀書時段",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "適用星期",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "開始時間",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "結束時間",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "阻擋模式",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "完全阻擋 YouTube",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "將 YouTube 替換為鎖定的專注承諾畫面，完全阻斷存取",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "強制開啟所有防護項",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "在不完全鎖定網站的前提下強制阻擋所有干擾元素",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "儲存排程",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "取消",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "編輯",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "刪除",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "每天",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "週一至週五",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "週末 (週六、週日)",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "日",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "一",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "二",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "三",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "四",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "五",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "六",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "請至少選擇一天。",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "請輸入排程標籤名稱。",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "請同時指定開始與結束時間。",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube 目前處於鎖定狀態",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "將於 $TIME$ 重新開放",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "此排程由 Intentional YT 強制執行，以守護您的專注力。",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "設定",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "語言",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "重設設定",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "還原所有預設選項並清除自訂排程。",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "還原所有設定為預設值",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "確定要將所有設定還原為預設值嗎？這將清除您所有的自訂偏好與排程。",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "活動總覽",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "今日 YouTube 播放概況",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "累計觀看時間",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "觀看時間僅在 YouTube 影片實際播放時累計，每天午夜自動重設。常駐狀態列會固定顯示在每個分頁的底部。",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "設定上限",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "重設今日",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "自動化排程無干擾的讀書時段或夜間休息時間。",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "外觀主題",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "自動（依系統設定）",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "深色模式",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "淺色模式",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "備份與還原",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "將您的設定匯出為 JSON 檔案，或從先前的備份還原。",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "在線上應用程式商店評分",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "在 Firefox AMO 評分",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "匯出",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "匯入",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "設定匯出成功",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "設定匯入成功",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "匯入設定失敗：無效的 JSON 檔案",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ 項已啟用",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "預設模式",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "均衡模式",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "極簡禪定 (Zen)",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "純播放器",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "自訂",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "均衡 · 隱藏動態牆與推薦影片",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "極簡 · 僅保留搜尋，隱藏所有動態牆",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "純播放 · 純淨播放器，隱藏周遭干擾",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "自訂個人化設定",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "詳細控制",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "阻擋首頁推薦、Shorts 短影音與側邊欄推薦。保留搜尋、訂閱和留言功能。",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "極致專注。純粹搜尋。所有動態牆、留言區、影片縮圖和頻道頭像全部隱藏。",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "純淨播放體驗。隱藏影片周圍的相關推薦、留言區及側邊欄雜亂元素。",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "自由配置各項開關。",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "已切換至 $PRESET$ 模式",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "歡迎使用 Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "選擇預設快速開始，或在下方自由自訂各項開關。",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "關閉歡迎橫幅",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "搜尋開關項目...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "未找到相符的開關",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "嘗試搜尋 shorts、留言 或 側邊欄",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "頻道與關鍵字過濾",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "封鎖特定頻道，並依關鍵字過濾影片。",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "專注與上限",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "定時提醒、每日上限與排程阻擋。",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "播放活動",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "追蹤您的每日觀看時數與使用習慣。",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "偏好設定",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "主題、語言與設定備份。",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "將 Shorts 重新導向至一般播放器",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "在具備完整播放控制的一般頁面播放 Shorts",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "小歇",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "小歇中",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "暫停防護",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "計時結束後，所有防護將自動恢復。",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 分鐘",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "短暫休息",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 分鐘",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "工作時段",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1 小時",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "延長休息",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "立即恢復",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "防護已暫停",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "剩餘 $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "防護已暫停 $MINUTES$ 分鐘",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "防護已恢復",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "關閉",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "擴充功能主開關",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "今日觀看時間已重設",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "開發中",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

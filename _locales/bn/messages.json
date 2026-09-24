@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "হোম ফিড লুকান",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "YouTube হোম পেজে অ্যালগরিদমিক ভিডিও ফিড লুকায়",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "হোম ফিড সীমিত করুন (ডুমস্ক্রোলিং বিরোধী)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "হোম ফিড ১৫টি ভিডিওতে সীমাবদ্ধ করে এবং সীমাহীন স্ক্রোল নিষ্ক্রিয় করে",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "সাবস্ক্রিপশন ফিড লুকান",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "Shorts লুকান",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "সব জায়গা থেকে Shorts লুকায় — সাইডবার, ফিড, অনুসন্ধান ফলাফল এবং চ্যানেল",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "এক্সপ্লোর এবং ট্রেন্ডিং লুকান",
@@ -67,9 +83,17 @@
     "message": "ভিডিও শেষের সুপারিশ লুকান",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "প্লেব্যাক শেষ হলে প্রস্তাবিত ভিডিও গ্রিড এবং পরবর্তী ভিডিও ওয়াল লুকান",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "শেষ স্ক্রিন কার্ড লুকান",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "শেষ ২০ সেকেন্ডে নির্মাতার যুক্ত করা ভিডিও, প্লেলিস্ট এবং সাবস্ক্রাইব কার্ড লুকান",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "লাইভ চ্যাট লুকান",
@@ -91,17 +115,33 @@
     "message": "ভিডিও তথ্য প্যানেল লুকান",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "ভিডিও প্লেয়ারের নিচের সমস্ত তথ্য এবং অ্যাকশন লুকায়",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "অ্যাকশন বোতাম",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "লাইক, ডিজলাইক, শেয়ার, ডাউনলোড এবং ক্লিপ বোতাম লুকায়",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "চ্যানেলের তথ্য",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "চ্যানেলের নাম, প্রোফাইল ছবি এবং সাবস্ক্রাইব বোতাম লুকায়",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "বিবরণ",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "প্রসারণযোগ্য ভিডিওর বিবরণ এবং তথ্য লুকায়",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "সামাজিক",
@@ -189,9 +229,21 @@
     "message": "দৈনিক সীমা",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "আপনার দৈনিক দেখার সীমা শেষ হলে ভিডিও প্লেব্যাক থামান",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "এর পর থামুন",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "চ্যানেল এবং কীওয়ার্ড ফিল্টারিং পরবর্তী সংস্করণে আসছে। মূল ফিড ব্লকারগুলি সক্রিয় রয়েছে!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "আপনার দৈনিক দেখার সময় সর্বদা নিচে দেখানো হয়।",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "আজ",
@@ -291,6 +343,38 @@
     "message": "বন্ধ করুন",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "মৃদু অনুস্মারক",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "ভিডিও থামান",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "দেখতে থাকুন",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "স্থগিত ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "আপনাকে ব্লক না করে সময়ের ব্যাপারে সচেতন রাখতে নির্দিষ্ট সময় পরপর স্ক্রিনে শান্ত বার্তা।",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "প্রাকদর্শন",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "পাঠানো হয়েছে!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "অনুস্মারক প্রাকদর্শন করতে একটি YouTube ট্যাব খুলুন",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "দৈনিক সীমা সমাপ্ত",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "আজকের জন্য বন্ধ করুন",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "ব্লক",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "ফিল্টার",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "ফোকাস",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "পরিসংখ্যান",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "সেটিংস",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "সব সংকুচিত করুন",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "সব প্রসারিত করুন",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "চ্যানেল ব্লক তালিকা",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "নির্দিষ্ট চ্যানেলগুলিকে ফিড এবং সুপারিশে আসা থেকে ব্লক করুন।",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "কোনো ব্লক করা চ্যানেল নেই।",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "কীওয়ার্ড ব্লক তালিকা",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "যেসব ভিডিওর শিরোনাম ব্লক করা কীওয়ার্ডের সাথে মেলে সেগুলি লুকান।",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "কোনো ব্লক করা কীওয়ার্ড নেই।",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "চ্যানেল যোগ করুন",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "কীওয়ার্ড যোগ করুন",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "ফোকাস লক",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "সচেতন সময় ও সীমা",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "মৃদু বিরতি বার্তা এবং দৈনিক স্ক্রিন টাইম সীমা",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "ফোকাস লক শিল্ড",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "ইচ্ছাকৃত বিলম্বের মাধ্যমে তাৎক্ষণিক পরিবর্তনের আবেগ প্রতিরোধ করুন",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "নির্ধারিত ফোকাস সেশন",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "কাজ, পড়াশোনা বা ঘুমের সময় YouTube স্বয়ংক্রিয়ভাবে ব্লক করুন",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "সুরক্ষা নিষ্ক্রিয় করার আগে একটি বিলম্বের প্রয়োজন রাখুন",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "ফোকাস লক",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "কুলডাউন বিলম্ব",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "৫ মিনিট",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "১০ মিনিট",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "৩০ মিনিট",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "৬০ মিনিট",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "৪-সংখ্যার পিন সেট করুন",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "৪-সংখ্যার পিন লিখুন",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "৪-সংখ্যার পিন নিশ্চিত করুন",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "আপনি এই পিনটি ভুলে গেলে এটি রিসেট করার একমাত্র উপায় হলো এক্সটেনশনটি আনইনস্টল করে পুনরায় ইনস্টল করা, যা আপনার সমস্ত সেটিংস মুছে ফেলবে। এটি একটি নিরাপদ স্থানে লিখে রাখুন।",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "পিন সংরক্ষণ করুন এবং সক্রিয় করুন",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "বাতিল",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "ফোকাস লক সুরক্ষিত",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "কুলডাউন বিলম্ব শুরু করতে আপনার ৪-সংখ্যার পিন লিখুন:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "কুলডাউন শুরু করুন",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "পিন মেলেনি। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "পিন অবশ্যই ঠিক ৪ সংখ্যার হতে হবে।",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "ভুল পিন। আবার চেষ্টা করুন।",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "আনলক করা হচ্ছে: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "$TIME$-এ আনলক হবে",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "বাতিল",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "একটি আনলক কাউন্টডাউন ইতিমধ্যে সক্রিয় রয়েছে। অন্য সেটিং আনলক করার আগে এটি বাতিল করুন।",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "নির্ধারিত ব্লকিং",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "নির্ধারিত সময়ে স্বয়ংক্রিয়ভাবে YouTube ব্লক করুন",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "নির্ধারিত ব্লকিং",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ সময়সূচী যোগ করুন",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "এখনও কোনো সময়সূচী নেই। একটি তৈরি করতে সময়সূচী যোগ করুন-এ ক্লিক করুন।",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "নতুন সময়সূচী",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "সময়সূচী সম্পাদনা করুন",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "লেবেল",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "যেমন: কাজের সময়, পড়ার সময়",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "সপ্তাহের দিনগুলি",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "শুরুর সময়",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "শেষের সময়",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "ব্লকিং মোড",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "YouTube সম্পূর্ণরূপে ব্লক করুন",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "YouTube-কে একটি লক করা প্রতিশ্রুতি স্ক্রিন দিয়ে প্রতিস্থাপন করে",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "সমস্ত সুরক্ষা বাধ্যতামূলকভাবে চালু করুন",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "সাইট সম্পূর্ণ লক না করেই সর্বাধিক বিভ্রান্তি ব্লকিং প্রয়োগ করে",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "সময়সূচী সংরক্ষণ করুন",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "বাতিল",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "সম্পাদনা",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "মুছে ফেলুন",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "প্রতিদিন",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "সোম-শুক্র",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "রবি, শনি",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "রবি",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "সোম",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "মঙ্গল",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "বুধ",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "বৃহ",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "শুক্র",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "শনি",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "অনুগ্রহ করে অন্তত একটি দিন নির্বাচন করুন।",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "অনুগ্রহ করে একটি সময়সূচী লেবেল লিখুন।",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "অনুগ্রহ করে শুরু এবং শেষ উভয় সময় নির্দিষ্ট করুন।",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube বর্তমানে উপলব্ধ নেই",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "$TIME$-এ আবার খুলবে",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "আপনার ফোকাস রক্ষার জন্য এই সময়সূচীটি Intentional YT দ্বারা প্রয়োগ করা হয়েছে।",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "সেটিংস",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "ভাষা",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "সেটিংস রিসেট করুন",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "সমস্ত ডিফল্ট বিকল্প পুনরুদ্ধার করুন এবং কাস্টম সময়সূচী মুছে ফেলুন।",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "সমস্ত সেটিংস ডিফল্টে রিসেট করুন",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "আপনি কি নিশ্চিত যে সমস্ত সেটিংস ডিফল্টে রিসেট করতে চান? এটি আপনার সমস্ত কাস্টম পছন্দ এবং সময়সূচী মুছে ফেলবে।",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "কার্যকলাপের বিবরণ",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "আজকের YouTube প্লেব্যাক",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "মোট দেখার সময়",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "দেখার সময় কেবল তখনই যোগ হয় যখন একটি YouTube ভিডিও সক্রিয়ভাবে চলছে। এটি প্রতি মধ্যরাতে স্বয়ংক্রিয়ভাবে রিসেট হয়। আপনার স্থায়ী স্ট্যাটাস বার প্রতিটি ট্যাবের নিচে দৃশ্যমান থাকে।",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "সীমা কনফিগার করুন",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "আজকেরটি রিসেট করুন",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "বিভ্রান্তিমুক্ত অধ্যয়নের সময় বা শান্ত সময়কে স্বয়ংক্রিয় করুন।",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "চেহারা",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "স্বয়ংক্রিয় (সিস্টেম অনুযায়ী)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "ডার্ক মোড",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "লাইট মোড",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "ব্যাকআপ ও পুনরুদ্ধার",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "আপনার সেটিংস একটি JSON ফাইলে রপ্তানি করুন বা আগের ব্যাকআপ আমদানি করুন।",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "ওয়েব স্টোরে রেটিং দিন",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Firefox AMO-তে রেটিং দিন",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "রপ্তানি",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "আমদানি",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "সেটিংস সফলভাবে রপ্তানি করা হয়েছে",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "সেটিংস সফলভাবে আমদানি করা হয়েছে",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "সেটিংস আমদানি করতে ব্যর্থ হয়েছে: অবৈধ JSON ফাইল",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$টি সক্রিয়",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "প্রিসেট",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "ভারসাম্যপূর্ণ",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "জেন",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "শুধু ভিডিও",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "কাস্টম",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "ভারসাম্যপূর্ণ · ফিড এবং সুপারিশ লুকায়",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "জেন · শুধু অনুসন্ধান, সমস্ত ফিড লুকানো",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "শুধু ভিডিও · পরিচ্ছন্ন প্লেয়ার, বিভ্রান্তি লুকানো",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "কাস্টম কনফিগারেশন",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "বিস্তারিত নিয়ন্ত্রণ",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "হোম ফিড, Shorts এবং সাইডবার সুপারিশ ব্লক করে। অনুসন্ধান, সাবস্ক্রিপশন এবং মন্তব্য ব্যবহারযোগ্য রাখে।",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "সর্বোচ্চ ফোকাস। কেবল খাঁটি অনুসন্ধান। ফিড, মন্তব্য, থাম্বনেল এবং চ্যানেলের ছবি লুকানো থাকে।",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "পরিচ্ছন্ন ভিডিও প্লেয়ার। ভিডিওর চারপাশের সুপারিশ, মন্তব্য এবং অপ্রয়োজনীয় অংশ লুকায়।",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "কাস্টম টগল কনফিগারেশন।",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "$PRESET$ মোডে পরিবর্তন করা হয়েছে",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Intentional YT-এ স্বাগতম",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "শুরু করতে একটি প্রিসেট বাছুন, অথবা নিচের টগলগুলি কাস্টমাইজ করুন।",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "স্বাগতম ব্যানার সরান",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "টগল অনুসন্ধান করুন...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "কোনো টগল পাওয়া যায়নি",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "shorts, comments বা sidebar লিখে অনুসন্ধান করার চেষ্টা করুন",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "চ্যানেল ও কীওয়ার্ড ফিল্টার",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "নির্দিষ্ট চ্যানেল ব্লক করুন এবং কীওয়ার্ড অনুসারে ভিডিও ফিল্টার করুন।",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "ফোকাস ও সীমা",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "অনুস্মারক, দৈনিক সীমা এবং নির্ধারিত ব্লকিং।",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "প্লেব্যাক কার্যকলাপ",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "আপনার দৈনিক দেখার সময় এবং প্লেব্যাকের অভ্যাস ট্র্যাক করুন।",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "পছন্দসমূহ",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "থিম, ভাষা এবং কনফিগারেশন ব্যাকআপ।",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Shorts সাধারণ প্লেয়ারে রিডাইরেক্ট করুন",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "প্লেব্যাক নিয়ন্ত্রণসহ স্ট্যান্ডার্ড ওয়াচ ভিউতে Shorts প্লে করে",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "স্নুজ করুন",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "স্নুজ করা হয়েছে",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "সুরক্ষা সাময়িক স্থগিত করুন",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "টাইমার শেষ হলে সুরক্ষা স্বয়ংক্রিয়ভাবে পুনরায় চালু হবে।",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "১৫ মিনিট",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "দ্রুত বিরতি",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "৩০ মিনিট",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "কাজের সেশন",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "১ ঘন্টা",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "দীর্ঘ সেশন",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "এখনই পুনরায় শুরু করুন",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "সুরক্ষা স্নুজ করা হয়েছে",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "$TIME$ বাকি",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "$MINUTES$ মিনিটের জন্য সুরক্ষা স্থগিত করা হয়েছে",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "সুরক্ষা পুনরায় সক্রিয় হয়েছে",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "বন্ধ",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "এক্সটেনশন মাস্টার টগল",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "দৈনিক দেখার সময় রিসেট করা হয়েছে",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "উন্নয়নাধীন",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

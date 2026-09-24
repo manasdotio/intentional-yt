@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "Ascunde pagina de pornire",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "Ascunde fluxul algoritmic de videoclipuri de pe pagina principală YouTube",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "Limitează fluxul principal (anti-doomscroll)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "Limitează fluxul principal la 15 videoclipuri și dezactivează derularea infinită",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "Ascunde abonamentele",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "Ascunde Shorts",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "Ascunde Shorts peste tot: bară laterală, fluxuri, rezultate de căutare și canale",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "Ascunde Explorare și Tendințe",
@@ -67,9 +83,17 @@
     "message": "Ascunde recomandările de final",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "Ascunde grila cu videoclipuri recomandate și ecranul final la încheierea redării",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "Ascunde cardurile de final",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "Ascunde cardurile video, playlisturile și abonamentele plasate de creatori în ultimele 20 de secunde",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "Ascunde chatul live",
@@ -91,17 +115,33 @@
     "message": "Ascunde detaliile videoclipului",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "Ascunde toate informațiile și acțiunile de sub playerul video",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "Butoane de acțiune",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "Ascunde butoanele de apreciere, depreciere, distribuire, descărcare și clip",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "Informații canal",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "Ascunde numele canalului, avatarul și butonul de abonare",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "Descriere",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "Ascunde descrierea extensibilă și detaliile videoclipului",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "Social",
@@ -189,9 +229,21 @@
     "message": "Limită zilnică",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "Întrerupe redarea video când se atinge limita zilnică de vizionare stabilită",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "Oprește după",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "Filtrarea după canal și cuvinte cheie va fi disponibilă în următoarea versiune. Blocatoarele principale de fluxuri sunt active!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "Timpul tău zilnic de vizionare este afișat întotdeauna mai jos.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "Astăzi",
@@ -291,6 +343,38 @@
     "message": "Închide",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "Memento discret",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "Pauză video",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "Continuă vizionarea",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "Întrerupt ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "O notificare discretă pe ecran la intervale regulate pentru a conștientiza timpul petrecut, fără blocare.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "Previzualizează",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "Trimis!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "Deschide o filă YouTube pentru a previzualiza notificarea memento",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "Limita zilnică a fost atinsă",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "Ignoră pentru astăzi",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "Blocare",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "Filtre",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "Focalizare",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "Statistici",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "Setări",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "Restrânge tot",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "Extinde tot",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "Listă de blocare canale",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "Blochează canale specifice pentru a nu mai apărea în fluxuri și recomandări.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "Niciun canal blocat.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "Listă de blocare cuvinte cheie",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "Ascunde videoclipurile ale căror titluri se potrivesc cu cuvintele cheie blocate.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "Niciun cuvânt cheie blocat.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "Adaugă canal",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "Adaugă cuvânt cheie",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "Blocare concentrare",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "Timp conștient și limite",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "Notificări blânde de pauză și limite zilnice pentru timpul pe ecran",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "Scut de concentrare",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "Previne modificările impulsive printr-o întârziere intenționată",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "Sesiuni de concentrare programate",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "Blochează automat YouTube în timpul orelor de lucru, studiu sau somn",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "Necesită o perioadă de așteptare înainte de a dezactiva protecțiile",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "Blocare concentrare",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "Timp de așteptare",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 min",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 min",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 min",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 min",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "Setează cod PIN din 4 cifre",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "Introdu PIN-ul din 4 cifre",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "Confirmă PIN-ul din 4 cifre",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "Dacă uiți acest PIN, singura metodă de resetare este dezinstalarea și reinstalarea extensiei, ceea ce va șterge toate setările. Notează-l într-un loc sigur.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "Salvează PIN-ul și activează",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "Anulează",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "Protejat prin Blocare concentrare",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "Introdu codul PIN din 4 cifre pentru a începe perioada de așteptare:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "Începe așteptarea",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "Codurile PIN nu se potrivesc. Încearcă din nou.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "Codul PIN trebuie să aibă exact 4 cifre.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "Cod PIN incorect. Încearcă din nou.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "Deblocare: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "Se deblochează în $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "Anulează",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "O numărătoare inversă pentru deblocare este deja activă. Anuleaz-o înainte de a debloca o altă setare.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "Blocare programată",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "Blochează automat YouTube în intervalele orare stabilite",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "Blocare programată",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ Adaugă program",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "Niciun program configurat. Apasă pe Adaugă program pentru a crea unul.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "Program nou",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "Editează programul",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "Etichetă",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "de ex. Ore de muncă, Studiu",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "Zilele săptămânii",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "Ora de început",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "Ora de sfârșit",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "Mod de blocare",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "Blochează YouTube complet",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "Înlocuiește YouTube cu un ecran blocat de angajament și concentrare",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "Forțează toate protecțiile",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "Aplică blocarea maximă a distragerilor fără a bloca complet site-ul",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "Salvează programul",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "Anulează",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "Editează",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "Șterge",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "În fiecare zi",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "Lun-Vin",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "Sâm, Dum",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "Dum",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "Lun",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "Mar",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "Mie",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "Joi",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "Vin",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "Sâm",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "Selectează cel puțin o zi.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "Introdu o etichetă pentru program.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "Specifică atât ora de început, cât și cea de sfârșit.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube nu este disponibil în acest moment",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "Devine disponibil la $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "Acest program este aplicat de Intentional YT pentru a-ți proteja concentrarea.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "Setări",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "Limbă",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "Resetează setările",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "Restaurează toate opțiunile implicite și șterge programele personalizate.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "Resetează toate setările la valorile implicite",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "Sigur vrei să resetezi toate setările la valorile implicite? Această acțiune va șterge toate preferințele și programele personalizate.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "Prezentare generală activitate",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "Redare YouTube astăzi",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "timp total de vizionare",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "Timpul de vizionare se acumulează doar atunci când un videoclip YouTube rulează activ. Se resetează automat în fiecare noapte la miezul nopții. Bara de stare persistentă rămâne vizibilă în partea de jos pe fiecare filă.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "Configurează limita",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "Resetează astăzi",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "Automatizează intervale de studiu fără distrageri sau ore de liniște.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "Aspect",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "Automat (sistem)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "Mod întunecat",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "Mod luminos",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "Copie de rezervă și restaurare",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "Exportă setările într-un fișier JSON sau importă o copie anterioară.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "Evaluează pe Chrome Web Store",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Evaluează pe Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "Exportă",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "Importă",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "Setările au fost exportate cu succes",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "Setările au fost importate cu succes",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "Importarea a eșuat: fișier JSON nevalid",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ active",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "Profiluri prestabilite",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "Echilibrat",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "Zen",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "Doar video",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "Personalizat",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "Echilibrat · Ascunde fluxurile și sugestiile",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "Zen · Doar căutare, toate fluxurile sunt ascunse",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "Doar video · Player simplificat, distragerile ascunse",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "Configurație personalizată",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "Comenzi detaliate",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "Blochează fluxul paginii principale, Shorts și sugestiile din bara laterală. Păstrează accesibile căutarea, abonamentele și comentariile.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "Concentrare maximă. Doar căutare simplă. Fluxurile, comentariile, miniaturile și avatarele canalelor sunt ascunse.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "Player video curat. Ascunde recomandările, comentariile și distragerile din jurul videoclipului.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "Configurație personalizată a opțiunilor.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "Comutat la modul $PRESET$",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Bun venit la Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "Alege un profil prestabilit pentru a începe sau personalizează opțiunile de mai jos.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "Închide mesajul de bun venit",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "Caută opțiuni...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "Nicio opțiune găsită",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "Încearcă să cauți shorts, comentarii sau bară laterală",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "Filtre canale și cuvinte cheie",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "Blochează canale specifice și filtrează videoclipurile după cuvinte cheie.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "Focalizare și limite",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "Mementouri, limite zilnice și blocare programată.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "Activitate de redare",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "Urmărește timpul zilnic de vizionare și obiceiurile de redare.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "Preferințe",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "Temă, limbă și copie de rezervă a configurației.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Redirecționează Shorts către playerul normal",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "Redă videoclipurile Shorts în playerul standard cu comenzile uzuale de redare",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "Amână",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "Pus pe pauză",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "Pauză protecții",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "Protecțiile se vor relua automat la expirarea temporizatorului.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 minute",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "Pauză scurtă",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 de minute",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "Sesiune de lucru",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1 oră",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "Sesiune prelungită",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "Reia acum",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "Protecții puse pe pauză",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "Mai sunt $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "Protecțiile au fost puse pe pauză pentru $MINUTES$ minute",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "Protecțiile au fost reluate",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "Oprit",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "Comutator general extensie",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "Timpul zilnic de vizionare a fost resetat",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "În dezvoltare",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

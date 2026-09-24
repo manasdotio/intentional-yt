@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "Απόκρυψη αρχικής ροής",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "Αποκρύπτει την αλγοριθμική ροή βίντεο στην αρχική σελίδα του YouTube",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "Περιορισμός αρχικής ροής (κατά του doomscrolling)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "Περιορίζει την αρχική ροή σε 15 βίντεο και απενεργοποιεί την άπειρη κύλιση",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "Απόκρυψη συνδρομών",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "Απόκρυψη Shorts",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "Αποκρύπτει τα Shorts παντού — πλαϊνή γραμμή, ροές, αποτελέσματα αναζήτησης και κανάλια",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "Απόκρυψη Εξερεύνησης και Τάσεων",
@@ -67,9 +83,17 @@
     "message": "Απόκρυψη προτάσεων τελικής οθόνης",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "Απόκρυψη πλέγματος προτεινόμενων βίντεο και επόμενου τοίχου βίντεο όταν ολοκληρωθεί η αναπαραγωγή",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "Απόκρυψη καρτών τελικής οθόνης",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "Απόκρυψη καρτών βίντεο, λίστας αναπαραγωγής και εγγραφής του δημιουργού στα τελευταία 20 δευτερόλεπτα",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "Απόκρυψη ζωντανής συνομιλίας",
@@ -91,17 +115,33 @@
     "message": "Απόκρυψη πληροφοριών βίντεο",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "Αποκρύπτει όλες τις πληροφορίες και ενέργειες κάτω από το πρόγραμμα αναπαραγωγής βίντεο",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "Κουμπιά ενεργειών",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "Αποκρύπτει τα κουμπιά «Μου αρέσει», «Δεν μου αρέσει», κοινοποίησης, λήψης και κλιπ",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "Πληροφορίες καναλιού",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "Αποκρύπτει το όνομα καναλιού, το avatar και το κουμπί εγγραφής",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "Περιγραφή",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "Αποκρύπτει το επεκτάσιμο κείμενο περιγραφής βίντεο και τις λεπτομέρειες",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "Κοινωνικά",
@@ -189,9 +229,21 @@
     "message": "Ημερήσιο όριο",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "Παύση αναπαραγωγής βίντεο όταν συμπληρωθεί το ημερήσιο όριο παρακολούθησης",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "Διακοπή μετά από",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "Το φιλτράρισμα καναλιών & λέξεων-κλειδιών έρχεται στην επόμενη έκδοση. Οι κύριοι αποκλεισμοί ροών είναι ενεργοί!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "Ο ημερήσιος χρόνος παρακολούθησης εμφανίζεται παρακάτω, πάντα.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "Σήμερα",
@@ -291,6 +343,38 @@
     "message": "Κλείσιμο",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "Ήπια υπενθύμιση",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "Παύση βίντεο",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "Συνέχεια προβολής",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "Σε παύση ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "Ήρεμη ειδοποίηση στην οθόνη σε τακτά διαστήματα για να γνωρίζετε τον χρόνο σας χωρίς να σας αποκλείει.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "Προεπισκόπηση",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "Εστάλη!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "Ανοίξτε μια καρτέλα YouTube για προεπισκόπηση της ειδοποίησης υπενθύμισης",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "Συμπληρώθηκε το ημερήσιο όριο",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "Παράβλεψη για σήμερα",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "Αποκλεισμός",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "Φίλτρα",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "Εστίαση",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "Στατιστικά",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "Ρυθμίσεις",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "Σύμπτυξη όλων",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "Ανάπτυξη όλων",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "Λίστα αποκλεισμού καναλιών",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "Αποκλείστε συγκεκριμένα κανάλια από τις ροές και τις προτάσεις.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "Δεν υπάρχουν αποκλεισμένα κανάλια.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "Λίστα αποκλεισμού λέξεων-κλειδιών",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "Αποκρύψτε βίντεο των οποίων οι τίτλοι ταιριάζουν με αποκλεισμένες λέξεις-κλειδιά.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "Δεν υπάρχουν αποκλεισμένες λέξεις-κλειδιά.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "Προσθήκη καναλιού",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "Προσθήκη λέξης-κλειδιού",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "Κλείδωμα εστίασης",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "Ενσυνείδητος χρόνος & όρια",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "Ήπιες υπενθυμίσεις διαλείμματος & ημερήσια όρια χρόνου οθόνης",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "Ασπίδα κλειδώματος εστίασης",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "Αποτρέψτε παρορμητικές αλλαγές με σκόπιμη καθυστέρηση",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "Προγραμματισμένες συνεδρίες εστίασης",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "Αυτόματος αποκλεισμός YouTube κατά την εργασία, τη μελέτη ή τον ύπνο",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "Απαίτηση καθυστέρησης πριν από την απενεργοποίηση των προστασιών",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "Κλείδωμα εστίασης",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "Καθυστέρηση αναμονής",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 λεπτά",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 λεπτά",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 λεπτά",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 λεπτά",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "Ορισμός 4-ψήφιου PIN",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "Εισαγάγετε 4-ψήφιο PIN",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "Επιβεβαιώστε το 4-ψήφιο PIN",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "Αν ξεχάσετε αυτό το PIN, ο μόνος τρόπος επαναφοράς είναι να απεγκαταστήσετε και να επανεγκαταστήσετε την επέκταση, κάτι που θα διαγράψει όλες τις ρυθμίσεις σας. Σημειώστε το σε ασφαλές μέρος.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "Αποθήκευση PIN & Ενεργοποίηση",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "Ακύρωση",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "Προστασία με κλείδωμα εστίασης",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "Εισαγάγετε το 4-ψήφιο PIN σας για να ξεκινήσει η καθυστέρηση αναμονής:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "Έναρξη αναμονής",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "Τα PIN δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "Το PIN πρέπει να αποτελείται από ακριβώς 4 ψηφία.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "Εσφαλμένο PIN. Δοκιμάστε ξανά.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "Ξεκλείδωμα: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "Ξεκλειδώνει σε $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "Ακύρωση",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "Μια αντίστροφη μέτρηση ξεκλειδώματος είναι ήδη ενεργή. Ακυρώστε την πριν ξεκλειδώσετε άλλη ρύθμιση.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "Προγραμματισμένος αποκλεισμός",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "Αυτόματος αποκλεισμός του YouTube κατά τις καθορισμένες ώρες",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "Προγραμματισμένος αποκλεισμός",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ Προσθήκη προγράμματος",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "Δεν υπάρχουν προγράμματα ακόμα. Κάντε κλικ στην Προσθήκη προγράμματος για να δημιουργήσετε ένα.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "Νέο πρόγραμμα",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "Επεξεργασία προγράμματος",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "Ετικέτα",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "π.χ. Ώρες εργασίας, Χρόνος μελέτης",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "Ημέρες εβδομάδας",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "Ώρα έναρξης",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "Ώρα λήξης",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "Λειτουργία αποκλεισμού",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "Πλήρης αποκλεισμός του YouTube",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "Αντικαθιστά το YouTube με μια κλειδωμένη οθόνη δέσμευσης",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "Επιβολή όλων των προστασιών",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "Επιβάλλει μέγιστο αποκλεισμό περισπασμών χωρίς να κλειδώνει πλήρως τον ιστότοπο",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "Αποθήκευση προγράμματος",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "Ακύρωση",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "Επεξεργασία",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "Διαγραφή",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "Κάθε μέρα",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "Δευ-Παρ",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "Κυρ, Σαβ",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "Κυρ",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "Δευ",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "Τρί",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "Τετ",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "Πέμ",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "Παρ",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "Σάβ",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "Παρακαλώ επιλέξτε τουλάχιστον μία ημέρα.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "Παρακαλώ εισαγάγετε μια ετικέτα προγράμματος.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "Παρακαλώ καθορίστε τόσο την ώρα έναρξης όσο και τη λήξη.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "Το YouTube δεν είναι διαθέσιμο αυτήν τη στιγμή",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "Ανοίγει ξανά στις $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "Αυτό το πρόγραμμα επιβάλλεται από το Intentional YT για την προστασία της εστίασής σας.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "Ρυθμίσεις",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "Γλώσσα",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "Επαναφορά ρυθμίσεων",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "Επαναφορά όλων των προεπιλεγμένων επιλογών και εκκαθάριση προσαρμοσμένων προγραμμάτων.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "Επαναφορά όλων των ρυθμίσεων στις προεπιλογές",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "Είστε βέβαιοι ότι θέλετε να επαναφέρετε όλες τις ρυθμίσεις στις προεπιλογές; Αυτό θα διαγράψει όλες τις προσαρμοσμένες προτιμήσεις και τα προγράμματά σας.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "Επισκόπηση δραστηριότητας",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "Σημερινή αναπαραγωγή YouTube",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "συνολικός χρόνος παρακολούθησης",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "Ο χρόνος παρακολούθησης συγκεντρώνεται μόνο όταν ένα βίντεο YouTube αναπαράγεται ενεργά. Επαναφέρεται αυτόματα κάθε μεσάνυχτα. Η μόνιμη γραμμή κατάστασης παραμένει ορατή στο κάτω μέρος σε κάθε καρτέλα.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "Διαμόρφωση ορίου",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "Επαναφορά σημερινού",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "Αυτοματοποιήστε διαστήματα μελέτης χωρίς περισπασμούς ή ώρες ησυχίας.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "Εμφάνιση",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "Αυτόματο (αντιστοίχιση συστήματος)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "Σκοτεινή λειτουργία",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "Φωτεινή λειτουργία",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "Δημιουργία αντιγράφων ασφαλείας & Επαναφορά",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "Εξαγάγετε τις ρυθμίσεις σας σε αρχείο JSON ή εισαγάγετε ένα προηγούμενο αντίγραφο ασφαλείας.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "Αξιολογήστε στο Web Store",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Αξιολογήστε στο Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "Εξαγωγή",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "Εισαγωγή",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "Οι ρυθμίσεις εξήχθησαν με επιτυχία",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "Οι ρυθμίσεις εισήχθησαν με επιτυχία",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "Αποτυχία εισαγωγής ρυθμίσεων: Μη έγκυρο αρχείο JSON",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ ενεργά",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "Προεπιλογές",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "Ισορροπημένο",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "Zen",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "Μόνο βίντεο",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "Προσαρμοσμένο",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "Ισορροπημένο · Απόκρυψη ροών και προτάσεων",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "Zen · Μόνο αναζήτηση, όλες οι ροές κρυφές",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "Μόνο βίντεο · Λιτό πρόγραμμα αναπαραγωγής, περισπασμοί κρυφοί",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "Προσαρμοσμένη διαμόρφωση",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "Λεπτομερή στοιχεία ελέγχου",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "Αποκλείει την Αρχική ροή, τα Shorts & τις προτάσεις πλαϊνής γραμμής. Αφήνει προσβάσιμα την αναζήτηση, τις συνδρομές και τα σχόλια.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "Μέγιστη εστίαση. Καθαρή αναζήτηση μόνο. Ροές, σχόλια, μικρογραφίες και avatar καναλιών αποκρύπτονται.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "Καθαρό πρόγραμμα αναπαραγωγής βίντεο. Αποκρύπτει προτάσεις, σχόλια και ακαταστασία πλαϊνής γραμμής γύρω από το βίντεο.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "Προσαρμοσμένη διαμόρφωση επιλογών.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "Μετάβαση σε λειτουργία $PRESET$",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Καλώς ορίσατε στο Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "Επιλέξτε μια προεπιλογή για να ξεκινήσετε ή προσαρμόστε τους διακόπτες παρακάτω.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "Κλείσιμο banner καλωσορίσματος",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "Αναζήτηση επιλογών...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "Δεν βρέθηκαν επιλογές",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "Δοκιμάστε να αναζητήσετε shorts, σχόλια ή πλαϊνή γραμμή",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "Φίλτρα καναλιών & λέξεων-κλειδιών",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "Αποκλείστε συγκεκριμένα κανάλια και φιλτράρετε βίντεο βάσει λέξεων-κλειδιών.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "Εστίαση & Όρια",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "Υπενθυμίσεις, ημερήσια όρια και προγραμματισμένος αποκλεισμός.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "Δραστηριότητα αναπαραγωγής",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "Παρακολουθήστε τον ημερήσιο χρόνο προβολής και τις συνήθειες αναπαραγωγής.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "Προτιμήσεις",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "Θέμα, γλώσσα και αντίγραφα ασφαλείας διαμόρφωσης.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Ανακατεύθυνση Shorts στο κανονικό πρόγραμμα αναπαραγωγής",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "Αναπαράγει τα Shorts σε τυπική προβολή παρακολούθησης με στοιχεία ελέγχου αναπαραγωγής",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "Αναβολή",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "Σε αναβολή",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "Παύση προστασιών",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "Οι προστασίες θα συνεχιστούν αυτόματα όταν λήξει το χρονόμετρο.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 λεπτά",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "Σύντομο διάλειμμα",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 λεπτά",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "Συνεδρία εργασίας",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1 ώρα",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "Εκτεταμένη συνεδρία",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "Συνέχιση τώρα",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "Οι προστασίες τέθηκαν σε αναβολή",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "Απομένουν $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "Οι προστασίες τέθηκαν σε παύση για $MINUTES$ λεπτά",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "Οι προστασίες συνεχίστηκαν",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "Ανενεργό",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "Κύριος διακόπτης επέκτασης",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "Ο ημερήσιος χρόνος παρακολούθησης μηδενίστηκε",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "Υπό ανάπτυξη",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

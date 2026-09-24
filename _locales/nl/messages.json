@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "Startpaginafeed verbergen",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "Verbergt de algoritmische videofeed op de YouTube-startpagina",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "Startpaginafeed beperken (anti-doomscroll)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "Beperkt de startpaginafeed tot 15 video's en schakelt oneindig scrollen uit",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "Abonnementen verbergen",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "Shorts verbergen",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "Verbergt Shorts overal — zijbalk, feeds, zoekresultaten en kanalen",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "Ontdekken & Trending verbergen",
@@ -67,9 +83,17 @@
     "message": "Aanbevelingen op eindscherm verbergen",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "Aanbevolen videoraster en volgend videoscherm na afloop van weergave verbergen",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "Eindschermkaarten verbergen",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "Door maker geplaatste video-, afspeellijst- en abonneerkaarten in de laatste 20s verbergen",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "Livechat verbergen",
@@ -91,17 +115,33 @@
     "message": "Video-informatiepaneel verbergen",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "Verbergt alle informatie en acties onder de videospeler",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "Actieknoppen",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "Verbergt knoppen voor leuk, niet leuk, delen, downloaden en clips",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "Kanaalinformatie",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "Verbergt kanaalnaam, avatar en abonneerknop",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "Beschrijving",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "Verbergt uitklapbare videobeschrijvingstekst en details",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "Sociaal",
@@ -189,9 +229,21 @@
     "message": "Dagelijkse limiet",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "Pauzeert het afspelen van video's wanneer je dagelijkse kijklimiet is bereikt",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "Stop na",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "Filteren op kanalen en trefwoorden komt in de volgende update. De feedblokkeringen zijn actief!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "Je dagelijkse kijktijd wordt hieronder altijd weergegeven.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "Vandaag",
@@ -291,6 +343,38 @@
     "message": "Sluiten",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "Zachte herinnering",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "Video pauzeren",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "Blijven kijken",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "Gepauzeerd ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "Rustige melding op het scherm met regelmatige tussenpozen om je bewust te houden van de tijd zonder je te blokkeren.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "Voorbeeld",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "Verzonden!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "Open een YouTube-tabblad om de voorbeeldherinnering te zien",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "Dagelijkse limiet bereikt",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "Voor vandaag negeren",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "Blokkeren",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "Filters",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "Focus",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "Statistieken",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "Instellingen",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "Alles inklappen",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "Alles uitklappen",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "Kanaalblokkeerlijst",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "Blokkeer specifieke kanalen in feeds en aanbevelingen.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "Geen geblokkeerde kanalen.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "Trefwoordblokkeerlijst",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "Verberg video's waarvan de titel overeenkomt met geblokkeerde trefwoorden.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "Geen geblokkeerde trefwoorden.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "Kanaal toevoegen",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "Trefwoord toevoegen",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "Focusvergrendeling",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "Bewuste Tijd & Limieten",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "Zachte pauzeherinneringen & dagelijkse schermtijdgrenzen",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "Focusvergrendelingsschild",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "Voorkom impulsieve wijzigingen met een doelbewuste vertraging",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "Geplande focussessies",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "YouTube automatisch blokkeren tijdens werk, studie of slaap",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "Een vertraging vereisen voor het uitschakelen van beveiligingen",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "Focusvergrendeling",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "Afkoelvertraging",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 min",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 min",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 min",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 min",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "4-cijferige pincode instellen",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "4-cijferige pincode invoeren",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "4-cijferige pincode bevestigen",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "Als je deze pincode vergeet, kun je deze alleen resetten door de extensie te verwijderen en opnieuw te installeren, waardoor al je instellingen verloren gaan. Bewaar deze op een veilige plek.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "Pincode opslaan & inschakelen",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "Annuleren",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "Beschermd door focusvergrendeling",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "Voer je 4-cijferige pincode in om de afkoelvertraging te starten:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "Afkoeling starten",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "Pincodes komen niet overeen. Probeer het opnieuw.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "Pincode moet exact 4 cijfers bevatten.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "Onjuiste pincode. Probeer het opnieuw.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "Ontgrendelen: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "Ontgrendelt over $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "Annuleren",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "Er is al een ontgrendelingsaftelling actief. Annuleer deze voordat je een andere instelling ontgrendelt.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "Geplande blokkering",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "YouTube automatisch blokkeren tijdens ingestelde tijden",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "Geplande blokkering",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ Schema toevoegen",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "Nog geen schema's. Klik op '+ Schema toevoegen' om er een aan te maken.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "Nieuw schema",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "Schema bewerken",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "Label",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "bijv. Werktijd, Studietijd",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "Dagen van de week",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "Starttijd",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "Eindtijd",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "Blokkeermodus",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "YouTube volledig blokkeren",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "Vervangt YouTube door een vergrendeld focusscherm",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "Alle beveiligingen forceren",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "Dwingt maximale afleidingsblokkering af zonder de site volledig te vergrendelen",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "Schema opslaan",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "Annuleren",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "Bewerken",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "Verwijderen",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "Elke dag",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "Ma–vr",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "Za, zo",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "Zo",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "Ma",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "Di",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "Wo",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "Do",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "Vr",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "Za",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "Selecteer ten minste één dag.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "Voer een schemalabel in.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "Geef zowel een begin- als eindtijd op.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube is momenteel niet beschikbaar",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "Weer beschikbaar om $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "Dit schema wordt gehandhaafd door Intentional YT om je focus te beschermen.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "Instellingen",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "Taal",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "Instellingen resetten",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "Herstel alle standaardopties en wis aangepaste schema's.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "Alle instellingen herstellen naar standaard",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "Weet je zeker dat je alle instellingen wilt terugzetten naar de standaardwaarden? Dit wist al je aangepaste voorkeuren en schema's.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "Activiteitenoverzicht",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "YouTube-kijktijd van vandaag",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "totale kijktijd",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "Kijktijd telt alleen mee terwijl een YouTube-video actief wordt afgespeeld. Deze wordt om middernacht automatisch gereset. Je permanente statusbalk blijft zichtbaar onderaan elk tabblad.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "Limiet configureren",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "Vandaag resetten",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "Automatiseer afleidingsvrije studieblokken of rusttijden.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "Weergave",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "Automatisch (volg systeem)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "Donkere modus",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "Lichte modus",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "Back-up & Herstel",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "Exporteer je instellingen naar een JSON-bestand of importeer een eerdere back-up.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "Beoordelen in de Web Store",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Beoordelen op Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "Exporteren",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "Importeren",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "Instellingen succesvol geëxporteerd",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "Instellingen succesvol geïmporteerd",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "Kan instellingen niet importeren: Ongeldig JSON-bestand",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ actief",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "Voorinstellingen",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "Gebalanceerd",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "Zen",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "Alleen video",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "Aangepast",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "Gebalanceerd · Verbergt feeds en suggesties",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "Zen · Alleen zoeken, alle feeds verborgen",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "Alleen video · Minimale speler, afleidingen verborgen",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "Aangepaste configuratie",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "Gedetailleerde bediening",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "Blokkeert startpaginafeed, Shorts & zijbalksuggesties. Laat zoeken, abonnementen en reacties toegankelijk.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "Maximale focus. Puur alleen zoeken. Feeds, reacties, miniaturen en kanaalavatars zijn verborgen.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "Schone videospeler. Verbergt aanbevelingen, reacties en afleidingen rondom de video.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "Aangepaste configuratie van schakelaars.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "Overgeschakeld naar $PRESET$-modus",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Welkom bij Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "Kies een voorinstelling om te beginnen of pas hieronder de schakelaars aan.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "Welkomstbanner sluiten",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "Schakelaars zoeken...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "Geen schakelaars gevonden",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "Probeer te zoeken naar shorts, reacties of zijbalk",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "Kanaal- & Trefwoordfilters",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "Blokkeer specifieke kanalen en filter video's op trefwoord.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "Focus & Limieten",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "Herinneringen, dagelijkse limieten en geplande blokkeringen.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "Afspeelactiviteit",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "Volg je dagelijkse kijktijd en kijkgewoonten.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "Voorkeuren",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "Thema, taal en back-up van configuratie.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Shorts doorsturen naar normale speler",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "Speelt Shorts af in de standaard videoweergave met afspeelbediening",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "Snoozen",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "Gesnoozed",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "Beveiligingen pauzeren",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "Beveiligingen worden automatisch hervat wanneer de timer afloopt.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 minuten",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "Korte pauze",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 minuten",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "Werksessie",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1 uur",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "Verlengde sessie",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "Nu hervatten",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "Beveiligingen gepauzeerd",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "Nog $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "Beveiligingen gepauzeerd voor $MINUTES$ minuten",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "Beveiligingen hervat",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "Uit",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "Hoofdschakelaar van de extensie",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "Dagelijkse kijktijd gereset",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "In ontwikkeling",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

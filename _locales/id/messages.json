@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "Sembunyikan feed beranda",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "Sembunyikan feed video algoritmik di beranda YouTube",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "Batasi feed beranda (anti-doomscroll)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "Membatasi feed beranda hingga 15 video dan menonaktifkan scrolling tanpa akhir",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "Sembunyikan langganan",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "Sembunyikan Shorts",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "Sembunyikan Shorts di mana saja — sidebar, feed, hasil pencarian, dan channel",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "Sembunyikan Eksplorasi & Trending",
@@ -67,9 +83,17 @@
     "message": "Sembunyikan rekomendasi layar akhir",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "Sembunyikan kisi video rekomendasi dan video berikutnya saat pemutaran selesai",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "Sembunyikan kartu layar akhir",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "Sembunyikan kartu video, playlist, dan tombol subscribe buatan kreator di 20 detik terakhir",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "Sembunyikan chat langsung",
@@ -91,17 +115,33 @@
     "message": "Sembunyikan panel info video",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "Sembunyikan semua informasi dan tindakan di bawah pemutar video",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "Tombol tindakan",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "Sembunyikan tombol suka, tidak suka, bagikan, unduh, dan klip",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "Info channel",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "Sembunyikan nama channel, avatar, dan tombol langganan",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "Deskripsi",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "Sembunyikan teks deskripsi video dan detail yang dapat diperluas",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "Sosial",
@@ -189,9 +229,21 @@
     "message": "Batas harian",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "Jeda pemutaran video saat ambang batas tontonan harian Anda tercapai",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "Berhenti setelah",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "Pemfilteran channel & kata kunci akan hadir di rilis berikutnya. Pemblokir feed utama sedang aktif!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "Waktu menonton harian Anda ditampilkan di bawah ini, selalu.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "Hari Ini",
@@ -291,6 +343,38 @@
     "message": "Tutup",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "Pengingat Lembut",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "Jeda Video",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "Lanjut Menonton",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "Dijeda ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "Dorongan lembut di layar secara berkala untuk menjaga Anda tetap sadar waktu tanpa memblokir Anda.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "Pratinjau",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "Terkirim!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "Buka tab YouTube untuk melihat pratinjau notifikasi pengingat",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "Batas Waktu Harian Tercapai",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "Abaikan untuk hari ini",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "Blokir",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "Filter",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "Fokus",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "Statistik",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "Pengaturan",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "Ciutkan Semua",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "Bentangkan Semua",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "Daftar Blokir Channel",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "Blokir channel tertentu agar tidak muncul di feed dan rekomendasi.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "Tidak ada channel yang diblokir.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "Daftar Blokir Kata Kunci",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "Sembunyikan video yang judulnya cocok dengan kata kunci yang diblokir.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "Tidak ada kata kunci yang diblokir.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "Tambah Channel",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "Tambah Kata Kunci",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "Kunci Fokus",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "Waktu Penuh Kesadaran & Batas",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "Pengingat istirahat lembut & batasan waktu layar harian",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "Perisai Kunci Fokus",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "Cegah perubahan impulsif dengan jeda waktu yang disengaja",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "Sesi Fokus Terjadwal",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "Blokir YouTube otomatis saat bekerja, belajar, atau tidur",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "Wajibkan penundaan sebelum menonaktifkan perlindungan",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "Kunci Fokus",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "Jeda waktu tunggu",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 mnt",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 mnt",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 mnt",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 mnt",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "Atur PIN 4 Digit",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "Masukkan PIN 4 digit",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "Konfirmasi PIN 4 digit",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "Jika Anda lupa PIN ini, satu-satunya cara untuk meresetnya adalah dengan mencopot pemasangan dan memasang ulang ekstensi, yang akan menghapus semua pengaturan Anda. Catatlah di tempat yang aman.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "Simpan PIN & Aktifkan",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "Batal",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "Dilindungi Kunci Fokus",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "Masukkan PIN 4 digit Anda untuk memulai jeda waktu tunggu:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "Mulai Waktu Tunggu",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "PIN tidak cocok. Silakan coba lagi.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "PIN harus tepat 4 digit.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "PIN salah. Coba lagi.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "Membuka kunci: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "Terbuka dalam $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "Batal",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "Hitung mundur pembukaan kunci sudah aktif. Batalkan sebelum membuka kunci pengaturan lain.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "Pemblokiran Terjadwal",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "Blokir YouTube secara otomatis pada waktu yang ditentukan",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "Pemblokiran Terjadwal",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ Tambah Jadwal",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "Belum ada jadwal. Klik Tambah Jadwal untuk membuatnya.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "Jadwal Baru",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "Edit Jadwal",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "Label",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "cth. Jam kerja, Waktu belajar",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "Hari dalam seminggu",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "Waktu mulai",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "Waktu selesai",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "Mode Pemblokiran",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "Blokir YouTube sepenuhnya",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "Mengganti YouTube dengan layar komitmen terkunci",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "Paksa aktifkan semua perlindungan",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "Menerapkan pemblokiran gangguan maksimum tanpa mengunci situs sepenuhnya",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "Simpan Jadwal",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "Batal",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "Edit",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "Hapus",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "Setiap hari",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "Sen-Jum",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "Sab, Min",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "Min",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "Sen",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "Sel",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "Rab",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "Kam",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "Jum",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "Sab",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "Silakan pilih setidaknya satu hari.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "Silakan masukkan label jadwal.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "Harap tentukan waktu mulai dan waktu selesai.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube sedang tidak tersedia",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "Dibuka kembali pada pukul $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "Jadwal ini diberlakukan oleh Intentional YT untuk menjaga fokus Anda.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "Pengaturan",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "Bahasa",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "Reset Pengaturan",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "Kembalikan semua opsi default dan hapus jadwal khusus.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "Reset semua pengaturan ke default",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "Apakah Anda yakin ingin mereset semua pengaturan ke default? Ini akan menghapus semua preferensi dan jadwal khusus Anda.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "Ringkasan Aktivitas",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "Pemutaran YouTube Hari Ini",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "total waktu menonton",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "Waktu menonton terakumulasi hanya saat video YouTube sedang diputar aktif. Reset otomatis setiap tengah malam. Bilah status persisten Anda tetap terlihat di bagian bawah di setiap tab.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "Atur Batas",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "Reset Hari Ini",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "Otomatiskan waktu belajar bebas gangguan atau jam tenang.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "Tampilan",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "Otomatis (ikuti sistem)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "Mode gelap",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "Mode terang",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "Cadangan & Pemulihan",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "Ekspor pengaturan Anda ke file JSON atau impor cadangan sebelumnya.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "Beri nilai di Web Store",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Beri nilai di Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "Ekspor",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "Impor",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "Pengaturan berhasil diekspor",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "Pengaturan berhasil diimpor",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "Gagal mengimpor pengaturan: File JSON tidak valid",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ aktif",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "Preset",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "Seimbang",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "Zen",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "Hanya Video",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "Kustom",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "Seimbang · Sembunyikan feed dan saran",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "Zen · Hanya pencarian, semua feed disembunyikan",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "Hanya Video · Pemutar minimalis, gangguan disembunyikan",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "Konfigurasi kustom",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "Kontrol Detail",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "Blokir Beranda, Shorts & saran sidebar. Tetap biarkan pencarian, subscription, dan komentar dapat diakses.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "Fokus maksimal. Hanya pencarian murni. Feed, komentar, thumbnail, dan avatar channel disembunyikan.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "Pemutar video bersih. Sembunyikan rekomendasi, komentar, dan kekacauan sidebar di sekitar video.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "Konfigurasi tombol kustom.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "Beralih ke mode $PRESET$",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Selamat datang di Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "Pilih preset untuk memulai, atau sesuaikan tombol pilihan di bawah.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "Tutup banner selamat datang",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "Cari tombol kontrol...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "Tidak ada kontrol yang ditemukan",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "Coba cari shorts, komentar, atau sidebar",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "Filter Channel & Kata Kunci",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "Blokir channel tertentu dan filter video berdasarkan kata kunci.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "Fokus & Batasan",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "Pengingat, batas harian, dan pemblokiran terjadwal.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "Aktivitas Pemutaran",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "Lacak waktu menonton harian dan kebiasaan pemutaran Anda.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "Preferensi",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "Tema, bahasa, dan cadangan konfigurasi.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Alihkan Shorts ke pemutar normal",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "Memutar Shorts dalam tampilan tontonan standar dengan kontrol pemutaran",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "Tunda",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "Ditunda",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "Jeda Perlindungan",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "Perlindungan akan dilanjutkan secara otomatis saat penghitung waktu berakhir.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 Menit",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "Istirahat sejenak",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 Menit",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "Sesi kerja",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1 Jam",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "Sesi lanjutan",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "Lanjutkan Sekarang",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "Perlindungan Ditunda",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "Tersisa $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "Perlindungan dijeda selama $MINUTES$ menit",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "Perlindungan dilanjutkan",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "Mati",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "Tombol Master Ekstensi",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "Waktu menonton harian direset",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "Dalam Pengembangan",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

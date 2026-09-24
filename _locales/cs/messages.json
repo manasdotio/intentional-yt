@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "Skrýt domovskou stránku",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "Skryje algoritmický kanál doporučených videí na domovské stránce YouTube",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "Omezit domovskou stránku (proti nekonečnému scrollování)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "Omezí domovskou stránku na 15 videí a vypne nekonečné posouvání",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "Skrýt odběry",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "Skrýt Shorts",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "Skryje Shorts všude — v postranním panelu, na domovské stránce, ve vyhledávání i na kanálech",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "Skrýt Prozkoumat a Trendy",
@@ -67,9 +83,17 @@
     "message": "Skrýt doporučení na závěrečné obrazovce",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "Skrýt mřížku doporučených videí po skončení přehrávání",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "Skrýt karty na závěrečné obrazovce",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "Skrýt závěrečné karty s videi, playlisty a odběrem v posledních 20 sekundách",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "Skrýt živý chat",
@@ -91,17 +115,33 @@
     "message": "Skrýt informace o videu",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "Skryje veškeré informace a tlačítka akcí pod přehrávačem",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "Tlačítka akcí",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "Skryje tlačítka To se mi líbí, Nelíbí se mi, Sdílet, Stáhnout a Klip",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "Informace o kanálu",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "Skryje název kanálu, avatar a tlačítko Odebírat",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "Popis videa",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "Skryje rozbalovací popis videa a podrobnosti",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "Komunita",
@@ -189,9 +229,21 @@
     "message": "Denní limit",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "Pozastaví přehrávání videa po dosažení denního limitu sledování",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "Zastavit po",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "Filtrování kanálů a klíčových slov bude k dispozici v příští verzi. Základní blokování obsahu je aktivní!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "Vaše denní doba sledování je trvale zobrazena níže.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "Dnes",
@@ -291,6 +343,38 @@
     "message": "Zavřít",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "Jemné připomenutí",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "Pozastavit video",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "Pokračovat ve sledování",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "Pozastaveno ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "Klidné upozornění na obrazovce v pravidelných intervalech, které vás udrží v obraze bez blokování.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "Náhled",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "Odesláno!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "Otevřete kartu YouTube pro zobrazení náhledu oznámení",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "Denní limit vyčerpán",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "Pro dnešek zrušit",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "Blokovat",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "Filtry",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "Soustředění",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "Statistiky",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "Nastavení",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "Sbalit vše",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "Rozbalit vše",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "Seznam blokovaných kanálů",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "Blokovat zobrazení vybraných kanálů v kanálech a doporučeních.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "Žádné blokované kanály.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "Seznam blokovaných klíčových slov",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "Skrýt videa, jejichž názvy odpovídají blokovaným klíčovým slovům.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "Žádná blokovaná klíčová slova.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "Přidat kanál",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "Přidat klíčové slovo",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "Zámek soustředění",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "Vědomý čas a limity",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "Jemná připomenutí přestávek a denní hranice času u obrazovky",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "Štít soustředění",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "Zabraňte impulzivním změnám pomocí záměrné prodlevy",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "Plánované relace soustředění",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "Automaticky blokovat YouTube během práce, studia nebo spánku",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "Vyžadovat prodlevu před vypnutím ochrany",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "Zámek soustředění",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "Prodleva odpočtu",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 min",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 min",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 min",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 min",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "Nastavit 4místný PIN",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "Zadejte 4místný PIN",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "Potvrďte 4místný PIN",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "Pokud tento PIN zapomenete, jediný způsob, jak jej resetovat, je odinstalovat a znovu nainstalovat rozšíření, čímž se vymažou všechna vaše nastavení. Zapište si jej na bezpečné místo.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "Uložit PIN a zapnout",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "Zrušit",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "Chráněno zámkem soustředění",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "Zadejte svůj 4místný PIN pro zahájení odpočtu prodlevy:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "Spustit odpočet",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "Kódy PIN se neshodují. Zkuste to znovu.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "PIN musí mít přesně 4 číslice.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "Nesprávný PIN. Zkuste to znovu.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "Odemykání: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "Odemkne se za $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "Zrušit",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "Odpočet odemknutí již probíhá. Před odemknutím jiného nastavení jej zrušte.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "Plánované blokování",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "Automaticky blokovat YouTube v nastavených časech",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "Plánované blokování",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ Přidat rozvrh",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "Zatím žádné rozvrhy. Klikněte na Přidat rozvrh pro vytvoření nového.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "Nový rozvrh",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "Upravit rozvrh",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "Název",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "např. Pracovní doba, Čas na studium",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "Dny v týdnu",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "Čas zahájení",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "Čas ukončení",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "Režim blokování",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "Zcela zablokovat YouTube",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "Nahradí YouTube uzamčenou obrazovkou soustředění",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "Vynutit všechna ochranná opatření",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "Maximální blokování rozptýlení bez úplného zablokování webu",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "Uložit rozvrh",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "Zrušit",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "Upravit",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "Smazat",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "Každý den",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "Po–Pá",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "So, Ne",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "Ne",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "Po",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "Út",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "St",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "Čt",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "Pá",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "So",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "Vyberte prosím alespoň jeden den.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "Zadejte prosím název rozvrhu.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "Určete prosím čas zahájení i ukončení.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube není v tuto chvíli k dispozici",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "Znovu se otevře v $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "Tento rozvrh je vynucován doplňkem Intentional YT pro ochranu vašeho soustředění.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "Nastavení",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "Jazyk",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "Resetovat nastavení",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "Obnovit všechny výchozí možnosti a smazat vlastní rozvrhy.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "Obnovit všechna výchozí nastavení",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "Opravdu chcete obnovit všechna nastavení na výchozí hodnoty? Tím se vymažou všechny vaše vlastní předvolby a rozvrhy.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "Přehled aktivity",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "Dnešní přehrávání na YouTube",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "celková doba sledování",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "Doba sledování se počítá pouze při aktivním přehrávání videa na YouTube. Resetuje se automaticky každou půlnoc. Stavový řádek zůstává trvale viditelný ve spodní části každého panelu.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "Nastavit limit",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "Resetovat dnešek",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "Automatizujte studijní bloky bez rozptylování nebo klidové hodiny.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "Vzhled",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "Automaticky (podle systému)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "Tmavý režim",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "Světlý režim",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "Zálohování a obnovení",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "Exportujte svá nastavení do souboru JSON nebo importujte předchozí zálohu.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "Ohodnotit v Chrome Web Store",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Ohodnotit na Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "Exportovat",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "Importovat",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "Nastavení byla úspěšně exportována",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "Nastavení byla úspěšně importována",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "Nastavení se nepodařilo importovat: Neplatný soubor JSON",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ aktivních",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "Předvolby",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "Vyvážený",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "Zen",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "Pouze video",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "Vlastní",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "Vyvážený · Skryje kanály a doporučení",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "Zen · Pouze vyhledávání, všechny kanály jsou skryté",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "Pouze video · Minimalistický přehrávač, rozptýlení je skryto",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "Vlastní konfigurace",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "Podrobné ovládací prvky",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "Blokuje domovskou stránku, Shorts a doporučení v postranním panelu. Ponechává dostupné vyhledávání, odběry a komentáře.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "Maximální soustředění. Pouze čisté vyhledávání. Kanály, komentáře, miniatury a avatary kanálů jsou skryty.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "Čistý přehrávač videa. Skryje doporučení, komentáře a rušivé prvky v postranním panelu kolem videa.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "Vlastní konfigurace přepínačů.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "Přepnuto do režimu $PRESET$",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Vítejte v Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "Zvolte předvolbu pro rychlý začátek nebo upravte přepínače níže.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "Zavřít uvítací zprávu",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "Hledat nastavení...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "Nenalezena žádná nastavení",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "Zkuste hledat shorts, komentáře nebo postranní panel",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "Filtry kanálů a klíčových slov",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "Blokujte konkrétní kanály a filtrujte videa podle klíčových slov.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "Soustředění a limity",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "Připomenutí, denní limity a plánované blokování.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "Aktivita přehrávání",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "Sledujte svou denní dobu sledování a zvyky při přehrávání.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "Předvolby",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "Motiv, jazyk a zálohování nastavení.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Přesměrovat Shorts do běžného přehrávače",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "Přehrává Shorts ve standardním zobrazení s ovládacími prvky přehrávání",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "Odložit",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "Odloženo",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "Pozastavit ochranu",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "Ochrana se automaticky obnoví po vypršení časovače.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 minut",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "Krátká přestávka",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 minut",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "Pracovní blok",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1 hodina",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "Dlouhý blok",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "Obnovit nyní",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "Ochrana je odložena",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "Zbývá $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "Ochrana byla pozastavena na $MINUTES$ minut",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "Ochrana byla obnovena",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "Vypnuto",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "Hlavní přepínač rozšíření",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "Denní doba sledování byla resetována",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "Ve vývoji",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

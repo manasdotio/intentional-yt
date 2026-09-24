@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "إخفاء خلاصة الصفحة الرئيسية",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "إخفاء خلاصة الفيديو الخوارزمية في الصفحة الرئيسية ليوتيوب",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "تقييد خلاصة الصفحة الرئيسية (منع التمرير اللانهائي)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "يحد خلاصة الصفحة الرئيسية بـ 15 مقطع فيديو ويعطل التمرير اللانهائي",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "إخفاء الاشتراكات",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "إخفاء مقاطع Shorts",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "إخفاء مقاطع Shorts في كل مكان — القائمة الجانبية والخلاصات ونتائج البحث والقنوات",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "إخفاء استكشاف والمحتوى الرائج",
@@ -67,9 +83,17 @@
     "message": "إخفاء اقتراحات شاشة النهاية",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "إخفاء شبكة مقاطع الفيديو المقترحة وجدار الفيديو التالي عند انتهاء التشغيل",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "إخفاء بطاقات شاشة النهاية",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "إخفاء بطاقات الفيديو وقوائم التشغيل والاشتراك التي يضعها منشئ المحتوى في آخر 20 ثانية",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "إخفاء الدردشة المباشرة",
@@ -91,17 +115,33 @@
     "message": "إخفاء لوحة معلومات الفيديو",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "إخفاء جميع المعلومات والإجراءات الموجودة أسفل مشغل الفيديو",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "أزرار التفاعل",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "إخفاء أزرار الإعجاب، وعدم الإعجاب، والمشاركة، والتنزيل، والمقاطع",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "معلومات القناة",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "إخفاء اسم القناة وصورتها وزر الاشتراك",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "الوصف",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "إخفاء نص وتفاصيل وصف الفيديو القابلة للتوسيع",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "التفاعل",
@@ -189,9 +229,21 @@
     "message": "الحد اليومي",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "إيقاف تشغيل الفيديو مؤقتاً عند بلوغ الحد اليومي للمشاهدة",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "التوقف بعد",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "تصفية القنوات والكلمات المفتاحية قادمة في الإصدار القادم. أدوات حظر الخلاصات الأساسية نشطة!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "يتم دائماً عرض وقت المشاهدة اليومي أدناه.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "اليوم",
@@ -291,6 +343,38 @@
     "message": "إغلاق",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "تذكير لطيف",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "إيقاف الفيديو مؤقتاً",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "متابعة المشاهدة",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "متوقف مؤقتاً ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "تنبيه هادئ على الشاشة على فترات منتظمة لتذكيرك بالوقت دون حظرك.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "معاينة",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "تم الإرسال!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "افتح علامة تبويب يوتيوب لمعاينة إشعار التذكير",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "تم الوصول إلى الحد اليومي",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "تجاهل لهذا اليوم",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "الحظر",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "الفلاتر",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "التركيز",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "الإحصائيات",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "الإعدادات",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "طي الكل",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "توسيع الكل",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "قائمة حظر القنوات",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "حظر قنوات معينة من الظهور في الخلاصات والاقتراحات.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "لا توجد قنوات محظورة.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "قائمة حظر الكلمات المفتاحية",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "إخفاء مقاطع الفيديو التي تتطابق عناوينها مع الكلمات المفتاحية المحظورة.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "لا توجد كلمات مفتاحية محظورة.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "إضافة قناة",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "إضافة كلمة مفتاحية",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "قفل التركيز",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "الوقت والحدود بوعي",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "تنبيهات لطيفة للاستراحة وحدود يومية لوقت الشاشة",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "درع قفل التركيز",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "منع التغييرات الاندفاعية عبر تأخير متعمد",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "جلسات التركيز المجدولة",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "حظر يوتيوب تلقائياً أثناء العمل أو الدراسة أو النوم",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "طلب فترة تأخير قبل تعطيل تدابير الحماية",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "قفل التركيز",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "مدة تأخير التهدئة",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 دقائق",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 دقائق",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 دقيقة",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 دقيقة",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "تعيين رمز PIN من 4 أرقام",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "أدخل رمز PIN من 4 أرقام",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "تأكيد رمز PIN من 4 أرقام",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "إذا نسيت رمز PIN هذا، فإن الطريقة الوحيدة لإعادة تعيينه هي إلغاء تثبيت الإضافة وإعادة تثبيتها، مما سيؤدي إلى مسح جميع إعداداتك. اكتبه في مكان آمن.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "حفظ الرمز وتفعيل القفل",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "إلغاء",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "محمي بقفل التركيز",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "أدخل رمز PIN المكون من 4 أرقام لبدء فترة التهدئة:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "بدء فترة التهدئة",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "رمزا PIN غير متطابقين. يرجى المحاولة مرة أخرى.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "يجب أن يتكون رمز PIN من 4 أرقام بالضبط.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "رمز PIN غير صحيح. حاول مجدداً.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "جارٍ إلغاء القفل: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "يُلغى القفل خلال $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "إلغاء",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "العد التنازلي لإلغاء القفل نشط بالفعل. ألغهِ قبل إلغاء قفل إعداد آخر.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "الحظر المجدول",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "حظر يوتيوب تلقائياً خلال أوقات محددة",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "الحظر المجدول",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ إضافة جدول",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "لا توجد جداول حتى الآن. انقر على إضافة جدول لإنشاء واحد.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "جدول جديد",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "تعديل الجدول",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "التسمية",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "مثال: ساعات العمل، وقت المذاكرة",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "أيام الأسبوع",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "وقت البدء",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "وقت الانتهاء",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "وضع الحظر",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "حظر يوتيوب بالكامل",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "يستبدل يوتيوب بشاشة التزام مقفلة",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "فرض جميع تدابير الحماية",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "يفرض أقصى حظر للمشتتات دون إقفال الموقع تماماً",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "حفظ الجدول",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "إلغاء",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "تعديل",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "حذف",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "كل يوم",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "الإثنين - الجمعة",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "الأحد، السبت",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "الأحد",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "الإثنين",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "الثلاثاء",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "الأربعاء",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "الخميس",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "الجمعة",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "السبت",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "يرجى تحديد يوم واحد على الأقل.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "يرجى إدخال تسمية للجدول.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "يرجى تحديد وقتي البدء والانتهاء.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "يوتيوب غير متاح في الوقت الحالي",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "يُعاد الفتح في $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "تم فرض هذا الجدول بواسطة Intentional YT لحماية تركيزك.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "الإعدادات",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "اللغة",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "إعادة ضبط الإعدادات",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "استعادة جميع الخيارات الافتراضية ومسح الجداول المخصصة.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "إعادة ضبط جميع الإعدادات إلى الافتراضية",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "هل أنت متأكد من رغبتك في إعادة ضبط جميع الإعدادات إلى الوضع الافتراضي؟ سيؤدي هذا إلى مسح جميع تفضيلاتك وجداولك المخصصة.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "نظرة عامة على النشاط",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "تشغيل يوتيوب اليوم",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "إجمالي وقت المشاهدة",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "يتراكم وقت المشاهدة فقط أثناء تشغيل فيديو يوتيوب بشكل نشط. ويُعاد ضبطه تلقائياً كل منتصف ليل. يظل شريط الحالة الدائم ظاهراً في الأسفل في كل علامة تبويب.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "تكوين الحد",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "إعادة ضبط اليوم",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "قم بأتمتة فترات الدراسة الخالية من التشتت أو الساعات الهادئة.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "المظهر",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "تلقائي (مطابقة النظام)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "الوضع الداكن",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "الوضع الفاتح",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "النسخ الاحتياطي والاستعادة",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "تصدير إعداداتك إلى ملف JSON أو استيراد نسخة احتياطية سابقة.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "التقييم في متجر الويب",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "التقييم في Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "تصدير",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "استيراد",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "تم تصدير الإعدادات بنجاح",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "تم استيراد الإعدادات بنجاح",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "فشل استيراد الإعدادات: ملف JSON غير صالح",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ نشط",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "الإعدادات المسبقة",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "متوازن",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "زن",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "الفيديو فقط",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "مخصص",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "متوازن · إخفاء الخلاصات والاقتراحات",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "زن · البحث فقط، جميع الخلاصات مخفية",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "الفيديو فقط · مشغل بسيط، المشتتات مخفية",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "تكوين مخصص",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "عناصر التحكم التفصيلية",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "يحظر خلاصة الصفحة الرئيسية ومقاطع Shorts واقتراحات الشريط الجانبي. يترك البحث والاشتراكات والتعليقات متاحة.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "أقصى درجات التركيز. بحث خالص فقط. يتم إخفاء الخلاصات والتعليقات والصور المصغرة والصور الرمزية للقنوات.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "مشغل فيديو نظيف. يخفي التوصيات والتعليقات وفوضى الشريط الجانبي حول الفيديو.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "تكوين مخصص لعناصر التبديل.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "تم التبديل إلى وضع $PRESET$",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "مرحباً بك في Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "اختر إعداداً مسبقاً للبدء، أو خصص المفاتيح أدناه.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "إغلاق لافتة الترحيب",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "البحث في عناصر التبديل...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "لم يتم العثور على خيارات",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "جرب البحث عن Shorts، أو التعليقات، أو الشريط الجانبي",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "فلاتر القنوات والكلمات المفتاحية",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "حظر قنوات معينة وتصفية مقاطع الفيديو حسب الكلمات المفتاحية.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "التركيز والحدود",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "التذكيرات والحدود اليومية والحظر المجدول.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "نشاط التشغيل",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "تتبع وقت المشاهدة اليومي وعادات التشغيل.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "التفضيلات",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "المظهر واللغة والنسخ الاحتياطي للتكوين.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "إعادة توجيه Shorts إلى المشغل العادي",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "تشغيل مقاطع Shorts في وضع المشاهدة القياسي مع عناصر التحكم في التشغيل",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "تأجيل",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "مؤجل",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "إيقاف تدابير الحماية مؤقتاً",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "ستستأنف تدابير الحماية تلقائياً عند انتهاء المؤقت.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 دقيقة",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "استراحة قصيرة",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 دقيقة",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "جلسة عمل",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "ساعة واحدة",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "جلسة ممتدة",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "استئناف الآن",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "تم تأجيل تدابير الحماية",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "متبقي $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "تم إيقاف تدابير الحماية مؤقتاً لمدة $MINUTES$ دقيقة",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "تم استئناف تدابير الحماية",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "معطل",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "المفتاح الرئيسي للإضافة",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "تمت إعادة ضبط وقت المشاهدة اليومي",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "قيد التطوير",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

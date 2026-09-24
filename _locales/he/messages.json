@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "הסתרת פיד הבית",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "הסתרת פיד הווידאו האלגוריתמי בדף הבית של YouTube",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "הגבלת פיד הבית (מניעת גלילה אינסופית)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "מגביל את פיד הבית ל-15 סרטונים ומבטל גלילה אינסופית",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "הסתרת מנויים",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "הסתרת Shorts",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "הסתרת Shorts בכל מקום — סרגל צד, פידים, תוצאות חיפוש וערוצים",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "הסתרת גילוי ומגמות",
@@ -67,9 +83,17 @@
     "message": "הסתרת המלצות בסיום הסרטון",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "הסתרת רשת הסרטונים המומלצים וקיר הסרטונים בסיום ההפעלה",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "הסתרת כרטיסיות בסיום הסרטון",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "הסתרת כרטיסיות סרטון, פלייליסט והרשמה שהיוצר הוסיף ב-20 השניות האחרונות",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "הסתרת צ'אט חי",
@@ -91,17 +115,33 @@
     "message": "הסתרת פרטי הסרטון",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "הסתרת כל המידע והפעולות מתחת לנגן הווידאו",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "כפתורי פעולה",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "הסתרת כפתורי לייק, דיסלייק, שיתוף, הורדה ויצירת קליפ",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "פרטי הערוץ",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "הסתרת שם הערוץ, תמונת הפרופיל וכפתור ההרשמה למנוי",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "תיאור",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "הסתרת טקסט ופרטי תיאור הסרטון הניתנים להרחבה",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "חברתי",
@@ -189,9 +229,21 @@
     "message": "מגבלה יומית",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "השהיית הפעלת וידאו עם הגעה לרף הצפייה היומי שלך",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "עצירה לאחר",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "סינון ערוצים ומילות מפתח יגיע בגרסה הבאה. חוסמי הפיד המרכזיים פעילים!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "זמן הצפייה היומי שלך מוצג למטה, תמיד.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "היום",
@@ -291,6 +343,38 @@
     "message": "סגירה",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "תזכורת עדינה",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "השהיית סרטון",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "המשך צפייה",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "מושהה ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "תזכורת רגועה על המסך במרווחי זמן קבועים כדי לשמור על מודעות לזמן מבלי לחסום אותך.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "תצוגה מקדימה",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "נשלח!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "יש לפתוח כרטיסיית YouTube כדי להציג תצוגה מקדימה של התזכורת",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "הגעת למגבלה היומית",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "התעלם להיום",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "חסימה",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "מסננים",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "מיקוד",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "נתונים",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "הגדרות",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "כווץ הכל",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "הרחב הכל",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "רשימת חסימת ערוצים",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "חסימת ערוצים ספציפיים מהופעה בפידים ובהמלצות.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "אין ערוצים חסומים.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "רשימת חסימת מילות מפתח",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "הסתרת סרטונים שהכותרת שלהם תואמת למילות מפתח חסומות.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "אין מילות מפתח חסומות.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "הוספת ערוץ",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "הוספת מילת מפתח",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "נעילת מיקוד",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "זמן ומגבלות במודעות",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "תזכורות עדינות להפסקות ומגבלות זמן מסך יומיות",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "מגן נעילת מיקוד",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "מניעת שינויים אימפולסיביים באמצעות השהיה מכוונת",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "הפעלות מיקוד מתוזמנות",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "חסימה אוטומטית של YouTube בזמן עבודה, לימודים או שינה",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "דרישת השהיה לפני השבתת ההגנות",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "נעילת מיקוד",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "זמן השהיה (צינון)",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 דקות",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 דקות",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 דקות",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 דקות",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "הגדרת קוד PIN בן 4 ספרות",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "הזנת קוד PIN בן 4 ספרות",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "אישור קוד PIN בן 4 ספרות",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "אם תשכח קוד PIN זה, הדרך היחידה לאפס אותו היא להסיר ולהתקין מחדש את התוסף, מה שימחק את כל ההגדרות שלך. רשום אותו במקום בטוח.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "שמירת PIN והפעלה",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "ביטול",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "מוגן באמצעות נעילת מיקוד",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "הזן את קוד ה-PIN בן 4 הספרות כדי להתחיל את זמן ההשהיה:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "התחלת השהיה",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "קודי ה-PIN אינם תואמים. נסה שוב.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "קוד ה-PIN חייב להכיל בדיוק 4 ספרות.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "קוד PIN שגוי. נסה שוב.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "ביטול נעילה: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "יבוטל בעוד $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "ביטול",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "ספירה לאחור לביטול נעילה כבר פעילה. בטל אותה לפני ביטול נעילה של הגדרה אחרת.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "חסימה מתוזמנת",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "חסימה אוטומטית של YouTube בזמנים מוגדרים",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "חסימה מתוזמנת",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ הוספת לוח זמנים",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "אין עדיין לוחות זמנים. לחץ על 'הוספת לוח זמנים' כדי ליצור אחד.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "לוח זמנים חדש",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "עריכת לוח זמנים",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "תווית",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "לדוגמה: שעות עבודה, זמן לימוד",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "ימי השבוע",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "שעת התחלה",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "שעת סיום",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "מצב חסימה",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "חסימת YouTube לחלוטין",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "מחליף את YouTube במסך התחייבות נעול",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "אכיפת כל ההגנות",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "אוכף חסימת הסחות דעת מרבית מבלי לנעול את האתר לחלוטין",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "שמירת לוח זמנים",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "ביטול",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "עריכה",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "מחיקה",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "כל יום",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "ב'-ו'",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "שבת, א'",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "א'",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "ב'",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "ג'",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "ד'",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "ה'",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "ו'",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "שבת",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "יש לבחור לפחות יום אחד.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "יש להזין תווית לוח זמנים.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "יש לציין גם שעת התחלה וגם שעת סיום.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube אינו זמין כעת",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "ייפתח מחדש בשעה $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "לוח זמנים זה נאכף על ידי Intentional YT כדי להגן על המיקוד שלך.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "הגדרות",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "שפה",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "איפוס הגדרות",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "שחזור כל אפשרויות ברירת המחדל ומחיקת לוחות זמנים מותאמים אישית.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "איפוס כל ההגדרות לברירת מחדל",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "האם אתה בטוח שברצונך לאפס את כל ההגדרות לברירת המחדל? פעולה זו תמחק את כל ההעדפות ולוחות הזמנים שלך.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "סקירת פעילות",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "זמן הפעלת YouTube היום",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "סך כל זמן הצפייה",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "זמן הצפייה נצבר רק כאשר סרטון YouTube מתנגן באופן פעיל. הוא מתאפס אוטומטית בכל חצות. שורת המצב הקבועה נשארת גלויה בחלק התחתון בכל כרטיסייה.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "הגדרת מגבלה",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "איפוס היום",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "הפעל באופן אוטומטי זמני לימוד נטולי הסחות דעת או שעות שקט.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "מראה",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "אוטומטי (בהתאם למערכת)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "מצב כהה",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "מצב בהיר",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "גיבוי ושחזור",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "ייצוא ההגדרות שלך לקובץ JSON או שחזור מגיבוי קודם.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "דירוג בחנות האינטרנט",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "דירוג ב-Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "ייצוא",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "ייבוא",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "ההגדרות יוצאו בהצלחה",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "ההגדרות יובאו בהצלחה",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "ייבוא ההגדרות נכשל: קובץ JSON לא תקין",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ פעילים",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "פרופילים מוגדרים מראש",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "מאוזן",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "זן",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "וידאו בלבד",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "מותאם אישית",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "מאוזן · הסתרת פידים והמלצות",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "זן · חיפוש בלבד, כל הפידים מוסתרים",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "וידאו בלבד · נגן מינימליסטי, הסחות דעת מוסתרות",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "הגדרה מותאמת אישית",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "בקרות מפורטות",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "חוסם את פיד הבית, ה-Shorts והמלצות סרגל הצד. משאיר חיפוש, מנויים ותגובות נגישים.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "מיקוד מקסימלי. חיפוש נקי בלבד. פידים, תגובות, תמונות ממוזערות ותמונות פרופיל מוסתרים.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "נגן וידאו נקי. מסתיר המלצות, תגובות ועומס בסרגל הצד מסביב לווידאו.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "תצורה מותאמת אישית.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "הועבר למצב $PRESET$",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "ברוכים הבאים ל-Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "בחר פרופיל מוגדר מראש כדי להתחיל, או התאם אישית את המתגים למטה.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "סגירת הודעת פתיחה",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "חיפוש הגדרות...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "לא נמצאו הגדרות",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "נסה לחפש shorts, תגובות או סרגל צד",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "מסנני ערוצים ומילות מפתח",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "חסימת ערוצים ספציפיים וסינון סרטונים לפי מילות מפתח.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "מיקוד ומגבלות",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "תזכורות, מגבלות יומיות וחסימה מתוזמנת.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "פעילות צפייה",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "מעקב אחר זמן הצפייה היומי והרגלי ההפעלה שלך.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "העדפות",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "ערכת נושא, שפה וגיבוי הגדרות.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "הפניה אוטומטית של Shorts לנגן הרגיל",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "מפעיל סרטוני Shorts בתצוגת צפייה רגילה עם פקדי הפעלה",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "השהיה",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "מושהה",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "השהיית הגנות",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "ההגנות יחודשו אוטומטית עם סיום הטיימר.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 דקות",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "הפסקה קצרה",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 דקות",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "הפעלת עבודה",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "שעה אחת",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "הפעלה ממושכת",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "הפעל מחדש עכשיו",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "ההגנות הושהו",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "נותרו $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "ההגנות הושהו למשך $MINUTES$ דקות",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "ההגנות הופעלו מחדש",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "כבוי",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "מתג ראשי של התוסף",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "זמן הצפייה היומי אופס",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "בפיתוח",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

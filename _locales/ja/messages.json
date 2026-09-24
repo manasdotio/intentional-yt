@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "ホームフィードを非表示",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "YouTubeのホーム画面でアルゴリズムによるおすすめフィードを非表示にします",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "ホームフィードを制限（無限スクロール防止）",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "ホームフィードの動画を15本に制限し、無限スクロールを無効化します",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "登録チャンネルを非表示",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "Shortsを非表示",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "サイドバー、フィード、検索結果、チャンネルなど、YouTube全体のShortsを非表示にします",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "探索と急上昇を非表示",
@@ -67,9 +83,17 @@
     "message": "動画終了画面のおすすめを非表示",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "再生終了時の関連動画グリッドや動画ウォールを非表示にします",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "終了画面カードを非表示",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "動画の最後20秒間にクリエイターが配置した動画・再生リスト・チャンネル登録カードを非表示にします",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "ライブチャットを非表示",
@@ -91,17 +115,33 @@
     "message": "動画情報パネルを非表示",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "動画プレーヤー下部のすべての情報とアクションを非表示にします",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "操作ボタン",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "高評価、低評価、共有、オフライン保存、クリップなどのボタンを非表示にします",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "チャンネル情報",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "チャンネル名、アイコン、チャンネル登録ボタンを非表示にします",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "概要欄",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "展開可能な動画の概要欄テキストや詳細情報を非表示にします",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "ソーシャル",
@@ -189,9 +229,21 @@
     "message": "1日の制限時間",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "1日の再生上限時間に達したときに動画再生を一時停止します",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "上限時間",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "チャンネル＆キーワードフィルターは次期アップデートで対応予定です。主要フィードのブロックは現在有効です！",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "本日の再生時間は常に画面下部に表示されます。",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "今日",
@@ -291,6 +343,38 @@
     "message": "閉じる",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "休憩リマインダー",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "動画を一時停止",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "視聴を続ける",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "一時停止中 ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "動画を強制遮断することなく、一定間隔で穏やかな通知を表示して使いすぎを防ぎます。",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "プレビュー",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "送信完了！",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "リマインダー通知をプレビューするにはYouTubeのタブを開いてください",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "1日の制限時間に達しました",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "今日は解除する",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "ブロック",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "フィルター",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "集中",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "統計",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "設定",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "すべて折りたたむ",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "すべて展開",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "チャンネルブロックリスト",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "特定のチャンネルがフィードやおすすめに表示されないようにブロックします。",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "ブロックされたチャンネルはありません。",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "キーワードブロックリスト",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "タイトルに指定したキーワードを含む動画を非表示にします。",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "ブロックされたキーワードはありません。",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "チャンネルを追加",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "キーワードを追加",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "フォーカスロック",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "マインドフルタイマー＆制限",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "やさしい休憩の通知と1日の利用制限",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "フォーカスロック シールド",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "解除までの待機時間で衝動的な設定変更を防止",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "スケジュール集中セッション",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "仕事・勉強・睡眠の時間帯にYouTubeを自動ブロック",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "保護の解除に待機時間を要求します",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "フォーカスロック",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "クールダウン待機時間",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5分",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10分",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30分",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60分",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "4桁のPINを設定",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "4桁のPINを入力",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "4桁のPINを再確認",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "このPINを忘れた場合、リセットするには拡張機能をアンインストールして再インストールするしかなく、すべての設定が消去されます。安全な場所にメモしてください。",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "PINを保存して有効化",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "キャンセル",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "フォーカスロック保護中",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "クールダウンを開始するには4桁のPINを入力してください:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "クールダウンを開始",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "PINが一致しません。もう一度お試しください。",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "PINは必ず4桁の数字である必要があります。",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "PINが正しくありません。再試行してください。",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "ロック解除中: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "あと $TIME$ で解除",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "キャンセル",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "すでに解除カウントダウンが進行中です。他の設定を解除する前にキャンセルしてください。",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "スケジュールブロック",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "設定した時間帯にYouTubeを自動的にブロックします",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "スケジュールブロック",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ スケジュールを追加",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "スケジュールがまだありません。「スケジュールを追加」をクリックして作成してください。",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "新しいスケジュール",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "スケジュールを編集",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "ラベル",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "例: 勤務時間、勉強タイム",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "曜日",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "開始時刻",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "終了時刻",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "ブロックモード",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "YouTube全体をブロック",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "YouTubeをロック画面に置き換え、アクセスを完全に遮断します",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "すべての保護機能を強制ON",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "サイトを完全ロックせずに、あらゆる誘惑要素を最大限ブロックします",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "スケジュールを保存",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "キャンセル",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "編集",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "削除",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "毎日",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "月曜〜金曜",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "土日",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "日",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "月",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "火",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "水",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "木",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "金",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "土",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "曜日を1日以上選択してください。",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "スケジュールのラベルを入力してください。",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "開始時刻と終了時刻の両方を指定してください。",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "現在YouTubeは利用できません",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "$TIME$ に解除されます",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "あなたの集中を守るため、Intentional YTがこのスケジュールを適用しています。",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "設定",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "言語",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "設定のリセット",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "すべての初期設定を復元し、カスタムスケジュールを消去します。",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "すべての設定を初期状態に戻す",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "すべての設定を初期状態に戻してもよろしいですか？カスタム設定やスケジュールがすべて消去されます。",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "アクティビティ概要",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "本日のYouTube再生状況",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "合計再生時間",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "再生時間はYouTube動画がアクティブに再生されている間のみ記録されます。深夜0時に自動でリセットされます。常時表示されるステータスバーはどのタブでも画面下部に表示されます。",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "制限を設定",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "今日をリセット",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "勉強時間や睡眠時間帯を邪魔のない集中タイムに自動化しましょう。",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "外観",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "自動（システム設定に連動）",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "ダークモード",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "ライトモード",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "バックアップと復元",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "設定をJSONファイルに書き出すか、以前のバックアップから読み込みます。",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "Web Storeで評価する",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Firefox AMOで評価する",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "エクスポート",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "インポート",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "設定をエクスポートしました",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "設定をインポートしました",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "設定のインポートに失敗しました: 無効なJSONファイルです",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ 個有効",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "プリセット",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "バランス",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "禅 (Zen)",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "動画のみ",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "カスタム",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "バランス · フィードとおすすめを非表示",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "禅 · 検索のみ、すべてのフィードを非表示",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "動画のみ · 最小限のプレーヤー、周囲の誘惑を非表示",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "カスタム構成",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "詳細コントロール",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "ホームフィード、Shorts、サイドバーのおすすめをブロックします。検索、登録チャンネル、コメントは引き続き利用可能です。",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "最大限の集中。検索機能のみ使用可能。フィード、コメント、サムネイル、チャンネルアイコンがすべて非表示になります。",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "クリーンな動画プレーヤー。動画の周りにあるおすすめ動画、コメント欄、サイドバーの邪魔な要素を非表示にします。",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "各トグルの個別カスタマイズ設定。",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "$PRESET$ モードに切り替えました",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Intentional YT へようこそ",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "プリセットを選んですぐに始めるか、下のトグルで自由にカスタマイズしてください。",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "ウェルカムバナーを閉じる",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "設定項目を検索...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "該当する設定項目が見つかりません",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "「Shorts」「コメント」「サイドバー」などで検索してみてください",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "チャンネル＆キーワードフィルター",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "特定チャンネルをブロックし、キーワードで動画をフィルタリングします。",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "集中と制限",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "休憩リマインダー、1日の制限時間、スケジュールブロック。",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "再生アクティビティ",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "1日の再生時間と視聴傾向を確認できます。",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "環境設定",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "テーマ、言語、設定のバックアップ。",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Shortsを通常プレーヤーにリダイレクト",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "Shortsを通常の再生コントロール付き動画ビューで再生します",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "スヌーズ",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "スヌーズ中",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "保護を一時停止",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "タイマー終了後、保護機能は自動的に再開されます。",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15分",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "ちょっとした休憩",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30分",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "作業・休憩セッション",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1時間",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "長めのセッション",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "今すぐ再開",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "保護を一時停止中",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "残り $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "$MINUTES$分間、保護を一時停止しました",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "保護を再開しました",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "オフ",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "拡張機能のメインスイッチ",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "本日の再生時間をリセットしました",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "開発中",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

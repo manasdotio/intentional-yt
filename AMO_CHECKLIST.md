@@ -9,10 +9,10 @@
 
 ## Submission Steps for addons.mozilla.org (AMO)
 1. **Package the add-on**:
-   - Run `./package.sh` (creates `intentional-yt.zip`).
+   - Run `./package.sh` (creates `intentional-yt.zip` and `intentional-yt-firefox.zip`).
 2. **Submit to AMO Developer Hub**:
    - Log into https://addons.mozilla.org/developers/
-   - Click **Submit a New Add-on** and upload `intentional-yt.zip`.
+   - Click **Submit a New Add-on** and upload `intentional-yt-firefox.zip`.
 3. **Store Listing Details**:
    - **Name**: Intentional YT - YouTube Distraction Blocker & Daily Time Limit
    - **Summary**: Distraction-free YouTube experience. Granular controls for feeds, Shorts, comments, and watch time limits.

@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "Masquer le flux d'accueil",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "Masque le flux vidéo algorithmique sur la page d'accueil de YouTube",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "Limiter le flux d'accueil (anti-doomscroll)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "Limite le flux d'accueil à 15 vidéos et désactive le défilement infini",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "Masquer les abonnements",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "Masquer les Shorts",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "Masque les Shorts partout : barre latérale, flux, résultats de recherche et chaînes",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "Masquer Explorer et Tendances",
@@ -67,9 +83,17 @@
     "message": "Masquer les recommandations de fin d'écran",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "Masque la grille de vidéos recommandées et le mur de fin à la fin de la lecture",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "Masquer les fiches de fin d'écran",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "Masque les fiches vidéo, playlist et abonnement placées par les créateurs dans les 20 dernières secondes",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "Masquer le chat en direct",
@@ -91,17 +115,33 @@
     "message": "Masquer les informations de la vidéo",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "Masque toutes les informations et actions sous le lecteur vidéo",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "Boutons d'action",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "Masque les boutons j'aime, je n'aime pas, partager, télécharger et extrait",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "Informations sur la chaîne",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "Masque le nom de la chaîne, l'avatar et le bouton d'abonnement",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "Description",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "Masque le texte extensible et les détails de la description de la vidéo",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "Social",
@@ -189,9 +229,21 @@
     "message": "Limite quotidienne",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "Met en pause la lecture vidéo lorsque votre seuil quotidien de visionnage est atteint",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "Arrêter après",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "Le filtrage par chaîne et mot-clé arrive dans la prochaine version. Les bloqueurs de flux principaux sont actifs !",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "Votre temps de visionnage quotidien est toujours affiché ci-dessous.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "Aujourd'hui",
@@ -291,6 +343,38 @@
     "message": "Fermer",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "Rappel bienveillant",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "Mettre en pause la vidéo",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "Continuer à regarder",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "En pause ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "Notification discrète à intervalles réguliers pour vous aider à rester conscient du temps sans vous bloquer.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "Aperçu",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "Envoyé !",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "Ouvrez un onglet YouTube pour prévisualiser la notification de rappel",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "Limite quotidienne atteinte",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "Ignorer pour aujourd'hui",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "Bloquer",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "Filtres",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "Focus",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "Stats",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "Paramètres",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "Tout réduire",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "Tout développer",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "Liste de blocage des chaînes",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "Empêche des chaînes spécifiques d'apparaître dans les flux et recommandations.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "Aucune chaîne bloquée.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "Liste de blocage de mots-clés",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "Masque les vidéos dont les titres contiennent des mots-clés bloqués.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "Aucun mot-clé bloqué.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "Ajouter une chaîne",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "Ajouter un mot-clé",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "Verrouillage de concentration",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "Temps conscient & limites",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "Rappels de pause bienveillants & limites de temps d'écran quotidiennes",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "Bouclier de concentration",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "Évitez les modifications impulsives grâce à un délai intentionnel",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "Sessions de concentration programmées",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "Bloquez YouTube automatiquement pendant le travail, les études ou le sommeil",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "Impose un délai avant de pouvoir désactiver les protections",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "Verrouillage de concentration",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "Délai de déverrouillage",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 min",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 min",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 min",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 min",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "Définir un code PIN à 4 chiffres",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "Entrez un code PIN à 4 chiffres",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "Confirmez le code PIN à 4 chiffres",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "Si vous oubliez ce code PIN, la seule façon de le réinitialiser est de désinstaller puis réinstaller l'extension, ce qui effacera tous vos réglages. Notez-le en lieu sûr.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "Enregistrer le PIN et activer",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "Annuler",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "Protégé par Verrouillage de concentration",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "Entrez votre code PIN à 4 chiffres pour démarrer le délai de déverrouillage :",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "Démarrer le délai",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "Les codes PIN ne correspondent pas. Veuillez réessayer.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "Le code PIN doit comporter exactement 4 chiffres.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "Code PIN incorrect. Veuillez réessayer.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "Déverrouillage : $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "Déverrouillage dans $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "Annuler",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "Un compte à rebours de déverrouillage est déjà en cours. Annulez-le avant de déverrouiller un autre paramètre.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "Blocage programmé",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "Bloque automatiquement YouTube durant les plages horaires définies",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "Blocage programmé",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ Ajouter un horaire",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "Aucun horaire configuré. Cliquez sur Ajouter un horaire pour en créer un.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "Nouvel horaire",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "Modifier l'horaire",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "Libellé",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "ex. Heures de travail, Études",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "Jours de la semaine",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "Heure de début",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "Heure de fin",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "Mode de blocage",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "Bloquer entièrement YouTube",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "Remplace YouTube par un écran de verrouillage et d'engagement",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "Forcer toutes les protections",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "Applique le blocage maximal des distractions sans verrouiller totalement le site",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "Enregistrer l'horaire",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "Annuler",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "Modifier",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "Supprimer",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "Tous les jours",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "Lun-Ven",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "Sam, Dim",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "Dim",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "Lun",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "Mar",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "Mer",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "Jeu",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "Ven",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "Sam",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "Veuillez sélectionner au moins un jour.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "Veuillez saisir un libellé pour l'horaire.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "Veuillez préciser l'heure de début et l'heure de fin.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube est actuellement inaccessible",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "Accessible à nouveau à $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "Cet horaire est appliqué par Intentional YT pour protéger votre concentration.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "Paramètres",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "Langue",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "Réinitialiser les paramètres",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "Restaure toutes les options par défaut et efface les horaires personnalisés.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "Rétablir tous les paramètres par défaut",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "Êtes-vous sûr de vouloir réinitialiser tous les paramètres par défaut ? Cela supprimera toutes vos préférences et horaires personnalisés.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "Aperçu de l'activité",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "Lecture YouTube aujourd'hui",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "temps total de visionnage",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "Le temps de visionnage s'accumule uniquement lorsqu'une vidéo YouTube est en cours de lecture. Il se réinitialise automatiquement chaque nuit à minuit. Votre barre d'état reste visible en bas sur tous les onglets.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "Configurer la limite",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "Réinitialiser aujourd'hui",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "Automatisez des créneaux de travail sans distraction ou des moments de calme.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "Apparence",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "Automatique (système)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "Mode sombre",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "Mode clair",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "Sauvegarde et restauration",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "Exportez vos paramètres dans un fichier JSON ou importez une sauvegarde précédente.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "Noter sur le Web Store",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Noter sur Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "Exporter",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "Importer",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "Paramètres exportés avec succès",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "Paramètres importés avec succès",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "Échec de l'importation : fichier JSON invalide",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ actifs",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "Préréglages",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "Équilibré",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "Zen",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "Vidéo uniquement",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "Personnalisé",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "Équilibré · Masque les flux et les suggestions",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "Zen · Recherche uniquement, tous les flux masqués",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "Vidéo uniquement · Lecteur épuré, distractions masquées",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "Configuration personnalisée",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "Contrôles détaillés",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "Bloque le flux d'accueil, les Shorts et les suggestions de la barre latérale. Conserve l'accès à la recherche, aux abonnements et aux commentaires.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "Concentration maximale. Recherche uniquement. Les flux, commentaires, miniatures et avatars de chaînes sont masqués.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "Lecteur vidéo épuré. Masque les recommandations, les commentaires et les distractions autour de la vidéo.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "Configuration personnalisée des options.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "Passage en mode $PRESET$",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Bienvenue sur Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "Choisissez un préréglage pour commencer, ou personnalisez les options ci-dessous.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "Fermer la bannière de bienvenue",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "Rechercher des options...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "Aucune option trouvée",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "Essayez de rechercher shorts, commentaires ou barre latérale",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "Filtres de chaînes et mots-clés",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "Bloquez des chaînes spécifiques et filtrez les vidéos par mot-clé.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "Concentration & limites",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "Rappels, limites quotidiennes et blocage programmé.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "Activité de lecture",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "Suivez votre temps de visionnage quotidien et vos habitudes de lecture.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "Préférences",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "Thème, langue et sauvegarde de la configuration.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Rediriger les Shorts vers le lecteur classique",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "Lit les Shorts dans la vue de lecture standard avec les commandes habituelles",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "Mettre en pause",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "Suspendu",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "Suspendre les protections",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "Les protections reprendront automatiquement à la fin de la durée choisie.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 minutes",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "Courte pause",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 minutes",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "Session de travail",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1 heure",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "Session prolongée",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "Reprendre maintenant",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "Protections suspendues",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "$TIME$ restantes",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "Protections suspendues pendant $MINUTES$ minutes",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "Protections réactivées",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "Désactivé",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "Interrupteur principal de l'extension",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "Temps de visionnage quotidien réinitialisé",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "En cours de développement",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

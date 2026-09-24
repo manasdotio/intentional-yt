@@ -4,7 +4,7 @@
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
-    "message": "Intentional YT",
+    "message": "Intentional",
     "description": "Short name of the extension"
   },
   "extensionDescription": {
@@ -35,6 +35,18 @@
     "message": "홈 피드 숨기기",
     "description": "Toggle label to hide YouTube home recommendations feed"
   },
+  "desc_block_home_feed": {
+    "message": "YouTube 홈 화면에서 알고리즘 기반 영상 피드를 숨깁니다",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "홈 피드 제한 (스크롤 과몰입 방지)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "홈 피드를 영상 15개로 제한하고 무한 스크롤을 비활성화합니다",
+    "description": "Helper explanation for limiting home feed videos"
+  },
   "toggle_block_subscriptions": {
     "message": "구독 피드 숨기기",
     "description": "Toggle label to hide YouTube subscriptions feed"
@@ -46,6 +58,10 @@
   "toggle_block_shorts": {
     "message": "Shorts 숨기기",
     "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "사이드바, 피드, 검색 결과, 채널 등 YouTube 전체에서 Shorts를 숨깁니다",
+    "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
     "message": "탐색 및 인기 급상승 숨기기",
@@ -67,9 +83,17 @@
     "message": "최종 화면 추천 영상 숨기기",
     "description": "Toggle label to hide grid of recommended videos at video end"
   },
+  "desc_block_endscreen_videowall": {
+    "message": "동영상 재생 종료 시 표시되는 추천 영상 그리드와 다음 영상 화면을 숨깁니다",
+    "description": "Description for end screen videowall toggle"
+  },
   "toggle_block_endscreen_cards": {
     "message": "최종 화면 카드 숨기기",
     "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "영상 종료 20초 전 크리에이터가 배치한 동영상, 재생목록, 구독 카드를 숨깁니다",
+    "description": "Description for creator end screen cards toggle"
   },
   "toggle_block_live_chat": {
     "message": "실시간 채팅 숨기기",
@@ -91,17 +115,33 @@
     "message": "동영상 정보 패널 숨기기",
     "description": "Toggle label to hide video metadata panel below player"
   },
+  "desc_block_video_info": {
+    "message": "동영상 플레이어 아래의 모든 정보와 작업 버튼을 숨깁니다",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
   "toggle_block_video_buttons": {
     "message": "작업 버튼",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "좋아요, 싫어요, 공유, 오프라인 저장, 클립 버튼을 숨깁니다",
+    "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
     "message": "채널 정보",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
+  "desc_block_channel_info": {
+    "message": "채널 이름, 프로필 사진, 구독 버튼을 숨깁니다",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
   "toggle_block_video_description": {
     "message": "설명",
     "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "펼쳐볼 수 있는 동영상 설명란과 상세 정보를 숨깁니다",
+    "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
     "message": "소셜",
@@ -189,9 +229,21 @@
     "message": "일일 시청 제한",
     "description": "Toggle label for daily total playback time limit"
   },
+  "desc_daily_limit": {
+    "message": "설정한 일일 시청 제한 시간에 도달하면 동영상 재생을 일시 중지합니다",
+    "description": "Subheading description for Daily Limit toggle"
+  },
   "time_hint_stop_after": {
     "message": "제한 시간",
     "description": "Prefix label before daily limit duration dropdown"
+  },
+  "blocklist_stub_alert": {
+    "message": "채널 및 키워드 필터링은 다음 버전에 추가될 예정입니다. 기본 피드 차단 기능은 정상 작동 중입니다!",
+    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
+  },
+  "stats_watch_time_below": {
+    "message": "오늘의 시청 시간은 하단 상태 표시줄에 항상 표시됩니다.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
   },
   "stats_title_today": {
     "message": "오늘",
@@ -291,6 +343,38 @@
     "message": "닫기",
     "description": "Accessibility aria-label for closing toast notification"
   },
+  "toast_reminder_badge": {
+    "message": "휴식 알림",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "동영상 일시 중지",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "계속 시청",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "일시 중지됨 ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "시청을 강제로 차단하지 않고 정기적으로 부드러운 알림을 띄워 시간 감각을 유지하도록 돕습니다.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "미리보기",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "전송됨!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "알림 토스트를 미리 보려면 YouTube 탭을 열어주세요",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
   "overlay_limit_title": {
     "message": "일일 시청 제한에 도달했습니다",
     "description": "Title on full-player limit overlay modal"
@@ -326,5 +410,683 @@
   "overlay_button_dismiss_today": {
     "message": "오늘 하루 해제",
     "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "차단",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "필터",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "집중",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "통계",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "설정",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "모두 접기",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "모두 펼치기",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "section_channel_blocklist": {
+    "message": "채널 차단 목록",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "특정 채널이 피드와 추천 영상에 나타나지 않도록 차단합니다.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "blocklist_channels_empty": {
+    "message": "차단된 채널이 없습니다.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "키워드 차단 목록",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "제목에 지정한 키워드가 포함된 동영상을 숨깁니다.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "blocklist_keywords_empty": {
+    "message": "차단된 키워드가 없습니다.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "채널 추가",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "키워드 추가",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "section_focus_lock": {
+    "message": "집중 잠금",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "시간 관리 & 시청 제한",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "부드러운 휴식 알림 및 일일 시청 시간 한도",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "집중 잠금 실드",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "의도적인 대기 시간을 두어 충동적인 설정 변경을 방지",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "예약 집중 세션",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "업무, 공부 또는 수면 시간 동안 YouTube 자동 차단",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "보호 설정을 해제하기 전 대기 시간을 요구합니다",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "집중 잠금",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "쿨다운 대기 시간",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5분",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10분",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30분",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60분",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "4자리 PIN 번호 설정",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "4자리 PIN 번호 입력",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "4자리 PIN 번호 재확인",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "이 PIN 번호를 잊어버린 경우 설정을 초기화하려면 확장 프로그램을 삭제 후 다시 설치해야 하며, 모든 설정이 삭제됩니다. 안전한 곳에 메모해 두세요.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "PIN 저장 및 활성화",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "취소",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "집중 잠금 보호 중",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "쿨다운 대기를 시작하려면 4자리 PIN 번호를 입력하세요:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "쿨다운 시작",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "PIN 번호가 일치하지 않습니다. 다시 시도해 주세요.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "PIN은 반드시 4자리 숫자여야 합니다.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "잘못된 PIN 번호입니다. 다시 시도해 주세요.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "잠금 해제 중: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "$TIME$ 후 잠금 해제",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "취소",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "이미 잠금 해제 카운트다운이 진행 중입니다. 다른 설정을 해제하려면 먼저 기존 요청을 취소하세요.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "예약 차단",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "지정한 시간 동안 YouTube를 자동으로 차단합니다",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "예약 차단",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ 일정 추가",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "아직 등록된 일정이 없습니다. '일정 추가'를 클릭하여 새로 만들어 보세요.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "새 일정 추가",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "일정 수정",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "이름",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "예: 근무 시간, 공부 시간",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "요일 선택",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "시작 시간",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "종료 시간",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "차단 모드",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "YouTube 전체 차단",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "YouTube 화면을 잠금 화면으로 대체하여 완전히 접근을 차단합니다",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "모든 방해 차단 강제 활성화",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "사이트를 완전히 차단하지 않고 모든 방해 요소를 최대한 차단합니다",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "일정 저장",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "취소",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "수정",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "삭제",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "매일",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "월-금",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "주말 (토, 일)",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "일",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "월",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "화",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "수",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "목",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "금",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "토",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "요일을 하루 이상 선택해 주세요.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "일정 이름을 입력해 주세요.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "시작 시간과 종료 시간을 모두 지정해 주세요.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "현재 YouTube를 이용할 수 없습니다",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "$TIME$에 다시 열립니다",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "집중을 유지하기 위해 Intentional YT가 이 차단 일정을 적용하고 있습니다.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "설정",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "언어",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "설정 초기화",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "모든 기본 설정을 복원하고 사용자 지정 일정을 삭제합니다.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "모든 설정을 기본값으로 초기화",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "모든 설정을 기본값으로 초기화하시겠습니까? 사용자 맞춤 설정과 일정이 모두 삭제됩니다.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "활동 개요",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "오늘의 YouTube 시청 현황",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "총 시청 시간",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "시청 시간은 YouTube 동영상이 재생되는 동안에만 집계됩니다. 매일 자정에 자동으로 초기화됩니다. 상시 상태 표시줄은 모든 탭의 하단에 고정 표시됩니다.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "제한 설정",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "오늘 기록 초기화",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "방해 없는 집중 공부 시간이나 수면 시간을 자동으로 관리해 보세요.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "테마",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "자동 (시스템 설정에 맞춤)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "다크 모드",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "라이트 모드",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "백업 및 복원",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "설정을 JSON 파일로 내보내거나 이전 백업 파일을 가져옵니다.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "Chrome 웹 스토어에서 평가하기",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Firefox AMO에서 평가하기",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "내보내기",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "가져오기",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "설정을 성공적으로 내보냈습니다",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "설정을 성공적으로 가져왔습니다",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "설정 가져오기 실패: 올바르지 않은 JSON 파일입니다",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$개 활성",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "프리셋",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "밸런스",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "젠 (Zen)",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "동영상 전용",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "맞춤 설정",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "밸런스 · 피드 및 추천 영상 숨김",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "젠 · 오직 검색만 가능, 모든 피드 숨김",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "동영상 전용 · 깔끔한 플레이어, 방해 요소 숨김",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "맞춤 설정 구성",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "세부 설정",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "홈 피드, Shorts, 사이드바 추천을 차단합니다. 검색, 구독 피드 및 댓글은 정상적으로 이용할 수 있습니다.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "최대의 집중 환경. 오직 검색만 허용됩니다. 피드, 댓글, 썸네일, 채널 프로필 사진이 모두 숨겨집니다.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "깔끔한 비디오 플레이어. 동영상 주변의 추천 영상, 댓글, 사이드바의 어수선한 요소를 숨깁니다.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "개별 토글 맞춤 설정.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "$PRESET$ 모드로 전환되었습니다",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Intentional YT에 오신 것을 환영합니다",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "프리셋을 선택하여 바로 시작하거나, 아래의 토글을 직접 맞춤 설정해 보세요.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "시작 안내 배너 닫기",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "토글 검색...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "일치하는 토글이 없습니다",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "쇼츠, 댓글, 사이드바 등의 검색어를 입력해 보세요",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "채널 및 키워드 필터",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "특정 채널을 차단하고 키워드로 동영상을 필터링합니다.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "집중 & 시청 제한",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "휴식 알림, 일일 시청 제한 및 예약 차단.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "시청 활동",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "일일 시청 시간과 시청 습관을 추적합니다.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "환경설정",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "테마, 언어 및 설정 백업.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Shorts를 일반 플레이어로 전환",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "일반 동영상 화면과 재생 컨트롤러로 Shorts를 재생합니다",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "일시 해제",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "일시 해제됨",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "보호 일시 중지",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "타이머가 끝나면 차단 보호가 자동으로 다시 시작됩니다.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15분",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "가벼운 휴식",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30분",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "업무 및 작업 시간",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1시간",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "긴 작업 세션",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "지금 다시 시작",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "차단 보호 일시 해제 중",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "남은 시간: $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "$MINUTES$분 동안 보호가 일시 중지되었습니다",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "보호가 다시 시작되었습니다",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "꺼짐",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "확장 프로그램 마스터 스위치",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "오늘의 시청 시간이 초기화되었습니다",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "filters_status_in_development": {
+    "message": "개발 중",
+    "description": "Status pill label on the content filters roadmap preview card"
   }
 }
