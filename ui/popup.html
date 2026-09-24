@@ -757,12 +757,36 @@
 
     <!-- ── TAB 5: SETTINGS ─────────────────────────────────────── -->
     <div id="panel-settings" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-settings">
-      <div class="panel-header">
-        <div class="panel-title" data-i18n="panel_settings_title">Preferences</div>
-        <div class="panel-subtitle" data-i18n="panel_settings_subtitle">Theme, language, and configuration backup.</div>
-      </div>
-
       <div class="settings-wrap">
+        <!-- Top: About & Community Support (Immediate Rate & Feedback) -->
+        <div class="settings-about-card">
+          <div class="settings-about-brand">
+            <img src="../icons/icon.png" alt="" class="settings-about-icon" />
+            <div class="settings-about-info">
+              <div class="settings-about-title-row">
+                <span class="settings-about-title">Intentional YT</span>
+                <span class="settings-about-ver">v2.1.2</span>
+              </div>
+              <div class="settings-about-privacy">
+                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span data-i18n="footer_local_privacy">100% Local · Zero Telemetry</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-about-actions">
+            <a id="link-rate-store" href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-highlight" title="Leave a review on Web Store">
+              <svg class="about-action-star" viewBox="0 0 24 24" width="12" height="12" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span id="label-rate-store" data-i18n="setting_rate_store">Rate on Web Store</span>
+              <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <a href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" class="btn-about-action" title="Submit feedback and feature ideas">
+              <svg class="about-action-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span data-i18n="footer_feedback_link">Feedback &amp; Ideas ↗</span>
+            </a>
+          </div>
+        </div>
+
         <!-- Section 1: General Preferences -->
         <div class="settings-group">
           <div class="settings-group-title">General</div>
@@ -882,38 +906,6 @@
                   <span data-i18n="btn_reset_defaults">Reset Defaults</span>
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section 3: About & Community Support -->
-        <div class="settings-group">
-          <div class="settings-group-title">About &amp; Support</div>
-          <div class="settings-about-card">
-            <div class="settings-about-brand">
-              <img src="../icons/icon.png" alt="" class="settings-about-icon" />
-              <div class="settings-about-info">
-                <div class="settings-about-title-row">
-                  <span class="settings-about-title">Intentional YT</span>
-                  <span class="settings-about-ver">v2.1.2</span>
-                </div>
-                <div class="settings-about-privacy">
-                  <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                  <span data-i18n="footer_local_privacy">100% Local · Zero Telemetry</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="settings-about-actions">
-              <a id="link-rate-store" href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-highlight" title="Leave a review on Web Store">
-                <svg class="about-action-star" viewBox="0 0 24 24" width="12" height="12" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span id="label-rate-store" data-i18n="setting_rate_store">Rate on Web Store</span>
-                <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
-              <a href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" class="btn-about-action" title="Submit feedback and feature ideas">
-                <svg class="about-action-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                <span data-i18n="footer_feedback_link">Feedback &amp; Ideas ↗</span>
-              </a>
             </div>
           </div>
         </div>

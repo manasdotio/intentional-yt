@@ -2811,10 +2811,10 @@ body.ext-off .lang-row {
    SETTINGS TAB: MODERN ELEVATED CARD SECTIONS
    ============================================================ */
 .settings-wrap {
-  padding: 6px 14px 20px;
+  padding: 12px 14px 20px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .settings-group {
