@@ -19,12 +19,37 @@ Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or s
 **Intentional YT solves this with:**
 1. **Zero-Flash DOM Ingestion**: Injects high-specificity CSS rules onto `<html>` at `document_start` before the browser renders the first pixel (0ms render lag, 0 flicker).
 2. **Surgical Granularity (20+ Independent Toggles)**: Keep subscriptions while hiding home feed recommendations; hide comments but keep descriptions; etc.
-3. **Anti-Doomscroll Feed Limiter**: Option to limit the homepage feed to a single calm batch of 15 recommendations, stopping infinite scroll with a peaceful caught-up banner.
-4. **Deep Shorts Elimination**: Completely suppresses YouTube Shorts across homepage shelves, sidebar tabs, search results, channel tabs, and watch recommendations.
-5. **Dopamine De-stimulation**: Clickbait thumbnail neutralization (with duration badges and video titles preserved) and site-wide hardware-accelerated grayscale mode.
-6. **Mindful Watch Tracking & Focus Lock**: Local active playback meter (HTML5 video tracking), customizable soft break reminder toasts, weekly automation scheduling, and hard daily watch ceilings.
-7. **Modern 4-Tab Popup UI**: Focus (with instant presets and live filter search), Schedule, Filters (content rules preview), and Settings (smart review CTAs, backups).
-8. **100% Local Privacy (0% Telemetry)**: No remote analytics, no tracking pixels, zero external network requests. Everything is strictly sandboxed in `browser.storage.local`.
+3. **Quick Focus Presets (Zero Space Overhead)**: Instant switching between **Balanced**, **Zen**, and **Video Only** modes with non-intrusive floating hover tooltips.
+4. **Anti-Doomscroll Feed Limiter**: Option to limit the homepage feed to a single calm batch of 15 recommendations, stopping infinite scroll with a peaceful caught-up banner (`✦ You're all caught up`).
+5. **Deep Shorts Elimination & Redirection**: Completely suppresses YouTube Shorts across shelves, tabs, and search results, or redirects Shorts into standard `/watch` desktop video players.
+6. **Dopamine De-stimulation**: Clickbait thumbnail neutralization (with duration badges and video titles preserved) and site-wide hardware-accelerated grayscale mode.
+7. **Mindful Watch Tracking, Focus Lock & Scheduling**: Local active playback meter (HTML5 video tracking), customizable soft break reminder toasts, weekly automation scheduling, PIN-protected Focus Lock cooldowns, and hard daily watch ceilings.
+8. **Modern 5-Tab Popup UI**: Clean sidebar navigation (**Block**, **Filters**, **Focus**, **Stats**, **Settings**) with instant live search across all toggles.
+9. **Interactive Web Simulator**: Landing page features an authentic YouTube desktop replica with dynamic Light & Dark themes, category chips, channel avatars, and live control mirroring.
+10. **100% Local Privacy (0% Telemetry)**: No remote analytics, no tracking pixels, zero external network requests. Everything is strictly sandboxed in `browser.storage.local`.
+
+---
+
+## ⚡ Quick Focus Presets
+
+Users can switch focus modes instantly from the top utility bar in the popup or simulator. Hovering over the dropdown displays a sleek, zero-overhead floating tooltip explaining what each mode controls:
+
+| YouTube Element | 🟢 Balanced (Default) | 🟣 Zen (Deep Work) | 🔵 Video Only (Lecture/Cinema) |
+| :--- | :---: | :---: | :---: |
+| **Home Feed** | 🚫 Hidden | 🚫 Hidden | 🚫 Hidden |
+| **Shorts (All Surfaces)** | 🚫 Hidden | 🚫 Hidden | 🚫 Hidden |
+| **Sidebar Recommendations** | 🚫 Hidden | 🚫 Hidden | 🚫 Hidden |
+| **Autoplay & End Screens** | 🚫 Off | 🚫 Off | 🚫 Off |
+| **Subscriptions Feed** | ✅ Visible | 🚫 Hidden | ✅ Visible |
+| **Comments & Avatars** | ✅ Visible | 🚫 Hidden | 🚫 Hidden |
+| **Video Playlists** | ✅ Visible | 🚫 Hidden | ✅ Visible |
+| **Thumbnails** | ✅ Normal Color | 🚫 Focus Neutral | ✅ Normal Color |
+| **Notification Bell** | 🚫 Hidden | 🚫 Hidden | ✅ Visible |
+
+* **Balanced**: Sustainable everyday focus. Hides algorithmic rabbit holes without crippling intentional browsing (subscriptions, playlists, and comments stay accessible).
+* **Zen**: Deep work and intense study. Converts YouTube into a silent, Google-like search engine utility.
+* **Video Only**: Keeps eyes locked strictly on the active video. Eliminates sidebars and comment sections while keeping playlists open for multi-part lectures and tutorials.
+* **Custom**: Activates automatically whenever any individual checkbox is customized.
 
 ---
 
@@ -39,8 +64,9 @@ Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or s
 - `blockTopHeader`: Completely hides top header bar for an ultra-clean, minimal reading/viewing environment.
 - `blockNotificationBell`: Eliminates unread notification badges and alert popups.
 
-### 2. Deep Shorts Suppression
+### 2. Deep Shorts Suppression & Redirection
 - `blockShorts`: Multi-surface suppression across homepage shelves, sidebar tabs, search results, channel tabs, and watch-page recommendations.
+- `redirectShorts`: Automatically intercepts and rewrites `/shorts/[id]` URLs to `/watch?v=[id]`, loading short videos in YouTube's standard desktop player with progress scrubbing and no auto-looping reels.
 
 ### 3. Search Results Cleansing
 - `blockIrrelevantSearchResults`: Filters out algorithmic injection rows (*"People also watched"*, *"For you"*, *"Previously watched"*, *"Related to your search"*, and *"Latest from channel"*).
@@ -68,11 +94,32 @@ Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or s
 - `hideThumbnails`: Replaces saturated thumbnails with clean placeholders while preserving exact duration stamps and video titles.
 - `grayscaleMode`: Applies a native hardware-accelerated grayscale filter across the entire YouTube interface.
 
-### 7. Time Awareness & Mindful Watch Limits
+### 7. Time Awareness, Focus Lock & Automation
 - **Passive Active Watch Meter**: Accurately tracks active `<video>` playback seconds (ignoring paused time), writing in 5-second batches.
 - **Automatic Midnight Reset**: Alarms API ensures daily watch counters reset at `00:00` local time every night.
 - **Soft Break Reminder Toasts**: Floating notification toasts at customizable intervals (e.g., 15m, 30m, 45m).
 - **Hard Daily Playback Ceilings**: Daily watch quota locking video playback with a mindful pause overlay when exhausted.
+- **PIN-Protected Focus Lock**: Protects settings during study sessions. Requires a 4-digit PIN and a mandatory cooldown delay (1m, 3m, 5m) before protections can be disabled, preventing impulse unlocks.
+- **Scheduled Blocking Engine**: Automates quiet hours and work periods. Supports custom multi-day schedules (Mon–Sun), start/end time windows, and two modes:
+  - *Full Block*: Reopens YouTube only when the scheduled window closes with a serene commitment screen.
+  - *Strict Protections*: Forces all distraction blocks on while keeping intentional playback allowed.
+
+---
+
+## 🧭 Extension Popup Architecture (5 Tabs)
+1. **Block**: Live toggle search, preset dropdown with zero-space hover tooltip, and 5 collapsible accordion categories (**Feed**, **Video**, **Social**, **Interface**, **Appearance**).
+2. **Filters**: Content filtering roadmap for custom channel and keyword blocklists.
+3. **Focus**: Mindful session time limits, soft break reminders, Focus Lock PIN settings, and Scheduled Blocking management.
+4. **Stats**: Daily active watch meter hero card, reset controls, and persistent bottom status bar.
+5. **Settings**: Theme switcher (Auto, Dark, Light), i18n language selector, JSON configuration backup & restore, reset defaults, and review CTAs.
+
+---
+
+## 💻 Landing Page Web Simulator
+- **Live Interactive Replica**: Allows users to test the extension directly in the browser before installing.
+- **Dual Theme Support (Light & Dark)**: Full fidelity with YouTube's real light (`#ffffff`) and dark (`#0f0f0f`) themes, coupled to the site's theme switcher and featuring an independent YouTube theme toggle (☀️ / 🌙).
+- **Authentic Desktop UI**: Category chips bar (`All`, `Deep Work`, `Calculus`), creator avatars with verified badges (`✓`), video duration stamps, and realistic vertical 9:16 Shorts shelf.
+- **Zero-Space Preset Tooltip**: Hovering the preset dropdown reveals snappy, concise mode descriptions identical to the extension popup.
 
 ---
 
