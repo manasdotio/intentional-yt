@@ -1031,7 +1031,37 @@ button {
   height: 100%;
   overflow-y: auto;
   max-height: 410px;
-  padding: 12px;
+  padding: 12px 10px 12px 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+
+/* Custom Micro Scrollbar for Simulation */
+.mock-tab-panel::-webkit-scrollbar,
+.mock-popup-container *::-webkit-scrollbar,
+.mock-yt-window *::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.mock-tab-panel::-webkit-scrollbar-track,
+.mock-popup-container *::-webkit-scrollbar-track,
+.mock-yt-window *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mock-tab-panel::-webkit-scrollbar-thumb,
+.mock-popup-container *::-webkit-scrollbar-thumb,
+.mock-yt-window *::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.mock-tab-panel::-webkit-scrollbar-thumb:hover,
+.mock-popup-container *::-webkit-scrollbar-thumb:hover,
+.mock-yt-window *::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.6);
 }
 
 /* Search & Presets Card */
