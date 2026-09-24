@@ -664,33 +664,24 @@ export default function Simulator() {
                           onChange={(e) => setSearchQuery(e.target.value)}
                         />
                       </div>
-                      <select
-                        className="mock-preset-dropdown"
-                        value={selectedPreset}
-                        onChange={(e) => setPreset(e.target.value)}
-                        title="Focus Preset"
-                      >
-                        <option value="balanced">Balanced</option>
-                        <option value="zen">Zen</option>
-                        <option value="player">Video Only</option>
-                        <option value="limited">Anti-Doomscroll</option>
-                        <option value="chaos">Clutter (Off)</option>
-                        <option value="custom">Custom</option>
-                      </select>
-                    </div>
-
-                    {/* Preset Mode Active Helper Banner */}
-                    <div className="mock-preset-helper-card">
-                      <div className="mock-preset-helper-icon">
-                        <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-                          <circle cx="12" cy="12" r="10" />
-                          <line x1="12" y1="16" x2="12" y2="12" />
-                          <line x1="12" y1="8" x2="12.01" y2="8" />
-                        </svg>
-                      </div>
-                      <div className="mock-preset-helper-info">
-                        <span className="mock-preset-helper-title">{PRESET_HELPERS[selectedPreset]?.title || 'Preset Active'}</span>
-                        <span className="mock-preset-helper-details">{PRESET_HELPERS[selectedPreset]?.details || ''}</span>
+                      <div className="mock-preset-wrap">
+                        <select
+                          className="mock-preset-dropdown"
+                          value={selectedPreset}
+                          onChange={(e) => setPreset(e.target.value)}
+                          title={PRESET_HELPERS[selectedPreset]?.title || 'Focus Preset'}
+                        >
+                          <option value="balanced">Balanced</option>
+                          <option value="zen">Zen</option>
+                          <option value="player">Video Only</option>
+                          <option value="limited">Anti-Doomscroll</option>
+                          <option value="chaos">Clutter (Off)</option>
+                          <option value="custom">Custom</option>
+                        </select>
+                        <div className="mock-preset-tooltip" role="tooltip">
+                          <span className="mock-preset-tooltip-dot"></span>
+                          <span>{PRESET_HELPERS[selectedPreset]?.title || 'Preset Active'}</span>
+                        </div>
                       </div>
                     </div>
 

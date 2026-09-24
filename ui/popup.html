@@ -105,24 +105,17 @@
         </div>
         <div class="preset-dropdown-wrap">
           <svg class="preset-dropdown-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <select id="select-preset" class="preset-dropdown" aria-label="Focus Preset" data-i18n-title="presets_title" title="Presets">
+          <select id="select-preset" class="preset-dropdown" aria-label="Focus Preset" data-i18n-title="preset_desc_balanced" title="Balanced · Hides feeds and suggestions">
             <option value="balanced" data-i18n="preset_balanced">Balanced</option>
             <option value="zen" data-i18n="preset_zen">Zen</option>
             <option value="player" data-i18n="preset_player">Video Only</option>
             <option value="custom" data-i18n="preset_custom">Custom</option>
           </select>
           <svg class="preset-dropdown-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-      </div>
-
-      <!-- ── Preset Mode Active Helper Banner ────────────────────── -->
-      <div class="preset-helper-card" id="preset-helper-wrap">
-        <div class="preset-helper-icon">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        </div>
-        <div class="preset-helper-info">
-          <span class="preset-helper-desc" id="preset-active-desc" data-i18n="preset_desc_balanced">Balanced · Hides feeds and suggestions</span>
-          <span class="preset-helper-details" id="preset-active-details" data-i18n="preset_tooltip_balanced">Blocks Home Feed, Shorts &amp; sidebar suggestions. Leaves search, subscriptions and comments accessible.</span>
+          <div class="preset-tooltip" id="preset-tooltip" role="tooltip">
+            <span class="preset-tooltip-dot"></span>
+            <span id="preset-tooltip-text" data-i18n="preset_desc_balanced">Balanced · Hides feeds and suggestions</span>
+          </div>
         </div>
       </div>
 

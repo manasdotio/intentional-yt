@@ -572,6 +572,7 @@ function updatePresetUI(s) {
   const selectPreset = $('select-preset');
   if (selectPreset) {
     selectPreset.value = active;
+    selectPreset.title = t(`preset_desc_${active}`) || '';
   }
 
   // Update dropdown icon
@@ -598,16 +599,10 @@ function updatePresetUI(s) {
     }
   });
 
-  const descEl = $('preset-active-desc');
-  if (descEl) {
+  const tooltipText = $('preset-tooltip-text');
+  if (tooltipText) {
     const descKey = `preset_desc_${active}`;
-    descEl.textContent = t(descKey) || '';
-  }
-
-  const detailsEl = $('preset-active-details');
-  if (detailsEl) {
-    const detailsKey = `preset_tooltip_${active}`;
-    detailsEl.textContent = t(detailsKey) || '';
+    tooltipText.textContent = t(descKey) || '';
   }
 }
 
@@ -718,10 +713,8 @@ function filterToggles(query) {
   const clearBtn = $('btn-clear-search');
   const noResultsEl = $('search-no-results');
   const detailedHeader = document.querySelector('.detailed-header');
-  const presetHelper = $('preset-helper-wrap');
 
   if (clearBtn) clearBtn.style.display = q ? 'flex' : 'none';
-  if (presetHelper) presetHelper.style.display = q ? 'none' : 'flex';
 
   if (!q) {
     if (noResultsEl) noResultsEl.style.display = 'none';
