@@ -603,6 +603,12 @@ function updatePresetUI(s) {
     const descKey = `preset_desc_${active}`;
     descEl.textContent = t(descKey) || '';
   }
+
+  const detailsEl = $('preset-active-details');
+  if (detailsEl) {
+    const detailsKey = `preset_tooltip_${active}`;
+    detailsEl.textContent = t(detailsKey) || '';
+  }
 }
 
 function getPresetRelaxedKeys(targetPreset) {
@@ -712,8 +718,10 @@ function filterToggles(query) {
   const clearBtn = $('btn-clear-search');
   const noResultsEl = $('search-no-results');
   const detailedHeader = document.querySelector('.detailed-header');
+  const presetHelper = $('preset-helper-wrap');
 
   if (clearBtn) clearBtn.style.display = q ? 'flex' : 'none';
+  if (presetHelper) presetHelper.style.display = q ? 'none' : 'flex';
 
   if (!q) {
     if (noResultsEl) noResultsEl.style.display = 'none';

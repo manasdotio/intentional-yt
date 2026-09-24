@@ -2,6 +2,33 @@ import React, { useState } from 'react'
 import { APP_CONFIG } from '../config/constants'
 import { useTheme } from '../context/ThemeContext'
 
+const PRESET_HELPERS = {
+  balanced: {
+    title: 'Balanced · Hides feeds & suggestions',
+    details: 'Blocks Home Feed, Shorts & sidebar suggestions. Leaves subscriptions & comments accessible.'
+  },
+  zen: {
+    title: 'Zen · Maximum focus & search-only',
+    details: 'Pure search utility. All feeds, comments, thumbnails and sidebars are completely hidden.'
+  },
+  player: {
+    title: 'Video Only · Minimalist player',
+    details: 'Distraction-free theatre viewing. Hides recommendations and comments around the video.'
+  },
+  limited: {
+    title: 'Anti-Doomscroll · Calm 15-video batch',
+    details: 'Limits the home feed to 15 intentional videos and blocks infinite scroll with a serene caught-up banner.'
+  },
+  chaos: {
+    title: 'Clutter · Protections disabled',
+    details: 'Standard YouTube with infinite feeds, Shorts carousels, algorithmic sidebars, and autoplay.'
+  },
+  custom: {
+    title: 'Custom · Personalized configuration',
+    details: 'Custom toggle mix. Adjust individual distraction controls in the sections below.'
+  }
+}
+
 export default function Simulator() {
   const { theme: siteTheme } = useTheme()
   const [ytThemeOverride, setYtThemeOverride] = useState(null) // null = match site theme
@@ -52,7 +79,21 @@ export default function Simulator() {
 
   const setPreset = (mode) => {
     setSelectedPreset(mode)
-    if (mode === 'chaos') {
+    if (mode === 'balanced') {
+      setExtensionEnabled(true)
+      setActiveTab('block')
+      setControls({
+        homeFeed: true,
+        limitHomeFeed: false,
+        subscriptions: false,
+        sidebar: true,
+        shorts: true,
+        thumbnails: false,
+        grayscale: false,
+        autoplay: true,
+        comments: false
+      })
+    } else if (mode === 'chaos') {
       setExtensionEnabled(false)
       setControls({
         homeFeed: false,
@@ -629,12 +670,28 @@ export default function Simulator() {
                         onChange={(e) => setPreset(e.target.value)}
                         title="Focus Preset"
                       >
+                        <option value="balanced">Balanced</option>
                         <option value="zen">Zen</option>
-                        <option value="limited">Anti-Doomscroll</option>
                         <option value="player">Video Only</option>
+                        <option value="limited">Anti-Doomscroll</option>
                         <option value="chaos">Clutter (Off)</option>
                         <option value="custom">Custom</option>
                       </select>
+                    </div>
+
+                    {/* Preset Mode Active Helper Banner */}
+                    <div className="mock-preset-helper-card">
+                      <div className="mock-preset-helper-icon">
+                        <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="12" y1="16" x2="12" y2="12" />
+                          <line x1="12" y1="8" x2="12.01" y2="8" />
+                        </svg>
+                      </div>
+                      <div className="mock-preset-helper-info">
+                        <span className="mock-preset-helper-title">{PRESET_HELPERS[selectedPreset]?.title || 'Preset Active'}</span>
+                        <span className="mock-preset-helper-details">{PRESET_HELPERS[selectedPreset]?.details || ''}</span>
+                      </div>
                     </div>
 
                     {/* Section: Feed */}
@@ -1044,7 +1101,7 @@ export default function Simulator() {
                 </svg>
                 <span>100% Local · Zero Telemetry</span>
               </span>
-              <span>{APP_CONFIG.version ? `v${APP_CONFIG.version}` : 'v2.1.2'}</span>
+              <span>{APP_CONFIG.version ? `v${APP_CONFIG.version}` : 'v2.2.0'}</span>
             </div>
           </div>
         </div>

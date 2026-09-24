@@ -5,15 +5,15 @@
 export const APP_CONFIG = {
   name: 'Intentional YT - YouTube Distraction Blocker & Daily Time Limit',
   shortName: 'Intentional YT',
-  version: '2.1.2',
-  versionShort: 'v2.1',
+  version: '2.2.0',
+  versionShort: 'v2.2',
   description: 'Distraction-Free YouTube Extension for Deep Focus',
   chromeWebStoreUrl: 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg',
   firefoxAddonUrl: 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/',
   githubRepoUrl: 'https://github.com/manasdotio/intentional-yt',
   githubReleasesUrl: 'https://github.com/manasdotio/intentional-yt/releases',
   chromeZipUrl: '/intentional-yt.zip',
-  chromeZipFilename: 'intentional-yt-v2.1.2.zip',
+  chromeZipFilename: 'intentional-yt-v2.2.0.zip',
   liveWebsiteUrl: 'https://intentionalyt.me/',
   feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7'
 }

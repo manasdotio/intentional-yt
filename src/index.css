@@ -1503,6 +1503,53 @@ button {
   cursor: pointer;
 }
 
+/* Mock Preset Mode Active Helper Banner */
+.mock-preset-helper-card {
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+}
+
+.mock-preset-helper-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--accent-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.mock-preset-helper-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mock-preset-helper-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.mock-preset-helper-details {
+  font-size: 10px;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
 /* Accordion sections */
 .mock-accordion-sec {
   margin-bottom: 12px;

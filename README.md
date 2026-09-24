@@ -9,7 +9,7 @@
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install%20Extension-4285F4?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)
 [![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install%20Extension-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-2.1.2-brightgreen.svg)
+![Version](https://img.shields.io/badge/version-2.2.0-brightgreen.svg)
 ![Browsers](https://img.shields.io/badge/browsers-Chrome%20%7C%20Firefox-informational.svg)
 ![Manifest](https://img.shields.io/badge/manifest-v3-blue.svg)
 [![Privacy](https://img.shields.io/badge/telemetry-0%25%20(strictly%20local)-success.svg)](PRIVACY.md)
