@@ -103,6 +103,10 @@ class StorageManager {
       if (!current.stats || current.stats.lastStatsReset !== today) {
         current = await StorageManager.resetDailyStats(current);
       }
+      if (current.snoozeUntil && Date.now() >= current.snoozeUntil) {
+        current.snoozeUntil = null;
+        browser.storage.local.set({ settings: current }).catch(() => {});
+      }
       return current;
     } catch (err) {
       console.error('[IYT] getSettings failed:', err);

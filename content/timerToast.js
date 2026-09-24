@@ -360,6 +360,9 @@ const IYT_Timer = (() => {
 
         settings.stats.todayWatchSeconds = (settings.stats.todayWatchSeconds || 0) + seconds;
         _baseWatchSeconds = settings.stats.todayWatchSeconds;
+        if (settings.snoozeUntil && Date.now() >= settings.snoozeUntil) {
+          settings.snoozeUntil = null;
+        }
         await browser.storage.local.set({ settings });
 
         _settings = settings;

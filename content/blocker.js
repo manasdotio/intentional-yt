@@ -39,6 +39,7 @@ const CLASS_MAP = {
 const html = document.documentElement;
 let _settings = null;
 let _snoozeTimer = null;
+let _snoozeInterval = null;
 
 function isEffectiveActive(settings) {
   if (!settings) return false;
@@ -47,13 +48,55 @@ function isEffectiveActive(settings) {
   return true;
 }
 
+function clearSnoozeTimers() {
+  if (_snoozeTimer) {
+    clearTimeout(_snoozeTimer);
+    _snoozeTimer = null;
+  }
+  if (_snoozeInterval) {
+    clearInterval(_snoozeInterval);
+    _snoozeInterval = null;
+  }
+}
+
+function onSnoozeExpired() {
+  clearSnoozeTimers();
+  if (_settings) {
+    _settings.snoozeUntil = null;
+    applyAllClasses(_settings);
+    checkShortsRedirect(_settings);
+    applyAutoplay(_settings);
+  }
+  StorageManager.updateSetting('snoozeUntil', null).catch(() => {});
+  applyAllSettings();
+}
+
 function scheduleSnoozeWakeup(settings) {
-  clearTimeout(_snoozeTimer);
-  if (settings?.snoozeUntil && Date.now() < settings.snoozeUntil) {
-    const ms = Math.max(100, settings.snoozeUntil - Date.now());
-    _snoozeTimer = setTimeout(() => {
-      applyAllSettings();
-    }, ms + 250);
+  clearSnoozeTimers();
+  if (!settings?.snoozeUntil) return;
+
+  const now = Date.now();
+  if (now >= settings.snoozeUntil) {
+    onSnoozeExpired();
+    return;
+  }
+
+  const ms = Math.max(50, settings.snoozeUntil - now);
+  _snoozeTimer = setTimeout(() => {
+    onSnoozeExpired();
+  }, ms);
+
+  // Fallback interval ensures throttled background tabs or slept devices catch expiration immediately
+  _snoozeInterval = setInterval(() => {
+    if (!_settings?.snoozeUntil || Date.now() >= _settings.snoozeUntil) {
+      onSnoozeExpired();
+    }
+  }, 1000);
+}
+
+function checkSnoozeExpiry() {
+  if (_settings?.snoozeUntil && Date.now() >= _settings.snoozeUntil) {
+    onSnoozeExpired();
   }
 }
 
@@ -75,6 +118,7 @@ function checkShortsRedirect(settings) {
 
 // Intercept in-page SPA navigation to shorts
 document.addEventListener('yt-navigate-start', (e) => {
+  checkSnoozeExpiry();
   if (!isEffectiveActive(_settings) || !_settings.redirectShorts) return;
   const url = e && e.detail && e.detail.url;
   if (typeof url === 'string') {
@@ -255,8 +299,22 @@ if (document.readyState === 'loading') {
   initShortsDomObserver();
 }
 
-document.addEventListener('yt-navigate-finish', () => scheduleShortsPurge());
-document.addEventListener('yt-page-data-updated', () => scheduleShortsPurge());
+document.addEventListener('yt-navigate-finish', () => {
+  checkSnoozeExpiry();
+  scheduleShortsPurge();
+});
+document.addEventListener('yt-page-data-updated', () => {
+  checkSnoozeExpiry();
+  scheduleShortsPurge();
+});
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    checkSnoozeExpiry();
+  }
+});
+window.addEventListener('focus', () => {
+  checkSnoozeExpiry();
+});
 
 window.__iytBlocker = {
   applyAllSettings,

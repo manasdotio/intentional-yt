@@ -29,12 +29,27 @@ function scheduleNextReset() {
   browser.alarms.create(ALARM_NAME, { delayInMinutes: delayMinutes });
 }
 
+async function broadcastSettingsToTabs(settings) {
+  try {
+    if (browser && browser.tabs && typeof browser.tabs.query === 'function') {
+      const tabs = await browser.tabs.query({ url: ['*://*.youtube.com/*', '*://m.youtube.com/*'] });
+      for (const tab of tabs) {
+        if (tab.id) {
+          browser.tabs.sendMessage(tab.id, { type: 'IYT_APPLY_SETTINGS', settings }).catch(() => {});
+        }
+      }
+    }
+  } catch (e) {}
+}
+
 async function checkSnoozeState() {
   const stored = await browser.storage.local.get('settings');
   const snoozeUntil = stored.settings?.snoozeUntil;
   if (!snoozeUntil) return;
   if (Date.now() >= snoozeUntil) {
     await StorageManager.updateSetting('snoozeUntil', null);
+    const fresh = await StorageManager.getSettings();
+    await broadcastSettingsToTabs(fresh);
   } else {
     browser.alarms.create(SNOOZE_ALARM, { when: snoozeUntil });
   }
@@ -76,5 +91,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
     scheduleNextReset();
   } else if (alarm.name === SNOOZE_ALARM) {
     await StorageManager.updateSetting('snoozeUntil', null);
+    const fresh = await StorageManager.getSettings();
+    await broadcastSettingsToTabs(fresh);
   }
 });

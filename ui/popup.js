@@ -889,6 +889,9 @@ function updateSnoozeBanner(s) {
       clearInterval(_snoozeCountdownInterval);
       _snoozeCountdownInterval = null;
     }
+    if (s && s.snoozeUntil && Date.now() >= s.snoozeUntil) {
+      cancelSnooze(true);
+    }
     return;
   }
 
@@ -901,7 +904,7 @@ function updateSnoozeBanner(s) {
         clearInterval(_snoozeCountdownInterval);
         _snoozeCountdownInterval = null;
       }
-      StorageManager.getSettings().then(latest => renderAll(latest));
+      cancelSnooze();
       return;
     }
     const totalSec = Math.ceil(remainingMs / 1000);
@@ -950,12 +953,14 @@ async function executeSnooze(minutes) {
   showToast(t('snooze_activated', [String(minutes)]) || `Protections paused for ${minutes} minutes`);
 }
 
-async function cancelSnooze() {
+async function cancelSnooze(silent = false) {
   await StorageManager.updateSetting('snoozeUntil', null);
   if (_s) _s.snoozeUntil = null;
   broadcastSettingsToTabs(_s);
   renderAll(_s);
-  showToast(t('snooze_resumed') || 'Protections resumed');
+  if (!silent) {
+    showToast(t('snooze_resumed') || 'Protections resumed');
+  }
 }
 
 /* ── Scheduled Blocking Form & Cards ─────────────────── */
