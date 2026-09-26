@@ -58,7 +58,8 @@ When updating versions, synchronize across all:
 ```bash
 npm run build      # Build React web app into dist/
 npm run dev        # Run local Vite development server
-./package.sh       # Package extension into intentional-yt.zip
+npm run package    # Cross-platform package extension (Chrome, Edge, Firefox)
+./package.sh       # Package extension into intentional-yt.zip (bash)
 ```
 
 ---

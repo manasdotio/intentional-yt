@@ -1088,5 +1088,113 @@
   "filters_status_in_development": {
     "message": "开发中",
     "description": "Status pill label on the content filters roadmap preview card"
+  },
+  "action_block": {
+    "message": "屏蔽",
+    "description": "Button text for 1-click in-feed channel block button"
+  },
+  "filters_quick_block_title": {
+    "message": "一键快速屏蔽按钮",
+    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
+  },
+  "filters_quick_block_desc": {
+    "message": "鼠标悬停在视频卡片上时在频道名称旁显示屏蔽按钮",
+    "description": "Description for 1-click quick block button toggle"
+  },
+  "filters_tip_text": {
+    "message": "在YouTube上悬停任意视频，即可使用新屏蔽按钮一键屏蔽频道！",
+    "description": "Quick tip text at the top of the Filters tab"
+  },
+  "btn_clear_all": {
+    "message": "清空全部",
+    "description": "Button to clear all items in a blocklist"
+  },
+  "toast_channel_cleared": {
+    "message": "已清空所有已屏蔽的频道",
+    "description": "Toast notification when all channels are cleared"
+  },
+  "toast_keyword_cleared": {
+    "message": "已清空所有已屏蔽的关键词",
+    "description": "Toast notification when all keywords are cleared"
+  },
+  "placeholder_channel_input": {
+    "message": "频道名称或 @handle...",
+    "description": "Placeholder for channel blocklist text input"
+  },
+  "blocklist_channels_empty_desc": {
+    "message": "添加频道名称或 @handle 即可隐藏该频道的视频。",
+    "description": "Empty state description for Channel Blocklist"
+  },
+  "placeholder_keyword_input": {
+    "message": "例如：播客、剧透、reaction...",
+    "description": "Placeholder for keyword blocklist text input"
+  },
+  "blocklist_keywords_empty_desc": {
+    "message": "添加关键词以自动隐藏包含匹配标题的视频。",
+    "description": "Empty state description for Keyword Blocklist"
+  },
+  "blocklist_privacy_note": {
+    "message": "100% 本地过滤 · 标题和频道仅在客户端匹配，绝无任何数据遥测。",
+    "description": "Privacy note at the bottom of the filters panel"
+  },
+  "toast_channel_added": {
+    "message": "已将 \"$NAME$\" 加入屏蔽频道",
+    "description": "Toast confirmation when channel is added to blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_removed": {
+    "message": "已将 \"$NAME$\" 从屏蔽频道移除",
+    "description": "Toast confirmation when channel is removed from blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_exists": {
+    "message": "\"$NAME$\" 已在屏蔽列表中",
+    "description": "Toast warning when adding duplicate channel",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_keyword_added": {
+    "message": "已将关键词 \"$KEYWORD$\" 加入屏蔽列表",
+    "description": "Toast confirmation when keyword is added to blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_removed": {
+    "message": "已将关键词 \"$KEYWORD$\" 从屏蔽列表移除",
+    "description": "Toast confirmation when keyword is removed from blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_exists": {
+    "message": "关键词 \"$KEYWORD$\" 已在屏蔽列表中",
+    "description": "Toast warning when adding duplicate keyword",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
   }
 }

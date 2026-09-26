@@ -1088,5 +1088,113 @@
   "filters_status_in_development": {
     "message": "開發中",
     "description": "Status pill label on the content filters roadmap preview card"
+  },
+  "action_block": {
+    "message": "封鎖",
+    "description": "Button text for 1-click in-feed channel block button"
+  },
+  "filters_quick_block_title": {
+    "message": "一鍵快速封鎖按鈕",
+    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
+  },
+  "filters_quick_block_desc": {
+    "message": "滑鼠懸停於影片卡片時在頻道名稱旁顯示封鎖按鈕",
+    "description": "Description for 1-click quick block button toggle"
+  },
+  "filters_tip_text": {
+    "message": "在YouTube上將滑鼠懸停於任何影片，即可使用全新封鎖按鈕一鍵封鎖頻道！",
+    "description": "Quick tip text at the top of the Filters tab"
+  },
+  "btn_clear_all": {
+    "message": "清除全部",
+    "description": "Button to clear all items in a blocklist"
+  },
+  "toast_channel_cleared": {
+    "message": "已清除所有已封鎖的頻道",
+    "description": "Toast notification when all channels are cleared"
+  },
+  "toast_keyword_cleared": {
+    "message": "已清除所有已封鎖的關鍵字",
+    "description": "Toast notification when all keywords are cleared"
+  },
+  "placeholder_channel_input": {
+    "message": "頻道名稱或 @handle...",
+    "description": "Placeholder for channel blocklist text input"
+  },
+  "blocklist_channels_empty_desc": {
+    "message": "新增頻道名稱或 @handle 即可隱藏該頻道的影片。",
+    "description": "Empty state description for Channel Blocklist"
+  },
+  "placeholder_keyword_input": {
+    "message": "例如：podcast、爆雷、reaction...",
+    "description": "Placeholder for keyword blocklist text input"
+  },
+  "blocklist_keywords_empty_desc": {
+    "message": "新增關鍵字以自動隱藏符合標題的影片。",
+    "description": "Empty state description for Keyword Blocklist"
+  },
+  "blocklist_privacy_note": {
+    "message": "100% 本地過濾 · 標題與頻道僅在用戶端比對，完全零遙測數據傳輸。",
+    "description": "Privacy note at the bottom of the filters panel"
+  },
+  "toast_channel_added": {
+    "message": "已將「$NAME$」加入封鎖頻道",
+    "description": "Toast confirmation when channel is added to blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_removed": {
+    "message": "已將「$NAME$」從封鎖頻道移除",
+    "description": "Toast confirmation when channel is removed from blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_exists": {
+    "message": "「$NAME$」已在封鎖名單中",
+    "description": "Toast warning when adding duplicate channel",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_keyword_added": {
+    "message": "已將關鍵字「$KEYWORD$」加入封鎖名單",
+    "description": "Toast confirmation when keyword is added to blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_removed": {
+    "message": "已將關鍵字「$KEYWORD$」從封鎖名單移除",
+    "description": "Toast confirmation when keyword is removed from blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_exists": {
+    "message": "關鍵字「$KEYWORD$」已在封鎖名單中",
+    "description": "Toast warning when adding duplicate keyword",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
   }
 }

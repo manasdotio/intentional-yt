@@ -1088,5 +1088,113 @@
   "filters_status_in_development": {
     "message": "En cours de développement",
     "description": "Status pill label on the content filters roadmap preview card"
+  },
+  "action_block": {
+    "message": "Bloquer",
+    "description": "Button text for 1-click in-feed channel block button"
+  },
+  "filters_quick_block_title": {
+    "message": "Bouton de blocage rapide en 1 clic",
+    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
+  },
+  "filters_quick_block_desc": {
+    "message": "Afficher un bouton de blocage à côté du nom des chaînes au survol des vidéos",
+    "description": "Description for 1-click quick block button toggle"
+  },
+  "filters_tip_text": {
+    "message": "Survolez n'importe quelle vidéo sur YouTube pour bloquer des chaînes en 1 clic grâce au nouveau bouton Bloquer !",
+    "description": "Quick tip text at the top of the Filters tab"
+  },
+  "btn_clear_all": {
+    "message": "Tout effacer",
+    "description": "Button to clear all items in a blocklist"
+  },
+  "toast_channel_cleared": {
+    "message": "Toutes les chaînes bloquées ont été effacées",
+    "description": "Toast notification when all channels are cleared"
+  },
+  "toast_keyword_cleared": {
+    "message": "Tous les mots-clés bloqués ont été effacés",
+    "description": "Toast notification when all keywords are cleared"
+  },
+  "placeholder_channel_input": {
+    "message": "Nom de chaîne ou @identifiant...",
+    "description": "Placeholder for channel blocklist text input"
+  },
+  "blocklist_channels_empty_desc": {
+    "message": "Ajoutez un nom de chaîne ou @identifiant pour masquer ses vidéos.",
+    "description": "Empty state description for Channel Blocklist"
+  },
+  "placeholder_keyword_input": {
+    "message": "ex. podcast, spoiler, réaction...",
+    "description": "Placeholder for keyword blocklist text input"
+  },
+  "blocklist_keywords_empty_desc": {
+    "message": "Ajoutez des mots-clés pour masquer automatiquement les titres correspondants.",
+    "description": "Empty state description for Keyword Blocklist"
+  },
+  "blocklist_privacy_note": {
+    "message": "Filtrage 100% local · Les titres et chaînes sont traités côté client avec 0% de télémétrie.",
+    "description": "Privacy note at the bottom of the filters panel"
+  },
+  "toast_channel_added": {
+    "message": "\"$NAME$\" a été ajouté aux chaînes bloquées",
+    "description": "Toast confirmation when channel is added to blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_removed": {
+    "message": "\"$NAME$\" a été retiré des chaînes bloquées",
+    "description": "Toast confirmation when channel is removed from blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_exists": {
+    "message": "\"$NAME$\" est déjà dans la liste des chaînes bloquées",
+    "description": "Toast warning when adding duplicate channel",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_keyword_added": {
+    "message": "\"$KEYWORD$\" a été ajouté aux mots-clés bloqués",
+    "description": "Toast confirmation when keyword is added to blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_removed": {
+    "message": "\"$KEYWORD$\" a été retiré des mots-clés bloqués",
+    "description": "Toast confirmation when keyword is removed from blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_exists": {
+    "message": "\"$KEYWORD$\" est déjà dans la liste des mots-clés bloqués",
+    "description": "Toast warning when adding duplicate keyword",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
   }
 }

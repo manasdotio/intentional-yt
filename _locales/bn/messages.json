@@ -1088,5 +1088,113 @@
   "filters_status_in_development": {
     "message": "উন্নয়নাধীন",
     "description": "Status pill label on the content filters roadmap preview card"
+  },
+  "action_block": {
+    "message": "ব্লক করুন",
+    "description": "Button text for 1-click in-feed channel block button"
+  },
+  "filters_quick_block_title": {
+    "message": "১-ক্লিক দ্রুত ব্লক বাটন",
+    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
+  },
+  "filters_quick_block_desc": {
+    "message": "ভিডিওর উপর হোভার করলে চ্যানেলের নামের পাশে ব্লক বাটন দেখান",
+    "description": "Description for 1-click quick block button toggle"
+  },
+  "filters_tip_text": {
+    "message": "ইউটিউবে যেকোনো ভিডিওর উপর মাউস রেখে নতুন ব্লক বাটনে ১ ক্লিকে চ্যানেল ব্লক করুন!",
+    "description": "Quick tip text at the top of the Filters tab"
+  },
+  "btn_clear_all": {
+    "message": "সব মুছুন",
+    "description": "Button to clear all items in a blocklist"
+  },
+  "toast_channel_cleared": {
+    "message": "সমস্ত ব্লক করা চ্যানেল মুছে ফেলা হয়েছে",
+    "description": "Toast notification when all channels are cleared"
+  },
+  "toast_keyword_cleared": {
+    "message": "সমস্ত ব্লক করা কীওয়ার্ড মুছে ফেলা হয়েছে",
+    "description": "Toast notification when all keywords are cleared"
+  },
+  "placeholder_channel_input": {
+    "message": "চ্যানেলের নাম বা @হ্যান্ডেল...",
+    "description": "Placeholder for channel blocklist text input"
+  },
+  "blocklist_channels_empty_desc": {
+    "message": "ভিডিও লুকাতে চ্যানেলের নাম বা @হ্যান্ডেল যোগ করুন।",
+    "description": "Empty state description for Channel Blocklist"
+  },
+  "placeholder_keyword_input": {
+    "message": "যেমন: পডকাস্ট, স্পয়লার, প্রতিক্রিয়া...",
+    "description": "Placeholder for keyword blocklist text input"
+  },
+  "blocklist_keywords_empty_desc": {
+    "message": "মিলে যাওয়া ভিডিও শিরোনাম স্বয়ংক্রিয়ভাবে লুকাতে কীওয়ার্ড যোগ করুন।",
+    "description": "Empty state description for Keyword Blocklist"
+  },
+  "blocklist_privacy_note": {
+    "message": "১০০% স্থানীয় ফিল্টারিং · শিরোনাম ও চ্যানেল কোনো টেলিমেট্রি ছাড়াই ব্রাউজারে ফিল্টার হয়।",
+    "description": "Privacy note at the bottom of the filters panel"
+  },
+  "toast_channel_added": {
+    "message": "ব্লক চ্যানেলে \"$NAME$\" যোগ করা হয়েছে",
+    "description": "Toast confirmation when channel is added to blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_removed": {
+    "message": "ব্লক চ্যানেল থেকে \"$NAME$\" সরানো হয়েছে",
+    "description": "Toast confirmation when channel is removed from blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_exists": {
+    "message": "\"$NAME$\" ইতিমধ্যেই তালিকায় রয়েছে",
+    "description": "Toast warning when adding duplicate channel",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_keyword_added": {
+    "message": "ব্লক কীওয়ার্ডে \"$KEYWORD$\" যোগ করা হয়েছে",
+    "description": "Toast confirmation when keyword is added to blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_removed": {
+    "message": "ব্লক কীওয়ার্ড থেকে \"$KEYWORD$\" সরানো হয়েছে",
+    "description": "Toast confirmation when keyword is removed from blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_exists": {
+    "message": "\"$KEYWORD$\" ইতিমধ্যেই তালিকায় রয়েছে",
+    "description": "Toast warning when adding duplicate keyword",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
   }
 }

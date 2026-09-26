@@ -1088,5 +1088,113 @@
   "filters_status_in_development": {
     "message": "อยู่ระหว่างการพัฒนา",
     "description": "Status pill label on the content filters roadmap preview card"
+  },
+  "action_block": {
+    "message": "บล็อก",
+    "description": "Button text for 1-click in-feed channel block button"
+  },
+  "filters_quick_block_title": {
+    "message": "ปุ่มบล็อกด่วนใน 1 คลิก",
+    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
+  },
+  "filters_quick_block_desc": {
+    "message": "แสดงปุ่มบล็อกข้างชื่อช่องเมื่อวางเมาส์เหนือการ์ดวิดีโอ",
+    "description": "Description for 1-click quick block button toggle"
+  },
+  "filters_tip_text": {
+    "message": "วางเมาส์เหนือวิดีโอใดๆ บน YouTube เพื่อบล็อกช่องใน 1 คลิกด้วยปุ่มใหม่!",
+    "description": "Quick tip text at the top of the Filters tab"
+  },
+  "btn_clear_all": {
+    "message": "ล้างทั้งหมด",
+    "description": "Button to clear all items in a blocklist"
+  },
+  "toast_channel_cleared": {
+    "message": "ล้างช่องที่บล็อกทั้งหมดแล้ว",
+    "description": "Toast notification when all channels are cleared"
+  },
+  "toast_keyword_cleared": {
+    "message": "ล้างคีย์เวิร์ดที่บล็อกทั้งหมดแล้ว",
+    "description": "Toast notification when all keywords are cleared"
+  },
+  "placeholder_channel_input": {
+    "message": "ชื่อช่องหรือ @แฮนเดิล...",
+    "description": "Placeholder for channel blocklist text input"
+  },
+  "blocklist_channels_empty_desc": {
+    "message": "เพิ่มชื่อช่องหรือ @แฮนเดิล เพื่อซ่อนวิดีโอจากช่องนั้น",
+    "description": "Empty state description for Channel Blocklist"
+  },
+  "placeholder_keyword_input": {
+    "message": "เช่น พอดแคสต์, สปอยล์, รีแอคชั่น...",
+    "description": "Placeholder for keyword blocklist text input"
+  },
+  "blocklist_keywords_empty_desc": {
+    "message": "เพิ่มคีย์เวิร์ดเพื่อซ่อนวิดีโอที่มีชื่อตรงกันโดยอัตโนมัติ",
+    "description": "Empty state description for Keyword Blocklist"
+  },
+  "blocklist_privacy_note": {
+    "message": "การกรองในเครื่อง 100% · ตรวจสอบชื่อและช่องในเบราว์เซอร์โดยไม่มีการส่งข้อมูลใดๆ",
+    "description": "Privacy note at the bottom of the filters panel"
+  },
+  "toast_channel_added": {
+    "message": "เพิ่ม \"$NAME$\" ไปยังช่องที่บล็อกแล้ว",
+    "description": "Toast confirmation when channel is added to blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_removed": {
+    "message": "ลบ \"$NAME$\" ออกจากช่องที่บล็อกแล้ว",
+    "description": "Toast confirmation when channel is removed from blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_exists": {
+    "message": "\"$NAME$\" อยู่ในรายการบล็อกแล้ว",
+    "description": "Toast warning when adding duplicate channel",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_keyword_added": {
+    "message": "เพิ่ม \"$KEYWORD$\" ไปยังคีย์เวิร์ดที่บล็อกแล้ว",
+    "description": "Toast confirmation when keyword is added to blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_removed": {
+    "message": "ลบ \"$KEYWORD$\" ออกจากคีย์เวิร์ดที่บล็อกแล้ว",
+    "description": "Toast confirmation when keyword is removed from blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_exists": {
+    "message": "\"$KEYWORD$\" อยู่ในรายการคีย์เวิร์ดแล้ว",
+    "description": "Toast warning when adding duplicate keyword",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
   }
 }

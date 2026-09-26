@@ -1088,5 +1088,113 @@
   "filters_status_in_development": {
     "message": "विकास में है",
     "description": "Status pill label on the content filters roadmap preview card"
+  },
+  "action_block": {
+    "message": "ब्लॉक करें",
+    "description": "Button text for 1-click in-feed channel block button"
+  },
+  "filters_quick_block_title": {
+    "message": "1-क्लिक क्विक ब्लॉक बटन",
+    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
+  },
+  "filters_quick_block_desc": {
+    "message": "वीडियो कार्ड पर होवर करने पर चैनल नाम के बगल में ब्लॉक बटन दिखाएं",
+    "description": "Description for 1-click quick block button toggle"
+  },
+  "filters_tip_text": {
+    "message": "YouTube पर किसी भी वीडियो पर होवर करें और नए ब्लॉक बटन से 1 क्लिक में चैनल ब्लॉक करें!",
+    "description": "Quick tip text at the top of the Filters tab"
+  },
+  "btn_clear_all": {
+    "message": "सभी साफ़ करें",
+    "description": "Button to clear all items in a blocklist"
+  },
+  "toast_channel_cleared": {
+    "message": "सभी ब्लॉक किए गए चैनल साफ़ कर दिए गए",
+    "description": "Toast notification when all channels are cleared"
+  },
+  "toast_keyword_cleared": {
+    "message": "सभी ब्लॉक किए गए कीवर्ड साफ़ कर दिए गए",
+    "description": "Toast notification when all keywords are cleared"
+  },
+  "placeholder_channel_input": {
+    "message": "चैनल का नाम या @हैंडल...",
+    "description": "Placeholder for channel blocklist text input"
+  },
+  "blocklist_channels_empty_desc": {
+    "message": "वीडियो छिपाने के लिए चैनल का नाम या @हैंडल जोड़ें।",
+    "description": "Empty state description for Channel Blocklist"
+  },
+  "placeholder_keyword_input": {
+    "message": "उदा. पॉडकास्ट, स्पॉइलर, रिएक्शन...",
+    "description": "Placeholder for keyword blocklist text input"
+  },
+  "blocklist_keywords_empty_desc": {
+    "message": "मिलते-जुलते वीडियो शीर्षक अपने आप छिपाने के लिए कीवर्ड जोड़ें।",
+    "description": "Empty state description for Keyword Blocklist"
+  },
+  "blocklist_privacy_note": {
+    "message": "100% स्थानीय फ़िल्टरिंग · शीर्षक और चैनल शून्य टेलीमेट्री के साथ ब्राउज़र में ही फ़िल्टर होते हैं।",
+    "description": "Privacy note at the bottom of the filters panel"
+  },
+  "toast_channel_added": {
+    "message": "\"$NAME$\" को ब्लॉक चैनलों में जोड़ा गया",
+    "description": "Toast confirmation when channel is added to blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_removed": {
+    "message": "\"$NAME$\" को ब्लॉक चैनलों से हटाया गया",
+    "description": "Toast confirmation when channel is removed from blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_exists": {
+    "message": "\"$NAME$\" पहले से ही ब्लॉक सूची में है",
+    "description": "Toast warning when adding duplicate channel",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_keyword_added": {
+    "message": "\"$KEYWORD$\" को ब्लॉक कीवर्ड में जोड़ा गया",
+    "description": "Toast confirmation when keyword is added to blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_removed": {
+    "message": "\"$KEYWORD$\" को ब्लॉक कीवर्ड से हटाया गया",
+    "description": "Toast confirmation when keyword is removed from blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_exists": {
+    "message": "\"$KEYWORD$\" पहले से ही कीवर्ड सूची में है",
+    "description": "Toast warning when adding duplicate keyword",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
   }
 }

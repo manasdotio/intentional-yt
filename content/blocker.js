@@ -517,7 +517,7 @@ function matchesChannel(channelInfo, channelBlocklist, pageChannelInfo) {
       if (nameNorm === bNorm) return true;
 
       // Handle cases where YouTube adds badges or suffixes: "Veritasium - Official Channel"
-      if (bNorm.length >= 4 && (nameNorm.startsWith(bNorm) || bNorm.startsWith(nameNorm))) {
+      if (bNorm.length >= 4 && nameNorm.startsWith(bNorm)) {
         return true;
       }
     }
@@ -629,6 +629,10 @@ function showQuickBlockToast(displayName, identifier, card) {
   const undoBtn = toast.querySelector('.iyt-qb-toast-undo');
   undoBtn.addEventListener('click', async (e) => {
     e.stopPropagation();
+    if (_quickBlockToastTimer) {
+      clearTimeout(_quickBlockToastTimer);
+      _quickBlockToastTimer = null;
+    }
     toast.remove();
     if (_settings?.channelBlocklist) {
       _settings.channelBlocklist = _settings.channelBlocklist.filter(x => x !== identifier);
@@ -641,6 +645,10 @@ function showQuickBlockToast(displayName, identifier, card) {
   const closeBtn = toast.querySelector('.iyt-qb-toast-close');
   closeBtn.addEventListener('click', (e) => {
     e.stopPropagation();
+    if (_quickBlockToastTimer) {
+      clearTimeout(_quickBlockToastTimer);
+      _quickBlockToastTimer = null;
+    }
     toast.remove();
   });
 

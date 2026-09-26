@@ -27,6 +27,12 @@ CHROME_OUT="$SCRIPT_DIR/intentional-yt.zip"
 EDGE_OUT="$SCRIPT_DIR/intentional-yt-edge.zip"
 FIREFOX_OUT="$SCRIPT_DIR/intentional-yt-firefox.zip"
 
+# Prefer cross-platform Node packager if available
+if command -v node >/dev/null 2>&1; then
+  node "$SCRIPT_DIR/scripts/package.cjs"
+  exit 0
+fi
+
 python3 -c "
 import json, zipfile, os
 
