@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uninstall Feedback — Intentional YT</title>
+  <meta name="description" content="Help us improve Intentional YT with a single click." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+  <style>
+    :root {
+      --bg: #fbfbfe;
+      --bg-subtle: #f1f3f9;
+      --surface: #ffffff;
+      --surface-hover: #f8fafc;
+      --surface-glass: rgba(255, 255, 255, 0.88);
+      --border: rgba(15, 23, 42, 0.08);
+      --border-strong: rgba(15, 23, 42, 0.16);
+      --border-accent: rgba(37, 99, 235, 0.25);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+      --accent-blue: #2563eb;
+      --accent-blue-subtle: #eff6ff;
+      --accent-emerald: #059669;
+      --accent-emerald-subtle: #ecfdf5;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-pill: 9999px;
+      --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.07), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+    }
+
+    [data-theme="dark"] {
+      --bg: #09090b;
+      --bg-subtle: #121216;
+      --surface: #18181f;
+      --surface-hover: #22222b;
+      --surface-glass: rgba(24, 24, 31, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --border-accent: rgba(59, 130, 246, 0.35);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-subtle: #475569;
+      --accent-blue: #3b82f6;
+      --accent-blue-subtle: rgba(59, 130, 246, 0.12);
+      --accent-emerald: #10b981;
+      --accent-emerald-subtle: rgba(16, 185, 129, 0.1);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      position: relative;
+    }
+
+    .ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    [data-theme="dark"] .ambient-glow {
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0) 70%);
+    }
+
+    .uninstall-screen {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 620px;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .uninstall-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .theme-toggle-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--surface-hover);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+
+    .uninstall-card {
+      width: 100%;
+      background: var(--surface-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .uninstall-head {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .uninstall-title {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .uninstall-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .uninstall-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .uninstall-opt-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.16s ease;
+      user-select: none;
+    }
+
+    .uninstall-opt-btn:hover:not(:disabled) {
+      background: var(--surface-hover);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .uninstall-opt-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .uninstall-opt-btn.active {
+      border-color: var(--accent-blue);
+      background: var(--accent-blue-subtle);
+      color: var(--accent-blue);
+    }
+
+    .uninstall-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-pill);
+      background: var(--border-strong);
+      transition: all 0.16s ease;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    .uninstall-opt-btn:hover .uninstall-dot {
+      background: var(--text-subtle);
+    }
+
+    .uninstall-opt-btn.active .uninstall-dot {
+      background: var(--accent-blue);
+    }
+
+    .uninstall-other-form {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .uninstall-other-form.open {
+      display: flex;
+    }
+
+    .uninstall-textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text-primary);
+      resize: vertical;
+      min-height: 80px;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .uninstall-textarea:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px var(--accent-blue-subtle);
+    }
+
+    .uninstall-form-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-submit {
+      padding: 9px 20px;
+      font-size: 13.5px;
+      border-radius: var(--radius-md);
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    [data-theme="dark"] .btn-submit {
+      background: #ffffff;
+      color: #09090b;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .uninstall-success-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 24px 12px;
+      gap: 12px;
+    }
+
+    .uninstall-success-state.active {
+      display: flex;
+    }
+
+    .uninstall-success-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-emerald-subtle);
+      color: var(--accent-emerald);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+
+    .uninstall-success-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .uninstall-success-desc {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 440px;
+    }
+
+    .uninstall-reinstall-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .uninstall-reinstall-link {
+      color: var(--accent-blue);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .uninstall-reinstall-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .uninstall-card {
+        padding: 24px 18px;
+        border-radius: var(--radius-lg);
+      }
+      .uninstall-title {
+        font-size: 19px;
+      }
+      .uninstall-opt-btn {
+        padding: 11px 14px;
+        font-size: 13.5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-glow"></div>
+
+  <div class="uninstall-screen">
+    <header class="uninstall-nav">
+      <a href="/" class="brand" aria-label="Intentional YT Home">
+        <img src="/icons/icon.svg" alt="Intentional YT Logo" width="26" height="26" />
+        <span>Intentional YT</span>
+      </a>
+
+      <button type="button" id="theme-btn" class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+        <svg id="theme-icon-sun" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg id="theme-icon-moon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+    </header>
+
+    <main class="uninstall-card" id="main-card">
+      <div id="survey-content">
+        <div class="uninstall-head">
+          <h1 class="uninstall-title">Sorry to see you go — mind telling me why?</h1>
+          <p class="uninstall-desc">One click helps us understand what to improve. No follow-ups, no spam.</p>
+        </div>
+
+        <div class="uninstall-options-list" role="radiogroup" aria-label="Reason for uninstalling" style="margin-top: 20px;">
+          <button type="button" class="uninstall-opt-btn" data-reason="It slowed down my browser">
+            <span>It slowed down my browser</span>
+            <span class="uninstall-dot"></span>
+          </button>
+          <button type="button" class="uninstall-opt-btn" data-reason="It didn't work as expected / had a bug">
+            <span>It didn't work as expected / had a bug</span>
+            <span class="uninstall-dot"></span>
+          </button>
+          <button type="button" class="uninstall-opt-btn" data-reason="I didn't find it useful">
+            <span>I didn't find it useful</span>
+            <span class="uninstall-dot"></span>
+          </button>
+          <button type="button" class="uninstall-opt-btn" data-reason="Privacy or permissions concern">
+            <span>Privacy or permissions concern</span>
+            <span class="uninstall-dot"></span>
+          </button>
+          <button type="button" class="uninstall-opt-btn" data-reason="I just don't need it anymore">
+            <span>I just don't need it anymore</span>
+            <span class="uninstall-dot"></span>
+          </button>
+          <button type="button" class="uninstall-opt-btn" data-reason="Other">
+            <span>Other</span>
+            <span class="uninstall-dot"></span>
+          </button>
+        </div>
+
+        <form id="other-form" class="uninstall-other-form">
+          <textarea id="other-comment" class="uninstall-textarea" rows="3" placeholder="Mind sharing a few details? (Optional)"></textarea>
+          <div class="uninstall-form-actions">
+            <button type="submit" id="other-submit-btn" class="btn-submit">Send Feedback</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="success-content" class="uninstall-success-state">
+        <div class="uninstall-success-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+        </div>
+        <h2 class="uninstall-success-title">Thank you for your feedback</h2>
+        <p class="uninstall-success-desc">
+          Your response has been noted. We appreciate the time you spent trying Intentional YT.
+        </p>
+      </div>
+
+      <div class="uninstall-reinstall-footer">
+        <span>Changed your mind? </span>
+        <a id="reinstall-link" href="#" target="_blank" rel="noopener noreferrer" class="uninstall-reinstall-link">
+          Reinstall Intentional YT ↗
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Configuration
+    const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeQyJ4AqTyH3QuoFQhbYJGx9zzhn-w4RkuhAqXrKsQzfGexHg/formResponse';
+    const ENTRY_TYPE = 'entry.1233256490';
+    const ENTRY_BROWSER = 'entry.2082206088';
+    const ENTRY_DETAILS = 'entry.1197887322';
+
+    const CHROME_STORE_URL = 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg';
+    const FIREFOX_STORE_URL = 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/';
+
+    // Browser Store Auto-detection
+    const isFirefox = navigator.userAgent.includes('Firefox');
+    const reinstallLink = document.getElementById('reinstall-link');
+    const detectedBrowser = isFirefox ? 'Firefox' : 'Chrome';
+    const detectedStoreName = isFirefox ? 'Firefox Add-ons' : 'Chrome Web Store';
+    const detectedStoreUrl = isFirefox ? FIREFOX_STORE_URL : CHROME_STORE_URL;
+
+    if (reinstallLink) {
+      reinstallLink.href = detectedStoreUrl;
+      reinstallLink.textContent = 'Reinstall from ' + detectedStoreName + ' ↗';
+    }
+
+    // Theme Support
+    const themeBtn = document.getElementById('theme-btn');
+    const sunIcon = document.getElementById('theme-icon-sun');
+    const moonIcon = document.getElementById('theme-icon-moon');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('intentional_yt_theme', theme);
+      if (theme === 'dark') {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
+    }
+
+    const savedTheme = localStorage.getItem('intentional_yt_theme') || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Form submission handler
+    const surveyContent = document.getElementById('survey-content');
+    const successContent = document.getElementById('success-content');
+    const otherForm = document.getElementById('other-form');
+    const otherComment = document.getElementById('other-comment');
+    const optButtons = document.querySelectorAll('.uninstall-opt-btn');
+
+    let submitted = false;
+
+    function recordFeedback(reason, comment = '') {
+      if (submitted) return;
+      submitted = true;
+
+      const finalDetails = comment.trim() 
+        ? 'Uninstall Reason: ' + reason + ' — Comment: ' + comment.trim()
+        : 'Uninstall Reason: ' + reason;
+
+      try {
+        const formData = new URLSearchParams();
+        formData.append(ENTRY_TYPE, '💬 General Feedback');
+        formData.append(ENTRY_BROWSER, detectedBrowser);
+        formData.append(ENTRY_DETAILS, finalDetails);
+
+        fetch(GOOGLE_FORM_ACTION, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formData.toString()
+        }).catch(() => {});
+      } catch (e) {}
+
+      // Immediate transition
+      surveyContent.style.display = 'none';
+      successContent.classList.add('active');
+    }
+
+    optButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const reason = btn.getAttribute('data-reason');
+        optButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (reason === 'Other') {
+          otherForm.classList.add('open');
+          otherComment.focus();
+        } else {
+          otherForm.classList.remove('open');
+          recordFeedback(reason);
+        }
+      });
+    });
+
+    otherForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      recordFeedback('Other', otherComment.value);
+    });
+  </script>
+</body>
+</html>

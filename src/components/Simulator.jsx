@@ -29,6 +29,49 @@ const PRESET_HELPERS = {
   }
 }
 
+const MINDFUL_VIDEOS = [
+  {
+    id: 1,
+    title: 'How to Build 4 Hours of Unbroken Focus Every Day',
+    channel: 'Veritasium',
+    views: '1.4M views • 3 days ago',
+    avatar: 'V',
+    avatarBg: '#10b981',
+    duration: '18:45',
+    tag: '🧠 4 Hours of Unbroken Focus'
+  },
+  {
+    id: 2,
+    title: 'The Intuition Behind Vector Fields & Fluid Flow',
+    channel: '3Blue1Brown',
+    views: '890K views • 1 week ago',
+    avatar: '3B',
+    avatarBg: '#3b82f6',
+    duration: '24:10',
+    tag: '📐 Vector Fields & Flux'
+  },
+  {
+    id: 3,
+    title: 'Designing Distributed Systems with Zero Dependencies',
+    channel: 'Fireship',
+    views: '420K views • 5 days ago',
+    avatar: 'FS',
+    avatarBg: '#f59e0b',
+    duration: '31:15',
+    tag: '⚡ Systems With Zero Dependencies'
+  },
+  {
+    id: 4,
+    title: 'Why Leaving Algorithmic Feeds Restored My Attention Span',
+    channel: 'Ali Abdaal',
+    views: '680K views • 2 weeks ago',
+    avatar: 'AA',
+    avatarBg: '#8b5cf6',
+    duration: '14:02',
+    tag: '🌿 Digital Detox & Calm'
+  }
+]
+
 export default function Simulator() {
   const { theme: siteTheme } = useTheme()
   const [ytThemeOverride, setYtThemeOverride] = useState(null) // null = match site theme
@@ -39,6 +82,68 @@ export default function Simulator() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedPreset, setSelectedPreset] = useState('zen')
   const [toastMessage, setToastMessage] = useState('')
+
+  // Simulated filter settings
+  const [channelBlocklist, setChannelBlocklist] = useState(['Algorithm Hacker'])
+  const [keywordBlocklist, setKeywordBlocklist] = useState([])
+  const [enableQuickBlock, setEnableQuickBlock] = useState(true)
+  const [newChannelInput, setNewChannelInput] = useState('')
+  const [newKeywordInput, setNewKeywordInput] = useState('')
+
+  const isCardBlocked = (channel, title) => {
+    if (!extensionEnabled) return false
+    const chanLower = (channel || '').toLowerCase()
+    const titleLower = (title || '').toLowerCase()
+    if (channelBlocklist.some(c => chanLower.includes(c.toLowerCase()))) return true
+    if (keywordBlocklist.some(k => titleLower.includes(k.toLowerCase()))) return true
+    return false
+  }
+
+  const addChannel = (name) => {
+    const raw = (name || newChannelInput).trim()
+    const clean = raw.toLowerCase()
+    if (!clean) return
+    if (channelBlocklist.some(c => c.toLowerCase() === clean)) {
+      showToast(`"${raw}" is already blocked`)
+      return
+    }
+    setChannelBlocklist(prev => [...prev, raw])
+    setNewChannelInput('')
+    showToast(`Blocked channel "${raw}"`)
+  }
+
+  const removeChannel = (name) => {
+    setChannelBlocklist(prev => prev.filter(c => c.toLowerCase() !== name.toLowerCase()))
+    showToast(`Removed "${name}" from blocklist`)
+  }
+
+  const clearChannels = () => {
+    setChannelBlocklist([])
+    showToast('Cleared all blocked channels')
+  }
+
+  const addKeyword = (kw) => {
+    const raw = (kw || newKeywordInput).trim()
+    const clean = raw.toLowerCase()
+    if (!clean) return
+    if (keywordBlocklist.some(k => k.toLowerCase() === clean)) {
+      showToast(`"${raw}" is already blocked`)
+      return
+    }
+    setKeywordBlocklist(prev => [...prev, raw])
+    setNewKeywordInput('')
+    showToast(`Blocked keyword "${raw}"`)
+  }
+
+  const removeKeyword = (kw) => {
+    setKeywordBlocklist(prev => prev.filter(k => k.toLowerCase() !== kw.toLowerCase()))
+    showToast(`Removed "${kw}" from blocklist`)
+  }
+
+  const clearKeywords = () => {
+    setKeywordBlocklist([])
+    showToast('Cleared all blocked keywords')
+  }
 
   const [controls, setControls] = useState({
     homeFeed: true,
@@ -167,6 +272,13 @@ export default function Simulator() {
 
   return (
     <section id="demo" className="playground-section">
+      <div className="section-head" style={{ marginBottom: '28px' }}>
+        <div className="section-eyebrow">Interactive Demo</div>
+        <h2 className="section-title">Test the YouTube distraction blocker live.</h2>
+        <p className="section-desc">
+          Experience zero-flash blocking, YouTube Shorts suppression, and feed limits before installing.
+        </p>
+      </div>
       <div className="playground-card">
         <div className="playground-header">
           <div className="playground-title-group">
@@ -389,19 +501,40 @@ export default function Simulator() {
                       {!extensionEnabled ? (
                         /* Default Clutter / Chaos View */
                         <>
-                          <div className="yt-card">
-                            <div className="yt-thumb" style={{ background: 'linear-gradient(135deg, #450a0a, #7f1d1d)' }}>
-                              <span style={{ color: '#fca5a5', fontWeight: 700 }}>😱 YOU WON'T BELIEVE THIS!</span>
-                              <span className="yt-thumb-badge">12:40</span>
-                            </div>
-                            <div className="yt-card-body">
-                              <div className="yt-channel-avatar" style={{ background: '#dc2626' }}>AH</div>
-                              <div className="yt-card-info">
-                                <div className="yt-card-title">How I Built a 10M SaaS In 48 Hours</div>
-                                <div className="yt-card-channel">Algorithm Hacker • 8.4M views</div>
+                          {!isCardBlocked('Algorithm Hacker', 'How I Built a 10M SaaS In 48 Hours') && (
+                            <div className="yt-card">
+                              <div className="yt-thumb" style={{ background: 'linear-gradient(135deg, #450a0a, #7f1d1d)' }}>
+                                <span style={{ color: '#fca5a5', fontWeight: 700 }}>😱 YOU WON'T BELIEVE THIS!</span>
+                                <span className="yt-thumb-badge">12:40</span>
+                              </div>
+                              <div className="yt-card-body">
+                                <div className="yt-channel-avatar" style={{ background: '#dc2626' }}>AH</div>
+                                <div className="yt-card-info">
+                                  <div className="yt-card-title">How I Built a 10M SaaS In 48 Hours</div>
+                                  <div className="yt-card-channel">
+                                    <span>Algorithm Hacker • 8.4M views</span>
+                                    {enableQuickBlock && (
+                                      <button
+                                        type="button"
+                                        className="sim-quick-block-btn"
+                                        title="Block Algorithm Hacker"
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          addChannel('Algorithm Hacker')
+                                        }}
+                                      >
+                                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                          <circle cx="12" cy="12" r="10" />
+                                          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                                        </svg>
+                                        <span>Block</span>
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          )}
 
                           {/* Clutter Shorts Shelf */}
                           <div className="yt-shorts-shelf">
@@ -425,112 +558,128 @@ export default function Simulator() {
                             </div>
                           </div>
 
-                          <div className="yt-card">
-                            <div className="yt-thumb" style={{ background: 'linear-gradient(135deg, #7c2d12, #c2410c)' }}>
-                              <span style={{ color: '#fed7aa', fontWeight: 700 }}>🔥 STOP DOING THIS NOW!</span>
-                              <span className="yt-thumb-badge">18:02</span>
-                            </div>
-                            <div className="yt-card-body">
-                              <div className="yt-channel-avatar" style={{ background: '#ea580c' }}>FG</div>
-                              <div className="yt-card-info">
-                                <div className="yt-card-title">The Ultimate Productivity Trap That Ruins Focus</div>
-                                <div className="yt-card-channel">Focus Guru • 3.1M views</div>
+                          {!isCardBlocked('Focus Guru', 'The Ultimate Productivity Trap That Ruins Focus') && (
+                            <div className="yt-card">
+                              <div className="yt-thumb" style={{ background: 'linear-gradient(135deg, #7c2d12, #c2410c)' }}>
+                                <span style={{ color: '#fed7aa', fontWeight: 700 }}>🔥 STOP DOING THIS NOW!</span>
+                                <span className="yt-thumb-badge">18:02</span>
+                              </div>
+                              <div className="yt-card-body">
+                                <div className="yt-channel-avatar" style={{ background: '#ea580c' }}>FG</div>
+                                <div className="yt-card-info">
+                                  <div className="yt-card-title">The Ultimate Productivity Trap That Ruins Focus</div>
+                                  <div className="yt-card-channel">
+                                    <span>Focus Guru • 3.1M views</span>
+                                    {enableQuickBlock && (
+                                      <button
+                                        type="button"
+                                        className="sim-quick-block-btn"
+                                        title="Block Focus Guru"
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          addChannel('Focus Guru')
+                                        }}
+                                      >
+                                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                          <circle cx="12" cy="12" r="10" />
+                                          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                                        </svg>
+                                        <span>Block</span>
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          )}
 
-                          <div className="yt-card">
-                            <div className="yt-thumb" style={{ background: 'linear-gradient(135deg, #713f12, #ca8a04)' }}>
-                              <span style={{ color: '#fef08a', fontWeight: 700 }}>⚠️ 99% OF PEOPLE FAIL</span>
-                              <span className="yt-thumb-badge">08:15</span>
-                            </div>
-                            <div className="yt-card-body">
-                              <div className="yt-channel-avatar" style={{ background: '#ca8a04' }}>MH</div>
-                              <div className="yt-card-info">
-                                <div className="yt-card-title">Learn Deep Work in 10 Minutes Before It's Gone</div>
-                                <div className="yt-card-channel">Mastery Hub • 4.8M views</div>
+                          {!isCardBlocked('Mastery Hub', "Learn Deep Work in 10 Minutes Before It's Gone") && (
+                            <div className="yt-card">
+                              <div className="yt-thumb" style={{ background: 'linear-gradient(135deg, #713f12, #ca8a04)' }}>
+                                <span style={{ color: '#fef08a', fontWeight: 700 }}>⚠️ 99% OF PEOPLE FAIL</span>
+                                <span className="yt-thumb-badge">08:15</span>
+                              </div>
+                              <div className="yt-card-body">
+                                <div className="yt-channel-avatar" style={{ background: '#ca8a04' }}>MH</div>
+                                <div className="yt-card-info">
+                                  <div className="yt-card-title">Learn Deep Work in 10 Minutes Before It's Gone</div>
+                                  <div className="yt-card-channel">
+                                    <span>Mastery Hub • 4.8M views</span>
+                                    {enableQuickBlock && (
+                                      <button
+                                        type="button"
+                                        className="sim-quick-block-btn"
+                                        title="Block Mastery Hub"
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          addChannel('Mastery Hub')
+                                        }}
+                                      >
+                                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                          <circle cx="12" cy="12" r="10" />
+                                          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                                        </svg>
+                                        <span>Block</span>
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          )}
                         </>
                       ) : (
                         /* Mindful / Intentional Feed (Anti-Doomscroll or Filtered) */
                         <>
-                          <div className="yt-card">
-                            <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                              {controls.thumbnails ? (
-                                <span style={{ opacity: 0.6 }}>Focus Placeholder</span>
-                              ) : (
-                                <span>🧠 4 Hours of Unbroken Focus</span>
-                              )}
-                              <span className="yt-thumb-badge">18:45</span>
-                            </div>
-                            <div className="yt-card-body">
-                              <div className="yt-channel-avatar" style={{ background: '#10b981' }}>V</div>
-                              <div className="yt-card-info">
-                                <div className="yt-card-title">How to Build 4 Hours of Unbroken Focus Every Day</div>
-                                <div className="yt-card-channel">Veritasium ✓</div>
-                                <div className="yt-card-meta">1.4M views • 3 days ago</div>
+                          {MINDFUL_VIDEOS.filter((v) => !isCardBlocked(v.channel, v.title)).map((video) => (
+                            <div key={video.id} className="yt-card">
+                              <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
+                                {controls.thumbnails ? (
+                                  <span style={{ opacity: 0.6 }}>Focus Placeholder</span>
+                                ) : (
+                                  <span>{video.tag}</span>
+                                )}
+                                <span className="yt-thumb-badge">{video.duration}</span>
+                              </div>
+                              <div className="yt-card-body">
+                                <div className="yt-channel-avatar" style={{ background: video.avatarBg }}>
+                                  {video.avatar}
+                                </div>
+                                <div className="yt-card-info">
+                                  <div className="yt-card-title">{video.title}</div>
+                                  <div className="yt-card-channel">
+                                    <span>{video.channel} ✓</span>
+                                    {enableQuickBlock && (
+                                      <button
+                                        type="button"
+                                        className="sim-quick-block-btn"
+                                        title={`Block ${video.channel}`}
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          addChannel(video.channel)
+                                        }}
+                                      >
+                                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                          <circle cx="12" cy="12" r="10" />
+                                          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                                        </svg>
+                                        <span>Block</span>
+                                      </button>
+                                    )}
+                                  </div>
+                                  <div className="yt-card-meta">{video.views}</div>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          ))}
 
-                          <div className="yt-card">
-                            <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                              {controls.thumbnails ? (
-                                <span style={{ opacity: 0.6 }}>Focus Placeholder</span>
-                              ) : (
-                                <span>📐 Vector Fields &amp; Flux</span>
-                              )}
-                              <span className="yt-thumb-badge">24:10</span>
+                          {MINDFUL_VIDEOS.filter((v) => !isCardBlocked(v.channel, v.title)).length === 0 && (
+                            <div className="calm-end-banner" style={{ gridColumn: '1 / -1', margin: '14px 0', padding: '24px 14px' }}>
+                              <div className="calm-end-badge">✦ All videos filtered</div>
+                              <div className="calm-end-text">Active blocklists hid all current videos</div>
+                              <p className="calm-end-sub">Open the Filters tab in the popup to review or remove filters.</p>
                             </div>
-                            <div className="yt-card-body">
-                              <div className="yt-channel-avatar" style={{ background: '#3b82f6' }}>3B</div>
-                              <div className="yt-card-info">
-                                <div className="yt-card-title">The Intuition Behind Vector Fields &amp; Fluid Flow</div>
-                                <div className="yt-card-channel">3Blue1Brown ✓</div>
-                                <div className="yt-card-meta">890K views • 1 week ago</div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="yt-card">
-                            <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                              {controls.thumbnails ? (
-                                <span style={{ opacity: 0.6 }}>Focus Placeholder</span>
-                              ) : (
-                                <span>⚡ Systems With Zero Dependencies</span>
-                              )}
-                              <span className="yt-thumb-badge">31:15</span>
-                            </div>
-                            <div className="yt-card-body">
-                              <div className="yt-channel-avatar" style={{ background: '#f59e0b' }}>FS</div>
-                              <div className="yt-card-info">
-                                <div className="yt-card-title">Designing Distributed Systems with Zero Dependencies</div>
-                                <div className="yt-card-channel">Fireship ✓</div>
-                                <div className="yt-card-meta">420K views • 5 days ago</div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="yt-card">
-                            <div className={`yt-thumb ${controls.thumbnails ? 'yt-thumb-placeholder' : ''}`}>
-                              {controls.thumbnails ? (
-                                <span style={{ opacity: 0.6 }}>Focus Placeholder</span>
-                              ) : (
-                                <span>🌿 Digital Detox &amp; Calm</span>
-                              )}
-                              <span className="yt-thumb-badge">14:02</span>
-                            </div>
-                            <div className="yt-card-body">
-                              <div className="yt-channel-avatar" style={{ background: '#8b5cf6' }}>AA</div>
-                              <div className="yt-card-info">
-                                <div className="yt-card-title">Why Leaving Algorithmic Feeds Restored My Attention Span</div>
-                                <div className="yt-card-channel">Ali Abdaal ✓</div>
-                                <div className="yt-card-meta">680K views • 2 weeks ago</div>
-                              </div>
-                            </div>
-                          </div>
+                          )}
 
                           {/* Anti-Doomscroll Calm Caught-up Banner */}
                           {controls.limitHomeFeed && (
@@ -598,7 +747,7 @@ export default function Simulator() {
                   type="button"
                   className={`mock-nav-tab-btn ${activeTab === 'filters' ? 'active' : ''}`}
                   onClick={() => setActiveTab('filters')}
-                  title="Content Filters Roadmap"
+                  title="Channel &amp; Keyword Filters"
                 >
                   <svg className="mock-nav-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
@@ -856,52 +1005,168 @@ export default function Simulator() {
                   </div>
                 )}
 
-                {/* ── TAB 2: FILTERS (ROADMAP PREVIEW) ─────────── */}
+                {/* ── TAB 2: FILTERS (CHANNEL & KEYWORD BLOCKLISTS) ── */}
                 {activeTab === 'filters' && (
                   <div className="mock-tab-panel">
-                    <div className="mock-filters-card">
-                      <div className="mock-filters-pill">
-                        <span className="mock-badge-dot"></span>
-                        <span>In Development</span>
+                    {/* Compact Quick Block Header Row */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '2px 2px 8px', borderBottom: '1px solid var(--border)', marginBottom: '10px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ fontSize: '12px', fontWeight: 650, color: 'var(--text-primary)' }}>In-Feed Block Button</span>
+                        <span className="mock-badge-tag" style={{ background: '#3b82f6' }}>NEW</span>
                       </div>
-                      <h4 className="mock-filters-title">Custom Content Filters</h4>
-                      <p className="mock-filters-sub">
-                        Client-side rules to filter out unwanted creators, clickbait topics, and spoiler channels.
-                      </p>
-                      <div className="mock-filters-list">
-                        <div className="mock-filters-item">
-                          <span>🚫</span>
-                          <div>
-                            <strong>Channel Muting</strong>
-                            <div style={{ fontSize: '10.5px', color: 'var(--text-secondary)' }}>Mute specific YouTube creators across all feeds.</div>
-                          </div>
+                      <label className="demo-switch">
+                        <input
+                          type="checkbox"
+                          checked={enableQuickBlock}
+                          onChange={() => setEnableQuickBlock(!enableQuickBlock)}
+                        />
+                        <span className="demo-slider"></span>
+                      </label>
+                    </div>
+
+                    {/* Channel Blocklist Card */}
+                    <div className="mock-filter-card">
+                      <div className="mock-filter-header">
+                        <div className="mock-filter-header-left">
+                          <span style={{ fontSize: '13px' }}>👤</span>
+                          <span className="mock-filter-title">Channel Blocklist</span>
+                          {channelBlocklist.length > 0 && (
+                            <span className="mock-badge-tag">{channelBlocklist.length}</span>
+                          )}
                         </div>
-                        <div className="mock-filters-item">
-                          <span>🔍</span>
-                          <div>
-                            <strong>Keyword Blocking</strong>
-                            <div style={{ fontSize: '10.5px', color: 'var(--text-secondary)' }}>Hide videos with blocked words or spoilers in titles.</div>
-                          </div>
-                        </div>
-                        <div className="mock-filters-item">
-                          <span>⚡</span>
-                          <div>
-                            <strong>In-Page Quick Mute</strong>
-                            <div style={{ fontSize: '10.5px', color: 'var(--text-secondary)' }}>One-click mute directly from YouTube's 3-dot menu.</div>
-                          </div>
-                        </div>
+                        {channelBlocklist.length > 0 && (
+                          <button type="button" className="mock-clear-btn" onClick={clearChannels}>
+                            Clear all
+                          </button>
+                        )}
                       </div>
-                      <div className="mock-filters-ft">
-                        <span>100% Local · Zero Telemetry</span>
-                        <a
-                          href={APP_CONFIG.feedbackFormUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ color: 'var(--accent-blue)', fontWeight: 600, textDecoration: 'none' }}
-                        >
-                          Suggest ideas ↗
-                        </a>
+
+                      <div className="mock-filter-input-row">
+                        <input
+                          type="text"
+                          className="mock-filter-input"
+                          placeholder="Channel name or handle..."
+                          value={newChannelInput}
+                          onChange={(e) => setNewChannelInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault()
+                              addChannel()
+                            }
+                          }}
+                        />
+                        <button type="button" className="mock-filter-add-btn" onClick={() => addChannel()}>
+                          Add
+                        </button>
                       </div>
+
+                      <div className="mock-filter-chips">
+                        {channelBlocklist.length === 0 ? (
+                          <span style={{ fontSize: '10.5px', color: 'var(--text-muted)' }}>No blocked channels yet</span>
+                        ) : (
+                          channelBlocklist.map((ch) => (
+                            <span key={ch} className="mock-filter-chip">
+                              <span>{ch}</span>
+                              <button
+                                type="button"
+                                className="mock-filter-chip-remove"
+                                onClick={() => removeChannel(ch)}
+                                title={`Unblock ${ch}`}
+                              >
+                                ×
+                              </button>
+                            </span>
+                          ))
+                        )}
+                      </div>
+
+                      <div className="mock-filter-suggestions">
+                        <span>Try:</span>
+                        <button type="button" className="mock-filter-sug-chip" onClick={() => addChannel('MrBeast')}>
+                          MrBeast
+                        </button>
+                        <button type="button" className="mock-filter-sug-chip" onClick={() => addChannel('Shorts')}>
+                          Shorts
+                        </button>
+                        <button type="button" className="mock-filter-sug-chip" onClick={() => addChannel('Veritasium')}>
+                          Veritasium
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Keyword Blocklist Card */}
+                    <div className="mock-filter-card">
+                      <div className="mock-filter-header">
+                        <div className="mock-filter-header-left">
+                          <span style={{ fontSize: '13px' }}>🏷️</span>
+                          <span className="mock-filter-title">Keyword Blocklist</span>
+                          {keywordBlocklist.length > 0 && (
+                            <span className="mock-badge-tag">{keywordBlocklist.length}</span>
+                          )}
+                        </div>
+                        {keywordBlocklist.length > 0 && (
+                          <button type="button" className="mock-clear-btn" onClick={clearKeywords}>
+                            Clear all
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="mock-filter-input-row">
+                        <input
+                          type="text"
+                          className="mock-filter-input"
+                          placeholder="e.g. podcast, reaction, spoiler..."
+                          value={newKeywordInput}
+                          onChange={(e) => setNewKeywordInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault()
+                              addKeyword()
+                            }
+                          }}
+                        />
+                        <button type="button" className="mock-filter-add-btn" onClick={() => addKeyword()}>
+                          Add
+                        </button>
+                      </div>
+
+                      <div className="mock-filter-chips">
+                        {keywordBlocklist.length === 0 ? (
+                          <span style={{ fontSize: '10.5px', color: 'var(--text-muted)' }}>No blocked keywords yet</span>
+                        ) : (
+                          keywordBlocklist.map((kw) => (
+                            <span key={kw} className="mock-filter-chip">
+                              <span>{kw}</span>
+                              <button
+                                type="button"
+                                className="mock-filter-chip-remove"
+                                onClick={() => removeKeyword(kw)}
+                                title={`Unblock ${kw}`}
+                              >
+                                ×
+                              </button>
+                            </span>
+                          ))
+                        )}
+                      </div>
+
+                      <div className="mock-filter-suggestions">
+                        <span>Try:</span>
+                        <button type="button" className="mock-filter-sug-chip" onClick={() => addKeyword('reaction')}>
+                          reaction
+                        </button>
+                        <button type="button" className="mock-filter-sug-chip" onClick={() => addKeyword('focus')}>
+                          focus
+                        </button>
+                        <button type="button" className="mock-filter-sug-chip" onClick={() => addKeyword('spoiler')}>
+                          spoiler
+                        </button>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: 'var(--text-muted)', paddingTop: '4px' }}>
+                      <span>🔒</span>
+                      <span>100% Local filtering · Client-side with zero telemetry</span>
                     </div>
                   </div>
                 )}

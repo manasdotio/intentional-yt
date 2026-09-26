@@ -78,6 +78,7 @@ const TOGGLES = [
   'redirectShorts',
   'blockSubscriptionsFeed', 'disableAutoplay', 'disableAnnotations',
   'hideThumbnails', 'grayscaleMode',
+  'enableQuickBlock',
 ];
 
 const TOGGLE_LABELS = {
@@ -110,6 +111,7 @@ const TOGGLE_LABELS = {
   disableAnnotations: 'toggle_disable_annotations',
   hideThumbnails: 'toggle_hide_thumbnails',
   grayscaleMode: 'toggle_grayscale_mode',
+  enableQuickBlock: 'filters_quick_block_title',
   softReminder: 'toggle_soft_reminder',
   dailyLimit: 'toggle_daily_limit',
   focusLock: 'toggle_focus_lock',
@@ -1376,6 +1378,130 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+/* ── Channel & Keyword Blocklists Rendering & Actions ── */
+
+function renderBlocklist(type, items) {
+  const chipsList = $(`${type}-blocklist-chips`);
+  const emptyState = $(`${type}-blocklist-empty`);
+  const badge = $(`badge-${type}-count`);
+  const clearBtn = $(`btn-clear-${type}s`);
+  if (!chipsList || !emptyState) return;
+
+  const list = Array.isArray(items) ? items : [];
+
+  if (badge) {
+    badge.textContent = String(list.length);
+    badge.style.display = list.length > 0 ? 'inline-flex' : 'none';
+  }
+
+  if (clearBtn) {
+    clearBtn.style.display = list.length > 0 ? 'inline-block' : 'none';
+  }
+
+  if (list.length === 0) {
+    chipsList.style.display = 'none';
+    chipsList.innerHTML = '';
+    emptyState.style.display = 'flex';
+    return;
+  }
+
+  emptyState.style.display = 'none';
+  chipsList.style.display = 'flex';
+  chipsList.innerHTML = '';
+
+  list.forEach(item => {
+    const chip = document.createElement('div');
+    chip.className = 'blocklist-chip';
+
+    const textSpan = document.createElement('span');
+    textSpan.className = 'blocklist-chip-text';
+    textSpan.textContent = item;
+    textSpan.title = item;
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'blocklist-chip-remove';
+    removeBtn.setAttribute('aria-label', `Remove ${item}`);
+    removeBtn.title = `Remove ${item}`;
+    removeBtn.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    `;
+
+    removeBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const settingKey = type === 'channel' ? 'channelBlocklist' : 'keywordBlocklist';
+      const currentList = Array.isArray(_s?.[settingKey]) ? _s[settingKey] : [];
+      const updatedList = currentList.filter(x => x !== item);
+
+      await StorageManager.updateSetting(settingKey, updatedList);
+      if (_s) _s[settingKey] = updatedList;
+
+      broadcastSettingsToTabs(_s);
+      renderBlocklist(type, updatedList);
+      showToast(t(`toast_${type}_removed`, [item]) || `Removed "${item}" from blocklist`);
+    });
+
+    chip.appendChild(textSpan);
+    chip.appendChild(removeBtn);
+    chipsList.appendChild(chip);
+  });
+}
+
+async function handleAddBlocklistEntry(type) {
+  const input = $(`input-${type}-blocklist`);
+  if (!input) return;
+
+  const rawVal = input.value || '';
+  let cleanVal = rawVal.trim().toLowerCase();
+  if (!cleanVal) {
+    input.focus();
+    return;
+  }
+
+  // If user pasted a YouTube URL, extract handle or channel slug
+  if (type === 'channel') {
+    const urlMatch = cleanVal.match(/(?:youtube\.com|youtu\.be)\/(?:@([a-z0-9_.-]+)|channel\/([a-z0-9_-]+)|c\/([a-z0-9_.-]+)|user\/([a-z0-9_.-]+))/i);
+    if (urlMatch) {
+      cleanVal = urlMatch[1] ? `@${urlMatch[1]}` : (urlMatch[2] || urlMatch[3] || urlMatch[4]);
+    }
+  }
+
+  const settingKey = type === 'channel' ? 'channelBlocklist' : 'keywordBlocklist';
+  const currentList = Array.isArray(_s?.[settingKey]) ? [..._s[settingKey]] : [];
+
+  if (currentList.includes(cleanVal)) {
+    showToast(t(`toast_${type}_exists`, [cleanVal]) || `"${cleanVal}" is already in the list`);
+    input.focus();
+    input.select();
+    return;
+  }
+
+  currentList.push(cleanVal);
+  await StorageManager.updateSetting(settingKey, currentList);
+  if (_s) _s[settingKey] = currentList;
+
+  input.value = '';
+  broadcastSettingsToTabs(_s);
+  renderBlocklist(type, currentList);
+  showToast(t(`toast_${type}_added`, [cleanVal]) || `Added "${cleanVal}" to blocklist`);
+}
+
+async function handleClearBlocklist(type) {
+  const settingKey = type === 'channel' ? 'channelBlocklist' : 'keywordBlocklist';
+  const currentList = Array.isArray(_s?.[settingKey]) ? _s[settingKey] : [];
+  if (currentList.length === 0) return;
+
+  await StorageManager.updateSetting(settingKey, []);
+  if (_s) _s[settingKey] = [];
+
+  broadcastSettingsToTabs(_s);
+  renderBlocklist(type, []);
+  showToast(t(`toast_${type}_cleared`) || `Cleared all blocked ${type}s`);
+}
+
 /* ── Master Render ───────────────────────────────────── */
 
 function renderAll(s) {
@@ -1449,6 +1575,10 @@ function renderAll(s) {
   // Scheduled Blocking
   $('toggle-scheduledBlockingEnabled').checked = !!s.scheduledBlocking?.enabled;
   renderSchedulesList(s);
+
+  // Channel & Keyword Blocklists
+  renderBlocklist('channel', s.channelBlocklist || []);
+  renderBlocklist('keyword', s.keywordBlocklist || []);
 
   // Relocated Language selector
   const langSel = $('select-userLanguage');
@@ -2332,6 +2462,40 @@ function bindAll() {
   $('btn-stats-panel-reset')?.addEventListener('click', async () => {
     await StorageManager.resetDailyStats();
     showToast(t('stats_reset_toast') || 'Daily watch time reset');
+  });
+
+  // Channel & Keyword Blocklist Form Actions
+  $('btn-add-channel')?.addEventListener('click', () => handleAddBlocklistEntry('channel'));
+  $('input-channel-blocklist')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddBlocklistEntry('channel');
+    }
+  });
+
+  $('btn-add-keyword')?.addEventListener('click', () => handleAddBlocklistEntry('keyword'));
+  $('input-keyword-blocklist')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddBlocklistEntry('keyword');
+    }
+  });
+
+  // Clear all buttons
+  $('btn-clear-channels')?.addEventListener('click', () => handleClearBlocklist('channel'));
+  $('btn-clear-keywords')?.addEventListener('click', () => handleClearBlocklist('keyword'));
+
+  // Quick suggestion chips
+  document.querySelectorAll('.btn-suggestion-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.getAttribute('data-for');
+      const val = btn.getAttribute('data-val');
+      const input = $(`input-${type}-blocklist`);
+      if (input && val) {
+        input.value = val;
+        handleAddBlocklistEntry(type);
+      }
+    });
   });
 
   // Backdrop click dismisses any active modal overlay

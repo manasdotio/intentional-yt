@@ -403,74 +403,123 @@
 
     <!-- ── TAB 2: BLOCKLISTS / FILTERS ────────────────────────── -->
     <div id="panel-blocklists" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-blocklists">
-      <div class="panel-header">
+      <div class="panel-header filters-panel-header">
         <div class="panel-title" data-i18n="panel_filters_title">Channel &amp; Keyword Filters</div>
-        <div class="panel-subtitle" data-i18n="panel_filters_subtitle">Fine-grained control over what creators and topics appear.</div>
+        <label class="filters-header-quick-block" for="toggle-enableQuickBlock" title="Show a Block button next to channel names when hovering videos">
+          <span class="filters-qb-label" data-i18n="filters_quick_block_title">In-Feed Block</span>
+          <span class="blocklist-badge-new">NEW</span>
+          <input type="checkbox" class="chk" id="toggle-enableQuickBlock" />
+        </label>
       </div>
 
-      <div class="filters-card-wrap">
-        <div class="filters-roadmap-card">
-          <!-- Top badge and status -->
-          <div class="filters-roadmap-header">
-            <div class="filters-icon-circle">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-              </svg>
-            </div>
-            <div class="filters-header-text">
-              <div class="filters-pill">
-                <span class="filters-dot"></span>
-                <span data-i18n="filters_status_in_development">In Development</span>
+      <div class="blocklist-sections-wrap">
+
+        <!-- 1. Channel Blocklist Card -->
+        <div class="blocklist-card" id="card-channel-blocklist">
+          <div class="blocklist-card-header">
+            <div class="blocklist-header-left">
+              <div class="blocklist-icon-box icon-box-indigo">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
-              <h3 class="filters-card-heading">Custom Content Filters</h3>
-              <p class="filters-card-sub">Fine-tuned client-side rules to filter out unwanted creators, titles, and topics.</p>
+              <span class="blocklist-title" data-i18n="section_channel_blocklist">Channel Blocklist</span>
+            </div>
+            <div class="blocklist-header-actions">
+              <button type="button" class="btn-blocklist-clear" id="btn-clear-channels" title="Clear all blocked channels" style="display:none" data-i18n="btn_clear_all">Clear all</button>
+              <span class="blocklist-count-badge" id="badge-channel-count" style="display:none">0</span>
             </div>
           </div>
 
-          <!-- Feature items -->
-          <div class="filters-items-group">
-            <div class="filters-item-row">
-              <div class="filters-item-icon">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </div>
-              <div class="filters-item-content">
-                <div class="filters-item-title">Channel Muting</div>
-                <div class="filters-item-desc">Mute specific YouTube channels from home feed, recommendations, and search.</div>
-              </div>
+          <div class="blocklist-input-group">
+            <div class="blocklist-input-wrap">
+              <svg class="blocklist-input-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input type="text" id="input-channel-blocklist" class="blocklist-text-input" placeholder="Channel name or @handle..." data-i18n-placeholder="placeholder_channel_input" autocomplete="off" spellcheck="false" />
+              <kbd class="blocklist-input-kbd">↵ Enter</kbd>
             </div>
-
-            <div class="filters-item-row">
-              <div class="filters-item-icon">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-              </div>
-              <div class="filters-item-content">
-                <div class="filters-item-title">Keyword &amp; Topic Blocking</div>
-                <div class="filters-item-desc">Hide videos containing blocked keywords, spoilers, rage-bait, or tags.</div>
-              </div>
-            </div>
-
-            <div class="filters-item-row">
-              <div class="filters-item-icon">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-              </div>
-              <div class="filters-item-content">
-                <div class="filters-item-title">In-Page Quick Mute</div>
-                <div class="filters-item-desc">Quickly block channels directly from YouTube's 3-dot context menu.</div>
-              </div>
-            </div>
+            <button type="button" id="btn-add-channel" class="btn-blocklist-add">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span data-i18n="btn_add_channel">Add</span>
+            </button>
           </div>
 
-          <!-- Footer / Feedback link -->
-          <div class="filters-roadmap-footer">
-            <span class="filters-privacy-badge">
-              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span data-i18n="footer_local_privacy">100% Local · Zero Telemetry</span>
-            </span>
-            <a href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" class="filters-feedback-btn">
-              <span>Suggest ideas ↗</span>
-            </a>
+          <!-- Chip list or Empty State -->
+          <div class="blocklist-items-container" id="channel-blocklist-container">
+            <div class="blocklist-chips-list" id="channel-blocklist-chips" style="display:none"></div>
+            <div class="blocklist-empty-state" id="channel-blocklist-empty">
+              <div class="blocklist-empty-icon">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="18" y1="8" x2="23" y2="13"/><line x1="23" y1="8" x2="18" y2="13"/></svg>
+              </div>
+              <div class="blocklist-empty-content">
+                <div class="blocklist-empty-text">
+                  <span class="empty-title" data-i18n="blocklist_channels_empty">No blocked channels yet</span>
+                  <span class="empty-desc" data-i18n="blocklist_channels_empty_desc">Add a channel name or @handle to hide their videos from view.</span>
+                </div>
+                <div class="blocklist-suggestions">
+                  <span class="blocklist-suggestion-label">Try:</span>
+                  <button type="button" class="btn-suggestion-chip" data-for="channel" data-val="MrBeast">MrBeast</button>
+                  <button type="button" class="btn-suggestion-chip" data-for="channel" data-val="Shorts">Shorts</button>
+                  <button type="button" class="btn-suggestion-chip" data-val="T-Series">T-Series</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- 2. Keyword Blocklist Card -->
+        <div class="blocklist-card" id="card-keyword-blocklist">
+          <div class="blocklist-card-header">
+            <div class="blocklist-header-left">
+              <div class="blocklist-icon-box icon-box-amber">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </div>
+              <span class="blocklist-title" data-i18n="section_keyword_blocklist">Keyword Blocklist</span>
+            </div>
+            <div class="blocklist-header-actions">
+              <button type="button" class="btn-blocklist-clear" id="btn-clear-keywords" title="Clear all blocked keywords" style="display:none" data-i18n="btn_clear_all">Clear all</button>
+              <span class="blocklist-count-badge" id="badge-keyword-count" style="display:none">0</span>
+            </div>
+          </div>
+
+          <div class="blocklist-input-group">
+            <div class="blocklist-input-wrap">
+              <svg class="blocklist-input-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="input-keyword-blocklist" class="blocklist-text-input" placeholder="e.g. podcast, spoiler, react..." data-i18n-placeholder="placeholder_keyword_input" autocomplete="off" spellcheck="false" />
+              <kbd class="blocklist-input-kbd">↵ Enter</kbd>
+            </div>
+            <button type="button" id="btn-add-keyword" class="btn-blocklist-add">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span data-i18n="btn_add_keyword">Add</span>
+            </button>
+          </div>
+
+          <!-- Chip list or Empty State -->
+          <div class="blocklist-items-container" id="keyword-blocklist-container">
+            <div class="blocklist-chips-list" id="keyword-blocklist-chips" style="display:none"></div>
+            <div class="blocklist-empty-state" id="keyword-blocklist-empty">
+              <div class="blocklist-empty-icon">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+              </div>
+              <div class="blocklist-empty-content">
+                <div class="blocklist-empty-text">
+                  <span class="empty-title" data-i18n="blocklist_keywords_empty">No blocked keywords yet</span>
+                  <span class="empty-desc" data-i18n="blocklist_keywords_empty_desc">Add keywords to hide matching video titles automatically.</span>
+                </div>
+                <div class="blocklist-suggestions">
+                  <span class="blocklist-suggestion-label">Try:</span>
+                  <button type="button" class="btn-suggestion-chip" data-for="keyword" data-val="reaction">reaction</button>
+                  <button type="button" class="btn-suggestion-chip" data-for="keyword" data-val="spoiler">spoiler</button>
+                  <button type="button" class="btn-suggestion-chip" data-val="prank">prank</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy & Local Note Footer -->
+        <div class="blocklist-footer-note">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span data-i18n="blocklist_privacy_note">100% Local filtering · Titles and channels are matched client-side with zero telemetry.</span>
+        </div>
+
       </div>
     </div><!-- /#panel-blocklists -->
 

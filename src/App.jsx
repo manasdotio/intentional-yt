@@ -11,20 +11,24 @@ import Installation from './components/Installation'
 import ReviewCta from './components/ReviewCta'
 import Footer from './components/Footer'
 import Privacy from './components/Privacy'
+import Uninstall from './components/Uninstall'
 
 export default function App() {
-  const [isPrivacyPage, setIsPrivacyPage] = useState(
-    typeof window !== 'undefined' && 
-    (window.location.pathname.startsWith('/privacy') || window.location.hash === '#/privacy' || window.location.hash === '#privacy')
-  )
+  const checkRoutes = () => {
+    if (typeof window === 'undefined') return { privacy: false, uninstall: false }
+    const path = window.location.pathname || ''
+    const hash = window.location.hash || ''
+    return {
+      privacy: path.startsWith('/privacy') || hash === '#/privacy' || hash === '#privacy',
+      uninstall: path.startsWith('/uninstall') || hash === '#/uninstall' || hash === '#uninstall'
+    }
+  }
+
+  const [routes, setRoutes] = useState(checkRoutes)
 
   useEffect(() => {
     const handleLocationChange = () => {
-      setIsPrivacyPage(
-        window.location.pathname.startsWith('/privacy') || 
-        window.location.hash === '#/privacy' || 
-        window.location.hash === '#privacy'
-      )
+      setRoutes(checkRoutes())
     }
 
     window.addEventListener('popstate', handleLocationChange)
@@ -39,26 +43,30 @@ export default function App() {
     <ThemeProvider>
       <div className="ambient-glow" />
       <div className="ambient-grid" />
-      <div className="container">
-        <Navbar />
-        <main>
-          {isPrivacyPage ? (
-            <Privacy />
-          ) : (
-            <>
-              <Hero />
-              <Simulator />
-              <Features />
-              <Calculator />
-              <Comparison />
-              <Faq />
-              <Installation />
-              <ReviewCta />
-            </>
-          )}
-        </main>
-        <Footer />
-      </div>
+      {routes.uninstall ? (
+        <Uninstall />
+      ) : (
+        <div className="container">
+          <Navbar />
+          <main>
+            {routes.privacy ? (
+              <Privacy />
+            ) : (
+              <>
+                <Hero />
+                <Simulator />
+                <Features />
+                <Calculator />
+                <Comparison />
+                <Faq />
+                <Installation />
+                <ReviewCta />
+              </>
+            )}
+          </main>
+          <Footer />
+        </div>
+      )}
     </ThemeProvider>
   )
 }

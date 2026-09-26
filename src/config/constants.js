@@ -15,7 +15,16 @@ export const APP_CONFIG = {
   chromeZipUrl: '/intentional-yt.zip',
   chromeZipFilename: 'intentional-yt-v2.2.0.zip',
   liveWebsiteUrl: 'https://intentionalyt.me/',
-  feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7'
+  feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7',
+  uninstallUrl: 'https://intentionalyt.me/uninstall',
+  uninstallFeedbackConfig: {
+    formActionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeQyJ4AqTyH3QuoFQhbYJGx9zzhn-w4RkuhAqXrKsQzfGexHg/formResponse',
+    typeEntryId: 'entry.1233256490',
+    typeValue: '💬 General Feedback',
+    browserEntryId: 'entry.2082206088',
+    detailsEntryId: 'entry.1197887322',
+    fallbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7'
+  }
 }
 
 export const APP_VERSION = APP_CONFIG.version
@@ -27,3 +36,5 @@ export const GITHUB_RELEASES_URL = APP_CONFIG.githubReleasesUrl
 export const CHROME_ZIP_URL = APP_CONFIG.chromeZipUrl
 export const CHROME_ZIP_FILENAME = APP_CONFIG.chromeZipFilename
 export const FEEDBACK_FORM_URL = APP_CONFIG.feedbackFormUrl
+export const UNINSTALL_URL = APP_CONFIG.uninstallUrl
+export const UNINSTALL_FEEDBACK_CONFIG = APP_CONFIG.uninstallFeedbackConfig

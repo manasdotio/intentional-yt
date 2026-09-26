@@ -5,9 +5,9 @@ export default function ReviewCta() {
   return (
     <section className="review-cta-card">
       <div style={{ fontSize: '24px', marginBottom: '12px', color: '#f59e0b' }}>★★★★★</div>
-      <h3 style={{ fontSize: '22px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '8px', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '22px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '8px', color: 'var(--text-primary)' }}>
         Help others reclaim their attention
-      </h3>
+      </h2>
       <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', maxWidth: '560px', margin: '0 auto 24px' }}>
         If Intentional YT has helped you focus, a 5-star review on the Chrome Web Store or Firefox Add-ons goes a long way in helping others find distraction-free video viewing.
       </p>

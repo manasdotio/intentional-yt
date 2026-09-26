@@ -104,11 +104,17 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
   - *Full Block*: Reopens YouTube only when the scheduled window closes with a serene commitment screen.
   - *Strict Protections*: Forces all distraction blocks on while keeping intentional playback allowed.
 
+### 8. Channel & Keyword Filtering (Filters Tab)
+- `channelBlocklist`: Array of blocked channel names/handles (case-insensitive client-side DOM match). Hides whole video cards across home feed, search, and sidebar.
+- `keywordBlocklist`: Array of blocked title keywords (case-insensitive substring match). Hides video cards whose titles contain any blocked keyword.
+- `enableQuickBlock`: Solid, high-contrast 1-click Block button displayed next to channel names on video cards for instant blocking without popup interaction.
+- **Strictly Local**: Client-side text matching only, 0% telemetry, zero remote requests.
+
 ---
 
 ## 🧭 Extension Popup Architecture (5 Tabs)
 1. **Block**: Live toggle search, preset dropdown with zero-space hover tooltip, and 5 collapsible accordion categories (**Feed**, **Video**, **Social**, **Interface**, **Appearance**).
-2. **Filters**: Content filtering roadmap for custom channel and keyword blocklists.
+2. **Filters**: Channel & Keyword Blocklists with removable chips, quick suggestions, Clear all, and 1-Click In-Feed Quick Block toggle.
 3. **Focus**: Mindful session time limits, soft break reminders, Focus Lock PIN settings, and Scheduled Blocking management.
 4. **Stats**: Daily active watch meter hero card, reset controls, and persistent bottom status bar.
 5. **Settings**: Theme switcher (Auto, Dark, Light), i18n language selector, JSON configuration backup & restore, reset defaults, and review CTAs.

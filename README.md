@@ -107,8 +107,14 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 - **Soft Break Reminder Toasts**: Gentle, floating notification toasts at customizable intervals (e.g. every 15, 30, or 45 minutes of continuous watching).
 - **Hard Daily Playback Ceilings**: Optional daily watch quota (e.g. 45 or 60 minutes). When exceeded, video playback locks with a mindful pause overlay.
 
+### 🛡️ Channel & Keyword Content Filtering
+- **Channel Blocklist (`channelBlocklist`)**: Hide video cards from specific YouTube creators across the home feed, search results, sidebar suggestions, and channel pages.
+- **Keyword Blocklist (`keywordBlocklist`)**: Case-insensitive substring matching against video titles (e.g. `podcast`, `reaction`, `spoiler`) to automatically hide unwanted video cards.
+- **1-Click In-Feed Quick Block (`enableQuickBlock`)**: High-contrast, solid Block button positioned next to channel names on video cards for instant one-click channel blocking without opening the popup.
+- **100% Local Text Matching**: Strictly title and channel string matching with zero external API calls, zero telemetry, and zero DOM inferences.
+
 ### 🧭 Modern Popup Interface & Automation
-- **Tabbed Experience**: Clean division across **Focus** (presets & toggles), **Schedule** (automation), **Filters** (content keyword blocking preview), and **Settings** (review links, stats reset, backups).
+- **Tabbed Experience**: Clean division across **Focus** (presets & toggles), **Filters** (Channel & Keyword Blocklists + 1-Click Quick Block), **Schedule** (automation), and **Settings** (review links, stats reset, backups).
 - **3 One-Click Presets**: **Deep Work** (maximum shielding), **Balanced Focus** (mindful feed + blocked Shorts), and **Video Only** (pure cinema player).
 - **Quick Search Filter**: Instant real-time filtering across all 20+ toggles with keyboard navigation and aliases.
 - **Focus Lock**: Lock toggles for set durations during study or work sessions to avoid impulsive override.
@@ -150,6 +156,9 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 | **Site-Wide Grayscale** | `grayscaleMode` | `iyt-grayscale` | `false` |
 | **Soft Interval Reminder** | `softReminder.enabled` | *(timerToast)* | `false` |
 | **Daily Watch Limit** | `dailyLimit.enabled` | *(timerToast)* | `false` |
+| **Channel Blocklist** | `channelBlocklist` | *(Client DOM scanner)* | `[]` |
+| **Keyword Blocklist** | `keywordBlocklist` | *(Client DOM scanner)* | `[]` |
+| **1-Click Quick Block Button** | `enableQuickBlock` | *(In-feed card button)* | `true` |
 
 <details>
 <summary><strong>📸 Click to expand visual walkthrough & screenshots</strong></summary>

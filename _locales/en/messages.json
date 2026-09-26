@@ -237,10 +237,6 @@
     "message": "Stop after",
     "description": "Prefix label before daily limit duration dropdown"
   },
-  "blocklist_stub_alert": {
-    "message": "Channel & keyword filtering is coming in the next release. Core feed blockers are active!",
-    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
-  },
   "stats_watch_time_below": {
     "message": "Your daily watch time is shown below, always.",
     "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
@@ -439,37 +435,145 @@
     "message": "Expand All",
     "description": "Button to expand all detailed control accordion sections"
   },
+  "action_block": {
+    "message": "Block",
+    "description": "Button text for 1-click in-feed channel block button"
+  },
+  "filters_quick_block_title": {
+    "message": "1-Click Quick Block Button",
+    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
+  },
+  "filters_quick_block_desc": {
+    "message": "Show a block button next to channel names when hovering video cards",
+    "description": "Description for 1-click quick block button toggle"
+  },
+  "filters_tip_text": {
+    "message": "Hover over any video on YouTube to block channels in 1 click with the new Block button!",
+    "description": "Quick tip text at the top of the Filters tab"
+  },
+  "btn_clear_all": {
+    "message": "Clear all",
+    "description": "Button to clear all items in a blocklist"
+  },
+  "toast_channel_cleared": {
+    "message": "Cleared all blocked channels",
+    "description": "Toast notification when all channels are cleared"
+  },
+  "toast_keyword_cleared": {
+    "message": "Cleared all blocked keywords",
+    "description": "Toast notification when all keywords are cleared"
+  },
   "section_channel_blocklist": {
     "message": "Channel Blocklist",
     "description": "Section header for Channel Blocklist"
   },
   "desc_channel_blocklist": {
-    "message": "Block specific channels from appearing in feeds and recommendations.",
+    "message": "Hide video cards from specific creators across feeds, search, and related videos.",
     "description": "Description for Channel Blocklist feature"
   },
+  "placeholder_channel_input": {
+    "message": "Channel name or @handle...",
+    "description": "Placeholder for channel blocklist text input"
+  },
   "blocklist_channels_empty": {
-    "message": "No blocked channels.",
+    "message": "No blocked channels yet",
     "description": "Empty state label for Channel Blocklist"
+  },
+  "blocklist_channels_empty_desc": {
+    "message": "Add a channel name or @handle to hide their videos from view.",
+    "description": "Empty state description for Channel Blocklist"
   },
   "section_keyword_blocklist": {
     "message": "Keyword Blocklist",
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Hide videos whose titles match blocked keywords.",
+    "message": "Hide videos containing specific words or phrases in their titles.",
     "description": "Description for Keyword Blocklist feature"
   },
+  "placeholder_keyword_input": {
+    "message": "e.g. podcast, spoiler, react...",
+    "description": "Placeholder for keyword blocklist text input"
+  },
   "blocklist_keywords_empty": {
-    "message": "No blocked keywords.",
+    "message": "No blocked keywords yet",
     "description": "Empty state label for Keyword Blocklist"
   },
+  "blocklist_keywords_empty_desc": {
+    "message": "Add keywords to hide matching video titles automatically.",
+    "description": "Empty state description for Keyword Blocklist"
+  },
   "btn_add_channel": {
-    "message": "Add Channel",
+    "message": "Add",
     "description": "Button to add a channel to blocklist"
   },
   "btn_add_keyword": {
-    "message": "Add Keyword",
+    "message": "Add",
     "description": "Button to add a keyword to blocklist"
+  },
+  "blocklist_privacy_note": {
+    "message": "100% Local filtering · Titles and channels are matched client-side with zero telemetry.",
+    "description": "Privacy note at the bottom of the filters panel"
+  },
+  "toast_channel_added": {
+    "message": "Added \"$NAME$\" to blocked channels",
+    "description": "Toast confirmation when channel is added to blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_removed": {
+    "message": "Removed \"$NAME$\" from blocked channels",
+    "description": "Toast confirmation when channel is removed from blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_exists": {
+    "message": "\"$NAME$\" is already in the channel blocklist",
+    "description": "Toast warning when adding duplicate channel",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_keyword_added": {
+    "message": "Added \"$KEYWORD$\" to blocked keywords",
+    "description": "Toast confirmation when keyword is added to blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_removed": {
+    "message": "Removed \"$KEYWORD$\" from blocked keywords",
+    "description": "Toast confirmation when keyword is removed from blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_exists": {
+    "message": "\"$KEYWORD$\" is already in the keyword blocklist",
+    "description": "Toast warning when adding duplicate keyword",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
   },
   "section_focus_lock": {
     "message": "Focus Lock",
@@ -1084,9 +1188,5 @@
   "stats_reset_toast": {
     "message": "Daily watch time reset",
     "description": "Toast message when user resets today's watch time"
-  },
-  "filters_status_in_development": {
-    "message": "In Development",
-    "description": "Status pill label on the content filters roadmap preview card"
   }
 }

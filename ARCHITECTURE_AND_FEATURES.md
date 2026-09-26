@@ -302,6 +302,18 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 - **Configuration**: `dailyLimit.enabled` (Boolean), `dailyLimit.limitMinutes` (Integer).
 - **Behavior**: When daily accumulated watch time exceeds the configured threshold, a high-priority fullscreen modal pauses the video and presents a mindful break screen with options to finish the current video (allowing completion without enabling further autoplay/videos), stop watching, or dismiss for the rest of today.
 
+#### 29. Channel Blocklist
+- **Configuration**: `channelBlocklist` (Array of lowercase channel strings).
+- **Behavior**: Scans video cards across home feed, search, and sidebar. When a video card's channel name or handle matches an entry in the blocklist (case-insensitive, trimmed), the entire parent video container (`ytd-rich-item-renderer`, `ytd-video-renderer`, `ytd-compact-video-renderer`, etc.) is hidden immediately.
+
+#### 30. Keyword Blocklist
+- **Configuration**: `keywordBlocklist` (Array of lowercase keyword strings).
+- **Behavior**: Matches against video title elements (`#video-title`, `yt-formatted-string[title]`, etc.). If a title contains any blocklist keyword as a substring (case-insensitive), the parent card is hidden immediately.
+
+#### 31. 1-Click In-Feed Quick Block
+- **Configuration**: `enableQuickBlock` (Boolean, default `true`).
+- **Behavior**: Injects a high-contrast, solid Block button next to the channel name on video cards. Hovering or clicking allows 1-click addition of the creator to `channelBlocklist` without needing to open the popup.
+
 ---
 
 ## 5. Feature & Token Reference Matrix
@@ -336,4 +348,7 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 | 26 | **Site-Wide Grayscale Filter** | `grayscaleMode` | `iyt-grayscale` | `false` |
 | 27 | **Soft Interval Break Toast** | `softReminder.enabled` | *(timerToast)* | `false` |
 | 28 | **Daily Playback Limit Modal** | `dailyLimit.enabled` | *(timerToast)* | `false` |
+| 29 | **Channel Blocklist** | `channelBlocklist` | *(Client DOM scanner)* | `[]` |
+| 30 | **Keyword Blocklist** | `keywordBlocklist` | *(Client DOM scanner)* | `[]` |
+| 31 | **1-Click Quick Block Button** | `enableQuickBlock` | *(In-feed card button)* | `true` |
 

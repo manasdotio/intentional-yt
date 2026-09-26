@@ -47,7 +47,7 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">1</div>
               <div className="step-content">
-                <h4>Open the Chrome Web Store</h4>
+                <h3>Open the Chrome Web Store</h3>
                 <p>
                   Intentional YT is verified and hosted directly on the official Chrome Web Store for Google Chrome, Brave, Microsoft Edge, and Arc.
                 </p>
@@ -71,7 +71,7 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">2</div>
               <div className="step-content">
-                <h4>Click "Add to Chrome"</h4>
+                <h3>Click "Add to Chrome"</h3>
                 <p>
                   Confirm the prompt in your browser toolbar. The extension activates immediately with zero configuration needed.
                 </p>
@@ -81,7 +81,7 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">3</div>
               <div className="step-content">
-                <h4>Open YouTube &amp; Focus</h4>
+                <h3>Open YouTube &amp; Focus</h3>
                 <p>
                   Visit YouTube to enjoy an intentional, distraction-free environment. Click the toolbar icon anytime to customize your preferences.
                 </p>
@@ -98,7 +98,7 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">1</div>
               <div className="step-content">
-                <h4>Open the Mozilla Add-ons Store</h4>
+                <h3>Open the Mozilla Add-ons Store</h3>
                 <p>
                   Intentional YT is verified and hosted directly on the official Firefox Add-ons marketplace.
                 </p>
@@ -122,7 +122,7 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">2</div>
               <div className="step-content">
-                <h4>Click "Add to Firefox"</h4>
+                <h3>Click "Add to Firefox"</h3>
                 <p>
                   Confirm the prompt in your browser toolbar. The extension activates immediately with zero configuration needed.
                 </p>
@@ -132,7 +132,7 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">3</div>
               <div className="step-content">
-                <h4>Open YouTube &amp; Focus</h4>
+                <h3>Open YouTube &amp; Focus</h3>
                 <p>
                   Visit YouTube to enjoy an intentional, distraction-free environment. Click the toolbar icon anytime to customize your preferences.
                 </p>
@@ -149,7 +149,7 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">1</div>
               <div className="step-content">
-                <h4>Download &amp; Extract the Extension</h4>
+                <h3>Download &amp; Extract the Extension</h3>
                 <p>
                   Download the ready-to-load ZIP file and extract (unzip) it to a folder on your computer.
                 </p>
@@ -179,7 +179,7 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">2</div>
               <div className="step-content">
-                <h4>Enable Developer Mode</h4>
+                <h3>Enable Developer Mode</h3>
                 <p>
                   Open <code>chrome://extensions</code> (or <code>brave://extensions</code>, <code>edge://extensions</code>) in your browser and switch on <strong>Developer mode</strong> in the top-right corner.
                 </p>
@@ -189,7 +189,7 @@ export default function Installation() {
             <div className="step-item">
               <div className="step-num">3</div>
               <div className="step-content">
-                <h4>Click "Load unpacked"</h4>
+                <h3>Click "Load unpacked"</h3>
                 <p>
                   Click the <strong>Load unpacked</strong> button in the top-left corner and select the extracted folder. Intentional YT is installed and ready!
                 </p>

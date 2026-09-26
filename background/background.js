@@ -65,6 +65,19 @@ browser.runtime.onInstalled.addListener(async () => {
   }
   scheduleNextReset();
   checkSnoozeState();
+
+  // Register uninstall feedback URL (persists across browser sessions)
+  const UNINSTALL_URL = 'https://intentionalyt.me/uninstall';
+  try {
+    if (typeof browser !== 'undefined' && browser.runtime && typeof browser.runtime.setUninstallURL === 'function') {
+      const p = browser.runtime.setUninstallURL(UNINSTALL_URL);
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    } else if (typeof chrome !== 'undefined' && chrome.runtime && typeof chrome.runtime.setUninstallURL === 'function') {
+      chrome.runtime.setUninstallURL(UNINSTALL_URL, () => {
+        if (chrome.runtime.lastError) {}
+      });
+    }
+  } catch (e) {}
 });
 
 if (browser.runtime.onStartup) {

@@ -27,15 +27,26 @@ const FAQ_ITEMS = [
   },
   {
     id: 'unhook-diff',
-    question: 'How is Intentional YT different from Unhook or DF Tube?',
+    question: 'Why is Intentional YT considered the best Unhook and Untrap alternative?',
     answer: (
       <>
-        <p>While legacy extensions offer basic binary toggles, Intentional YT is built with modern web architecture in mind:</p>
-        <p>• <strong>20+ Granular Toggles</strong>: Freely hide what distracts you while preserving what you need (e.g. keeping subscriptions while hiding recommended feeds).</p>
-        <p>• <strong>Clickbait De-stimulation</strong>: Gray out or mask shouting thumbnails while keeping video durations intact.</p>
-        <p>• <strong>Mindful Watch Timers</strong>: Real-time daily active playback counter and gentle interval reminders.</p>
-        <p>• <strong>Zero Telemetry</strong>: No external server calls, tracking scripts, or data collection whatsoever.</p>
+        <p>Unlike legacy blockers like Unhook or Untrap, Intentional YT is built with modern, zero-compromise architectural standards:</p>
+        <p>• <strong>100% Free &amp; Open Source</strong>: Full source code is open on GitHub under the MIT license with zero paid tiers or subscriptions.</p>
+        <p>• <strong>Zero-Flash DOM Ingestion</strong>: Injects high-specificity CSS at <code>document_start</code> before paint, eliminating the distracting 100–300ms feed flicker common in other tools.</p>
+        <p>• <strong>Built-in Daily Limits &amp; Soft Reminders</strong>: Integrated playback time tracking without needing separate timer apps.</p>
+        <p>• <strong>Channel &amp; Keyword Blocklists</strong>: Filter specific channels or noisy keywords directly from your feed.</p>
+        <p>• <strong>Anti-Doomscroll Batching</strong>: Instead of only all-or-nothing blocking, enjoy a calm 15-video feed limit with an intentional caught-up banner.</p>
+        <p>• <strong>Strict 0% Telemetry</strong>: All data and preferences stay 100% local inside your browser sandbox.</p>
       </>
+    )
+  },
+  {
+    id: 'time-limit',
+    question: 'How does the YouTube daily time limit feature work?',
+    answer: (
+      <p>
+        Intentional YT includes a local watch-time tracker that monitors active video playback in real time. You can configure mindful soft reminders (e.g. gentle toasts every 15, 30, or 45 minutes) or set a firm daily watch limit (e.g. 30m, 60m, 90m) that automatically halts video playback once your daily threshold is reached.
+      </p>
     )
   },
   {

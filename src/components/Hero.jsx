@@ -9,11 +9,11 @@ export default function Hero() {
         <span>Zero-Flash Ingestion • Anti-Doomscroll • Focus Lock • 100% Local Privacy</span>
       </div>
       <h1 className="hero-title">
-        Turn YouTube into a<br />
-        <span className="serif-accent">mindful focus tool</span>, not a trap.
+        The Open Source<br />
+        <span className="serif-accent">YouTube Distraction Blocker</span> &amp; Daily Time Limit.
       </h1>
       <p className="hero-subtitle">
-        Eliminate infinite feeds, algorithm rabbit holes, clickbait thumbnails, and Shorts. Intentional YT gives you granular, instant control over every distraction surface on YouTube with one-click presets, scheduled focus, and anti-doomscroll limits.
+        Eliminate infinite feeds, algorithm rabbit holes, clickbait thumbnails, and Shorts. Intentional YT is a 100% free, private browser extension to block YouTube recommendations, hide Shorts, and set custom daily time limits.
       </p>
       <div className="hero-actions">
         <a

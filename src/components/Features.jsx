@@ -4,7 +4,7 @@ export default function Features() {
   return (
     <section id="features" style={{ paddingTop: '40px' }}>
       <div className="section-head">
-        <div className="section-eyebrow">Crafted for Deep Focus</div>
+        <div className="section-eyebrow">Open Source YouTube Blocker</div>
         <h2 className="section-title">Built with strict architectural principles.</h2>
         <p className="section-desc">
           Traditional blockers use slow DOM mutations that flash distracting content for a split second. Intentional YT is built fundamentally differently.
@@ -85,7 +85,7 @@ export default function Features() {
         </div>
 
         {/* Card 6: Dopamine De-stimulation */}
-        <div className="bento-card bento-card-6">
+        <div className="bento-card bento-card-4">
           <div className="bento-icon" style={{ background: 'rgba(225, 29, 72, 0.1)', borderColor: 'rgba(225, 29, 72, 0.2)', color: 'var(--accent-red)' }}>
             <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -98,8 +98,22 @@ export default function Features() {
           </p>
         </div>
 
-        {/* Card 7: Presets & Live Filter */}
-        <div className="bento-card bento-card-6">
+        {/* Card 7: Channel & Keyword Blocklists + 1-Click Quick Block */}
+        <div className="bento-card bento-card-4">
+          <div className="bento-icon" style={{ background: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.25)', color: '#ef4444' }}>
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+            </svg>
+          </div>
+          <h3 className="bento-title">Channel &amp; Keyword Filtering</h3>
+          <p className="bento-text">
+            Hide unwanted creators or clickbait keywords across feeds, search, and related rows. Block channels in 1 click directly from video cards with our solid in-feed Block button. 100% local text matching with zero telemetry.
+          </p>
+        </div>
+
+        {/* Card 8: Presets & Live Filter */}
+        <div className="bento-card bento-card-4">
           <div className="bento-icon" style={{ background: 'rgba(147, 51, 234, 0.1)', borderColor: 'rgba(147, 51, 234, 0.2)', color: '#9333ea' }}>
             <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

@@ -56,6 +56,10 @@ class StorageManager {
       hideThumbnails: false,
       grayscaleMode: false,
 
+      channelBlocklist: [],
+      keywordBlocklist: [],
+      enableQuickBlock: true,
+
       softReminder: { enabled: false, intervalMinutes: 30 },
       dailyLimit:   { enabled: false, limitMinutes: 60 },
 
