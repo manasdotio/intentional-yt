@@ -3196,6 +3196,132 @@ input:checked + .demo-slider:before {
   background: var(--accent-blue);
 }
 
+.uninstall-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-blue-subtle);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  color: var(--accent-blue);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.uninstall-opt-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.uninstall-opt-icon {
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+}
+
+.uninstall-opt-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.16s ease;
+  flex-shrink: 0;
+}
+
+.uninstall-opt-radio-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.16s ease;
+}
+
+.uninstall-opt-btn.active .uninstall-opt-radio {
+  border-color: var(--accent-blue);
+}
+
+.uninstall-opt-btn.active .uninstall-opt-radio-dot {
+  background: var(--accent-blue);
+}
+
+.uninstall-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-top: 6px;
+  background: var(--bg-subtle);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  border-radius: var(--radius-md);
+  animation: fadeIn 0.18s ease-out;
+}
+
+.uninstall-drawer-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.uninstall-quick-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.uninstall-tag-btn {
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  user-select: none;
+  font-family: inherit;
+}
+
+.uninstall-tag-btn:hover {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.uninstall-tag-btn.active {
+  background: var(--accent-blue-subtle);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.uninstall-skip-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.15s ease;
+  font-family: inherit;
+  padding: 4px;
+}
+
+.uninstall-skip-btn:hover {
+  color: var(--text-primary);
+}
+
 .uninstall-other-form {
   display: flex;
   flex-direction: column;
@@ -3209,12 +3335,12 @@ input:checked + .demo-slider:before {
   background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
-  font-size: 14px;
+  padding: 10px 12px;
+  font-size: 13.5px;
   font-family: inherit;
   color: var(--text-primary);
   resize: vertical;
-  min-height: 80px;
+  min-height: 64px;
   outline: none;
   transition: border-color 0.16s ease, box-shadow 0.16s ease;
 }
@@ -3226,13 +3352,24 @@ input:checked + .demo-slider:before {
 
 .uninstall-form-actions {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .uninstall-submit-btn {
-  padding: 9px 20px;
-  font-size: 13.5px;
-  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 12.5px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-blue);
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.uninstall-submit-btn:hover {
+  background: var(--accent-blue-hover, #1d4ed8);
 }
 
 .uninstall-success-state {

@@ -7,53 +7,66 @@
   <meta name="description" content="Help us improve Intentional YT with a single click." />
   <meta name="robots" content="noindex, follow" />
   <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #fbfbfe;
-      --bg-subtle: #f1f3f9;
+      --bg: #f8fafc;
+      --bg-subtle: #f1f5f9;
       --surface: #ffffff;
       --surface-hover: #f8fafc;
-      --surface-glass: rgba(255, 255, 255, 0.88);
+      --surface-glass: rgba(255, 255, 255, 0.94);
       --border: rgba(15, 23, 42, 0.08);
       --border-strong: rgba(15, 23, 42, 0.16);
-      --border-accent: rgba(37, 99, 235, 0.25);
+      --border-accent: rgba(37, 99, 235, 0.35);
       --text-primary: #0f172a;
       --text-secondary: #475569;
       --text-muted: #64748b;
       --text-subtle: #94a3b8;
       --accent-blue: #2563eb;
+      --accent-blue-hover: #1d4ed8;
       --accent-blue-subtle: #eff6ff;
       --accent-emerald: #059669;
       --accent-emerald-subtle: #ecfdf5;
+      --chip-bg: #f1f5f9;
+      --chip-border: rgba(15, 23, 42, 0.08);
+      --chip-text: #334155;
+      --chip-hover: #e2e8f0;
       --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --radius-xl: 28px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
       --radius-pill: 9999px;
       --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
-      --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.07), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 12px 36px -4px rgba(15, 23, 42, 0.08), 0 4px 14px -2px rgba(15, 23, 42, 0.04);
     }
 
     [data-theme="dark"] {
       --bg: #09090b;
-      --bg-subtle: #121216;
+      --bg-subtle: #111116;
       --surface: #18181f;
       --surface-hover: #22222b;
-      --surface-glass: rgba(24, 24, 31, 0.85);
+      --surface-glass: rgba(24, 24, 31, 0.92);
       --border: rgba(255, 255, 255, 0.08);
       --border-strong: rgba(255, 255, 255, 0.16);
-      --border-accent: rgba(59, 130, 246, 0.35);
+      --border-accent: rgba(59, 130, 246, 0.45);
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
       --text-subtle: #475569;
       --accent-blue: #3b82f6;
-      --accent-blue-subtle: rgba(59, 130, 246, 0.12);
+      --accent-blue-hover: #60a5fa;
+      --accent-blue-subtle: rgba(59, 130, 246, 0.14);
       --accent-emerald: #10b981;
-      --accent-emerald-subtle: rgba(16, 185, 129, 0.1);
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.5);
+      --accent-emerald-subtle: rgba(16, 185, 129, 0.12);
+      --chip-bg: rgba(255, 255, 255, 0.06);
+      --chip-border: rgba(255, 255, 255, 0.1);
+      --chip-text: #cbd5e1;
+      --chip-hover: rgba(255, 255, 255, 0.12);
+      --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 14px 40px rgba(0, 0, 0, 0.6);
     }
 
     *, *::before, *::after {
@@ -66,41 +79,41 @@
       background-color: var(--bg);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      line-height: 1.6;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 32px 16px;
       transition: background-color 0.25s ease, color 0.25s ease;
       position: relative;
+      overflow-x: hidden;
     }
 
     .ambient-glow {
       position: fixed;
-      top: 0;
+      top: -100px;
       left: 50%;
       transform: translateX(-50%);
-      width: 800px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0) 70%);
+      width: 700px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.09) 0%, rgba(37, 99, 235, 0) 70%);
       pointer-events: none;
       z-index: 0;
     }
 
     [data-theme="dark"] .ambient-glow {
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0) 70%);
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.13) 0%, rgba(59, 130, 246, 0) 70%);
     }
 
     .uninstall-screen {
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 620px;
-      padding: 24px 16px;
+      max-width: 580px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -111,7 +124,7 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .brand {
@@ -121,7 +134,13 @@
       text-decoration: none;
       color: var(--text-primary);
       font-weight: 700;
-      font-size: 16px;
+      font-size: 15.5px;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-logo {
+      display: block;
+      border-radius: 6px;
     }
 
     .theme-toggle-btn {
@@ -147,15 +166,15 @@
     .uninstall-card {
       width: 100%;
       background: var(--surface-glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-md);
-      padding: 32px 28px;
+      padding: 32px 30px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 22px;
       transition: all 0.25s ease;
     }
 
@@ -165,18 +184,34 @@
       gap: 8px;
     }
 
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-blue-subtle);
+      border: 1px solid var(--border-accent);
+      color: var(--accent-blue);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
     .uninstall-title {
       font-size: 22px;
-      font-weight: 700;
-      line-height: 1.35;
+      font-weight: 800;
+      line-height: 1.3;
       color: var(--text-primary);
       letter-spacing: -0.02em;
     }
 
     .uninstall-desc {
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--text-secondary);
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     .uninstall-options-list {
@@ -185,17 +220,23 @@
       gap: 9px;
     }
 
+    .opt-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
     .uninstall-opt-btn {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      padding: 12px 16px;
+      padding: 13px 16px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       color: var(--text-primary);
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 500;
       font-family: inherit;
       cursor: pointer;
@@ -204,106 +245,207 @@
       user-select: none;
     }
 
-    .uninstall-opt-btn:hover:not(:disabled) {
+    .opt-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .opt-icon {
+      font-size: 16px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+    }
+
+    .opt-title {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .uninstall-opt-btn:hover {
       background: var(--surface-hover);
       border-color: var(--border-strong);
       transform: translateY(-1px);
       box-shadow: var(--shadow-sm);
     }
 
-    .uninstall-opt-btn:active:not(:disabled) {
-      transform: translateY(0);
-    }
-
     .uninstall-opt-btn.active {
       border-color: var(--accent-blue);
       background: var(--accent-blue-subtle);
-      color: var(--accent-blue);
     }
 
-    .uninstall-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: var(--radius-pill);
-      background: var(--border-strong);
+    .uninstall-opt-btn.active .opt-title {
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+
+    .opt-radio {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.16s ease;
       flex-shrink: 0;
-      margin-left: 12px;
     }
 
-    .uninstall-opt-btn:hover .uninstall-dot {
-      background: var(--text-subtle);
+    .opt-radio-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: transparent;
+      transition: all 0.16s ease;
     }
 
-    .uninstall-opt-btn.active .uninstall-dot {
+    .uninstall-opt-btn.active .opt-radio {
+      border-color: var(--accent-blue);
+    }
+
+    .uninstall-opt-btn.active .opt-radio-dot {
       background: var(--accent-blue);
     }
 
-    .uninstall-other-form {
+    /* Expandable Follow-up Drawer */
+    .followup-drawer {
       display: none;
       flex-direction: column;
       gap: 12px;
-      margin-top: 4px;
+      padding: 14px 16px;
+      margin-top: 6px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      animation: fadeIn 0.18s ease-out forwards;
     }
 
-    .uninstall-other-form.open {
+    .followup-drawer.open {
       display: flex;
     }
 
-    .uninstall-textarea {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .followup-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quick-tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .quick-tag {
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
+      color: var(--chip-text);
+      font-size: 11.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.14s ease;
+      user-select: none;
+      font-family: inherit;
+    }
+
+    .quick-tag:hover {
+      background: var(--chip-hover);
+      border-color: var(--border-strong);
+    }
+
+    .quick-tag.selected {
+      background: var(--accent-blue-subtle);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+
+    .followup-textarea {
       width: 100%;
       background: var(--surface);
       border: 1px solid var(--border-strong);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
-      font-size: 14px;
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 13px;
       font-family: inherit;
       color: var(--text-primary);
       resize: vertical;
-      min-height: 80px;
+      min-height: 64px;
       outline: none;
-      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .uninstall-textarea:focus {
+    .followup-textarea:focus {
       border-color: var(--accent-blue);
       box-shadow: 0 0 0 3px var(--accent-blue-subtle);
     }
 
-    .uninstall-form-actions {
+    .followup-actions {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .btn-submit {
-      padding: 9px 20px;
-      font-size: 13.5px;
-      border-radius: var(--radius-md);
-      background: #0f172a;
+    .skip-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: underline;
+      transition: color 0.15s ease;
+      font-family: inherit;
+      padding: 4px;
+    }
+
+    .skip-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .submit-details-btn {
+      padding: 8px 16px;
+      font-size: 12.5px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-blue);
       color: #ffffff;
       border: none;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
     }
 
-    [data-theme="dark"] .btn-submit {
-      background: #ffffff;
-      color: #09090b;
-    }
-
-    .btn-submit:hover {
+    .submit-details-btn:hover {
+      background: var(--accent-blue-hover);
       transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
     }
 
+    /* Success State */
     .uninstall-success-state {
       display: none;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 24px 12px;
+      padding: 28px 12px 16px;
       gap: 12px;
+      animation: fadeIn 0.22s ease-out forwards;
     }
 
     .uninstall-success-state.active {
@@ -326,32 +468,51 @@
       font-size: 20px;
       font-weight: 700;
       color: var(--text-primary);
+      letter-spacing: -0.01em;
     }
 
     .uninstall-success-desc {
-      font-size: 14.5px;
+      font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.5;
-      max-width: 440px;
+      line-height: 1.55;
+      max-width: 420px;
     }
 
+    /* Reinstall & Footer */
     .uninstall-reinstall-footer {
       border-top: 1px solid var(--border);
-      padding-top: 16px;
-      font-size: 13px;
+      padding-top: 18px;
+      font-size: 12.5px;
       color: var(--text-muted);
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .uninstall-reinstall-link {
       color: var(--accent-blue);
       font-weight: 600;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       transition: color 0.15s ease;
     }
 
     .uninstall-reinstall-link:hover {
       text-decoration: underline;
+    }
+
+    .github-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .github-link:hover {
+      color: var(--text-primary);
     }
 
     @media (max-width: 480px) {
@@ -363,8 +524,13 @@
         font-size: 19px;
       }
       .uninstall-opt-btn {
-        padding: 11px 14px;
-        font-size: 13.5px;
+        padding: 11px 13px;
+        font-size: 13px;
+      }
+      .uninstall-reinstall-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
     }
   </style>
@@ -375,15 +541,15 @@
   <div class="uninstall-screen">
     <header class="uninstall-nav">
       <a href="/" class="brand" aria-label="Intentional YT Home">
-        <img src="/icons/icon.svg" alt="Intentional YT Logo" width="26" height="26" />
+        <img src="/icons/icon.svg" alt="Intentional YT Logo" width="24" height="24" class="brand-logo" />
         <span>Intentional YT</span>
       </a>
 
       <button type="button" id="theme-btn" class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
-        <svg id="theme-icon-sun" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+        <svg id="theme-icon-sun" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
-        <svg id="theme-icon-moon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <svg id="theme-icon-moon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
       </button>
@@ -392,45 +558,158 @@
     <main class="uninstall-card" id="main-card">
       <div id="survey-content">
         <div class="uninstall-head">
-          <h1 class="uninstall-title">Sorry to see you go — mind telling me why?</h1>
-          <p class="uninstall-desc">One click helps us understand what to improve. No follow-ups, no spam.</p>
-        </div>
-
-        <div class="uninstall-options-list" role="radiogroup" aria-label="Reason for uninstalling" style="margin-top: 20px;">
-          <button type="button" class="uninstall-opt-btn" data-reason="It slowed down my browser">
-            <span>It slowed down my browser</span>
-            <span class="uninstall-dot"></span>
-          </button>
-          <button type="button" class="uninstall-opt-btn" data-reason="It didn't work as expected / had a bug">
-            <span>It didn't work as expected / had a bug</span>
-            <span class="uninstall-dot"></span>
-          </button>
-          <button type="button" class="uninstall-opt-btn" data-reason="I didn't find it useful">
-            <span>I didn't find it useful</span>
-            <span class="uninstall-dot"></span>
-          </button>
-          <button type="button" class="uninstall-opt-btn" data-reason="Privacy or permissions concern">
-            <span>Privacy or permissions concern</span>
-            <span class="uninstall-dot"></span>
-          </button>
-          <button type="button" class="uninstall-opt-btn" data-reason="I just don't need it anymore">
-            <span>I just don't need it anymore</span>
-            <span class="uninstall-dot"></span>
-          </button>
-          <button type="button" class="uninstall-opt-btn" data-reason="Other">
-            <span>Other</span>
-            <span class="uninstall-dot"></span>
-          </button>
-        </div>
-
-        <form id="other-form" class="uninstall-other-form">
-          <textarea id="other-comment" class="uninstall-textarea" rows="3" placeholder="Mind sharing a few details? (Optional)"></textarea>
-          <div class="uninstall-form-actions">
-            <button type="submit" id="other-submit-btn" class="btn-submit">Send Feedback</button>
+          <div class="tag-badge">
+            <span>✦ Community Feedback</span>
           </div>
-        </form>
+          <h1 class="uninstall-title">Sorry to see you go — mind telling us why?</h1>
+          <p class="uninstall-desc">Intentional YT is free & open-source. A single click helps us fix bugs and improve focus for everyone.</p>
+        </div>
+
+        <div class="uninstall-options-list" role="radiogroup" aria-label="Reason for uninstalling" style="margin-top: 18px;">
+          <!-- Option 1: Performance -->
+          <div class="opt-group">
+            <button type="button" class="uninstall-opt-btn" data-reason="It slowed down YouTube or felt laggy">
+              <div class="opt-left">
+                <span class="opt-icon">⚡</span>
+                <span class="opt-title">It slowed down YouTube or felt laggy</span>
+              </div>
+              <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            </button>
+            <div class="followup-drawer" data-drawer-for="It slowed down YouTube or felt laggy">
+              <span class="followup-label">What felt slow? (Click to add or type below)</span>
+              <div class="quick-tags-wrap">
+                <button type="button" class="quick-tag" data-tag="Typing lag in comments">Typing lag</button>
+                <button type="button" class="quick-tag" data-tag="Video stutter on 4K/60fps">4K/60fps stutter</button>
+                <button type="button" class="quick-tag" data-tag="Initial YouTube page load">Page load lag</button>
+                <button type="button" class="quick-tag" data-tag="High browser memory">High memory</button>
+              </div>
+              <textarea class="followup-textarea" rows="2" placeholder="Any details? (Optional)"></textarea>
+              <div class="followup-actions">
+                <button type="button" class="skip-btn">Skip & Finish</button>
+                <button type="button" class="submit-details-btn">Send Details →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option 2: Bugs -->
+          <div class="opt-group">
+            <button type="button" class="uninstall-opt-btn" data-reason="Something broke or didn't work as expected">
+              <div class="opt-left">
+                <span class="opt-icon">🐛</span>
+                <span class="opt-title">Something broke or didn't work as expected</span>
+              </div>
+              <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            </button>
+            <div class="followup-drawer" data-drawer-for="Something broke or didn't work as expected">
+              <span class="followup-label">What glitched? (Click to add or type below)</span>
+              <div class="quick-tags-wrap">
+                <button type="button" class="quick-tag" data-tag="Shorts still visible">Shorts still appeared</button>
+                <button type="button" class="quick-tag" data-tag="Comments failed to load">Comments glitched</button>
+                <button type="button" class="quick-tag" data-tag="Video player controls bug">Player controls issue</button>
+                <button type="button" class="quick-tag" data-tag="Search page blank">Search page problem</button>
+              </div>
+              <textarea class="followup-textarea" rows="2" placeholder="Which page or element broke? (Optional)"></textarea>
+              <div class="followup-actions">
+                <button type="button" class="skip-btn">Skip & Finish</button>
+                <button type="button" class="submit-details-btn">Send Details →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option 3: Too strict / Missing setting -->
+          <div class="opt-group">
+            <button type="button" class="uninstall-opt-btn" data-reason="Too strict or missing a toggle I needed">
+              <div class="opt-left">
+                <span class="opt-icon">🎛️</span>
+                <span class="opt-title">Too strict or missing a toggle I needed</span>
+              </div>
+              <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            </button>
+            <div class="followup-drawer" data-drawer-for="Too strict or missing a toggle I needed">
+              <span class="followup-label">Which toggle did you miss?</span>
+              <div class="quick-tags-wrap">
+                <button type="button" class="quick-tag" data-tag="Wanted Home recommendations back">Wanted home feed</button>
+                <button type="button" class="quick-tag" data-tag="PIN lock was too strict">PIN lock too strict</button>
+                <button type="button" class="quick-tag" data-tag="Needed temporary 10-min pause">Needed quick pause</button>
+                <button type="button" class="quick-tag" data-tag="Wanted sidebar back">Sidebar missing</button>
+              </div>
+              <textarea class="followup-textarea" rows="2" placeholder="What setting would have kept you? (Optional)"></textarea>
+              <div class="followup-actions">
+                <button type="button" class="skip-btn">Skip & Finish</button>
+                <button type="button" class="submit-details-btn">Send Details →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option 4: Privacy / Permissions -->
+          <div class="opt-group">
+            <button type="button" class="uninstall-opt-btn" data-reason="Privacy or permissions concern">
+              <div class="opt-left">
+                <span class="opt-icon">🔒</span>
+                <span class="opt-title">Privacy or permissions concern</span>
+              </div>
+              <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            </button>
+            <div class="followup-drawer" data-drawer-for="Privacy or permissions concern">
+              <span class="followup-label">Mind sharing what felt concerning?</span>
+              <div class="quick-tags-wrap">
+                <button type="button" class="quick-tag" data-tag="Permission scope too broad">Permission prompt</button>
+                <button type="button" class="quick-tag" data-tag="Wanted 100% offline proof">Local-only guarantee</button>
+              </div>
+              <textarea class="followup-textarea" rows="2" placeholder="Any specific concern? (Optional)"></textarea>
+              <div class="followup-actions">
+                <button type="button" class="skip-btn">Skip & Finish</button>
+                <button type="button" class="submit-details-btn">Send Details →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option 5: No longer needed -->
+          <div class="opt-group">
+            <button type="button" class="uninstall-opt-btn" data-reason="I just don't need it anymore">
+              <div class="opt-left">
+                <span class="opt-icon">🎯</span>
+                <span class="opt-title">I just don't need it anymore</span>
+              </div>
+              <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            </button>
+            <div class="followup-drawer" data-drawer-for="I just don't need it anymore">
+              <span class="followup-label">Did you achieve your goal?</span>
+              <div class="quick-tags-wrap">
+                <button type="button" class="quick-tag" data-tag="Reduced my YouTube screen time">Broke the habit</button>
+                <button type="button" class="quick-tag" data-tag="Taking a break from YouTube">Taking a break</button>
+                <button type="button" class="quick-tag" data-tag="Switched to another setup">Switched browser/device</button>
+              </div>
+              <textarea class="followup-textarea" rows="2" placeholder="Any thoughts to share? (Optional)"></textarea>
+              <div class="followup-actions">
+                <button type="button" class="skip-btn">Skip & Finish</button>
+                <button type="button" class="submit-details-btn">Send Details →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option 6: Other -->
+          <div class="opt-group">
+            <button type="button" class="uninstall-opt-btn" data-reason="Other">
+              <div class="opt-left">
+                <span class="opt-icon">💬</span>
+                <span class="opt-title">Other reason</span>
+              </div>
+              <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            </button>
+            <div class="followup-drawer" data-drawer-for="Other">
+              <span class="followup-label">Mind sharing what happened?</span>
+              <textarea class="followup-textarea" rows="2" placeholder="Tell us in your own words... (Optional)"></textarea>
+              <div class="followup-actions">
+                <button type="button" class="skip-btn">Skip & Finish</button>
+                <button type="button" class="submit-details-btn">Send Feedback →</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- Success Screen -->
       <div id="success-content" class="uninstall-success-state">
         <div class="uninstall-success-icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -440,25 +719,28 @@
         </div>
         <h2 class="uninstall-success-title">Thank you for your feedback</h2>
         <p class="uninstall-success-desc">
-          Your response has been noted. We appreciate the time you spent trying Intentional YT.
+          Your response has been noted. We truly appreciate the time you took trying Intentional YT.
         </p>
       </div>
 
       <div class="uninstall-reinstall-footer">
-        <span>Changed your mind? </span>
-        <a id="reinstall-link" href="#" target="_blank" rel="noopener noreferrer" class="uninstall-reinstall-link">
-          Reinstall Intentional YT ↗
+        <div>
+          <span>Changed your mind? </span>
+          <a id="reinstall-link" href="#" target="_blank" rel="noopener noreferrer" class="uninstall-reinstall-link">
+            Reinstall Intentional YT ↗
+          </a>
+        </div>
+        <a href="https://github.com/manasdotio/intentional-yt" target="_blank" rel="noopener noreferrer" class="github-link">
+          Inspect source on GitHub
         </a>
       </div>
     </main>
   </div>
 
   <script>
-    // Configuration
-    const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeQyJ4AqTyH3QuoFQhbYJGx9zzhn-w4RkuhAqXrKsQzfGexHg/formResponse';
-    const ENTRY_TYPE = 'entry.1233256490';
-    const ENTRY_BROWSER = 'entry.2082206088';
-    const ENTRY_DETAILS = 'entry.1197887322';
+    // Configuration — Single field: entry.193768948
+    const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScZ0nuuKLw2LsQny80f2lHtGaW0uv3n9OErJEdyzWhokiyq_A/formResponse';
+    const ENTRY_REASON = 'entry.193768948';
 
     const CHROME_STORE_URL = 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg';
     const FIREFOX_STORE_URL = 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/';
@@ -501,38 +783,40 @@
       applyTheme(current === 'dark' ? 'light' : 'dark');
     });
 
-    // Form submission handler
+    // Form logic
     const surveyContent = document.getElementById('survey-content');
     const successContent = document.getElementById('success-content');
-    const otherForm = document.getElementById('other-form');
-    const otherComment = document.getElementById('other-comment');
     const optButtons = document.querySelectorAll('.uninstall-opt-btn');
+    const drawers = document.querySelectorAll('.followup-drawer');
 
-    let submitted = false;
+    let currentSelectedReason = null;
+    let hasSubmitted = false;
 
-    function recordFeedback(reason, comment = '') {
-      if (submitted) return;
-      submitted = true;
+    function sendPayloadToGoogleForm(reason, details = '') {
+      if (hasSubmitted) return;
+      hasSubmitted = true;
 
-      const finalDetails = comment.trim() 
-        ? 'Uninstall Reason: ' + reason + ' — Comment: ' + comment.trim()
-        : 'Uninstall Reason: ' + reason;
+      let finalString = reason;
+      if (details && details.trim()) {
+        finalString += ' — Details: ' + details.trim();
+      }
+      finalString += ' [' + detectedBrowser + ']';
 
       try {
         const formData = new URLSearchParams();
-        formData.append(ENTRY_TYPE, '💬 General Feedback');
-        formData.append(ENTRY_BROWSER, detectedBrowser);
-        formData.append(ENTRY_DETAILS, finalDetails);
+        formData.append(ENTRY_REASON, finalString);
 
         fetch(GOOGLE_FORM_ACTION, {
           method: 'POST',
           mode: 'no-cors',
+          keepalive: true,
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: formData.toString()
         }).catch(() => {});
       } catch (e) {}
+    }
 
-      // Immediate transition
+    function showSuccess() {
       surveyContent.style.display = 'none';
       successContent.classList.add('active');
     }
@@ -540,23 +824,84 @@
     optButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const reason = btn.getAttribute('data-reason');
+        currentSelectedReason = reason;
+
         optButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        if (reason === 'Other') {
-          otherForm.classList.add('open');
-          otherComment.focus();
-        } else {
-          otherForm.classList.remove('open');
-          recordFeedback(reason);
-        }
+        // Close other drawers and open current drawer
+        drawers.forEach(d => {
+          if (d.getAttribute('data-drawer-for') === reason) {
+            d.classList.add('open');
+            const textarea = d.querySelector('textarea');
+            if (textarea) textarea.focus();
+          } else {
+            d.classList.remove('open');
+          }
+        });
       });
     });
 
-    otherForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      recordFeedback('Other', otherComment.value);
+    // Handle Quick Tags & Submission
+    drawers.forEach(drawer => {
+      const tags = drawer.querySelectorAll('.quick-tag');
+      const textarea = drawer.querySelector('.followup-textarea');
+      const submitBtn = drawer.querySelector('.submit-details-btn');
+      const skipBtn = drawer.querySelector('.skip-btn');
+
+      tags.forEach(tag => {
+        tag.addEventListener('click', () => {
+          tag.classList.toggle('selected');
+          const tagText = tag.getAttribute('data-tag');
+          
+          if (textarea) {
+            let currentVal = textarea.value.trim();
+            if (tag.classList.contains('selected')) {
+              textarea.value = currentVal ? (currentVal + ', ' + tagText) : tagText;
+            } else {
+              textarea.value = currentVal.replace(tagText, '').replace(/,\s*,/g, ',').replace(/^,\s*|,\s*$/g, '').trim();
+            }
+          }
+        });
+      });
+
+      if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+          const details = textarea ? textarea.value.trim() : '';
+          sendPayloadToGoogleForm(currentSelectedReason, details);
+          showSuccess();
+        });
+      }
+
+      if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+          sendPayloadToGoogleForm(currentSelectedReason);
+          showSuccess();
+        });
+      }
+
+      if (textarea) {
+        textarea.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            const details = textarea.value.trim();
+            sendPayloadToGoogleForm(currentSelectedReason, details);
+            showSuccess();
+          }
+        });
+      }
     });
+
+    // If the user picked a reason but closes the tab without clicking Submit or Skip, send once
+    function handleAutoSendOnLeave() {
+      if (currentSelectedReason && !hasSubmitted) {
+        sendPayloadToGoogleForm(currentSelectedReason);
+      }
+    }
+    window.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') handleAutoSendOnLeave();
+    });
+    window.addEventListener('pagehide', handleAutoSendOnLeave);
   </script>
 </body>
 </html>
