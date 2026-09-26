@@ -17,13 +17,13 @@ export const APP_CONFIG = {
   liveWebsiteUrl: 'https://intentionalyt.me/',
   feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7',
   uninstallUrl: 'https://intentionalyt.me/uninstall',
+  uninstallFeedbackFormUrl: 'https://forms.gle/f3gpgv98ZrgfZPYdA',
   uninstallFeedbackConfig: {
-    formActionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeQyJ4AqTyH3QuoFQhbYJGx9zzhn-w4RkuhAqXrKsQzfGexHg/formResponse',
-    typeEntryId: 'entry.1233256490',
-    typeValue: '💬 General Feedback',
-    browserEntryId: 'entry.2082206088',
-    detailsEntryId: 'entry.1197887322',
-    fallbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7'
+    formUrl: 'https://forms.gle/f3gpgv98ZrgfZPYdA',
+    formActionUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScZ0nuuKLw2LsQny80f2lHtGaW0uv3n9OErJEdyzWhokiyq_A/formResponse',
+    reasonEntryId: 'entry.193768948',
+    detailsEntryId: 'entry.2037509312',
+    fallbackFormUrl: 'https://forms.gle/f3gpgv98ZrgfZPYdA'
   }
 }
 
@@ -37,4 +37,5 @@ export const CHROME_ZIP_URL = APP_CONFIG.chromeZipUrl
 export const CHROME_ZIP_FILENAME = APP_CONFIG.chromeZipFilename
 export const FEEDBACK_FORM_URL = APP_CONFIG.feedbackFormUrl
 export const UNINSTALL_URL = APP_CONFIG.uninstallUrl
+export const UNINSTALL_FEEDBACK_FORM_URL = APP_CONFIG.uninstallFeedbackFormUrl
 export const UNINSTALL_FEEDBACK_CONFIG = APP_CONFIG.uninstallFeedbackConfig

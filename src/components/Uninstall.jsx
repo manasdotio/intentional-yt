@@ -54,14 +54,23 @@ export default function Uninstall() {
     try {
       if (UNINSTALL_FEEDBACK_CONFIG?.formActionUrl) {
         const formData = new URLSearchParams()
+
+        if (UNINSTALL_FEEDBACK_CONFIG.reasonEntryId) {
+          formData.append(UNINSTALL_FEEDBACK_CONFIG.reasonEntryId, reason)
+        }
+        if (UNINSTALL_FEEDBACK_CONFIG.detailsEntryId) {
+          const detailValue = comment.trim() 
+            ? `${comment.trim()} [${browserInfo.name}]`
+            : `[${browserInfo.name}]`
+          formData.append(UNINSTALL_FEEDBACK_CONFIG.detailsEntryId, detailValue)
+        }
+
+        // Backward compatibility
         if (UNINSTALL_FEEDBACK_CONFIG.typeEntryId) {
           formData.append(UNINSTALL_FEEDBACK_CONFIG.typeEntryId, UNINSTALL_FEEDBACK_CONFIG.typeValue || '💬 General Feedback')
         }
         if (UNINSTALL_FEEDBACK_CONFIG.browserEntryId) {
           formData.append(UNINSTALL_FEEDBACK_CONFIG.browserEntryId, browserInfo.name)
-        }
-        if (UNINSTALL_FEEDBACK_CONFIG.detailsEntryId) {
-          formData.append(UNINSTALL_FEEDBACK_CONFIG.detailsEntryId, finalDetails)
         }
 
         // Fire-and-forget headless submission directly into connected Google Sheet
