@@ -1,22 +1,24 @@
+'use client'
+
 import React, { useEffect } from 'react'
+import Link from 'next/link'
 import { APP_CONFIG } from '../config/constants'
 
 export default function Privacy() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    document.title = 'Privacy Policy — Intentional YT'
   }, [])
 
   return (
     <div className="privacy-page" style={{ maxWidth: '820px', margin: '0 auto', padding: '40px 0 80px' }}>
       <div style={{ marginBottom: '28px' }}>
-        <a 
+        <Link 
           href="/" 
           className="btn btn-secondary" 
           style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', padding: '6px 14px' }}
         >
           <span>← Back to Home</span>
-        </a>
+        </Link>
       </div>
 
       <div className="section-head" style={{ textAlign: 'left', marginBottom: '36px' }}>

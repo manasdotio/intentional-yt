@@ -11,6 +11,8 @@ desktop.ini
 # Build and package outputs
 dist/
 build/
+.next/
+out/
 web-ext-artifacts/
 *.zip
 

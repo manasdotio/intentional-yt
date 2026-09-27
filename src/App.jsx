@@ -12,19 +12,48 @@ import ReviewCta from './components/ReviewCta'
 import Footer from './components/Footer'
 import Privacy from './components/Privacy'
 import Uninstall from './components/Uninstall'
+import BlogList from './components/BlogList'
+import BlogPost from './components/BlogPost'
 
 export default function App() {
   const checkRoutes = () => {
-    if (typeof window === 'undefined') return { privacy: false, uninstall: false }
+    if (typeof window === 'undefined') {
+      return { privacy: false, uninstall: false, blog: false, blogSlug: null }
+    }
     const path = window.location.pathname || ''
     const hash = window.location.hash || ''
+
+    let blogSlug = null
+    if (path.startsWith('/blog/')) {
+      const parts = path.replace(/^\/blog\/?/, '').split('/')
+      if (parts[0]) blogSlug = decodeURIComponent(parts[0])
+    } else if (hash.startsWith('#/blog/') || hash.startsWith('#blog/')) {
+      const parts = hash.replace(/^#\/?blog\/?/, '').split('/')
+      if (parts[0]) blogSlug = decodeURIComponent(parts[0])
+    }
+
+    const isBlogIndex = !blogSlug && (
+      path === '/blog' || path === '/blog/' ||
+      hash === '#/blog' || hash === '#blog'
+    )
+
     return {
       privacy: path.startsWith('/privacy') || hash === '#/privacy' || hash === '#privacy',
-      uninstall: path.startsWith('/uninstall') || hash === '#/uninstall' || hash === '#uninstall'
+      uninstall: path.startsWith('/uninstall') || hash === '#/uninstall' || hash === '#uninstall',
+      blog: isBlogIndex,
+      blogSlug
     }
   }
 
   const [routes, setRoutes] = useState(checkRoutes)
+
+  const navigateTo = (url) => {
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', url)
+      setRoutes(checkRoutes())
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
 
   useEffect(() => {
     const handleLocationChange = () => {
@@ -51,6 +80,10 @@ export default function App() {
           <main>
             {routes.privacy ? (
               <Privacy />
+            ) : routes.blogSlug ? (
+              <BlogPost slug={routes.blogSlug} onNavigate={navigateTo} />
+            ) : routes.blog ? (
+              <BlogList onNavigate={navigateTo} />
             ) : (
               <>
                 <Hero />

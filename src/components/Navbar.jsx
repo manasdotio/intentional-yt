@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react'
+import Link from 'next/link'
 import { useTheme } from '../context/ThemeContext'
 import { APP_CONFIG } from '../config/constants'
 
@@ -8,18 +11,23 @@ export default function Navbar() {
   return (
     <header className="nav-wrap">
       <nav className="nav">
-        <a href="#" className="brand" aria-label="Intentional YT Home">
+        <Link 
+          href="/" 
+          className="brand" 
+          aria-label="Intentional YT Home"
+        >
           <img src="/icons/icon.svg" alt="Intentional YT Logo" className="brand-logo" width="28" height="28" />
           <span>{APP_CONFIG.shortName || APP_CONFIG.name}</span>
           <span className="brand-badge">{APP_CONFIG.versionShort}</span>
-        </a>
+        </Link>
 
         <div className="nav-links">
-          <a href="#demo" className="nav-link">Demo</a>
-          <a href="#features" className="nav-link">Features</a>
-          <a href="#calculator" className="nav-link">Calculator</a>
-          <a href="#comparison" className="nav-link">Comparison</a>
-          <a href="#faq" className="nav-link">FAQ</a>
+          <Link href="/#demo" className="nav-link">Demo</Link>
+          <Link href="/#features" className="nav-link">Features</Link>
+          <Link href="/#calculator" className="nav-link">Calculator</Link>
+          <Link href="/#comparison" className="nav-link">Comparison</Link>
+          <Link href="/#faq" className="nav-link">FAQ</Link>
+          <Link href="/blog" className="nav-link">Blog</Link>
         </div>
 
         <div className="nav-actions">

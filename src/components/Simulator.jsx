@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import { APP_CONFIG } from '../config/constants'
 import { useTheme } from '../context/ThemeContext'

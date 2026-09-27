@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
 import { APP_CONFIG, UNINSTALL_FEEDBACK_CONFIG } from '../config/constants'

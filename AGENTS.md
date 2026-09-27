@@ -8,7 +8,7 @@
 ## 1. Project Overview
 This repository houses two distinct, decoupled products:
 1. **Browser Extension**: Manifest V3 extension for Chrome & Firefox. Built with native Vanilla JS/CSS. Zero build step, zero dependencies.
-2. **Landing Page Web App**: Interactive marketing site and simulator built with React 19, Vite, and custom CSS variables.
+2. **Landing Page Web App & Blog**: Interactive marketing site, simulator, and static markdown blog built with Next.js (App Router, SSG) and custom CSS variables.
 
 ---
 
@@ -21,8 +21,8 @@ intentional-yt/
 ├── styles/                  # Extension CSS (blocker.css, popup.css)
 ├── ui/                      # Extension popup UI (popup.html)
 ├── utils/                   # Shared extension utilities (storage.js, etc.)
-├── src/                     # React 19 web app (App.jsx, index.css, components/)
-├── index.html               # Web app root HTML
+├── app/                     # Next.js App Router (layout.jsx, page.jsx, blog/, privacy/, uninstall/)
+├── src/                     # React components, theme, styles (index.css), posts/, utils/
 ├── package.sh               # Packaging script producing intentional-yt.zip
 └── AI_CONTEXT.md            # Detailed feature & marketing reference (read on-demand)
 ```
@@ -38,9 +38,9 @@ intentional-yt/
 - **Dual Background Invariant & Packaging**: In source `manifest.json`, keep BOTH `"service_worker"` and `"scripts"`. `./package.sh` automatically compiles two compliant distributions: `intentional-yt.zip` (for Chrome Web Store & Microsoft Edge Add-ons with `service_worker` only) and `intentional-yt-firefox.zip` (for Firefox AMO with `scripts` fallback).
 - **100% Local Privacy**: 0% telemetry, no analytics, no external tracking network calls. Everything stays in `chrome.storage.local` / `browser.storage.local`.
 
-### B. Landing Page Website (`src/`, `index.html`)
+### B. Landing Page & Blog (`app/`, `src/`)
 - **Pure CSS Variable Design**: Uses CSS variables in `src/index.css`. Preserve `--bg`, `--surface`, `--accent-*` tokens and dark/light mode parity.
-- **Always Test Build**: Always run `npm run build` after editing files in `src/` to confirm zero Vite build errors.
+- **Always Test Build**: Always run `npm run build` after editing files in `app/` or `src/` to confirm zero Next.js build errors.
 - **Mobile Responsiveness**: Test down to 320px viewport. Ensure `html, body { overflow-x: hidden; }` and prevent horizontal blowout.
 
 ### C. Version Synchronization Checklist
@@ -49,15 +49,14 @@ When updating versions, synchronize across all:
 - `package.json` (`version`)
 - `src/config/constants.js` (`version`, `versionShort`)
 - `ui/popup.html` (`vX.X.X` in header & footer)
-- `index.html` (meta title & description)
 - `README.md` & `AI_CONTEXT.md`
 
 ---
 
 ## 4. Key Developer Commands
 ```bash
-npm run build      # Build React web app into dist/
-npm run dev        # Run local Vite development server
+npm run build      # Build Next.js static site & pre-render SSG pages
+npm run dev        # Run local Next.js development server
 npm run package    # Cross-platform package extension (Chrome, Edge, Firefox)
 ./package.sh       # Package extension into intentional-yt.zip (bash)
 ```

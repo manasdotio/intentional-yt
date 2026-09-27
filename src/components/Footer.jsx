@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react'
+import Link from 'next/link'
 import { APP_CONFIG } from '../config/constants'
 
 export default function Footer() {
@@ -33,11 +36,12 @@ export default function Footer() {
         <div>
           <h4 className="footer-col-title">Navigation</h4>
           <ul className="footer-nav-list">
-            <li><a href="#demo" className="footer-nav-link">Interactive Demo</a></li>
-            <li><a href="#features" className="footer-nav-link">Core Features</a></li>
-            <li><a href="#calculator" className="footer-nav-link">Focus Calculator</a></li>
-            <li><a href="#comparison" className="footer-nav-link">Comparison</a></li>
-            <li><a href="#faq" className="footer-nav-link">FAQ</a></li>
+            <li><Link href="/#demo" className="footer-nav-link">Interactive Demo</Link></li>
+            <li><Link href="/#features" className="footer-nav-link">Core Features</Link></li>
+            <li><Link href="/#calculator" className="footer-nav-link">Focus Calculator</Link></li>
+            <li><Link href="/#comparison" className="footer-nav-link">Comparison</Link></li>
+            <li><Link href="/#faq" className="footer-nav-link">FAQ</Link></li>
+            <li><Link href="/blog" className="footer-nav-link">Blog &amp; Articles</Link></li>
           </ul>
         </div>
 
@@ -77,12 +81,12 @@ export default function Footer() {
           <ul className="footer-nav-list">
             <li><a href={APP_CONFIG.githubRepoUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link">GitHub Repository ↗</a></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">MIT License</a></li>
-            <li><a href="/privacy" className="footer-nav-link">Privacy Policy</a></li>
+            <li><Link href="/privacy" className="footer-nav-link">Privacy Policy</Link></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/SECURITY.md`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Security Audit</a></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Contributing</a></li>
             <li><a href={`${APP_CONFIG.githubRepoUrl}/issues`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Report an Issue ↗</a></li>
             <li><a href={APP_CONFIG.feedbackFormUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link" style={{ color: 'var(--accent-blue)', fontWeight: 600 }}>Share Feedback &amp; Ideas ↗</a></li>
-            <li><a href="/uninstall" className="footer-nav-link">Uninstall Feedback</a></li>
+            <li><Link href="/uninstall" className="footer-nav-link">Uninstall Feedback</Link></li>
           </ul>
         </div>
       </div>
