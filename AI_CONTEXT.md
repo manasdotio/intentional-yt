@@ -134,7 +134,7 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
 | Area | Technology |
 | :--- | :--- |
 | **Extension Standard** | WebExtensions Manifest V3 (Cross-browser compatible) |
-| **Browsers Supported** | Google Chrome (Chrome Web Store Verified), Mozilla Firefox (AMO Verified), Brave, Edge, Arc |
+| **Browsers Supported** | Google Chrome (Chrome Web Store Verified), Microsoft Edge (Edge Add-ons Verified), Mozilla Firefox (AMO Verified), Brave, Arc |
 | **Styling & Injection** | Zero-flash high-specificity CSS injected at `document_start` |
 | **State & Lifecycle** | Native `browser.storage.local` with sequential FIFO write queue & SPA route observers |
 | **Web & Landing Page** | React 19, Vite, Lucide Icons, pure CSS design system |
@@ -144,6 +144,7 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
 
 ## 🔗 Official Links & Metadata
 - **Chrome Web Store**: https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg
+- **Microsoft Edge Add-ons**: https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb
 - **Firefox Add-ons Store**: https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/
 - **Feedback & Feature Requests**: https://forms.gle/EFixUed5F5bmVvFX7
 - **GitHub Repository**: https://github.com/manasdotio/intentional-yt

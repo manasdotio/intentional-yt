@@ -7,10 +7,11 @@
 **Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.**
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install%20Extension-4285F4?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)
+[![Microsoft Edge](https://img.shields.io/badge/Microsoft%20Edge-Install%20Add--on-0078D7?logo=microsoft-edge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb)
 [![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install%20Extension-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-2.3.0-brightgreen.svg)
-![Browsers](https://img.shields.io/badge/browsers-Chrome%20%7C%20Firefox-informational.svg)
+![Browsers](https://img.shields.io/badge/browsers-Chrome%20%7C%20Edge%20%7C%20Firefox-informational.svg)
 ![Manifest](https://img.shields.io/badge/manifest-v3-blue.svg)
 [![Privacy](https://img.shields.io/badge/telemetry-0%25%20(strictly%20local)-success.svg)](PRIVACY.md)
 [![Feedback Form](https://img.shields.io/badge/Feedback-Submit%20Ideas-8B5CF6)](https://forms.gle/EFixUed5F5bmVvFX7)
@@ -18,6 +19,7 @@
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg"><strong>🌐 Install for Chrome</strong></a> •
+  <a href="https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb"><strong>🌊 Install for Edge</strong></a> •
   <a href="https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"><strong>🦊 Install for Firefox</strong></a> •
   <a href="https://intentionalyt.me/"><strong>🚀 Live Website</strong></a> •
   <a href="https://forms.gle/EFixUed5F5bmVvFX7"><strong>💡 Request a Feature</strong></a> •
@@ -119,7 +121,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 - **Quick Search Filter**: Instant real-time filtering across all 20+ toggles with keyboard navigation and aliases.
 - **Focus Lock**: Lock toggles for set durations during study or work sessions to avoid impulsive override.
 - **Automated Scheduling**: Automatically activate focus modes during custom daily or weekday time windows.
-- **Smart Store Review CTAs**: Automatically detects whether running on Chrome or Firefox and routes you directly to the right extension store review modal.
+- **Smart Store Review CTAs**: Automatically detects whether running on Chrome, Edge, or Firefox and routes you directly to the right extension store review modal.
 
 ---
 
@@ -203,7 +205,10 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
   2. Click **Load Temporary Add-on...**.
   3. Browse to the cloned directory and select [`manifest.json`](manifest.json).
 
-### Chromium (Google Chrome, Brave, Microsoft Edge, Arc)
+### Microsoft Edge
+- **Official Store (Recommended)**: Install directly from [**Microsoft Edge Add-ons**](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb).
+
+### Google Chrome & Chromium (Chrome, Brave, Arc, Opera)
 - **Official Store (Recommended)**: Install directly from the [**Chrome Web Store**](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg).
 - **From Source**:
   1. Navigate to `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
@@ -282,6 +287,7 @@ Intentional YT contains **no tracking, no analytics, and makes zero external req
 
 If Intentional YT helps you reclaim your time and focus:
 - ⭐ **[Leave a 5-Star Review on Chrome Web Store](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)** — Reviews help new users discover the extension!
+- ⭐ **[Leave a 5-Star Review on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb)** — Reviews help Edge users discover calm browsing!
 - ⭐ **[Leave a 5-Star Review on Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)** — Every review helps more people discover mindful internet use.
 - 🌟 **Star this repository** on GitHub to support open-source development.
 - 💡 **[Submit Feedback & Feature Requests](https://forms.gle/EFixUed5F5bmVvFX7)** — Tell us what toggles or improvements you'd like to see next!

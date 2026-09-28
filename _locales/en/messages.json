@@ -941,6 +941,10 @@
     "message": "Rate on Web Store",
     "description": "Button linking to Chrome Web Store review page"
   },
+  "setting_rate_edge": {
+    "message": "Rate on Edge Add-ons",
+    "description": "Button linking to Microsoft Edge Add-ons review page"
+  },
   "setting_rate_firefox": {
     "message": "Rate on Firefox AMO",
     "description": "Button linking to Firefox Add-ons review page"

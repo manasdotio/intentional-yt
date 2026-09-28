@@ -49,11 +49,7 @@ export default function BlogIndexPage() {
           posts.map((post) => (
             <article 
               key={post.slug}
-              className="table-card blog-card" 
-              style={{ 
-                padding: '32px',
-                transition: 'transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease'
-              }}
+              className="table-card blog-card"
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px', flexWrap: 'wrap' }}>
                 <span className="brand-badge" style={{ fontSize: '12px' }}>

@@ -9,6 +9,7 @@ export const APP_CONFIG = {
   versionShort: 'v2.3',
   description: 'Distraction-Free YouTube Extension for Deep Focus',
   chromeWebStoreUrl: 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg',
+  edgeAddonUrl: 'https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb',
   firefoxAddonUrl: 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/',
   githubRepoUrl: 'https://github.com/manasdotio/intentional-yt',
   githubReleasesUrl: 'https://github.com/manasdotio/intentional-yt/releases',
@@ -29,6 +30,7 @@ export const APP_CONFIG = {
 export const APP_VERSION = APP_CONFIG.version
 export const APP_VERSION_SHORT = APP_CONFIG.versionShort
 export const CHROME_WEBSTORE_URL = APP_CONFIG.chromeWebStoreUrl
+export const EDGE_ADDON_URL = APP_CONFIG.edgeAddonUrl
 export const FIREFOX_AMO_URL = APP_CONFIG.firefoxAddonUrl
 export const GITHUB_REPO_URL = APP_CONFIG.githubRepoUrl
 export const GITHUB_RELEASES_URL = APP_CONFIG.githubReleasesUrl

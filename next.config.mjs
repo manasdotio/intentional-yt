@@ -3,6 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     unoptimized: true
+  },
+  experimental: {
+    cpus: 1
   }
 }
 

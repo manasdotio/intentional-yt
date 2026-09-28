@@ -7,7 +7,8 @@
 ---
 
 ## Official Store Installations (Recommended)
-- **Google Chrome & Chromium (Chrome, Brave, Edge, Arc)**: [**Install from Chrome Web Store**](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)
+- **Microsoft Edge**: [**Install from Microsoft Edge Add-ons**](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb)
+- **Google Chrome & Chromium (Chrome, Brave, Arc, Opera)**: [**Install from Chrome Web Store**](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)
 - **Mozilla Firefox**: [**Install from Firefox Add-ons (AMO)**](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
 
 ---

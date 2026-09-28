@@ -73,14 +73,7 @@
       "resources": [
         "icons/*",
         "icons/icon-128.png",
-        "icons/icon.svg"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
-    },
-    {
-      "resources": [
+        "icons/icon.svg",
         "styles/blocker.css",
         "_locales/*/*.json"
       ],

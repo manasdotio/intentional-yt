@@ -75,15 +75,16 @@ const MINDFUL_VIDEOS = [
 ]
 
 export default function Simulator() {
-  const { theme: siteTheme } = useTheme()
+  const { theme: siteTheme, mounted } = useTheme()
   const [ytThemeOverride, setYtThemeOverride] = useState(null) // null = match site theme
-  const effectiveYtTheme = ytThemeOverride || siteTheme
+  const effectiveYtTheme = ytThemeOverride || (mounted ? siteTheme : 'light')
 
   const [extensionEnabled, setExtensionEnabled] = useState(true)
   const [activeTab, setActiveTab] = useState('block') // 'block' | 'filters' | 'focus' | 'stats' | 'settings'
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedPreset, setSelectedPreset] = useState('zen')
   const [toastMessage, setToastMessage] = useState('')
+  const [showFullPopupOnMobile, setShowFullPopupOnMobile] = useState(false)
 
   // Simulated filter settings
   const [channelBlocklist, setChannelBlocklist] = useState(['Algorithm Hacker'])
@@ -260,10 +261,11 @@ export default function Simulator() {
   }
 
   // Active state flags for UI
-  const isChaos = !extensionEnabled || (!controls.homeFeed && !controls.limitHomeFeed && !controls.shorts && !controls.sidebar && !controls.thumbnails && !controls.grayscale)
-  const isLimited = extensionEnabled && !controls.homeFeed && controls.limitHomeFeed
-  const isZen = extensionEnabled && controls.homeFeed && !controls.limitHomeFeed && !controls.sidebar && !controls.thumbnails
-  const isPlayer = extensionEnabled && controls.sidebar && controls.thumbnails
+  const isChaos = selectedPreset === 'chaos' || !extensionEnabled || (!controls.homeFeed && !controls.limitHomeFeed && !controls.shorts && !controls.sidebar && !controls.thumbnails && !controls.grayscale)
+  const isLimited = selectedPreset === 'limited' || (extensionEnabled && !controls.homeFeed && controls.limitHomeFeed)
+  const isBalanced = selectedPreset === 'balanced' || (extensionEnabled && controls.homeFeed && controls.sidebar && !controls.thumbnails && !controls.limitHomeFeed)
+  const isZen = selectedPreset === 'zen' || (extensionEnabled && controls.homeFeed && !controls.sidebar && !controls.thumbnails && !controls.subscriptions && !controls.limitHomeFeed)
+  const isPlayer = selectedPreset === 'player' || (extensionEnabled && controls.sidebar && controls.thumbnails)
 
   // Search filter helper
   const filterMatches = (text, keywords = '') => {
@@ -274,56 +276,91 @@ export default function Simulator() {
 
   return (
     <section id="demo" className="playground-section">
-      <div className="section-head" style={{ marginBottom: '28px' }}>
-        <div className="section-eyebrow">Interactive Demo</div>
-        <h2 className="section-title">Test the YouTube distraction blocker live.</h2>
+      <div className="section-head" style={{ marginBottom: '32px' }}>
+        <div className="section-kicker">
+          <span>✦ Interactive preview</span>
+        </div>
+        <h2 className="section-title">See YouTube with the noise stripped away.</h2>
         <p className="section-desc">
-          Experience zero-flash blocking, YouTube Shorts suppression, and feed limits before installing.
+          Try switching focus presets below to test a calm 15-video batch limit, balanced mode, or pure search Zen.
         </p>
       </div>
+
       <div className="playground-card">
         <div className="playground-header">
-          <div className="playground-title-group">
-            <h3 style={{ fontSize: '16px', fontWeight: 700 }}>Live Interactive Simulator</h3>
-            <div className="status-indicator">
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: extensionEnabled ? 'currentColor' : '#ef4444' }}></span>
-              <span>{extensionEnabled ? 'Simulation Active' : 'Extension Disabled'}</span>
+          <div className="playground-header-top">
+            <div className="playground-title-group">
+              <span className="playground-badge">Try it live</span>
+              <h3 className="playground-title">Interactive Simulator</h3>
+            </div>
+            <div className="sim-segmented-control" role="tablist" aria-label="Simulator Presets">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={isChaos}
+                className={`sim-segment-btn ${isChaos ? 'active' : ''}`}
+                onClick={() => setPreset('chaos')}
+              >
+                Standard YouTube
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={isLimited}
+                className={`sim-segment-btn ${isLimited ? 'active' : ''}`}
+                onClick={() => setPreset('limited')}
+              >
+                Anti-Doomscroll
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={isBalanced}
+                className={`sim-segment-btn ${isBalanced ? 'active' : ''}`}
+                onClick={() => setPreset('balanced')}
+              >
+                Balanced
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={isZen}
+                className={`sim-segment-btn ${isZen ? 'active' : ''}`}
+                onClick={() => setPreset('zen')}
+              >
+                Intentional Zen
+              </button>
             </div>
           </div>
-          <div className="mode-switch-group">
-            <button
-              className={`mode-btn ${isChaos ? 'active' : ''}`}
-              onClick={() => setPreset('chaos')}
-            >
-              Default Clutter
-            </button>
-            <button
-              className={`mode-btn ${isLimited ? 'active' : ''}`}
-              onClick={() => setPreset('limited')}
-            >
-              Anti-Doomscroll
-            </button>
-            <button
-              className={`mode-btn ${isZen ? 'active' : ''}`}
-              onClick={() => setPreset('zen')}
-            >
-              Intentional Zen
-            </button>
-            <button
-              className={`mode-btn ${isPlayer ? 'active' : ''}`}
-              onClick={() => setPreset('player')}
-            >
-              Video Only
-            </button>
+
+          <div className="sim-preset-descriptor">
+            <span className="sim-descriptor-icon" aria-hidden="true">ℹ</span>
+            <span className="sim-descriptor-text">
+              {isChaos ? (
+                'Standard YouTube: Unfiltered home feeds, Shorts carousels, algorithmic sidebars, and autoplay active.'
+              ) : isLimited ? (
+                'Anti-Doomscroll mode: Caps the home feed to a calm 15-video batch, blocking infinite scroll with a peaceful caught-up banner.'
+              ) : isBalanced ? (
+                'Balanced mode: Wipes out algorithmic home recommendations and Shorts shelves while leaving subscribed channels accessible.'
+              ) : isZen ? (
+                'Intentional Zen: Transforms YouTube into a pure search utility. Recommendations, comments, and thumbnails are completely hidden.'
+              ) : isPlayer ? (
+                'Video Only: Distraction-free theater viewing. Hides recommendations and comments around the video.'
+              ) : (
+                'Custom configuration: Personalized mix of distraction blockers and time limits.'
+              )}
+            </span>
           </div>
         </div>
 
         <div className="simulator-grid">
-          {/* Mock YouTube Window (Theme-Aware & Highly Authentic) */}
-          <div
-            className={`mock-yt-window ${effectiveYtTheme === 'light' ? 'yt-theme-light' : 'yt-theme-dark'} ${extensionEnabled && controls.grayscale ? 'grayscale-active' : ''}`}
-            id="mock-yt-window"
-          >
+          {/* Mock YouTube Window Column */}
+          <div className="sim-col-preview">
+            <div
+              className={`mock-yt-window ${effectiveYtTheme === 'light' ? 'yt-theme-light' : 'yt-theme-dark'} ${extensionEnabled && controls.grayscale ? 'grayscale-active' : ''}`}
+              id="mock-yt-window"
+              suppressHydrationWarning
+            >
             {/* Mock Browser Title Bar */}
             <div className="mock-browser-bar">
               <div className="mock-browser-bar-left">
@@ -346,6 +383,7 @@ export default function Simulator() {
                 className="mock-yt-theme-btn"
                 onClick={() => setYtThemeOverride(effectiveYtTheme === 'dark' ? 'light' : 'dark')}
                 title={`Switch YouTube to ${effectiveYtTheme === 'dark' ? 'Light' : 'Dark'} Theme`}
+                suppressHydrationWarning
               >
                 {effectiveYtTheme === 'dark' ? (
                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -396,6 +434,28 @@ export default function Simulator() {
               </div>
 
               <div className="mock-yt-header-right">
+                <button
+                  type="button"
+                  className="mock-yt-header-theme-btn"
+                  onClick={() => setYtThemeOverride(effectiveYtTheme === 'dark' ? 'light' : 'dark')}
+                  title={`Switch YouTube to ${effectiveYtTheme === 'dark' ? 'Light' : 'Dark'} Theme`}
+                  aria-label="Toggle YouTube Theme"
+                  suppressHydrationWarning
+                >
+                  {effectiveYtTheme === 'dark' ? (
+                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="5" />
+                      <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                      <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                  ) : (
+                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                  )}
+                </button>
                 <div className="mock-yt-header-icon" title="Create">
                   <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -471,20 +531,20 @@ export default function Simulator() {
                       style={{ marginBottom: '16px', opacity: 0.95 }}
                     />
                     <h4 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '8px', color: 'var(--yt-text-primary)' }}>
-                      Intentional Search Mode Active
+                      Quiet Search Mode
                     </h4>
                     <p style={{ fontSize: '13px', color: 'var(--yt-text-secondary)', maxWidth: '340px', marginBottom: '22px' }}>
-                      No infinite recommendations or clickbait traps. Search directly for the topic you came here to learn.
+                      No algorithmic feeds, no clickbait traps. Just peaceful, intentional search.
                     </p>
                     <div className="zen-search-box">
                       <svg width="16" height="16" fill="none" stroke="var(--accent-blue)" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
                       <span style={{ fontSize: '13px', fontWeight: 500 }}>
-                        Calculus 3 Lecture 4: Vector Fields
+                        lo-fi hip hop study beats ☕
                       </span>
                     </div>
-                    <span className="zen-quote">"Attention is the currency of intention."</span>
+                    <span className="zen-prompt">Search with intention. Leave when you&rsquo;re done.</span>
                   </div>
                 ) : (
                   <>
@@ -686,8 +746,8 @@ export default function Simulator() {
                           {/* Anti-Doomscroll Calm Caught-up Banner */}
                           {controls.limitHomeFeed && (
                             <div className="calm-end-banner">
-                              <div className="calm-end-badge">✦ You're all caught up</div>
-                              <div className="calm-end-text">Home feed limit active • Infinite scroll blocked</div>
+                              <div className="calm-end-badge">✦ You&rsquo;re all caught up! Go enjoy your day.</div>
+                              <div className="calm-end-text">15-video feed limit reached &bull; Infinite scroll stopped</div>
                               <p className="calm-end-sub">Take a deep breath, or search directly for what you came here to learn.</p>
                             </div>
                           )}
@@ -700,8 +760,112 @@ export default function Simulator() {
             </div>
           </div>
 
-          {/* Realistic Modern MV3 Extension Popup Replica */}
-          <div className="mock-popup-container">
+            {/* Mobile-Only Live Quick Card: Instant Tactile Toggles Directly Under YouTube Window */}
+            <div className="sim-mobile-quick-card">
+              <div className="sim-quick-header">
+                <div className="sim-quick-header-title">
+                  <span className="sim-quick-live-dot" aria-hidden="true"></span>
+                  <span className="sim-quick-label">Live Controls</span>
+                  <span className="sim-quick-hint">Tap to preview changes instantly</span>
+                </div>
+                <button
+                  type="button"
+                  className={`sim-quick-master-btn ${extensionEnabled ? 'active' : 'paused'}`}
+                  onClick={() => {
+                    setExtensionEnabled(!extensionEnabled)
+                    showToast(extensionEnabled ? 'Intentional YT paused' : 'Intentional YT activated')
+                  }}
+                  aria-label="Toggle Extension Active Status"
+                >
+                  <span className="sim-quick-master-indicator" aria-hidden="true"></span>
+                  <span>{extensionEnabled ? 'Active' : 'Off'}</span>
+                </button>
+              </div>
+
+              <div className="sim-quick-grid">
+                <button
+                  type="button"
+                  className={`sim-quick-pill ${extensionEnabled && controls.shorts ? 'active' : ''}`}
+                  onClick={() => handleToggle('shorts')}
+                  disabled={!extensionEnabled}
+                  title="Toggle Shorts carousel"
+                >
+                  <span className="sim-quick-pill-icon" aria-hidden="true">⚡</span>
+                  <div className="sim-quick-pill-text">
+                    <span className="sim-quick-pill-name">Block Shorts</span>
+                    <span className="sim-quick-pill-status">
+                      {!extensionEnabled ? 'Off' : controls.shorts ? 'Blocked' : 'Visible'}
+                    </span>
+                  </div>
+                  <span className="sim-quick-pill-toggle" aria-hidden="true"></span>
+                </button>
+
+                <button
+                  type="button"
+                  className={`sim-quick-pill ${extensionEnabled && controls.homeFeed ? 'active' : ''}`}
+                  onClick={() => handleToggle('homeFeed')}
+                  disabled={!extensionEnabled}
+                  title="Toggle Quiet Search Mode"
+                >
+                  <span className="sim-quick-pill-icon" aria-hidden="true">🔍</span>
+                  <div className="sim-quick-pill-text">
+                    <span className="sim-quick-pill-name">Quiet Search</span>
+                    <span className="sim-quick-pill-status">
+                      {!extensionEnabled ? 'Off' : controls.homeFeed ? 'Zen Mode' : 'Feed On'}
+                    </span>
+                  </div>
+                  <span className="sim-quick-pill-toggle" aria-hidden="true"></span>
+                </button>
+
+                <button
+                  type="button"
+                  className={`sim-quick-pill ${extensionEnabled && controls.thumbnails ? 'active' : ''}`}
+                  onClick={() => handleToggle('thumbnails')}
+                  disabled={!extensionEnabled}
+                  title="Toggle Video Thumbnails"
+                >
+                  <span className="sim-quick-pill-icon" aria-hidden="true">🖼️</span>
+                  <div className="sim-quick-pill-text">
+                    <span className="sim-quick-pill-name">Thumbnails</span>
+                    <span className="sim-quick-pill-status">
+                      {!extensionEnabled ? 'Off' : controls.thumbnails ? 'Hidden' : 'Color'}
+                    </span>
+                  </div>
+                  <span className="sim-quick-pill-toggle" aria-hidden="true"></span>
+                </button>
+
+                <button
+                  type="button"
+                  className={`sim-quick-pill ${extensionEnabled && controls.grayscale ? 'active' : ''}`}
+                  onClick={() => handleToggle('grayscale')}
+                  disabled={!extensionEnabled}
+                  title="Toggle Grayscale Mode"
+                >
+                  <span className="sim-quick-pill-icon" aria-hidden="true">◑</span>
+                  <div className="sim-quick-pill-text">
+                    <span className="sim-quick-pill-name">Grayscale</span>
+                    <span className="sim-quick-pill-status">
+                      {!extensionEnabled ? 'Off' : controls.grayscale ? 'B&W Mode' : 'Color'}
+                    </span>
+                  </div>
+                  <span className="sim-quick-pill-toggle" aria-hidden="true"></span>
+                </button>
+              </div>
+
+              <button
+                type="button"
+                className="sim-mobile-expand-btn"
+                onClick={() => setShowFullPopupOnMobile(!showFullPopupOnMobile)}
+                aria-expanded={showFullPopupOnMobile}
+              >
+                <span>{showFullPopupOnMobile ? '▴ Hide extension popup' : '▾ Open full extension popup (20+ toggles, limits & blocklists)'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Realistic Modern MV3 Extension Popup Column */}
+          <div className={`sim-col-popup ${showFullPopupOnMobile ? 'mobile-expanded' : 'mobile-collapsed'}`}>
+            <div className="mock-popup-container">
             {/* Popup Header */}
             <div className="mock-popup-hd">
               <div className="mock-popup-hd-left">
@@ -1359,31 +1523,34 @@ export default function Simulator() {
                 </svg>
                 <span>100% Local · Zero Telemetry</span>
               </span>
-              <span>{APP_CONFIG.version ? `v${APP_CONFIG.version}` : 'v2.3.0'}</span>
+                <span>{APP_CONFIG.version ? `v${APP_CONFIG.version}` : 'v2.3.0'}</span>
+              </div>
             </div>
+
+            {/* Mobile collapse button at bottom of popup */}
+            {showFullPopupOnMobile && (
+              <div className="mobile-sim-collapse-bar">
+                <button
+                  type="button"
+                  className="mobile-sim-collapse-btn"
+                  onClick={() => {
+                    setShowFullPopupOnMobile(false)
+                    const el = document.getElementById('mock-yt-window')
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+                  }}
+                >
+                  <span>▴ Collapse extension popup</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Floating Notification Toast */}
         {toastMessage && (
-          <div style={{
-            position: 'fixed',
-            bottom: '24px',
-            right: '24px',
-            background: 'var(--text-primary)',
-            color: 'var(--bg)',
-            padding: '10px 18px',
-            borderRadius: 'var(--radius-pill)',
-            fontSize: '13px',
-            fontWeight: 600,
-            boxShadow: 'var(--shadow-lg)',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
-          }}>
-            <span>✓</span>
-            <span>{toastMessage}</span>
+          <div className="sim-toast" role="status" aria-live="polite">
+            <span className="sim-toast-icon">✓</span>
+            <span className="sim-toast-text">{toastMessage}</span>
           </div>
         )}
       </div>

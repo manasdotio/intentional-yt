@@ -58,7 +58,7 @@ function detectBrowserInfo() {
     return { name: 'Firefox', storeName: 'Firefox Add-ons', storeUrl: APP_CONFIG.firefoxAddonUrl }
   }
   if (ua.includes('Edg/')) {
-    return { name: 'Edge', storeName: 'Edge Add-ons (Chrome Web Store)', storeUrl: APP_CONFIG.chromeWebStoreUrl }
+    return { name: 'Edge', storeName: 'Microsoft Edge Add-ons', storeUrl: APP_CONFIG.edgeAddonUrl }
   }
   return { name: 'Chrome', storeName: 'Chrome Web Store', storeUrl: APP_CONFIG.chromeWebStoreUrl }
 }

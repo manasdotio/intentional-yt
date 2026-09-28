@@ -2318,13 +2318,16 @@ function bindAll() {
     });
   }
 
-  // Smart Store Review link detection (Firefox AMO vs Chrome Web Store)
+  // Smart Store Review link detection (Firefox AMO vs Edge Add-ons vs Chrome Web Store)
   const linkRateStore = $('link-rate-store');
   const labelRateStore = $('label-rate-store');
   const isFirefox = typeof navigator !== 'undefined' && navigator.userAgent.includes('Firefox');
+  const isEdge = typeof navigator !== 'undefined' && (navigator.userAgent.includes('Edg/') || navigator.userAgent.includes('Edge/'));
   if (linkRateStore) {
     linkRateStore.href = isFirefox
       ? 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/reviews/'
+      : isEdge
+      ? 'https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb'
       : 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews';
   }
   if (isFirefox) {
@@ -2334,6 +2337,14 @@ function bindAll() {
     if (labelRateStore) {
       labelRateStore.setAttribute('data-i18n', 'setting_rate_firefox');
       labelRateStore.textContent = t('setting_rate_firefox') || 'Rate on Firefox AMO';
+    }
+  } else if (isEdge) {
+    if (linkRateStore) {
+      linkRateStore.title = t('setting_rate_edge') || 'Rate on Edge Add-ons';
+    }
+    if (labelRateStore) {
+      labelRateStore.setAttribute('data-i18n', 'setting_rate_edge');
+      labelRateStore.textContent = t('setting_rate_edge') || 'Rate on Edge Add-ons';
     }
   }
 

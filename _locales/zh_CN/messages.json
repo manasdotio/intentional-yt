@@ -1196,5 +1196,9 @@
         "example": "spoiler"
       }
     }
+  },
+  "setting_rate_edge": {
+    "message": "在 Edge Add-ons 评价",
+    "description": "Button linking to Microsoft Edge Add-ons review page"
   }
 }

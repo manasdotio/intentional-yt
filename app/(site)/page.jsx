@@ -1,11 +1,8 @@
 import Hero from '@/src/components/Hero'
 import Simulator from '@/src/components/Simulator'
 import Features from '@/src/components/Features'
-import Calculator from '@/src/components/Calculator'
 import Comparison from '@/src/components/Comparison'
 import Faq from '@/src/components/Faq'
-import ReviewCta from '@/src/components/ReviewCta'
-import Installation from '@/src/components/Installation'
 
 export const metadata = {
   title: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
@@ -39,6 +36,7 @@ const jsonLd = {
       "downloadUrl": "https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg",
       "sameAs": [
         "https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg",
+        "https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb",
         "https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/",
         "https://github.com/manasdotio/intentional-yt"
       ],
@@ -68,6 +66,14 @@ const jsonLd = {
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "How does Intentional YT achieve zero-flash blocking on YouTube?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Unlike blockers that wait for page scripts to load and cause visible content flashing, Intentional YT injects high-specificity CSS class tokens into the HTML root at document_start before paint, guaranteeing zero-flash blocking and 0ms layout lag."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Why is Intentional YT considered the best Unhook and Untrap alternative?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -76,34 +82,26 @@ const jsonLd = {
         },
         {
           "@type": "Question",
-          "name": "How does Intentional YT block YouTube recommendations without flickering?",
+          "name": "How do Focus Lock and cooldown timers prevent impulsive overrides?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Unlike blockers that wait for page scripts to load and cause visible content flashing, Intentional YT injects high-specificity CSS class tokens into the HTML root at document_start before paint, guaranteeing zero-flash blocking and 0ms layout lag."
+            "text": "Focus Lock prevents impulsive override by requiring an intentional cooldown delay (e.g. 5, 10, or 30 minutes) before any focus rules can be unlocked, paired with scheduled active hours."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I completely hide YouTube Shorts with this extension?",
+          "name": "Does Intentional YT collect any browsing history or watch data?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Intentional YT completely suppresses Shorts shelves, sidebar tabs, channel tabs, and search results across YouTube on Chrome, Firefox, Brave, and Edge."
+            "text": "Strictly zero. Intentional YT contains zero analytics, zero telemetry, and zero remote network requests. All data stays 100% local in browser.storage.local."
           }
         },
         {
           "@type": "Question",
-          "name": "How does the YouTube daily time limit feature work?",
+          "name": "Which browsers and platforms are supported?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Intentional YT includes a local watch-time tracker that monitors active video playback and displays mindful toast reminders or stops playback when your customizable daily limit (e.g. 30m, 60m) is reached."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is Intentional YT open source and free to use?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, Intentional YT is 100% free, MIT licensed, and contains no paid tiers, subscriptions, tracking pixels, or data collection."
+            "text": "Intentional YT is verified and published on both the Chrome Web Store (Chrome, Brave, Edge, Opera, Arc) and Firefox AMO."
           }
         }
       ]
@@ -121,11 +119,8 @@ export default function HomePage() {
       <Hero />
       <Simulator />
       <Features />
-      <Calculator />
       <Comparison />
       <Faq />
-      <ReviewCta />
-      <Installation />
     </>
   )
 }

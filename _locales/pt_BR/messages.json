@@ -1196,5 +1196,9 @@
         "example": "spoiler"
       }
     }
+  },
+  "setting_rate_edge": {
+    "message": "Avaliar no Edge Add-ons",
+    "description": "Button linking to Microsoft Edge Add-ons review page"
   }
 }

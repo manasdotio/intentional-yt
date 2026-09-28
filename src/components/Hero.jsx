@@ -4,63 +4,58 @@ import { APP_CONFIG } from '../config/constants'
 export default function Hero() {
   return (
     <section className="hero">
-      <div className="hero-pill">
-        <span className="pill-dot"></span>
-        <span>Zero-Flash Ingestion • Anti-Doomscroll • Focus Lock • 100% Local Privacy</span>
+      <div className="hero-kicker">
+        <span>✦ Open Source &amp; 100% Free</span>
       </div>
+
       <h1 className="hero-title">
-        The Open Source<br />
-        <span className="serif-accent">YouTube Distraction Blocker</span> &amp; Daily Time Limit.
+        <span className="hero-title-main">YouTube Distraction Blocker</span>{' '}
+        <span className="hero-title-sub">&amp; Daily Time Limit.</span>
       </h1>
+
       <p className="hero-subtitle">
         Eliminate infinite feeds, algorithm rabbit holes, clickbait thumbnails, and Shorts. Intentional YT is a 100% free, private browser extension to block YouTube recommendations, hide Shorts, and set custom daily time limits.
       </p>
+
       <div className="hero-actions">
         <a
           href={APP_CONFIG.chromeWebStoreUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn btn-chrome btn-lg"
+          className="btn hero-btn-primary"
+          aria-label="Add Intentional YT to Chrome"
         >
-          <img src="/icons/chrome.svg" alt="Google Chrome" width="20" height="20" style={{ display: 'block' }} />
+          <img src="/icons/chrome.svg" alt="" width="20" height="20" aria-hidden="true" />
           <span>Add to Chrome</span>
-          <span style={{ fontSize: '16px', marginLeft: '2px' }}>→</span>
+          <span className="hero-btn-arrow" aria-hidden="true">→</span>
         </a>
+
+        <a
+          href={APP_CONFIG.edgeAddonUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn hero-btn-secondary hero-btn-edge"
+          aria-label="Add Intentional YT to Microsoft Edge"
+        >
+          <img src="/icons/edge.svg" alt="" width="20" height="20" aria-hidden="true" />
+          <span>Add to Edge</span>
+        </a>
+
         <a
           href={APP_CONFIG.firefoxAddonUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn btn-amo btn-lg"
+          className="btn hero-btn-secondary"
+          aria-label="Add Intentional YT to Firefox"
         >
-          <img src="/icons/firefox.svg" alt="Firefox" width="20" height="20" style={{ display: 'block' }} />
+          <img src="/icons/firefox.svg" alt="" width="20" height="20" aria-hidden="true" />
           <span>Add to Firefox</span>
-          <span style={{ fontSize: '16px', marginLeft: '2px' }}>→</span>
-        </a>
-        <a href="#install" className="btn btn-secondary btn-lg">
-          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-          </svg>
-          <span>Install Guide</span>
         </a>
       </div>
-      <div className="hero-badges">
-        <div className="badge-item">
-          <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '14px' }}>✓</span>
-          <span>Chrome Web Store &amp; Firefox AMO</span>
-        </div>
-        <div className="badge-item">
-          <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '14px' }}>✓</span>
-          <span>Zero-Flash &amp; Anti-Doomscroll</span>
-        </div>
-        <div className="badge-item">
-          <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '14px' }}>✓</span>
-          <span>Focus Lock &amp; Scheduling</span>
-        </div>
-        <div className="badge-item">
-          <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '14px' }}>✓</span>
-          <span>100% Local Privacy</span>
-        </div>
-      </div>
+
+      <p className="hero-reassurance">
+        Zero ads. Zero tracking. Zero accounts. Free forever under MIT.
+      </p>
     </section>
   )
 }

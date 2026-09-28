@@ -156,6 +156,15 @@ export default function BlogPost({ slug, onNavigate }) {
             <span>Chrome Web Store ↗</span>
           </a>
           <a 
+            href={APP_CONFIG.edgeAddonUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary"
+            style={{ fontSize: '13.5px', padding: '8px 16px' }}
+          >
+            <span>Edge Add-ons ↗</span>
+          </a>
+          <a 
             href={APP_CONFIG.firefoxAddonUrl}
             target="_blank"
             rel="noopener noreferrer"

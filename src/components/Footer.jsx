@@ -23,7 +23,7 @@ export default function Footer() {
             <span className="brand-badge" style={{ fontSize: '11px', padding: '1px 6px' }}>{APP_CONFIG.versionShort}</span>
           </div>
           <p className="footer-brand-desc">
-            A minimalist, zero-flash browser extension engineered to strip distraction surfaces, endless recommendations, and clickbait from YouTube.
+            A tiny open-source browser extension made with care for anyone who wants to watch YouTube without losing their afternoon.
           </p>
           <div className="footer-badges">
             <span className="footer-tag">MIT License</span>
@@ -38,7 +38,6 @@ export default function Footer() {
           <ul className="footer-nav-list">
             <li><Link href="/#demo" className="footer-nav-link">Interactive Demo</Link></li>
             <li><Link href="/#features" className="footer-nav-link">Core Features</Link></li>
-            <li><Link href="/#calculator" className="footer-nav-link">Focus Calculator</Link></li>
             <li><Link href="/#comparison" className="footer-nav-link">Comparison</Link></li>
             <li><Link href="/#faq" className="footer-nav-link">FAQ</Link></li>
             <li><Link href="/blog" className="footer-nav-link">Blog &amp; Articles</Link></li>
@@ -56,6 +55,12 @@ export default function Footer() {
               </a>
             </li>
             <li>
+              <a href={APP_CONFIG.edgeAddonUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <img src="/icons/edge.svg" width="14" height="14" alt="Edge" />
+                <span>Edge Add-ons ↗</span>
+              </a>
+            </li>
+            <li>
               <a href={APP_CONFIG.firefoxAddonUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                 <img src="/icons/firefox.svg" width="14" height="14" alt="Firefox" />
                 <span>Firefox Add-on Store ↗</span>
@@ -70,7 +75,6 @@ export default function Footer() {
                 Download Chrome (.zip) ↓
               </a>
             </li>
-            <li><a href="#install" className="footer-nav-link">Installation Guide</a></li>
             <li><a href={APP_CONFIG.githubReleasesUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Release Packages ↗</a></li>
           </ul>
         </div>
@@ -96,7 +100,7 @@ export default function Footer() {
           <span>© {currentYear} {APP_CONFIG.shortName || APP_CONFIG.name} • Free &amp; Open Source under <a href={`${APP_CONFIG.githubRepoUrl}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>MIT License</a></span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-          <span>Designed for deep focus &amp; digital well-being</span>
+          <span>Made with care for quiet focus &amp; peace of mind</span>
           <span>•</span>
           <a href="#" className="footer-back-top" onClick={scrollToTop} aria-label="Scroll back to top">
             <span>Back to top</span>

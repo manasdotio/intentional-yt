@@ -87,6 +87,9 @@ class StorageManager {
   static _merge(target, source) {
     const result = { ...target };
     for (const key of Object.keys(source)) {
+      if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+        continue;
+      }
       if (source[key] !== null && source[key] !== undefined &&
           typeof source[key] === 'object' && !Array.isArray(source[key])) {
         result[key] = StorageManager._merge(target[key] || {}, source[key]);

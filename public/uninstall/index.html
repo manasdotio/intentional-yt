@@ -743,14 +743,16 @@
     const ENTRY_REASON = 'entry.193768948';
 
     const CHROME_STORE_URL = 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg';
+    const EDGE_STORE_URL = 'https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb';
     const FIREFOX_STORE_URL = 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/';
 
     // Browser Store Auto-detection
     const isFirefox = navigator.userAgent.includes('Firefox');
+    const isEdge = navigator.userAgent.includes('Edg/');
     const reinstallLink = document.getElementById('reinstall-link');
-    const detectedBrowser = isFirefox ? 'Firefox' : 'Chrome';
-    const detectedStoreName = isFirefox ? 'Firefox Add-ons' : 'Chrome Web Store';
-    const detectedStoreUrl = isFirefox ? FIREFOX_STORE_URL : CHROME_STORE_URL;
+    const detectedBrowser = isFirefox ? 'Firefox' : isEdge ? 'Edge' : 'Chrome';
+    const detectedStoreName = isFirefox ? 'Firefox Add-ons' : isEdge ? 'Microsoft Edge Add-ons' : 'Chrome Web Store';
+    const detectedStoreUrl = isFirefox ? FIREFOX_STORE_URL : isEdge ? EDGE_STORE_URL : CHROME_STORE_URL;
 
     if (reinstallLink) {
       reinstallLink.href = detectedStoreUrl;

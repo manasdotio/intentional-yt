@@ -88,7 +88,7 @@ export default function Privacy() {
           <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '14px', color: 'var(--text-primary)' }}>
             4. What We Do NOT Do
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+          <div className="privacy-feature-grid">
             <div style={{ padding: '16px', borderRadius: 'var(--radius-md)', background: 'var(--surface)', border: '1px solid var(--border)' }}>
               <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: '4px' }}>🚫 Zero Network Calls</div>
               <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>The extension never connects to external servers, APIs, or endpoints.</p>

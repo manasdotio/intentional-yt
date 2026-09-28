@@ -2,127 +2,94 @@ import React from 'react'
 
 export default function Features() {
   return (
-    <section id="features" style={{ paddingTop: '40px' }}>
+    <section id="features" className="features-section">
       <div className="section-head">
-        <div className="section-eyebrow">Open Source YouTube Blocker</div>
-        <h2 className="section-title">Built with strict architectural principles.</h2>
+        <div className="section-kicker">
+          <span>✦ Designed for calm</span>
+        </div>
+        <h2 className="section-title">Everything you need. Nothing you don&rsquo;t.</h2>
         <p className="section-desc">
-          Traditional blockers use slow DOM mutations that flash distracting content for a split second. Intentional YT is built fundamentally differently.
+          No flickers, no tracking, and no artificial subscriptions. Just an honest, tiny extension that does what it says.
         </p>
       </div>
 
       <div className="bento-grid">
         {/* Card 1: Zero Flash */}
-        <div className="bento-card bento-card-8">
-          <div className="bento-icon">
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <div className="bento-card">
+          <div className="bento-icon bento-icon-blue">
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h3 className="bento-title">Zero-Flash Injection Engine</h3>
+          <h3 className="bento-title">Zero-Flicker Speed</h3>
           <p className="bento-text">
-            Styles are injected onto <code>&lt;html&gt;</code> at <code>document_start</code> before the browser renders the first pixel. You will never see a thumbnail or recommendation briefly flash onto the screen before disappearing.
+            Feeds and clickbait are stripped before the page even paints. You will never see distracting thumbnails flash for a split second before vanishing.
           </p>
-          <div className="bento-visual">
-            <div className="bento-visual-inner">
-              <span>document_start &gt; &lt;html class="yt-block-home-feed"&gt;</span>
-              <span className="bento-visual-badge">0ms render lag</span>
-            </div>
+          <div className="bento-card-badge">
+            <span>0ms Delay</span>
+            <span className="bento-badge-sep">&middot;</span>
+            <span>Clean Page Load</span>
           </div>
         </div>
 
-        {/* Card 2: 100% Local Privacy */}
-        <div className="bento-card bento-card-4">
-          <div className="bento-icon" style={{ background: 'var(--accent-emerald-subtle)', borderColor: 'rgba(5, 150, 105, 0.2)', color: 'var(--accent-emerald)' }}>
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        {/* Card 2: 100% Shorts Eradication */}
+        <div className="bento-card">
+          <div className="bento-icon bento-icon-red">
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="5" y="2" width="14" height="20" rx="3" />
+              <line x1="9" y1="18" x2="15" y2="18" />
             </svg>
           </div>
-          <h3 className="bento-title">Strict 0% Telemetry</h3>
+          <h3 className="bento-title">No More Shorts Rabbitholes</h3>
           <p className="bento-text">
-            No remote analytics, no tracking pixels, and no external network calls. All preferences stay stored strictly within your browser's local sandbox storage.
+            Completely hides Shorts shelves, sidebar tabs, and recommendation reels everywhere across YouTube to prevent doomscrolling.
           </p>
-        </div>
-
-        {/* Card 3: Granular Distraction Matrix & Anti-Doomscroll */}
-        <div className="bento-card bento-card-4">
-          <div className="bento-icon">
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-            </svg>
+          <div className="bento-card-badge">
+            <span>Home</span>
+            <span className="bento-badge-sep">&middot;</span>
+            <span>Search</span>
+            <span className="bento-badge-sep">&middot;</span>
+            <span>Sidebar</span>
+            <span className="bento-badge-sep">&middot;</span>
+            <span>Watch</span>
           </div>
-          <h3 className="bento-title">Surgical Customization &amp; Anti-Doomscroll</h3>
-          <p className="bento-text">
-            No forced all-or-nothing blocking. Keep your subscribed channels while wiping out algorithmic recommendations and Shorts everywhere, or use Anti-Doomscroll to cap the home feed to 15 calm videos with a peaceful caught-up banner.
-          </p>
         </div>
 
-        {/* Card 4: Focus Lock & Scheduling */}
-        <div className="bento-card bento-card-4">
-          <div className="bento-icon" style={{ background: 'rgba(99, 102, 241, 0.1)', borderColor: 'rgba(99, 102, 241, 0.2)', color: 'var(--accent-blue)' }}>
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        {/* Card 3: Limits & Focus Lock */}
+        <div className="bento-card">
+          <div className="bento-icon bento-icon-purple">
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
           </div>
-          <h3 className="bento-title">Focus Lock &amp; Automation</h3>
+          <h3 className="bento-title">Gentle Boundaries</h3>
           <p className="bento-text">
-            Arm Focus Lock to enforce a mandatory cooldown delay before disabling rules during study sessions. Schedule automatic focus windows across custom workdays and hours.
+            Set a mindful reminder toast after 30 minutes, or lock your focus rules with an intentional cooldown delay so you can&rsquo;t impulsively turn them off when you&rsquo;re tired.
           </p>
+          <div className="bento-card-badge">
+            <span>Soft Reminders</span>
+            <span className="bento-badge-sep">&middot;</span>
+            <span>Cooldown Locks</span>
+          </div>
         </div>
 
-        {/* Card 5: Mindful Time Limits */}
-        <div className="bento-card bento-card-4">
-          <div className="bento-icon" style={{ background: 'rgba(234, 179, 8, 0.1)', borderColor: 'rgba(234, 179, 8, 0.2)', color: '#ca8a04' }}>
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        {/* Card 4: 100% Local Privacy */}
+        <div className="bento-card">
+          <div className="bento-icon bento-icon-emerald">
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
-          <h3 className="bento-title">Mindful Time Caps</h3>
+          <h3 className="bento-title">Your Data Stays Yours</h3>
           <p className="bento-text">
-            Set soft interval toast reminders (15m, 30m, 45m) or a hard daily playback ceiling with automated midnight stat resets and streak tracking.
+            Zero accounts, zero analytics beacons, and zero tracking pixels. Everything stays safely inside your local browser sandbox, exactly where it belongs.
           </p>
-        </div>
-
-        {/* Card 6: Dopamine De-stimulation */}
-        <div className="bento-card bento-card-4">
-          <div className="bento-icon" style={{ background: 'rgba(225, 29, 72, 0.1)', borderColor: 'rgba(225, 29, 72, 0.2)', color: 'var(--accent-red)' }}>
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
+          <div className="bento-card-badge">
+            <span>0% Telemetry</span>
+            <span className="bento-badge-sep">&middot;</span>
+            <span>MIT Open Source</span>
           </div>
-          <h3 className="bento-title">Clickbait Neutralization &amp; Grayscale</h3>
-          <p className="bento-text">
-            Replace screaming high-saturation thumbnails with calming placeholders while preserving video titles and duration tags. Turn on site-wide hardware-accelerated grayscale to reduce dopamine spikes.
-          </p>
-        </div>
-
-        {/* Card 7: Channel & Keyword Blocklists + 1-Click Quick Block */}
-        <div className="bento-card bento-card-4">
-          <div className="bento-icon" style={{ background: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.25)', color: '#ef4444' }}>
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
-            </svg>
-          </div>
-          <h3 className="bento-title">Channel &amp; Keyword Filtering</h3>
-          <p className="bento-text">
-            Hide unwanted creators or clickbait keywords across feeds, search, and related rows. Block channels in 1 click directly from video cards with our solid in-feed Block button. 100% local text matching with zero telemetry.
-          </p>
-        </div>
-
-        {/* Card 8: Presets & Live Filter */}
-        <div className="bento-card bento-card-4">
-          <div className="bento-icon" style={{ background: 'rgba(147, 51, 234, 0.1)', borderColor: 'rgba(147, 51, 234, 0.2)', color: '#9333ea' }}>
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          </div>
-          <h3 className="bento-title">One-Click Presets &amp; Instant Search</h3>
-          <p className="bento-text">
-            Switch between Deep Work, Balanced Focus, and Video Only with a single click. Filter through 20+ granular toggles instantly with keyboard-accessible real-time search.
-          </p>
         </div>
       </div>
     </section>
