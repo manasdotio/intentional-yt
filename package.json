@@ -10,7 +10,7 @@
     "package": "node scripts/package.cjs"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": "20.x || 22.x"
   },
   "repository": {
     "type": "git",
