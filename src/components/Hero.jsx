@@ -14,7 +14,7 @@ export default function Hero() {
       </h1>
 
       <p className="hero-subtitle">
-        Eliminate infinite feeds, algorithm rabbit holes, clickbait thumbnails, and Shorts. Intentional YT is a 100% free, private browser extension to block YouTube recommendations, hide Shorts, and set custom daily time limits.
+        Hide YouTube recommendations, block Shorts, and set a daily watch limit. A free, open-source extension for Chrome, Firefox, and Edge.
       </p>
 
       <div className="hero-actions">
@@ -54,7 +54,7 @@ export default function Hero() {
       </div>
 
       <p className="hero-reassurance">
-        Zero ads. Zero tracking. Zero accounts. Free forever under MIT.
+        No account. No tracking. Your settings stay in your browser.
       </p>
     </section>
   )

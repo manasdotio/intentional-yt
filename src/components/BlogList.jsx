@@ -10,7 +10,7 @@ export default function BlogList({ onNavigate }) {
     updateMetaTags({
       title: 'Blog',
       description: 'Articles, candid tool comparisons, and developer notes on building distraction-free YouTube focus tools.',
-      url: 'https://intentionalyt.me/blog'
+      url: 'https://www.intentionalyt.me/blog'
     })
   }, [])
 

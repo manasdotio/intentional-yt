@@ -11,9 +11,9 @@ const zlib = require('zlib');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 
-const CHROME_OUT = path.join(ROOT_DIR, 'intentional-yt.zip');
+const CHROME_OUT = process.argv[2] && !process.argv[2].startsWith('--') ? path.resolve(process.argv[2]) : path.join(ROOT_DIR, 'intentional-yt.zip');
 const EDGE_OUT = path.join(ROOT_DIR, 'intentional-yt-edge.zip');
-const FIREFOX_OUT = path.join(ROOT_DIR, 'intentional-yt-firefox.zip');
+const FIREFOX_OUT = process.argv.includes('--firefox-output') ? path.resolve(process.argv[process.argv.indexOf('--firefox-output') + 1]) : path.join(ROOT_DIR, 'intentional-yt-firefox.zip');
 
 /**
  * Creates a standard compliant ZIP file from an array of file entries.
@@ -128,6 +128,7 @@ function collectFiles(dir, baseDir = ROOT_DIR) {
 }
 
 function packageExtension() {
+  if (typeof zlib.crc32 !== 'function') throw new Error('Packaging requires Node 20.15+ or 22.2+.');
   console.log('Packaging Intentional YT browser extension...');
 
   const manifestPath = path.join(ROOT_DIR, 'manifest.json');
@@ -144,10 +145,12 @@ function packageExtension() {
     delete chromeManifest.background.scripts;
   }
   const chromeManifestBuffer = Buffer.from(JSON.stringify(chromeManifest, null, 2), 'utf8');
-  const firefoxManifestBuffer = Buffer.from(JSON.stringify(manifestData, null, 2), 'utf8');
+  const firefoxManifest = JSON.parse(JSON.stringify(manifestData));
+  delete firefoxManifest.background.service_worker;
+  const firefoxManifestBuffer = Buffer.from(JSON.stringify(firefoxManifest, null, 2), 'utf8');
 
   // Common items to include
-  const standardDirs = ['background', 'content', 'icons', 'styles', 'ui', 'utils'];
+  const standardDirs = ['background', 'content', 'icons', 'styles', 'ui', 'utils', 'fonts'];
   const commonFiles = [];
   for (const dir of standardDirs) {
     const dirPath = path.join(ROOT_DIR, dir);
@@ -164,11 +167,10 @@ function packageExtension() {
   ];
   createZip(chromeFiles, CHROME_OUT);
 
-  // 2. Microsoft Edge Add-ons package (English-only locale, service_worker only)
-  const edgeEnLocale = path.join(ROOT_DIR, '_locales', 'en', 'messages.json');
+  // 2. Microsoft Edge Add-ons package (all supported locales, service_worker only)
   const edgeFiles = [
     { name: 'manifest.json', data: chromeManifestBuffer },
-    { name: '_locales/en/messages.json', data: fs.readFileSync(edgeEnLocale) },
+    ...collectFiles(path.join(ROOT_DIR, '_locales')),
     ...commonFiles
   ];
   createZip(edgeFiles, EDGE_OUT);
@@ -184,9 +186,10 @@ function packageExtension() {
   console.log('==================================================');
   console.log('✔ Packages created successfully:');
   console.log('  • Chrome Web Store        : ' + CHROME_OUT + ' (' + (fs.statSync(CHROME_OUT).size / 1024).toFixed(1) + ' KB)');
-  console.log('  • Microsoft Edge Add-ons  : ' + EDGE_OUT + ' (' + (fs.statSync(EDGE_OUT).size / 1024).toFixed(1) + ' KB, EN-only)');
+  console.log('  • Microsoft Edge Add-ons  : ' + EDGE_OUT + ' (' + (fs.statSync(EDGE_OUT).size / 1024).toFixed(1) + ' KB, all locales)');
   console.log('  • Mozilla Firefox (AMO)   : ' + FIREFOX_OUT + ' (' + (fs.statSync(FIREFOX_OUT).size / 1024).toFixed(1) + ' KB)');
   console.log('==================================================');
 }
 
-packageExtension();
+if (require.main === module) packageExtension();
+module.exports = { createZip, collectFiles, packageExtension };

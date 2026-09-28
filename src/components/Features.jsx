@@ -7,9 +7,9 @@ export default function Features() {
         <div className="section-kicker">
           <span>✦ Designed for calm</span>
         </div>
-        <h2 className="section-title">Everything you need. Nothing you don&rsquo;t.</h2>
+        <h2 className="section-title">Watch YouTube without distractions</h2>
         <p className="section-desc">
-          No flickers, no tracking, and no artificial subscriptions. Just an honest, tiny extension that does what it says.
+          Keep tutorials and lectures within reach while reducing recommended videos, Shorts, and unplanned watch time.
         </p>
       </div>
 
@@ -21,14 +21,14 @@ export default function Features() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h3 className="bento-title">Zero-Flicker Speed</h3>
+          <h3 className="bento-title">Hide YouTube Recommendations</h3>
           <p className="bento-text">
-            Feeds and clickbait are stripped before the page even paints. You will never see distracting thumbnails flash for a split second before vanishing.
+            Remove the YouTube home feed and recommended sidebar with separate controls. Keep search and subscriptions available, with blocking styles loaded early in the page load.
           </p>
           <div className="bento-card-badge">
-            <span>0ms Delay</span>
+            <span>Hide Home Feed</span>
             <span className="bento-badge-sep">&middot;</span>
-            <span>Clean Page Load</span>
+            <span>Hide Sidebar</span>
           </div>
         </div>
 
@@ -40,9 +40,9 @@ export default function Features() {
               <line x1="9" y1="18" x2="15" y2="18" />
             </svg>
           </div>
-          <h3 className="bento-title">No More Shorts Rabbitholes</h3>
+          <h3 className="bento-title">YouTube Shorts Blocker</h3>
           <p className="bento-text">
-            Completely hides Shorts shelves, sidebar tabs, and recommendation reels everywhere across YouTube to prevent doomscrolling.
+            Hide YouTube Shorts from feeds, search results, channels, and the sidebar. Watch ordinary videos without browsing short-form recommendations.
           </p>
           <div className="bento-card-badge">
             <span>Home</span>
@@ -63,9 +63,9 @@ export default function Features() {
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
           </div>
-          <h3 className="bento-title">Gentle Boundaries</h3>
+          <h3 className="bento-title">Daily YouTube Time Limits</h3>
           <p className="bento-text">
-            Set a mindful reminder toast after 30 minutes, or lock your focus rules with an intentional cooldown delay so you can&rsquo;t impulsively turn them off when you&rsquo;re tired.
+            Track active playback and set a daily watch budget that pauses video at your limit. Add break reminders or a Focus Lock cooldown before changing protected settings.
           </p>
           <div className="bento-card-badge">
             <span>Soft Reminders</span>

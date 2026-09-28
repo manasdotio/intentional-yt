@@ -28,6 +28,27 @@
   src: url('../fonts/Inter-Bold.woff2') format('woff2');
 }
 
+.protection-status {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--rule-hairline);
+  background: var(--accent-subtle);
+  color: var(--ink-secondary);
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.protection-status > :empty { display: none; }
+.focus-session-card { padding: 14px; }
+.focus-session-card h2 { margin: 0 0 8px; }
+.focus-session-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.focus-session-actions button { flex: 1 1 auto; min-width: 0; }
+.focus-session-actions [hidden] { display: none; }
+.focus-warning-option { display: flex; align-items: flex-start; gap: 8px; color: var(--ink-secondary); font-size: 11px; line-height: 1.5; }
+
 :root {
   color-scheme: light dark;
 
@@ -408,6 +429,7 @@
 
 /* ── Base ────────────────────────────────────────────────── */
 html {
+  /* Keep an intrinsic desktop width: viewport caps prevent toolbar auto-sizing. */
   width: 540px;
   height: 530px;
   max-height: 530px;
@@ -448,7 +470,8 @@ body {
   display: flex;
   flex-direction: column;
   width: 540px;
-  height: 530px;
+  /* The host can limit available height; keep the footer inside that viewport. */
+  height: min(530px, 100vh);
   max-height: 530px;
   background: var(--surface-ground);
   overflow: hidden;
@@ -2296,6 +2319,8 @@ body.ext-off .lang-row {
   background: var(--surface-header);
   border-bottom: 1px solid var(--rule-hairline);
   user-select: none;
+  gap: 8px;
+  min-width: 0;
 }
 
 .filters-header-quick-block {
@@ -2305,6 +2330,7 @@ body.ext-off .lang-row {
   cursor: pointer;
   user-select: none;
   padding: 2px 0;
+  min-width: 0;
 }
 
 .filters-qb-label {
@@ -2312,6 +2338,10 @@ body.ext-off .lang-row {
   font-weight: 550;
   color: var(--ink-secondary);
   transition: color var(--duration-snap);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .filters-header-quick-block:hover .filters-qb-label {
@@ -2450,6 +2480,7 @@ body.ext-off .lang-row {
   gap: 8px;
   background: var(--surface-inset);
   border-bottom: 1px solid var(--rule-hairline);
+  min-width: 0;
 }
 
 .blocklist-input-wrap {
@@ -2457,6 +2488,7 @@ body.ext-off .lang-row {
   flex: 1;
   display: flex;
   align-items: center;
+  min-width: 0;
 }
 
 .blocklist-input-icon {
@@ -4357,4 +4389,23 @@ body.ext-off #watch-bar {
 /* ── RTL adjustments for watch-bar ──────────────────────────── */
 [dir="rtl"] .watch-bar-right {
   flex-direction: row-reverse;
+}
+
+/* Mobile hosts have a fixed screen viewport, unlike desktop toolbar popups. */
+@media (max-device-width: 540px) {
+  html, body, #shell { width: min(540px, 100vw); }
+}
+
+@media (max-width: 400px) {
+  #hd { gap: 6px; padding-inline: 10px; }
+  .hd-name { min-width: 0; font-size: 14px; }
+  .tab-btn { min-width: 0; padding-inline: 6px; }
+  .row-text, .row-desc { overflow-wrap: anywhere; }
+  .iyt-modal-card { max-width: calc(100vw - 24px); }
+  .schedule-card-time-info { flex-wrap: wrap; }
+  .settings-row { flex-direction: column; align-items: stretch; }
+  .settings-row-actions { flex-wrap: wrap; justify-content: flex-start; }
+  .settings-row-meta, .settings-row-sub { overflow-wrap: anywhere; }
+  .settings-select { max-width: 100%; }
+  .settings-about-actions { flex-wrap: wrap; }
 }

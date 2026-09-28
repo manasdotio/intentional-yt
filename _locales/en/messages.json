@@ -1192,5 +1192,76 @@
   "stats_reset_toast": {
     "message": "Daily watch time reset",
     "description": "Toast message when user resets today's watch time"
+  },
+  "scheduled_close_tab": {
+    "message": "Close Tab"
+  },
+  "scheduled_blank_screen": {
+    "message": "Blank Screen"
+  },
+  "action_undo": {
+    "message": "Undo"
+  },
+  "channel_blocked": {
+    "message": "Blocked $1"
+  },
+  "focus_session_title": {
+    "message": "Focus session"
+  },
+  "focus_session_description": {
+    "message": "Turn on Strict Focus for a short session. Your usual settings return when it ends. Schedules and daily limits still apply."
+  },
+  "focus_session_end": {
+    "message": "End session"
+  },
+  "limit_warning_option": {
+    "message": "Warn me with 5 minutes left (1 minute for short limits)."
+  },
+  "limit_warning_title": {
+    "message": "Almost at your daily limit"
+  },
+  "limit_warning_message": {
+    "message": "Time left today: $value$ min. Wrap up before the daily block starts.",
+    "placeholders": { "value": { "content": "$1" } }
+  },
+  "clear_status_active": {
+    "message": "Your blocking settings are active."
+  },
+  "clear_status_off": {
+    "message": "Protections are turned off."
+  },
+  "clear_status_snoozed": {
+    "message": "Protections are paused until $value$.",
+    "placeholders": { "value": { "content": "$1" } }
+  },
+  "clear_status_full": {
+    "message": "YouTube is blocked by: $value$.",
+    "placeholders": { "value": { "content": "$1" } }
+  },
+  "clear_status_strict": {
+    "message": "Strict Focus is on for: $value$.",
+    "placeholders": { "value": { "content": "$1" } }
+  },
+  "clear_status_until": {
+    "message": "Until $value$.",
+    "placeholders": { "value": { "content": "$1" } }
+  },
+  "clear_status_session": {
+    "message": "Focus session: Strict Focus until $value$.",
+    "placeholders": { "value": { "content": "$1" } }
+  },
+  "clear_status_session_paused": {
+    "message": "Focus session is paused; its timer ends at $value$.",
+    "placeholders": { "value": { "content": "$1" } }
+  },
+  "clear_status_remaining": {
+    "message": "Time left today: $value$ min.",
+    "placeholders": { "value": { "content": "$1" } }
+  },
+  "clear_status_limit_reached": {
+    "message": "Your daily limit is reached."
+  },
+  "clear_status_dismissed": {
+    "message": "Your daily limit is dismissed for today."
   }
 }

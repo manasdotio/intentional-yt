@@ -2,7 +2,7 @@ import '../src/index.css'
 import { ThemeProvider } from '../src/context/ThemeContext'
 
 export const metadata = {
-  metadataBase: new URL('https://intentionalyt.me'),
+  metadataBase: new URL('https://www.intentionalyt.me'),
   title: {
     default: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
     template: '%s — Intentional YT'
@@ -43,7 +43,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://intentionalyt.me/',
+    url: 'https://www.intentionalyt.me/',
     siteName: 'Intentional YT',
     title: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
     description: 'Free open-source YouTube distraction blocker. Hide recommendations, block YouTube Shorts, neutralize clickbait, and set custom daily time limits.',

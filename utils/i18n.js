@@ -15,6 +15,7 @@ if (typeof globalThis !== 'undefined' && !globalThis.browser && globalThis.chrom
 
 const I18N = (() => {
   let _currentLang = 'auto';
+  let _languageGeneration = 0;
   let _messageCatalog = null;    // Parsed messages.json for explicit language override
   let _fallbackCatalog = null;   // Parsed _locales/en/messages.json for missing key fallbacks
   const _catalogCache = new Map();
@@ -76,9 +77,11 @@ const I18N = (() => {
    * If explicit code, loads that catalog and ensures English fallback catalog is ready.
    */
   async function setLanguage(lang) {
+    const generation = ++_languageGeneration;
     _currentLang = (lang && typeof lang === 'string') ? lang : 'auto';
     if (_currentLang === 'auto') {
       _messageCatalog = null;
+      if (!_fallbackCatalog) _fallbackCatalog = await fetchCatalog('en');
       return;
     }
 
@@ -87,6 +90,7 @@ const I18N = (() => {
       _fallbackCatalog ? Promise.resolve(_fallbackCatalog) : fetchCatalog('en')
     ]);
 
+    if (generation !== _languageGeneration) return;
     _messageCatalog = cat;
     if (enCat) _fallbackCatalog = enCat;
   }
@@ -120,40 +124,15 @@ const I18N = (() => {
    */
   function formatMessage(entry, subs) {
     if (!entry) return null;
-    let msg = typeof entry === 'string' ? entry : (entry.message || '');
-    if (!subs) return msg;
-
-    const subArr = Array.isArray(subs) ? subs : [subs];
-
-    // 1. Replace named placeholders
-    if (entry.placeholders && typeof entry.placeholders === 'object') {
-      const phKeys = Object.keys(entry.placeholders);
-      for (let i = 0; i < phKeys.length; i++) {
-        const k = phKeys[i];
-        if (i < subArr.length) {
-          const val = String(subArr[i]);
-          msg = msg.replace(new RegExp('\\$' + k + '\\$', 'gi'), val);
-          const content = entry.placeholders[k]?.content;
-          if (content && content.startsWith('$')) {
-            msg = msg.replace(content, val);
-          }
-        }
-      }
-    }
-
-    // 2. Replace positional placeholders $1, $2, etc.
-    for (let i = 0; i < subArr.length; i++) {
-      msg = msg.replace(new RegExp('\\$' + (i + 1), 'g'), String(subArr[i]));
-    }
-
-    // 3. Fallback: replace remaining bare $ in order
-    for (let i = 0; i < subArr.length; i++) {
-      if (msg.includes('$')) {
-        msg = msg.replace('$', String(subArr[i]));
-      }
-    }
-
-    return msg;
+    const values = Array.isArray(subs) ? subs : subs == null ? [] : [subs];
+    const positional = text => text.replace(/\$(\d+)/g, (_, n) => String(values[Number(n) - 1] ?? ''));
+    const text = typeof entry === 'string' ? entry : entry.message || '';
+    return text.replace(/\$\$|\$([a-zA-Z_][a-zA-Z0-9_]*)\$|\$(\d+)/g, (token, name, index) => {
+      if (token === '$$') return '$';
+      if (index) return String(values[Number(index) - 1] ?? '');
+      const key = Object.keys(entry.placeholders || {}).find(k => k.toLowerCase() === name.toLowerCase());
+      return key ? positional(entry.placeholders[key].content || '') : token;
+    });
   }
 
   /**
@@ -170,6 +149,7 @@ const I18N = (() => {
           if (m) return m;
         }
       } catch (e) {}
+      if (_fallbackCatalog?.[key]) return formatMessage(_fallbackCatalog[key], subs);
       return fallback !== undefined ? fallback : null;
     }
 

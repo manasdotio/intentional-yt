@@ -7,6 +7,7 @@
 (function () {
   let _lastPath = '';
   let _routeTimer = null;
+  let _generation = 0;
 
   function isVideoPage() {
     const p = location.pathname;
@@ -23,6 +24,8 @@
     const path = location.pathname + location.search;
     if (path === _lastPath && !force) return;
     _lastPath = path;
+    const generation = ++_generation;
+    if (!isVideoPage()) window.__iytTimer?.detach();
 
     if (window.__iytBlocker) {
       await window.__iytBlocker.applyAllSettings();
@@ -30,6 +33,7 @@
       waitFor(() => window.__iytBlocker, b => b.applyAllSettings(), 20, 100);
     }
 
+    if (generation !== _generation || path !== location.pathname + location.search) return;
     if (isVideoPage()) {
       if (window.__iytTimer) {
         window.__iytTimer.attach();

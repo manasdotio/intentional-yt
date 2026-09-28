@@ -1,6 +1,4 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
+User-Agent: *
 Allow: /
-Disallow: /uninstall
 
-Sitemap: https://intentionalyt.me/sitemap.xml
+Sitemap: https://www.intentionalyt.me/sitemap.xml

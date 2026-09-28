@@ -7,10 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "package": "node scripts/package.cjs"
+    "package": "node scripts/package.cjs",
+    "audit:seo": "node scripts/audit-seo.mjs",
+    "test:extension": "node --test tests/extension.test.cjs"
   },
   "engines": {
-    "node": "20.x || 22.x"
+    "node": ">=20.15.0 <21 || >=22.2.0 <23 || >=24"
   },
   "repository": {
     "type": "git",

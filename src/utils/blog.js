@@ -14,8 +14,11 @@ marked.use({
       const href = (typeof token === 'object' && token.href) ? token.href : (token || '')
       const title = (typeof token === 'object' && token.title) ? token.title : ''
       const text = (typeof token === 'object' && token.text) ? token.text : ''
-      const captionHtml = title ? `<figcaption class="blog-caption">${title}</figcaption>` : ''
-      return `<figure class="blog-figure"><img src="${href}" alt="${text}" loading="lazy" decoding="async" class="blog-post-img" />${captionHtml}</figure>`
+      const escape = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      const dimensions = ['/screenshots/focus-lock-cooldown.webp', '/screenshots/scheduled-blocking-setup.webp'].includes(href)
+        ? ' width="1280" height="800"' : ''
+      const captionHtml = title ? `<figcaption class="blog-caption">${escape(title)}</figcaption>` : ''
+      return `<figure class="blog-figure"><img src="${escape(href)}" alt="${escape(text)}"${dimensions} loading="lazy" decoding="async" class="blog-post-img" />${captionHtml}</figure>`
     },
     table(token) {
       const header = token.header ? token.header.map(cell => `<th>${this.parser.parseInline(cell.tokens)}</th>`).join('') : ''
@@ -43,6 +46,7 @@ export function getAllPosts() {
     const slug = data.slug || fileSlug
     const title = data.title || fileSlug.replace(/-/g, ' ')
     const date = data.date || ''
+    const modified = data.modified || ''
     const author = data.author || 'Manas'
     const description = data.description || ''
     const image = data.image || '/screenshots/og-intentional-yt-vs-unhook-vs-untrap.png'
@@ -57,6 +61,7 @@ export function getAllPosts() {
       slug,
       title,
       date,
+      modified,
       author,
       description,
       readTime,

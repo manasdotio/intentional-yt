@@ -1,3 +1,20 @@
+/* Narrow cold-start shield: released after authoritative settings are applied. */
+html:not([data-iyt-ready]) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
+html:not([data-iyt-ready]) ytd-watch-flexy #related,
+html:not([data-iyt-ready]) ytd-reel-shelf-renderer,
+html:not([data-iyt-ready]) ytm-reel-shelf-renderer,
+html:not([data-iyt-ready]) ytm-browse[tab-identifier="FEwhat_to_watch"] {
+  visibility: hidden !important;
+}
+/* Mobile core surfaces use the same effective classes as desktop. */
+html[data-iyt-is-home="true"].iyt-no-home-feed ytm-browse,
+html.iyt-no-comments ytm-comment-section-renderer,
+html.iyt-no-comments ytm-comments-entry-point-header-renderer,
+html.iyt-no-recommended ytm-watch-next-secondary-results-renderer,
+html.iyt-no-subscriptions ytm-browse[tab-identifier="FEsubscriptions"],
+html.iyt-no-notif-bell ytm-notification-topbar-button-renderer {
+  display: none !important;
+}
 /**
  * blocker.css — Intentional YT v3
  * All CSS hiding rules. Applied via classes on <html>.
@@ -30,79 +47,13 @@ html[data-iyt-is-home="true"].iyt-no-home-feed ytd-continuation-item-renderer {
    HOME FEED LIMIT (Anti-Doomscroll)
    Limits home feed to 15 videos & stops infinite scroll
 ═══════════════════════════════════════════════════════════ */
-/* 1. items-per-row grid: Show 15 videos (complete rows)
-   - 3 items per row: 5 rows = 15 videos (hide from 16)
-   - 5 items per row: 3 rows = 15 videos (hide from 16)
-   - 4 items per row: 4 rows = 16 videos (hide from 17)
-   - 6 items per row: 15-18 videos (hide from 16)
-   - 2 items per row: 15-16 videos (hide from 16) */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="3"]:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="5"]:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="4"]:nth-of-type(n+17),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="6"]:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="2"]:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="3"]:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="5"]:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="4"]:nth-of-type(n+17),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="6"]:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="2"]:nth-of-type(n+16),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="3"]:nth-of-type(n+16),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="5"]:nth-of-type(n+16),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="4"]:nth-of-type(n+17),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="6"]:nth-of-type(n+16),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[items-per-row="2"]:nth-of-type(n+16) {
-  display: none !important;
-}
-
-/* 2. Direct index fallback (15 items) */
+/* Exactly 15 cards across layouts; structural CSS applies before DOM observers. */
 html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16) {
-  display: none !important;
-}
-
-/* 3. Legacy row-based grid fallback (5 rows visible, hide from row 6) */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-row:nth-of-type(n+6),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-row:nth-of-type(n+6),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-row:nth-of-type(n+6),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-row:nth-of-type(n+6),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-row:nth-of-type(n+6) {
-  display: none !important;
-}
-
-/* 4. Dynamically tagged items via JS runtime guard */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer[data-iyt-feed-hidden="true"],
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) [data-iyt-feed-hidden="true"] {
-  display: none !important;
-}
-
-/* 5. In-feed sections (Shorts shelves, breaking news shelves, ad slots) - preserve top chip bar if nested */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-section-renderer:not(:has(ytd-feed-filter-chip-bar-renderer)),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+15) ~ ytd-rich-section-renderer {
-  display: none !important;
-}
-
-/* 6. Continuations and infinite scroll loaders - hide once feed limit is reached */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"] ytd-continuation-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"] #continuation,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16) ~ ytd-continuation-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16) ~ #continuation,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16) ~ ytd-continuation-item-renderer,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16) ~ ytd-continuation-item-renderer,
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16) ~ ytd-continuation-item-renderer,
-html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16) ~ #continuation {
-  display: none !important;
-}
-
-/* 7. Mobile web layout (15 items) */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-browse ytm-item-section-renderer:nth-of-type(n+16),
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-browse ytm-item-section-renderer:nth-of-type(n+15) ~ ytm-continuation-item-renderer {
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) [data-iyt-feed-hidden="true"],
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-rich-grid-renderer > ytm-rich-item-renderer:nth-of-type(n+16),
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-item-section-renderer > .lazy-list > ytm-video-with-context-renderer:nth-of-type(n+16),
+html[data-iyt-is-home="true"].iyt-limit-home-feed [data-iyt-limit-reached="true"] ytd-continuation-item-renderer {
   display: none !important;
 }
 
@@ -624,6 +575,10 @@ yt-lockup-view-model[data-iyt-filtered="true"],
 }
 
 /* Fully visible solid pill on card hover */
+.iyt-quick-block-btn:focus-visible,
+ytd-rich-item-renderer:focus-within .iyt-quick-block-btn,
+ytm-video-with-context-renderer:hover .iyt-quick-block-btn,
+ytm-compact-video-renderer:hover .iyt-quick-block-btn,
 ytd-rich-item-renderer:hover .iyt-quick-block-btn,
 ytd-video-renderer:hover .iyt-quick-block-btn,
 ytd-compact-video-renderer:hover .iyt-quick-block-btn,
@@ -646,6 +601,14 @@ yt-lockup-view-model:hover .iyt-quick-block-btn {
 .iyt-quick-block-btn:active {
   transform: scale(0.96);
   background: #991b1b !important;
+}
+
+.iyt-quick-block-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+@media (hover: none) {
+  .iyt-quick-block-btn { opacity: 1; pointer-events: auto; }
 }
 
 /* Quick Block Undo Toast */
@@ -1318,7 +1281,6 @@ html.iyt-scheduled-full-block audio {
     opacity: 1;
   }
 }
-
 
 
 

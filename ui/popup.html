@@ -50,6 +50,11 @@
 
     <!-- Main Content Panel (Right Side) -->
     <main id="content-area">
+      <div id="protection-status" class="protection-status" role="status" aria-live="polite" hidden>
+        <div id="protection-status-main"></div>
+        <div id="protection-status-session"></div>
+        <div id="protection-status-budget"></div>
+      </div>
       <!-- Snooze Active Countdown Banner -->
       <div id="snooze-banner" class="snooze-banner" style="display:none">
         <div class="snooze-banner-content">
@@ -526,12 +531,17 @@
 
     <!-- ── TAB 3: FOCUS ────────────────────────────────────────── -->
     <div id="panel-focus" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-focus">
-      <div class="panel-header">
-        <div class="panel-title" data-i18n="panel_focus_title">Focus &amp; Limits</div>
-        <div class="panel-subtitle" data-i18n="panel_focus_subtitle">Break reminders, daily limits, and scheduled blocking.</div>
-      </div>
-
       <div class="focus-cards-wrap">
+        <section class="focus-section-card focus-session-card" aria-labelledby="focus-session-title">
+          <h2 id="focus-session-title" class="focus-card-title" data-i18n="focus_session_title">Focus session</h2>
+          <p class="row-desc" data-i18n="focus_session_description">Turn on Strict Focus for a short session. Your usual settings return when it ends. Schedules and daily limits still apply.</p>
+          <div class="focus-session-actions">
+            <button type="button" class="btn-secondary" data-focus-minutes="25" data-i18n="time_option_minutes" data-i18n-arg="25">25 min</button>
+            <button type="button" class="btn-secondary" data-focus-minutes="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</button>
+            <button type="button" class="btn-secondary" data-focus-minutes="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</button>
+            <button type="button" class="btn-secondary" id="btn-end-focus-session" hidden data-i18n="focus_session_end">End session</button>
+          </div>
+        </section>
 
         <!-- Card 1: Time & Limits -->
         <div class="focus-section-card" id="card-focus-time">
@@ -604,6 +614,10 @@
                 <input type="number" class="time-input" id="input-dailyLimitCustom" min="1" max="1440" placeholder="min" data-i18n-placeholder="time_placeholder_min" />
                 <span class="time-unit" data-i18n="time_unit_min">min</span>
               </div>
+        <label class="focus-warning-option">
+          <input type="checkbox" id="toggle-limitWarning" />
+          <span data-i18n="limit_warning_option">Warn me with 5 minutes left (1 minute for short limits).</span>
+        </label>
             </div>
           </div>
         </div>
@@ -763,11 +777,6 @@
 
     <!-- ── TAB 4: STATS ────────────────────────────────────────── -->
     <div id="panel-stats" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-stats">
-      <div class="panel-header">
-        <div class="panel-title" data-i18n="panel_stats_title">Playback Activity</div>
-        <div class="panel-subtitle" data-i18n="panel_stats_subtitle">Track your daily watch time and playback habits.</div>
-      </div>
-
       <div class="stats-dashboard">
         <div class="stats-hero-card">
           <div class="stats-hero-header">
@@ -1100,6 +1109,9 @@
 </div><!-- /#shell -->
 
 <script src="../utils/storage.js"></script>
+  <script src="../utils/policy.js"></script>
+  <script src="../utils/schema.js"></script>
+  <script src="../utils/dialog.js"></script>
 <script src="../utils/i18n.js"></script>
 <script src="popup.js"></script>
 </body>

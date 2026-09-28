@@ -282,7 +282,7 @@ export default function Simulator() {
         </div>
         <h2 className="section-title">See YouTube with the noise stripped away.</h2>
         <p className="section-desc">
-          Try switching focus presets below to test a calm 15-video batch limit, balanced mode, or pure search Zen.
+          Choose a preset, then adjust the controls to see what changes.
         </p>
       </div>
 
@@ -290,7 +290,6 @@ export default function Simulator() {
         <div className="playground-header">
           <div className="playground-header-top">
             <div className="playground-title-group">
-              <span className="playground-badge">Try it live</span>
               <h3 className="playground-title">Interactive Simulator</h3>
             </div>
             <div className="sim-segmented-control" role="tablist" aria-label="Simulator Presets">
@@ -337,13 +336,13 @@ export default function Simulator() {
             <span className="sim-descriptor-icon" aria-hidden="true">ℹ</span>
             <span className="sim-descriptor-text">
               {isChaos ? (
-                'Standard YouTube: Unfiltered home feeds, Shorts carousels, algorithmic sidebars, and autoplay active.'
+                'Standard YouTube: Feeds, Shorts, recommendations, and autoplay are visible.'
               ) : isLimited ? (
-                'Anti-Doomscroll mode: Caps the home feed to a calm 15-video batch, blocking infinite scroll with a peaceful caught-up banner.'
+                'Anti-Doomscroll: See a batch of 15 videos, with no infinite scrolling.'
               ) : isBalanced ? (
-                'Balanced mode: Wipes out algorithmic home recommendations and Shorts shelves while leaving subscribed channels accessible.'
+                'Balanced: Hide recommendations and Shorts. Keep subscriptions available.'
               ) : isZen ? (
-                'Intentional Zen: Transforms YouTube into a pure search utility. Recommendations, comments, and thumbnails are completely hidden.'
+                'Intentional Zen: Keep search. Hide feeds, recommendations, comments, and thumbnails.'
               ) : isPlayer ? (
                 'Video Only: Distraction-free theater viewing. Hides recommendations and comments around the video.'
               ) : (

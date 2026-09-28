@@ -11,13 +11,13 @@ export default function BlogPost({ slug, onNavigate }) {
 
     if (post) {
       const imageUrl = post.image 
-        ? (post.image.startsWith('http') ? post.image : `https://intentionalyt.me${post.image.startsWith('/') ? '' : '/'}${post.image}`)
+        ? (post.image.startsWith('http') ? post.image : `https://www.intentionalyt.me${post.image.startsWith('/') ? '' : '/'}${post.image}`)
         : undefined
 
       updateMetaTags({
         title: post.title,
         description: post.description,
-        url: `https://intentionalyt.me/blog/${post.slug}`,
+        url: `https://www.intentionalyt.me/blog/${post.slug}`,
         image: imageUrl
       })
     } else {

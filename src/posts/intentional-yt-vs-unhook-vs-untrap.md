@@ -1,93 +1,59 @@
 ---
-title: "Intentional YT vs Unhook vs Untrap: An Honest Comparison"
+title: "Intentional YT vs Unhook vs UnTrap: Features Compared"
 slug: "intentional-yt-vs-unhook-vs-untrap"
 date: "2026-09-27"
+modified: "2026-09-28"
 author: "Manas"
-readTime: "5 min read"
-description: "An honest YouTube distraction blocker comparison of Unhook, Untrap, and Intentional YT by a solo developer looking at features, friction, and pricing."
+description: "Looking for an Unhook or UnTrap alternative? Compare Intentional YT for distraction blocking, daily watch limits, local privacy, and open-source code."
 image: "/screenshots/og-intentional-yt-vs-unhook-vs-untrap.png"
 ---
 
-Meta description: An honest YouTube distraction blocker comparison of Unhook, Untrap, and Intentional YT by a solo developer looking at features, friction, and pricing.
+# Intentional YT vs Unhook vs UnTrap: Features Compared
 
-# Intentional YT vs Unhook vs Untrap: An Honest Comparison
+I develop Intentional YT, so this comparison has a product affiliation. It compares documented features, not independently measured speed or reliability. Competitor information was checked against the official sites on September 28, 2026; browser support and plans can change.
 
-I built Intentional YT, so it makes sense to say that upfront.
+All three tools aim to make YouTube less distracting. The useful question is which controls fit your routine: removing feeds, filtering content, or putting boundaries around watching.
 
-Because I built one of these tools, you might assume this is a sales pitch disguised as an objective comparison. Most founder comparisons give their own product a perfect score while dismissing competitors. That is not what this is.
+## Unhook: removing distracting surfaces
 
-Unhook and Untrap are solid extensions. Millions use them, and both existed well before Intentional YT. But when I needed a distraction blocker for my own work, neither quite fit. They made different design choices.
+[Unhook's official site](https://unhook.app/) describes a tool for hiding suggestion feeds, comments, and other distractions. It is an option to investigate when your main goal is a simpler YouTube interface. Follow its store links for the current browser-specific controls and terms.
 
-If you are searching for an unhook alternative or an untrap alternative, here is a breakdown of what each does well, where each falls short, and why I built Intentional YT instead of sticking with either.
+We have not benchmarked its page-load behavior or tested every current feature. An unlisted feature should not be read as proof that a tool cannot provide it.
 
-## Unhook: Clean, Reliable, but Zero Friction
+## UnTrap: customization and time controls
 
-Unhook is the veteran here. With over a million users, it is the default recommendation on Reddit whenever someone asks how to stop wasting time on YouTube.
+[UnTrap's official site](https://untrap.app/) describes broad page customization alongside content filters and time controls. It also offers optional Plus features. Check its current listing for the features and terms available in your browser.
 
-And deservedly so. It is free, simple, and lightweight. You install it, open the popup, and turn off whatever parts of YouTube bother you: the home feed, sidebar recommendations, Shorts shelves, comments, end screens, and thumbnails. If your only goal is visual decluttering, it works with zero fuss.
+The previous version of this comparison understated UnTrap's time-management and filtering capabilities. Those claims have been corrected. We do not have a controlled performance test supporting claims that either competitor is slower or causes more visual flicker.
 
-So why did I move away from it?
+## Intentional YT: local settings and daily watch budgets
 
-Unhook treats YouTube distraction purely as a visual problem rather than a behavioral one. It has no time-management features. No watch limits, no session caps, no scheduling. You can hide the home feed, but once you click a video for actual work, you can still sit there for hours watching related recommendations.
+Intentional YT combines hiding controls with daily playback limits, channel and keyword blocklists, scheduled blocking, and Focus Lock. Its [source code](https://github.com/manasdotio/intentional-yt) is available under the [MIT license](https://github.com/manasdotio/intentional-yt/blob/main/LICENSE). The extension stores preferences and watch-time counters locally, without an account or extension telemetry.
 
-Even worse, Unhook provides zero friction against impulses.
+A daily watch budget pauses playback at your selected threshold. Focus Lock adds a PIN and cooldown before changing protected preferences. These are personal focus controls, not protection against disabling or uninstalling an extension.
 
-Every toggle sits in the browser popup, completely unprotected. Whenever I felt tired, I would click the icon, flip the home feed back on, and scroll. The barrier to relapse was two clicks. Once your brain learns how effortless it is to undo rules, discipline evaporates. Unhook is also closed source, so you cannot inspect the code running on your pages.
+![Intentional YT Focus Lock cooldown settings](/screenshots/focus-lock-cooldown.webp "Focus Lock adds a delay before protected changes")
 
-## Untrap: Endless Features, but at a Cost
+Scheduled blocking applies rules during selected hours and days. This can be useful if you need YouTube for tutorials during work but want a different setup afterward.
 
-On the opposite end is Untrap for YouTube.
+![Intentional YT scheduled blocking settings](/screenshots/scheduled-blocking-setup.webp "Choose hours and days for scheduled blocking")
 
-If Unhook is a simple light switch, Untrap is an airplane cockpit. It packs over 150 settings. It has password protection to make toggles harder to disable, scheduled sessions, keyboard hotkeys, cross-device sync, and AI video summaries. If you want to customize every pixel of the interface, Untrap gives you that depth.
+## Feature overview
 
-The catch comes down to cost and complexity.
+| Area | Intentional YT | Unhook | UnTrap |
+| --- | --- | --- | --- |
+| Distraction controls | Home feed, Shorts, sidebar, and other controls | Distraction hiding controls | Page customization controls |
+| Time management | Daily playback budget and schedules | Check current listing | Time controls advertised |
+| Filtering | Channel and keyword blocklists | Check current listing | Content filtering advertised |
+| Licensing and plans | Free, MIT-licensed code | Check current terms | Free and optional paid features |
+| Settings storage | Local browser storage | Check privacy policy | Check privacy policy |
 
-Untrap gates advanced capabilities behind a monthly subscription. I do not fault developers for charging; maintaining extensions takes real time. But paying a recurring fee just to hide parts of a website bothers people, and reviews reflect that. Even happy users regularly complain about the pricing model.
+This table describes the official information reviewed, not an exhaustive audit of each product. Verify a feature in your browser before depending on it.
 
-The second issue is software weight. Supporting 150 configuration toggles alongside third-party AI features and sync engines makes maintenance against YouTube's constant DOM updates difficult. Users have reported degraded UI layouts and occasional post-update bugs. Debugging an extension that broke your video player is frustrating when you just wanted to watch a lecture.
+## Choosing an Unhook or UnTrap alternative
 
-## Where Intentional YT Fits
+Start with the problem you want to solve. For a cleaner watch page, compare each tool's hiding options. If watch duration matters, try a time control and check how it behaves at the limit. If you need specific content filters, test them against the channels and titles you actually encounter.
 
-I built Intentional YT because I wanted something in the middle: the lightweight feel of Unhook, combined with the friction and scheduling of Untrap, without a monthly paywall or feature bloat.
+Intentional YT may fit if you want inspectable source code and local daily watch counters. It does not offer cloud synchronization or AI video summaries. It is maintained by a solo developer, and YouTube layout changes can require selector updates.
 
-First, Intentional YT is an open source youtube blocker under the MIT license. There is no backend, no tracking scripts, and zero telemetry. Every setting and watch counter stays on your device in local storage. You do not need an account, and you will never see a surprise paywall.
-
-Second, it focuses on habits and friction:
-
-- **Daily time limits**: Set a daily watch budget (like 45 minutes). Once you hit that threshold, the video pauses and a calm notification reminds you to step away.
-- **Focus Lock**: This addresses the two-click relapse problem in Unhook. You can lock settings behind a PIN and a mandatory cooldown timer. If you try to disable your blockers during a moment of weakness, you must wait out the countdown before changes apply. That pause gives your impulse time to pass.
-
-![Intentional YT Focus Lock active cooldown countdown UI preventing impulsive setting changes](/screenshots/focus-lock-cooldown.png "Focus Lock's cooldown timer — changes can be cancelled anytime during the countdown")
-
-- **Scheduled blocking**: Define specific hours or days when strict rules apply automatically, like during work hours from 9 AM to 5 PM.
-
-![Intentional YT Scheduled Blocking dashboard with configurable focus hours and active days of the week](/screenshots/scheduled-blocking-setup.png "Scheduled Blocking setup — configure active hours and days for automatic focus mode")
-
-- **Channel and keyword blocklists**: Filter out specific creators or clickbait topics without nuking your entire subscription feed.
-- **Focus presets and modes**: Choose from three presets (Balanced, Zen, or Video Only) instead of toggling dozens of checkboxes. There is also a grayscale mode to drain the pull from bright thumbnails, and translations across 25 languages with manual override.
-
-Here are the honest downsides of Intentional YT.
-
-My project does not have 150 settings like Untrap. It does not offer AI video summaries, hotkeys, or cross-device sync. It is maintained by a solo developer, whereas Unhook has over a million users and years of proven uptime. If YouTube rolls out an experimental layout that breaks a selector, I might take a couple of days to push a patch. Those are real differences.
-
-| Feature | Unhook | Untrap | Intentional YT |
-| :--- | :--- | :--- | :--- |
-| **Price** | Free | Freemium (Monthly subscription) | 100% Free |
-| **Open Source** | No (Closed source) | No (Closed source) | Yes (MIT License) |
-| **Daily Time Limits** | None | Not covered in post | Included (custom limits) |
-| **Focus Lock (PIN + Cooldown)** | None (instant toggles) | Password protection only | Included (PIN + cooldown timer) |
-| **Scheduled Blocking** | None | Included (scheduled sessions) | Included (time & day rules) |
-| **Channel/Keyword Blocklist** | None | Not covered in post | Included (channels & keywords) |
-| **Language Support** | Not covered in post | Not covered in post | 25 languages (with manual override) |
-
-## The Verdict
-
-When people search for a youtube distraction blocker comparison, they usually look for a single winner.
-
-There isn't one. The right tool depends on what problem you actually have:
-
-If you just want to hide the home feed and Shorts with zero setup and you trust your own willpower not to flip the toggle back, Unhook is completely fine. It is free, stable, and proven.
-
-If you want granular control over 150 visual elements, use hotkeys, want cloud sync, and do not mind paying a monthly subscription, Untrap is a capable extension despite the occasional update bug.
-
-If you want a free, open source tool that helps you manage actual watch time and adds real friction against impulsive scrolling without charging a subscription, that is why I built Intentional YT. You can install it, inspect the code on GitHub, and decide for yourself.
+To try its controls, follow the [guide to hiding Shorts and recommendations](/blog/hide-youtube-shorts-and-recommendations) or [set a daily YouTube watch limit](/blog/set-youtube-daily-time-limit). The [homepage](/) links to official browser-store downloads and includes an interactive demo.

@@ -2,9 +2,9 @@ export default function robots() {
   return {
     rules: {
       userAgent: '*',
-      allow: '/',
-      disallow: ['/uninstall']
+      // Crawlers must fetch /uninstall to see its noindex directive.
+      allow: '/'
     },
-    sitemap: 'https://intentionalyt.me/sitemap.xml'
+    sitemap: 'https://www.intentionalyt.me/sitemap.xml'
   }
 }

@@ -1,1204 +1,1307 @@
 {
-  "extensionName": {
-    "message": "Intentional YT - Αποκλεισμός περισπασμών & Ημερήσιο όριο YouTube",
-    "description": "Official extension name in stores and browser management pages"
-  },
-  "extensionShortName": {
-    "message": "Intentional",
-    "description": "Short name of the extension"
-  },
-  "extensionDescription": {
-    "message": "YouTube χωρίς περισπασμούς με λεπτομερή έλεγχο για ροές, Shorts, σχόλια και όρια χρόνου προβολής. 100% ιδιωτικό και τοπικό.",
-    "description": "Extension description in stores and browser management pages"
-  },
-  "popup_window_title": {
-    "message": "Intentional YT - Αποκλεισμός περισπασμών & Ημερήσιο όριο YouTube",
-    "description": "Title tag of the popup document"
-  },
-  "header_title": {
-    "message": "Intentional YT",
-    "description": "Header brand name in the extension popup"
-  },
-  "status_active": {
-    "message": "Ενεργό",
-    "description": "Badge status when the extension is active"
-  },
-  "status_paused": {
-    "message": "Σε παύση",
-    "description": "Badge status when the extension is paused"
-  },
-  "section_feed": {
-    "message": "Ροή",
-    "description": "Feed controls section header"
-  },
-  "toggle_block_home_feed": {
-    "message": "Απόκρυψη αρχικής ροής",
-    "description": "Toggle label to hide YouTube home recommendations feed"
-  },
-  "desc_block_home_feed": {
-    "message": "Αποκρύπτει την αλγοριθμική ροή βίντεο στην αρχική σελίδα του YouTube",
-    "description": "Helper description for Hide home feed toggle"
-  },
-  "toggle_limit_home_feed": {
-    "message": "Περιορισμός αρχικής ροής (κατά του doomscrolling)",
-    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
-  },
-  "desc_limit_home_feed": {
-    "message": "Περιορίζει την αρχική ροή σε 15 βίντεο και απενεργοποιεί την άπειρη κύλιση",
-    "description": "Helper explanation for limiting home feed videos"
-  },
-  "toggle_block_subscriptions": {
-    "message": "Απόκρυψη συνδρομών",
-    "description": "Toggle label to hide YouTube subscriptions feed"
-  },
-  "toggle_block_recommended": {
-    "message": "Απόκρυψη πλαϊνής γραμμής προτάσεων",
-    "description": "Toggle label to hide recommended video sidebar on watch page"
-  },
-  "toggle_block_shorts": {
-    "message": "Απόκρυψη Shorts",
-    "description": "Toggle label to hide Shorts carousels and tabs"
-  },
-  "desc_block_shorts": {
-    "message": "Αποκρύπτει τα Shorts παντού — πλαϊνή γραμμή, ροές, αποτελέσματα αναζήτησης και κανάλια",
-    "description": "Helper explanation for hiding Shorts across YouTube"
-  },
-  "toggle_block_explore_trending": {
-    "message": "Απόκρυψη Εξερεύνησης και Τάσεων",
-    "description": "Toggle label to hide Explore and Trending navigation items"
-  },
-  "toggle_block_more_from_youtube": {
-    "message": "Απόκρυψη «Περισσότερα από το YouTube»",
-    "description": "Toggle label to hide More from YouTube section in left sidebar"
-  },
-  "toggle_block_irrelevant_search": {
-    "message": "Απόκρυψη άσχετων προτάσεων αναζήτησης",
-    "description": "Toggle label to hide People also watched, For you, and related search shelves"
-  },
-  "section_video": {
-    "message": "Βίντεο",
-    "description": "Video controls section header"
-  },
-  "toggle_block_endscreen_videowall": {
-    "message": "Απόκρυψη προτάσεων τελικής οθόνης",
-    "description": "Toggle label to hide grid of recommended videos at video end"
-  },
-  "desc_block_endscreen_videowall": {
-    "message": "Απόκρυψη πλέγματος προτεινόμενων βίντεο και επόμενου τοίχου βίντεο όταν ολοκληρωθεί η αναπαραγωγή",
-    "description": "Description for end screen videowall toggle"
-  },
-  "toggle_block_endscreen_cards": {
-    "message": "Απόκρυψη καρτών τελικής οθόνης",
-    "description": "Toggle label to hide creator end screen cards and elements"
-  },
-  "desc_block_endscreen_cards": {
-    "message": "Απόκρυψη καρτών βίντεο, λίστας αναπαραγωγής και εγγραφής του δημιουργού στα τελευταία 20 δευτερόλεπτα",
-    "description": "Description for creator end screen cards toggle"
-  },
-  "toggle_block_live_chat": {
-    "message": "Απόκρυψη ζωντανής συνομιλίας",
-    "description": "Toggle label to hide live chat panel"
-  },
-  "toggle_block_playlist": {
-    "message": "Απόκρυψη πίνακα λίστας αναπαραγωγής",
-    "description": "Toggle label to hide playlist side panel on watch page"
-  },
-  "toggle_disable_autoplay": {
-    "message": "Απενεργοποίηση αυτόματης αναπαραγωγής",
-    "description": "Toggle label to prevent YouTube from automatically playing next video"
-  },
-  "toggle_disable_annotations": {
-    "message": "Απόκρυψη επισημάνσεων βίντεο",
-    "description": "Toggle label to hide in-video popups and annotations"
-  },
-  "toggle_block_video_info": {
-    "message": "Απόκρυψη πληροφοριών βίντεο",
-    "description": "Toggle label to hide video metadata panel below player"
-  },
-  "desc_block_video_info": {
-    "message": "Αποκρύπτει όλες τις πληροφορίες και ενέργειες κάτω από το πρόγραμμα αναπαραγωγής βίντεο",
-    "description": "Subheading description for Hide video info panel toggle"
-  },
-  "toggle_block_video_buttons": {
-    "message": "Κουμπιά ενεργειών",
-    "description": "Nested toggle label to hide like, dislike, share, download buttons"
-  },
-  "desc_block_video_buttons": {
-    "message": "Αποκρύπτει τα κουμπιά «Μου αρέσει», «Δεν μου αρέσει», κοινοποίησης, λήψης και κλιπ",
-    "description": "Subheading description for Action buttons sub-toggle"
-  },
-  "toggle_block_channel_info": {
-    "message": "Πληροφορίες καναλιού",
-    "description": "Nested toggle label to hide channel subscriber count and avatar"
-  },
-  "desc_block_channel_info": {
-    "message": "Αποκρύπτει το όνομα καναλιού, το avatar και το κουμπί εγγραφής",
-    "description": "Subheading description for Channel info sub-toggle"
-  },
-  "toggle_block_video_description": {
-    "message": "Περιγραφή",
-    "description": "Nested toggle label to hide video description box"
-  },
-  "desc_block_video_description": {
-    "message": "Αποκρύπτει το επεκτάσιμο κείμενο περιγραφής βίντεο και τις λεπτομέρειες",
-    "description": "Subheading description for Description sub-toggle"
-  },
-  "section_social": {
-    "message": "Κοινωνικά",
-    "description": "Social controls section header"
-  },
-  "toggle_block_comments": {
-    "message": "Απόκρυψη σχολίων",
-    "description": "Toggle label to hide YouTube comments section"
-  },
-  "toggle_block_profile_photos": {
-    "message": "Απόκρυψη φωτογραφιών σχολιαστών",
-    "description": "Toggle label to hide profile avatars of commenters"
-  },
-  "section_interface": {
-    "message": "Διεπαφή",
-    "description": "Interface controls section header"
-  },
-  "toggle_block_sidebar": {
-    "message": "Απόκρυψη αριστερής πλαϊνής γραμμής",
-    "description": "Toggle label to hide YouTube left drawer/guide navigation"
-  },
-  "toggle_block_top_header": {
-    "message": "Απόκρυψη επάνω κεφαλίδας",
-    "description": "Toggle label to hide YouTube top search and navigation header"
-  },
-  "toggle_block_notification_bell": {
-    "message": "Απόκρυψη καμπάνας ειδοποιήσεων",
-    "description": "Toggle label to hide notification bell icon"
-  },
-  "toggle_block_merch": {
-    "message": "Απόκρυψη προϊόντων και προσφορών",
-    "description": "Toggle label to hide merchandise shelf and product offers"
-  },
-  "toggle_block_mix_playlists": {
-    "message": "Απόκρυψη λιστών Mix",
-    "description": "Toggle label to hide algorithmic YouTube mix playlists"
-  },
-  "section_appearance": {
-    "message": "Εμφάνιση",
-    "description": "Appearance controls section header"
-  },
-  "toggle_hide_thumbnails": {
-    "message": "Απόκρυψη μικρογραφιών",
-    "description": "Toggle label to neutralize/blur video thumbnail images"
-  },
-  "toggle_grayscale_mode": {
-    "message": "Κλίμακα του γκρι",
-    "description": "Toggle label for black and white desaturation mode"
-  },
-  "section_time": {
-    "message": "Χρόνος",
-    "description": "Time controls section header"
-  },
-  "toggle_soft_reminder": {
-    "message": "Ήπια υπενθύμιση διαλείμματος",
-    "description": "Toggle label for mindful interval toast notification"
-  },
-  "time_hint_every": {
-    "message": "Κάθε",
-    "description": "Prefix label before interval dropdown"
-  },
-  "time_option_minutes": {
-    "message": "$MINUTES$ λεπτά",
-    "description": "Preset time in minutes",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "15"
-      }
-    }
-  },
-  "time_option_custom": {
-    "message": "Προσαρμογή...",
-    "description": "Option in dropdown to enter a custom duration"
-  },
-  "time_placeholder_min": {
-    "message": "λεπτά",
-    "description": "Placeholder text inside custom minutes input field"
-  },
-  "time_unit_min": {
-    "message": "λεπτά",
-    "description": "Unit label beside custom minutes input"
-  },
-  "toggle_daily_limit": {
-    "message": "Ημερήσιο όριο",
-    "description": "Toggle label for daily total playback time limit"
-  },
-  "desc_daily_limit": {
-    "message": "Παύση αναπαραγωγής βίντεο όταν συμπληρωθεί το ημερήσιο όριο παρακολούθησης",
-    "description": "Subheading description for Daily Limit toggle"
-  },
-  "time_hint_stop_after": {
-    "message": "Διακοπή μετά από",
-    "description": "Prefix label before daily limit duration dropdown"
-  },
-  "blocklist_stub_alert": {
-    "message": "Το φιλτράρισμα καναλιών & λέξεων-κλειδιών έρχεται στην επόμενη έκδοση. Οι κύριοι αποκλεισμοί ροών είναι ενεργοί!",
-    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
-  },
-  "stats_watch_time_below": {
-    "message": "Ο ημερήσιος χρόνος παρακολούθησης εμφανίζεται παρακάτω, πάντα.",
-    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
-  },
-  "stats_title_today": {
-    "message": "Σήμερα",
-    "description": "Heading for daily watch stats card"
-  },
-  "aria_about_daily_watchtime": {
-    "message": "Σχετικά με τον ημερήσιο χρόνο προβολής",
-    "description": "Accessibility label for daily watchtime info icon"
-  },
-  "stats_tooltip_info": {
-    "message": "Καταγράφει τα λεπτά παρακολούθησης στο YouTube σήμερα. Επαναφέρεται αυτόματα τα μεσάνυχτα. Ενεργοποιήστε το ημερήσιο όριο για να ελέγξετε τον χρόνο σας.",
-    "description": "Tooltip text explaining watchtime tracking"
-  },
-  "stats_no_limit": {
-    "message": "χωρίς όριο",
-    "description": "Stats subtitle when daily watch limit is disabled"
-  },
-  "stats_limit_progress": {
-    "message": "$PERCENT$% από $MINUTES$λ",
-    "description": "Stats progress indicator showing percentage of daily limit",
-    "placeholders": {
-      "percent": {
-        "content": "$1",
-        "example": "50"
-      },
-      "minutes": {
-        "content": "$2",
-        "example": "60"
-      }
-    }
-  },
-  "stats_button_reset": {
-    "message": "επαναφορά",
-    "description": "Button to reset today's accumulated watch time"
-  },
-  "time_fmt_zero_min": {
-    "message": "0 λεπτά",
-    "description": "Formatted time for 0 minutes"
-  },
-  "time_fmt_seconds": {
-    "message": "$SECONDS$δ",
-    "description": "Formatted time in seconds",
-    "placeholders": {
-      "seconds": {
-        "content": "$1",
-        "example": "42"
-      }
-    }
-  },
-  "time_fmt_minutes": {
-    "message": "$MINUTES$ λεπτά",
-    "description": "Formatted time in minutes",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "25"
-      }
-    }
-  },
-  "time_fmt_hours_minutes": {
-    "message": "$HOURS$ώ $MINUTES$λ",
-    "description": "Formatted time in hours and minutes",
-    "placeholders": {
-      "hours": {
-        "content": "$1",
-        "example": "1"
-      },
-      "minutes": {
-        "content": "$2",
-        "example": "15"
-      }
-    }
-  },
-  "footer_local_privacy": {
-    "message": "100% Τοπικό",
-    "description": "Footer badge indicating offline-first local storage"
-  },
-  "footer_feedback_link": {
-    "message": "Σχόλια & ιδέες ↗",
-    "description": "Footer link text to submit feedback form"
-  },
-  "toast_reminder_message": {
-    "message": "Παρακολουθείτε βίντεο εδώ και $MINUTES$ λεπτά.",
-    "description": "Toast notification message when mindful interval triggers (plural)",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "30"
-      }
-    }
-  },
-  "toast_reminder_message_singular": {
-    "message": "Παρακολουθείτε βίντεο εδώ και 1 λεπτό.",
-    "description": "Toast notification message when mindful interval triggers (singular)"
-  },
-  "toast_dismiss_aria": {
-    "message": "Κλείσιμο",
-    "description": "Accessibility aria-label for closing toast notification"
-  },
-  "toast_reminder_badge": {
-    "message": "Ήπια υπενθύμιση",
-    "description": "Top badge in soft reminder notification card"
-  },
-  "toast_button_pause": {
-    "message": "Παύση βίντεο",
-    "description": "Button to immediately pause playback from reminder toast"
-  },
-  "toast_button_continue": {
-    "message": "Συνέχεια προβολής",
-    "description": "Button to dismiss reminder toast and continue playback"
-  },
-  "toast_status_paused": {
-    "message": "Σε παύση ✓",
-    "description": "Status text shown when video has been paused via toast"
-  },
-  "desc_soft_reminder": {
-    "message": "Ήρεμη ειδοποίηση στην οθόνη σε τακτά διαστήματα για να γνωρίζετε τον χρόνο σας χωρίς να σας αποκλείει.",
-    "description": "Description under Soft reminder toggle in Focus tab"
-  },
-  "btn_preview_reminder": {
-    "message": "Προεπισκόπηση",
-    "description": "Button to test and trigger soft reminder toast on active tab"
-  },
-  "btn_preview_sent": {
-    "message": "Εστάλη!",
-    "description": "Button text confirmation after preview toast is sent"
-  },
-  "toast_preview_need_yt": {
-    "message": "Ανοίξτε μια καρτέλα YouTube για προεπισκόπηση της ειδοποίησης υπενθύμισης",
-    "description": "Notice when attempting to preview toast without YouTube active"
-  },
-  "overlay_limit_title": {
-    "message": "Συμπληρώθηκε το ημερήσιο όριο",
-    "description": "Title on full-player limit overlay modal"
-  },
-  "overlay_limit_message": {
-    "message": "Φτάσατε στο ημερήσιο όριο παρακολούθησης YouTube των $LIMIT$ λεπτών για σήμερα.",
-    "description": "Explanation message on limit overlay modal",
-    "placeholders": {
-      "limit": {
-        "content": "$1",
-        "example": "60"
-      }
-    }
-  },
-  "overlay_button_finish_video": {
-    "message": "Ολοκλήρωση αυτού του βίντεο",
-    "description": "Button label to allow completing current video before blocking"
-  },
-  "overlay_button_finish_video_remaining": {
-    "message": "Ολοκλήρωση αυτού του βίντεο (απομένουν $MINUTES$λ)",
-    "description": "Button label with remaining duration to allow completing current video",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "4"
-      }
-    }
-  },
-  "overlay_button_stop_watching": {
-    "message": "Διακοπή προβολής (Αρχική)",
-    "description": "Primary action button to leave video and return to homepage"
-  },
-  "overlay_button_dismiss_today": {
-    "message": "Παράβλεψη για σήμερα",
-    "description": "Secondary action button to override limit for remainder of today"
-  },
-  "tab_block": {
-    "message": "Αποκλεισμός",
-    "description": "Label for the Block tab in popup navigation"
-  },
-  "tab_blocklists": {
-    "message": "Φίλτρα",
-    "description": "Label for the Filters (blocklists) tab in popup navigation"
-  },
-  "tab_focus": {
-    "message": "Εστίαση",
-    "description": "Label for the Focus tab in popup navigation"
-  },
-  "tab_stats": {
-    "message": "Στατιστικά",
-    "description": "Label for the Stats tab in popup navigation"
-  },
-  "tab_settings": {
-    "message": "Ρυθμίσεις",
-    "description": "Label for the Settings tab in popup navigation"
-  },
-  "action_collapse_all": {
-    "message": "Σύμπτυξη όλων",
-    "description": "Button to collapse all detailed control accordion sections"
-  },
-  "action_expand_all": {
-    "message": "Ανάπτυξη όλων",
-    "description": "Button to expand all detailed control accordion sections"
-  },
-  "section_channel_blocklist": {
-    "message": "Λίστα αποκλεισμού καναλιών",
-    "description": "Section header for Channel Blocklist"
-  },
-  "desc_channel_blocklist": {
-    "message": "Αποκλείστε συγκεκριμένα κανάλια από τις ροές και τις προτάσεις.",
-    "description": "Description for Channel Blocklist feature"
-  },
-  "blocklist_channels_empty": {
-    "message": "Δεν υπάρχουν αποκλεισμένα κανάλια.",
-    "description": "Empty state label for Channel Blocklist"
-  },
-  "section_keyword_blocklist": {
-    "message": "Λίστα αποκλεισμού λέξεων-κλειδιών",
-    "description": "Section header for Keyword Blocklist"
-  },
-  "desc_keyword_blocklist": {
-    "message": "Αποκρύψτε βίντεο των οποίων οι τίτλοι ταιριάζουν με αποκλεισμένες λέξεις-κλειδιά.",
-    "description": "Description for Keyword Blocklist feature"
-  },
-  "blocklist_keywords_empty": {
-    "message": "Δεν υπάρχουν αποκλεισμένες λέξεις-κλειδιά.",
-    "description": "Empty state label for Keyword Blocklist"
-  },
-  "btn_add_channel": {
-    "message": "Προσθήκη καναλιού",
-    "description": "Button to add a channel to blocklist"
-  },
-  "btn_add_keyword": {
-    "message": "Προσθήκη λέξης-κλειδιού",
-    "description": "Button to add a keyword to blocklist"
-  },
-  "section_focus_lock": {
-    "message": "Κλείδωμα εστίασης",
-    "description": "Section header for Focus Lock feature"
-  },
-  "section_time_limits_title": {
-    "message": "Ενσυνείδητος χρόνος & όρια",
-    "description": "Card header title for Time and Daily limits section"
-  },
-  "section_time_limits_sub": {
-    "message": "Ήπιες υπενθυμίσεις διαλείμματος & ημερήσια όρια χρόνου οθόνης",
-    "description": "Card header subtitle for Time and Daily limits section"
-  },
-  "section_focus_lock_title": {
-    "message": "Ασπίδα κλειδώματος εστίασης",
-    "description": "Card header title for Focus Lock section"
-  },
-  "section_focus_lock_sub": {
-    "message": "Αποτρέψτε παρορμητικές αλλαγές με σκόπιμη καθυστέρηση",
-    "description": "Card header subtitle for Focus Lock section"
-  },
-  "section_scheduled_title": {
-    "message": "Προγραμματισμένες συνεδρίες εστίασης",
-    "description": "Card header title for Scheduled Blocking section"
-  },
-  "section_scheduled_sub": {
-    "message": "Αυτόματος αποκλεισμός YouTube κατά την εργασία, τη μελέτη ή τον ύπνο",
-    "description": "Card header subtitle for Scheduled Blocking section"
-  },
-  "desc_focus_lock": {
-    "message": "Απαίτηση καθυστέρησης πριν από την απενεργοποίηση των προστασιών",
-    "description": "Subheading description for Focus Lock toggle"
-  },
-  "toggle_focus_lock": {
-    "message": "Κλείδωμα εστίασης",
-    "description": "Toggle label for Focus Lock"
-  },
-  "focus_lock_cooldown_label": {
-    "message": "Καθυστέρηση αναμονής",
-    "description": "Label for Focus Lock cooldown duration selector"
-  },
-  "focus_lock_duration_5m": {
-    "message": "5 λεπτά",
-    "description": "5 minutes cooldown option"
-  },
-  "focus_lock_duration_10m": {
-    "message": "10 λεπτά",
-    "description": "10 minutes cooldown option"
-  },
-  "focus_lock_duration_30m": {
-    "message": "30 λεπτά",
-    "description": "30 minutes cooldown option"
-  },
-  "focus_lock_duration_60m": {
-    "message": "60 λεπτά",
-    "description": "60 minutes cooldown option"
-  },
-  "focus_lock_pin_modal_title": {
-    "message": "Ορισμός 4-ψήφιου PIN",
-    "description": "Title for Focus Lock PIN setup modal"
-  },
-  "focus_lock_enter_pin": {
-    "message": "Εισαγάγετε 4-ψήφιο PIN",
-    "description": "Placeholder for PIN input"
-  },
-  "focus_lock_confirm_pin": {
-    "message": "Επιβεβαιώστε το 4-ψήφιο PIN",
-    "description": "Placeholder for PIN confirmation input"
-  },
-  "focus_lock_pin_warning": {
-    "message": "Αν ξεχάσετε αυτό το PIN, ο μόνος τρόπος επαναφοράς είναι να απεγκαταστήσετε και να επανεγκαταστήσετε την επέκταση, κάτι που θα διαγράψει όλες τις ρυθμίσεις σας. Σημειώστε το σε ασφαλές μέρος.",
-    "description": "One-time setup warning for Focus Lock PIN recovery"
-  },
-  "focus_lock_btn_save_pin": {
-    "message": "Αποθήκευση PIN & Ενεργοποίηση",
-    "description": "Button to save PIN and enable Focus Lock"
-  },
-  "focus_lock_btn_cancel": {
-    "message": "Ακύρωση",
-    "description": "Cancel button for Focus Lock modal"
-  },
-  "focus_lock_verify_title": {
-    "message": "Προστασία με κλείδωμα εστίασης",
-    "description": "Title for Focus Lock verification modal"
-  },
-  "focus_lock_verify_prompt": {
-    "message": "Εισαγάγετε το 4-ψήφιο PIN σας για να ξεκινήσει η καθυστέρηση αναμονής:",
-    "description": "Prompt for Focus Lock PIN verification"
-  },
-  "focus_lock_btn_submit_pin": {
-    "message": "Έναρξη αναμονής",
-    "description": "Button to submit PIN and start cooldown"
-  },
-  "focus_lock_error_mismatch": {
-    "message": "Τα PIN δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά.",
-    "description": "Error when PIN confirmation does not match"
-  },
-  "focus_lock_error_invalid_pin": {
-    "message": "Το PIN πρέπει να αποτελείται από ακριβώς 4 ψηφία.",
-    "description": "Error when entered PIN is not 4 digits"
-  },
-  "focus_lock_error_incorrect_pin": {
-    "message": "Εσφαλμένο PIN. Δοκιμάστε ξανά.",
-    "description": "Error when entered PIN does not match stored hash"
-  },
-  "focus_lock_banner_unlocking": {
-    "message": "Ξεκλείδωμα: $SETTING$",
-    "description": "Banner message showing setting being unlocked",
-    "placeholders": {
-      "setting": {
-        "content": "$1",
-        "example": "Hide Shorts"
-      }
-    }
-  },
-  "focus_lock_banner_cooldown": {
-    "message": "Ξεκλειδώνει σε $TIME$",
-    "description": "Banner message showing remaining cooldown time",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "09:45"
-      }
-    }
-  },
-  "focus_lock_banner_cancel": {
-    "message": "Ακύρωση",
-    "description": "Cancel button on pending unlock banner"
-  },
-  "focus_lock_already_pending": {
-    "message": "Μια αντίστροφη μέτρηση ξεκλειδώματος είναι ήδη ενεργή. Ακυρώστε την πριν ξεκλειδώσετε άλλη ρύθμιση.",
-    "description": "Notice when user attempts to unlock another setting while cooldown is running"
-  },
-  "section_scheduled_blocking": {
-    "message": "Προγραμματισμένος αποκλεισμός",
-    "description": "Section header for Scheduled Blocking"
-  },
-  "desc_scheduled_blocking": {
-    "message": "Αυτόματος αποκλεισμός του YouTube κατά τις καθορισμένες ώρες",
-    "description": "Subheading description for Scheduled Blocking"
-  },
-  "toggle_scheduled_blocking": {
-    "message": "Προγραμματισμένος αποκλεισμός",
-    "description": "Toggle label for Scheduled Blocking"
-  },
-  "scheduled_blocking_add_btn": {
-    "message": "+ Προσθήκη προγράμματος",
-    "description": "Button to open schedule creation form"
-  },
-  "scheduled_blocking_no_schedules": {
-    "message": "Δεν υπάρχουν προγράμματα ακόμα. Κάντε κλικ στην Προσθήκη προγράμματος για να δημιουργήσετε ένα.",
-    "description": "Empty state when no schedules exist"
-  },
-  "schedule_form_title_add": {
-    "message": "Νέο πρόγραμμα",
-    "description": "Title when adding a new schedule"
-  },
-  "schedule_form_title_edit": {
-    "message": "Επεξεργασία προγράμματος",
-    "description": "Title when editing an existing schedule"
-  },
-  "schedule_form_label": {
-    "message": "Ετικέτα",
-    "description": "Label for schedule name input"
-  },
-  "schedule_form_label_placeholder": {
-    "message": "π.χ. Ώρες εργασίας, Χρόνος μελέτης",
-    "description": "Placeholder for schedule name"
-  },
-  "schedule_form_days": {
-    "message": "Ημέρες εβδομάδας",
-    "description": "Label for day chips in schedule form"
-  },
-  "schedule_form_start_time": {
-    "message": "Ώρα έναρξης",
-    "description": "Label for start time input"
-  },
-  "schedule_form_end_time": {
-    "message": "Ώρα λήξης",
-    "description": "Label for end time input"
-  },
-  "schedule_form_mode": {
-    "message": "Λειτουργία αποκλεισμού",
-    "description": "Label for mode selector"
-  },
-  "schedule_mode_full": {
-    "message": "Πλήρης αποκλεισμός του YouTube",
-    "description": "Option to block YouTube entirely during schedule"
-  },
-  "schedule_mode_full_desc": {
-    "message": "Αντικαθιστά το YouTube με μια κλειδωμένη οθόνη δέσμευσης",
-    "description": "Description for full block mode"
-  },
-  "schedule_mode_strict": {
-    "message": "Επιβολή όλων των προστασιών",
-    "description": "Option to force all distraction blockers on during schedule"
-  },
-  "schedule_mode_strict_desc": {
-    "message": "Επιβάλλει μέγιστο αποκλεισμό περισπασμών χωρίς να κλειδώνει πλήρως τον ιστότοπο",
-    "description": "Description for strict protections mode"
-  },
-  "schedule_btn_save": {
-    "message": "Αποθήκευση προγράμματος",
-    "description": "Button to save schedule"
-  },
-  "schedule_btn_cancel": {
-    "message": "Ακύρωση",
-    "description": "Button to cancel schedule editing"
-  },
-  "schedule_card_edit": {
-    "message": "Επεξεργασία",
-    "description": "Edit button on schedule card"
-  },
-  "schedule_card_delete": {
-    "message": "Διαγραφή",
-    "description": "Delete button on schedule card"
-  },
-  "schedule_days_all": {
-    "message": "Κάθε μέρα",
-    "description": "Summary for schedule active all 7 days"
-  },
-  "schedule_days_weekdays": {
-    "message": "Δευ-Παρ",
-    "description": "Summary for schedule active on weekdays"
-  },
-  "schedule_days_weekends": {
-    "message": "Κυρ, Σαβ",
-    "description": "Summary for schedule active on weekends"
-  },
-  "day_sun": {
-    "message": "Κυρ",
-    "description": "Sunday abbreviation"
-  },
-  "day_mon": {
-    "message": "Δευ",
-    "description": "Monday abbreviation"
-  },
-  "day_tue": {
-    "message": "Τρί",
-    "description": "Tuesday abbreviation"
-  },
-  "day_wed": {
-    "message": "Τετ",
-    "description": "Wednesday abbreviation"
-  },
-  "day_thu": {
-    "message": "Πέμ",
-    "description": "Thursday abbreviation"
-  },
-  "day_fri": {
-    "message": "Παρ",
-    "description": "Friday abbreviation"
-  },
-  "day_sat": {
-    "message": "Σάβ",
-    "description": "Saturday abbreviation"
-  },
-  "schedule_validation_days": {
-    "message": "Παρακαλώ επιλέξτε τουλάχιστον μία ημέρα.",
-    "description": "Validation message when no days are selected"
-  },
-  "schedule_validation_label": {
-    "message": "Παρακαλώ εισαγάγετε μια ετικέτα προγράμματος.",
-    "description": "Validation message when label is empty"
-  },
-  "schedule_validation_times": {
-    "message": "Παρακαλώ καθορίστε τόσο την ώρα έναρξης όσο και τη λήξη.",
-    "description": "Validation message when times are missing"
-  },
-  "scheduled_block_title": {
-    "message": "Το YouTube δεν είναι διαθέσιμο αυτήν τη στιγμή",
-    "description": "Heading on full scheduled blocking commitment screen"
-  },
-  "scheduled_block_reopens": {
-    "message": "Ανοίγει ξανά στις $TIME$",
-    "description": "Reopen time on full scheduled blocking commitment screen",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "17:00"
-      }
-    }
-  },
-  "scheduled_block_commitment": {
-    "message": "Αυτό το πρόγραμμα επιβάλλεται από το Intentional YT για την προστασία της εστίασής σας.",
-    "description": "Commitment message on full scheduled blocking screen"
-  },
-  "section_settings": {
-    "message": "Ρυθμίσεις",
-    "description": "Section header for Settings tab"
-  },
-  "setting_language": {
-    "message": "Γλώσσα",
-    "description": "Language selector label in Settings tab"
-  },
-  "setting_reset_title": {
-    "message": "Επαναφορά ρυθμίσεων",
-    "description": "Header for reset settings action"
-  },
-  "setting_reset_desc": {
-    "message": "Επαναφορά όλων των προεπιλεγμένων επιλογών και εκκαθάριση προσαρμοσμένων προγραμμάτων.",
-    "description": "Description explaining reset button"
-  },
-  "btn_reset_defaults": {
-    "message": "Επαναφορά όλων των ρυθμίσεων στις προεπιλογές",
-    "description": "Button to restore default extension settings"
-  },
-  "confirm_reset_all_settings": {
-    "message": "Είστε βέβαιοι ότι θέλετε να επαναφέρετε όλες τις ρυθμίσεις στις προεπιλογές; Αυτό θα διαγράψει όλες τις προσαρμοσμένες προτιμήσεις και τα προγράμματά σας.",
-    "description": "Confirmation prompt before resetting all settings"
-  },
-  "section_stats": {
-    "message": "Επισκόπηση δραστηριότητας",
-    "description": "Section header for Activity & Stats tab"
-  },
-  "stats_dashboard_title": {
-    "message": "Σημερινή αναπαραγωγή YouTube",
-    "description": "Header title in stats hero card"
-  },
-  "stats_unit_watchtime": {
-    "message": "συνολικός χρόνος παρακολούθησης",
-    "description": "Unit label beside watch time number"
-  },
-  "stats_callout_info": {
-    "message": "Ο χρόνος παρακολούθησης συγκεντρώνεται μόνο όταν ένα βίντεο YouTube αναπαράγεται ενεργά. Επαναφέρεται αυτόματα κάθε μεσάνυχτα. Η μόνιμη γραμμή κατάστασης παραμένει ορατή στο κάτω μέρος σε κάθε καρτέλα.",
-    "description": "Explanation text in stats callout note"
-  },
-  "stats_btn_set_limit": {
-    "message": "Διαμόρφωση ορίου",
-    "description": "Button to navigate to daily limit settings"
-  },
-  "stats_btn_reset_panel": {
-    "message": "Επαναφορά σημερινού",
-    "description": "Button in stats panel to reset today's watch time"
-  },
-  "scheduled_blocking_empty_sub": {
-    "message": "Αυτοματοποιήστε διαστήματα μελέτης χωρίς περισπασμούς ή ώρες ησυχίας.",
-    "description": "Subtitle on schedule list empty state"
-  },
-  "setting_theme": {
-    "message": "Εμφάνιση",
-    "description": "Appearance / Theme selector label in Settings tab"
-  },
-  "theme_auto": {
-    "message": "Αυτόματο (αντιστοίχιση συστήματος)",
-    "description": "Automatic system theme option"
-  },
-  "theme_dark": {
-    "message": "Σκοτεινή λειτουργία",
-    "description": "Dark theme option"
-  },
-  "theme_light": {
-    "message": "Φωτεινή λειτουργία",
-    "description": "Light theme option"
-  },
-  "setting_backup_title": {
-    "message": "Δημιουργία αντιγράφων ασφαλείας & Επαναφορά",
-    "description": "Title for import and export section in Settings"
-  },
-  "setting_backup_desc": {
-    "message": "Εξαγάγετε τις ρυθμίσεις σας σε αρχείο JSON ή εισαγάγετε ένα προηγούμενο αντίγραφο ασφαλείας.",
-    "description": "Description for import and export section in Settings"
-  },
-  "setting_rate_store": {
-    "message": "Αξιολογήστε στο Web Store",
-    "description": "Button linking to Chrome Web Store review page"
-  },
-  "setting_rate_firefox": {
-    "message": "Αξιολογήστε στο Firefox AMO",
-    "description": "Button linking to Firefox Add-ons review page"
-  },
-  "btn_export_settings": {
-    "message": "Εξαγωγή",
-    "description": "Button label to export settings JSON"
-  },
-  "btn_import_settings": {
-    "message": "Εισαγωγή",
-    "description": "Button label to import settings JSON"
-  },
-  "settings_exported": {
-    "message": "Οι ρυθμίσεις εξήχθησαν με επιτυχία",
-    "description": "Toast message after exporting settings"
-  },
-  "settings_imported": {
-    "message": "Οι ρυθμίσεις εισήχθησαν με επιτυχία",
-    "description": "Toast message after importing settings"
-  },
-  "settings_import_failed": {
-    "message": "Αποτυχία εισαγωγής ρυθμίσεων: Μη έγκυρο αρχείο JSON",
-    "description": "Toast error message when import fails"
-  },
-  "section_active_count": {
-    "message": "$COUNT$ ενεργά",
-    "description": "Number of active toggles in a collapsible section",
-    "placeholders": {
-      "count": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
-  },
-  "presets_title": {
-    "message": "Προεπιλογές",
-    "description": "Header for distraction preset modes"
-  },
-  "preset_balanced": {
-    "message": "Ισορροπημένο",
-    "description": "Preset mode label for balanced focus"
-  },
-  "preset_zen": {
-    "message": "Zen",
-    "description": "Preset mode label for zen search-only focus"
-  },
-  "preset_player": {
-    "message": "Μόνο βίντεο",
-    "description": "Preset mode label for clean video playback focus"
-  },
-  "preset_custom": {
-    "message": "Προσαρμοσμένο",
-    "description": "Preset mode label when customized"
-  },
-  "preset_desc_balanced": {
-    "message": "Ισορροπημένο · Απόκρυψη ροών και προτάσεων",
-    "description": "Description of balanced preset"
-  },
-  "preset_desc_zen": {
-    "message": "Zen · Μόνο αναζήτηση, όλες οι ροές κρυφές",
-    "description": "Description of zen preset"
-  },
-  "preset_desc_player": {
-    "message": "Μόνο βίντεο · Λιτό πρόγραμμα αναπαραγωγής, περισπασμοί κρυφοί",
-    "description": "Description of video only preset"
-  },
-  "preset_desc_custom": {
-    "message": "Προσαρμοσμένη διαμόρφωση",
-    "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Λεπτομερή στοιχεία ελέγχου",
-    "description": "Section header above the accordion list"
-  },
-  "preset_tooltip_balanced": {
-    "message": "Αποκλείει την Αρχική ροή, τα Shorts & τις προτάσεις πλαϊνής γραμμής. Αφήνει προσβάσιμα την αναζήτηση, τις συνδρομές και τα σχόλια.",
-    "description": "Tooltip description for Balanced preset"
-  },
-  "preset_tooltip_zen": {
-    "message": "Μέγιστη εστίαση. Καθαρή αναζήτηση μόνο. Ροές, σχόλια, μικρογραφίες και avatar καναλιών αποκρύπτονται.",
-    "description": "Tooltip description for Zen preset"
-  },
-  "preset_tooltip_player": {
-    "message": "Καθαρό πρόγραμμα αναπαραγωγής βίντεο. Αποκρύπτει προτάσεις, σχόλια και ακαταστασία πλαϊνής γραμμής γύρω από το βίντεο.",
-    "description": "Tooltip description for Video Only preset"
-  },
-  "preset_tooltip_custom": {
-    "message": "Προσαρμοσμένη διαμόρφωση επιλογών.",
-    "description": "Tooltip description for Custom mode"
-  },
-  "preset_applied": {
-    "message": "Μετάβαση σε λειτουργία $PRESET$",
-    "description": "Toast notification when switching preset mode",
-    "placeholders": {
-      "preset": {
-        "content": "$1",
-        "example": "Balanced"
-      }
-    }
-  },
-  "welcome_title": {
-    "message": "Καλώς ορίσατε στο Intentional YT",
-    "description": "Title on first-run welcome card"
-  },
-  "welcome_desc": {
-    "message": "Επιλέξτε μια προεπιλογή για να ξεκινήσετε ή προσαρμόστε τους διακόπτες παρακάτω.",
-    "description": "Description on first-run welcome card"
-  },
-  "welcome_dismiss_aria": {
-    "message": "Κλείσιμο banner καλωσορίσματος",
-    "description": "Aria label for welcome banner dismiss button"
-  },
-  "search_toggles_placeholder": {
-    "message": "Αναζήτηση επιλογών...",
-    "description": "Placeholder for toggle search input in Distractions tab"
-  },
-  "search_no_results": {
-    "message": "Δεν βρέθηκαν επιλογές",
-    "description": "Empty state title when search matches no toggles"
-  },
-  "search_no_results_sub": {
-    "message": "Δοκιμάστε να αναζητήσετε shorts, σχόλια ή πλαϊνή γραμμή",
-    "description": "Empty state subtitle when search matches no toggles"
-  },
-  "panel_filters_title": {
-    "message": "Φίλτρα καναλιών & λέξεων-κλειδιών",
-    "description": "Panel header title for Filters tab"
-  },
-  "panel_filters_subtitle": {
-    "message": "Αποκλείστε συγκεκριμένα κανάλια και φιλτράρετε βίντεο βάσει λέξεων-κλειδιών.",
-    "description": "Panel header subtitle for Filters tab"
-  },
-  "panel_focus_title": {
-    "message": "Εστίαση & Όρια",
-    "description": "Panel header title for Focus tab"
-  },
-  "panel_focus_subtitle": {
-    "message": "Υπενθυμίσεις, ημερήσια όρια και προγραμματισμένος αποκλεισμός.",
-    "description": "Panel header subtitle for Focus tab"
-  },
-  "panel_stats_title": {
-    "message": "Δραστηριότητα αναπαραγωγής",
-    "description": "Panel header title for Stats tab"
-  },
-  "panel_stats_subtitle": {
-    "message": "Παρακολουθήστε τον ημερήσιο χρόνο προβολής και τις συνήθειες αναπαραγωγής.",
-    "description": "Panel header subtitle for Stats tab"
-  },
-  "panel_settings_title": {
-    "message": "Προτιμήσεις",
-    "description": "Panel header title for Settings tab"
-  },
-  "panel_settings_subtitle": {
-    "message": "Θέμα, γλώσσα και αντίγραφα ασφαλείας διαμόρφωσης.",
-    "description": "Panel header subtitle for Settings tab"
-  },
-  "toggle_redirect_shorts": {
-    "message": "Ανακατεύθυνση Shorts στο κανονικό πρόγραμμα αναπαραγωγής",
-    "description": "Label for toggle to play Shorts in standard watch player"
-  },
-  "desc_redirect_shorts": {
-    "message": "Αναπαράγει τα Shorts σε τυπική προβολή παρακολούθησης με στοιχεία ελέγχου αναπαραγωγής",
-    "description": "Description for redirect shorts toggle"
-  },
-  "action_snooze": {
-    "message": "Αναβολή",
-    "description": "Button to temporarily pause protections"
-  },
-  "status_snoozed": {
-    "message": "Σε αναβολή",
-    "description": "Status badge label when protections are temporarily paused"
-  },
-  "snooze_modal_title": {
-    "message": "Παύση προστασιών",
-    "description": "Title for snooze modal"
-  },
-  "snooze_modal_desc": {
-    "message": "Οι προστασίες θα συνεχιστούν αυτόματα όταν λήξει το χρονόμετρο.",
-    "description": "Subtitle description for snooze modal"
-  },
-  "snooze_duration_15": {
-    "message": "15 λεπτά",
-    "description": "15 minute snooze option"
-  },
-  "snooze_duration_15_desc": {
-    "message": "Σύντομο διάλειμμα",
-    "description": "Description for 15 minute snooze"
-  },
-  "snooze_duration_30": {
-    "message": "30 λεπτά",
-    "description": "30 minute snooze option"
-  },
-  "snooze_duration_30_desc": {
-    "message": "Συνεδρία εργασίας",
-    "description": "Description for 30 minute snooze"
-  },
-  "snooze_duration_60": {
-    "message": "1 ώρα",
-    "description": "60 minute snooze option"
-  },
-  "snooze_duration_60_desc": {
-    "message": "Εκτεταμένη συνεδρία",
-    "description": "Description for 60 minute snooze"
-  },
-  "action_resume_now": {
-    "message": "Συνέχιση τώρα",
-    "description": "Button to immediately restore protections from snooze"
-  },
-  "snooze_banner_title": {
-    "message": "Οι προστασίες τέθηκαν σε αναβολή",
-    "description": "Title on snooze countdown banner"
-  },
-  "snooze_banner_remaining": {
-    "message": "Απομένουν $TIME$",
-    "description": "Countdown remaining on snooze banner",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "14:59"
-      }
-    }
-  },
-  "snooze_activated": {
-    "message": "Οι προστασίες τέθηκαν σε παύση για $MINUTES$ λεπτά",
-    "description": "Toast notification when snooze is turned on",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "15"
-      }
-    }
-  },
-  "snooze_resumed": {
-    "message": "Οι προστασίες συνεχίστηκαν",
-    "description": "Toast notification when snooze ends or is canceled"
-  },
-  "status_off": {
-    "message": "Ανενεργό",
-    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
-  },
-  "toggle_extension_enabled": {
-    "message": "Κύριος διακόπτης επέκτασης",
-    "description": "Label for the master extension toggle in the header"
-  },
-  "stats_reset_toast": {
-    "message": "Ο ημερήσιος χρόνος παρακολούθησης μηδενίστηκε",
-    "description": "Toast message when user resets today's watch time"
-  },
-  "filters_status_in_development": {
-    "message": "Υπό ανάπτυξη",
-    "description": "Status pill label on the content filters roadmap preview card"
-  },
-  "action_block": {
-    "message": "Αποκλεισμός",
-    "description": "Button text for 1-click in-feed channel block button"
-  },
-  "filters_quick_block_title": {
-    "message": "Κουμπί γρήγορου αποκλεισμού με 1 κλικ",
-    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
-  },
-  "filters_quick_block_desc": {
-    "message": "Εμφάνιση κουμπιού αποκλεισμού δίπλα στα ονόματα καναλιών κατά την κατάδειξη σε βίντεο",
-    "description": "Description for 1-click quick block button toggle"
-  },
-  "filters_tip_text": {
-    "message": "Τοποθετήστε τον κέρσορα πάνω από οποιοδήποτε βίντεο στο YouTube για να αποκλείσετε κανάλια με 1 κλικ!",
-    "description": "Quick tip text at the top of the Filters tab"
-  },
-  "btn_clear_all": {
-    "message": "Εκκαθάριση όλων",
-    "description": "Button to clear all items in a blocklist"
-  },
-  "toast_channel_cleared": {
-    "message": "Εκκαθαρίστηκαν όλα τα αποκλεισμένα κανάλια",
-    "description": "Toast notification when all channels are cleared"
-  },
-  "toast_keyword_cleared": {
-    "message": "Εκκαθαρίστηκαν όλες οι αποκλεισμένες λέξεις-κλειδιά",
-    "description": "Toast notification when all keywords are cleared"
-  },
-  "placeholder_channel_input": {
-    "message": "Όνομα καναλιού ή @handle...",
-    "description": "Placeholder for channel blocklist text input"
-  },
-  "blocklist_channels_empty_desc": {
-    "message": "Προσθέστε όνομα καναλιού ή @handle για να αποκρύψετε τα βίντεό του.",
-    "description": "Empty state description for Channel Blocklist"
-  },
-  "placeholder_keyword_input": {
-    "message": "π.χ. podcast, spoiler, react...",
-    "description": "Placeholder for keyword blocklist text input"
-  },
-  "blocklist_keywords_empty_desc": {
-    "message": "Προσθέστε λέξεις-κλειδιά για αυτόματη απόκρυψη σχετικών βίντεο.",
-    "description": "Empty state description for Keyword Blocklist"
-  },
-  "blocklist_privacy_note": {
-    "message": "100% Τοπικό φιλτράρισμα · Οι τίτλοι και τα κανάλια ελέγχονται τοπικά χωρίς τηλεμετρία.",
-    "description": "Privacy note at the bottom of the filters panel"
-  },
-  "toast_channel_added": {
-    "message": "Προστέθηκε το \"$NAME$\" στα αποκλεισμένα κανάλια",
-    "description": "Toast confirmation when channel is added to blocklist",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "TechLead"
-      }
-    }
-  },
-  "toast_channel_removed": {
-    "message": "Αφαιρέθηκε το \"$NAME$\" από τα αποκλεισμένα κανάλια",
-    "description": "Toast confirmation when channel is removed from blocklist",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "TechLead"
-      }
-    }
-  },
-  "toast_channel_exists": {
-    "message": "Το \"$NAME$\" υπάρχει ήδη στη λίστα αποκλεισμού",
-    "description": "Toast warning when adding duplicate channel",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "TechLead"
-      }
-    }
-  },
-  "toast_keyword_added": {
-    "message": "Προστέθηκε το \"$KEYWORD$\" στις αποκλεισμένες λέξεις-κλειδιά",
-    "description": "Toast confirmation when keyword is added to blocklist",
-    "placeholders": {
-      "keyword": {
-        "content": "$1",
-        "example": "spoiler"
-      }
-    }
-  },
-  "toast_keyword_removed": {
-    "message": "Αφαιρέθηκε το \"$KEYWORD$\" από τις αποκλεισμένες λέξεις-κλειδιά",
-    "description": "Toast confirmation when keyword is removed from blocklist",
-    "placeholders": {
-      "keyword": {
-        "content": "$1",
-        "example": "spoiler"
-      }
-    }
-  },
-  "toast_keyword_exists": {
-    "message": "Το \"$KEYWORD$\" υπάρχει ήδη στη λίστα λέξεων-κλειδιών",
-    "description": "Toast warning when adding duplicate keyword",
-    "placeholders": {
-      "keyword": {
-        "content": "$1",
-        "example": "spoiler"
-      }
-    }
-  },
-  "setting_rate_edge": {
-    "message": "Rate on Edge Add-ons",
-    "description": "Button linking to Microsoft Edge Add-ons review page"
-  }
+    "extensionName":  {
+                          "message":  "Intentional YT - Î‘Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚ Ï€ÎµÏÎ¹ÏƒÏ€Î±ÏƒÎ¼ÏŽÎ½ \u0026 Î—Î¼ÎµÏÎ®ÏƒÎ¹Î¿ ÏŒÏÎ¹Î¿ YouTube",
+                          "description":  "Official extension name in stores and browser management pages"
+                      },
+    "extensionShortName":  {
+                               "message":  "Intentional",
+                               "description":  "Short name of the extension"
+                           },
+    "extensionDescription":  {
+                                 "message":  "YouTube Ï‡Ï‰ÏÎ¯Ï‚ Ï€ÎµÏÎ¹ÏƒÏ€Î±ÏƒÎ¼Î¿ÏÏ‚ Î¼Îµ Î»ÎµÏ€Ï„Î¿Î¼ÎµÏÎ® Î­Î»ÎµÎ³Ï‡Î¿ Î³Î¹Î± ÏÎ¿Î­Ï‚, Shorts, ÏƒÏ‡ÏŒÎ»Î¹Î± ÎºÎ±Î¹ ÏŒÏÎ¹Î± Ï‡ÏÏŒÎ½Î¿Ï… Ï€ÏÎ¿Î²Î¿Î»Î®Ï‚. 100% Î¹Î´Î¹Ï‰Ï„Î¹ÎºÏŒ ÎºÎ±Î¹ Ï„Î¿Ï€Î¹ÎºÏŒ.",
+                                 "description":  "Extension description in stores and browser management pages"
+                             },
+    "popup_window_title":  {
+                               "message":  "Intentional YT - Î‘Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚ Ï€ÎµÏÎ¹ÏƒÏ€Î±ÏƒÎ¼ÏŽÎ½ \u0026 Î—Î¼ÎµÏÎ®ÏƒÎ¹Î¿ ÏŒÏÎ¹Î¿ YouTube",
+                               "description":  "Title tag of the popup document"
+                           },
+    "header_title":  {
+                         "message":  "Intentional YT",
+                         "description":  "Header brand name in the extension popup"
+                     },
+    "status_active":  {
+                          "message":  "Î•Î½ÎµÏÎ³ÏŒ",
+                          "description":  "Badge status when the extension is active"
+                      },
+    "status_paused":  {
+                          "message":  "Î£Îµ Ï€Î±ÏÏƒÎ·",
+                          "description":  "Badge status when the extension is paused"
+                      },
+    "section_feed":  {
+                         "message":  "Î¡Î¿Î®",
+                         "description":  "Feed controls section header"
+                     },
+    "toggle_block_home_feed":  {
+                                   "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Î±ÏÏ‡Î¹ÎºÎ®Ï‚ ÏÎ¿Î®Ï‚",
+                                   "description":  "Toggle label to hide YouTube home recommendations feed"
+                               },
+    "desc_block_home_feed":  {
+                                 "message":  "Î‘Ï€Î¿ÎºÏÏÏ€Ï„ÎµÎ¹ Ï„Î·Î½ Î±Î»Î³Î¿ÏÎ¹Î¸Î¼Î¹ÎºÎ® ÏÎ¿Î® Î²Î¯Î½Ï„ÎµÎ¿ ÏƒÏ„Î·Î½ Î±ÏÏ‡Î¹ÎºÎ® ÏƒÎµÎ»Î¯Î´Î± Ï„Î¿Ï… YouTube",
+                                 "description":  "Helper description for Hide home feed toggle"
+                             },
+    "toggle_limit_home_feed":  {
+                                   "message":  "Î ÎµÏÎ¹Î¿ÏÎ¹ÏƒÎ¼ÏŒÏ‚ Î±ÏÏ‡Î¹ÎºÎ®Ï‚ ÏÎ¿Î®Ï‚ (ÎºÎ±Ï„Î¬ Ï„Î¿Ï… doomscrolling)",
+                                   "description":  "Toggle label to limit videos on the home feed and stop doomscrolling"
+                               },
+    "desc_limit_home_feed":  {
+                                 "message":  "Î ÎµÏÎ¹Î¿ÏÎ¯Î¶ÎµÎ¹ Ï„Î·Î½ Î±ÏÏ‡Î¹ÎºÎ® ÏÎ¿Î® ÏƒÎµ 15 Î²Î¯Î½Ï„ÎµÎ¿ ÎºÎ±Î¹ Î±Ï€ÎµÎ½ÎµÏÎ³Î¿Ï€Î¿Î¹ÎµÎ¯ Ï„Î·Î½ Î¬Ï€ÎµÎ¹ÏÎ· ÎºÏÎ»Î¹ÏƒÎ·",
+                                 "description":  "Helper explanation for limiting home feed videos"
+                             },
+    "toggle_block_subscriptions":  {
+                                       "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· ÏƒÏ…Î½Î´ÏÎ¿Î¼ÏŽÎ½",
+                                       "description":  "Toggle label to hide YouTube subscriptions feed"
+                                   },
+    "toggle_block_recommended":  {
+                                     "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Ï€Î»Î±ÏŠÎ½Î®Ï‚ Î³ÏÎ±Î¼Î¼Î®Ï‚ Ï€ÏÎ¿Ï„Î¬ÏƒÎµÏ‰Î½",
+                                     "description":  "Toggle label to hide recommended video sidebar on watch page"
+                                 },
+    "toggle_block_shorts":  {
+                                "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Shorts",
+                                "description":  "Toggle label to hide Shorts carousels and tabs"
+                            },
+    "desc_block_shorts":  {
+                              "message":  "Î‘Ï€Î¿ÎºÏÏÏ€Ï„ÎµÎ¹ Ï„Î± Shorts Ï€Î±Î½Ï„Î¿Ï â€” Ï€Î»Î±ÏŠÎ½Î® Î³ÏÎ±Î¼Î¼Î®, ÏÎ¿Î­Ï‚, Î±Ï€Î¿Ï„ÎµÎ»Î­ÏƒÎ¼Î±Ï„Î± Î±Î½Î±Î¶Î®Ï„Î·ÏƒÎ·Ï‚ ÎºÎ±Î¹ ÎºÎ±Î½Î¬Î»Î¹Î±",
+                              "description":  "Helper explanation for hiding Shorts across YouTube"
+                          },
+    "toggle_block_explore_trending":  {
+                                          "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Î•Î¾ÎµÏÎµÏÎ½Î·ÏƒÎ·Ï‚ ÎºÎ±Î¹ Î¤Î¬ÏƒÎµÏ‰Î½",
+                                          "description":  "Toggle label to hide Explore and Trending navigation items"
+                                      },
+    "toggle_block_more_from_youtube":  {
+                                           "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Â«Î ÎµÏÎ¹ÏƒÏƒÏŒÏ„ÎµÏÎ± Î±Ï€ÏŒ Ï„Î¿ YouTubeÂ»",
+                                           "description":  "Toggle label to hide More from YouTube section in left sidebar"
+                                       },
+    "toggle_block_irrelevant_search":  {
+                                           "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Î¬ÏƒÏ‡ÎµÏ„Ï‰Î½ Ï€ÏÎ¿Ï„Î¬ÏƒÎµÏ‰Î½ Î±Î½Î±Î¶Î®Ï„Î·ÏƒÎ·Ï‚",
+                                           "description":  "Toggle label to hide People also watched, For you, and related search shelves"
+                                       },
+    "section_video":  {
+                          "message":  "Î’Î¯Î½Ï„ÎµÎ¿",
+                          "description":  "Video controls section header"
+                      },
+    "toggle_block_endscreen_videowall":  {
+                                             "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Ï€ÏÎ¿Ï„Î¬ÏƒÎµÏ‰Î½ Ï„ÎµÎ»Î¹ÎºÎ®Ï‚ Î¿Î¸ÏŒÎ½Î·Ï‚",
+                                             "description":  "Toggle label to hide grid of recommended videos at video end"
+                                         },
+    "desc_block_endscreen_videowall":  {
+                                           "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Ï€Î»Î­Î³Î¼Î±Ï„Î¿Ï‚ Ï€ÏÎ¿Ï„ÎµÎ¹Î½ÏŒÎ¼ÎµÎ½Ï‰Î½ Î²Î¯Î½Ï„ÎµÎ¿ ÎºÎ±Î¹ ÎµÏ€ÏŒÎ¼ÎµÎ½Î¿Ï… Ï„Î¿Î¯Ï‡Î¿Ï… Î²Î¯Î½Ï„ÎµÎ¿ ÏŒÏ„Î±Î½ Î¿Î»Î¿ÎºÎ»Î·ÏÏ‰Î¸ÎµÎ¯ Î· Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®",
+                                           "description":  "Description for end screen videowall toggle"
+                                       },
+    "toggle_block_endscreen_cards":  {
+                                         "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· ÎºÎ±ÏÏ„ÏŽÎ½ Ï„ÎµÎ»Î¹ÎºÎ®Ï‚ Î¿Î¸ÏŒÎ½Î·Ï‚",
+                                         "description":  "Toggle label to hide creator end screen cards and elements"
+                                     },
+    "desc_block_endscreen_cards":  {
+                                       "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· ÎºÎ±ÏÏ„ÏŽÎ½ Î²Î¯Î½Ï„ÎµÎ¿, Î»Î¯ÏƒÏ„Î±Ï‚ Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚ ÎºÎ±Î¹ ÎµÎ³Î³ÏÎ±Ï†Î®Ï‚ Ï„Î¿Ï… Î´Î·Î¼Î¹Î¿Ï…ÏÎ³Î¿Ï ÏƒÏ„Î± Ï„ÎµÎ»ÎµÏ…Ï„Î±Î¯Î± 20 Î´ÎµÏ…Ï„ÎµÏÏŒÎ»ÎµÏ€Ï„Î±",
+                                       "description":  "Description for creator end screen cards toggle"
+                                   },
+    "toggle_block_live_chat":  {
+                                   "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Î¶Ï‰Î½Ï„Î±Î½Î®Ï‚ ÏƒÏ…Î½Î¿Î¼Î¹Î»Î¯Î±Ï‚",
+                                   "description":  "Toggle label to hide live chat panel"
+                               },
+    "toggle_block_playlist":  {
+                                  "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Ï€Î¯Î½Î±ÎºÎ± Î»Î¯ÏƒÏ„Î±Ï‚ Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚",
+                                  "description":  "Toggle label to hide playlist side panel on watch page"
+                              },
+    "toggle_disable_autoplay":  {
+                                    "message":  "Î‘Ï€ÎµÎ½ÎµÏÎ³Î¿Ï€Î¿Î¯Î·ÏƒÎ· Î±Ï…Ï„ÏŒÎ¼Î±Ï„Î·Ï‚ Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚",
+                                    "description":  "Toggle label to prevent YouTube from automatically playing next video"
+                                },
+    "toggle_disable_annotations":  {
+                                       "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· ÎµÏ€Î¹ÏƒÎ·Î¼Î¬Î½ÏƒÎµÏ‰Î½ Î²Î¯Î½Ï„ÎµÎ¿",
+                                       "description":  "Toggle label to hide in-video popups and annotations"
+                                   },
+    "toggle_block_video_info":  {
+                                    "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Ï€Î»Î·ÏÎ¿Ï†Î¿ÏÎ¹ÏŽÎ½ Î²Î¯Î½Ï„ÎµÎ¿",
+                                    "description":  "Toggle label to hide video metadata panel below player"
+                                },
+    "desc_block_video_info":  {
+                                  "message":  "Î‘Ï€Î¿ÎºÏÏÏ€Ï„ÎµÎ¹ ÏŒÎ»ÎµÏ‚ Ï„Î¹Ï‚ Ï€Î»Î·ÏÎ¿Ï†Î¿ÏÎ¯ÎµÏ‚ ÎºÎ±Î¹ ÎµÎ½Î­ÏÎ³ÎµÎ¹ÎµÏ‚ ÎºÎ¬Ï„Ï‰ Î±Ï€ÏŒ Ï„Î¿ Ï€ÏÏŒÎ³ÏÎ±Î¼Î¼Î± Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚ Î²Î¯Î½Ï„ÎµÎ¿",
+                                  "description":  "Subheading description for Hide video info panel toggle"
+                              },
+    "toggle_block_video_buttons":  {
+                                       "message":  "ÎšÎ¿Ï…Î¼Ï€Î¹Î¬ ÎµÎ½ÎµÏÎ³ÎµÎ¹ÏŽÎ½",
+                                       "description":  "Nested toggle label to hide like, dislike, share, download buttons"
+                                   },
+    "desc_block_video_buttons":  {
+                                     "message":  "Î‘Ï€Î¿ÎºÏÏÏ€Ï„ÎµÎ¹ Ï„Î± ÎºÎ¿Ï…Î¼Ï€Î¹Î¬ Â«ÎœÎ¿Ï… Î±ÏÎ­ÏƒÎµÎ¹Â», Â«Î”ÎµÎ½ Î¼Î¿Ï… Î±ÏÎ­ÏƒÎµÎ¹Â», ÎºÎ¿Î¹Î½Î¿Ï€Î¿Î¯Î·ÏƒÎ·Ï‚, Î»Î®ÏˆÎ·Ï‚ ÎºÎ±Î¹ ÎºÎ»Î¹Ï€",
+                                     "description":  "Subheading description for Action buttons sub-toggle"
+                                 },
+    "toggle_block_channel_info":  {
+                                      "message":  "Î Î»Î·ÏÎ¿Ï†Î¿ÏÎ¯ÎµÏ‚ ÎºÎ±Î½Î±Î»Î¹Î¿Ï",
+                                      "description":  "Nested toggle label to hide channel subscriber count and avatar"
+                                  },
+    "desc_block_channel_info":  {
+                                    "message":  "Î‘Ï€Î¿ÎºÏÏÏ€Ï„ÎµÎ¹ Ï„Î¿ ÏŒÎ½Î¿Î¼Î± ÎºÎ±Î½Î±Î»Î¹Î¿Ï, Ï„Î¿ avatar ÎºÎ±Î¹ Ï„Î¿ ÎºÎ¿Ï…Î¼Ï€Î¯ ÎµÎ³Î³ÏÎ±Ï†Î®Ï‚",
+                                    "description":  "Subheading description for Channel info sub-toggle"
+                                },
+    "toggle_block_video_description":  {
+                                           "message":  "Î ÎµÏÎ¹Î³ÏÎ±Ï†Î®",
+                                           "description":  "Nested toggle label to hide video description box"
+                                       },
+    "desc_block_video_description":  {
+                                         "message":  "Î‘Ï€Î¿ÎºÏÏÏ€Ï„ÎµÎ¹ Ï„Î¿ ÎµÏ€ÎµÎºÏ„Î¬ÏƒÎ¹Î¼Î¿ ÎºÎµÎ¯Î¼ÎµÎ½Î¿ Ï€ÎµÏÎ¹Î³ÏÎ±Ï†Î®Ï‚ Î²Î¯Î½Ï„ÎµÎ¿ ÎºÎ±Î¹ Ï„Î¹Ï‚ Î»ÎµÏ€Ï„Î¿Î¼Î­ÏÎµÎ¹ÎµÏ‚",
+                                         "description":  "Subheading description for Description sub-toggle"
+                                     },
+    "section_social":  {
+                           "message":  "ÎšÎ¿Î¹Î½Ï‰Î½Î¹ÎºÎ¬",
+                           "description":  "Social controls section header"
+                       },
+    "toggle_block_comments":  {
+                                  "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· ÏƒÏ‡Î¿Î»Î¯Ï‰Î½",
+                                  "description":  "Toggle label to hide YouTube comments section"
+                              },
+    "toggle_block_profile_photos":  {
+                                        "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Ï†Ï‰Ï„Î¿Î³ÏÎ±Ï†Î¹ÏŽÎ½ ÏƒÏ‡Î¿Î»Î¹Î±ÏƒÏ„ÏŽÎ½",
+                                        "description":  "Toggle label to hide profile avatars of commenters"
+                                    },
+    "section_interface":  {
+                              "message":  "Î”Î¹ÎµÏ€Î±Ï†Î®",
+                              "description":  "Interface controls section header"
+                          },
+    "toggle_block_sidebar":  {
+                                 "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Î±ÏÎ¹ÏƒÏ„ÎµÏÎ®Ï‚ Ï€Î»Î±ÏŠÎ½Î®Ï‚ Î³ÏÎ±Î¼Î¼Î®Ï‚",
+                                 "description":  "Toggle label to hide YouTube left drawer/guide navigation"
+                             },
+    "toggle_block_top_header":  {
+                                    "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· ÎµÏ€Î¬Î½Ï‰ ÎºÎµÏ†Î±Î»Î¯Î´Î±Ï‚",
+                                    "description":  "Toggle label to hide YouTube top search and navigation header"
+                                },
+    "toggle_block_notification_bell":  {
+                                           "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· ÎºÎ±Î¼Ï€Î¬Î½Î±Ï‚ ÎµÎ¹Î´Î¿Ï€Î¿Î¹Î®ÏƒÎµÏ‰Î½",
+                                           "description":  "Toggle label to hide notification bell icon"
+                                       },
+    "toggle_block_merch":  {
+                               "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Ï€ÏÎ¿ÏŠÏŒÎ½Ï„Ï‰Î½ ÎºÎ±Î¹ Ï€ÏÎ¿ÏƒÏ†Î¿ÏÏŽÎ½",
+                               "description":  "Toggle label to hide merchandise shelf and product offers"
+                           },
+    "toggle_block_mix_playlists":  {
+                                       "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Î»Î¹ÏƒÏ„ÏŽÎ½ Mix",
+                                       "description":  "Toggle label to hide algorithmic YouTube mix playlists"
+                                   },
+    "section_appearance":  {
+                               "message":  "Î•Î¼Ï†Î¬Î½Î¹ÏƒÎ·",
+                               "description":  "Appearance controls section header"
+                           },
+    "toggle_hide_thumbnails":  {
+                                   "message":  "Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· Î¼Î¹ÎºÏÎ¿Î³ÏÎ±Ï†Î¹ÏŽÎ½",
+                                   "description":  "Toggle label to neutralize/blur video thumbnail images"
+                               },
+    "toggle_grayscale_mode":  {
+                                  "message":  "ÎšÎ»Î¯Î¼Î±ÎºÎ± Ï„Î¿Ï… Î³ÎºÏÎ¹",
+                                  "description":  "Toggle label for black and white desaturation mode"
+                              },
+    "section_time":  {
+                         "message":  "Î§ÏÏŒÎ½Î¿Ï‚",
+                         "description":  "Time controls section header"
+                     },
+    "toggle_soft_reminder":  {
+                                 "message":  "Î‰Ï€Î¹Î± Ï…Ï€ÎµÎ½Î¸ÏÎ¼Î¹ÏƒÎ· Î´Î¹Î±Î»ÎµÎ¯Î¼Î¼Î±Ï„Î¿Ï‚",
+                                 "description":  "Toggle label for mindful interval toast notification"
+                             },
+    "time_hint_every":  {
+                            "message":  "ÎšÎ¬Î¸Îµ",
+                            "description":  "Prefix label before interval dropdown"
+                        },
+    "time_option_minutes":  {
+                                "message":  "$MINUTES$ Î»ÎµÏ€Ï„Î¬",
+                                "description":  "Preset time in minutes",
+                                "placeholders":  {
+                                                     "minutes":  {
+                                                                     "content":  "$1",
+                                                                     "example":  "15"
+                                                                 }
+                                                 }
+                            },
+    "time_option_custom":  {
+                               "message":  "Î ÏÎ¿ÏƒÎ±ÏÎ¼Î¿Î³Î®...",
+                               "description":  "Option in dropdown to enter a custom duration"
+                           },
+    "time_placeholder_min":  {
+                                 "message":  "Î»ÎµÏ€Ï„Î¬",
+                                 "description":  "Placeholder text inside custom minutes input field"
+                             },
+    "time_unit_min":  {
+                          "message":  "Î»ÎµÏ€Ï„Î¬",
+                          "description":  "Unit label beside custom minutes input"
+                      },
+    "toggle_daily_limit":  {
+                               "message":  "Î—Î¼ÎµÏÎ®ÏƒÎ¹Î¿ ÏŒÏÎ¹Î¿",
+                               "description":  "Toggle label for daily total playback time limit"
+                           },
+    "desc_daily_limit":  {
+                             "message":  "Î Î±ÏÏƒÎ· Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚ Î²Î¯Î½Ï„ÎµÎ¿ ÏŒÏ„Î±Î½ ÏƒÏ…Î¼Ï€Î»Î·ÏÏ‰Î¸ÎµÎ¯ Ï„Î¿ Î·Î¼ÎµÏÎ®ÏƒÎ¹Î¿ ÏŒÏÎ¹Î¿ Ï€Î±ÏÎ±ÎºÎ¿Î»Î¿ÏÎ¸Î·ÏƒÎ·Ï‚",
+                             "description":  "Subheading description for Daily Limit toggle"
+                         },
+    "time_hint_stop_after":  {
+                                 "message":  "Î”Î¹Î±ÎºÎ¿Ï€Î® Î¼ÎµÏ„Î¬ Î±Ï€ÏŒ",
+                                 "description":  "Prefix label before daily limit duration dropdown"
+                             },
+    "blocklist_stub_alert":  {
+                                 "message":  "Î¤Î¿ Ï†Î¹Î»Ï„ÏÎ¬ÏÎ¹ÏƒÎ¼Î± ÎºÎ±Î½Î±Î»Î¹ÏŽÎ½ \u0026 Î»Î­Î¾ÎµÏ‰Î½-ÎºÎ»ÎµÎ¹Î´Î¹ÏŽÎ½ Î­ÏÏ‡ÎµÏ„Î±Î¹ ÏƒÏ„Î·Î½ ÎµÏ€ÏŒÎ¼ÎµÎ½Î· Î­ÎºÎ´Î¿ÏƒÎ·. ÎŸÎ¹ ÎºÏÏÎ¹Î¿Î¹ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î¿Î¯ ÏÎ¿ÏŽÎ½ ÎµÎ¯Î½Î±Î¹ ÎµÎ½ÎµÏÎ³Î¿Î¯!",
+                                 "description":  "Alert displayed when clicking stub add buttons in Blocklists tab"
+                             },
+    "stats_watch_time_below":  {
+                                   "message":  "ÎŸ Î·Î¼ÎµÏÎ®ÏƒÎ¹Î¿Ï‚ Ï‡ÏÏŒÎ½Î¿Ï‚ Ï€Î±ÏÎ±ÎºÎ¿Î»Î¿ÏÎ¸Î·ÏƒÎ·Ï‚ ÎµÎ¼Ï†Î±Î½Î¯Î¶ÎµÏ„Î±Î¹ Ï€Î±ÏÎ±ÎºÎ¬Ï„Ï‰, Ï€Î¬Î½Ï„Î±.",
+                                   "description":  "Hint text shown in the Stats tab when stats moved to persistent watch bar"
+                               },
+    "stats_title_today":  {
+                              "message":  "Î£Î®Î¼ÎµÏÎ±",
+                              "description":  "Heading for daily watch stats card"
+                          },
+    "aria_about_daily_watchtime":  {
+                                       "message":  "Î£Ï‡ÎµÏ„Î¹ÎºÎ¬ Î¼Îµ Ï„Î¿Î½ Î·Î¼ÎµÏÎ®ÏƒÎ¹Î¿ Ï‡ÏÏŒÎ½Î¿ Ï€ÏÎ¿Î²Î¿Î»Î®Ï‚",
+                                       "description":  "Accessibility label for daily watchtime info icon"
+                                   },
+    "stats_tooltip_info":  {
+                               "message":  "ÎšÎ±Ï„Î±Î³ÏÎ¬Ï†ÎµÎ¹ Ï„Î± Î»ÎµÏ€Ï„Î¬ Ï€Î±ÏÎ±ÎºÎ¿Î»Î¿ÏÎ¸Î·ÏƒÎ·Ï‚ ÏƒÏ„Î¿ YouTube ÏƒÎ®Î¼ÎµÏÎ±. Î•Ï€Î±Î½Î±Ï†Î­ÏÎµÏ„Î±Î¹ Î±Ï…Ï„ÏŒÎ¼Î±Ï„Î± Ï„Î± Î¼ÎµÏƒÎ¬Î½Ï…Ï‡Ï„Î±. Î•Î½ÎµÏÎ³Î¿Ï€Î¿Î¹Î®ÏƒÏ„Îµ Ï„Î¿ Î·Î¼ÎµÏÎ®ÏƒÎ¹Î¿ ÏŒÏÎ¹Î¿ Î³Î¹Î± Î½Î± ÎµÎ»Î­Î³Î¾ÎµÏ„Îµ Ï„Î¿Î½ Ï‡ÏÏŒÎ½Î¿ ÏƒÎ±Ï‚.",
+                               "description":  "Tooltip text explaining watchtime tracking"
+                           },
+    "stats_no_limit":  {
+                           "message":  "Ï‡Ï‰ÏÎ¯Ï‚ ÏŒÏÎ¹Î¿",
+                           "description":  "Stats subtitle when daily watch limit is disabled"
+                       },
+    "stats_limit_progress":  {
+                                 "message":  "$PERCENT$% Î±Ï€ÏŒ $MINUTES$Î»",
+                                 "description":  "Stats progress indicator showing percentage of daily limit",
+                                 "placeholders":  {
+                                                      "percent":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "50"
+                                                                  },
+                                                      "minutes":  {
+                                                                      "content":  "$2",
+                                                                      "example":  "60"
+                                                                  }
+                                                  }
+                             },
+    "stats_button_reset":  {
+                               "message":  "ÎµÏ€Î±Î½Î±Ï†Î¿ÏÎ¬",
+                               "description":  "Button to reset today\u0027s accumulated watch time"
+                           },
+    "time_fmt_zero_min":  {
+                              "message":  "0 Î»ÎµÏ€Ï„Î¬",
+                              "description":  "Formatted time for 0 minutes"
+                          },
+    "time_fmt_seconds":  {
+                             "message":  "$SECONDS$Î´",
+                             "description":  "Formatted time in seconds",
+                             "placeholders":  {
+                                                  "seconds":  {
+                                                                  "content":  "$1",
+                                                                  "example":  "42"
+                                                              }
+                                              }
+                         },
+    "time_fmt_minutes":  {
+                             "message":  "$MINUTES$ Î»ÎµÏ€Ï„Î¬",
+                             "description":  "Formatted time in minutes",
+                             "placeholders":  {
+                                                  "minutes":  {
+                                                                  "content":  "$1",
+                                                                  "example":  "25"
+                                                              }
+                                              }
+                         },
+    "time_fmt_hours_minutes":  {
+                                   "message":  "$HOURS$ÏŽ $MINUTES$Î»",
+                                   "description":  "Formatted time in hours and minutes",
+                                   "placeholders":  {
+                                                        "hours":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "1"
+                                                                  },
+                                                        "minutes":  {
+                                                                        "content":  "$2",
+                                                                        "example":  "15"
+                                                                    }
+                                                    }
+                               },
+    "footer_local_privacy":  {
+                                 "message":  "100% Î¤Î¿Ï€Î¹ÎºÏŒ",
+                                 "description":  "Footer badge indicating offline-first local storage"
+                             },
+    "footer_feedback_link":  {
+                                 "message":  "Î£Ï‡ÏŒÎ»Î¹Î± \u0026 Î¹Î´Î­ÎµÏ‚ â†—",
+                                 "description":  "Footer link text to submit feedback form"
+                             },
+    "toast_reminder_message":  {
+                                   "message":  "Î Î±ÏÎ±ÎºÎ¿Î»Î¿Ï…Î¸ÎµÎ¯Ï„Îµ Î²Î¯Î½Ï„ÎµÎ¿ ÎµÎ´ÏŽ ÎºÎ±Î¹ $MINUTES$ Î»ÎµÏ€Ï„Î¬.",
+                                   "description":  "Toast notification message when mindful interval triggers (plural)",
+                                   "placeholders":  {
+                                                        "minutes":  {
+                                                                        "content":  "$1",
+                                                                        "example":  "30"
+                                                                    }
+                                                    }
+                               },
+    "toast_reminder_message_singular":  {
+                                            "message":  "Î Î±ÏÎ±ÎºÎ¿Î»Î¿Ï…Î¸ÎµÎ¯Ï„Îµ Î²Î¯Î½Ï„ÎµÎ¿ ÎµÎ´ÏŽ ÎºÎ±Î¹ 1 Î»ÎµÏ€Ï„ÏŒ.",
+                                            "description":  "Toast notification message when mindful interval triggers (singular)"
+                                        },
+    "toast_dismiss_aria":  {
+                               "message":  "ÎšÎ»ÎµÎ¯ÏƒÎ¹Î¼Î¿",
+                               "description":  "Accessibility aria-label for closing toast notification"
+                           },
+    "toast_reminder_badge":  {
+                                 "message":  "Î‰Ï€Î¹Î± Ï…Ï€ÎµÎ½Î¸ÏÎ¼Î¹ÏƒÎ·",
+                                 "description":  "Top badge in soft reminder notification card"
+                             },
+    "toast_button_pause":  {
+                               "message":  "Î Î±ÏÏƒÎ· Î²Î¯Î½Ï„ÎµÎ¿",
+                               "description":  "Button to immediately pause playback from reminder toast"
+                           },
+    "toast_button_continue":  {
+                                  "message":  "Î£Ï…Î½Î­Ï‡ÎµÎ¹Î± Ï€ÏÎ¿Î²Î¿Î»Î®Ï‚",
+                                  "description":  "Button to dismiss reminder toast and continue playback"
+                              },
+    "toast_status_paused":  {
+                                "message":  "Î£Îµ Ï€Î±ÏÏƒÎ· âœ“",
+                                "description":  "Status text shown when video has been paused via toast"
+                            },
+    "desc_soft_reminder":  {
+                               "message":  "Î‰ÏÎµÎ¼Î· ÎµÎ¹Î´Î¿Ï€Î¿Î¯Î·ÏƒÎ· ÏƒÏ„Î·Î½ Î¿Î¸ÏŒÎ½Î· ÏƒÎµ Ï„Î±ÎºÏ„Î¬ Î´Î¹Î±ÏƒÏ„Î®Î¼Î±Ï„Î± Î³Î¹Î± Î½Î± Î³Î½Ï‰ÏÎ¯Î¶ÎµÏ„Îµ Ï„Î¿Î½ Ï‡ÏÏŒÎ½Î¿ ÏƒÎ±Ï‚ Ï‡Ï‰ÏÎ¯Ï‚ Î½Î± ÏƒÎ±Ï‚ Î±Ï€Î¿ÎºÎ»ÎµÎ¯ÎµÎ¹.",
+                               "description":  "Description under Soft reminder toggle in Focus tab"
+                           },
+    "btn_preview_reminder":  {
+                                 "message":  "Î ÏÎ¿ÎµÏ€Î¹ÏƒÎºÏŒÏ€Î·ÏƒÎ·",
+                                 "description":  "Button to test and trigger soft reminder toast on active tab"
+                             },
+    "btn_preview_sent":  {
+                             "message":  "Î•ÏƒÏ„Î¬Î»Î·!",
+                             "description":  "Button text confirmation after preview toast is sent"
+                         },
+    "toast_preview_need_yt":  {
+                                  "message":  "Î‘Î½Î¿Î¯Î¾Ï„Îµ Î¼Î¹Î± ÎºÎ±ÏÏ„Î­Î»Î± YouTube Î³Î¹Î± Ï€ÏÎ¿ÎµÏ€Î¹ÏƒÎºÏŒÏ€Î·ÏƒÎ· Ï„Î·Ï‚ ÎµÎ¹Î´Î¿Ï€Î¿Î¯Î·ÏƒÎ·Ï‚ Ï…Ï€ÎµÎ½Î¸ÏÎ¼Î¹ÏƒÎ·Ï‚",
+                                  "description":  "Notice when attempting to preview toast without YouTube active"
+                              },
+    "overlay_limit_title":  {
+                                "message":  "Î£Ï…Î¼Ï€Î»Î·ÏÏŽÎ¸Î·ÎºÎµ Ï„Î¿ Î·Î¼ÎµÏÎ®ÏƒÎ¹Î¿ ÏŒÏÎ¹Î¿",
+                                "description":  "Title on full-player limit overlay modal"
+                            },
+    "overlay_limit_message":  {
+                                  "message":  "Î¦Ï„Î¬ÏƒÎ±Ï„Îµ ÏƒÏ„Î¿ Î·Î¼ÎµÏÎ®ÏƒÎ¹Î¿ ÏŒÏÎ¹Î¿ Ï€Î±ÏÎ±ÎºÎ¿Î»Î¿ÏÎ¸Î·ÏƒÎ·Ï‚ YouTube Ï„Ï‰Î½ $LIMIT$ Î»ÎµÏ€Ï„ÏŽÎ½ Î³Î¹Î± ÏƒÎ®Î¼ÎµÏÎ±.",
+                                  "description":  "Explanation message on limit overlay modal",
+                                  "placeholders":  {
+                                                       "limit":  {
+                                                                     "content":  "$1",
+                                                                     "example":  "60"
+                                                                 }
+                                                   }
+                              },
+    "overlay_button_finish_video":  {
+                                        "message":  "ÎŸÎ»Î¿ÎºÎ»Î®ÏÏ‰ÏƒÎ· Î±Ï…Ï„Î¿Ï Ï„Î¿Ï… Î²Î¯Î½Ï„ÎµÎ¿",
+                                        "description":  "Button label to allow completing current video before blocking"
+                                    },
+    "overlay_button_finish_video_remaining":  {
+                                                  "message":  "ÎŸÎ»Î¿ÎºÎ»Î®ÏÏ‰ÏƒÎ· Î±Ï…Ï„Î¿Ï Ï„Î¿Ï… Î²Î¯Î½Ï„ÎµÎ¿ (Î±Ï€Î¿Î¼Î­Î½Î¿Ï…Î½ $MINUTES$Î»)",
+                                                  "description":  "Button label with remaining duration to allow completing current video",
+                                                  "placeholders":  {
+                                                                       "minutes":  {
+                                                                                       "content":  "$1",
+                                                                                       "example":  "4"
+                                                                                   }
+                                                                   }
+                                              },
+    "overlay_button_stop_watching":  {
+                                         "message":  "Î”Î¹Î±ÎºÎ¿Ï€Î® Ï€ÏÎ¿Î²Î¿Î»Î®Ï‚ (Î‘ÏÏ‡Î¹ÎºÎ®)",
+                                         "description":  "Primary action button to leave video and return to homepage"
+                                     },
+    "overlay_button_dismiss_today":  {
+                                         "message":  "Î Î±ÏÎ¬Î²Î»ÎµÏˆÎ· Î³Î¹Î± ÏƒÎ®Î¼ÎµÏÎ±",
+                                         "description":  "Secondary action button to override limit for remainder of today"
+                                     },
+    "tab_block":  {
+                      "message":  "Î‘Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚",
+                      "description":  "Label for the Block tab in popup navigation"
+                  },
+    "tab_blocklists":  {
+                           "message":  "Î¦Î¯Î»Ï„ÏÎ±",
+                           "description":  "Label for the Filters (blocklists) tab in popup navigation"
+                       },
+    "tab_focus":  {
+                      "message":  "Î•ÏƒÏ„Î¯Î±ÏƒÎ·",
+                      "description":  "Label for the Focus tab in popup navigation"
+                  },
+    "tab_stats":  {
+                      "message":  "Î£Ï„Î±Ï„Î¹ÏƒÏ„Î¹ÎºÎ¬",
+                      "description":  "Label for the Stats tab in popup navigation"
+                  },
+    "tab_settings":  {
+                         "message":  "Î¡Ï…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚",
+                         "description":  "Label for the Settings tab in popup navigation"
+                     },
+    "action_collapse_all":  {
+                                "message":  "Î£ÏÎ¼Ï€Ï„Ï…Î¾Î· ÏŒÎ»Ï‰Î½",
+                                "description":  "Button to collapse all detailed control accordion sections"
+                            },
+    "action_expand_all":  {
+                              "message":  "Î‘Î½Î¬Ï€Ï„Ï…Î¾Î· ÏŒÎ»Ï‰Î½",
+                              "description":  "Button to expand all detailed control accordion sections"
+                          },
+    "section_channel_blocklist":  {
+                                      "message":  "Î›Î¯ÏƒÏ„Î± Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î¿Ï ÎºÎ±Î½Î±Î»Î¹ÏŽÎ½",
+                                      "description":  "Section header for Channel Blocklist"
+                                  },
+    "desc_channel_blocklist":  {
+                                   "message":  "Î‘Ï€Î¿ÎºÎ»ÎµÎ¯ÏƒÏ„Îµ ÏƒÏ…Î³ÎºÎµÎºÏÎ¹Î¼Î­Î½Î± ÎºÎ±Î½Î¬Î»Î¹Î± Î±Ï€ÏŒ Ï„Î¹Ï‚ ÏÎ¿Î­Ï‚ ÎºÎ±Î¹ Ï„Î¹Ï‚ Ï€ÏÎ¿Ï„Î¬ÏƒÎµÎ¹Ï‚.",
+                                   "description":  "Description for Channel Blocklist feature"
+                               },
+    "blocklist_channels_empty":  {
+                                     "message":  "Î”ÎµÎ½ Ï…Ï€Î¬ÏÏ‡Î¿Ï…Î½ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î­Î½Î± ÎºÎ±Î½Î¬Î»Î¹Î±.",
+                                     "description":  "Empty state label for Channel Blocklist"
+                                 },
+    "section_keyword_blocklist":  {
+                                      "message":  "Î›Î¯ÏƒÏ„Î± Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î¿Ï Î»Î­Î¾ÎµÏ‰Î½-ÎºÎ»ÎµÎ¹Î´Î¹ÏŽÎ½",
+                                      "description":  "Section header for Keyword Blocklist"
+                                  },
+    "desc_keyword_blocklist":  {
+                                   "message":  "Î‘Ï€Î¿ÎºÏÏÏˆÏ„Îµ Î²Î¯Î½Ï„ÎµÎ¿ Ï„Ï‰Î½ Î¿Ï€Î¿Î¯Ï‰Î½ Î¿Î¹ Ï„Î¯Ï„Î»Î¿Î¹ Ï„Î±Î¹ÏÎ¹Î¬Î¶Î¿Ï…Î½ Î¼Îµ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î­Î½ÎµÏ‚ Î»Î­Î¾ÎµÎ¹Ï‚-ÎºÎ»ÎµÎ¹Î´Î¹Î¬.",
+                                   "description":  "Description for Keyword Blocklist feature"
+                               },
+    "blocklist_keywords_empty":  {
+                                     "message":  "Î”ÎµÎ½ Ï…Ï€Î¬ÏÏ‡Î¿Ï…Î½ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î­Î½ÎµÏ‚ Î»Î­Î¾ÎµÎ¹Ï‚-ÎºÎ»ÎµÎ¹Î´Î¹Î¬.",
+                                     "description":  "Empty state label for Keyword Blocklist"
+                                 },
+    "btn_add_channel":  {
+                            "message":  "Î ÏÎ¿ÏƒÎ¸Î®ÎºÎ· ÎºÎ±Î½Î±Î»Î¹Î¿Ï",
+                            "description":  "Button to add a channel to blocklist"
+                        },
+    "btn_add_keyword":  {
+                            "message":  "Î ÏÎ¿ÏƒÎ¸Î®ÎºÎ· Î»Î­Î¾Î·Ï‚-ÎºÎ»ÎµÎ¹Î´Î¹Î¿Ï",
+                            "description":  "Button to add a keyword to blocklist"
+                        },
+    "section_focus_lock":  {
+                               "message":  "ÎšÎ»ÎµÎ¯Î´Ï‰Î¼Î± ÎµÏƒÏ„Î¯Î±ÏƒÎ·Ï‚",
+                               "description":  "Section header for Focus Lock feature"
+                           },
+    "section_time_limits_title":  {
+                                      "message":  "Î•Î½ÏƒÏ…Î½ÎµÎ¯Î´Î·Ï„Î¿Ï‚ Ï‡ÏÏŒÎ½Î¿Ï‚ \u0026 ÏŒÏÎ¹Î±",
+                                      "description":  "Card header title for Time and Daily limits section"
+                                  },
+    "section_time_limits_sub":  {
+                                    "message":  "Î‰Ï€Î¹ÎµÏ‚ Ï…Ï€ÎµÎ½Î¸Ï…Î¼Î¯ÏƒÎµÎ¹Ï‚ Î´Î¹Î±Î»ÎµÎ¯Î¼Î¼Î±Ï„Î¿Ï‚ \u0026 Î·Î¼ÎµÏÎ®ÏƒÎ¹Î± ÏŒÏÎ¹Î± Ï‡ÏÏŒÎ½Î¿Ï… Î¿Î¸ÏŒÎ½Î·Ï‚",
+                                    "description":  "Card header subtitle for Time and Daily limits section"
+                                },
+    "section_focus_lock_title":  {
+                                     "message":  "Î‘ÏƒÏ€Î¯Î´Î± ÎºÎ»ÎµÎ¹Î´ÏŽÎ¼Î±Ï„Î¿Ï‚ ÎµÏƒÏ„Î¯Î±ÏƒÎ·Ï‚",
+                                     "description":  "Card header title for Focus Lock section"
+                                 },
+    "section_focus_lock_sub":  {
+                                   "message":  "Î‘Ï€Î¿Ï„ÏÎ­ÏˆÏ„Îµ Ï€Î±ÏÎ¿ÏÎ¼Î·Ï„Î¹ÎºÎ­Ï‚ Î±Î»Î»Î±Î³Î­Ï‚ Î¼Îµ ÏƒÎºÏŒÏ€Î¹Î¼Î· ÎºÎ±Î¸Ï…ÏƒÏ„Î­ÏÎ·ÏƒÎ·",
+                                   "description":  "Card header subtitle for Focus Lock section"
+                               },
+    "section_scheduled_title":  {
+                                    "message":  "Î ÏÎ¿Î³ÏÎ±Î¼Î¼Î±Ï„Î¹ÏƒÎ¼Î­Î½ÎµÏ‚ ÏƒÏ…Î½ÎµÎ´ÏÎ¯ÎµÏ‚ ÎµÏƒÏ„Î¯Î±ÏƒÎ·Ï‚",
+                                    "description":  "Card header title for Scheduled Blocking section"
+                                },
+    "section_scheduled_sub":  {
+                                  "message":  "Î‘Ï…Ï„ÏŒÎ¼Î±Ï„Î¿Ï‚ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚ YouTube ÎºÎ±Ï„Î¬ Ï„Î·Î½ ÎµÏÎ³Î±ÏƒÎ¯Î±, Ï„Î· Î¼ÎµÎ»Î­Ï„Î· Î® Ï„Î¿Î½ ÏÏ€Î½Î¿",
+                                  "description":  "Card header subtitle for Scheduled Blocking section"
+                              },
+    "desc_focus_lock":  {
+                            "message":  "Î‘Ï€Î±Î¯Ï„Î·ÏƒÎ· ÎºÎ±Î¸Ï…ÏƒÏ„Î­ÏÎ·ÏƒÎ·Ï‚ Ï€ÏÎ¹Î½ Î±Ï€ÏŒ Ï„Î·Î½ Î±Ï€ÎµÎ½ÎµÏÎ³Î¿Ï€Î¿Î¯Î·ÏƒÎ· Ï„Ï‰Î½ Ï€ÏÎ¿ÏƒÏ„Î±ÏƒÎ¹ÏŽÎ½",
+                            "description":  "Subheading description for Focus Lock toggle"
+                        },
+    "toggle_focus_lock":  {
+                              "message":  "ÎšÎ»ÎµÎ¯Î´Ï‰Î¼Î± ÎµÏƒÏ„Î¯Î±ÏƒÎ·Ï‚",
+                              "description":  "Toggle label for Focus Lock"
+                          },
+    "focus_lock_cooldown_label":  {
+                                      "message":  "ÎšÎ±Î¸Ï…ÏƒÏ„Î­ÏÎ·ÏƒÎ· Î±Î½Î±Î¼Î¿Î½Î®Ï‚",
+                                      "description":  "Label for Focus Lock cooldown duration selector"
+                                  },
+    "focus_lock_duration_5m":  {
+                                   "message":  "5 Î»ÎµÏ€Ï„Î¬",
+                                   "description":  "5 minutes cooldown option"
+                               },
+    "focus_lock_duration_10m":  {
+                                    "message":  "10 Î»ÎµÏ€Ï„Î¬",
+                                    "description":  "10 minutes cooldown option"
+                                },
+    "focus_lock_duration_30m":  {
+                                    "message":  "30 Î»ÎµÏ€Ï„Î¬",
+                                    "description":  "30 minutes cooldown option"
+                                },
+    "focus_lock_duration_60m":  {
+                                    "message":  "60 Î»ÎµÏ€Ï„Î¬",
+                                    "description":  "60 minutes cooldown option"
+                                },
+    "focus_lock_pin_modal_title":  {
+                                       "message":  "ÎŸÏÎ¹ÏƒÎ¼ÏŒÏ‚ 4-ÏˆÎ®Ï†Î¹Î¿Ï… PIN",
+                                       "description":  "Title for Focus Lock PIN setup modal"
+                                   },
+    "focus_lock_enter_pin":  {
+                                 "message":  "Î•Î¹ÏƒÎ±Î³Î¬Î³ÎµÏ„Îµ 4-ÏˆÎ®Ï†Î¹Î¿ PIN",
+                                 "description":  "Placeholder for PIN input"
+                             },
+    "focus_lock_confirm_pin":  {
+                                   "message":  "Î•Ï€Î¹Î²ÎµÎ²Î±Î¹ÏŽÏƒÏ„Îµ Ï„Î¿ 4-ÏˆÎ®Ï†Î¹Î¿ PIN",
+                                   "description":  "Placeholder for PIN confirmation input"
+                               },
+    "focus_lock_pin_warning":  {
+                                   "message":  "Î‘Î½ Î¾ÎµÏ‡Î¬ÏƒÎµÏ„Îµ Î±Ï…Ï„ÏŒ Ï„Î¿ PIN, Î¿ Î¼ÏŒÎ½Î¿Ï‚ Ï„ÏÏŒÏ€Î¿Ï‚ ÎµÏ€Î±Î½Î±Ï†Î¿ÏÎ¬Ï‚ ÎµÎ¯Î½Î±Î¹ Î½Î± Î±Ï€ÎµÎ³ÎºÎ±Ï„Î±ÏƒÏ„Î®ÏƒÎµÏ„Îµ ÎºÎ±Î¹ Î½Î± ÎµÏ€Î±Î½ÎµÎ³ÎºÎ±Ï„Î±ÏƒÏ„Î®ÏƒÎµÏ„Îµ Ï„Î·Î½ ÎµÏ€Î­ÎºÏ„Î±ÏƒÎ·, ÎºÎ¬Ï„Î¹ Ï€Î¿Ï… Î¸Î± Î´Î¹Î±Î³ÏÎ¬ÏˆÎµÎ¹ ÏŒÎ»ÎµÏ‚ Ï„Î¹Ï‚ ÏÏ…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚ ÏƒÎ±Ï‚. Î£Î·Î¼ÎµÎ¹ÏŽÏƒÏ„Îµ Ï„Î¿ ÏƒÎµ Î±ÏƒÏ†Î±Î»Î­Ï‚ Î¼Î­ÏÎ¿Ï‚.",
+                                   "description":  "One-time setup warning for Focus Lock PIN recovery"
+                               },
+    "focus_lock_btn_save_pin":  {
+                                    "message":  "Î‘Ï€Î¿Î¸Î®ÎºÎµÏ…ÏƒÎ· PIN \u0026 Î•Î½ÎµÏÎ³Î¿Ï€Î¿Î¯Î·ÏƒÎ·",
+                                    "description":  "Button to save PIN and enable Focus Lock"
+                                },
+    "focus_lock_btn_cancel":  {
+                                  "message":  "Î‘ÎºÏÏÏ‰ÏƒÎ·",
+                                  "description":  "Cancel button for Focus Lock modal"
+                              },
+    "focus_lock_verify_title":  {
+                                    "message":  "Î ÏÎ¿ÏƒÏ„Î±ÏƒÎ¯Î± Î¼Îµ ÎºÎ»ÎµÎ¯Î´Ï‰Î¼Î± ÎµÏƒÏ„Î¯Î±ÏƒÎ·Ï‚",
+                                    "description":  "Title for Focus Lock verification modal"
+                                },
+    "focus_lock_verify_prompt":  {
+                                     "message":  "Î•Î¹ÏƒÎ±Î³Î¬Î³ÎµÏ„Îµ Ï„Î¿ 4-ÏˆÎ®Ï†Î¹Î¿ PIN ÏƒÎ±Ï‚ Î³Î¹Î± Î½Î± Î¾ÎµÎºÎ¹Î½Î®ÏƒÎµÎ¹ Î· ÎºÎ±Î¸Ï…ÏƒÏ„Î­ÏÎ·ÏƒÎ· Î±Î½Î±Î¼Î¿Î½Î®Ï‚:",
+                                     "description":  "Prompt for Focus Lock PIN verification"
+                                 },
+    "focus_lock_btn_submit_pin":  {
+                                      "message":  "ÎˆÎ½Î±ÏÎ¾Î· Î±Î½Î±Î¼Î¿Î½Î®Ï‚",
+                                      "description":  "Button to submit PIN and start cooldown"
+                                  },
+    "focus_lock_error_mismatch":  {
+                                      "message":  "Î¤Î± PIN Î´ÎµÎ½ Ï„Î±Î¹ÏÎ¹Î¬Î¶Î¿Ï…Î½. Î Î±ÏÎ±ÎºÎ±Î»ÏŽ Î´Î¿ÎºÎ¹Î¼Î¬ÏƒÏ„Îµ Î¾Î±Î½Î¬.",
+                                      "description":  "Error when PIN confirmation does not match"
+                                  },
+    "focus_lock_error_invalid_pin":  {
+                                         "message":  "Î¤Î¿ PIN Ï€ÏÎ­Ï€ÎµÎ¹ Î½Î± Î±Ï€Î¿Ï„ÎµÎ»ÎµÎ¯Ï„Î±Î¹ Î±Ï€ÏŒ Î±ÎºÏÎ¹Î²ÏŽÏ‚ 4 ÏˆÎ·Ï†Î¯Î±.",
+                                         "description":  "Error when entered PIN is not 4 digits"
+                                     },
+    "focus_lock_error_incorrect_pin":  {
+                                           "message":  "Î•ÏƒÏ†Î±Î»Î¼Î­Î½Î¿ PIN. Î”Î¿ÎºÎ¹Î¼Î¬ÏƒÏ„Îµ Î¾Î±Î½Î¬.",
+                                           "description":  "Error when entered PIN does not match stored hash"
+                                       },
+    "focus_lock_banner_unlocking":  {
+                                        "message":  "ÎžÎµÎºÎ»ÎµÎ¯Î´Ï‰Î¼Î±: $SETTING$",
+                                        "description":  "Banner message showing setting being unlocked",
+                                        "placeholders":  {
+                                                             "setting":  {
+                                                                             "content":  "$1",
+                                                                             "example":  "Hide Shorts"
+                                                                         }
+                                                         }
+                                    },
+    "focus_lock_banner_cooldown":  {
+                                       "message":  "ÎžÎµÎºÎ»ÎµÎ¹Î´ÏŽÎ½ÎµÎ¹ ÏƒÎµ $TIME$",
+                                       "description":  "Banner message showing remaining cooldown time",
+                                       "placeholders":  {
+                                                            "time":  {
+                                                                         "content":  "$1",
+                                                                         "example":  "09:45"
+                                                                     }
+                                                        }
+                                   },
+    "focus_lock_banner_cancel":  {
+                                     "message":  "Î‘ÎºÏÏÏ‰ÏƒÎ·",
+                                     "description":  "Cancel button on pending unlock banner"
+                                 },
+    "focus_lock_already_pending":  {
+                                       "message":  "ÎœÎ¹Î± Î±Î½Ï„Î¯ÏƒÏ„ÏÎ¿Ï†Î· Î¼Î­Ï„ÏÎ·ÏƒÎ· Î¾ÎµÎºÎ»ÎµÎ¹Î´ÏŽÎ¼Î±Ï„Î¿Ï‚ ÎµÎ¯Î½Î±Î¹ Î®Î´Î· ÎµÎ½ÎµÏÎ³Î®. Î‘ÎºÏ…ÏÏŽÏƒÏ„Îµ Ï„Î·Î½ Ï€ÏÎ¹Î½ Î¾ÎµÎºÎ»ÎµÎ¹Î´ÏŽÏƒÎµÏ„Îµ Î¬Î»Î»Î· ÏÏÎ¸Î¼Î¹ÏƒÎ·.",
+                                       "description":  "Notice when user attempts to unlock another setting while cooldown is running"
+                                   },
+    "section_scheduled_blocking":  {
+                                       "message":  "Î ÏÎ¿Î³ÏÎ±Î¼Î¼Î±Ï„Î¹ÏƒÎ¼Î­Î½Î¿Ï‚ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚",
+                                       "description":  "Section header for Scheduled Blocking"
+                                   },
+    "desc_scheduled_blocking":  {
+                                    "message":  "Î‘Ï…Ï„ÏŒÎ¼Î±Ï„Î¿Ï‚ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚ Ï„Î¿Ï… YouTube ÎºÎ±Ï„Î¬ Ï„Î¹Ï‚ ÎºÎ±Î¸Î¿ÏÎ¹ÏƒÎ¼Î­Î½ÎµÏ‚ ÏŽÏÎµÏ‚",
+                                    "description":  "Subheading description for Scheduled Blocking"
+                                },
+    "toggle_scheduled_blocking":  {
+                                      "message":  "Î ÏÎ¿Î³ÏÎ±Î¼Î¼Î±Ï„Î¹ÏƒÎ¼Î­Î½Î¿Ï‚ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚",
+                                      "description":  "Toggle label for Scheduled Blocking"
+                                  },
+    "scheduled_blocking_add_btn":  {
+                                       "message":  "+ Î ÏÎ¿ÏƒÎ¸Î®ÎºÎ· Ï€ÏÎ¿Î³ÏÎ¬Î¼Î¼Î±Ï„Î¿Ï‚",
+                                       "description":  "Button to open schedule creation form"
+                                   },
+    "scheduled_blocking_no_schedules":  {
+                                            "message":  "Î”ÎµÎ½ Ï…Ï€Î¬ÏÏ‡Î¿Ï…Î½ Ï€ÏÎ¿Î³ÏÎ¬Î¼Î¼Î±Ï„Î± Î±ÎºÏŒÎ¼Î±. ÎšÎ¬Î½Ï„Îµ ÎºÎ»Î¹Îº ÏƒÏ„Î·Î½ Î ÏÎ¿ÏƒÎ¸Î®ÎºÎ· Ï€ÏÎ¿Î³ÏÎ¬Î¼Î¼Î±Ï„Î¿Ï‚ Î³Î¹Î± Î½Î± Î´Î·Î¼Î¹Î¿Ï…ÏÎ³Î®ÏƒÎµÏ„Îµ Î­Î½Î±.",
+                                            "description":  "Empty state when no schedules exist"
+                                        },
+    "schedule_form_title_add":  {
+                                    "message":  "ÎÎ­Î¿ Ï€ÏÏŒÎ³ÏÎ±Î¼Î¼Î±",
+                                    "description":  "Title when adding a new schedule"
+                                },
+    "schedule_form_title_edit":  {
+                                     "message":  "Î•Ï€ÎµÎ¾ÎµÏÎ³Î±ÏƒÎ¯Î± Ï€ÏÎ¿Î³ÏÎ¬Î¼Î¼Î±Ï„Î¿Ï‚",
+                                     "description":  "Title when editing an existing schedule"
+                                 },
+    "schedule_form_label":  {
+                                "message":  "Î•Ï„Î¹ÎºÎ­Ï„Î±",
+                                "description":  "Label for schedule name input"
+                            },
+    "schedule_form_label_placeholder":  {
+                                            "message":  "Ï€.Ï‡. ÎÏÎµÏ‚ ÎµÏÎ³Î±ÏƒÎ¯Î±Ï‚, Î§ÏÏŒÎ½Î¿Ï‚ Î¼ÎµÎ»Î­Ï„Î·Ï‚",
+                                            "description":  "Placeholder for schedule name"
+                                        },
+    "schedule_form_days":  {
+                               "message":  "Î—Î¼Î­ÏÎµÏ‚ ÎµÎ²Î´Î¿Î¼Î¬Î´Î±Ï‚",
+                               "description":  "Label for day chips in schedule form"
+                           },
+    "schedule_form_start_time":  {
+                                     "message":  "ÎÏÎ± Î­Î½Î±ÏÎ¾Î·Ï‚",
+                                     "description":  "Label for start time input"
+                                 },
+    "schedule_form_end_time":  {
+                                   "message":  "ÎÏÎ± Î»Î®Î¾Î·Ï‚",
+                                   "description":  "Label for end time input"
+                               },
+    "schedule_form_mode":  {
+                               "message":  "Î›ÎµÎ¹Ï„Î¿Ï…ÏÎ³Î¯Î± Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î¿Ï",
+                               "description":  "Label for mode selector"
+                           },
+    "schedule_mode_full":  {
+                               "message":  "Î Î»Î®ÏÎ·Ï‚ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚ Ï„Î¿Ï… YouTube",
+                               "description":  "Option to block YouTube entirely during schedule"
+                           },
+    "schedule_mode_full_desc":  {
+                                    "message":  "Î‘Î½Ï„Î¹ÎºÎ±Î¸Î¹ÏƒÏ„Î¬ Ï„Î¿ YouTube Î¼Îµ Î¼Î¹Î± ÎºÎ»ÎµÎ¹Î´Ï‰Î¼Î­Î½Î· Î¿Î¸ÏŒÎ½Î· Î´Î­ÏƒÎ¼ÎµÏ…ÏƒÎ·Ï‚",
+                                    "description":  "Description for full block mode"
+                                },
+    "schedule_mode_strict":  {
+                                 "message":  "Î•Ï€Î¹Î²Î¿Î»Î® ÏŒÎ»Ï‰Î½ Ï„Ï‰Î½ Ï€ÏÎ¿ÏƒÏ„Î±ÏƒÎ¹ÏŽÎ½",
+                                 "description":  "Option to force all distraction blockers on during schedule"
+                             },
+    "schedule_mode_strict_desc":  {
+                                      "message":  "Î•Ï€Î¹Î²Î¬Î»Î»ÎµÎ¹ Î¼Î­Î³Î¹ÏƒÏ„Î¿ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒ Ï€ÎµÏÎ¹ÏƒÏ€Î±ÏƒÎ¼ÏŽÎ½ Ï‡Ï‰ÏÎ¯Ï‚ Î½Î± ÎºÎ»ÎµÎ¹Î´ÏŽÎ½ÎµÎ¹ Ï€Î»Î®ÏÏ‰Ï‚ Ï„Î¿Î½ Î¹ÏƒÏ„ÏŒÏ„Î¿Ï€Î¿",
+                                      "description":  "Description for strict protections mode"
+                                  },
+    "schedule_btn_save":  {
+                              "message":  "Î‘Ï€Î¿Î¸Î®ÎºÎµÏ…ÏƒÎ· Ï€ÏÎ¿Î³ÏÎ¬Î¼Î¼Î±Ï„Î¿Ï‚",
+                              "description":  "Button to save schedule"
+                          },
+    "schedule_btn_cancel":  {
+                                "message":  "Î‘ÎºÏÏÏ‰ÏƒÎ·",
+                                "description":  "Button to cancel schedule editing"
+                            },
+    "schedule_card_edit":  {
+                               "message":  "Î•Ï€ÎµÎ¾ÎµÏÎ³Î±ÏƒÎ¯Î±",
+                               "description":  "Edit button on schedule card"
+                           },
+    "schedule_card_delete":  {
+                                 "message":  "Î”Î¹Î±Î³ÏÎ±Ï†Î®",
+                                 "description":  "Delete button on schedule card"
+                             },
+    "schedule_days_all":  {
+                              "message":  "ÎšÎ¬Î¸Îµ Î¼Î­ÏÎ±",
+                              "description":  "Summary for schedule active all 7 days"
+                          },
+    "schedule_days_weekdays":  {
+                                   "message":  "Î”ÎµÏ…-Î Î±Ï",
+                                   "description":  "Summary for schedule active on weekdays"
+                               },
+    "schedule_days_weekends":  {
+                                   "message":  "ÎšÏ…Ï, Î£Î±Î²",
+                                   "description":  "Summary for schedule active on weekends"
+                               },
+    "day_sun":  {
+                    "message":  "ÎšÏ…Ï",
+                    "description":  "Sunday abbreviation"
+                },
+    "day_mon":  {
+                    "message":  "Î”ÎµÏ…",
+                    "description":  "Monday abbreviation"
+                },
+    "day_tue":  {
+                    "message":  "Î¤ÏÎ¯",
+                    "description":  "Tuesday abbreviation"
+                },
+    "day_wed":  {
+                    "message":  "Î¤ÎµÏ„",
+                    "description":  "Wednesday abbreviation"
+                },
+    "day_thu":  {
+                    "message":  "Î Î­Î¼",
+                    "description":  "Thursday abbreviation"
+                },
+    "day_fri":  {
+                    "message":  "Î Î±Ï",
+                    "description":  "Friday abbreviation"
+                },
+    "day_sat":  {
+                    "message":  "Î£Î¬Î²",
+                    "description":  "Saturday abbreviation"
+                },
+    "schedule_validation_days":  {
+                                     "message":  "Î Î±ÏÎ±ÎºÎ±Î»ÏŽ ÎµÏ€Î¹Î»Î­Î¾Ï„Îµ Ï„Î¿Ï…Î»Î¬Ï‡Î¹ÏƒÏ„Î¿Î½ Î¼Î¯Î± Î·Î¼Î­ÏÎ±.",
+                                     "description":  "Validation message when no days are selected"
+                                 },
+    "schedule_validation_label":  {
+                                      "message":  "Î Î±ÏÎ±ÎºÎ±Î»ÏŽ ÎµÎ¹ÏƒÎ±Î³Î¬Î³ÎµÏ„Îµ Î¼Î¹Î± ÎµÏ„Î¹ÎºÎ­Ï„Î± Ï€ÏÎ¿Î³ÏÎ¬Î¼Î¼Î±Ï„Î¿Ï‚.",
+                                      "description":  "Validation message when label is empty"
+                                  },
+    "schedule_validation_times":  {
+                                      "message":  "Î Î±ÏÎ±ÎºÎ±Î»ÏŽ ÎºÎ±Î¸Î¿ÏÎ¯ÏƒÏ„Îµ Ï„ÏŒÏƒÎ¿ Ï„Î·Î½ ÏŽÏÎ± Î­Î½Î±ÏÎ¾Î·Ï‚ ÏŒÏƒÎ¿ ÎºÎ±Î¹ Ï„Î· Î»Î®Î¾Î·.",
+                                      "description":  "Validation message when times are missing"
+                                  },
+    "scheduled_block_title":  {
+                                  "message":  "Î¤Î¿ YouTube Î´ÎµÎ½ ÎµÎ¯Î½Î±Î¹ Î´Î¹Î±Î¸Î­ÏƒÎ¹Î¼Î¿ Î±Ï…Ï„Î®Î½ Ï„Î· ÏƒÏ„Î¹Î³Î¼Î®",
+                                  "description":  "Heading on full scheduled blocking commitment screen"
+                              },
+    "scheduled_block_reopens":  {
+                                    "message":  "Î‘Î½Î¿Î¯Î³ÎµÎ¹ Î¾Î±Î½Î¬ ÏƒÏ„Î¹Ï‚ $TIME$",
+                                    "description":  "Reopen time on full scheduled blocking commitment screen",
+                                    "placeholders":  {
+                                                         "time":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "17:00"
+                                                                  }
+                                                     }
+                                },
+    "scheduled_block_commitment":  {
+                                       "message":  "Î‘Ï…Ï„ÏŒ Ï„Î¿ Ï€ÏÏŒÎ³ÏÎ±Î¼Î¼Î± ÎµÏ€Î¹Î²Î¬Î»Î»ÎµÏ„Î±Î¹ Î±Ï€ÏŒ Ï„Î¿ Intentional YT Î³Î¹Î± Ï„Î·Î½ Ï€ÏÎ¿ÏƒÏ„Î±ÏƒÎ¯Î± Ï„Î·Ï‚ ÎµÏƒÏ„Î¯Î±ÏƒÎ®Ï‚ ÏƒÎ±Ï‚.",
+                                       "description":  "Commitment message on full scheduled blocking screen"
+                                   },
+    "section_settings":  {
+                             "message":  "Î¡Ï…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚",
+                             "description":  "Section header for Settings tab"
+                         },
+    "setting_language":  {
+                             "message":  "Î“Î»ÏŽÏƒÏƒÎ±",
+                             "description":  "Language selector label in Settings tab"
+                         },
+    "setting_reset_title":  {
+                                "message":  "Î•Ï€Î±Î½Î±Ï†Î¿ÏÎ¬ ÏÏ…Î¸Î¼Î¯ÏƒÎµÏ‰Î½",
+                                "description":  "Header for reset settings action"
+                            },
+    "setting_reset_desc":  {
+                               "message":  "Î•Ï€Î±Î½Î±Ï†Î¿ÏÎ¬ ÏŒÎ»Ï‰Î½ Ï„Ï‰Î½ Ï€ÏÎ¿ÎµÏ€Î¹Î»ÎµÎ³Î¼Î­Î½Ï‰Î½ ÎµÏ€Î¹Î»Î¿Î³ÏŽÎ½ ÎºÎ±Î¹ ÎµÎºÎºÎ±Î¸Î¬ÏÎ¹ÏƒÎ· Ï€ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½Ï‰Î½ Ï€ÏÎ¿Î³ÏÎ±Î¼Î¼Î¬Ï„Ï‰Î½.",
+                               "description":  "Description explaining reset button"
+                           },
+    "btn_reset_defaults":  {
+                               "message":  "Î•Ï€Î±Î½Î±Ï†Î¿ÏÎ¬ ÏŒÎ»Ï‰Î½ Ï„Ï‰Î½ ÏÏ…Î¸Î¼Î¯ÏƒÎµÏ‰Î½ ÏƒÏ„Î¹Ï‚ Ï€ÏÎ¿ÎµÏ€Î¹Î»Î¿Î³Î­Ï‚",
+                               "description":  "Button to restore default extension settings"
+                           },
+    "confirm_reset_all_settings":  {
+                                       "message":  "Î•Î¯ÏƒÏ„Îµ Î²Î­Î²Î±Î¹Î¿Î¹ ÏŒÏ„Î¹ Î¸Î­Î»ÎµÏ„Îµ Î½Î± ÎµÏ€Î±Î½Î±Ï†Î­ÏÎµÏ„Îµ ÏŒÎ»ÎµÏ‚ Ï„Î¹Ï‚ ÏÏ…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚ ÏƒÏ„Î¹Ï‚ Ï€ÏÎ¿ÎµÏ€Î¹Î»Î¿Î³Î­Ï‚; Î‘Ï…Ï„ÏŒ Î¸Î± Î´Î¹Î±Î³ÏÎ¬ÏˆÎµÎ¹ ÏŒÎ»ÎµÏ‚ Ï„Î¹Ï‚ Ï€ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½ÎµÏ‚ Ï€ÏÎ¿Ï„Î¹Î¼Î®ÏƒÎµÎ¹Ï‚ ÎºÎ±Î¹ Ï„Î± Ï€ÏÎ¿Î³ÏÎ¬Î¼Î¼Î±Ï„Î¬ ÏƒÎ±Ï‚.",
+                                       "description":  "Confirmation prompt before resetting all settings"
+                                   },
+    "section_stats":  {
+                          "message":  "Î•Ï€Î¹ÏƒÎºÏŒÏ€Î·ÏƒÎ· Î´ÏÎ±ÏƒÏ„Î·ÏÎ¹ÏŒÏ„Î·Ï„Î±Ï‚",
+                          "description":  "Section header for Activity \u0026 Stats tab"
+                      },
+    "stats_dashboard_title":  {
+                                  "message":  "Î£Î·Î¼ÎµÏÎ¹Î½Î® Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î® YouTube",
+                                  "description":  "Header title in stats hero card"
+                              },
+    "stats_unit_watchtime":  {
+                                 "message":  "ÏƒÏ…Î½Î¿Î»Î¹ÎºÏŒÏ‚ Ï‡ÏÏŒÎ½Î¿Ï‚ Ï€Î±ÏÎ±ÎºÎ¿Î»Î¿ÏÎ¸Î·ÏƒÎ·Ï‚",
+                                 "description":  "Unit label beside watch time number"
+                             },
+    "stats_callout_info":  {
+                               "message":  "ÎŸ Ï‡ÏÏŒÎ½Î¿Ï‚ Ï€Î±ÏÎ±ÎºÎ¿Î»Î¿ÏÎ¸Î·ÏƒÎ·Ï‚ ÏƒÏ…Î³ÎºÎµÎ½Ï„ÏÏŽÎ½ÎµÏ„Î±Î¹ Î¼ÏŒÎ½Î¿ ÏŒÏ„Î±Î½ Î­Î½Î± Î²Î¯Î½Ï„ÎµÎ¿ YouTube Î±Î½Î±Ï€Î±ÏÎ¬Î³ÎµÏ„Î±Î¹ ÎµÎ½ÎµÏÎ³Î¬. Î•Ï€Î±Î½Î±Ï†Î­ÏÎµÏ„Î±Î¹ Î±Ï…Ï„ÏŒÎ¼Î±Ï„Î± ÎºÎ¬Î¸Îµ Î¼ÎµÏƒÎ¬Î½Ï…Ï‡Ï„Î±. Î— Î¼ÏŒÎ½Î¹Î¼Î· Î³ÏÎ±Î¼Î¼Î® ÎºÎ±Ï„Î¬ÏƒÏ„Î±ÏƒÎ·Ï‚ Ï€Î±ÏÎ±Î¼Î­Î½ÎµÎ¹ Î¿ÏÎ±Ï„Î® ÏƒÏ„Î¿ ÎºÎ¬Ï„Ï‰ Î¼Î­ÏÎ¿Ï‚ ÏƒÎµ ÎºÎ¬Î¸Îµ ÎºÎ±ÏÏ„Î­Î»Î±.",
+                               "description":  "Explanation text in stats callout note"
+                           },
+    "stats_btn_set_limit":  {
+                                "message":  "Î”Î¹Î±Î¼ÏŒÏÏ†Ï‰ÏƒÎ· Î¿ÏÎ¯Î¿Ï…",
+                                "description":  "Button to navigate to daily limit settings"
+                            },
+    "stats_btn_reset_panel":  {
+                                  "message":  "Î•Ï€Î±Î½Î±Ï†Î¿ÏÎ¬ ÏƒÎ·Î¼ÎµÏÎ¹Î½Î¿Ï",
+                                  "description":  "Button in stats panel to reset today\u0027s watch time"
+                              },
+    "scheduled_blocking_empty_sub":  {
+                                         "message":  "Î‘Ï…Ï„Î¿Î¼Î±Ï„Î¿Ï€Î¿Î¹Î®ÏƒÏ„Îµ Î´Î¹Î±ÏƒÏ„Î®Î¼Î±Ï„Î± Î¼ÎµÎ»Î­Ï„Î·Ï‚ Ï‡Ï‰ÏÎ¯Ï‚ Ï€ÎµÏÎ¹ÏƒÏ€Î±ÏƒÎ¼Î¿ÏÏ‚ Î® ÏŽÏÎµÏ‚ Î·ÏƒÏ…Ï‡Î¯Î±Ï‚.",
+                                         "description":  "Subtitle on schedule list empty state"
+                                     },
+    "setting_theme":  {
+                          "message":  "Î•Î¼Ï†Î¬Î½Î¹ÏƒÎ·",
+                          "description":  "Appearance / Theme selector label in Settings tab"
+                      },
+    "theme_auto":  {
+                       "message":  "Î‘Ï…Ï„ÏŒÎ¼Î±Ï„Î¿ (Î±Î½Ï„Î¹ÏƒÏ„Î¿Î¯Ï‡Î¹ÏƒÎ· ÏƒÏ…ÏƒÏ„Î®Î¼Î±Ï„Î¿Ï‚)",
+                       "description":  "Automatic system theme option"
+                   },
+    "theme_dark":  {
+                       "message":  "Î£ÎºÎ¿Ï„ÎµÎ¹Î½Î® Î»ÎµÎ¹Ï„Î¿Ï…ÏÎ³Î¯Î±",
+                       "description":  "Dark theme option"
+                   },
+    "theme_light":  {
+                        "message":  "Î¦Ï‰Ï„ÎµÎ¹Î½Î® Î»ÎµÎ¹Ï„Î¿Ï…ÏÎ³Î¯Î±",
+                        "description":  "Light theme option"
+                    },
+    "setting_backup_title":  {
+                                 "message":  "Î”Î·Î¼Î¹Î¿Ï…ÏÎ³Î¯Î± Î±Î½Ï„Î¹Î³ÏÎ¬Ï†Ï‰Î½ Î±ÏƒÏ†Î±Î»ÎµÎ¯Î±Ï‚ \u0026 Î•Ï€Î±Î½Î±Ï†Î¿ÏÎ¬",
+                                 "description":  "Title for import and export section in Settings"
+                             },
+    "setting_backup_desc":  {
+                                "message":  "Î•Î¾Î±Î³Î¬Î³ÎµÏ„Îµ Ï„Î¹Ï‚ ÏÏ…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚ ÏƒÎ±Ï‚ ÏƒÎµ Î±ÏÏ‡ÎµÎ¯Î¿ JSON Î® ÎµÎ¹ÏƒÎ±Î³Î¬Î³ÎµÏ„Îµ Î­Î½Î± Ï€ÏÎ¿Î·Î³Î¿ÏÎ¼ÎµÎ½Î¿ Î±Î½Ï„Î¯Î³ÏÎ±Ï†Î¿ Î±ÏƒÏ†Î±Î»ÎµÎ¯Î±Ï‚.",
+                                "description":  "Description for import and export section in Settings"
+                            },
+    "setting_rate_store":  {
+                               "message":  "Î‘Î¾Î¹Î¿Î»Î¿Î³Î®ÏƒÏ„Îµ ÏƒÏ„Î¿ Web Store",
+                               "description":  "Button linking to Chrome Web Store review page"
+                           },
+    "setting_rate_firefox":  {
+                                 "message":  "Î‘Î¾Î¹Î¿Î»Î¿Î³Î®ÏƒÏ„Îµ ÏƒÏ„Î¿ Firefox AMO",
+                                 "description":  "Button linking to Firefox Add-ons review page"
+                             },
+    "btn_export_settings":  {
+                                "message":  "Î•Î¾Î±Î³Ï‰Î³Î®",
+                                "description":  "Button label to export settings JSON"
+                            },
+    "btn_import_settings":  {
+                                "message":  "Î•Î¹ÏƒÎ±Î³Ï‰Î³Î®",
+                                "description":  "Button label to import settings JSON"
+                            },
+    "settings_exported":  {
+                              "message":  "ÎŸÎ¹ ÏÏ…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚ ÎµÎ¾Î®Ï‡Î¸Î·ÏƒÎ±Î½ Î¼Îµ ÎµÏ€Î¹Ï„Ï…Ï‡Î¯Î±",
+                              "description":  "Toast message after exporting settings"
+                          },
+    "settings_imported":  {
+                              "message":  "ÎŸÎ¹ ÏÏ…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚ ÎµÎ¹ÏƒÎ®Ï‡Î¸Î·ÏƒÎ±Î½ Î¼Îµ ÎµÏ€Î¹Ï„Ï…Ï‡Î¯Î±",
+                              "description":  "Toast message after importing settings"
+                          },
+    "settings_import_failed":  {
+                                   "message":  "Î‘Ï€Î¿Ï„Ï…Ï‡Î¯Î± ÎµÎ¹ÏƒÎ±Î³Ï‰Î³Î®Ï‚ ÏÏ…Î¸Î¼Î¯ÏƒÎµÏ‰Î½: ÎœÎ· Î­Î³ÎºÏ…ÏÎ¿ Î±ÏÏ‡ÎµÎ¯Î¿ JSON",
+                                   "description":  "Toast error message when import fails"
+                               },
+    "section_active_count":  {
+                                 "message":  "$COUNT$ ÎµÎ½ÎµÏÎ³Î¬",
+                                 "description":  "Number of active toggles in a collapsible section",
+                                 "placeholders":  {
+                                                      "count":  {
+                                                                    "content":  "$1",
+                                                                    "example":  "3"
+                                                                }
+                                                  }
+                             },
+    "presets_title":  {
+                          "message":  "Î ÏÎ¿ÎµÏ€Î¹Î»Î¿Î³Î­Ï‚",
+                          "description":  "Header for distraction preset modes"
+                      },
+    "preset_balanced":  {
+                            "message":  "Î™ÏƒÎ¿ÏÏÎ¿Ï€Î·Î¼Î­Î½Î¿",
+                            "description":  "Preset mode label for balanced focus"
+                        },
+    "preset_zen":  {
+                       "message":  "Zen",
+                       "description":  "Preset mode label for zen search-only focus"
+                   },
+    "preset_player":  {
+                          "message":  "ÎœÏŒÎ½Î¿ Î²Î¯Î½Ï„ÎµÎ¿",
+                          "description":  "Preset mode label for clean video playback focus"
+                      },
+    "preset_custom":  {
+                          "message":  "Î ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½Î¿",
+                          "description":  "Preset mode label when customized"
+                      },
+    "preset_desc_balanced":  {
+                                 "message":  "Î™ÏƒÎ¿ÏÏÎ¿Ï€Î·Î¼Î­Î½Î¿ Â· Î‘Ï€ÏŒÎºÏÏ…ÏˆÎ· ÏÎ¿ÏŽÎ½ ÎºÎ±Î¹ Ï€ÏÎ¿Ï„Î¬ÏƒÎµÏ‰Î½",
+                                 "description":  "Description of balanced preset"
+                             },
+    "preset_desc_zen":  {
+                            "message":  "Zen Â· ÎœÏŒÎ½Î¿ Î±Î½Î±Î¶Î®Ï„Î·ÏƒÎ·, ÏŒÎ»ÎµÏ‚ Î¿Î¹ ÏÎ¿Î­Ï‚ ÎºÏÏ…Ï†Î­Ï‚",
+                            "description":  "Description of zen preset"
+                        },
+    "preset_desc_player":  {
+                               "message":  "ÎœÏŒÎ½Î¿ Î²Î¯Î½Ï„ÎµÎ¿ Â· Î›Î¹Ï„ÏŒ Ï€ÏÏŒÎ³ÏÎ±Î¼Î¼Î± Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚, Ï€ÎµÏÎ¹ÏƒÏ€Î±ÏƒÎ¼Î¿Î¯ ÎºÏÏ…Ï†Î¿Î¯",
+                               "description":  "Description of video only preset"
+                           },
+    "preset_desc_custom":  {
+                               "message":  "Î ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½Î· Î´Î¹Î±Î¼ÏŒÏÏ†Ï‰ÏƒÎ·",
+                               "description":  "Description of custom mode"
+                           },
+    "detailed_controls_title":  {
+                                    "message":  "Î›ÎµÏ€Ï„Î¿Î¼ÎµÏÎ® ÏƒÏ„Î¿Î¹Ï‡ÎµÎ¯Î± ÎµÎ»Î­Î³Ï‡Î¿Ï…",
+                                    "description":  "Section header above the accordion list"
+                                },
+    "preset_tooltip_balanced":  {
+                                    "message":  "Î‘Ï€Î¿ÎºÎ»ÎµÎ¯ÎµÎ¹ Ï„Î·Î½ Î‘ÏÏ‡Î¹ÎºÎ® ÏÎ¿Î®, Ï„Î± Shorts \u0026 Ï„Î¹Ï‚ Ï€ÏÎ¿Ï„Î¬ÏƒÎµÎ¹Ï‚ Ï€Î»Î±ÏŠÎ½Î®Ï‚ Î³ÏÎ±Î¼Î¼Î®Ï‚. Î‘Ï†Î®Î½ÎµÎ¹ Ï€ÏÎ¿ÏƒÎ²Î¬ÏƒÎ¹Î¼Î± Ï„Î·Î½ Î±Î½Î±Î¶Î®Ï„Î·ÏƒÎ·, Ï„Î¹Ï‚ ÏƒÏ…Î½Î´ÏÎ¿Î¼Î­Ï‚ ÎºÎ±Î¹ Ï„Î± ÏƒÏ‡ÏŒÎ»Î¹Î±.",
+                                    "description":  "Tooltip description for Balanced preset"
+                                },
+    "preset_tooltip_zen":  {
+                               "message":  "ÎœÎ­Î³Î¹ÏƒÏ„Î· ÎµÏƒÏ„Î¯Î±ÏƒÎ·. ÎšÎ±Î¸Î±ÏÎ® Î±Î½Î±Î¶Î®Ï„Î·ÏƒÎ· Î¼ÏŒÎ½Î¿. Î¡Î¿Î­Ï‚, ÏƒÏ‡ÏŒÎ»Î¹Î±, Î¼Î¹ÎºÏÎ¿Î³ÏÎ±Ï†Î¯ÎµÏ‚ ÎºÎ±Î¹ avatar ÎºÎ±Î½Î±Î»Î¹ÏŽÎ½ Î±Ï€Î¿ÎºÏÏÏ€Ï„Î¿Î½Ï„Î±Î¹.",
+                               "description":  "Tooltip description for Zen preset"
+                           },
+    "preset_tooltip_player":  {
+                                  "message":  "ÎšÎ±Î¸Î±ÏÏŒ Ï€ÏÏŒÎ³ÏÎ±Î¼Î¼Î± Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚ Î²Î¯Î½Ï„ÎµÎ¿. Î‘Ï€Î¿ÎºÏÏÏ€Ï„ÎµÎ¹ Ï€ÏÎ¿Ï„Î¬ÏƒÎµÎ¹Ï‚, ÏƒÏ‡ÏŒÎ»Î¹Î± ÎºÎ±Î¹ Î±ÎºÎ±Ï„Î±ÏƒÏ„Î±ÏƒÎ¯Î± Ï€Î»Î±ÏŠÎ½Î®Ï‚ Î³ÏÎ±Î¼Î¼Î®Ï‚ Î³ÏÏÏ‰ Î±Ï€ÏŒ Ï„Î¿ Î²Î¯Î½Ï„ÎµÎ¿.",
+                                  "description":  "Tooltip description for Video Only preset"
+                              },
+    "preset_tooltip_custom":  {
+                                  "message":  "Î ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½Î· Î´Î¹Î±Î¼ÏŒÏÏ†Ï‰ÏƒÎ· ÎµÏ€Î¹Î»Î¿Î³ÏŽÎ½.",
+                                  "description":  "Tooltip description for Custom mode"
+                              },
+    "preset_applied":  {
+                           "message":  "ÎœÎµÏ„Î¬Î²Î±ÏƒÎ· ÏƒÎµ Î»ÎµÎ¹Ï„Î¿Ï…ÏÎ³Î¯Î± $PRESET$",
+                           "description":  "Toast notification when switching preset mode",
+                           "placeholders":  {
+                                                "preset":  {
+                                                               "content":  "$1",
+                                                               "example":  "Balanced"
+                                                           }
+                                            }
+                       },
+    "welcome_title":  {
+                          "message":  "ÎšÎ±Î»ÏŽÏ‚ Î¿ÏÎ¯ÏƒÎ±Ï„Îµ ÏƒÏ„Î¿ Intentional YT",
+                          "description":  "Title on first-run welcome card"
+                      },
+    "welcome_desc":  {
+                         "message":  "Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Î¼Î¹Î± Ï€ÏÎ¿ÎµÏ€Î¹Î»Î¿Î³Î® Î³Î¹Î± Î½Î± Î¾ÎµÎºÎ¹Î½Î®ÏƒÎµÏ„Îµ Î® Ï€ÏÎ¿ÏƒÎ±ÏÎ¼ÏŒÏƒÏ„Îµ Ï„Î¿Ï…Ï‚ Î´Î¹Î±ÎºÏŒÏ€Ï„ÎµÏ‚ Ï€Î±ÏÎ±ÎºÎ¬Ï„Ï‰.",
+                         "description":  "Description on first-run welcome card"
+                     },
+    "welcome_dismiss_aria":  {
+                                 "message":  "ÎšÎ»ÎµÎ¯ÏƒÎ¹Î¼Î¿ banner ÎºÎ±Î»Ï‰ÏƒÎ¿ÏÎ¯ÏƒÎ¼Î±Ï„Î¿Ï‚",
+                                 "description":  "Aria label for welcome banner dismiss button"
+                             },
+    "search_toggles_placeholder":  {
+                                       "message":  "Î‘Î½Î±Î¶Î®Ï„Î·ÏƒÎ· ÎµÏ€Î¹Î»Î¿Î³ÏŽÎ½...",
+                                       "description":  "Placeholder for toggle search input in Distractions tab"
+                                   },
+    "search_no_results":  {
+                              "message":  "Î”ÎµÎ½ Î²ÏÎ­Î¸Î·ÎºÎ±Î½ ÎµÏ€Î¹Î»Î¿Î³Î­Ï‚",
+                              "description":  "Empty state title when search matches no toggles"
+                          },
+    "search_no_results_sub":  {
+                                  "message":  "Î”Î¿ÎºÎ¹Î¼Î¬ÏƒÏ„Îµ Î½Î± Î±Î½Î±Î¶Î·Ï„Î®ÏƒÎµÏ„Îµ shorts, ÏƒÏ‡ÏŒÎ»Î¹Î± Î® Ï€Î»Î±ÏŠÎ½Î® Î³ÏÎ±Î¼Î¼Î®",
+                                  "description":  "Empty state subtitle when search matches no toggles"
+                              },
+    "panel_filters_title":  {
+                                "message":  "Î¦Î¯Î»Ï„ÏÎ± ÎºÎ±Î½Î±Î»Î¹ÏŽÎ½ \u0026 Î»Î­Î¾ÎµÏ‰Î½-ÎºÎ»ÎµÎ¹Î´Î¹ÏŽÎ½",
+                                "description":  "Panel header title for Filters tab"
+                            },
+    "panel_filters_subtitle":  {
+                                   "message":  "Î‘Ï€Î¿ÎºÎ»ÎµÎ¯ÏƒÏ„Îµ ÏƒÏ…Î³ÎºÎµÎºÏÎ¹Î¼Î­Î½Î± ÎºÎ±Î½Î¬Î»Î¹Î± ÎºÎ±Î¹ Ï†Î¹Î»Ï„ÏÎ¬ÏÎµÏ„Îµ Î²Î¯Î½Ï„ÎµÎ¿ Î²Î¬ÏƒÎµÎ¹ Î»Î­Î¾ÎµÏ‰Î½-ÎºÎ»ÎµÎ¹Î´Î¹ÏŽÎ½.",
+                                   "description":  "Panel header subtitle for Filters tab"
+                               },
+    "panel_focus_title":  {
+                              "message":  "Î•ÏƒÏ„Î¯Î±ÏƒÎ· \u0026 ÎŒÏÎ¹Î±",
+                              "description":  "Panel header title for Focus tab"
+                          },
+    "panel_focus_subtitle":  {
+                                 "message":  "Î¥Ï€ÎµÎ½Î¸Ï…Î¼Î¯ÏƒÎµÎ¹Ï‚, Î·Î¼ÎµÏÎ®ÏƒÎ¹Î± ÏŒÏÎ¹Î± ÎºÎ±Î¹ Ï€ÏÎ¿Î³ÏÎ±Î¼Î¼Î±Ï„Î¹ÏƒÎ¼Î­Î½Î¿Ï‚ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚.",
+                                 "description":  "Panel header subtitle for Focus tab"
+                             },
+    "panel_stats_title":  {
+                              "message":  "Î”ÏÎ±ÏƒÏ„Î·ÏÎ¹ÏŒÏ„Î·Ï„Î± Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚",
+                              "description":  "Panel header title for Stats tab"
+                          },
+    "panel_stats_subtitle":  {
+                                 "message":  "Î Î±ÏÎ±ÎºÎ¿Î»Î¿Ï…Î¸Î®ÏƒÏ„Îµ Ï„Î¿Î½ Î·Î¼ÎµÏÎ®ÏƒÎ¹Î¿ Ï‡ÏÏŒÎ½Î¿ Ï€ÏÎ¿Î²Î¿Î»Î®Ï‚ ÎºÎ±Î¹ Ï„Î¹Ï‚ ÏƒÏ…Î½Î®Î¸ÎµÎ¹ÎµÏ‚ Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚.",
+                                 "description":  "Panel header subtitle for Stats tab"
+                             },
+    "panel_settings_title":  {
+                                 "message":  "Î ÏÎ¿Ï„Î¹Î¼Î®ÏƒÎµÎ¹Ï‚",
+                                 "description":  "Panel header title for Settings tab"
+                             },
+    "panel_settings_subtitle":  {
+                                    "message":  "Î˜Î­Î¼Î±, Î³Î»ÏŽÏƒÏƒÎ± ÎºÎ±Î¹ Î±Î½Ï„Î¯Î³ÏÎ±Ï†Î± Î±ÏƒÏ†Î±Î»ÎµÎ¯Î±Ï‚ Î´Î¹Î±Î¼ÏŒÏÏ†Ï‰ÏƒÎ·Ï‚.",
+                                    "description":  "Panel header subtitle for Settings tab"
+                                },
+    "toggle_redirect_shorts":  {
+                                   "message":  "Î‘Î½Î±ÎºÎ±Ï„ÎµÏÎ¸Ï…Î½ÏƒÎ· Shorts ÏƒÏ„Î¿ ÎºÎ±Î½Î¿Î½Î¹ÎºÏŒ Ï€ÏÏŒÎ³ÏÎ±Î¼Î¼Î± Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚",
+                                   "description":  "Label for toggle to play Shorts in standard watch player"
+                               },
+    "desc_redirect_shorts":  {
+                                 "message":  "Î‘Î½Î±Ï€Î±ÏÎ¬Î³ÎµÎ¹ Ï„Î± Shorts ÏƒÎµ Ï„Ï…Ï€Î¹ÎºÎ® Ï€ÏÎ¿Î²Î¿Î»Î® Ï€Î±ÏÎ±ÎºÎ¿Î»Î¿ÏÎ¸Î·ÏƒÎ·Ï‚ Î¼Îµ ÏƒÏ„Î¿Î¹Ï‡ÎµÎ¯Î± ÎµÎ»Î­Î³Ï‡Î¿Ï… Î±Î½Î±Ï€Î±ÏÎ±Î³Ï‰Î³Î®Ï‚",
+                                 "description":  "Description for redirect shorts toggle"
+                             },
+    "action_snooze":  {
+                          "message":  "Î‘Î½Î±Î²Î¿Î»Î®",
+                          "description":  "Button to temporarily pause protections"
+                      },
+    "status_snoozed":  {
+                           "message":  "Î£Îµ Î±Î½Î±Î²Î¿Î»Î®",
+                           "description":  "Status badge label when protections are temporarily paused"
+                       },
+    "snooze_modal_title":  {
+                               "message":  "Î Î±ÏÏƒÎ· Ï€ÏÎ¿ÏƒÏ„Î±ÏƒÎ¹ÏŽÎ½",
+                               "description":  "Title for snooze modal"
+                           },
+    "snooze_modal_desc":  {
+                              "message":  "ÎŸÎ¹ Ï€ÏÎ¿ÏƒÏ„Î±ÏƒÎ¯ÎµÏ‚ Î¸Î± ÏƒÏ…Î½ÎµÏ‡Î¹ÏƒÏ„Î¿ÏÎ½ Î±Ï…Ï„ÏŒÎ¼Î±Ï„Î± ÏŒÏ„Î±Î½ Î»Î®Î¾ÎµÎ¹ Ï„Î¿ Ï‡ÏÎ¿Î½ÏŒÎ¼ÎµÏ„ÏÎ¿.",
+                              "description":  "Subtitle description for snooze modal"
+                          },
+    "snooze_duration_15":  {
+                               "message":  "15 Î»ÎµÏ€Ï„Î¬",
+                               "description":  "15 minute snooze option"
+                           },
+    "snooze_duration_15_desc":  {
+                                    "message":  "Î£ÏÎ½Ï„Î¿Î¼Î¿ Î´Î¹Î¬Î»ÎµÎ¹Î¼Î¼Î±",
+                                    "description":  "Description for 15 minute snooze"
+                                },
+    "snooze_duration_30":  {
+                               "message":  "30 Î»ÎµÏ€Ï„Î¬",
+                               "description":  "30 minute snooze option"
+                           },
+    "snooze_duration_30_desc":  {
+                                    "message":  "Î£Ï…Î½ÎµÎ´ÏÎ¯Î± ÎµÏÎ³Î±ÏƒÎ¯Î±Ï‚",
+                                    "description":  "Description for 30 minute snooze"
+                                },
+    "snooze_duration_60":  {
+                               "message":  "1 ÏŽÏÎ±",
+                               "description":  "60 minute snooze option"
+                           },
+    "snooze_duration_60_desc":  {
+                                    "message":  "Î•ÎºÏ„ÎµÏ„Î±Î¼Î­Î½Î· ÏƒÏ…Î½ÎµÎ´ÏÎ¯Î±",
+                                    "description":  "Description for 60 minute snooze"
+                                },
+    "action_resume_now":  {
+                              "message":  "Î£Ï…Î½Î­Ï‡Î¹ÏƒÎ· Ï„ÏŽÏÎ±",
+                              "description":  "Button to immediately restore protections from snooze"
+                          },
+    "snooze_banner_title":  {
+                                "message":  "ÎŸÎ¹ Ï€ÏÎ¿ÏƒÏ„Î±ÏƒÎ¯ÎµÏ‚ Ï„Î­Î¸Î·ÎºÎ±Î½ ÏƒÎµ Î±Î½Î±Î²Î¿Î»Î®",
+                                "description":  "Title on snooze countdown banner"
+                            },
+    "snooze_banner_remaining":  {
+                                    "message":  "Î‘Ï€Î¿Î¼Î­Î½Î¿Ï…Î½ $TIME$",
+                                    "description":  "Countdown remaining on snooze banner",
+                                    "placeholders":  {
+                                                         "time":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "14:59"
+                                                                  }
+                                                     }
+                                },
+    "snooze_activated":  {
+                             "message":  "ÎŸÎ¹ Ï€ÏÎ¿ÏƒÏ„Î±ÏƒÎ¯ÎµÏ‚ Ï„Î­Î¸Î·ÎºÎ±Î½ ÏƒÎµ Ï€Î±ÏÏƒÎ· Î³Î¹Î± $MINUTES$ Î»ÎµÏ€Ï„Î¬",
+                             "description":  "Toast notification when snooze is turned on",
+                             "placeholders":  {
+                                                  "minutes":  {
+                                                                  "content":  "$1",
+                                                                  "example":  "15"
+                                                              }
+                                              }
+                         },
+    "snooze_resumed":  {
+                           "message":  "ÎŸÎ¹ Ï€ÏÎ¿ÏƒÏ„Î±ÏƒÎ¯ÎµÏ‚ ÏƒÏ…Î½ÎµÏ‡Î¯ÏƒÏ„Î·ÎºÎ±Î½",
+                           "description":  "Toast notification when snooze ends or is canceled"
+                       },
+    "status_off":  {
+                       "message":  "Î‘Î½ÎµÎ½ÎµÏÎ³ÏŒ",
+                       "description":  "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+                   },
+    "toggle_extension_enabled":  {
+                                     "message":  "ÎšÏÏÎ¹Î¿Ï‚ Î´Î¹Î±ÎºÏŒÏ€Ï„Î·Ï‚ ÎµÏ€Î­ÎºÏ„Î±ÏƒÎ·Ï‚",
+                                     "description":  "Label for the master extension toggle in the header"
+                                 },
+    "stats_reset_toast":  {
+                              "message":  "ÎŸ Î·Î¼ÎµÏÎ®ÏƒÎ¹Î¿Ï‚ Ï‡ÏÏŒÎ½Î¿Ï‚ Ï€Î±ÏÎ±ÎºÎ¿Î»Î¿ÏÎ¸Î·ÏƒÎ·Ï‚ Î¼Î·Î´ÎµÎ½Î¯ÏƒÏ„Î·ÎºÎµ",
+                              "description":  "Toast message when user resets today\u0027s watch time"
+                          },
+    "filters_status_in_development":  {
+                                          "message":  "Î¥Ï€ÏŒ Î±Î½Î¬Ï€Ï„Ï…Î¾Î·",
+                                          "description":  "Status pill label on the content filters roadmap preview card"
+                                      },
+    "action_block":  {
+                         "message":  "Î‘Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼ÏŒÏ‚",
+                         "description":  "Button text for 1-click in-feed channel block button"
+                     },
+    "filters_quick_block_title":  {
+                                      "message":  "ÎšÎ¿Ï…Î¼Ï€Î¯ Î³ÏÎ®Î³Î¿ÏÎ¿Ï… Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î¿Ï Î¼Îµ 1 ÎºÎ»Î¹Îº",
+                                      "description":  "Label for toggle allowing 1-click channel block buttons on video cards"
+                                  },
+    "filters_quick_block_desc":  {
+                                     "message":  "Î•Î¼Ï†Î¬Î½Î¹ÏƒÎ· ÎºÎ¿Ï…Î¼Ï€Î¹Î¿Ï Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î¿Ï Î´Î¯Ï€Î»Î± ÏƒÏ„Î± Î¿Î½ÏŒÎ¼Î±Ï„Î± ÎºÎ±Î½Î±Î»Î¹ÏŽÎ½ ÎºÎ±Ï„Î¬ Ï„Î·Î½ ÎºÎ±Ï„Î¬Î´ÎµÎ¹Î¾Î· ÏƒÎµ Î²Î¯Î½Ï„ÎµÎ¿",
+                                     "description":  "Description for 1-click quick block button toggle"
+                                 },
+    "filters_tip_text":  {
+                             "message":  "Î¤Î¿Ï€Î¿Î¸ÎµÏ„Î®ÏƒÏ„Îµ Ï„Î¿Î½ ÎºÎ­ÏÏƒÎ¿ÏÎ± Ï€Î¬Î½Ï‰ Î±Ï€ÏŒ Î¿Ï€Î¿Î¹Î¿Î´Î®Ï€Î¿Ï„Îµ Î²Î¯Î½Ï„ÎµÎ¿ ÏƒÏ„Î¿ YouTube Î³Î¹Î± Î½Î± Î±Ï€Î¿ÎºÎ»ÎµÎ¯ÏƒÎµÏ„Îµ ÎºÎ±Î½Î¬Î»Î¹Î± Î¼Îµ 1 ÎºÎ»Î¹Îº!",
+                             "description":  "Quick tip text at the top of the Filters tab"
+                         },
+    "btn_clear_all":  {
+                          "message":  "Î•ÎºÎºÎ±Î¸Î¬ÏÎ¹ÏƒÎ· ÏŒÎ»Ï‰Î½",
+                          "description":  "Button to clear all items in a blocklist"
+                      },
+    "toast_channel_cleared":  {
+                                  "message":  "Î•ÎºÎºÎ±Î¸Î±ÏÎ¯ÏƒÏ„Î·ÎºÎ±Î½ ÏŒÎ»Î± Ï„Î± Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î­Î½Î± ÎºÎ±Î½Î¬Î»Î¹Î±",
+                                  "description":  "Toast notification when all channels are cleared"
+                              },
+    "toast_keyword_cleared":  {
+                                  "message":  "Î•ÎºÎºÎ±Î¸Î±ÏÎ¯ÏƒÏ„Î·ÎºÎ±Î½ ÏŒÎ»ÎµÏ‚ Î¿Î¹ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î­Î½ÎµÏ‚ Î»Î­Î¾ÎµÎ¹Ï‚-ÎºÎ»ÎµÎ¹Î´Î¹Î¬",
+                                  "description":  "Toast notification when all keywords are cleared"
+                              },
+    "placeholder_channel_input":  {
+                                      "message":  "ÎŒÎ½Î¿Î¼Î± ÎºÎ±Î½Î±Î»Î¹Î¿Ï Î® @handle...",
+                                      "description":  "Placeholder for channel blocklist text input"
+                                  },
+    "blocklist_channels_empty_desc":  {
+                                          "message":  "Î ÏÎ¿ÏƒÎ¸Î­ÏƒÏ„Îµ ÏŒÎ½Î¿Î¼Î± ÎºÎ±Î½Î±Î»Î¹Î¿Ï Î® @handle Î³Î¹Î± Î½Î± Î±Ï€Î¿ÎºÏÏÏˆÎµÏ„Îµ Ï„Î± Î²Î¯Î½Ï„ÎµÏŒ Ï„Î¿Ï….",
+                                          "description":  "Empty state description for Channel Blocklist"
+                                      },
+    "placeholder_keyword_input":  {
+                                      "message":  "Ï€.Ï‡. podcast, spoiler, react...",
+                                      "description":  "Placeholder for keyword blocklist text input"
+                                  },
+    "blocklist_keywords_empty_desc":  {
+                                          "message":  "Î ÏÎ¿ÏƒÎ¸Î­ÏƒÏ„Îµ Î»Î­Î¾ÎµÎ¹Ï‚-ÎºÎ»ÎµÎ¹Î´Î¹Î¬ Î³Î¹Î± Î±Ï…Ï„ÏŒÎ¼Î±Ï„Î· Î±Ï€ÏŒÎºÏÏ…ÏˆÎ· ÏƒÏ‡ÎµÏ„Î¹ÎºÏŽÎ½ Î²Î¯Î½Ï„ÎµÎ¿.",
+                                          "description":  "Empty state description for Keyword Blocklist"
+                                      },
+    "blocklist_privacy_note":  {
+                                   "message":  "100% Î¤Î¿Ï€Î¹ÎºÏŒ Ï†Î¹Î»Ï„ÏÎ¬ÏÎ¹ÏƒÎ¼Î± Â· ÎŸÎ¹ Ï„Î¯Ï„Î»Î¿Î¹ ÎºÎ±Î¹ Ï„Î± ÎºÎ±Î½Î¬Î»Î¹Î± ÎµÎ»Î­Î³Ï‡Î¿Î½Ï„Î±Î¹ Ï„Î¿Ï€Î¹ÎºÎ¬ Ï‡Ï‰ÏÎ¯Ï‚ Ï„Î·Î»ÎµÎ¼ÎµÏ„ÏÎ¯Î±.",
+                                   "description":  "Privacy note at the bottom of the filters panel"
+                               },
+    "toast_channel_added":  {
+                                "message":  "Î ÏÎ¿ÏƒÏ„Î­Î¸Î·ÎºÎµ Ï„Î¿ \"$NAME$\" ÏƒÏ„Î± Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î­Î½Î± ÎºÎ±Î½Î¬Î»Î¹Î±",
+                                "description":  "Toast confirmation when channel is added to blocklist",
+                                "placeholders":  {
+                                                     "name":  {
+                                                                  "content":  "$1",
+                                                                  "example":  "TechLead"
+                                                              }
+                                                 }
+                            },
+    "toast_channel_removed":  {
+                                  "message":  "Î‘Ï†Î±Î¹ÏÎ­Î¸Î·ÎºÎµ Ï„Î¿ \"$NAME$\" Î±Ï€ÏŒ Ï„Î± Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î­Î½Î± ÎºÎ±Î½Î¬Î»Î¹Î±",
+                                  "description":  "Toast confirmation when channel is removed from blocklist",
+                                  "placeholders":  {
+                                                       "name":  {
+                                                                    "content":  "$1",
+                                                                    "example":  "TechLead"
+                                                                }
+                                                   }
+                              },
+    "toast_channel_exists":  {
+                                 "message":  "Î¤Î¿ \"$NAME$\" Ï…Ï€Î¬ÏÏ‡ÎµÎ¹ Î®Î´Î· ÏƒÏ„Î· Î»Î¯ÏƒÏ„Î± Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î¿Ï",
+                                 "description":  "Toast warning when adding duplicate channel",
+                                 "placeholders":  {
+                                                      "name":  {
+                                                                   "content":  "$1",
+                                                                   "example":  "TechLead"
+                                                               }
+                                                  }
+                             },
+    "toast_keyword_added":  {
+                                "message":  "Î ÏÎ¿ÏƒÏ„Î­Î¸Î·ÎºÎµ Ï„Î¿ \"$KEYWORD$\" ÏƒÏ„Î¹Ï‚ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î­Î½ÎµÏ‚ Î»Î­Î¾ÎµÎ¹Ï‚-ÎºÎ»ÎµÎ¹Î´Î¹Î¬",
+                                "description":  "Toast confirmation when keyword is added to blocklist",
+                                "placeholders":  {
+                                                     "keyword":  {
+                                                                     "content":  "$1",
+                                                                     "example":  "spoiler"
+                                                                 }
+                                                 }
+                            },
+    "toast_keyword_removed":  {
+                                  "message":  "Î‘Ï†Î±Î¹ÏÎ­Î¸Î·ÎºÎµ Ï„Î¿ \"$KEYWORD$\" Î±Ï€ÏŒ Ï„Î¹Ï‚ Î±Ï€Î¿ÎºÎ»ÎµÎ¹ÏƒÎ¼Î­Î½ÎµÏ‚ Î»Î­Î¾ÎµÎ¹Ï‚-ÎºÎ»ÎµÎ¹Î´Î¹Î¬",
+                                  "description":  "Toast confirmation when keyword is removed from blocklist",
+                                  "placeholders":  {
+                                                       "keyword":  {
+                                                                       "content":  "$1",
+                                                                       "example":  "spoiler"
+                                                                   }
+                                                   }
+                              },
+    "toast_keyword_exists":  {
+                                 "message":  "Î¤Î¿ \"$KEYWORD$\" Ï…Ï€Î¬ÏÏ‡ÎµÎ¹ Î®Î´Î· ÏƒÏ„Î· Î»Î¯ÏƒÏ„Î± Î»Î­Î¾ÎµÏ‰Î½-ÎºÎ»ÎµÎ¹Î´Î¹ÏŽÎ½",
+                                 "description":  "Toast warning when adding duplicate keyword",
+                                 "placeholders":  {
+                                                      "keyword":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "spoiler"
+                                                                  }
+                                                  }
+                             },
+    "setting_rate_edge":  {
+                              "message":  "Rate on Edge Add-ons",
+                              "description":  "Button linking to Microsoft Edge Add-ons review page"
+                          },
+    "scheduled_close_tab":  {
+                                "message":  "ÎšÎ»ÎµÎ¯ÏƒÎ¹Î¼Î¿ ÎºÎ±ÏÏ„Î­Î»Î±Ï‚"
+                            },
+    "scheduled_blank_screen":  {
+                                   "message":  "ÎšÎµÎ½Î® Î¿Î¸ÏŒÎ½Î·"
+                               },
+    "action_undo":  {
+                        "message":  "Î‘Î½Î±Î¯ÏÎµÏƒÎ·"
+                    },
+    "channel_blocked":  {
+                            "message":  "Î‘Ï€Î¿ÎºÎ»ÎµÎ¯ÏƒÏ„Î·ÎºÎµ: $1"
+                        },
+    "focus_session_title":  {
+                                "message":  "Συνεδρία εστίασης"
+                            },
+    "focus_session_description":  {
+                                      "message":  "Ενεργοποιήστε την Αυστηρή εστίαση για μια σύντομη συνεδρία. Οι συνηθισμένες ρυθμίσεις σας επιστρέφουν όταν τελειώσουν. Τα ωράρια και τα ημερήσια όρια εξακολουθούν να ισχύουν."
+                                  },
+    "focus_session_end":  {
+                              "message":  "Τέλος συνεδρίας"
+                          },
+    "limit_warning_option":  {
+                                 "message":  "Προειδοποιήστε με 5 λεπτά που απομένουν (1 λεπτό για μικρά όρια)."
+                             },
+    "limit_warning_title":  {
+                                "message":  "Σχεδόν στο ημερήσιο όριο σας"
+                            },
+    "limit_warning_message":  {
+                                  "message":  "Χρόνος που απομένει σήμερα: $value$ λεπτά. Τελειώστε πριν ξεκινήσει το ημερήσιο μπλοκ.",
+                                  "placeholders":  {
+                                                       "value":  {
+                                                                     "content":  "$1"
+                                                                 }
+                                                   }
+                              },
+    "clear_status_active":  {
+                                "message":  "Οι ρυθμίσεις αποκλεισμού είναι ενεργές."
+                            },
+    "clear_status_off":  {
+                             "message":  "Οι ασφάλειες είναι απενεργοποιημένες."
+                         },
+    "clear_status_snoozed":  {
+                                 "message":  "Οι ασφάλειες τίθενται σε παύση έως τις $value$.",
+                                 "placeholders":  {
+                                                      "value":  {
+                                                                    "content":  "$1"
+                                                                }
+                                                  }
+                             },
+    "clear_status_full":  {
+                              "message":  "Το YouTube έχει αποκλειστεί από: $value$.",
+                              "placeholders":  {
+                                                   "value":  {
+                                                                 "content":  "$1"
+                                                             }
+                                               }
+                          },
+    "clear_status_strict":  {
+                                "message":  "Η αυστηρή εστίαση είναι ενεργοποιημένη για: $value$.",
+                                "placeholders":  {
+                                                     "value":  {
+                                                                   "content":  "$1"
+                                                               }
+                                                 }
+                            },
+    "clear_status_until":  {
+                               "message":  "Έως $value$.",
+                               "placeholders":  {
+                                                    "value":  {
+                                                                  "content":  "$1"
+                                                              }
+                                                }
+                           },
+    "clear_status_session":  {
+                                 "message":  "Συνεδρία εστίασης: Αυστηρή εστίαση έως $value$.",
+                                 "placeholders":  {
+                                                      "value":  {
+                                                                    "content":  "$1"
+                                                                }
+                                                  }
+                             },
+    "clear_status_session_paused":  {
+                                        "message":  "Η συνεδρία εστίασης έχει τεθεί σε παύση. Το χρονόμετρο του τελειώνει στο $value$.",
+                                        "placeholders":  {
+                                                             "value":  {
+                                                                           "content":  "$1"
+                                                                       }
+                                                         }
+                                    },
+    "clear_status_remaining":  {
+                                   "message":  "Χρόνος που απομένει σήμερα: $value$ λεπτά.",
+                                   "placeholders":  {
+                                                        "value":  {
+                                                                      "content":  "$1"
+                                                                  }
+                                                    }
+                               },
+    "clear_status_limit_reached":  {
+                                       "message":  "Συμπληρώθηκε το ημερήσιο όριο."
+                                   },
+    "clear_status_dismissed":  {
+                                   "message":  "Το ημερήσιό σας όριο καταργείται για σήμερα."
+                               }
 }

@@ -58,12 +58,7 @@ function updateHomePageState() {
 // Initial home page state detection
 updateHomePageState();
 
-function isEffectiveActive(settings) {
-  if (!settings) return false;
-  if (settings.extensionEnabled === false) return false;
-  if (settings.snoozeUntil && Date.now() < settings.snoozeUntil) return false;
-  return true;
-}
+function isEffectiveActive(settings) { return IYT_Policy.active(settings); }
 
 function clearSnoozeTimers() {
   if (_snoozeTimer) {
@@ -240,28 +235,8 @@ function limitHomeFeedEnforce() {
     items = grid.querySelectorAll('ytd-rich-grid-row ytd-rich-item-renderer');
   }
 
-  // Determine items per row (default 3 or from attribute)
-  let perRow = 3;
-  if (items && items.length > 0) {
-    const firstAttr = items[0].getAttribute('items-per-row');
-    if (firstAttr) {
-      const parsed = parseInt(firstAttr, 10);
-      if (!isNaN(parsed) && parsed > 0) perRow = parsed;
-    }
-  }
-
-  // Calculate target limit: at least 15 items, multiple of perRow
-  // 3 per row -> 15 items (5 rows)
-  // 5 per row -> 15 items (3 rows)
-  // 4 per row -> 16 items (4 rows)
-  // 6 per row -> 15-18 items
-  // 2 per row -> 15-16 items
-  let targetLimit = 15;
-  if (perRow === 4) {
-    targetLimit = 16;
-  } else if (perRow > 0) {
-    targetLimit = Math.ceil(15 / perRow) * perRow;
-  }
+  // Keep the count identical to document-start CSS in every grid layout.
+  const targetLimit = 15;
 
   const count = items ? items.length : 0;
 
@@ -337,6 +312,9 @@ const CARD_CONTAINER_SELECTORS = [
   'ytd-channel-renderer',         // Search results channel card
   'ytd-playlist-renderer',        // Search results playlist card
   'ytd-radio-renderer',           // Search results mix/radio
+  'ytm-video-with-context-renderer',
+  'ytm-compact-video-renderer',
+  'ytm-channel-renderer',
   'yt-lockup-view-model'          // Modern custom element lockup
 ].join(', ');
 
@@ -355,20 +333,13 @@ function getCardContainer(el) {
 
 function cleanChannelText(raw) {
   if (!raw) return '';
-  return raw
-    .replace(/[\s\n\r]+/g, ' ')
-    .replace(/\b(verified|official|artist)\b/gi, '')
-    .trim();
-}
-
-function normalizeForComparison(str) {
-  return (str || '').toLowerCase().replace(/[\s_\-–—.'"]+/g, '');
+  return raw.replace(/[\s\n\r]+/g, ' ').trim();
 }
 
 function getCardTitle(card) {
   if (!card) return '';
   const titleEl = card.querySelector(
-    '#video-title, #video-title-link, .yt-lockup-metadata-view-model__title, ' +
+    '.media-item-headline, .compact-media-item-headline, #video-title, #video-title-link, .yt-lockup-metadata-view-model__title, ' +
     'h3.ytd-compact-video-renderer, h3 a, a[id="video-title"], ' +
     'yt-formatted-string#video-title, yt-lockup-metadata-view-model h3, ' +
     '.yt-lockup-metadata-view-model-wiz__title, a.yt-lockup-metadata-view-model__title'
@@ -386,10 +357,11 @@ function getCardChannelInfo(card) {
 
   const names = new Set();
   const handles = new Set();
+  const ids = new Set();
 
   // 1. Explicit Channel Name Containers (Classic & Modern Lit View-Models)
   const nameElements = card.querySelectorAll(
-    'ytd-channel-name yt-formatted-string, ytd-channel-name #text, ytd-channel-name a, ' +
+    '.media-item-byline, .compact-media-item-byline, ytd-channel-name yt-formatted-string, ytd-channel-name #text, ytd-channel-name a, ' +
     '#channel-name yt-formatted-string, #channel-name #text, #channel-name a, ' +
     '#byline a, #byline, #byline-container #text, #byline-container a, ' +
     'yt-content-metadata-view-model .yt-content-metadata-view-model__metadata-row:first-child a, ' +
@@ -421,9 +393,11 @@ function getCardChannelInfo(card) {
   const links = card.querySelectorAll('a[href*="/@"], a[href*="/channel/"], a[href*="/c/"], a[href*="/user/"]');
   links.forEach(a => {
     const href = a.getAttribute('href') || '';
-    const handleMatch = href.match(/\/(@[a-zA-Z0-9_.-]+)/);
+    const channelId = href.match(/\/channel\/([^/?#]+)/);
+    if (channelId) ids.add(channelId[1].toLowerCase());
+    const handleMatch = href.match(/\/(@[^/?#]+)/u);
     if (handleMatch) {
-      handles.add(handleMatch[1].toLowerCase());
+      try { handles.add(decodeURIComponent(handleMatch[1]).toLowerCase()); } catch {}
     }
 
     // Often avatars or links have title="Channel Name" or aria-label="Channel Name"
@@ -441,16 +415,17 @@ function getCardChannelInfo(card) {
 
   return {
     names: Array.from(names),
-    handles: Array.from(handles)
+    handles: Array.from(handles),
+    ids: Array.from(ids)
   };
 }
 
 function getCurrentPageChannelInfo() {
   const path = window.location.pathname || '';
   let handle = '';
-  const handleMatch = path.match(/^\/(@[a-zA-Z0-9_.-]+)/);
+  const handleMatch = path.match(/^\/(@[^/?#]+)/u);
   if (handleMatch) {
-    handle = handleMatch[1].toLowerCase();
+    try { handle = decodeURIComponent(handleMatch[1]).toLowerCase(); } catch {}
   }
   let name = '';
   const headerNameEl = document.querySelector(
@@ -482,7 +457,7 @@ function matchesChannel(channelInfo, channelBlocklist, pageChannelInfo) {
     });
   }
 
-  if (pageChannelInfo) {
+  if (pageChannelInfo && candidateNames.size === 0 && candidateHandles.size === 0) {
     if (pageChannelInfo.name) {
       const cl = cleanChannelText(pageChannelInfo.name);
       if (cl) candidateNames.add(cl.toLowerCase());
@@ -492,34 +467,26 @@ function matchesChannel(channelInfo, channelBlocklist, pageChannelInfo) {
     }
   }
 
-  if (candidateNames.size === 0 && candidateHandles.size === 0) return false;
+  if (candidateNames.size === 0 && candidateHandles.size === 0 && !channelInfo?.ids?.length) return false;
 
   for (const blocked of channelBlocklist) {
     if (!blocked) continue;
     const bLower = blocked.toLowerCase().trim();
     if (!bLower) continue;
 
+    if (channelInfo?.ids?.includes(bLower.replace(/^\/channel\//, ""))) return true;
     const bHandle = bLower.startsWith('@') ? bLower : '@' + bLower;
     const bNoAt = bLower.startsWith('@') ? bLower.slice(1) : bLower;
-    const bNorm = normalizeForComparison(bLower);
 
     // 1. Direct handle match
     for (const h of candidateHandles) {
       const hNoAt = h.startsWith('@') ? h.slice(1) : h;
       if (h === bHandle || h === bLower || hNoAt === bNoAt) return true;
-      if (normalizeForComparison(h) === bNorm) return true;
     }
 
     // 2. Direct name match
     for (const name of candidateNames) {
       if (name === bLower || name === bNoAt) return true;
-      const nameNorm = normalizeForComparison(name);
-      if (nameNorm === bNorm) return true;
-
-      // Handle cases where YouTube adds badges or suffixes: "Veritasium - Official Channel"
-      if (bNorm.length >= 4 && nameNorm.startsWith(bNorm)) {
-        return true;
-      }
     }
   }
 
@@ -613,6 +580,7 @@ function showQuickBlockToast(displayName, identifier, card) {
 
   const toast = document.createElement('div');
   toast.id = 'iyt-quick-block-toast';
+  toast.setAttribute('role', 'status');
   toast.className = 'iyt-quick-block-toast';
   const dir = (typeof I18N !== 'undefined' && I18N.getDirection) ? I18N.getDirection() : 'ltr';
   toast.setAttribute('dir', dir);
@@ -620,13 +588,17 @@ function showQuickBlockToast(displayName, identifier, card) {
   toast.innerHTML = `
     <div class="iyt-qb-toast-content">
       <span class="iyt-qb-toast-icon">🚫</span>
-      <span class="iyt-qb-toast-text">Blocked <strong>${escapeHtml(displayName)}</strong></span>
-      <button type="button" class="iyt-qb-toast-undo">Undo</button>
+      <span class="iyt-qb-toast-text"></span>
+      <button type="button" class="iyt-qb-toast-undo"></button>
     </div>
-    <button type="button" class="iyt-qb-toast-close" aria-label="Dismiss">×</button>
+    <button type="button" class="iyt-qb-toast-close" >×</button>
   `;
 
+  toast.querySelector('.iyt-qb-toast-text').textContent = I18N.getMessage('channel_blocked', [displayName], 'Blocked ' + displayName);
+  toast.querySelector('.iyt-qb-toast-close').setAttribute('aria-label', I18N.getMessage('toast_dismiss_aria', null, 'Dismiss'));
   const undoBtn = toast.querySelector('.iyt-qb-toast-undo');
+  undoBtn.textContent = I18N.getMessage('action_undo', null, 'Undo');
+  undoBtn.hidden = !!_settings?.focusLock?.enabled;
   undoBtn.addEventListener('click', async (e) => {
     e.stopPropagation();
     if (_quickBlockToastTimer) {
@@ -634,9 +606,10 @@ function showQuickBlockToast(displayName, identifier, card) {
       _quickBlockToastTimer = null;
     }
     toast.remove();
+    if (_settings?.focusLock?.enabled) return;
     if (_settings?.channelBlocklist) {
       _settings.channelBlocklist = _settings.channelBlocklist.filter(x => x !== identifier);
-      await StorageManager.updateSetting('channelBlocklist', _settings.channelBlocklist);
+      _settings = IYT_Policy.effective(await StorageManager.changeList('channelBlocklist', identifier, true));
       unhideCard(card);
       scanAllCards(document);
     }
@@ -661,13 +634,12 @@ function showQuickBlockToast(displayName, identifier, card) {
 }
 
 async function handleQuickBlockChannel(card, displayName, channelInfo) {
-  const identifier = (displayName || channelInfo?.names?.[0] || channelInfo?.handles?.[0] || '').trim().toLowerCase();
+  const identifier = (channelInfo?.ids?.[0] || channelInfo?.handles?.[0] || displayName || channelInfo?.names?.[0] || '').trim().toLowerCase();
   if (!identifier) return;
 
   if (!_settings.channelBlocklist) _settings.channelBlocklist = [];
   if (!_settings.channelBlocklist.includes(identifier)) {
-    _settings.channelBlocklist.push(identifier);
-    await StorageManager.updateSetting('channelBlocklist', _settings.channelBlocklist);
+    _settings = IYT_Policy.effective(await StorageManager.changeList('channelBlocklist', identifier));
   }
 
   hideCard(card);
@@ -682,20 +654,24 @@ function removeAllQuickBlockButtons() {
 function injectQuickBlockButton(card, channelInfo) {
   if (!_settings || _settings.enableQuickBlock === false || !isEffectiveActive(_settings)) return;
   if (!card || card.nodeType !== 1) return;
-  if (card.querySelector('.iyt-quick-block-btn')) return;
 
   const info = channelInfo || getCardChannelInfo(card);
   const displayName = info.names[0] || info.handles[0];
-  if (!displayName) return;
+  if (!displayName) { card.querySelector('.iyt-quick-block-btn')?.remove(); return; }
 
+  const identity = info.ids?.[0] || info.handles[0] || displayName;
+  const existingButton = card.querySelector('.iyt-quick-block-btn');
+  if (existingButton?.dataset.channel === identity) return;
+  existingButton?.remove();
   const targetContainer = findBylineAnchor(card);
   if (!targetContainer) return;
 
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'iyt-quick-block-btn';
-  btn.title = `Block ${displayName}`;
-  btn.setAttribute('aria-label', `Block channel ${displayName}`);
+  btn.dataset.channel = identity;
+  btn.title = `${I18N.getMessage('action_block', null, 'Block')} ${displayName}`;
+  btn.setAttribute('aria-label', btn.title);
 
   const blockLabel = (typeof I18N !== 'undefined' && I18N.getMessage)
     ? (I18N.getMessage('action_block') || 'Block')
@@ -706,14 +682,15 @@ function injectQuickBlockButton(card, channelInfo) {
       <circle cx="12" cy="12" r="10"></circle>
       <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
     </svg>
-    <span class="iyt-qb-label">${blockLabel}</span>
+    <span class="iyt-qb-label"></span>
   `;
 
+  btn.querySelector('.iyt-qb-label').textContent = blockLabel;
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
-    handleQuickBlockChannel(card, displayName, info);
+    handleQuickBlockChannel(card, displayName, info).catch(console.warn);
   });
 
   targetContainer.appendChild(btn);
@@ -723,7 +700,7 @@ function evaluateCard(card, channelBlocklist, keywordBlocklist, pageChannelInfo)
   if (!card || card.nodeType !== 1) return;
 
   const channelInfo = getCardChannelInfo(card);
-  const isBlockedChannel = matchesChannel(channelInfo, channelBlocklist, pageChannelInfo);
+  const isBlockedChannel = matchesChannel(channelInfo, channelBlocklist, null);
   const title = getCardTitle(card);
   const isBlockedKeyword = !isBlockedChannel && matchesKeyword(title, keywordBlocklist);
 
@@ -795,6 +772,7 @@ function scheduleFilterScanForNodes(nodes) {
 
 function flushPendingFilterNodes() {
   _filterDebounceTimer = null;
+  if (!isEffectiveActive(_settings)) { _pendingFilterNodes.clear(); return; }
   if (_pendingFilterNodes.size === 0) return;
 
   const channelList = _settings?.channelBlocklist || [];
@@ -829,21 +807,23 @@ function flushPendingFilterNodes() {
   }
 }
 
-let _routeFilterTimer = null;
+const _routeFilterTimers = new Map();
 function scheduleFullFilterScan(delayMs = 80) {
-  if (_routeFilterTimer) clearTimeout(_routeFilterTimer);
-  _routeFilterTimer = setTimeout(() => {
-    _routeFilterTimer = null;
+  clearTimeout(_routeFilterTimers.get(delayMs));
+  _routeFilterTimers.set(delayMs, setTimeout(() => {
+    _routeFilterTimers.delete(delayMs);
     scanAllCards(document);
-  }, delayMs);
+  }, delayMs));
 }
 
 let _isApplyingClasses = false;
 
 function applyAllClasses(settings) {
+  settings = IYT_Policy.effective(settings);
   _isApplyingClasses = true;
   try {
     const active = isEffectiveActive(settings);
+    html.classList.toggle('iyt-scheduled-full-block', IYT_Policy.schedules(settings).some(s => s.mode === 'full'));
     updateHomePageState();
     for (const [key, cls] of Object.entries(CLASS_MAP)) {
       if (key === 'blockHomeFeed' && settings.limitHomeFeed) {
@@ -902,48 +882,55 @@ const _classObserver = new MutationObserver(() => {
 _classObserver.observe(html, { attributes: true, attributeFilter: ['class'] });
 
 function applyAutoplay(settings) {
+  settings = IYT_Policy.effective(settings);
   if (!isEffectiveActive(settings) || !settings.disableAutoplay) return;
   document.querySelectorAll('video[autoplay]').forEach(v => v.removeAttribute('autoplay'));
   const btn = document.querySelector('.ytp-autonav-toggle-button[aria-checked="true"]');
   if (btn) btn.click();
 }
 
+let _settingsGeneration = 0;
 async function applyAllSettings() {
-  _settings = await StorageManager.getSettings();
+  const generation = ++_settingsGeneration;
+  const saved = await StorageManager.getSettings();
+  if (generation !== _settingsGeneration) return;
+  _settings = IYT_Policy.effective(saved);
   scheduleSnoozeWakeup(_settings);
   checkShortsRedirect(_settings);
   applyAllClasses(_settings);
   applyAutoplay(_settings);
-  scanAllCards(document);
+  html.setAttribute("data-iyt-ready", "true");
 }
 
 // React instantly when user toggles settings via storage event
 browser.storage.onChanged.addListener((changes) => {
   if (!changes.settings?.newValue) return;
-  _settings = changes.settings.newValue;
+  ++_settingsGeneration;
+  _settings = IYT_Policy.effective(changes.settings.newValue);
   scheduleSnoozeWakeup(_settings);
   checkShortsRedirect(_settings);
   applyAllClasses(_settings);
   applyAutoplay(_settings);
-  scanAllCards(document);
+  html.setAttribute("data-iyt-ready", "true");
 });
 
 // Also react immediately to direct runtime messages from popup
 if (browser && browser.runtime && browser.runtime.onMessage) {
   browser.runtime.onMessage.addListener((msg) => {
     if (msg && msg.type === 'IYT_APPLY_SETTINGS' && msg.settings) {
-      _settings = msg.settings;
+      ++_settingsGeneration;
+      _settings = IYT_Policy.effective(msg.settings);
       scheduleSnoozeWakeup(_settings);
       checkShortsRedirect(_settings);
       applyAllClasses(_settings);
       applyAutoplay(_settings);
-      scanAllCards(document);
+      html.setAttribute("data-iyt-ready", "true");
     }
   });
 }
 
 // Initial injection at document_start
-applyAllSettings();
+applyAllSettings().catch(() => html.setAttribute("data-iyt-ready", "true"));
 
 function initDomObserver() {
   const target = document.body || document.documentElement;
@@ -955,7 +942,12 @@ function initDomObserver() {
     if (!isEffectiveActive(_settings)) return;
     const addedElements = [];
     for (let i = 0; i < mutations.length; i++) {
-      const added = mutations[i].addedNodes;
+      const mutation = mutations[i];
+      if (mutation.type !== 'childList' || mutation.addedNodes.length === 0 || [...mutation.addedNodes].some(node => node.nodeType === 3)) {
+        const changed = mutation.target.nodeType === 1 ? mutation.target : mutation.target.parentElement;
+        if (changed && !changed.closest('.iyt-quick-block-btn')) addedElements.push(changed);
+      }
+      const added = mutation.addedNodes;
       for (let j = 0; j < added.length; j++) {
         if (added[j].nodeType === 1) {
           addedElements.push(added[j]);
@@ -966,9 +958,10 @@ function initDomObserver() {
       if (_settings.blockShorts) scheduleShortsPurge();
       if (_settings.limitHomeFeed) scheduleHomeFeedLimit();
       scheduleFilterScanForNodes(addedElements);
+      applyAutoplay(_settings);
     }
   });
-  observer.observe(target, { childList: true, subtree: true });
+  observer.observe(target, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href','title','aria-label'] });
 
   // Immediately scan any elements already parsed in the DOM
   scanAllCards(document);

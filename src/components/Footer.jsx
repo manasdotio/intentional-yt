@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="footer-brand-col">
           <div className="footer-brand-title">
             <img src="/icons/icon.svg" width="24" height="24" alt="Intentional YT Logo" />
-            <span>{APP_CONFIG.name}</span>
+            <span>{APP_CONFIG.shortName}</span>
             <span className="brand-badge" style={{ fontSize: '11px', padding: '1px 6px' }}>{APP_CONFIG.versionShort}</span>
           </div>
           <p className="footer-brand-desc">
@@ -66,15 +66,6 @@ export default function Footer() {
                 <span>Firefox Add-on Store ↗</span>
               </a>
             </li>
-            <li>
-              <a 
-                href={APP_CONFIG.chromeZipUrl} 
-                download={APP_CONFIG.chromeZipFilename} 
-                className="footer-nav-link"
-              >
-                Download Chrome (.zip) ↓
-              </a>
-            </li>
             <li><a href={APP_CONFIG.githubReleasesUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Release Packages ↗</a></li>
           </ul>
         </div>
@@ -100,8 +91,6 @@ export default function Footer() {
           <span>© {currentYear} {APP_CONFIG.shortName || APP_CONFIG.name} • Free &amp; Open Source under <a href={`${APP_CONFIG.githubRepoUrl}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>MIT License</a></span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-          <span>Made with care for quiet focus &amp; peace of mind</span>
-          <span>•</span>
           <a href="#" className="footer-back-top" onClick={scrollToTop} aria-label="Scroll back to top">
             <span>Back to top</span>
             <span>↑</span>

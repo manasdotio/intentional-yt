@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useTheme } from '../context/ThemeContext'
 import { APP_CONFIG } from '../config/constants'
@@ -9,6 +9,12 @@ export default function Navbar() {
   const { theme, toggleTheme, mounted } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [installUrl, setInstallUrl] = useState(APP_CONFIG.chromeWebStoreUrl)
+  const menuButtonRef = useRef(null)
+  const menuRef = useRef(null)
+  const closeMenu = () => {
+    setMobileMenuOpen(false)
+    menuButtonRef.current?.focus()
+  }
 
   // Smart detect user browser for primary install CTA
   useEffect(() => {
@@ -22,14 +28,37 @@ export default function Navbar() {
     }
   }, [])
 
-  // Close mobile menu on Escape key press
+  // Keep keyboard focus and page scrolling inside the open mobile menu.
   useEffect(() => {
+    if (!mobileMenuOpen) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    menuRef.current?.querySelector('a')?.focus()
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') setMobileMenuOpen(false)
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false)
+        menuButtonRef.current?.focus()
+      }
+      if (e.key === 'Tab') {
+        const items = menuRef.current?.querySelectorAll('a[href], button:not([disabled])')
+        if (!items?.length) return
+        const first = items[0]
+        const last = items[items.length - 1]
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+        else if (!menuRef.current.contains(document.activeElement)) { e.preventDefault(); first.focus() }
+      }
     }
+    const desktop = window.matchMedia('(min-width: 769px)')
+    const handleResize = () => { if (desktop.matches) setMobileMenuOpen(false) }
+    desktop.addEventListener('change', handleResize)
     window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+      desktop.removeEventListener('change', handleResize)
+    }
+  }, [mobileMenuOpen])
 
   return (
     <header className="nav-wrap">
@@ -42,7 +71,6 @@ export default function Navbar() {
         >
           <img src="/icons/icon.svg" alt="Intentional YT Logo" className="brand-logo" width="28" height="28" />
           <span>{APP_CONFIG.shortName || APP_CONFIG.name}</span>
-          <span className="brand-badge">{APP_CONFIG.versionShort}</span>
         </Link>
 
         <div className="nav-links">
@@ -100,10 +128,12 @@ export default function Navbar() {
           {/* Mobile Menu Hamburger Button */}
           <button
             type="button"
+            ref={menuButtonRef}
             className={`nav-hamburger-btn ${mobileMenuOpen ? 'open' : ''}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
+            aria-controls={mobileMenuOpen ? 'mobile-navigation' : undefined}
           >
             <span className="hamburger-line line-1"></span>
             <span className="hamburger-line line-2"></span>
@@ -114,13 +144,20 @@ export default function Navbar() {
 
       {/* Mobile Navigation Drawer / Dropdown */}
       {mobileMenuOpen && (
-        <div className="mobile-nav-backdrop" onClick={() => setMobileMenuOpen(false)}>
+        <div className="mobile-nav-backdrop" onClick={closeMenu}>
           <div 
             className="mobile-nav-drawer" 
+            id="mobile-navigation"
+            ref={menuRef}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
+            aria-modal="true"
             aria-label="Mobile Navigation"
           >
+            <div className="mobile-nav-heading">
+              <span>Navigation</span>
+              <button type="button" onClick={closeMenu} aria-label="Close navigation menu">×</button>
+            </div>
             <div className="mobile-nav-links">
               <Link 
                 href="/#demo" 

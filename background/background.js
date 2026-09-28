@@ -1,110 +1,44 @@
-/**
- * background.js — Intentional YT v3
- */
-
+/** Central settings writer and durable deadline reconciliation. */
 'use strict';
-
-if (typeof importScripts === 'function') {
-  try {
-    importScripts('/utils/storage.js');
-  } catch (e) {
-    importScripts('../utils/storage.js');
-  }
-}
-
+if (typeof importScripts === 'function') importScripts('/utils/storage.js', '/utils/policy.js', '/utils/schema.js');
 var browser = globalThis.browser || globalThis.chrome;
-
-
-const ALARM_NAME = 'iyt-daily-reset';
-const SNOOZE_ALARM = 'iyt-snooze-restore';
-
-function msUntilMidnight() {
-  const now = new Date();
-  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
-  return midnight.getTime() - now.getTime();
-}
-
-function scheduleNextReset() {
-  const delayMinutes = msUntilMidnight() / 60000;
-  browser.alarms.create(ALARM_NAME, { delayInMinutes: delayMinutes });
-}
-
-async function broadcastSettingsToTabs(settings) {
-  try {
-    if (browser && browser.tabs && typeof browser.tabs.query === 'function') {
-      const tabs = await browser.tabs.query({ url: ['*://*.youtube.com/*', '*://m.youtube.com/*'] });
-      for (const tab of tabs) {
-        if (tab.id) {
-          browser.tabs.sendMessage(tab.id, { type: 'IYT_APPLY_SETTINGS', settings }).catch(() => {});
-        }
-      }
-    }
-  } catch (e) {}
-}
-
-async function checkSnoozeState() {
-  const stored = await browser.storage.local.get('settings');
-  const snoozeUntil = stored.settings?.snoozeUntil;
-  if (!snoozeUntil) return;
-  if (Date.now() >= snoozeUntil) {
-    await StorageManager.updateSetting('snoozeUntil', null);
-    const fresh = await StorageManager.getSettings();
-    await broadcastSettingsToTabs(fresh);
-  } else {
-    browser.alarms.create(SNOOZE_ALARM, { when: snoozeUntil });
-  }
-}
-
-browser.runtime.onInstalled.addListener(async () => {
-  // Ensure settings always exist in storage from first install.
-  // Without this, _flushToStorage reads an empty store and silently returns.
-  const stored = await browser.storage.local.get('settings');
-  if (!stored.settings) {
-    const defaults = StorageManager.getDefaultSettings();
-    await browser.storage.local.set({ settings: defaults });
-  }
-  scheduleNextReset();
-  checkSnoozeState();
-
-  // Register uninstall feedback URL (persists across browser sessions)
-  const UNINSTALL_URL = 'https://intentionalyt.me/uninstall';
-  try {
-    if (typeof browser !== 'undefined' && browser.runtime && typeof browser.runtime.setUninstallURL === 'function') {
-      const p = browser.runtime.setUninstallURL(UNINSTALL_URL);
-      if (p && typeof p.catch === 'function') p.catch(() => {});
-    } else if (typeof chrome !== 'undefined' && chrome.runtime && typeof chrome.runtime.setUninstallURL === 'function') {
-      chrome.runtime.setUninstallURL(UNINSTALL_URL, () => {
-        if (chrome.runtime.lastError) {}
-      });
-    }
-  } catch (e) {}
-});
-
-if (browser.runtime.onStartup) {
-  browser.runtime.onStartup.addListener(() => {
-    checkSnoozeState();
+StorageManager._background = true;
+const RESET = 'iyt-daily-reset', DEADLINE = 'iyt-deadline';
+let alarmQueue = Promise.resolve();
+function scheduleDeadlines() {
+  alarmQueue = alarmQueue.catch(() => {}).then(async () => {
+    const settings = await StorageManager.execute({ op: 'reconcile' });
+    const now = new Date();
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime();
+    if ((await browser.alarms.get(RESET))?.scheduledTime !== midnight) await browser.alarms.create(RESET, { when: midnight });
+    const deadlines = [settings.snoozeUntil, settings.focusSessionUntil, settings.focusLock.pendingUnlock?.unlocksAt].filter(t => t > Date.now());
+    const next = Math.min(...deadlines);
+    if (deadlines.length) {
+      if ((await browser.alarms.get(DEADLINE))?.scheduledTime !== next) await browser.alarms.create(DEADLINE, { when: next });
+    } else await browser.alarms.clear(DEADLINE);
   });
+  return alarmQueue;
 }
-
-browser.storage.onChanged.addListener((changes) => {
-  if (changes.settings) {
-    const newSnooze = changes.settings.newValue?.snoozeUntil;
-    const oldSnooze = changes.settings.oldValue?.snoozeUntil;
-    if (newSnooze && newSnooze > Date.now()) {
-      browser.alarms.create(SNOOZE_ALARM, { when: newSnooze });
-    } else if (!newSnooze && oldSnooze) {
-      browser.alarms.clear(SNOOZE_ALARM);
-    }
+async function reconcile() {
+  await scheduleDeadlines();
+}
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (sender.id !== browser.runtime.id) return;
+  if (message?.type === 'IYT_CLOSE_TAB' && sender.tab?.id) {
+    browser.tabs.remove(sender.tab.id).catch(console.error);
+    return;
   }
+  if (message?.type !== 'IYT_STORAGE') return;
+  StorageManager.execute(message.command).then(async settings => {
+    if (!['watch', 'claimLimitWarning'].includes(message.command.op)) await scheduleDeadlines();
+    sendResponse({ ok: true, settings });
+  }).catch(error => sendResponse({ ok: false, error: error.message, code: error.code }));
+  return true;
 });
-
-browser.alarms.onAlarm.addListener(async (alarm) => {
-  if (alarm.name === ALARM_NAME) {
-    await StorageManager.resetDailyStats();
-    scheduleNextReset();
-  } else if (alarm.name === SNOOZE_ALARM) {
-    await StorageManager.updateSetting('snoozeUntil', null);
-    const fresh = await StorageManager.getSettings();
-    await broadcastSettingsToTabs(fresh);
-  }
+browser.alarms.onAlarm.addListener(() => { reconcile().catch(console.error); });
+browser.runtime.onStartup.addListener(() => { reconcile().catch(console.error); });
+browser.runtime.onInstalled.addListener(() => {
+  reconcile().catch(console.error);
+  browser.runtime.setUninstallURL('https://intentionalyt.me/uninstall').catch(() => {});
 });
+reconcile().catch(console.error);

@@ -5,8 +5,8 @@
 const DEFAULT_SEO = {
   title: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
   description: 'Free YouTube distraction blocker to hide recommendations, block Shorts, and set daily time limits. 100% open source, zero subscriptions, and strictly private.',
-  url: 'https://intentionalyt.me/',
-  image: 'https://intentionalyt.me/screenshots/intentional_yt_marquee_1400x560.png'
+  url: 'https://www.intentionalyt.me/',
+  image: 'https://www.intentionalyt.me/screenshots/intentional_yt_marquee_1400x560.png'
 }
 
 function setMetaTag(selector, attrName, value) {

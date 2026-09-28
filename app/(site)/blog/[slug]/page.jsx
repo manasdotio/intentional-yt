@@ -2,6 +2,7 @@ import { getAllPosts, getPostBySlug } from '@/src/utils/blog'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { APP_CONFIG } from '@/src/config/constants'
+import { serializeJsonLd } from '@/src/config/seo'
 
 export async function generateStaticParams() {
   const posts = getAllPosts()
@@ -19,26 +20,26 @@ export async function generateMetadata({ params }) {
 
   const ogImage = post.image.startsWith('http')
     ? post.image
-    : `https://intentionalyt.me${post.image.startsWith('/') ? '' : '/'}${post.image}`
+    : `https://www.intentionalyt.me${post.image.startsWith('/') ? '' : '/'}${post.image}`
 
   return {
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `https://intentionalyt.me/blog/${post.slug}`
+      canonical: `https://www.intentionalyt.me/blog/${post.slug}`
     },
     openGraph: {
       type: 'article',
-      url: `https://intentionalyt.me/blog/${post.slug}`,
+      url: `https://www.intentionalyt.me/blog/${post.slug}`,
       title: `${post.title} — Intentional YT`,
       description: post.description,
       publishedTime: post.date,
+      modifiedTime: post.modified || post.date,
+      siteName: 'Intentional YT',
       authors: [post.author],
       images: [
         {
           url: ogImage,
-          width: 1200,
-          height: 630,
           alt: post.title
         }
       ]
@@ -66,7 +67,7 @@ export default async function BlogPostPage({ params }) {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.modified || post.date,
     author: {
       '@type': 'Person',
       name: post.author,
@@ -75,14 +76,14 @@ export default async function BlogPostPage({ params }) {
     publisher: {
       '@type': 'Organization',
       name: 'Intentional YT',
-      url: 'https://intentionalyt.me'
+      url: 'https://www.intentionalyt.me'
     },
     image: post.image.startsWith('http')
       ? post.image
-      : `https://intentionalyt.me${post.image.startsWith('/') ? '' : '/'}${post.image}`,
+      : `https://www.intentionalyt.me${post.image.startsWith('/') ? '' : '/'}${post.image}`,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://intentionalyt.me/blog/${post.slug}`
+      '@id': `https://www.intentionalyt.me/blog/${post.slug}`
     }
   }
 
@@ -90,11 +91,19 @@ export default async function BlogPostPage({ params }) {
     <article className="blog-article-wrap" style={{ maxWidth: '820px', margin: '0 auto', padding: '40px 16px 80px' }}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd([articleSchema, {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.intentionalyt.me/' },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.intentionalyt.me/blog' },
+            { '@type': 'ListItem', position: 3, name: post.title, item: `https://www.intentionalyt.me/blog/${post.slug}` }
+          ]
+        }]) }}
       />
 
       {/* Navigation Breadcrumb */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px', flexWrap: 'wrap' }}>
+      <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px', flexWrap: 'wrap' }}>
         <Link 
           href="/blog" 
           className="btn btn-secondary" 
@@ -115,7 +124,8 @@ export default async function BlogPostPage({ params }) {
         >
           Blog
         </Link>
-      </div>
+        <span aria-current="page" style={{ fontSize: '13px' }}>{post.title}</span>
+      </nav>
 
       <header style={{ marginBottom: '36px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
@@ -132,6 +142,7 @@ export default async function BlogPostPage({ params }) {
               • Written by {post.author}
             </span>
           )}
+          {post.modified && <time dateTime={post.modified} style={{ fontSize: '13px', color: 'var(--text-tertiary)' }}>Updated {post.modified}</time>}
         </div>
       </header>
 

@@ -1,19 +1,8 @@
+import { pageMetadata } from '@/src/config/seo'
 import { getAllPosts } from '@/src/utils/blog'
 import Link from 'next/link'
 
-export const metadata = {
-  title: 'Blog & Essays',
-  description: 'Articles, candid tool comparisons, and developer notes on building distraction-free YouTube focus tools.',
-  alternates: {
-    canonical: 'https://intentionalyt.me/blog'
-  },
-  openGraph: {
-    type: 'website',
-    url: 'https://intentionalyt.me/blog',
-    title: 'Blog & Essays — Intentional YT',
-    description: 'Articles, candid tool comparisons, and developer notes on building distraction-free YouTube focus tools.'
-  }
-}
+export const metadata = pageMetadata({"title":"YouTube Focus Guides & Extension Comparisons","description":"Learn how to hide YouTube Shorts, remove recommendations, and set daily watch limits. Practical setup guides and browser extension comparisons.","path":"/blog"})
 
 export default function BlogIndexPage() {
   const posts = getAllPosts()
@@ -33,10 +22,10 @@ export default function BlogIndexPage() {
       <div className="section-head" style={{ textAlign: 'left', marginBottom: '40px' }}>
         <div className="section-eyebrow">Blog &amp; Essays</div>
         <h1 className="section-title" style={{ fontSize: '36px', marginBottom: '12px' }}>
-          Writing &amp; Comparisons
+          YouTube Focus Guides
         </h1>
         <p className="section-desc" style={{ maxWidth: '100%', fontSize: '16px' }}>
-          Unvarnished notes on digital habits, algorithmic friction, and open-source browser tools.
+          Step-by-step help for hiding Shorts, removing recommendations, and managing YouTube watch time.
         </p>
       </div>
 

@@ -289,16 +289,21 @@ function getSettingFriendlyName(settingKey) {
     const sched = _s?.scheduledBlocking?.schedules?.find(x => x.id === id);
     return `${t('schedule_card_delete') || 'Delete'} ${sched?.label || 'Schedule'}`;
   }
-  if (settingKey === 'resetDefaults') {
+  if (settingKey === 'resetStats' || settingKey === 'stats') return t('stats_button_reset') || 'Reset watch time';
+  if (settingKey === 'snooze' || settingKey === 'snoozeUntil') return t('action_snooze') || 'Snooze';
+  if (settingKey === 'focusEnd' || settingKey === 'focusSessionUntil') return t('focus_session_end');
+  if (settingKey.startsWith('schedule')) return t('toggle_scheduled_blocking') || 'Scheduled Blocking';
+  if (settingKey === 'resetDefaults' || settingKey === 'reset') {
     return t('btn_reset_defaults') || 'Reset Settings';
   }
-  if (settingKey === 'importSettings') {
+  if (settingKey === 'importSettings' || settingKey === 'import') {
     return t('btn_import_settings') || 'Import Settings';
   }
   return settingKey;
 }
 
 function fmtTime(secs) {
+  secs = Math.floor(secs);
   if (!secs || secs <= 0) return t('time_fmt_zero_min') || '0 min';
   const h = Math.floor(secs / 3600);
   const m = Math.floor((secs % 3600) / 60);
@@ -580,14 +585,11 @@ function updatePresetUI(s) {
   // Update dropdown icon
   const icon = document.querySelector('.preset-dropdown-icon');
   if (icon) {
-    const icons = {
-      balanced: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
-      zen: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 0-20"/>',
-      player: '<polygon points="5 3 19 12 5 21 5 3"/>',
-      custom: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>'
-    };
-    if (icons[active]) {
-      icon.innerHTML = icons[active];
+    switch (active) {
+      case 'balanced': icon.innerHTML = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'; break;
+      case 'zen': icon.innerHTML = '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 0-20"/>'; break;
+      case 'player': icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>'; break;
+      case 'custom': icon.innerHTML = '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>'; break;
     }
   }
 
@@ -955,104 +957,34 @@ function promptForPinVerification(onSuccess, settingLabel = '') {
  * - If not enabled, executes directCallback immediately.
  */
 async function interceptSettingChange(settingKey, targetValue, revertFn, directCallback) {
-  if (!isFocusLockActive()) {
-    return directCallback();
-  }
-
-  // Focus Lock is active: check if another unlock is currently pending
-  if (_s.focusLock.pendingUnlock) {
-    showToast(t('focus_lock_already_pending') || 'An unlock countdown is already active. Cancel it before unlocking another setting.');
-    const banner = $('focus-lock-banner');
-    if (banner) {
-      banner.classList.add('banner-pulse');
-      setTimeout(() => banner.classList.remove('banner-pulse'), 1200);
-    }
-    if (revertFn) revertFn();
-    return;
-  }
-
-  // Revert the UI control temporarily until unlock completes
-  if (revertFn) revertFn();
-
-  const friendlyLabel = getSettingFriendlyName(settingKey);
-
-  promptForPinVerification(async () => {
-    const cooldownMin = _s.focusLock.cooldownMinutes || 10;
-    const now = Date.now();
-    const unlocksAt = now + cooldownMin * 60 * 1000;
-
-    const pendingUnlock = {
-      settingKey,
-      targetValue,
-      friendlyLabel,
-      requestedAt: now,
-      unlocksAt
-    };
-
-    await StorageManager.updateNestedSetting('focusLock', 'pendingUnlock', pendingUnlock);
-    if (_s.focusLock) _s.focusLock.pendingUnlock = pendingUnlock;
-    renderPendingUnlockBanner();
-    showToast(`Cooldown started (${cooldownMin}m delay)`);
-  }, friendlyLabel);
+  // Authorization is enforced by the background for every mutation, not by individual controls.
+  return directCallback();
 }
 
-async function applyPendingUnlock(pendingUnlock) {
-  const { settingKey, targetValue } = pendingUnlock;
-
-  try {
-    if (settingKey === 'focusLock.enabled') {
-      await StorageManager.updateNestedSetting('focusLock', 'enabled', targetValue);
-    } else if (settingKey === 'dailyLimit.enabled') {
-      await StorageManager.updateNestedSetting('dailyLimit', 'enabled', targetValue);
-    } else if (settingKey === 'softReminder.enabled') {
-      await StorageManager.updateNestedSetting('softReminder', 'enabled', targetValue);
-    } else if (settingKey === 'scheduledBlocking.enabled') {
-      await StorageManager.updateNestedSetting('scheduledBlocking', 'enabled', targetValue);
-    } else if (settingKey.startsWith('schedule.toggle:')) {
-      const id = settingKey.split(':')[1];
-      const schedules = [...(_s.scheduledBlocking?.schedules || [])];
-      const target = schedules.find(x => x.id === id);
-      if (target) {
-        target.enabled = targetValue;
-        await StorageManager.updateSetting('scheduledBlocking', {
-          ..._s.scheduledBlocking,
-          schedules
-        });
-      }
-    } else if (settingKey.startsWith('schedule.delete:')) {
-      const id = settingKey.split(':')[1];
-      const schedules = (_s.scheduledBlocking?.schedules || []).filter(x => x.id !== id);
-      await StorageManager.updateSetting('scheduledBlocking', {
-        ..._s.scheduledBlocking,
-        schedules
-      });
-    } else if (settingKey.startsWith('preset:')) {
-      const pName = settingKey.split(':')[1];
-      const preset = PRESET_DEFINITIONS[pName];
-      if (preset) {
-        await StorageManager.updateSettings(preset);
-      }
-    } else if (settingKey === 'resetDefaults') {
-      await StorageManager.resetToDefaults();
-    } else if (settingKey === 'importSettings') {
-      const fileInput = $('input-import-file');
-      if (fileInput) {
-        fileInput.value = '';
-        fileInput.click();
-      }
-    } else {
-      await StorageManager.updateSetting(settingKey, targetValue);
-    }
-  } catch (err) {
-    console.error('[IYT] Error applying pending unlock:', err);
-  } finally {
-    await StorageManager.updateNestedSetting('focusLock', 'pendingUnlock', null);
-    if (_s?.focusLock) _s.focusLock.pendingUnlock = null;
-    const fresh = await StorageManager.getSettings();
-    broadcastSettingsToTabs(fresh);
-    renderAll(fresh);
+StorageManager.onProtectedChange = async command => {
+  const fresh = await StorageManager.getSettings();
+  renderAll(fresh);
+  if (fresh.focusLock.pendingUnlock) {
+    showToast(t('focus_lock_already_pending') || 'An unlock countdown is already active.');
+  } else {
+    const label = command.parentKey ? getSettingFriendlyName(command.parentKey) : getSettingFriendlyName(Object.keys(command.updates || {})[0] || command.op);
+    promptForPinVerification(async pin => {
+      try {
+        const updated = await StorageManager.queueUnlock(command, pin);
+        renderAll(updated);
+        showToast(t('focus_lock_banner_unlocking', [label]) || label);
+      } catch (error) { showToast(error.message); }
+    }, label);
   }
-}
+  const error = new Error('Change deferred until PIN verification and cooldown.');
+  error.code = 'IYT_DEFERRED';
+  throw error; // Stop optimistic UI and dependent writes in the initiating handler.
+};
+window.addEventListener('unhandledrejection', event => {
+  event.preventDefault();
+  if (event.reason?.code !== 'IYT_DEFERRED') showToast(event.reason?.message || 'Could not save settings');
+  StorageManager.getSettings().then(renderAll).catch(console.error);
+});
 
 function renderPendingUnlockBanner() {
   const banner = $('focus-lock-banner');
@@ -1068,7 +1000,8 @@ function renderPendingUnlockBanner() {
   }
 
   banner.style.display = 'flex';
-  const friendlyLabel = pending.friendlyLabel || getSettingFriendlyName(pending.settingKey);
+  const command = pending.command || {};
+  const friendlyLabel = getSettingFriendlyName(command.parentKey || Object.keys(command.updates || {})[0] || command.op || 'focusLock');
   $('focus-banner-setting').textContent = t('focus_lock_banner_unlocking', [friendlyLabel]) || `Unlocking: ${friendlyLabel}`;
 
   function updateTimer() {
@@ -1081,12 +1014,12 @@ function renderPendingUnlockBanner() {
         clearInterval(_bannerInterval);
         _bannerInterval = null;
       }
-      applyPendingUnlock(pending);
+      StorageManager.getSettings().then(renderAll).catch(console.error);
     }
   }
 
   updateTimer();
-  if (!_bannerInterval) {
+  if (!_bannerInterval && pending.unlocksAt > Date.now()) {
     _bannerInterval = setInterval(updateTimer, 1000);
   }
 }
@@ -1151,18 +1084,12 @@ function closeSnoozeModal() {
 
 async function handleSnoozeSelection(minutes) {
   closeSnoozeModal();
-  if (isFocusLockActive()) {
-    promptForPinVerification(async () => {
-      await executeSnooze(minutes);
-    }, t('action_snooze') || 'Snooze Protections');
-  } else {
-    await executeSnooze(minutes);
-  }
+  await executeSnooze(minutes);
 }
 
 async function executeSnooze(minutes) {
-  const snoozeUntil = Date.now() + minutes * 60 * 1000;
-  await StorageManager.updateSetting('snoozeUntil', snoozeUntil);
+  const updated = await StorageManager.snooze(minutes);
+  const snoozeUntil = updated.snoozeUntil;
   if (_s) _s.snoozeUntil = snoozeUntil;
   broadcastSettingsToTabs(_s);
   renderAll(_s);
@@ -1216,10 +1143,12 @@ function renderSchedulesList(s) {
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       </div>
       <div class="empty-text-wrap">
-        <span class="empty-title">${escapeHtml(t('scheduled_blocking_no_schedules') || 'No active schedules')}</span>
-        <span class="empty-subtitle">${escapeHtml(t('scheduled_blocking_empty_sub') || 'Automate distraction-free study blocks or quiet hours.')}</span>
+        <span class="empty-title"></span>
+        <span class="empty-subtitle"></span>
       </div>
     `;
+    empty.querySelector('.empty-title').textContent = t('scheduled_blocking_no_schedules') || 'No active schedules';
+    empty.querySelector('.empty-subtitle').textContent = t('scheduled_blocking_empty_sub') || 'Automate distraction-free study blocks or quiet hours.';
     container.appendChild(empty);
     return;
   }
@@ -1235,30 +1164,38 @@ function renderSchedulesList(s) {
 
     card.innerHTML = `
       <div class="schedule-card-top">
-        <span class="schedule-card-label">${escapeHtml(item.label || 'Schedule')}</span>
-        <input type="checkbox" class="chk schedule-card-toggle" ${item.enabled ? 'checked' : ''} data-id="${item.id}" />
+        <span class="schedule-card-label"></span>
+        <input type="checkbox"  class="chk schedule-card-toggle"   />
       </div>
       <div class="schedule-card-middle">
         <span class="schedule-card-time-info">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>${escapeHtml(formatScheduleDays(item.days))} • ${escapeHtml(item.startTime)} – ${escapeHtml(item.endTime)}</span>
+          <span class="schedule-time-label"></span>
         </span>
-        <span class="schedule-mode-badge ${modeBadgeClass}">${escapeHtml(modeBadgeText)}</span>
+        <span class="schedule-mode-badge"></span>
       </div>
       <div class="schedule-card-bottom">
-        <button type="button" class="btn-card-action btn-edit" data-id="${item.id}">
+        <button type="button" class="btn-card-action btn-edit" >
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          <span>${escapeHtml(t('schedule_card_edit') || 'Edit')}</span>
+          <span></span>
         </button>
-        <button type="button" class="btn-card-action btn-delete" data-id="${item.id}">
+        <button type="button" class="btn-card-action btn-delete" >
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-          <span>${escapeHtml(t('schedule_card_delete') || 'Delete')}</span>
+          <span></span>
         </button>
       </div>
     `;
 
+    card.querySelector('.schedule-card-label').textContent = item.label || 'Schedule';
+    card.querySelector('.schedule-time-label').textContent = formatScheduleDays(item.days) + ' / ' + item.startTime + ' - ' + item.endTime;
+    const modeBadge = card.querySelector('.schedule-mode-badge');
+    modeBadge.classList.add(modeBadgeClass); modeBadge.textContent = modeBadgeText;
+    card.querySelector('.btn-edit span').textContent = t('schedule_card_edit') || 'Edit';
+    card.querySelector('.btn-delete span').textContent = t('schedule_card_delete') || 'Delete';
     // Toggle individual schedule
     const toggle = card.querySelector('.schedule-card-toggle');
+    toggle.checked = item.enabled;
+    toggle.setAttribute('aria-label', item.label);
     toggle.addEventListener('change', async () => {
       const willEnable = toggle.checked;
       if (!willEnable && isFocusLockActive()) {
@@ -1301,26 +1238,11 @@ function renderSchedulesList(s) {
 }
 
 async function updateSingleScheduleEnabled(id, enabled) {
-  const schedules = [...(_s?.scheduledBlocking?.schedules || [])];
-  const sched = schedules.find(x => x.id === id);
-  if (sched) {
-    sched.enabled = enabled;
-    await StorageManager.updateSetting('scheduledBlocking', {
-      ..._s.scheduledBlocking,
-      schedules
-    });
-    if (_s.scheduledBlocking) _s.scheduledBlocking.schedules = schedules;
-    renderSchedulesList(_s);
-  }
+  _s = await StorageManager.setScheduleEnabled(id, enabled);
+  renderSchedulesList(_s);
 }
-
 async function deleteSchedule(id) {
-  const schedules = (_s?.scheduledBlocking?.schedules || []).filter(x => x.id !== id);
-  await StorageManager.updateSetting('scheduledBlocking', {
-    ..._s.scheduledBlocking,
-    schedules
-  });
-  if (_s.scheduledBlocking) _s.scheduledBlocking.schedules = schedules;
+  _s = await StorageManager.deleteSchedule(id);
   renderSchedulesList(_s);
 }
 
@@ -1434,10 +1356,8 @@ function renderBlocklist(type, items) {
       e.stopPropagation();
       const settingKey = type === 'channel' ? 'channelBlocklist' : 'keywordBlocklist';
       const currentList = Array.isArray(_s?.[settingKey]) ? _s[settingKey] : [];
-      const updatedList = currentList.filter(x => x !== item);
-
-      await StorageManager.updateSetting(settingKey, updatedList);
-      if (_s) _s[settingKey] = updatedList;
+      _s = await StorageManager.changeList(settingKey, item, true);
+      const updatedList = _s[settingKey];
 
       broadcastSettingsToTabs(_s);
       renderBlocklist(type, updatedList);
@@ -1461,12 +1381,16 @@ async function handleAddBlocklistEntry(type) {
     return;
   }
 
-  // If user pasted a YouTube URL, extract handle or channel slug
+  // Preserve international handles and stable channel IDs from pasted URLs.
   if (type === 'channel') {
-    const urlMatch = cleanVal.match(/(?:youtube\.com|youtu\.be)\/(?:@([a-z0-9_.-]+)|channel\/([a-z0-9_-]+)|c\/([a-z0-9_.-]+)|user\/([a-z0-9_.-]+))/i);
-    if (urlMatch) {
-      cleanVal = urlMatch[1] ? `@${urlMatch[1]}` : (urlMatch[2] || urlMatch[3] || urlMatch[4]);
-    }
+    try {
+      const url = new URL(cleanVal.startsWith('http') ? cleanVal : 'https://' + cleanVal);
+      if (['youtube.com','www.youtube.com','m.youtube.com'].includes(url.hostname)) {
+        const parts = decodeURIComponent(url.pathname).split('/').filter(Boolean);
+        if (parts[0]?.startsWith('@')) cleanVal = parts[0];
+        else if (['channel','c','user'].includes(parts[0]) && parts[1]) cleanVal = parts[1];
+      }
+    } catch {}
   }
 
   const settingKey = type === 'channel' ? 'channelBlocklist' : 'keywordBlocklist';
@@ -1480,7 +1404,8 @@ async function handleAddBlocklistEntry(type) {
   }
 
   currentList.push(cleanVal);
-  await StorageManager.updateSetting(settingKey, currentList);
+  const updated = await StorageManager.changeList(settingKey, cleanVal);
+  currentList.splice(0, currentList.length, ...updated[settingKey]);
   if (_s) _s[settingKey] = currentList;
 
   input.value = '';
@@ -1504,8 +1429,59 @@ async function handleClearBlocklist(type) {
 
 /* ── Master Render ───────────────────────────────────── */
 
+let _statusTimeout = null;
+let _latestUsageStats = null;
+function setStatusText(id, text) {
+  const node = $(id);
+  if (node.textContent !== text) node.textContent = text;
+}
+function renderBudgetStatus() {
+  let message = '';
+  if (_s?.dailyLimit.enabled && IYT_Policy.active(_s)) {
+    const left = Math.max(0, Math.ceil((_s.dailyLimit.limitMinutes * 60 - _s.stats.todayWatchSeconds) / 60));
+    message = _s.stats.limitDismissedToday
+      ? t('clear_status_dismissed')
+      : left ? t('clear_status_remaining', [String(left)]) : t('clear_status_limit_reached');
+  }
+  setStatusText('protection-status-budget', message);
+}
+function renderProtectionStatus() {
+  if (!_s) return;
+  clearTimeout(_statusTimeout);
+  const now = Date.now();
+  const time = value => new Date(value).toLocaleString(_s.userLanguage === 'auto' ? undefined : _s.userLanguage.replace('_', '-'), { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+  const active = IYT_Policy.schedules(_s);
+  const mode = active.some(rule => rule.mode === 'full') ? 'full' : 'strict';
+  let main = '';
+  if (!_s.extensionEnabled) main = t('clear_status_off');
+  else if (_s.snoozeUntil > now) main = t('clear_status_snoozed', [time(_s.snoozeUntil)]);
+  else if (active.length) {
+    const rules = active.filter(rule => rule.mode === mode);
+    const end = IYT_Policy.scheduleEnds(_s, mode);
+    main = t(mode === 'full' ? 'clear_status_full' : 'clear_status_strict', [rules.map(rule => rule.label || t('toggle_scheduled_blocking')).join(', ')]);
+    if (end) main += ' ' + t('clear_status_until', [time(end)]);
+  }
+  else if (IYT_Policy.focusSessionActive(_s)) main = '';
+  setStatusText('protection-status-main', main);
+  const running = _s.focusSessionUntil > now;
+  setStatusText('protection-status-session', running
+    ? t(IYT_Policy.focusSessionActive(_s) ? 'clear_status_session' : 'clear_status_session_paused', [time(_s.focusSessionUntil)]) : '');
+  document.querySelectorAll('[data-focus-minutes]').forEach(button => { button.disabled = running; });
+  $('btn-end-focus-session').hidden = !running;
+  renderBudgetStatus();
+  $('protection-status').hidden = !main && !running && !$('protection-status-budget').textContent;
+  // This timer exists only for the lifetime of the popup.
+  const deadlines = [_s.focusSessionUntil, _s.snoozeUntil].filter(value => value > now);
+  if (_s.scheduledBlocking.enabled) deadlines.push(now + 60000 - now % 60000);
+  if (deadlines.length) _statusTimeout = setTimeout(renderProtectionStatus, Math.min(...deadlines) - now + 30);
+}
+
 function renderAll(s) {
+  if (_latestUsageStats) s = { ...s, stats: _latestUsageStats };
   _s = s;
+  renderProtectionStatus();
+  $('toggle-limitWarning').checked = s.dailyLimit.warningEnabled !== false;
+  $('toggle-limitWarning').disabled = !s.dailyLimit.enabled;
 
   // Simple toggles
   for (const key of TOGGLES) {
@@ -1703,6 +1679,26 @@ async function broadcastSettingsToTabs(settings) {
 /* ── Event Bindings ──────────────────────────────────── */
 
 function bindAll() {
+  document.querySelectorAll('[data-focus-minutes]').forEach(button => {
+    button.addEventListener('click', async () => {
+      button.disabled = true;
+      try { renderAll(await StorageManager.startFocusSession(Number(button.dataset.focusMinutes))); }
+      catch (error) { showToast(error.message); renderProtectionStatus(); }
+    });
+  });
+  $('btn-end-focus-session').addEventListener('click', async () => {
+    try { renderAll(await StorageManager.endFocusSession()); }
+    catch (error) { showToast(error.message); }
+  });
+  $('toggle-limitWarning').addEventListener('change', async event => {
+    try { renderAll(await StorageManager.updateNestedSetting('dailyLimit', 'warningEnabled', event.target.checked)); }
+    catch (error) { showToast(error.message); renderAll(_s); }
+  });
+  const modalObserver = new MutationObserver(() => {
+    const modal = [...document.querySelectorAll('.iyt-modal-overlay')].find(el => el.style.display !== 'none');
+    if (modal) IYT_Dialog.open(modal); else IYT_Dialog.close();
+  });
+  document.querySelectorAll('.iyt-modal-overlay').forEach(el => modalObserver.observe(el, { attributes: true, attributeFilter: ['style'] }));
   // Tab Bar navigation
   document.querySelectorAll('#tab-bar .tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1936,6 +1932,7 @@ function bindAll() {
   });
 
   $('input-softReminderCustom').addEventListener('input', async e => {
+    if (isFocusLockActive()) return;
     const val = parseInt(e.target.value, 10);
     if (!isNaN(val) && val > 0 && val <= 1440) {
       await StorageManager.updateNestedSetting('softReminder', 'intervalMinutes', val);
@@ -2024,6 +2021,7 @@ function bindAll() {
   });
 
   $('input-dailyLimitCustom').addEventListener('input', async e => {
+    if (isFocusLockActive()) return;
     const val = parseInt(e.target.value, 10);
     if (!isNaN(val) && val > 0 && val <= 1440) {
       await StorageManager.updateNestedSetting('dailyLimit', 'limitMinutes', val);
@@ -2126,7 +2124,7 @@ function bindAll() {
 
     const callback = _pendingVerificationCallback;
     hidePinModals();
-    if (callback) callback();
+    if (callback) await callback(pin);
   };
 
   $('btn-submit-verify-pin').addEventListener('click', submitPinVerify);
@@ -2230,6 +2228,7 @@ function bindAll() {
 
     const editId = $('schedule-edit-id').value;
     const schedules = [...(_s.scheduledBlocking?.schedules || [])];
+    let savedId = editId;
 
     if (editId) {
       const existing = schedules.find(x => x.id === editId);
@@ -2244,6 +2243,7 @@ function bindAll() {
       const newId = (typeof crypto !== 'undefined' && crypto.randomUUID)
         ? crypto.randomUUID()
         : `sched_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+      savedId = newId;
       schedules.push({
         id: newId,
         label,
@@ -2255,11 +2255,7 @@ function bindAll() {
       });
     }
 
-    await StorageManager.updateSetting('scheduledBlocking', {
-      ..._s.scheduledBlocking,
-      schedules
-    });
-    if (_s.scheduledBlocking) _s.scheduledBlocking.schedules = schedules;
+    _s = await StorageManager.saveSchedule(schedules.find(s => s.id === savedId));
 
     closeScheduleForm();
     renderSchedulesList(_s);
@@ -2351,8 +2347,8 @@ function bindAll() {
   // Backup & Restore: Export Settings
   $('btn-export-settings')?.addEventListener('click', async () => {
     try {
-      const current = await StorageManager.getSettings();
-      const exportData = JSON.stringify(current, null, 2);
+      const current = IYT_validate(await StorageManager.getSettings(), true);
+      const exportData = JSON.stringify({ schemaVersion: 1, settings: current }, null, 2);
       const blob = new Blob([exportData], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -2394,6 +2390,7 @@ function bindAll() {
   $('input-import-file')?.addEventListener('change', e => {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (file.size > 250000) { showToast('Settings file is too large (maximum 250 KB).'); return; }
     const reader = new FileReader();
     reader.onload = async event => {
       try {
@@ -2413,8 +2410,9 @@ function bindAll() {
         renderAll(merged);
         showToast(t('settings_imported') || 'Settings imported successfully');
       } catch (err) {
+        if (err.code === 'IYT_DEFERRED') return;
         console.error('[IYT] Import settings failed:', err);
-        showToast(t('settings_import_failed') || 'Failed to import settings: Invalid JSON file');
+        showToast(err.message || t('settings_import_failed'));
       }
     };
     reader.readAsText(file);
@@ -2531,8 +2529,12 @@ function bindAll() {
 
   // Live update when settings write while popup is open
   browser.storage.onChanged.addListener(async changes => {
+    if (changes.usage?.newValue) _latestUsageStats = changes.usage.newValue.stats;
+    if (changes.usage?.newValue && !changes.settings) {
+      if (_s) { _s.stats = changes.usage.newValue.stats; renderStats(_s); renderBudgetStatus(); }
+    }
     if (changes.settings?.newValue) {
-      const newSettings = changes.settings.newValue;
+      const newSettings = await StorageManager.getSettings();
       if (changes.settings.oldValue?.themeMode !== newSettings.themeMode) {
         applyTheme(newSettings.themeMode || 'auto');
       }

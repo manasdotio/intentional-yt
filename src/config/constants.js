@@ -15,9 +15,9 @@ export const APP_CONFIG = {
   githubReleasesUrl: 'https://github.com/manasdotio/intentional-yt/releases',
   chromeZipUrl: '/intentional-yt.zip',
   chromeZipFilename: 'intentional-yt-v2.3.0.zip',
-  liveWebsiteUrl: 'https://intentionalyt.me/',
+  liveWebsiteUrl: 'https://www.intentionalyt.me/',
   feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7',
-  uninstallUrl: 'https://intentionalyt.me/uninstall',
+  uninstallUrl: 'https://www.intentionalyt.me/uninstall',
   uninstallFeedbackFormUrl: 'https://forms.gle/f3gpgv98ZrgfZPYdA',
   uninstallFeedbackConfig: {
     formUrl: 'https://forms.gle/f3gpgv98ZrgfZPYdA',

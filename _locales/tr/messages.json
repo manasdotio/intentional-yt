@@ -1,1204 +1,1307 @@
 {
-  "extensionName": {
-    "message": "Intentional YT - YouTube Dikkat Dağıtıcı Engelleyici ve Günlük Süre Limiti",
-    "description": "Official extension name in stores and browser management pages"
-  },
-  "extensionShortName": {
-    "message": "Intentional",
-    "description": "Short name of the extension"
-  },
-  "extensionDescription": {
-    "message": "Akışlar, Shorts, yorumlar ve izleme süresi sınırları için ayrıntılı kontrollerle dikkat dağıtmayan YouTube. %100 gizli ve yerel.",
-    "description": "Extension description in stores and browser management pages"
-  },
-  "popup_window_title": {
-    "message": "Intentional YT - YouTube Dikkat Dağıtıcı Engelleyici ve Günlük Süre Limiti",
-    "description": "Title tag of the popup document"
-  },
-  "header_title": {
-    "message": "Intentional YT",
-    "description": "Header brand name in the extension popup"
-  },
-  "status_active": {
-    "message": "Aktif",
-    "description": "Badge status when the extension is active"
-  },
-  "status_paused": {
-    "message": "Duraklatıldı",
-    "description": "Badge status when the extension is paused"
-  },
-  "section_feed": {
-    "message": "Akış",
-    "description": "Feed controls section header"
-  },
-  "toggle_block_home_feed": {
-    "message": "Ana sayfa akışını gizle",
-    "description": "Toggle label to hide YouTube home recommendations feed"
-  },
-  "desc_block_home_feed": {
-    "message": "YouTube ana sayfasındaki algoritmik video akışını gizler",
-    "description": "Helper description for Hide home feed toggle"
-  },
-  "toggle_limit_home_feed": {
-    "message": "Ana sayfa akışını sınırla (sonsuz kaydırmayı önle)",
-    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
-  },
-  "desc_limit_home_feed": {
-    "message": "Ana sayfa akışını 15 video ile sınırlar ve sonsuz kaydırmayı devre dışı bırakır",
-    "description": "Helper explanation for limiting home feed videos"
-  },
-  "toggle_block_subscriptions": {
-    "message": "Abonelikleri gizle",
-    "description": "Toggle label to hide YouTube subscriptions feed"
-  },
-  "toggle_block_recommended": {
-    "message": "Önerilen videolar kenar çubuğunu gizle",
-    "description": "Toggle label to hide recommended video sidebar on watch page"
-  },
-  "toggle_block_shorts": {
-    "message": "Shorts videolarını gizle",
-    "description": "Toggle label to hide Shorts carousels and tabs"
-  },
-  "desc_block_shorts": {
-    "message": "Shorts videolarını her yerde gizler — kenar çubuğu, akışlar, arama sonuçları ve kanallar",
-    "description": "Helper explanation for hiding Shorts across YouTube"
-  },
-  "toggle_block_explore_trending": {
-    "message": "Keşfet ve Trendleri gizle",
-    "description": "Toggle label to hide Explore and Trending navigation items"
-  },
-  "toggle_block_more_from_youtube": {
-    "message": "\"YouTube'dan Daha Fazlası\"nı gizle",
-    "description": "Toggle label to hide More from YouTube section in left sidebar"
-  },
-  "toggle_block_irrelevant_search": {
-    "message": "Alakasız arama bölümlerini gizle",
-    "description": "Toggle label to hide People also watched, For you, and related search shelves"
-  },
-  "section_video": {
-    "message": "Video",
-    "description": "Video controls section header"
-  },
-  "toggle_block_endscreen_videowall": {
-    "message": "Bitiş ekranı önerilerini gizle",
-    "description": "Toggle label to hide grid of recommended videos at video end"
-  },
-  "desc_block_endscreen_videowall": {
-    "message": "Oynatma bittiğinde önerilen video tablosunu ve sonraki video duvarını gizler",
-    "description": "Description for end screen videowall toggle"
-  },
-  "toggle_block_endscreen_cards": {
-    "message": "Bitiş ekranı kartlarını gizle",
-    "description": "Toggle label to hide creator end screen cards and elements"
-  },
-  "desc_block_endscreen_cards": {
-    "message": "Son 20 saniyede içerik üreticisinin eklediği video, oynatma listesi ve abone ol kartlarını gizler",
-    "description": "Description for creator end screen cards toggle"
-  },
-  "toggle_block_live_chat": {
-    "message": "Canlı sohbeti gizle",
-    "description": "Toggle label to hide live chat panel"
-  },
-  "toggle_block_playlist": {
-    "message": "Oynatma listesi panelini gizle",
-    "description": "Toggle label to hide playlist side panel on watch page"
-  },
-  "toggle_disable_autoplay": {
-    "message": "Otomatik oynatmayı kapat",
-    "description": "Toggle label to prevent YouTube from automatically playing next video"
-  },
-  "toggle_disable_annotations": {
-    "message": "Video içi kartları ve ek açıklamaları gizle",
-    "description": "Toggle label to hide in-video popups and annotations"
-  },
-  "toggle_block_video_info": {
-    "message": "Video bilgi panelini gizle",
-    "description": "Toggle label to hide video metadata panel below player"
-  },
-  "desc_block_video_info": {
-    "message": "Video oynatıcının altındaki tüm bilgileri ve eylemleri gizler",
-    "description": "Subheading description for Hide video info panel toggle"
-  },
-  "toggle_block_video_buttons": {
-    "message": "İşlem butonları",
-    "description": "Nested toggle label to hide like, dislike, share, download buttons"
-  },
-  "desc_block_video_buttons": {
-    "message": "Beğen, beğenme, paylaş, indir ve klip düğmelerini gizler",
-    "description": "Subheading description for Action buttons sub-toggle"
-  },
-  "toggle_block_channel_info": {
-    "message": "Kanal bilgileri",
-    "description": "Nested toggle label to hide channel subscriber count and avatar"
-  },
-  "desc_block_channel_info": {
-    "message": "Kanal adını, profil resmini ve abone ol düğmesini gizler",
-    "description": "Subheading description for Channel info sub-toggle"
-  },
-  "toggle_block_video_description": {
-    "message": "Açıklama",
-    "description": "Nested toggle label to hide video description box"
-  },
-  "desc_block_video_description": {
-    "message": "Genişletilebilir video açıklama metnini ve ayrıntılarını gizler",
-    "description": "Subheading description for Description sub-toggle"
-  },
-  "section_social": {
-    "message": "Sosyal",
-    "description": "Social controls section header"
-  },
-  "toggle_block_comments": {
-    "message": "Yorumları gizle",
-    "description": "Toggle label to hide YouTube comments section"
-  },
-  "toggle_block_profile_photos": {
-    "message": "Yorum yapanların profil fotoğraflarını gizle",
-    "description": "Toggle label to hide profile avatars of commenters"
-  },
-  "section_interface": {
-    "message": "Arayüz",
-    "description": "Interface controls section header"
-  },
-  "toggle_block_sidebar": {
-    "message": "Sol kenar çubuğunu gizle",
-    "description": "Toggle label to hide YouTube left drawer/guide navigation"
-  },
-  "toggle_block_top_header": {
-    "message": "Üst başlık çubuğunu gizle",
-    "description": "Toggle label to hide YouTube top search and navigation header"
-  },
-  "toggle_block_notification_bell": {
-    "message": "Bildirim zilini gizle",
-    "description": "Toggle label to hide notification bell icon"
-  },
-  "toggle_block_merch": {
-    "message": "Ürünleri ve teklifleri gizle",
-    "description": "Toggle label to hide merchandise shelf and product offers"
-  },
-  "toggle_block_mix_playlists": {
-    "message": "Mix oynatma listelerini gizle",
-    "description": "Toggle label to hide algorithmic YouTube mix playlists"
-  },
-  "section_appearance": {
-    "message": "Görünüm",
-    "description": "Appearance controls section header"
-  },
-  "toggle_hide_thumbnails": {
-    "message": "Küçük resimleri gizle",
-    "description": "Toggle label to neutralize/blur video thumbnail images"
-  },
-  "toggle_grayscale_mode": {
-    "message": "Gri tonlama modu",
-    "description": "Toggle label for black and white desaturation mode"
-  },
-  "section_time": {
-    "message": "Zaman Yönetimi",
-    "description": "Time controls section header"
-  },
-  "toggle_soft_reminder": {
-    "message": "Hafif mola hatırlatıcısı",
-    "description": "Toggle label for mindful interval toast notification"
-  },
-  "time_hint_every": {
-    "message": "Her",
-    "description": "Prefix label before interval dropdown"
-  },
-  "time_option_minutes": {
-    "message": "$MINUTES$ dk",
-    "description": "Preset time in minutes",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "15"
-      }
-    }
-  },
-  "time_option_custom": {
-    "message": "Özel...",
-    "description": "Option in dropdown to enter a custom duration"
-  },
-  "time_placeholder_min": {
-    "message": "dk",
-    "description": "Placeholder text inside custom minutes input field"
-  },
-  "time_unit_min": {
-    "message": "dk",
-    "description": "Unit label beside custom minutes input"
-  },
-  "toggle_daily_limit": {
-    "message": "Günlük limit",
-    "description": "Toggle label for daily total playback time limit"
-  },
-  "desc_daily_limit": {
-    "message": "Günlük izleme sınırınıza ulaşıldığında video oynatmayı duraklatır",
-    "description": "Subheading description for Daily Limit toggle"
-  },
-  "time_hint_stop_after": {
-    "message": "Şu süreden sonra durdur",
-    "description": "Prefix label before daily limit duration dropdown"
-  },
-  "blocklist_stub_alert": {
-    "message": "Kanal ve anahtar kelime filtreleme bir sonraki sürümde geliyor. Temel akış engelleyiciler aktif!",
-    "description": "Alert displayed when clicking stub add buttons in Blocklists tab"
-  },
-  "stats_watch_time_below": {
-    "message": "Günlük izleme süreniz her zaman aşağıda gösterilir.",
-    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
-  },
-  "stats_title_today": {
-    "message": "Bugün",
-    "description": "Heading for daily watch stats card"
-  },
-  "aria_about_daily_watchtime": {
-    "message": "Günlük izleme süresi hakkında",
-    "description": "Accessibility label for daily watchtime info icon"
-  },
-  "stats_tooltip_info": {
-    "message": "Bugün YouTube izlediğiniz dakikaları kaydeder. Gece yarısı otomatik olarak sıfırlanır. Oturumu sınırlamak için yukarıdaki günlük limiti kullanın.",
-    "description": "Tooltip text explaining watchtime tracking"
-  },
-  "stats_no_limit": {
-    "message": "limitsiz",
-    "description": "Stats subtitle when daily watch limit is disabled"
-  },
-  "stats_limit_progress": {
-    "message": "$MINUTES$ dk sürenin %$PERCENT$'i",
-    "description": "Stats progress indicator showing percentage of daily limit",
-    "placeholders": {
-      "percent": {
-        "content": "$1",
-        "example": "50"
-      },
-      "minutes": {
-        "content": "$2",
-        "example": "60"
-      }
-    }
-  },
-  "stats_button_reset": {
-    "message": "sıfırla",
-    "description": "Button to reset today's accumulated watch time"
-  },
-  "time_fmt_zero_min": {
-    "message": "0 dk",
-    "description": "Formatted time for 0 minutes"
-  },
-  "time_fmt_seconds": {
-    "message": "$SECONDS$ sn",
-    "description": "Formatted time in seconds",
-    "placeholders": {
-      "seconds": {
-        "content": "$1",
-        "example": "42"
-      }
-    }
-  },
-  "time_fmt_minutes": {
-    "message": "$MINUTES$ dk",
-    "description": "Formatted time in minutes",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "25"
-      }
-    }
-  },
-  "time_fmt_hours_minutes": {
-    "message": "$HOURS$ sa $MINUTES$ dk",
-    "description": "Formatted time in hours and minutes",
-    "placeholders": {
-      "hours": {
-        "content": "$1",
-        "example": "1"
-      },
-      "minutes": {
-        "content": "$2",
-        "example": "15"
-      }
-    }
-  },
-  "footer_local_privacy": {
-    "message": "%100 Yerel",
-    "description": "Footer badge indicating offline-first local storage"
-  },
-  "footer_feedback_link": {
-    "message": "Geri bildirim ve Fikirler ↗",
-    "description": "Footer link text to submit feedback form"
-  },
-  "toast_reminder_message": {
-    "message": "$MINUTES$ dakikadır video izliyorsunuz.",
-    "description": "Toast notification message when mindful interval triggers (plural)",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "30"
-      }
-    }
-  },
-  "toast_reminder_message_singular": {
-    "message": "1 dakikadır video izliyorsunuz.",
-    "description": "Toast notification message when mindful interval triggers (singular)"
-  },
-  "toast_dismiss_aria": {
-    "message": "Kapat",
-    "description": "Accessibility aria-label for closing toast notification"
-  },
-  "toast_reminder_badge": {
-    "message": "Hafif Hatırlatıcı",
-    "description": "Top badge in soft reminder notification card"
-  },
-  "toast_button_pause": {
-    "message": "Videoyu Duraklat",
-    "description": "Button to immediately pause playback from reminder toast"
-  },
-  "toast_button_continue": {
-    "message": "İzlemeye Devam Et",
-    "description": "Button to dismiss reminder toast and continue playback"
-  },
-  "toast_status_paused": {
-    "message": "Duraklatıldı ✓",
-    "description": "Status text shown when video has been paused via toast"
-  },
-  "desc_soft_reminder": {
-    "message": "Sizi engellemeden zamanın farkında olmanızı sağlamak için düzenli aralıklarla sakin ekran uyarısı.",
-    "description": "Description under Soft reminder toggle in Focus tab"
-  },
-  "btn_preview_reminder": {
-    "message": "Önizle",
-    "description": "Button to test and trigger soft reminder toast on active tab"
-  },
-  "btn_preview_sent": {
-    "message": "Gönderildi!",
-    "description": "Button text confirmation after preview toast is sent"
-  },
-  "toast_preview_need_yt": {
-    "message": "Hatırlatıcı bildirimini önizlemek için bir YouTube sekmesi açın",
-    "description": "Notice when attempting to preview toast without YouTube active"
-  },
-  "overlay_limit_title": {
-    "message": "Günlük Süre Sınırına Ulaşıldı",
-    "description": "Title on full-player limit overlay modal"
-  },
-  "overlay_limit_message": {
-    "message": "Bugün için belirlediğiniz $LIMIT$ dakikalık YouTube izleme sınırına ulaştınız.",
-    "description": "Explanation message on limit overlay modal",
-    "placeholders": {
-      "limit": {
-        "content": "$1",
-        "example": "60"
-      }
-    }
-  },
-  "overlay_button_finish_video": {
-    "message": "Bu videoyu bitir",
-    "description": "Button label to allow completing current video before blocking"
-  },
-  "overlay_button_finish_video_remaining": {
-    "message": "Bu videoyu bitir ($MINUTES$ dk kaldı)",
-    "description": "Button label with remaining duration to allow completing current video",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "4"
-      }
-    }
-  },
-  "overlay_button_stop_watching": {
-    "message": "İzlemeyi bırak (Ana sayfaya dön)",
-    "description": "Primary action button to leave video and return to homepage"
-  },
-  "overlay_button_dismiss_today": {
-    "message": "Bugünlük yok say",
-    "description": "Secondary action button to override limit for remainder of today"
-  },
-  "tab_block": {
-    "message": "Engelle",
-    "description": "Label for the Block tab in popup navigation"
-  },
-  "tab_blocklists": {
-    "message": "Filtreler",
-    "description": "Label for the Filters (blocklists) tab in popup navigation"
-  },
-  "tab_focus": {
-    "message": "Odaklanma",
-    "description": "Label for the Focus tab in popup navigation"
-  },
-  "tab_stats": {
-    "message": "İstatistikler",
-    "description": "Label for the Stats tab in popup navigation"
-  },
-  "tab_settings": {
-    "message": "Ayarlar",
-    "description": "Label for the Settings tab in popup navigation"
-  },
-  "action_collapse_all": {
-    "message": "Tümünü Daralt",
-    "description": "Button to collapse all detailed control accordion sections"
-  },
-  "action_expand_all": {
-    "message": "Tümünü Genişlet",
-    "description": "Button to expand all detailed control accordion sections"
-  },
-  "section_channel_blocklist": {
-    "message": "Kanal Engelleme Listesi",
-    "description": "Section header for Channel Blocklist"
-  },
-  "desc_channel_blocklist": {
-    "message": "Belirli kanalların akışlarda ve önerilerde görünmesini engelleyin.",
-    "description": "Description for Channel Blocklist feature"
-  },
-  "blocklist_channels_empty": {
-    "message": "Engellenen kanal yok.",
-    "description": "Empty state label for Channel Blocklist"
-  },
-  "section_keyword_blocklist": {
-    "message": "Anahtar Kelime Engelleme Listesi",
-    "description": "Section header for Keyword Blocklist"
-  },
-  "desc_keyword_blocklist": {
-    "message": "Başlıkları engellenen anahtar kelimelerle eşleşen videoları gizleyin.",
-    "description": "Description for Keyword Blocklist feature"
-  },
-  "blocklist_keywords_empty": {
-    "message": "Engellenen anahtar kelime yok.",
-    "description": "Empty state label for Keyword Blocklist"
-  },
-  "btn_add_channel": {
-    "message": "Kanal Ekle",
-    "description": "Button to add a channel to blocklist"
-  },
-  "btn_add_keyword": {
-    "message": "Anahtar Kelime Ekle",
-    "description": "Button to add a keyword to blocklist"
-  },
-  "section_focus_lock": {
-    "message": "Odak Kilidi",
-    "description": "Section header for Focus Lock feature"
-  },
-  "section_time_limits_title": {
-    "message": "Bilinçli Zaman ve Sınırlar",
-    "description": "Card header title for Time and Daily limits section"
-  },
-  "section_time_limits_sub": {
-    "message": "Hafif mola uyarıları ve günlük ekran süresi sınırları",
-    "description": "Card header subtitle for Time and Daily limits section"
-  },
-  "section_focus_lock_title": {
-    "message": "Odak Kilidi Kalkanı",
-    "description": "Card header title for Focus Lock section"
-  },
-  "section_focus_lock_sub": {
-    "message": "Kasıtlı bir gecikmeyle dürtüsel değişiklikleri önleyin",
-    "description": "Card header subtitle for Focus Lock section"
-  },
-  "section_scheduled_title": {
-    "message": "Zamanlanmış Odaklanma Oturumları",
-    "description": "Card header title for Scheduled Blocking section"
-  },
-  "section_scheduled_sub": {
-    "message": "Çalışma, ders veya uyku saatlerinde YouTube'u otomatik engelleyin",
-    "description": "Card header subtitle for Scheduled Blocking section"
-  },
-  "desc_focus_lock": {
-    "message": "Korumaları devre dışı bırakmadan önce bir bekleme süresi zorunlu kılın",
-    "description": "Subheading description for Focus Lock toggle"
-  },
-  "toggle_focus_lock": {
-    "message": "Odak Kilidi",
-    "description": "Toggle label for Focus Lock"
-  },
-  "focus_lock_cooldown_label": {
-    "message": "Bekleme süresi",
-    "description": "Label for Focus Lock cooldown duration selector"
-  },
-  "focus_lock_duration_5m": {
-    "message": "5 dk",
-    "description": "5 minutes cooldown option"
-  },
-  "focus_lock_duration_10m": {
-    "message": "10 dk",
-    "description": "10 minutes cooldown option"
-  },
-  "focus_lock_duration_30m": {
-    "message": "30 dk",
-    "description": "30 minutes cooldown option"
-  },
-  "focus_lock_duration_60m": {
-    "message": "60 dk",
-    "description": "60 minutes cooldown option"
-  },
-  "focus_lock_pin_modal_title": {
-    "message": "4 Haneli PIN Belirleyin",
-    "description": "Title for Focus Lock PIN setup modal"
-  },
-  "focus_lock_enter_pin": {
-    "message": "4 haneli PIN girin",
-    "description": "Placeholder for PIN input"
-  },
-  "focus_lock_confirm_pin": {
-    "message": "4 haneli PIN'i onaylayın",
-    "description": "Placeholder for PIN confirmation input"
-  },
-  "focus_lock_pin_warning": {
-    "message": "Bu PIN'i unutursanız, sıfırlamanın tek yolu uzantıyı kaldırıp yeniden yüklemektir; bu da tüm ayarlarınızı siler. Güvenli bir yere not edin.",
-    "description": "One-time setup warning for Focus Lock PIN recovery"
-  },
-  "focus_lock_btn_save_pin": {
-    "message": "PIN'i Kaydet ve Etkinleştir",
-    "description": "Button to save PIN and enable Focus Lock"
-  },
-  "focus_lock_btn_cancel": {
-    "message": "İptal",
-    "description": "Cancel button for Focus Lock modal"
-  },
-  "focus_lock_verify_title": {
-    "message": "Odak Kilidi Korumalı",
-    "description": "Title for Focus Lock verification modal"
-  },
-  "focus_lock_verify_prompt": {
-    "message": "Bekleme süresini başlatmak için 4 haneli PIN'inizi girin:",
-    "description": "Prompt for Focus Lock PIN verification"
-  },
-  "focus_lock_btn_submit_pin": {
-    "message": "Bekleme Süresini Başlat",
-    "description": "Button to submit PIN and start cooldown"
-  },
-  "focus_lock_error_mismatch": {
-    "message": "PIN'ler eşleşmiyor. Lütfen tekrar deneyin.",
-    "description": "Error when PIN confirmation does not match"
-  },
-  "focus_lock_error_invalid_pin": {
-    "message": "PIN tam olarak 4 haneli olmalıdır.",
-    "description": "Error when entered PIN is not 4 digits"
-  },
-  "focus_lock_error_incorrect_pin": {
-    "message": "Yanlış PIN. Tekrar deneyin.",
-    "description": "Error when entered PIN does not match stored hash"
-  },
-  "focus_lock_banner_unlocking": {
-    "message": "Kilit açılıyor: $SETTING$",
-    "description": "Banner message showing setting being unlocked",
-    "placeholders": {
-      "setting": {
-        "content": "$1",
-        "example": "Hide Shorts"
-      }
-    }
-  },
-  "focus_lock_banner_cooldown": {
-    "message": "$TIME$ içinde açılacak",
-    "description": "Banner message showing remaining cooldown time",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "09:45"
-      }
-    }
-  },
-  "focus_lock_banner_cancel": {
-    "message": "İptal",
-    "description": "Cancel button on pending unlock banner"
-  },
-  "focus_lock_already_pending": {
-    "message": "Zaten etkin bir kilit açma geri sayımı var. Başka bir ayarın kilidini açmadan önce bunu iptal edin.",
-    "description": "Notice when user attempts to unlock another setting while cooldown is running"
-  },
-  "section_scheduled_blocking": {
-    "message": "Zamanlanmış Engelleme",
-    "description": "Section header for Scheduled Blocking"
-  },
-  "desc_scheduled_blocking": {
-    "message": "Belirlenen saatlerde YouTube'u otomatik olarak engelleyin",
-    "description": "Subheading description for Scheduled Blocking"
-  },
-  "toggle_scheduled_blocking": {
-    "message": "Zamanlanmış Engelleme",
-    "description": "Toggle label for Scheduled Blocking"
-  },
-  "scheduled_blocking_add_btn": {
-    "message": "+ Zamanlama Ekle",
-    "description": "Button to open schedule creation form"
-  },
-  "scheduled_blocking_no_schedules": {
-    "message": "Henüz zamanlama yok. Bir tane oluşturmak için Zamanlama Ekle'ye tıklayın.",
-    "description": "Empty state when no schedules exist"
-  },
-  "schedule_form_title_add": {
-    "message": "Yeni Zamanlama",
-    "description": "Title when adding a new schedule"
-  },
-  "schedule_form_title_edit": {
-    "message": "Zamanlamayı Düzenle",
-    "description": "Title when editing an existing schedule"
-  },
-  "schedule_form_label": {
-    "message": "Etiket",
-    "description": "Label for schedule name input"
-  },
-  "schedule_form_label_placeholder": {
-    "message": "örn. Çalışma saatleri, Ders çalışma zamanı",
-    "description": "Placeholder for schedule name"
-  },
-  "schedule_form_days": {
-    "message": "Haftanın günleri",
-    "description": "Label for day chips in schedule form"
-  },
-  "schedule_form_start_time": {
-    "message": "Başlangıç saati",
-    "description": "Label for start time input"
-  },
-  "schedule_form_end_time": {
-    "message": "Bitiş saati",
-    "description": "Label for end time input"
-  },
-  "schedule_form_mode": {
-    "message": "Engelleme Modu",
-    "description": "Label for mode selector"
-  },
-  "schedule_mode_full": {
-    "message": "YouTube'u tamamen engelle",
-    "description": "Option to block YouTube entirely during schedule"
-  },
-  "schedule_mode_full_desc": {
-    "message": "YouTube'u kilitli bir odaklanma ekranıyla değiştirir",
-    "description": "Description for full block mode"
-  },
-  "schedule_mode_strict": {
-    "message": "Tüm korumaları zorunlu kıl",
-    "description": "Option to force all distraction blockers on during schedule"
-  },
-  "schedule_mode_strict_desc": {
-    "message": "Siteyi tamamen kilitlemeden maksimum dikkat dağıtıcı engellemesi uygular",
-    "description": "Description for strict protections mode"
-  },
-  "schedule_btn_save": {
-    "message": "Zamanlamayı Kaydet",
-    "description": "Button to save schedule"
-  },
-  "schedule_btn_cancel": {
-    "message": "İptal",
-    "description": "Button to cancel schedule editing"
-  },
-  "schedule_card_edit": {
-    "message": "Düzenle",
-    "description": "Edit button on schedule card"
-  },
-  "schedule_card_delete": {
-    "message": "Sil",
-    "description": "Delete button on schedule card"
-  },
-  "schedule_days_all": {
-    "message": "Her gün",
-    "description": "Summary for schedule active all 7 days"
-  },
-  "schedule_days_weekdays": {
-    "message": "Pzt-Cum",
-    "description": "Summary for schedule active on weekdays"
-  },
-  "schedule_days_weekends": {
-    "message": "Paz, Cmt",
-    "description": "Summary for schedule active on weekends"
-  },
-  "day_sun": {
-    "message": "Paz",
-    "description": "Sunday abbreviation"
-  },
-  "day_mon": {
-    "message": "Pzt",
-    "description": "Monday abbreviation"
-  },
-  "day_tue": {
-    "message": "Sal",
-    "description": "Tuesday abbreviation"
-  },
-  "day_wed": {
-    "message": "Çar",
-    "description": "Wednesday abbreviation"
-  },
-  "day_thu": {
-    "message": "Per",
-    "description": "Thursday abbreviation"
-  },
-  "day_fri": {
-    "message": "Cum",
-    "description": "Friday abbreviation"
-  },
-  "day_sat": {
-    "message": "Cmt",
-    "description": "Saturday abbreviation"
-  },
-  "schedule_validation_days": {
-    "message": "Lütfen en az bir gün seçin.",
-    "description": "Validation message when no days are selected"
-  },
-  "schedule_validation_label": {
-    "message": "Lütfen bir zamanlama etiketi girin.",
-    "description": "Validation message when label is empty"
-  },
-  "schedule_validation_times": {
-    "message": "Lütfen hem başlangıç hem de bitiş saatini belirtin.",
-    "description": "Validation message when times are missing"
-  },
-  "scheduled_block_title": {
-    "message": "YouTube şu anda kullanılamıyor",
-    "description": "Heading on full scheduled blocking commitment screen"
-  },
-  "scheduled_block_reopens": {
-    "message": "$TIME$ saatinde yeniden açılır",
-    "description": "Reopen time on full scheduled blocking commitment screen",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "17:00"
-      }
-    }
-  },
-  "scheduled_block_commitment": {
-    "message": "Bu zamanlama, odaklanmanızı korumak için Intentional YT tarafından uygulanmaktadır.",
-    "description": "Commitment message on full scheduled blocking screen"
-  },
-  "section_settings": {
-    "message": "Ayarlar",
-    "description": "Section header for Settings tab"
-  },
-  "setting_language": {
-    "message": "Dil",
-    "description": "Language selector label in Settings tab"
-  },
-  "setting_reset_title": {
-    "message": "Ayarları Sıfırla",
-    "description": "Header for reset settings action"
-  },
-  "setting_reset_desc": {
-    "message": "Tüm varsayılan seçenekleri geri yükleyin ve özel zamanlamaları temizleyin.",
-    "description": "Description explaining reset button"
-  },
-  "btn_reset_defaults": {
-    "message": "Tüm ayarları varsayılana sıfırla",
-    "description": "Button to restore default extension settings"
-  },
-  "confirm_reset_all_settings": {
-    "message": "Tüm ayarları varsayılana sıfırlamak istediğinizden emin misiniz? Bu işlem tüm özel tercihlerinizi ve zamanlamalarınızı temizleyecektir.",
-    "description": "Confirmation prompt before resetting all settings"
-  },
-  "section_stats": {
-    "message": "Etkinliğe Genel Bakış",
-    "description": "Section header for Activity & Stats tab"
-  },
-  "stats_dashboard_title": {
-    "message": "Bugünkü YouTube Oynatma Süresi",
-    "description": "Header title in stats hero card"
-  },
-  "stats_unit_watchtime": {
-    "message": "toplam izleme süresi",
-    "description": "Unit label beside watch time number"
-  },
-  "stats_callout_info": {
-    "message": "İzleme süresi yalnızca bir YouTube videosu aktif olarak oynatılırken birikir. Her gece yarısı otomatik olarak sıfırlanır. Kalıcı durum çubuğunuz her sekmede altta görünür kalır.",
-    "description": "Explanation text in stats callout note"
-  },
-  "stats_btn_set_limit": {
-    "message": "Limiti Yapılandır",
-    "description": "Button to navigate to daily limit settings"
-  },
-  "stats_btn_reset_panel": {
-    "message": "Bugünü Sıfırla",
-    "description": "Button in stats panel to reset today's watch time"
-  },
-  "scheduled_blocking_empty_sub": {
-    "message": "Dikkatinizi dağıtmayan ders bloklarını veya sessiz saatleri otomatikleştirin.",
-    "description": "Subtitle on schedule list empty state"
-  },
-  "setting_theme": {
-    "message": "Görünüm",
-    "description": "Appearance / Theme selector label in Settings tab"
-  },
-  "theme_auto": {
-    "message": "Otomatik (sistemle eşleş)",
-    "description": "Automatic system theme option"
-  },
-  "theme_dark": {
-    "message": "Koyu mod",
-    "description": "Dark theme option"
-  },
-  "theme_light": {
-    "message": "Açık mod",
-    "description": "Light theme option"
-  },
-  "setting_backup_title": {
-    "message": "Yedekle ve Geri Yükle",
-    "description": "Title for import and export section in Settings"
-  },
-  "setting_backup_desc": {
-    "message": "Ayarlarınızı bir JSON dosyasına aktarın veya önceki bir yedeği içe aktarın.",
-    "description": "Description for import and export section in Settings"
-  },
-  "setting_rate_store": {
-    "message": "Web Mağazasında Değerlendir",
-    "description": "Button linking to Chrome Web Store review page"
-  },
-  "setting_rate_firefox": {
-    "message": "Firefox AMO'da Değerlendir",
-    "description": "Button linking to Firefox Add-ons review page"
-  },
-  "btn_export_settings": {
-    "message": "Dışa Aktar",
-    "description": "Button label to export settings JSON"
-  },
-  "btn_import_settings": {
-    "message": "İçe Aktar",
-    "description": "Button label to import settings JSON"
-  },
-  "settings_exported": {
-    "message": "Ayarlar başarıyla dışa aktarıldı",
-    "description": "Toast message after exporting settings"
-  },
-  "settings_imported": {
-    "message": "Ayarlar başarıyla içe aktarıldı",
-    "description": "Toast message after importing settings"
-  },
-  "settings_import_failed": {
-    "message": "Ayarlar içe aktarılamadı: Geçersiz JSON dosyası",
-    "description": "Toast error message when import fails"
-  },
-  "section_active_count": {
-    "message": "$COUNT$ aktif",
-    "description": "Number of active toggles in a collapsible section",
-    "placeholders": {
-      "count": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
-  },
-  "presets_title": {
-    "message": "Hazır Ayarlar",
-    "description": "Header for distraction preset modes"
-  },
-  "preset_balanced": {
-    "message": "Dengeli",
-    "description": "Preset mode label for balanced focus"
-  },
-  "preset_zen": {
-    "message": "Zen",
-    "description": "Preset mode label for zen search-only focus"
-  },
-  "preset_player": {
-    "message": "Yalnızca Video",
-    "description": "Preset mode label for clean video playback focus"
-  },
-  "preset_custom": {
-    "message": "Özel",
-    "description": "Preset mode label when customized"
-  },
-  "preset_desc_balanced": {
-    "message": "Dengeli · Akışları ve önerileri gizler",
-    "description": "Description of balanced preset"
-  },
-  "preset_desc_zen": {
-    "message": "Zen · Yalnızca arama, tüm akışlar gizli",
-    "description": "Description of zen preset"
-  },
-  "preset_desc_player": {
-    "message": "Yalnızca Video · Sade oynatıcı, dikkat dağıtıcılar gizli",
-    "description": "Description of video only preset"
-  },
-  "preset_desc_custom": {
-    "message": "Özel yapılandırma",
-    "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Ayrıntılı Denetimler",
-    "description": "Section header above the accordion list"
-  },
-  "preset_tooltip_balanced": {
-    "message": "Ana Sayfa Akışını, Shorts videolarını ve kenar çubuğu önerilerini engeller. Arama, abonelikler ve yorumları erişilebilir bırakır.",
-    "description": "Tooltip description for Balanced preset"
-  },
-  "preset_tooltip_zen": {
-    "message": "Maksimum odaklanma. Yalnızca saf arama. Akışlar, yorumlar, küçük resimler ve kanal profil resimleri gizlenir.",
-    "description": "Tooltip description for Zen preset"
-  },
-  "preset_tooltip_player": {
-    "message": "Temiz video oynatıcı. Video etrafındaki önerileri, yorumları ve kenar çubuğu karmaşasını gizler.",
-    "description": "Tooltip description for Video Only preset"
-  },
-  "preset_tooltip_custom": {
-    "message": "Özel geçiş yapılandırması.",
-    "description": "Tooltip description for Custom mode"
-  },
-  "preset_applied": {
-    "message": "$PRESET$ moduna geçildi",
-    "description": "Toast notification when switching preset mode",
-    "placeholders": {
-      "preset": {
-        "content": "$1",
-        "example": "Balanced"
-      }
-    }
-  },
-  "welcome_title": {
-    "message": "Intentional YT'ye Hoş Geldiniz",
-    "description": "Title on first-run welcome card"
-  },
-  "welcome_desc": {
-    "message": "Başlamak için bir hazır ayar seçin veya aşağıdaki anahtarları özelleştirin.",
-    "description": "Description on first-run welcome card"
-  },
-  "welcome_dismiss_aria": {
-    "message": "Karşılama başlığını kapat",
-    "description": "Aria label for welcome banner dismiss button"
-  },
-  "search_toggles_placeholder": {
-    "message": "Ayar ara...",
-    "description": "Placeholder for toggle search input in Distractions tab"
-  },
-  "search_no_results": {
-    "message": "Ayar bulunamadı",
-    "description": "Empty state title when search matches no toggles"
-  },
-  "search_no_results_sub": {
-    "message": "Shorts, yorumlar veya kenar çubuğu aramayı deneyin",
-    "description": "Empty state subtitle when search matches no toggles"
-  },
-  "panel_filters_title": {
-    "message": "Kanal ve Anahtar Kelime Filtreleri",
-    "description": "Panel header title for Filters tab"
-  },
-  "panel_filters_subtitle": {
-    "message": "Belirli kanalları engelleyin ve videoları anahtar kelimeye göre filtreleyin.",
-    "description": "Panel header subtitle for Filters tab"
-  },
-  "panel_focus_title": {
-    "message": "Odaklanma ve Limitler",
-    "description": "Panel header title for Focus tab"
-  },
-  "panel_focus_subtitle": {
-    "message": "Hatırlatıcılar, günlük limitler ve zamanlanmış engelleme.",
-    "description": "Panel header subtitle for Focus tab"
-  },
-  "panel_stats_title": {
-    "message": "Oynatma Etkinliği",
-    "description": "Panel header title for Stats tab"
-  },
-  "panel_stats_subtitle": {
-    "message": "Günlük izleme sürenizi ve oynatma alışkanlıklarınızı takip edin.",
-    "description": "Panel header subtitle for Stats tab"
-  },
-  "panel_settings_title": {
-    "message": "Tercihler",
-    "description": "Panel header title for Settings tab"
-  },
-  "panel_settings_subtitle": {
-    "message": "Tema, dil ve yapılandırma yedeği.",
-    "description": "Panel header subtitle for Settings tab"
-  },
-  "toggle_redirect_shorts": {
-    "message": "Shorts videolarını normal oynatıcıya yönlendir",
-    "description": "Label for toggle to play Shorts in standard watch player"
-  },
-  "desc_redirect_shorts": {
-    "message": "Shorts videolarını oynatma kontrolleriyle standart izleme görünümünde oynatır",
-    "description": "Description for redirect shorts toggle"
-  },
-  "action_snooze": {
-    "message": "Ertele",
-    "description": "Button to temporarily pause protections"
-  },
-  "status_snoozed": {
-    "message": "Ertelendi",
-    "description": "Status badge label when protections are temporarily paused"
-  },
-  "snooze_modal_title": {
-    "message": "Korumaları Duraklat",
-    "description": "Title for snooze modal"
-  },
-  "snooze_modal_desc": {
-    "message": "Süre bittiğinde korumalar otomatik olarak kaldığı yerden devam edecektir.",
-    "description": "Subtitle description for snooze modal"
-  },
-  "snooze_duration_15": {
-    "message": "15 Dakika",
-    "description": "15 minute snooze option"
-  },
-  "snooze_duration_15_desc": {
-    "message": "Hızlı mola",
-    "description": "Description for 15 minute snooze"
-  },
-  "snooze_duration_30": {
-    "message": "30 Dakika",
-    "description": "30 minute snooze option"
-  },
-  "snooze_duration_30_desc": {
-    "message": "Çalışma oturumu",
-    "description": "Description for 30 minute snooze"
-  },
-  "snooze_duration_60": {
-    "message": "1 Saat",
-    "description": "60 minute snooze option"
-  },
-  "snooze_duration_60_desc": {
-    "message": "Uzatılmış oturum",
-    "description": "Description for 60 minute snooze"
-  },
-  "action_resume_now": {
-    "message": "Şimdi Devam Ettir",
-    "description": "Button to immediately restore protections from snooze"
-  },
-  "snooze_banner_title": {
-    "message": "Korumalar Ertelendi",
-    "description": "Title on snooze countdown banner"
-  },
-  "snooze_banner_remaining": {
-    "message": "$TIME$ kaldı",
-    "description": "Countdown remaining on snooze banner",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "14:59"
-      }
-    }
-  },
-  "snooze_activated": {
-    "message": "Korumalar $MINUTES$ dakika duraklatıldı",
-    "description": "Toast notification when snooze is turned on",
-    "placeholders": {
-      "minutes": {
-        "content": "$1",
-        "example": "15"
-      }
-    }
-  },
-  "snooze_resumed": {
-    "message": "Korumalar devam ettirildi",
-    "description": "Toast notification when snooze ends or is canceled"
-  },
-  "status_off": {
-    "message": "Kapalı",
-    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
-  },
-  "toggle_extension_enabled": {
-    "message": "Uzantı Ana Anahtarı",
-    "description": "Label for the master extension toggle in the header"
-  },
-  "stats_reset_toast": {
-    "message": "Günlük izleme süresi sıfırlandı",
-    "description": "Toast message when user resets today's watch time"
-  },
-  "filters_status_in_development": {
-    "message": "Geliştirilme Aşamasında",
-    "description": "Status pill label on the content filters roadmap preview card"
-  },
-  "action_block": {
-    "message": "Engelle",
-    "description": "Button text for 1-click in-feed channel block button"
-  },
-  "filters_quick_block_title": {
-    "message": "1 Tıkla Hızlı Engelleme Butonu",
-    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
-  },
-  "filters_quick_block_desc": {
-    "message": "Video kartlarının üzerine gelindiğinde kanal adının yanında engelleme butonu göster",
-    "description": "Description for 1-click quick block button toggle"
-  },
-  "filters_tip_text": {
-    "message": "YouTube'da herhangi bir videonun üzerine gelerek kanalları tek tıkla engelleyin!",
-    "description": "Quick tip text at the top of the Filters tab"
-  },
-  "btn_clear_all": {
-    "message": "Tümünü temizle",
-    "description": "Button to clear all items in a blocklist"
-  },
-  "toast_channel_cleared": {
-    "message": "Tüm engellenen kanallar temizlendi",
-    "description": "Toast notification when all channels are cleared"
-  },
-  "toast_keyword_cleared": {
-    "message": "Tüm engellenen anahtar kelimeler temizlendi",
-    "description": "Toast notification when all keywords are cleared"
-  },
-  "placeholder_channel_input": {
-    "message": "Kanal adı veya @kullanıcıadı...",
-    "description": "Placeholder for channel blocklist text input"
-  },
-  "blocklist_channels_empty_desc": {
-    "message": "Videolarını gizlemek için bir kanal adı veya @kullanıcıadı ekleyin.",
-    "description": "Empty state description for Channel Blocklist"
-  },
-  "placeholder_keyword_input": {
-    "message": "örn. podcast, spoiler, tepki...",
-    "description": "Placeholder for keyword blocklist text input"
-  },
-  "blocklist_keywords_empty_desc": {
-    "message": "Eşleşen video başlıklarını otomatik olarak gizlemek için anahtar kelimeler ekleyin.",
-    "description": "Empty state description for Keyword Blocklist"
-  },
-  "blocklist_privacy_note": {
-    "message": "100% Yerel filtreleme · Başlıklar ve kanallar sıfır telemetri ile istemci tarafında eşleştirilir.",
-    "description": "Privacy note at the bottom of the filters panel"
-  },
-  "toast_channel_added": {
-    "message": "\"$NAME$\" engellenen kanallara eklendi",
-    "description": "Toast confirmation when channel is added to blocklist",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "TechLead"
-      }
-    }
-  },
-  "toast_channel_removed": {
-    "message": "\"$NAME$\" engellenen kanallardan kaldırıldı",
-    "description": "Toast confirmation when channel is removed from blocklist",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "TechLead"
-      }
-    }
-  },
-  "toast_channel_exists": {
-    "message": "\"$NAME$\" zaten kanal engelleme listesinde",
-    "description": "Toast warning when adding duplicate channel",
-    "placeholders": {
-      "name": {
-        "content": "$1",
-        "example": "TechLead"
-      }
-    }
-  },
-  "toast_keyword_added": {
-    "message": "\"$KEYWORD$\" engellenen kelimelere eklendi",
-    "description": "Toast confirmation when keyword is added to blocklist",
-    "placeholders": {
-      "keyword": {
-        "content": "$1",
-        "example": "spoiler"
-      }
-    }
-  },
-  "toast_keyword_removed": {
-    "message": "\"$KEYWORD$\" engellenen kelimelerden kaldırıldı",
-    "description": "Toast confirmation when keyword is removed from blocklist",
-    "placeholders": {
-      "keyword": {
-        "content": "$1",
-        "example": "spoiler"
-      }
-    }
-  },
-  "toast_keyword_exists": {
-    "message": "\"$KEYWORD$\" zaten kelime engelleme listesinde",
-    "description": "Toast warning when adding duplicate keyword",
-    "placeholders": {
-      "keyword": {
-        "content": "$1",
-        "example": "spoiler"
-      }
-    }
-  },
-  "setting_rate_edge": {
-    "message": "Rate on Edge Add-ons",
-    "description": "Button linking to Microsoft Edge Add-ons review page"
-  }
+    "extensionName":  {
+                          "message":  "Intentional YT - YouTube Dikkat DaÄŸÄ±tÄ±cÄ± Engelleyici ve GÃ¼nlÃ¼k SÃ¼re Limiti",
+                          "description":  "Official extension name in stores and browser management pages"
+                      },
+    "extensionShortName":  {
+                               "message":  "Intentional",
+                               "description":  "Short name of the extension"
+                           },
+    "extensionDescription":  {
+                                 "message":  "AkÄ±ÅŸlar, Shorts, yorumlar ve izleme sÃ¼resi sÄ±nÄ±rlarÄ± iÃ§in ayrÄ±ntÄ±lÄ± kontrollerle dikkat daÄŸÄ±tmayan YouTube. %100 gizli ve yerel.",
+                                 "description":  "Extension description in stores and browser management pages"
+                             },
+    "popup_window_title":  {
+                               "message":  "Intentional YT - YouTube Dikkat DaÄŸÄ±tÄ±cÄ± Engelleyici ve GÃ¼nlÃ¼k SÃ¼re Limiti",
+                               "description":  "Title tag of the popup document"
+                           },
+    "header_title":  {
+                         "message":  "Intentional YT",
+                         "description":  "Header brand name in the extension popup"
+                     },
+    "status_active":  {
+                          "message":  "Aktif",
+                          "description":  "Badge status when the extension is active"
+                      },
+    "status_paused":  {
+                          "message":  "DuraklatÄ±ldÄ±",
+                          "description":  "Badge status when the extension is paused"
+                      },
+    "section_feed":  {
+                         "message":  "AkÄ±ÅŸ",
+                         "description":  "Feed controls section header"
+                     },
+    "toggle_block_home_feed":  {
+                                   "message":  "Ana sayfa akÄ±ÅŸÄ±nÄ± gizle",
+                                   "description":  "Toggle label to hide YouTube home recommendations feed"
+                               },
+    "desc_block_home_feed":  {
+                                 "message":  "YouTube ana sayfasÄ±ndaki algoritmik video akÄ±ÅŸÄ±nÄ± gizler",
+                                 "description":  "Helper description for Hide home feed toggle"
+                             },
+    "toggle_limit_home_feed":  {
+                                   "message":  "Ana sayfa akÄ±ÅŸÄ±nÄ± sÄ±nÄ±rla (sonsuz kaydÄ±rmayÄ± Ã¶nle)",
+                                   "description":  "Toggle label to limit videos on the home feed and stop doomscrolling"
+                               },
+    "desc_limit_home_feed":  {
+                                 "message":  "Ana sayfa akÄ±ÅŸÄ±nÄ± 15 video ile sÄ±nÄ±rlar ve sonsuz kaydÄ±rmayÄ± devre dÄ±ÅŸÄ± bÄ±rakÄ±r",
+                                 "description":  "Helper explanation for limiting home feed videos"
+                             },
+    "toggle_block_subscriptions":  {
+                                       "message":  "Abonelikleri gizle",
+                                       "description":  "Toggle label to hide YouTube subscriptions feed"
+                                   },
+    "toggle_block_recommended":  {
+                                     "message":  "Ã–nerilen videolar kenar Ã§ubuÄŸunu gizle",
+                                     "description":  "Toggle label to hide recommended video sidebar on watch page"
+                                 },
+    "toggle_block_shorts":  {
+                                "message":  "Shorts videolarÄ±nÄ± gizle",
+                                "description":  "Toggle label to hide Shorts carousels and tabs"
+                            },
+    "desc_block_shorts":  {
+                              "message":  "Shorts videolarÄ±nÄ± her yerde gizler â€” kenar Ã§ubuÄŸu, akÄ±ÅŸlar, arama sonuÃ§larÄ± ve kanallar",
+                              "description":  "Helper explanation for hiding Shorts across YouTube"
+                          },
+    "toggle_block_explore_trending":  {
+                                          "message":  "KeÅŸfet ve Trendleri gizle",
+                                          "description":  "Toggle label to hide Explore and Trending navigation items"
+                                      },
+    "toggle_block_more_from_youtube":  {
+                                           "message":  "\"YouTube\u0027dan Daha FazlasÄ±\"nÄ± gizle",
+                                           "description":  "Toggle label to hide More from YouTube section in left sidebar"
+                                       },
+    "toggle_block_irrelevant_search":  {
+                                           "message":  "AlakasÄ±z arama bÃ¶lÃ¼mlerini gizle",
+                                           "description":  "Toggle label to hide People also watched, For you, and related search shelves"
+                                       },
+    "section_video":  {
+                          "message":  "Video",
+                          "description":  "Video controls section header"
+                      },
+    "toggle_block_endscreen_videowall":  {
+                                             "message":  "BitiÅŸ ekranÄ± Ã¶nerilerini gizle",
+                                             "description":  "Toggle label to hide grid of recommended videos at video end"
+                                         },
+    "desc_block_endscreen_videowall":  {
+                                           "message":  "Oynatma bittiÄŸinde Ã¶nerilen video tablosunu ve sonraki video duvarÄ±nÄ± gizler",
+                                           "description":  "Description for end screen videowall toggle"
+                                       },
+    "toggle_block_endscreen_cards":  {
+                                         "message":  "BitiÅŸ ekranÄ± kartlarÄ±nÄ± gizle",
+                                         "description":  "Toggle label to hide creator end screen cards and elements"
+                                     },
+    "desc_block_endscreen_cards":  {
+                                       "message":  "Son 20 saniyede iÃ§erik Ã¼reticisinin eklediÄŸi video, oynatma listesi ve abone ol kartlarÄ±nÄ± gizler",
+                                       "description":  "Description for creator end screen cards toggle"
+                                   },
+    "toggle_block_live_chat":  {
+                                   "message":  "CanlÄ± sohbeti gizle",
+                                   "description":  "Toggle label to hide live chat panel"
+                               },
+    "toggle_block_playlist":  {
+                                  "message":  "Oynatma listesi panelini gizle",
+                                  "description":  "Toggle label to hide playlist side panel on watch page"
+                              },
+    "toggle_disable_autoplay":  {
+                                    "message":  "Otomatik oynatmayÄ± kapat",
+                                    "description":  "Toggle label to prevent YouTube from automatically playing next video"
+                                },
+    "toggle_disable_annotations":  {
+                                       "message":  "Video iÃ§i kartlarÄ± ve ek aÃ§Ä±klamalarÄ± gizle",
+                                       "description":  "Toggle label to hide in-video popups and annotations"
+                                   },
+    "toggle_block_video_info":  {
+                                    "message":  "Video bilgi panelini gizle",
+                                    "description":  "Toggle label to hide video metadata panel below player"
+                                },
+    "desc_block_video_info":  {
+                                  "message":  "Video oynatÄ±cÄ±nÄ±n altÄ±ndaki tÃ¼m bilgileri ve eylemleri gizler",
+                                  "description":  "Subheading description for Hide video info panel toggle"
+                              },
+    "toggle_block_video_buttons":  {
+                                       "message":  "Ä°ÅŸlem butonlarÄ±",
+                                       "description":  "Nested toggle label to hide like, dislike, share, download buttons"
+                                   },
+    "desc_block_video_buttons":  {
+                                     "message":  "BeÄŸen, beÄŸenme, paylaÅŸ, indir ve klip dÃ¼ÄŸmelerini gizler",
+                                     "description":  "Subheading description for Action buttons sub-toggle"
+                                 },
+    "toggle_block_channel_info":  {
+                                      "message":  "Kanal bilgileri",
+                                      "description":  "Nested toggle label to hide channel subscriber count and avatar"
+                                  },
+    "desc_block_channel_info":  {
+                                    "message":  "Kanal adÄ±nÄ±, profil resmini ve abone ol dÃ¼ÄŸmesini gizler",
+                                    "description":  "Subheading description for Channel info sub-toggle"
+                                },
+    "toggle_block_video_description":  {
+                                           "message":  "AÃ§Ä±klama",
+                                           "description":  "Nested toggle label to hide video description box"
+                                       },
+    "desc_block_video_description":  {
+                                         "message":  "GeniÅŸletilebilir video aÃ§Ä±klama metnini ve ayrÄ±ntÄ±larÄ±nÄ± gizler",
+                                         "description":  "Subheading description for Description sub-toggle"
+                                     },
+    "section_social":  {
+                           "message":  "Sosyal",
+                           "description":  "Social controls section header"
+                       },
+    "toggle_block_comments":  {
+                                  "message":  "YorumlarÄ± gizle",
+                                  "description":  "Toggle label to hide YouTube comments section"
+                              },
+    "toggle_block_profile_photos":  {
+                                        "message":  "Yorum yapanlarÄ±n profil fotoÄŸraflarÄ±nÄ± gizle",
+                                        "description":  "Toggle label to hide profile avatars of commenters"
+                                    },
+    "section_interface":  {
+                              "message":  "ArayÃ¼z",
+                              "description":  "Interface controls section header"
+                          },
+    "toggle_block_sidebar":  {
+                                 "message":  "Sol kenar Ã§ubuÄŸunu gizle",
+                                 "description":  "Toggle label to hide YouTube left drawer/guide navigation"
+                             },
+    "toggle_block_top_header":  {
+                                    "message":  "Ãœst baÅŸlÄ±k Ã§ubuÄŸunu gizle",
+                                    "description":  "Toggle label to hide YouTube top search and navigation header"
+                                },
+    "toggle_block_notification_bell":  {
+                                           "message":  "Bildirim zilini gizle",
+                                           "description":  "Toggle label to hide notification bell icon"
+                                       },
+    "toggle_block_merch":  {
+                               "message":  "ÃœrÃ¼nleri ve teklifleri gizle",
+                               "description":  "Toggle label to hide merchandise shelf and product offers"
+                           },
+    "toggle_block_mix_playlists":  {
+                                       "message":  "Mix oynatma listelerini gizle",
+                                       "description":  "Toggle label to hide algorithmic YouTube mix playlists"
+                                   },
+    "section_appearance":  {
+                               "message":  "GÃ¶rÃ¼nÃ¼m",
+                               "description":  "Appearance controls section header"
+                           },
+    "toggle_hide_thumbnails":  {
+                                   "message":  "KÃ¼Ã§Ã¼k resimleri gizle",
+                                   "description":  "Toggle label to neutralize/blur video thumbnail images"
+                               },
+    "toggle_grayscale_mode":  {
+                                  "message":  "Gri tonlama modu",
+                                  "description":  "Toggle label for black and white desaturation mode"
+                              },
+    "section_time":  {
+                         "message":  "Zaman YÃ¶netimi",
+                         "description":  "Time controls section header"
+                     },
+    "toggle_soft_reminder":  {
+                                 "message":  "Hafif mola hatÄ±rlatÄ±cÄ±sÄ±",
+                                 "description":  "Toggle label for mindful interval toast notification"
+                             },
+    "time_hint_every":  {
+                            "message":  "Her",
+                            "description":  "Prefix label before interval dropdown"
+                        },
+    "time_option_minutes":  {
+                                "message":  "$MINUTES$ dk",
+                                "description":  "Preset time in minutes",
+                                "placeholders":  {
+                                                     "minutes":  {
+                                                                     "content":  "$1",
+                                                                     "example":  "15"
+                                                                 }
+                                                 }
+                            },
+    "time_option_custom":  {
+                               "message":  "Ã–zel...",
+                               "description":  "Option in dropdown to enter a custom duration"
+                           },
+    "time_placeholder_min":  {
+                                 "message":  "dk",
+                                 "description":  "Placeholder text inside custom minutes input field"
+                             },
+    "time_unit_min":  {
+                          "message":  "dk",
+                          "description":  "Unit label beside custom minutes input"
+                      },
+    "toggle_daily_limit":  {
+                               "message":  "GÃ¼nlÃ¼k limit",
+                               "description":  "Toggle label for daily total playback time limit"
+                           },
+    "desc_daily_limit":  {
+                             "message":  "GÃ¼nlÃ¼k izleme sÄ±nÄ±rÄ±nÄ±za ulaÅŸÄ±ldÄ±ÄŸÄ±nda video oynatmayÄ± duraklatÄ±r",
+                             "description":  "Subheading description for Daily Limit toggle"
+                         },
+    "time_hint_stop_after":  {
+                                 "message":  "Åžu sÃ¼reden sonra durdur",
+                                 "description":  "Prefix label before daily limit duration dropdown"
+                             },
+    "blocklist_stub_alert":  {
+                                 "message":  "Kanal ve anahtar kelime filtreleme bir sonraki sÃ¼rÃ¼mde geliyor. Temel akÄ±ÅŸ engelleyiciler aktif!",
+                                 "description":  "Alert displayed when clicking stub add buttons in Blocklists tab"
+                             },
+    "stats_watch_time_below":  {
+                                   "message":  "GÃ¼nlÃ¼k izleme sÃ¼reniz her zaman aÅŸaÄŸÄ±da gÃ¶sterilir.",
+                                   "description":  "Hint text shown in the Stats tab when stats moved to persistent watch bar"
+                               },
+    "stats_title_today":  {
+                              "message":  "BugÃ¼n",
+                              "description":  "Heading for daily watch stats card"
+                          },
+    "aria_about_daily_watchtime":  {
+                                       "message":  "GÃ¼nlÃ¼k izleme sÃ¼resi hakkÄ±nda",
+                                       "description":  "Accessibility label for daily watchtime info icon"
+                                   },
+    "stats_tooltip_info":  {
+                               "message":  "BugÃ¼n YouTube izlediÄŸiniz dakikalarÄ± kaydeder. Gece yarÄ±sÄ± otomatik olarak sÄ±fÄ±rlanÄ±r. Oturumu sÄ±nÄ±rlamak iÃ§in yukarÄ±daki gÃ¼nlÃ¼k limiti kullanÄ±n.",
+                               "description":  "Tooltip text explaining watchtime tracking"
+                           },
+    "stats_no_limit":  {
+                           "message":  "limitsiz",
+                           "description":  "Stats subtitle when daily watch limit is disabled"
+                       },
+    "stats_limit_progress":  {
+                                 "message":  "$MINUTES$ dk sÃ¼renin %$PERCENT$\u0027i",
+                                 "description":  "Stats progress indicator showing percentage of daily limit",
+                                 "placeholders":  {
+                                                      "percent":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "50"
+                                                                  },
+                                                      "minutes":  {
+                                                                      "content":  "$2",
+                                                                      "example":  "60"
+                                                                  }
+                                                  }
+                             },
+    "stats_button_reset":  {
+                               "message":  "sÄ±fÄ±rla",
+                               "description":  "Button to reset today\u0027s accumulated watch time"
+                           },
+    "time_fmt_zero_min":  {
+                              "message":  "0 dk",
+                              "description":  "Formatted time for 0 minutes"
+                          },
+    "time_fmt_seconds":  {
+                             "message":  "$SECONDS$ sn",
+                             "description":  "Formatted time in seconds",
+                             "placeholders":  {
+                                                  "seconds":  {
+                                                                  "content":  "$1",
+                                                                  "example":  "42"
+                                                              }
+                                              }
+                         },
+    "time_fmt_minutes":  {
+                             "message":  "$MINUTES$ dk",
+                             "description":  "Formatted time in minutes",
+                             "placeholders":  {
+                                                  "minutes":  {
+                                                                  "content":  "$1",
+                                                                  "example":  "25"
+                                                              }
+                                              }
+                         },
+    "time_fmt_hours_minutes":  {
+                                   "message":  "$HOURS$ sa $MINUTES$ dk",
+                                   "description":  "Formatted time in hours and minutes",
+                                   "placeholders":  {
+                                                        "hours":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "1"
+                                                                  },
+                                                        "minutes":  {
+                                                                        "content":  "$2",
+                                                                        "example":  "15"
+                                                                    }
+                                                    }
+                               },
+    "footer_local_privacy":  {
+                                 "message":  "%100 Yerel",
+                                 "description":  "Footer badge indicating offline-first local storage"
+                             },
+    "footer_feedback_link":  {
+                                 "message":  "Geri bildirim ve Fikirler â†—",
+                                 "description":  "Footer link text to submit feedback form"
+                             },
+    "toast_reminder_message":  {
+                                   "message":  "$MINUTES$ dakikadÄ±r video izliyorsunuz.",
+                                   "description":  "Toast notification message when mindful interval triggers (plural)",
+                                   "placeholders":  {
+                                                        "minutes":  {
+                                                                        "content":  "$1",
+                                                                        "example":  "30"
+                                                                    }
+                                                    }
+                               },
+    "toast_reminder_message_singular":  {
+                                            "message":  "1 dakikadÄ±r video izliyorsunuz.",
+                                            "description":  "Toast notification message when mindful interval triggers (singular)"
+                                        },
+    "toast_dismiss_aria":  {
+                               "message":  "Kapat",
+                               "description":  "Accessibility aria-label for closing toast notification"
+                           },
+    "toast_reminder_badge":  {
+                                 "message":  "Hafif HatÄ±rlatÄ±cÄ±",
+                                 "description":  "Top badge in soft reminder notification card"
+                             },
+    "toast_button_pause":  {
+                               "message":  "Videoyu Duraklat",
+                               "description":  "Button to immediately pause playback from reminder toast"
+                           },
+    "toast_button_continue":  {
+                                  "message":  "Ä°zlemeye Devam Et",
+                                  "description":  "Button to dismiss reminder toast and continue playback"
+                              },
+    "toast_status_paused":  {
+                                "message":  "DuraklatÄ±ldÄ± âœ“",
+                                "description":  "Status text shown when video has been paused via toast"
+                            },
+    "desc_soft_reminder":  {
+                               "message":  "Sizi engellemeden zamanÄ±n farkÄ±nda olmanÄ±zÄ± saÄŸlamak iÃ§in dÃ¼zenli aralÄ±klarla sakin ekran uyarÄ±sÄ±.",
+                               "description":  "Description under Soft reminder toggle in Focus tab"
+                           },
+    "btn_preview_reminder":  {
+                                 "message":  "Ã–nizle",
+                                 "description":  "Button to test and trigger soft reminder toast on active tab"
+                             },
+    "btn_preview_sent":  {
+                             "message":  "GÃ¶nderildi!",
+                             "description":  "Button text confirmation after preview toast is sent"
+                         },
+    "toast_preview_need_yt":  {
+                                  "message":  "HatÄ±rlatÄ±cÄ± bildirimini Ã¶nizlemek iÃ§in bir YouTube sekmesi aÃ§Ä±n",
+                                  "description":  "Notice when attempting to preview toast without YouTube active"
+                              },
+    "overlay_limit_title":  {
+                                "message":  "GÃ¼nlÃ¼k SÃ¼re SÄ±nÄ±rÄ±na UlaÅŸÄ±ldÄ±",
+                                "description":  "Title on full-player limit overlay modal"
+                            },
+    "overlay_limit_message":  {
+                                  "message":  "BugÃ¼n iÃ§in belirlediÄŸiniz $LIMIT$ dakikalÄ±k YouTube izleme sÄ±nÄ±rÄ±na ulaÅŸtÄ±nÄ±z.",
+                                  "description":  "Explanation message on limit overlay modal",
+                                  "placeholders":  {
+                                                       "limit":  {
+                                                                     "content":  "$1",
+                                                                     "example":  "60"
+                                                                 }
+                                                   }
+                              },
+    "overlay_button_finish_video":  {
+                                        "message":  "Bu videoyu bitir",
+                                        "description":  "Button label to allow completing current video before blocking"
+                                    },
+    "overlay_button_finish_video_remaining":  {
+                                                  "message":  "Bu videoyu bitir ($MINUTES$ dk kaldÄ±)",
+                                                  "description":  "Button label with remaining duration to allow completing current video",
+                                                  "placeholders":  {
+                                                                       "minutes":  {
+                                                                                       "content":  "$1",
+                                                                                       "example":  "4"
+                                                                                   }
+                                                                   }
+                                              },
+    "overlay_button_stop_watching":  {
+                                         "message":  "Ä°zlemeyi bÄ±rak (Ana sayfaya dÃ¶n)",
+                                         "description":  "Primary action button to leave video and return to homepage"
+                                     },
+    "overlay_button_dismiss_today":  {
+                                         "message":  "BugÃ¼nlÃ¼k yok say",
+                                         "description":  "Secondary action button to override limit for remainder of today"
+                                     },
+    "tab_block":  {
+                      "message":  "Engelle",
+                      "description":  "Label for the Block tab in popup navigation"
+                  },
+    "tab_blocklists":  {
+                           "message":  "Filtreler",
+                           "description":  "Label for the Filters (blocklists) tab in popup navigation"
+                       },
+    "tab_focus":  {
+                      "message":  "Odaklanma",
+                      "description":  "Label for the Focus tab in popup navigation"
+                  },
+    "tab_stats":  {
+                      "message":  "Ä°statistikler",
+                      "description":  "Label for the Stats tab in popup navigation"
+                  },
+    "tab_settings":  {
+                         "message":  "Ayarlar",
+                         "description":  "Label for the Settings tab in popup navigation"
+                     },
+    "action_collapse_all":  {
+                                "message":  "TÃ¼mÃ¼nÃ¼ Daralt",
+                                "description":  "Button to collapse all detailed control accordion sections"
+                            },
+    "action_expand_all":  {
+                              "message":  "TÃ¼mÃ¼nÃ¼ GeniÅŸlet",
+                              "description":  "Button to expand all detailed control accordion sections"
+                          },
+    "section_channel_blocklist":  {
+                                      "message":  "Kanal Engelleme Listesi",
+                                      "description":  "Section header for Channel Blocklist"
+                                  },
+    "desc_channel_blocklist":  {
+                                   "message":  "Belirli kanallarÄ±n akÄ±ÅŸlarda ve Ã¶nerilerde gÃ¶rÃ¼nmesini engelleyin.",
+                                   "description":  "Description for Channel Blocklist feature"
+                               },
+    "blocklist_channels_empty":  {
+                                     "message":  "Engellenen kanal yok.",
+                                     "description":  "Empty state label for Channel Blocklist"
+                                 },
+    "section_keyword_blocklist":  {
+                                      "message":  "Anahtar Kelime Engelleme Listesi",
+                                      "description":  "Section header for Keyword Blocklist"
+                                  },
+    "desc_keyword_blocklist":  {
+                                   "message":  "BaÅŸlÄ±klarÄ± engellenen anahtar kelimelerle eÅŸleÅŸen videolarÄ± gizleyin.",
+                                   "description":  "Description for Keyword Blocklist feature"
+                               },
+    "blocklist_keywords_empty":  {
+                                     "message":  "Engellenen anahtar kelime yok.",
+                                     "description":  "Empty state label for Keyword Blocklist"
+                                 },
+    "btn_add_channel":  {
+                            "message":  "Kanal Ekle",
+                            "description":  "Button to add a channel to blocklist"
+                        },
+    "btn_add_keyword":  {
+                            "message":  "Anahtar Kelime Ekle",
+                            "description":  "Button to add a keyword to blocklist"
+                        },
+    "section_focus_lock":  {
+                               "message":  "Odak Kilidi",
+                               "description":  "Section header for Focus Lock feature"
+                           },
+    "section_time_limits_title":  {
+                                      "message":  "BilinÃ§li Zaman ve SÄ±nÄ±rlar",
+                                      "description":  "Card header title for Time and Daily limits section"
+                                  },
+    "section_time_limits_sub":  {
+                                    "message":  "Hafif mola uyarÄ±larÄ± ve gÃ¼nlÃ¼k ekran sÃ¼resi sÄ±nÄ±rlarÄ±",
+                                    "description":  "Card header subtitle for Time and Daily limits section"
+                                },
+    "section_focus_lock_title":  {
+                                     "message":  "Odak Kilidi KalkanÄ±",
+                                     "description":  "Card header title for Focus Lock section"
+                                 },
+    "section_focus_lock_sub":  {
+                                   "message":  "KasÄ±tlÄ± bir gecikmeyle dÃ¼rtÃ¼sel deÄŸiÅŸiklikleri Ã¶nleyin",
+                                   "description":  "Card header subtitle for Focus Lock section"
+                               },
+    "section_scheduled_title":  {
+                                    "message":  "ZamanlanmÄ±ÅŸ Odaklanma OturumlarÄ±",
+                                    "description":  "Card header title for Scheduled Blocking section"
+                                },
+    "section_scheduled_sub":  {
+                                  "message":  "Ã‡alÄ±ÅŸma, ders veya uyku saatlerinde YouTube\u0027u otomatik engelleyin",
+                                  "description":  "Card header subtitle for Scheduled Blocking section"
+                              },
+    "desc_focus_lock":  {
+                            "message":  "KorumalarÄ± devre dÄ±ÅŸÄ± bÄ±rakmadan Ã¶nce bir bekleme sÃ¼resi zorunlu kÄ±lÄ±n",
+                            "description":  "Subheading description for Focus Lock toggle"
+                        },
+    "toggle_focus_lock":  {
+                              "message":  "Odak Kilidi",
+                              "description":  "Toggle label for Focus Lock"
+                          },
+    "focus_lock_cooldown_label":  {
+                                      "message":  "Bekleme sÃ¼resi",
+                                      "description":  "Label for Focus Lock cooldown duration selector"
+                                  },
+    "focus_lock_duration_5m":  {
+                                   "message":  "5 dk",
+                                   "description":  "5 minutes cooldown option"
+                               },
+    "focus_lock_duration_10m":  {
+                                    "message":  "10 dk",
+                                    "description":  "10 minutes cooldown option"
+                                },
+    "focus_lock_duration_30m":  {
+                                    "message":  "30 dk",
+                                    "description":  "30 minutes cooldown option"
+                                },
+    "focus_lock_duration_60m":  {
+                                    "message":  "60 dk",
+                                    "description":  "60 minutes cooldown option"
+                                },
+    "focus_lock_pin_modal_title":  {
+                                       "message":  "4 Haneli PIN Belirleyin",
+                                       "description":  "Title for Focus Lock PIN setup modal"
+                                   },
+    "focus_lock_enter_pin":  {
+                                 "message":  "4 haneli PIN girin",
+                                 "description":  "Placeholder for PIN input"
+                             },
+    "focus_lock_confirm_pin":  {
+                                   "message":  "4 haneli PIN\u0027i onaylayÄ±n",
+                                   "description":  "Placeholder for PIN confirmation input"
+                               },
+    "focus_lock_pin_warning":  {
+                                   "message":  "Bu PIN\u0027i unutursanÄ±z, sÄ±fÄ±rlamanÄ±n tek yolu uzantÄ±yÄ± kaldÄ±rÄ±p yeniden yÃ¼klemektir; bu da tÃ¼m ayarlarÄ±nÄ±zÄ± siler. GÃ¼venli bir yere not edin.",
+                                   "description":  "One-time setup warning for Focus Lock PIN recovery"
+                               },
+    "focus_lock_btn_save_pin":  {
+                                    "message":  "PIN\u0027i Kaydet ve EtkinleÅŸtir",
+                                    "description":  "Button to save PIN and enable Focus Lock"
+                                },
+    "focus_lock_btn_cancel":  {
+                                  "message":  "Ä°ptal",
+                                  "description":  "Cancel button for Focus Lock modal"
+                              },
+    "focus_lock_verify_title":  {
+                                    "message":  "Odak Kilidi KorumalÄ±",
+                                    "description":  "Title for Focus Lock verification modal"
+                                },
+    "focus_lock_verify_prompt":  {
+                                     "message":  "Bekleme sÃ¼resini baÅŸlatmak iÃ§in 4 haneli PIN\u0027inizi girin:",
+                                     "description":  "Prompt for Focus Lock PIN verification"
+                                 },
+    "focus_lock_btn_submit_pin":  {
+                                      "message":  "Bekleme SÃ¼resini BaÅŸlat",
+                                      "description":  "Button to submit PIN and start cooldown"
+                                  },
+    "focus_lock_error_mismatch":  {
+                                      "message":  "PIN\u0027ler eÅŸleÅŸmiyor. LÃ¼tfen tekrar deneyin.",
+                                      "description":  "Error when PIN confirmation does not match"
+                                  },
+    "focus_lock_error_invalid_pin":  {
+                                         "message":  "PIN tam olarak 4 haneli olmalÄ±dÄ±r.",
+                                         "description":  "Error when entered PIN is not 4 digits"
+                                     },
+    "focus_lock_error_incorrect_pin":  {
+                                           "message":  "YanlÄ±ÅŸ PIN. Tekrar deneyin.",
+                                           "description":  "Error when entered PIN does not match stored hash"
+                                       },
+    "focus_lock_banner_unlocking":  {
+                                        "message":  "Kilit aÃ§Ä±lÄ±yor: $SETTING$",
+                                        "description":  "Banner message showing setting being unlocked",
+                                        "placeholders":  {
+                                                             "setting":  {
+                                                                             "content":  "$1",
+                                                                             "example":  "Hide Shorts"
+                                                                         }
+                                                         }
+                                    },
+    "focus_lock_banner_cooldown":  {
+                                       "message":  "$TIME$ iÃ§inde aÃ§Ä±lacak",
+                                       "description":  "Banner message showing remaining cooldown time",
+                                       "placeholders":  {
+                                                            "time":  {
+                                                                         "content":  "$1",
+                                                                         "example":  "09:45"
+                                                                     }
+                                                        }
+                                   },
+    "focus_lock_banner_cancel":  {
+                                     "message":  "Ä°ptal",
+                                     "description":  "Cancel button on pending unlock banner"
+                                 },
+    "focus_lock_already_pending":  {
+                                       "message":  "Zaten etkin bir kilit aÃ§ma geri sayÄ±mÄ± var. BaÅŸka bir ayarÄ±n kilidini aÃ§madan Ã¶nce bunu iptal edin.",
+                                       "description":  "Notice when user attempts to unlock another setting while cooldown is running"
+                                   },
+    "section_scheduled_blocking":  {
+                                       "message":  "ZamanlanmÄ±ÅŸ Engelleme",
+                                       "description":  "Section header for Scheduled Blocking"
+                                   },
+    "desc_scheduled_blocking":  {
+                                    "message":  "Belirlenen saatlerde YouTube\u0027u otomatik olarak engelleyin",
+                                    "description":  "Subheading description for Scheduled Blocking"
+                                },
+    "toggle_scheduled_blocking":  {
+                                      "message":  "ZamanlanmÄ±ÅŸ Engelleme",
+                                      "description":  "Toggle label for Scheduled Blocking"
+                                  },
+    "scheduled_blocking_add_btn":  {
+                                       "message":  "+ Zamanlama Ekle",
+                                       "description":  "Button to open schedule creation form"
+                                   },
+    "scheduled_blocking_no_schedules":  {
+                                            "message":  "HenÃ¼z zamanlama yok. Bir tane oluÅŸturmak iÃ§in Zamanlama Ekle\u0027ye tÄ±klayÄ±n.",
+                                            "description":  "Empty state when no schedules exist"
+                                        },
+    "schedule_form_title_add":  {
+                                    "message":  "Yeni Zamanlama",
+                                    "description":  "Title when adding a new schedule"
+                                },
+    "schedule_form_title_edit":  {
+                                     "message":  "ZamanlamayÄ± DÃ¼zenle",
+                                     "description":  "Title when editing an existing schedule"
+                                 },
+    "schedule_form_label":  {
+                                "message":  "Etiket",
+                                "description":  "Label for schedule name input"
+                            },
+    "schedule_form_label_placeholder":  {
+                                            "message":  "Ã¶rn. Ã‡alÄ±ÅŸma saatleri, Ders Ã§alÄ±ÅŸma zamanÄ±",
+                                            "description":  "Placeholder for schedule name"
+                                        },
+    "schedule_form_days":  {
+                               "message":  "HaftanÄ±n gÃ¼nleri",
+                               "description":  "Label for day chips in schedule form"
+                           },
+    "schedule_form_start_time":  {
+                                     "message":  "BaÅŸlangÄ±Ã§ saati",
+                                     "description":  "Label for start time input"
+                                 },
+    "schedule_form_end_time":  {
+                                   "message":  "BitiÅŸ saati",
+                                   "description":  "Label for end time input"
+                               },
+    "schedule_form_mode":  {
+                               "message":  "Engelleme Modu",
+                               "description":  "Label for mode selector"
+                           },
+    "schedule_mode_full":  {
+                               "message":  "YouTube\u0027u tamamen engelle",
+                               "description":  "Option to block YouTube entirely during schedule"
+                           },
+    "schedule_mode_full_desc":  {
+                                    "message":  "YouTube\u0027u kilitli bir odaklanma ekranÄ±yla deÄŸiÅŸtirir",
+                                    "description":  "Description for full block mode"
+                                },
+    "schedule_mode_strict":  {
+                                 "message":  "TÃ¼m korumalarÄ± zorunlu kÄ±l",
+                                 "description":  "Option to force all distraction blockers on during schedule"
+                             },
+    "schedule_mode_strict_desc":  {
+                                      "message":  "Siteyi tamamen kilitlemeden maksimum dikkat daÄŸÄ±tÄ±cÄ± engellemesi uygular",
+                                      "description":  "Description for strict protections mode"
+                                  },
+    "schedule_btn_save":  {
+                              "message":  "ZamanlamayÄ± Kaydet",
+                              "description":  "Button to save schedule"
+                          },
+    "schedule_btn_cancel":  {
+                                "message":  "Ä°ptal",
+                                "description":  "Button to cancel schedule editing"
+                            },
+    "schedule_card_edit":  {
+                               "message":  "DÃ¼zenle",
+                               "description":  "Edit button on schedule card"
+                           },
+    "schedule_card_delete":  {
+                                 "message":  "Sil",
+                                 "description":  "Delete button on schedule card"
+                             },
+    "schedule_days_all":  {
+                              "message":  "Her gÃ¼n",
+                              "description":  "Summary for schedule active all 7 days"
+                          },
+    "schedule_days_weekdays":  {
+                                   "message":  "Pzt-Cum",
+                                   "description":  "Summary for schedule active on weekdays"
+                               },
+    "schedule_days_weekends":  {
+                                   "message":  "Paz, Cmt",
+                                   "description":  "Summary for schedule active on weekends"
+                               },
+    "day_sun":  {
+                    "message":  "Paz",
+                    "description":  "Sunday abbreviation"
+                },
+    "day_mon":  {
+                    "message":  "Pzt",
+                    "description":  "Monday abbreviation"
+                },
+    "day_tue":  {
+                    "message":  "Sal",
+                    "description":  "Tuesday abbreviation"
+                },
+    "day_wed":  {
+                    "message":  "Ã‡ar",
+                    "description":  "Wednesday abbreviation"
+                },
+    "day_thu":  {
+                    "message":  "Per",
+                    "description":  "Thursday abbreviation"
+                },
+    "day_fri":  {
+                    "message":  "Cum",
+                    "description":  "Friday abbreviation"
+                },
+    "day_sat":  {
+                    "message":  "Cmt",
+                    "description":  "Saturday abbreviation"
+                },
+    "schedule_validation_days":  {
+                                     "message":  "LÃ¼tfen en az bir gÃ¼n seÃ§in.",
+                                     "description":  "Validation message when no days are selected"
+                                 },
+    "schedule_validation_label":  {
+                                      "message":  "LÃ¼tfen bir zamanlama etiketi girin.",
+                                      "description":  "Validation message when label is empty"
+                                  },
+    "schedule_validation_times":  {
+                                      "message":  "LÃ¼tfen hem baÅŸlangÄ±Ã§ hem de bitiÅŸ saatini belirtin.",
+                                      "description":  "Validation message when times are missing"
+                                  },
+    "scheduled_block_title":  {
+                                  "message":  "YouTube ÅŸu anda kullanÄ±lamÄ±yor",
+                                  "description":  "Heading on full scheduled blocking commitment screen"
+                              },
+    "scheduled_block_reopens":  {
+                                    "message":  "$TIME$ saatinde yeniden aÃ§Ä±lÄ±r",
+                                    "description":  "Reopen time on full scheduled blocking commitment screen",
+                                    "placeholders":  {
+                                                         "time":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "17:00"
+                                                                  }
+                                                     }
+                                },
+    "scheduled_block_commitment":  {
+                                       "message":  "Bu zamanlama, odaklanmanÄ±zÄ± korumak iÃ§in Intentional YT tarafÄ±ndan uygulanmaktadÄ±r.",
+                                       "description":  "Commitment message on full scheduled blocking screen"
+                                   },
+    "section_settings":  {
+                             "message":  "Ayarlar",
+                             "description":  "Section header for Settings tab"
+                         },
+    "setting_language":  {
+                             "message":  "Dil",
+                             "description":  "Language selector label in Settings tab"
+                         },
+    "setting_reset_title":  {
+                                "message":  "AyarlarÄ± SÄ±fÄ±rla",
+                                "description":  "Header for reset settings action"
+                            },
+    "setting_reset_desc":  {
+                               "message":  "TÃ¼m varsayÄ±lan seÃ§enekleri geri yÃ¼kleyin ve Ã¶zel zamanlamalarÄ± temizleyin.",
+                               "description":  "Description explaining reset button"
+                           },
+    "btn_reset_defaults":  {
+                               "message":  "TÃ¼m ayarlarÄ± varsayÄ±lana sÄ±fÄ±rla",
+                               "description":  "Button to restore default extension settings"
+                           },
+    "confirm_reset_all_settings":  {
+                                       "message":  "TÃ¼m ayarlarÄ± varsayÄ±lana sÄ±fÄ±rlamak istediÄŸinizden emin misiniz? Bu iÅŸlem tÃ¼m Ã¶zel tercihlerinizi ve zamanlamalarÄ±nÄ±zÄ± temizleyecektir.",
+                                       "description":  "Confirmation prompt before resetting all settings"
+                                   },
+    "section_stats":  {
+                          "message":  "EtkinliÄŸe Genel BakÄ±ÅŸ",
+                          "description":  "Section header for Activity \u0026 Stats tab"
+                      },
+    "stats_dashboard_title":  {
+                                  "message":  "BugÃ¼nkÃ¼ YouTube Oynatma SÃ¼resi",
+                                  "description":  "Header title in stats hero card"
+                              },
+    "stats_unit_watchtime":  {
+                                 "message":  "toplam izleme sÃ¼resi",
+                                 "description":  "Unit label beside watch time number"
+                             },
+    "stats_callout_info":  {
+                               "message":  "Ä°zleme sÃ¼resi yalnÄ±zca bir YouTube videosu aktif olarak oynatÄ±lÄ±rken birikir. Her gece yarÄ±sÄ± otomatik olarak sÄ±fÄ±rlanÄ±r. KalÄ±cÄ± durum Ã§ubuÄŸunuz her sekmede altta gÃ¶rÃ¼nÃ¼r kalÄ±r.",
+                               "description":  "Explanation text in stats callout note"
+                           },
+    "stats_btn_set_limit":  {
+                                "message":  "Limiti YapÄ±landÄ±r",
+                                "description":  "Button to navigate to daily limit settings"
+                            },
+    "stats_btn_reset_panel":  {
+                                  "message":  "BugÃ¼nÃ¼ SÄ±fÄ±rla",
+                                  "description":  "Button in stats panel to reset today\u0027s watch time"
+                              },
+    "scheduled_blocking_empty_sub":  {
+                                         "message":  "Dikkatinizi daÄŸÄ±tmayan ders bloklarÄ±nÄ± veya sessiz saatleri otomatikleÅŸtirin.",
+                                         "description":  "Subtitle on schedule list empty state"
+                                     },
+    "setting_theme":  {
+                          "message":  "GÃ¶rÃ¼nÃ¼m",
+                          "description":  "Appearance / Theme selector label in Settings tab"
+                      },
+    "theme_auto":  {
+                       "message":  "Otomatik (sistemle eÅŸleÅŸ)",
+                       "description":  "Automatic system theme option"
+                   },
+    "theme_dark":  {
+                       "message":  "Koyu mod",
+                       "description":  "Dark theme option"
+                   },
+    "theme_light":  {
+                        "message":  "AÃ§Ä±k mod",
+                        "description":  "Light theme option"
+                    },
+    "setting_backup_title":  {
+                                 "message":  "Yedekle ve Geri YÃ¼kle",
+                                 "description":  "Title for import and export section in Settings"
+                             },
+    "setting_backup_desc":  {
+                                "message":  "AyarlarÄ±nÄ±zÄ± bir JSON dosyasÄ±na aktarÄ±n veya Ã¶nceki bir yedeÄŸi iÃ§e aktarÄ±n.",
+                                "description":  "Description for import and export section in Settings"
+                            },
+    "setting_rate_store":  {
+                               "message":  "Web MaÄŸazasÄ±nda DeÄŸerlendir",
+                               "description":  "Button linking to Chrome Web Store review page"
+                           },
+    "setting_rate_firefox":  {
+                                 "message":  "Firefox AMO\u0027da DeÄŸerlendir",
+                                 "description":  "Button linking to Firefox Add-ons review page"
+                             },
+    "btn_export_settings":  {
+                                "message":  "DÄ±ÅŸa Aktar",
+                                "description":  "Button label to export settings JSON"
+                            },
+    "btn_import_settings":  {
+                                "message":  "Ä°Ã§e Aktar",
+                                "description":  "Button label to import settings JSON"
+                            },
+    "settings_exported":  {
+                              "message":  "Ayarlar baÅŸarÄ±yla dÄ±ÅŸa aktarÄ±ldÄ±",
+                              "description":  "Toast message after exporting settings"
+                          },
+    "settings_imported":  {
+                              "message":  "Ayarlar baÅŸarÄ±yla iÃ§e aktarÄ±ldÄ±",
+                              "description":  "Toast message after importing settings"
+                          },
+    "settings_import_failed":  {
+                                   "message":  "Ayarlar iÃ§e aktarÄ±lamadÄ±: GeÃ§ersiz JSON dosyasÄ±",
+                                   "description":  "Toast error message when import fails"
+                               },
+    "section_active_count":  {
+                                 "message":  "$COUNT$ aktif",
+                                 "description":  "Number of active toggles in a collapsible section",
+                                 "placeholders":  {
+                                                      "count":  {
+                                                                    "content":  "$1",
+                                                                    "example":  "3"
+                                                                }
+                                                  }
+                             },
+    "presets_title":  {
+                          "message":  "HazÄ±r Ayarlar",
+                          "description":  "Header for distraction preset modes"
+                      },
+    "preset_balanced":  {
+                            "message":  "Dengeli",
+                            "description":  "Preset mode label for balanced focus"
+                        },
+    "preset_zen":  {
+                       "message":  "Zen",
+                       "description":  "Preset mode label for zen search-only focus"
+                   },
+    "preset_player":  {
+                          "message":  "YalnÄ±zca Video",
+                          "description":  "Preset mode label for clean video playback focus"
+                      },
+    "preset_custom":  {
+                          "message":  "Ã–zel",
+                          "description":  "Preset mode label when customized"
+                      },
+    "preset_desc_balanced":  {
+                                 "message":  "Dengeli Â· AkÄ±ÅŸlarÄ± ve Ã¶nerileri gizler",
+                                 "description":  "Description of balanced preset"
+                             },
+    "preset_desc_zen":  {
+                            "message":  "Zen Â· YalnÄ±zca arama, tÃ¼m akÄ±ÅŸlar gizli",
+                            "description":  "Description of zen preset"
+                        },
+    "preset_desc_player":  {
+                               "message":  "YalnÄ±zca Video Â· Sade oynatÄ±cÄ±, dikkat daÄŸÄ±tÄ±cÄ±lar gizli",
+                               "description":  "Description of video only preset"
+                           },
+    "preset_desc_custom":  {
+                               "message":  "Ã–zel yapÄ±landÄ±rma",
+                               "description":  "Description of custom mode"
+                           },
+    "detailed_controls_title":  {
+                                    "message":  "AyrÄ±ntÄ±lÄ± Denetimler",
+                                    "description":  "Section header above the accordion list"
+                                },
+    "preset_tooltip_balanced":  {
+                                    "message":  "Ana Sayfa AkÄ±ÅŸÄ±nÄ±, Shorts videolarÄ±nÄ± ve kenar Ã§ubuÄŸu Ã¶nerilerini engeller. Arama, abonelikler ve yorumlarÄ± eriÅŸilebilir bÄ±rakÄ±r.",
+                                    "description":  "Tooltip description for Balanced preset"
+                                },
+    "preset_tooltip_zen":  {
+                               "message":  "Maksimum odaklanma. YalnÄ±zca saf arama. AkÄ±ÅŸlar, yorumlar, kÃ¼Ã§Ã¼k resimler ve kanal profil resimleri gizlenir.",
+                               "description":  "Tooltip description for Zen preset"
+                           },
+    "preset_tooltip_player":  {
+                                  "message":  "Temiz video oynatÄ±cÄ±. Video etrafÄ±ndaki Ã¶nerileri, yorumlarÄ± ve kenar Ã§ubuÄŸu karmaÅŸasÄ±nÄ± gizler.",
+                                  "description":  "Tooltip description for Video Only preset"
+                              },
+    "preset_tooltip_custom":  {
+                                  "message":  "Ã–zel geÃ§iÅŸ yapÄ±landÄ±rmasÄ±.",
+                                  "description":  "Tooltip description for Custom mode"
+                              },
+    "preset_applied":  {
+                           "message":  "$PRESET$ moduna geÃ§ildi",
+                           "description":  "Toast notification when switching preset mode",
+                           "placeholders":  {
+                                                "preset":  {
+                                                               "content":  "$1",
+                                                               "example":  "Balanced"
+                                                           }
+                                            }
+                       },
+    "welcome_title":  {
+                          "message":  "Intentional YT\u0027ye HoÅŸ Geldiniz",
+                          "description":  "Title on first-run welcome card"
+                      },
+    "welcome_desc":  {
+                         "message":  "BaÅŸlamak iÃ§in bir hazÄ±r ayar seÃ§in veya aÅŸaÄŸÄ±daki anahtarlarÄ± Ã¶zelleÅŸtirin.",
+                         "description":  "Description on first-run welcome card"
+                     },
+    "welcome_dismiss_aria":  {
+                                 "message":  "KarÅŸÄ±lama baÅŸlÄ±ÄŸÄ±nÄ± kapat",
+                                 "description":  "Aria label for welcome banner dismiss button"
+                             },
+    "search_toggles_placeholder":  {
+                                       "message":  "Ayar ara...",
+                                       "description":  "Placeholder for toggle search input in Distractions tab"
+                                   },
+    "search_no_results":  {
+                              "message":  "Ayar bulunamadÄ±",
+                              "description":  "Empty state title when search matches no toggles"
+                          },
+    "search_no_results_sub":  {
+                                  "message":  "Shorts, yorumlar veya kenar Ã§ubuÄŸu aramayÄ± deneyin",
+                                  "description":  "Empty state subtitle when search matches no toggles"
+                              },
+    "panel_filters_title":  {
+                                "message":  "Kanal ve Anahtar Kelime Filtreleri",
+                                "description":  "Panel header title for Filters tab"
+                            },
+    "panel_filters_subtitle":  {
+                                   "message":  "Belirli kanallarÄ± engelleyin ve videolarÄ± anahtar kelimeye gÃ¶re filtreleyin.",
+                                   "description":  "Panel header subtitle for Filters tab"
+                               },
+    "panel_focus_title":  {
+                              "message":  "Odaklanma ve Limitler",
+                              "description":  "Panel header title for Focus tab"
+                          },
+    "panel_focus_subtitle":  {
+                                 "message":  "HatÄ±rlatÄ±cÄ±lar, gÃ¼nlÃ¼k limitler ve zamanlanmÄ±ÅŸ engelleme.",
+                                 "description":  "Panel header subtitle for Focus tab"
+                             },
+    "panel_stats_title":  {
+                              "message":  "Oynatma EtkinliÄŸi",
+                              "description":  "Panel header title for Stats tab"
+                          },
+    "panel_stats_subtitle":  {
+                                 "message":  "GÃ¼nlÃ¼k izleme sÃ¼renizi ve oynatma alÄ±ÅŸkanlÄ±klarÄ±nÄ±zÄ± takip edin.",
+                                 "description":  "Panel header subtitle for Stats tab"
+                             },
+    "panel_settings_title":  {
+                                 "message":  "Tercihler",
+                                 "description":  "Panel header title for Settings tab"
+                             },
+    "panel_settings_subtitle":  {
+                                    "message":  "Tema, dil ve yapÄ±landÄ±rma yedeÄŸi.",
+                                    "description":  "Panel header subtitle for Settings tab"
+                                },
+    "toggle_redirect_shorts":  {
+                                   "message":  "Shorts videolarÄ±nÄ± normal oynatÄ±cÄ±ya yÃ¶nlendir",
+                                   "description":  "Label for toggle to play Shorts in standard watch player"
+                               },
+    "desc_redirect_shorts":  {
+                                 "message":  "Shorts videolarÄ±nÄ± oynatma kontrolleriyle standart izleme gÃ¶rÃ¼nÃ¼mÃ¼nde oynatÄ±r",
+                                 "description":  "Description for redirect shorts toggle"
+                             },
+    "action_snooze":  {
+                          "message":  "Ertele",
+                          "description":  "Button to temporarily pause protections"
+                      },
+    "status_snoozed":  {
+                           "message":  "Ertelendi",
+                           "description":  "Status badge label when protections are temporarily paused"
+                       },
+    "snooze_modal_title":  {
+                               "message":  "KorumalarÄ± Duraklat",
+                               "description":  "Title for snooze modal"
+                           },
+    "snooze_modal_desc":  {
+                              "message":  "SÃ¼re bittiÄŸinde korumalar otomatik olarak kaldÄ±ÄŸÄ± yerden devam edecektir.",
+                              "description":  "Subtitle description for snooze modal"
+                          },
+    "snooze_duration_15":  {
+                               "message":  "15 Dakika",
+                               "description":  "15 minute snooze option"
+                           },
+    "snooze_duration_15_desc":  {
+                                    "message":  "HÄ±zlÄ± mola",
+                                    "description":  "Description for 15 minute snooze"
+                                },
+    "snooze_duration_30":  {
+                               "message":  "30 Dakika",
+                               "description":  "30 minute snooze option"
+                           },
+    "snooze_duration_30_desc":  {
+                                    "message":  "Ã‡alÄ±ÅŸma oturumu",
+                                    "description":  "Description for 30 minute snooze"
+                                },
+    "snooze_duration_60":  {
+                               "message":  "1 Saat",
+                               "description":  "60 minute snooze option"
+                           },
+    "snooze_duration_60_desc":  {
+                                    "message":  "UzatÄ±lmÄ±ÅŸ oturum",
+                                    "description":  "Description for 60 minute snooze"
+                                },
+    "action_resume_now":  {
+                              "message":  "Åžimdi Devam Ettir",
+                              "description":  "Button to immediately restore protections from snooze"
+                          },
+    "snooze_banner_title":  {
+                                "message":  "Korumalar Ertelendi",
+                                "description":  "Title on snooze countdown banner"
+                            },
+    "snooze_banner_remaining":  {
+                                    "message":  "$TIME$ kaldÄ±",
+                                    "description":  "Countdown remaining on snooze banner",
+                                    "placeholders":  {
+                                                         "time":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "14:59"
+                                                                  }
+                                                     }
+                                },
+    "snooze_activated":  {
+                             "message":  "Korumalar $MINUTES$ dakika duraklatÄ±ldÄ±",
+                             "description":  "Toast notification when snooze is turned on",
+                             "placeholders":  {
+                                                  "minutes":  {
+                                                                  "content":  "$1",
+                                                                  "example":  "15"
+                                                              }
+                                              }
+                         },
+    "snooze_resumed":  {
+                           "message":  "Korumalar devam ettirildi",
+                           "description":  "Toast notification when snooze ends or is canceled"
+                       },
+    "status_off":  {
+                       "message":  "KapalÄ±",
+                       "description":  "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+                   },
+    "toggle_extension_enabled":  {
+                                     "message":  "UzantÄ± Ana AnahtarÄ±",
+                                     "description":  "Label for the master extension toggle in the header"
+                                 },
+    "stats_reset_toast":  {
+                              "message":  "GÃ¼nlÃ¼k izleme sÃ¼resi sÄ±fÄ±rlandÄ±",
+                              "description":  "Toast message when user resets today\u0027s watch time"
+                          },
+    "filters_status_in_development":  {
+                                          "message":  "GeliÅŸtirilme AÅŸamasÄ±nda",
+                                          "description":  "Status pill label on the content filters roadmap preview card"
+                                      },
+    "action_block":  {
+                         "message":  "Engelle",
+                         "description":  "Button text for 1-click in-feed channel block button"
+                     },
+    "filters_quick_block_title":  {
+                                      "message":  "1 TÄ±kla HÄ±zlÄ± Engelleme Butonu",
+                                      "description":  "Label for toggle allowing 1-click channel block buttons on video cards"
+                                  },
+    "filters_quick_block_desc":  {
+                                     "message":  "Video kartlarÄ±nÄ±n Ã¼zerine gelindiÄŸinde kanal adÄ±nÄ±n yanÄ±nda engelleme butonu gÃ¶ster",
+                                     "description":  "Description for 1-click quick block button toggle"
+                                 },
+    "filters_tip_text":  {
+                             "message":  "YouTube\u0027da herhangi bir videonun Ã¼zerine gelerek kanallarÄ± tek tÄ±kla engelleyin!",
+                             "description":  "Quick tip text at the top of the Filters tab"
+                         },
+    "btn_clear_all":  {
+                          "message":  "TÃ¼mÃ¼nÃ¼ temizle",
+                          "description":  "Button to clear all items in a blocklist"
+                      },
+    "toast_channel_cleared":  {
+                                  "message":  "TÃ¼m engellenen kanallar temizlendi",
+                                  "description":  "Toast notification when all channels are cleared"
+                              },
+    "toast_keyword_cleared":  {
+                                  "message":  "TÃ¼m engellenen anahtar kelimeler temizlendi",
+                                  "description":  "Toast notification when all keywords are cleared"
+                              },
+    "placeholder_channel_input":  {
+                                      "message":  "Kanal adÄ± veya @kullanÄ±cÄ±adÄ±...",
+                                      "description":  "Placeholder for channel blocklist text input"
+                                  },
+    "blocklist_channels_empty_desc":  {
+                                          "message":  "VideolarÄ±nÄ± gizlemek iÃ§in bir kanal adÄ± veya @kullanÄ±cÄ±adÄ± ekleyin.",
+                                          "description":  "Empty state description for Channel Blocklist"
+                                      },
+    "placeholder_keyword_input":  {
+                                      "message":  "Ã¶rn. podcast, spoiler, tepki...",
+                                      "description":  "Placeholder for keyword blocklist text input"
+                                  },
+    "blocklist_keywords_empty_desc":  {
+                                          "message":  "EÅŸleÅŸen video baÅŸlÄ±klarÄ±nÄ± otomatik olarak gizlemek iÃ§in anahtar kelimeler ekleyin.",
+                                          "description":  "Empty state description for Keyword Blocklist"
+                                      },
+    "blocklist_privacy_note":  {
+                                   "message":  "100% Yerel filtreleme Â· BaÅŸlÄ±klar ve kanallar sÄ±fÄ±r telemetri ile istemci tarafÄ±nda eÅŸleÅŸtirilir.",
+                                   "description":  "Privacy note at the bottom of the filters panel"
+                               },
+    "toast_channel_added":  {
+                                "message":  "\"$NAME$\" engellenen kanallara eklendi",
+                                "description":  "Toast confirmation when channel is added to blocklist",
+                                "placeholders":  {
+                                                     "name":  {
+                                                                  "content":  "$1",
+                                                                  "example":  "TechLead"
+                                                              }
+                                                 }
+                            },
+    "toast_channel_removed":  {
+                                  "message":  "\"$NAME$\" engellenen kanallardan kaldÄ±rÄ±ldÄ±",
+                                  "description":  "Toast confirmation when channel is removed from blocklist",
+                                  "placeholders":  {
+                                                       "name":  {
+                                                                    "content":  "$1",
+                                                                    "example":  "TechLead"
+                                                                }
+                                                   }
+                              },
+    "toast_channel_exists":  {
+                                 "message":  "\"$NAME$\" zaten kanal engelleme listesinde",
+                                 "description":  "Toast warning when adding duplicate channel",
+                                 "placeholders":  {
+                                                      "name":  {
+                                                                   "content":  "$1",
+                                                                   "example":  "TechLead"
+                                                               }
+                                                  }
+                             },
+    "toast_keyword_added":  {
+                                "message":  "\"$KEYWORD$\" engellenen kelimelere eklendi",
+                                "description":  "Toast confirmation when keyword is added to blocklist",
+                                "placeholders":  {
+                                                     "keyword":  {
+                                                                     "content":  "$1",
+                                                                     "example":  "spoiler"
+                                                                 }
+                                                 }
+                            },
+    "toast_keyword_removed":  {
+                                  "message":  "\"$KEYWORD$\" engellenen kelimelerden kaldÄ±rÄ±ldÄ±",
+                                  "description":  "Toast confirmation when keyword is removed from blocklist",
+                                  "placeholders":  {
+                                                       "keyword":  {
+                                                                       "content":  "$1",
+                                                                       "example":  "spoiler"
+                                                                   }
+                                                   }
+                              },
+    "toast_keyword_exists":  {
+                                 "message":  "\"$KEYWORD$\" zaten kelime engelleme listesinde",
+                                 "description":  "Toast warning when adding duplicate keyword",
+                                 "placeholders":  {
+                                                      "keyword":  {
+                                                                      "content":  "$1",
+                                                                      "example":  "spoiler"
+                                                                  }
+                                                  }
+                             },
+    "setting_rate_edge":  {
+                              "message":  "Rate on Edge Add-ons",
+                              "description":  "Button linking to Microsoft Edge Add-ons review page"
+                          },
+    "scheduled_close_tab":  {
+                                "message":  "Sekmeyi kapat"
+                            },
+    "scheduled_blank_screen":  {
+                                   "message":  "BoÅŸ ekran"
+                               },
+    "action_undo":  {
+                        "message":  "Geri al"
+                    },
+    "channel_blocked":  {
+                            "message":  "$1 engellendi"
+                        },
+    "focus_session_title":  {
+                                "message":  "Odaklanma oturumu"
+                            },
+    "focus_session_description":  {
+                                      "message":  "Kısa bir oturum için Sıkı Odaklamayı açın. Bittiğinde normal ayarlarınız geri döner. Programlar ve günlük limitler hâlâ geçerlidir."
+                                  },
+    "focus_session_end":  {
+                              "message":  "Oturumu sonlandır"
+                          },
+    "limit_warning_option":  {
+                                 "message":  "5 dakika kaldığında beni uyar (kısa limitler için 1 dakika)."
+                             },
+    "limit_warning_title":  {
+                                "message":  "Neredeyse günlük limitinizde"
+                            },
+    "limit_warning_message":  {
+                                  "message":  "Bugün kalan süre: $value$ dk. Günlük blok başlamadan önce bitirin.",
+                                  "placeholders":  {
+                                                       "value":  {
+                                                                     "content":  "$1"
+                                                                 }
+                                                   }
+                              },
+    "clear_status_active":  {
+                                "message":  "Engelleme ayarlarınız etkin."
+                            },
+    "clear_status_off":  {
+                             "message":  "Korumalar kapatıldı."
+                         },
+    "clear_status_snoozed":  {
+                                 "message":  "Korumalar $value$ tarihine kadar duraklatıldı.",
+                                 "placeholders":  {
+                                                      "value":  {
+                                                                    "content":  "$1"
+                                                                }
+                                                  }
+                             },
+    "clear_status_full":  {
+                              "message":  "YouTube şu kişi tarafından engellendi: $value$.",
+                              "placeholders":  {
+                                                   "value":  {
+                                                                 "content":  "$1"
+                                                             }
+                                               }
+                          },
+    "clear_status_strict":  {
+                                "message":  "Kesin Odaklanma şu süre için açık: $value$.",
+                                "placeholders":  {
+                                                     "value":  {
+                                                                   "content":  "$1"
+                                                               }
+                                                 }
+                            },
+    "clear_status_until":  {
+                               "message":  "$value$ tarihine kadar.",
+                               "placeholders":  {
+                                                    "value":  {
+                                                                  "content":  "$1"
+                                                              }
+                                                }
+                           },
+    "clear_status_session":  {
+                                 "message":  "Odaklanma oturumu: $value$ tarihine kadar Sıkı Odaklanma.",
+                                 "placeholders":  {
+                                                      "value":  {
+                                                                    "content":  "$1"
+                                                                }
+                                                  }
+                             },
+    "clear_status_session_paused":  {
+                                        "message":  "Odaklanma oturumu duraklatıldı; zamanlayıcısı $value$\u0027de bitiyor.",
+                                        "placeholders":  {
+                                                             "value":  {
+                                                                           "content":  "$1"
+                                                                       }
+                                                         }
+                                    },
+    "clear_status_remaining":  {
+                                   "message":  "Bugün kalan süre: $value$ dk.",
+                                   "placeholders":  {
+                                                        "value":  {
+                                                                      "content":  "$1"
+                                                                  }
+                                                    }
+                               },
+    "clear_status_limit_reached":  {
+                                       "message":  "Günlük sınırınıza ulaşıldı."
+                                   },
+    "clear_status_dismissed":  {
+                                   "message":  "Günlük limitiniz bugünlük kaldırıldı."
+                               }
 }
