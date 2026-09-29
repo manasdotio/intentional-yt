@@ -1,0 +1,40 @@
+Intentional YT is a free, open-source YouTube distraction blocker with daily watch time limits. Hide Shorts, home feed recommendations, and suggested videos while keeping YouTube available for tutorials, lectures, music, and videos you choose to watch.
+
+KEEP THE PARTS OF YOUTUBE YOU NEED
+- Hide YouTube Shorts across feeds, search results, channel pages, and the sidebar.
+- Remove home recommendations and suggested videos beside the player.
+- Keep subscriptions and playlists available with separate controls.
+- Hide comments, live chat, end-screen suggestions, and other distractions.
+- Disable autoplay, hide thumbnails, or enable grayscale.
+- Choose Balanced, Zen, or Video Only presets, then adjust individual controls.
+
+SET A DAILY YOUTUBE TIME LIMIT
+- Choose a daily watch budget and pause playback when it is reached.
+- Track active video playback time locally; daily counters reset at midnight.
+- Add optional break reminders at intervals you choose.
+- Schedule blocking for selected days and hours.
+- Use Focus Lock to add a PIN and cooldown before protected settings can change.
+
+FILTER CHANNELS AND KEYWORDS
+Hide matching video cards using channel names or title keywords. Filter unwanted topics while keeping search available for what you came to learn.
+
+FREE, OPEN SOURCE, AND LOCAL
+No account or subscription is required. Extension settings, blocklists, and watch-time counters stay in your browser. The extension has no telemetry or analytics. Its source code is available under the MIT license.
+
+COMMON QUESTIONS
+
+Can I hide recommendations without losing subscriptions?
+Yes. Home feed, sidebar recommendations, and subscriptions have separate controls.
+
+Does this block the YouTube phone app?
+No. Intentional YT works on YouTube in a supported desktop browser. It does not control the native YouTube app.
+
+Can Focus Lock prevent me from uninstalling the extension?
+No. It adds a PIN and cooldown for protected settings. You can still disable or uninstall the extension through your browser.
+
+What if a YouTube layout change breaks a filter?
+Report the affected page and control through the support link. YouTube interface changes can affect individual blocking rules.
+
+Website and setup guides: https://www.intentionalyt.me/
+Privacy policy: https://www.intentionalyt.me/privacy
+Source code and support: https://github.com/manasdotio/intentional-yt

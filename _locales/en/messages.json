@@ -8,7 +8,7 @@
     "description": "Short name of the extension"
   },
   "extensionDescription": {
-    "message": "Distraction-free YouTube with granular controls for feeds, Shorts, comments, and watch time limits. 100% private & local.",
+    "message": "Hide YouTube Shorts and recommendations, set daily watch time limits, and block distracting channels. Free and open source.",
     "description": "Extension description in stores and browser management pages"
   },
   "popup_window_title": {
