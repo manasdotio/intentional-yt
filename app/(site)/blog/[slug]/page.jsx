@@ -21,9 +21,11 @@ export async function generateMetadata({ params }) {
   const ogImage = post.image.startsWith('http')
     ? post.image
     : `https://www.intentionalyt.me${post.image.startsWith('/') ? '' : '/'}${post.image}`
+  const titleIncludesBrand = post.title.includes('Intentional YT')
+  const socialTitle = titleIncludesBrand ? post.title : `${post.title} — Intentional YT`
 
   return {
-    title: post.title,
+    title: titleIncludesBrand ? { absolute: post.title } : post.title,
     description: post.description,
     alternates: {
       canonical: `https://www.intentionalyt.me/blog/${post.slug}`
@@ -31,7 +33,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       type: 'article',
       url: `https://www.intentionalyt.me/blog/${post.slug}`,
-      title: `${post.title} — Intentional YT`,
+      title: socialTitle,
       description: post.description,
       publishedTime: post.date,
       modifiedTime: post.modified || post.date,
@@ -46,7 +48,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${post.title} — Intentional YT`,
+      title: socialTitle,
       description: post.description,
       images: [ogImage]
     }

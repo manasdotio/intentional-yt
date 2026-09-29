@@ -2,7 +2,7 @@
 title: "Intentional YT vs Unhook vs UnTrap: Features Compared"
 slug: "intentional-yt-vs-unhook-vs-untrap"
 date: "2026-09-27"
-modified: "2026-09-28"
+modified: "2026-09-29"
 author: "Manas"
 description: "Looking for an Unhook or UnTrap alternative? Compare Intentional YT for distraction blocking, daily watch limits, local privacy, and open-source code."
 image: "/screenshots/og-intentional-yt-vs-unhook-vs-untrap.png"

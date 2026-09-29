@@ -1,7 +1,8 @@
 ---
-title: "How to Hide YouTube Shorts and Recommendations on Desktop"
+title: "Hide YouTube Shorts and Recommendations"
 slug: "hide-youtube-shorts-and-recommendations"
 date: "2026-09-28"
+modified: "2026-09-29"
 author: "Manas"
 description: "Use a YouTube Shorts blocker to hide Shorts and remove recommendations in Chrome, Firefox, or Edge. Keep search and subscriptions with Intentional YT."
 image: "/screenshots/intentional_yt_marquee_1400x560.png"
