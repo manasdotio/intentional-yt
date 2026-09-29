@@ -1,4 +1,4 @@
-const items = [
+export const faqItems = [
   ['Can I hide YouTube Shorts without blocking ordinary videos?', 'Yes. Enable Hide Shorts in the extension popup to hide Shorts entry points in feeds, search results, channels, and the sidebar. Ordinary videos remain available. This controls YouTube in your browser; it does not change the native YouTube phone app.'],
   ['Can I remove recommendations and keep my subscriptions?', 'Yes. Hide home feed and Hide recommended sidebar are separate from Hide subscriptions. Leave Hide subscriptions off to keep access to videos from channels you follow.'],
   ['How does the YouTube daily time limit work?', 'Open Focus & Limits, enable Daily limit, and choose your watch budget. Intentional YT tracks active video playback and pauses playback when the daily threshold is reached. Watch-time counters are stored locally and reset at midnight.'],
@@ -17,7 +17,7 @@ export default function Faq() {
         <p className="section-desc">How blocking, time limits, and local privacy work.</p>
       </div>
       <div className="faq-grid">
-        {items.map(([question, answer], index) => (
+        {faqItems.map(([question, answer], index) => (
           <details className="faq-item" key={question} open={index === 0}>
             <summary className="faq-question">
               <span>{question}</span>
