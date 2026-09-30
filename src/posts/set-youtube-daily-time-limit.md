@@ -7,9 +7,9 @@ description: "Set a daily watch budget with a free YouTube time limit extension 
 image: "/screenshots/intentional_yt_marquee_1400x560.png"
 ---
 
-# YouTube Time Limit Extension: Setup Guide
+# How to set a daily YouTube watch limit
 
-Open the Intentional YT extension, go to **Focus & Limits**, enable **Daily limit**, and choose a watch budget. When tracked playback reaches that daily threshold, the extension pauses the video.
+Open the Intentional YT extension, go to **Focus & Limits**, enable **Daily limit**, and choose how many minutes you want to watch each day. The extension pauses the video when your tracked playback reaches that limit.
 
 I develop Intentional YT. This guide describes version 2.3.0 for YouTube in a supported desktop browser. It is a personal focus tool; it does not impose a device-wide limit or control the YouTube phone app.
 
@@ -21,11 +21,11 @@ I develop Intentional YT. This guide describes version 2.3.0 for YouTube in a su
 4. Choose 15, 30, 45, 60, 90, or 120 minutes. Choose **Custom** for another budget between 1 and 1,440 minutes.
 5. Check the watch-time status in the popup to see your tracked time and configured limit.
 
-For example, a 45-minute budget gives you a daily boundary for tutorials or entertainment. Choose a budget that accommodates the videos you intend to watch; a long lecture may need a larger allowance.
+You might start with 45 minutes for tutorials or entertainment. If you plan to watch a long lecture, allow enough time to finish it.
 
 ## What does the timer count?
 
-The counter tracks active YouTube video playback, rather than simply counting how long a browser tab is open. The daily counter resets at midnight. Settings and counters are kept in local browser storage; they do not synchronize into one shared budget across your devices or browser profiles.
+The timer counts active YouTube video playback. Leaving a tab open without playing a video does not use your budget. The counter resets at midnight, and your settings and watch time stay in local browser storage. Each browser profile keeps its own budget; it is not shared across devices.
 
 At the threshold, playback pauses. This is not an operating-system restriction: you remain in control of your browser and can disable or uninstall the extension.
 
@@ -38,13 +38,13 @@ At the threshold, playback pauses. This is not an operating-system restriction: 
 | Scheduled blocking | Apply blocking rules during selected days and hours |
 | Focus Lock | Add a PIN and cooldown before changing protected settings |
 
-Use a schedule for a recurring study session. Use a daily budget when you want an overall viewing boundary. Focus Lock can add a pause before changing protected preferences, but it cannot stop you from removing the extension.
+A schedule can cover a recurring study session, while a daily budget caps your total watch time. Focus Lock makes you wait before changing protected settings. You can still remove the extension.
 
 ## Check the setup before relying on it
 
-Temporarily choose a short custom budget, play a video, and observe the counter and pause behavior. Restore your intended budget afterward. If the counter is not advancing, confirm the extension has access to YouTube, the video is playing, and the extension is enabled. Reload an existing tab after installing or updating.
+Try a short custom budget and play a video. Check that the counter advances and playback pauses at the limit, then set the budget you want to keep. If the counter stays still, check that the extension is enabled, has access to YouTube, and that a video is playing. Reload an existing tab after installing or updating.
 
-If behavior differs from these steps, include your browser, extension version, and reproduction steps in a [GitHub issue](https://github.com/manasdotio/intentional-yt/issues).
+If it does not work as described, open a [GitHub issue](https://github.com/manasdotio/intentional-yt/issues) with your browser, extension version, and the steps that led to the problem.
 
 ## Reduce the temptation to start another video
 

@@ -23,7 +23,7 @@ export default function Footer() {
             <span className="brand-badge" style={{ fontSize: '11px', padding: '1px 6px' }}>{APP_CONFIG.versionShort}</span>
           </div>
           <p className="footer-brand-desc">
-            A tiny open-source browser extension made with care for anyone who wants to watch YouTube without losing their afternoon.
+            An open-source browser extension for watching YouTube without losing your afternoon.
           </p>
           <div className="footer-badges">
             <span className="footer-tag">MIT License</span>

@@ -53,7 +53,7 @@ export default function BlogList({ onNavigate }) {
           Writing &amp; Comparisons
         </h1>
         <p className="section-desc" style={{ maxWidth: '100%', fontSize: '16px' }}>
-          Unvarnished notes on digital habits, algorithmic friction, and open-source browser tools.
+          Guides to managing YouTube watch time, comparisons of browser extensions, and notes on building Intentional YT.
         </p>
       </div>
 

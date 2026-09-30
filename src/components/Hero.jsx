@@ -54,7 +54,7 @@ export default function Hero() {
       </div>
 
       <p className="hero-reassurance">
-        No account. No tracking. Your settings stay in your browser.
+        Use it without an account or tracking. Your settings stay in your browser.
       </p>
     </section>
   )

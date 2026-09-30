@@ -8,11 +8,11 @@ description: "Use a YouTube Shorts blocker to hide Shorts and remove recommendat
 image: "/screenshots/intentional_yt_marquee_1400x560.png"
 ---
 
-# How to Hide YouTube Shorts and Recommendations on Desktop
+# How to hide YouTube Shorts and recommendations on desktop
 
-To remove YouTube distractions with Intentional YT, open the extension popup and enable **Hide Shorts**, **Hide home feed**, or **Hide recommended sidebar**. These are separate controls: you can keep ordinary videos, search, and subscriptions while hiding the surfaces that distract you.
+Open the Intentional YT extension popup and enable **Hide Shorts**, **Hide home feed**, or **Hide recommended sidebar**. Each control works separately, so you can hide the parts of YouTube that distract you and keep ordinary videos, search, and subscriptions.
 
-I develop Intentional YT. The steps below describe the controls in version 2.3.0, rather than settings in the YouTube mobile app.
+I develop Intentional YT. These steps cover version 2.3.0 on desktop. The extension does not change the YouTube mobile app.
 
 ## 1. Install a YouTube Shorts blocker for your browser
 
@@ -31,11 +31,11 @@ Open Intentional YT and find the **Feed** controls. Enable only the settings you
 
 Leave **Hide subscriptions** off if you want to browse channels you follow. If you choose the limited feed, leave **Hide home feed** off so that feed can remain visible.
 
-## 3. Check the pages you actually use
+## 3. Check your usual YouTube pages
 
-Visit the homepage, run a search, and open an ordinary watch page. Confirm that the distracting elements are hidden and the content you need is still available. If a page was open before installation, reload it.
+Visit the homepage, try a search, and open a video. Check that the parts you chose to hide are gone and that you can still find what you want to watch. Reload any page that was open before you installed the extension.
 
-**Redirect Shorts to normal player** is a separate option. It is useful when you want a Shorts link to open in the standard watch view with playback controls. Hiding entry points and redirecting a direct link serve different purposes.
+If you want to open a Shorts link in the standard watch view with playback controls, enable **Redirect Shorts to normal player**. This is separate from hiding Shorts links around YouTube.
 
 ## What if Shorts or recommendations still appear?
 
@@ -47,4 +47,4 @@ No. These instructions apply to the YouTube website in a supported desktop brows
 
 ## Add a watch budget if hiding feeds is not enough
 
-Visual controls and time controls solve different problems. You can hide recommendations and still spend longer than intended watching a single playlist. Follow the [daily YouTube time-limit guide](/blog/set-youtube-daily-time-limit) to add a playback budget, or [compare Intentional YT with Unhook and UnTrap](/blog/intentional-yt-vs-unhook-vs-untrap) before choosing a tool.
+You can hide every recommendation and still spend longer than planned on a playlist. Follow the [daily YouTube time-limit guide](/blog/set-youtube-daily-time-limit) to set a watch budget. If you are still choosing an extension, [compare Intentional YT with Unhook and UnTrap](/blog/intentional-yt-vs-unhook-vs-untrap).

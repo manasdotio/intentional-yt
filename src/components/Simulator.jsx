@@ -280,7 +280,7 @@ export default function Simulator() {
         <div className="section-kicker">
           <span>✦ Interactive preview</span>
         </div>
-        <h2 className="section-title">See YouTube with the noise stripped away.</h2>
+        <h2 className="section-title">Try the YouTube blocking controls</h2>
         <p className="section-desc">
           Choose a preset, then adjust the controls to see what changes.
         </p>
@@ -1027,7 +1027,7 @@ export default function Simulator() {
                               <span>Limit home feed</span>
                               <span className="mock-badge-tag">NEW</span>
                             </span>
-                            <span className="mock-toggle-desc">Caps home feed to 15 calm videos &amp; stops scroll</span>
+                            <span className="mock-toggle-desc">Limits the home feed to 15 videos and stops infinite scroll</span>
                           </div>
                           <span className="demo-switch">
                             <input
@@ -1044,7 +1044,7 @@ export default function Simulator() {
                         <label className="mock-toggle-row">
                           <div className="mock-toggle-info">
                             <span className="mock-toggle-label">Hide subscriptions</span>
-                            <span className="mock-toggle-desc">Suppresses the subscriptions feed grid</span>
+                            <span className="mock-toggle-desc">Hides the subscriptions feed</span>
                           </div>
                           <span className="demo-switch">
                             <input
@@ -1061,7 +1061,7 @@ export default function Simulator() {
                         <label className="mock-toggle-row">
                           <div className="mock-toggle-info">
                             <span className="mock-toggle-label">Hide recommended sidebar</span>
-                            <span className="mock-toggle-desc">Strips the infinite sidebar on video pages</span>
+                            <span className="mock-toggle-desc">Hides recommendations beside videos</span>
                           </div>
                           <span className="demo-switch">
                             <input
@@ -1082,7 +1082,7 @@ export default function Simulator() {
                         <label className="mock-toggle-row">
                           <div className="mock-toggle-info">
                             <span className="mock-toggle-label">Hide Shorts everywhere</span>
-                            <span className="mock-toggle-desc">Deep suppression in feeds, sidebar, and search</span>
+                            <span className="mock-toggle-desc">Hides Shorts in feeds, the sidebar, and search</span>
                           </div>
                           <span className="demo-switch">
                             <input
@@ -1103,7 +1103,7 @@ export default function Simulator() {
                         <label className="mock-toggle-row">
                           <div className="mock-toggle-info">
                             <span className="mock-toggle-label">Neutralize thumbnails</span>
-                            <span className="mock-toggle-desc">Replaces screaming thumbnails with calm cards</span>
+                            <span className="mock-toggle-desc">Replaces thumbnails with plain cards</span>
                           </div>
                           <span className="demo-switch">
                             <input
@@ -1154,7 +1154,7 @@ export default function Simulator() {
                         <label className="mock-toggle-row">
                           <div className="mock-toggle-info">
                             <span className="mock-toggle-label">Hide comments</span>
-                            <span className="mock-toggle-desc">Wipes out comment threads below videos</span>
+                            <span className="mock-toggle-desc">Hides comments below videos</span>
                           </div>
                           <span className="demo-switch">
                             <input
@@ -1351,7 +1351,7 @@ export default function Simulator() {
                       <label className="mock-toggle-row" style={{ margin: '4px 0' }}>
                         <div className="mock-toggle-info">
                           <span className="mock-toggle-label">Soft break nudges</span>
-                          <span className="mock-toggle-desc">Gentle floating toast every 15m</span>
+                            <span className="mock-toggle-desc">Shows a break reminder every 15 minutes</span>
                         </div>
                         <span className="demo-switch">
                           <input

@@ -143,7 +143,7 @@ export default function BlogPost({ slug, onNavigate }) {
           </h3>
         </div>
         <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: '1.65', margin: 0 }}>
-          Intentional YT is 100% free and open source under the MIT license, with zero telemetry and zero paywalls. Reclaim your focus with custom watch limits, calm feeds, and anti-relapse Focus Lock.
+          Set a daily watch limit, hide distracting feeds, or use Focus Lock to add a cooldown before changing your settings. Intentional YT is free and open source under the MIT license, with no telemetry or paid features.
         </p>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '6px' }}>
           <a 
