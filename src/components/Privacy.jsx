@@ -123,27 +123,19 @@ export default function Privacy() {
 
         <section>
           <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px', color: 'var(--text-primary)' }}>
-            6. Open Source Transparency
+            6. Questions and Feedback
           </h2>
           <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7', fontSize: '14.5px', marginBottom: '14px' }}>
-            Intentional YT is completely open-source under the MIT License. Anyone can inspect, audit, or build the code directly from the public GitHub repository.
+            If you have a privacy question or find a problem with the extension, send us feedback.
           </p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             <a 
-              href={APP_CONFIG.githubRepoUrl} 
+              href={APP_CONFIG.feedbackFormUrl}
               target="_blank" 
               rel="noopener noreferrer" 
               className="btn btn-secondary"
             >
-              <span>View Source on GitHub ↗</span>
-            </a>
-            <a 
-              href={`${APP_CONFIG.githubRepoUrl}/blob/main/SECURITY.md`} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn btn-secondary"
-            >
-              <span>Security Policy ↗</span>
+              <span>Contact Us ↗</span>
             </a>
           </div>
         </section>

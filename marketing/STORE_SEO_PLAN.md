@@ -8,24 +8,24 @@ Keep the existing repository title: **Intentional YT - YouTube Distraction Block
 
 Use this English summary (123 characters):
 
-> Hide YouTube Shorts and recommendations, set daily watch time limits, and block distracting channels. Free and open source.
+> Hide YouTube Shorts and recommendations, set daily watch time limits, and block distracting channels.
 
 The summary is updated in `_locales/en/messages.json`, which supplies the manifest description. The full description is ready to paste from `marketing/store-listing-description.txt`. It describes repository version 2.4.0; confirm each store's available release supports those features before publishing its listing.
 
 | Dashboard field | Recommended value |
 | --- | --- |
 | Homepage | https://www.intentionalyt.me/ |
-| Support | https://github.com/manasdotio/intentional-yt/issues |
+| Support | https://forms.gle/EFixUed5F5bmVvFX7 |
 | Privacy policy | https://www.intentionalyt.me/privacy |
 | Official website | Verify ownership of intentionalyt.me and select the verified website where available. |
-| Firefox license | MIT, matching the repository LICENSE. |
+| Firefox license | Confirm the terms for the submitted release match the store listing and `LICENSE`. |
 | Category | The current store category most closely describing focus or digital well-being; check the dashboard choices rather than selecting an unrelated category for traffic. |
 
 Chrome takes the name and summary from the uploaded extension's manifest/localized metadata; the long description, screenshots, and related links are dashboard fields. Deliver the summary in the next packaged release with the project's normal synchronized version bump. No version increment or release archive was created for this copy change. [Chrome listing setup](https://developer.chrome.com/docs/webstore/cws-dashboard-listing).
 
 ## What the audit established
 
-- The live Firefox listing had a different title and displayed All Rights Reserved despite this repository's MIT license. Its description included unsupported comparisons about competitors and an absolute promise about filtered content. The proposed description removes those claims and states browser scope and Focus Lock limits. [Firefox listing](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/).
+- The live Firefox listing had a different title and license label from the repository's `LICENSE` file. Its description included unsupported comparisons about competitors and an absolute promise about filtered content. The proposed description removes those claims and states browser scope and Focus Lock limits. [Firefox listing](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/).
 - Direct Chrome and Edge listing fetches failed through the research tool. This does not establish an indexing problem. A dated third-party Chrome snapshot was found, but was not used to establish the current Chrome version, user count, or ranking.
 - The existing English summary describes broad controls; the revised summary names Shorts, recommendations, and daily watch limits directly. These are product-relevant query hypotheses, not measured search-volume findings.
 
@@ -41,7 +41,7 @@ Use these concepts naturally in the relevant fields; this table is a research pl
 | YouTube daily watch time limit | Title, summary, time controls |
 | Keep subscriptions without recommendations | Feature list and FAQ |
 | Block YouTube channels or title keywords | Filtering section |
-| Free open-source YouTube extension | Opening, summary, license explanation |
+| Private YouTube extension | Opening, summary, privacy explanation |
 | Scheduled YouTube blocking | Time controls |
 
 Keep competitor comparisons on the sourced website comparison page. Avoid competitor names in the title or summary. Google's guidance favors an accurate, concise overview and relevant features, and prohibits repetitive keyword spam. [Chrome listing guidance](https://developer.chrome.com/docs/webstore/best-listing).

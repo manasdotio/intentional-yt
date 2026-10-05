@@ -15,9 +15,9 @@
    - Click **Submit a New Add-on** and upload `intentional-yt-firefox.zip`.
 3. **Store Listing Details**:
    - **Name**: Intentional YT - YouTube Distraction Blocker & Daily Time Limit
-   - **Summary**: Hide YouTube Shorts and recommendations, set daily watch time limits, and block distracting channels. Free and open source.
+   - **Summary**: Hide YouTube Shorts and recommendations, set daily watch time limits, and block distracting channels.
    - **Detailed description**: Use `marketing/store-listing-description.txt` after confirming the listed features are available in the submitted release.
-   - **License**: Select MIT to match `LICENSE`; the public listing checked September 29, 2026 displayed All Rights Reserved.
+   - **License**: Confirm the license for the submitted release matches the store listing and the repository's `LICENSE` file.
    - **Website**: https://www.intentionalyt.me/
    - **Category**: Privacy & Security / Photos, Music & Videos / Productivity.
    - **Reviewer notes**:

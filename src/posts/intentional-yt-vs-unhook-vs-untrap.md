@@ -2,9 +2,9 @@
 title: "Intentional YT vs Unhook vs UnTrap: Features Compared"
 slug: "intentional-yt-vs-unhook-vs-untrap"
 date: "2026-09-27"
-modified: "2026-09-29"
+modified: "2026-10-05"
 author: "Manas"
-description: "Looking for an Unhook or UnTrap alternative? Compare Intentional YT for distraction blocking, daily watch limits, local privacy, and open-source code."
+description: "Looking for an Unhook or UnTrap alternative? Compare Intentional YT for distraction blocking, daily watch limits, and local privacy."
 image: "/screenshots/og-intentional-yt-vs-unhook-vs-untrap.png"
 ---
 
@@ -28,7 +28,7 @@ The previous version of this comparison understated UnTrap's time-management and
 
 ## Intentional YT: local settings and daily watch budgets
 
-Intentional YT combines hiding controls with daily playback limits, channel and keyword blocklists, scheduled blocking, and Focus Lock. Its [source code](https://github.com/manasdotio/intentional-yt) is available under the [MIT license](https://github.com/manasdotio/intentional-yt/blob/main/LICENSE). The extension stores preferences and watch-time counters locally, without an account or extension telemetry.
+Intentional YT combines hiding controls with daily playback limits, channel and keyword blocklists, scheduled blocking, and Focus Lock. The extension stores preferences and watch-time counters locally, without an account or extension telemetry.
 
 A daily watch budget pauses playback at your selected threshold. Focus Lock adds a PIN and cooldown before changing protected preferences. These are personal focus controls, not protection against disabling or uninstalling an extension.
 
@@ -45,7 +45,7 @@ Scheduled blocking applies rules during selected hours and days. This can be use
 | Distraction controls | Home feed, Shorts, sidebar, and other controls | Distraction hiding controls | Page customization controls |
 | Time management | Daily playback budget and schedules | Check current listing | Time controls advertised |
 | Filtering | Channel and keyword blocklists | Check current listing | Content filtering advertised |
-| Licensing and plans | Free, MIT-licensed code | Check current terms | Free and optional paid features |
+| Availability | Free to install | Check current terms | Free and optional paid features |
 | Settings storage | Local browser storage | Check privacy policy | Check privacy policy |
 
 The table covers only some of each tool's features. Try the controls you need in your browser before relying on them.
@@ -54,6 +54,6 @@ The table covers only some of each tool's features. Try the controls you need in
 
 Start with the problem you want to solve. For a cleaner watch page, compare each tool's hiding options. If watch duration matters, try a time control and check how it behaves at the limit. If you need specific content filters, test them against the channels and titles you actually encounter.
 
-Intentional YT may suit you if you want to read the source code and keep daily watch counters in your browser. It has no cloud sync or AI video summaries. I maintain it on my own, and changes to YouTube's layout sometimes mean I need to update the blocking rules.
+Intentional YT may suit you if you want to keep daily watch counters in your browser. It has no cloud sync or AI video summaries. I maintain it on my own, and changes to YouTube's layout sometimes mean I need to update the blocking rules.
 
 To try its controls, follow the [guide to hiding Shorts and recommendations](/blog/hide-youtube-shorts-and-recommendations) or [set a daily YouTube watch limit](/blog/set-youtube-daily-time-limit). The [homepage](/) links to official browser-store downloads and includes an interactive demo.

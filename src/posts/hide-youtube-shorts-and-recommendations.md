@@ -39,7 +39,7 @@ If you want to open a Shorts link in the standard watch view with playback contr
 
 ## What if Shorts or recommendations still appear?
 
-Check that the extension is enabled and has access to YouTube. Review any scheduled blocking hours or selected preset that may affect your rules. Update the extension and reload the page. YouTube experiments with different layouts, so a selector can occasionally need an update. Report the affected page type and browser in the [issue tracker](https://github.com/manasdotio/intentional-yt/issues); avoid including private account information.
+Check that the extension is enabled and has access to YouTube. Review any scheduled blocking hours or selected preset that may affect your rules. Update the extension and reload the page. YouTube experiments with different layouts, so a selector can occasionally need an update. Report the affected page type and browser through the [feedback form](https://forms.gle/EFixUed5F5bmVvFX7); avoid including private account information.
 
 ## Does this work inside the YouTube phone app?
 

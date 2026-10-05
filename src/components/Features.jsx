@@ -88,7 +88,7 @@ export default function Features() {
           <div className="bento-card-badge">
             <span>0% Telemetry</span>
             <span className="bento-badge-sep">&middot;</span>
-            <span>MIT Open Source</span>
+            <span>Local Settings</span>
           </div>
         </div>
       </div>

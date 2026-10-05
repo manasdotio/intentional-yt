@@ -17,17 +17,17 @@ export function GET() {
 
   return new Response(`# Intentional YT
 
-> Intentional YT is a free, open-source browser extension for Chrome, Firefox, and Edge that hides YouTube distractions and provides daily playback limits.
+> Intentional YT is a browser extension for Chrome, Firefox, and Edge that hides YouTube distractions and provides daily playback limits.
 
 Official website: ${SITE_URL}/
 Current version: ${APP_CONFIG.version}
-Developer: manasdotio (${APP_CONFIG.githubRepoUrl})
+Developer: manasdotio
 
 ## Product and pricing
 
-- [Product, interactive demo, features, and FAQ](${SITE_URL}/): Free under the MIT license, with no subscription or account required.
+- [Product, interactive demo, features, and FAQ](${SITE_URL}/): Browser extension with local settings and no account required.
 - [Privacy policy](${SITE_URL}/privacy): Extension settings, blocklists, and playback counters are stored locally.
-- [Source code](${APP_CONFIG.githubRepoUrl}): Public implementation, license, and issue tracker.
+- [Feedback and support](${APP_CONFIG.feedbackFormUrl}): Report bugs and suggest features.
 
 The extension controls YouTube in a supported desktop browser. It does not control the native YouTube phone app. Focus Lock adds friction to settings changes; it does not prevent disabling or uninstalling the extension. YouTube layout changes can affect blocking rules.
 

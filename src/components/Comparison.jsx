@@ -5,7 +5,7 @@ const rows = [
   ['Recommendations and Shorts', 'Separate hiding controls', 'Distraction hiding controls', 'Distraction hiding controls'],
   ['Time management', 'Daily playback limits and scheduled blocking', 'Check current listing for available controls', 'Advertises session durations and scheduling'],
   ['Content filters', 'Channel and keyword blocklists', 'Check current listing for available controls', 'Advertises channel, video, comment, and post filters'],
-  ['License and cost', 'Free, MIT-licensed source code', 'Check official listing for current terms', 'Free essentials with optional Plus features']
+  ['Availability', 'Free to install', 'Check official listing for current terms', 'Free essentials with optional Plus features']
 ]
 
 export default function Comparison() {
@@ -23,7 +23,7 @@ export default function Comparison() {
           <tbody>{rows.map(([label, ...values]) => <tr key={label}><th scope="row">{label}</th>{values.map((value, index) => <td key={index} className={index === 0 ? 'highlight-col' : undefined}>{value}</td>)}</tr>)}</tbody>
         </table>
       </div>
-      <p className="comparison-sources">Sources: <a href="https://unhook.app/">Unhook</a>, <a href="https://untrap.app/">UnTrap</a>, and <a href="https://github.com/manasdotio/intentional-yt">Intentional YT source code</a>. This is a feature overview, not a performance benchmark. <Link href="/blog/intentional-yt-vs-unhook-vs-untrap">Read the full comparison</Link>.</p>
+      <p className="comparison-sources">Sources: <a href="https://unhook.app/">Unhook</a>, <a href="https://untrap.app/">UnTrap</a>, and the <Link href="/#features">Intentional YT feature list</Link>. This is a feature overview, not a performance benchmark. <Link href="/blog/intentional-yt-vs-unhook-vs-untrap">Read the full comparison</Link>.</p>
     </section>
   )
 }

@@ -4,7 +4,7 @@ Reviewed: September 29, 2026. Scope: repository content and a public-site fetch 
 
 ## Product context
 
-Intentional YT is a free MIT-licensed desktop browser extension for people who need YouTube for learning or work and want controls over recommendations, Shorts, and playback time. The site compares it with Unhook and UnTrap. Product sources: `src/config/constants.js`, the homepage FAQ, and the published guides in `src/posts/`.
+Intentional YT is a desktop browser extension for people who need YouTube for learning or work and want controls over recommendations, Shorts, and playback time. The site compares it with Unhook and UnTrap. Product sources: `src/config/constants.js`, the homepage FAQ, and the published guides in `src/posts/`.
 
 No product-marketing context file was found in `.agents` or `.claude`; the existing repository documentation and public-facing copy provide the product context.
 
@@ -12,7 +12,7 @@ No product-marketing context file was found in `.agents` or `.claude`; the exist
 
 | Area | Evidence and result |
 | --- | --- |
-| Product definition and pricing | Homepage hero identifies the category, browser support, and free availability; FAQ describes MIT licensing and local storage. |
+| Product definition and privacy | Homepage hero identifies the category and browser support; FAQ describes local storage. |
 | Crawl eligibility | `app/robots.js` allows all user agents. The sitemap lists the homepage, blog, articles, and privacy page. This is source-level evidence, not proof of live crawl access or indexing. |
 | Structured data | Homepage includes WebSite and SoftwareApplication data, a zero-price offer, store links, developer identity, and the configured software version. |
 | Useful content structure | Published guides and FAQs cover practical setup, browser scope, and limitations; comparison content discloses developer affiliation and cites competitor sources. |
@@ -27,7 +27,7 @@ Run these unchanged across the target platforms, recording date, platform/model,
 | Query | Relevant existing page |
 | --- | --- |
 | What is Intentional YT? | Homepage |
-| Is Intentional YT free and open source? | Homepage FAQ |
+| Does Intentional YT collect my data? | Homepage FAQ |
 | Does Intentional YT collect browsing data? | Privacy policy |
 | YouTube distraction blocker for studying | Homepage and guides |
 | Hide YouTube Shorts without blocking normal videos | Shorts and recommendations guide |
@@ -35,7 +35,7 @@ Run these unchanged across the target platforms, recording date, platform/model,
 | Set a daily YouTube watch time limit on desktop | Daily time-limit guide |
 | YouTube extension that counts active playback time | Daily time-limit guide |
 | Intentional YT vs Unhook vs UnTrap | Comparison guide |
-| Free open-source Unhook alternative | Comparison guide |
+| Private Unhook alternative | Comparison guide |
 | Can a YouTube focus extension prevent uninstalling? | Focus Lock explanation and FAQ |
 | Does Intentional YT work in the YouTube mobile app? | Homepage FAQ |
 
@@ -44,7 +44,7 @@ Run these unchanged across the target platforms, recording date, platform/model,
 1. After deployment, verify the homepage, robots.txt, sitemap.xml, and llms.txt return their intended content without authentication or a bot challenge. Check important pages with Search Console URL Inspection.
 2. Collect the query baseline above before attributing any visibility improvement to a change. Track citations and recommendations separately.
 3. Expand guides only where real support questions reveal missing information. Keep screenshots, settings names, limitations, and release details accurate. Do not invent performance benchmarks, testimonials, or expert quotes.
-4. Keep official store listings and the public GitHub README consistent with the website. Seek independent coverage through useful demonstrations and honest community participation; no fabricated reviews or mass promotion.
+4. Keep official store listings and the website consistent. Seek independent coverage through useful demonstrations and honest community participation; no fabricated reviews or mass promotion.
 
 ## Corrections to the supplied skill guidance
 

@@ -23,10 +23,10 @@ export default function Footer() {
             <span className="brand-badge" style={{ fontSize: '11px', padding: '1px 6px' }}>{APP_CONFIG.versionShort}</span>
           </div>
           <p className="footer-brand-desc">
-            An open-source browser extension for watching YouTube without losing your afternoon.
+            A browser extension for watching YouTube without losing your afternoon.
           </p>
           <div className="footer-badges">
-            <span className="footer-tag">MIT License</span>
+            <span className="footer-tag">No Account</span>
             <span className="footer-tag">100% Local</span>
             <span className="footer-tag">0% Telemetry</span>
           </div>
@@ -66,20 +66,15 @@ export default function Footer() {
                 <span>Firefox Add-on Store ↗</span>
               </a>
             </li>
-            <li><a href={APP_CONFIG.githubReleasesUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Release Packages ↗</a></li>
           </ul>
         </div>
 
-        {/* Open Source & Resources */}
+        {/* Resources */}
         <div>
           <h4 className="footer-col-title">Resources</h4>
           <ul className="footer-nav-list">
-            <li><a href={APP_CONFIG.githubRepoUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link">GitHub Repository ↗</a></li>
-            <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">MIT License</a></li>
             <li><Link href="/privacy" className="footer-nav-link">Privacy Policy</Link></li>
-            <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/SECURITY.md`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Security Audit</a></li>
-            <li><a href={`${APP_CONFIG.githubRepoUrl}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Contributing</a></li>
-            <li><a href={`${APP_CONFIG.githubRepoUrl}/issues`} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Report an Issue ↗</a></li>
+            <li><a href={APP_CONFIG.feedbackFormUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Report an Issue ↗</a></li>
             <li><a href={APP_CONFIG.feedbackFormUrl} target="_blank" rel="noopener noreferrer" className="footer-nav-link" style={{ color: 'var(--accent-blue)', fontWeight: 600 }}>Share Feedback &amp; Ideas ↗</a></li>
             <li><Link href="/uninstall" className="footer-nav-link">Uninstall Feedback</Link></li>
           </ul>
@@ -88,7 +83,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <div>
-          <span>© {currentYear} {APP_CONFIG.shortName || APP_CONFIG.name} • Free &amp; Open Source under <a href={`${APP_CONFIG.githubRepoUrl}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>MIT License</a></span>
+          <span>© {currentYear} {APP_CONFIG.shortName || APP_CONFIG.name}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
           <a href="#" className="footer-back-top" onClick={scrollToTop} aria-label="Scroll back to top">

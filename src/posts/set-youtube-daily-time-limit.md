@@ -45,7 +45,7 @@ A schedule can cover a recurring study session, while a daily budget caps your t
 
 Try a short custom budget and play a video. Check that the counter advances and playback pauses at the limit, then set the budget you want to keep. If the counter stays still, check that the extension is enabled, has access to YouTube, and that a video is playing. Reload an existing tab after installing or updating.
 
-If it does not work as described, open a [GitHub issue](https://github.com/manasdotio/intentional-yt/issues) with your browser, extension version, and the steps that led to the problem.
+If it does not work as described, [send feedback](https://forms.gle/EFixUed5F5bmVvFX7) with your browser, extension version, and the steps that led to the problem.
 
 ## Reduce the temptation to start another video
 

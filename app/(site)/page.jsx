@@ -7,7 +7,7 @@ import Features from '@/src/components/Features'
 import Comparison from '@/src/components/Comparison'
 import Faq from '@/src/components/Faq'
 
-export const metadata = pageMetadata({ title: 'YouTube Distraction Blocker & Daily Limit', description: 'Hide YouTube Shorts and recommendations, set daily watch limits, and stay focused. Free, open-source extension for Chrome, Firefox, and Edge.' })
+export const metadata = pageMetadata({ title: 'YouTube Distraction Blocker & Daily Limit', description: 'Hide YouTube Shorts and recommendations, set daily watch limits, and stay focused. Available for Chrome, Firefox, and Edge.' })
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -17,7 +17,7 @@ const jsonLd = {
       "@id": "https://www.intentionalyt.me/#website",
       "url": "https://www.intentionalyt.me/",
       "name": "Intentional YT",
-      "description": "Open source YouTube distraction blocker and daily time limit browser extension.",
+      "description": "YouTube distraction blocker and daily time limit browser extension.",
       "inLanguage": "en-US"
     },
     {
@@ -29,15 +29,13 @@ const jsonLd = {
       "applicationCategory": "ProductivityApplication",
       "applicationSubCategory": "Browser Extension",
       "softwareVersion": APP_CONFIG.version,
-      "license": "https://github.com/manasdotio/intentional-yt/blob/main/LICENSE",
-      "description": "An open source, distraction-free YouTube extension that blocks YouTube recommendations, hides Shorts, neutralizes clickbait thumbnails, and sets daily time limits.",
+      "description": "A distraction-free YouTube extension that blocks YouTube recommendations, hides Shorts, neutralizes clickbait thumbnails, and sets daily time limits.",
       "url": "https://www.intentionalyt.me/",
       "downloadUrl": "https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg",
       "sameAs": [
         "https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg",
         "https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb",
-        "https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/",
-        "https://github.com/manasdotio/intentional-yt"
+        "https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/"
       ],
       "offers": {
         "@type": "Offer",

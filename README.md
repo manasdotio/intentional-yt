@@ -9,13 +9,11 @@
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install%20Extension-4285F4?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)
 [![Microsoft Edge](https://img.shields.io/badge/Microsoft%20Edge-Install%20Add--on-0078D7?logo=microsoft-edge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb)
 [![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install%20Extension-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-2.4.0-brightgreen.svg)
 ![Browsers](https://img.shields.io/badge/browsers-Chrome%20%7C%20Edge%20%7C%20Firefox-informational.svg)
 ![Manifest](https://img.shields.io/badge/manifest-v3-blue.svg)
 [![Privacy](https://img.shields.io/badge/telemetry-0%25%20(strictly%20local)-success.svg)](PRIVACY.md)
 [![Feedback Form](https://img.shields.io/badge/Feedback-Submit%20Ideas-8B5CF6)](https://forms.gle/EFixUed5F5bmVvFX7)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg"><strong>🌐 Install for Chrome</strong></a> •
@@ -289,22 +287,5 @@ If Intentional YT helps you reclaim your time and focus:
 - ⭐ **[Leave a 5-Star Review on Chrome Web Store](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)** — Reviews help new users discover the extension!
 - ⭐ **[Leave a 5-Star Review on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb)** — Reviews help Edge users discover calm browsing!
 - ⭐ **[Leave a 5-Star Review on Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)** — Every review helps more people discover mindful internet use.
-- 🌟 **Star this repository** on GitHub to support open-source development.
 - 💡 **[Submit Feedback & Feature Requests](https://forms.gle/EFixUed5F5bmVvFX7)** — Tell us what toggles or improvements you'd like to see next!
-- 💬 Have bug reports or selector updates? [Open an Issue on GitHub](https://github.com/manasdotio/intentional-yt/issues).
-
----
-
-## 🤝 Contributing
-
-Contributions, feature suggestions, and selector updates are always welcome!
-
-- Please read our [**Contributing Guide**](CONTRIBUTING.md) for local setup, architecture conventions, and PR instructions.
-- Found a bug or broken YouTube selector? Open an issue using our [**Bug Report Template**](.github/ISSUE_TEMPLATE/bug_report.yml).
-- Security concerns? Review our [**Security Policy**](SECURITY.md).
-
----
-
-## 📄 License
-
-Distributed under the [MIT License](LICENSE). Built for intentional, mindful internet use.
+- 💬 Have bug reports or selector updates? [Send feedback](https://forms.gle/EFixUed5F5bmVvFX7).

@@ -7,7 +7,6 @@
 ## 📌 Executive Summary
 - **Name**: Intentional YT - YouTube Distraction Blocker & Daily Time Limit
 - **Version**: 2.4.0
-- **License**: MIT (100% Free & Open Source)
 - **Tagline**: Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.
 - **One-Liner**: A zero-flash, privacy-first browser extension and modern React web app that turns YouTube into a distraction-free, search-first utility by stripping algorithmic rabbit holes, Shorts carousels, clickbait thumbnails, and infinite feeds.
 
@@ -147,6 +146,4 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
 - **Microsoft Edge Add-ons**: https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb
 - **Firefox Add-ons Store**: https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/
 - **Feedback & Feature Requests**: https://forms.gle/EFixUed5F5bmVvFX7
-- **GitHub Repository**: https://github.com/manasdotio/intentional-yt
 - **Author**: manasdotio (Manas Singh)
-- **License**: MIT

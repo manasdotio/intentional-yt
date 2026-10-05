@@ -217,7 +217,7 @@ export default function Uninstall() {
                   Sorry to see you go — mind telling us why?
                 </h1>
                 <p className="uninstall-desc">
-                  Intentional YT is free & open-source. A single click helps us fix bugs and improve focus for everyone.
+                  A single click helps us fix bugs and improve focus for everyone.
                 </p>
               </div>
 
@@ -307,7 +307,7 @@ export default function Uninstall() {
             </div>
           )}
 
-          {/* Reinstall & Open Source Footer */}
+          {/* Reinstall and feedback footer */}
           <div className="uninstall-reinstall-footer">
             <div>
               <span>Changed your mind? </span>
@@ -321,13 +321,13 @@ export default function Uninstall() {
               </a>
             </div>
             <a
-              href={APP_CONFIG.githubRepoUrl}
+              href={APP_CONFIG.feedbackFormUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="footer-nav-link"
               style={{ fontSize: '12px' }}
             >
-              Inspect source on GitHub
+              Share feedback
             </a>
           </div>
         </div>

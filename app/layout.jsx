@@ -21,7 +21,7 @@ export const metadata = {
     default: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
     template: '%s — Intentional YT'
   },
-  description: 'Free YouTube distraction blocker to hide recommendations, block Shorts, and set daily time limits. 100% open source, zero subscriptions, and strictly private.',
+  description: 'YouTube distraction blocker to hide recommendations, block Shorts, and set daily time limits. Private settings and watch-time tracking stay in your browser.',
   keywords: [
     'youtube distraction blocker',
     'block youtube recommendations extension',
@@ -29,7 +29,7 @@ export const metadata = {
     'hide youtube shorts extension',
     'unhook alternative',
     'untrap alternative',
-    'open source youtube blocker',
+    'private youtube blocker',
     'intentional yt'
   ],
   authors: [{ name: 'manasdotio', url: 'https://github.com/manasdotio' }],
@@ -60,7 +60,7 @@ export const metadata = {
     url: 'https://www.intentionalyt.me/',
     siteName: 'Intentional YT',
     title: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
-    description: 'Free open-source YouTube distraction blocker. Hide recommendations, block YouTube Shorts, neutralize clickbait, and set custom daily time limits.',
+    description: 'YouTube distraction blocker. Hide recommendations, block YouTube Shorts, neutralize clickbait, and set custom daily time limits.',
     images: [
       {
         url: '/screenshots/intentional_yt_marquee_1400x560.png',
@@ -73,7 +73,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
-    description: 'Free open-source YouTube distraction blocker. Hide recommendations, block YouTube Shorts, neutralize clickbait, and set custom daily time limits.',
+    description: 'YouTube distraction blocker. Hide recommendations, block YouTube Shorts, neutralize clickbait, and set custom daily time limits.',
     images: ['/screenshots/intentional_yt_marquee_1400x560.png']
   }
 }

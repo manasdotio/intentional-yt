@@ -34,7 +34,7 @@ This audit identifies and fixes observable problems; it does not establish a sin
 
 | Page | Intent covered |
 | --- | --- |
-| `/` | YouTube distraction blocker; free open-source browser extension |
+| `/` | YouTube distraction blocker; private browser extension |
 | `/blog/hide-youtube-shorts-and-recommendations` | How to hide Shorts and remove recommendations on desktop while retaining search/subscriptions |
 | `/blog/set-youtube-daily-time-limit` | How to configure a daily playback budget and understand its limits |
 | `/blog/intentional-yt-vs-unhook-vs-untrap` | Evaluate alternatives and compare documented capabilities |
@@ -52,7 +52,7 @@ Relevant phrases now appear naturally in the visible feature headings, guide hea
 | Homepage | YouTube distraction blocker; distraction-free YouTube; hide YouTube recommendations; YouTube Shorts blocker; daily YouTube time limits |
 | Shorts guide | How to hide YouTube Shorts; remove YouTube recommendations; Shorts blocker for Chrome, Firefox, or Edge |
 | Time-limit guide | YouTube time limit extension; set a daily YouTube time limit; daily watch budget |
-| Comparison | Unhook alternative; UnTrap alternative; open-source YouTube extension |
+| Comparison | Unhook alternative; UnTrap alternative; YouTube extension with local settings |
 
 These terms describe supported features and relevant user tasks, not verified high-volume or low-competition keywords. Existing page URLs are preserved. No keyword-density target or hidden keyword block was added. Google does not use the meta keywords tag for indexing or ranking; visible, useful content is the focus. See [Google's supported meta tags documentation](https://developers.google.com/search/docs/crawling-indexing/special-tags) and [title guidance](https://developers.google.com/search/docs/appearance/title-link).
 

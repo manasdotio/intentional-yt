@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="hero-kicker">
-        <span>✦ Open Source &amp; 100% Free</span>
+        <span>✦ Focus on what matters</span>
       </div>
 
       <h1 className="hero-title">
@@ -14,7 +14,7 @@ export default function Hero() {
       </h1>
 
       <p className="hero-subtitle">
-        Hide YouTube recommendations, block Shorts, and set a daily watch limit. A free, open-source extension for Chrome, Firefox, and Edge.
+        Hide YouTube recommendations, block Shorts, and set a daily watch limit. Available for Chrome, Firefox, and Edge.
       </p>
 
       <div className="hero-actions">

@@ -143,7 +143,7 @@ export default function BlogPost({ slug, onNavigate }) {
           </h3>
         </div>
         <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', lineHeight: '1.65', margin: 0 }}>
-          Set a daily watch limit, hide distracting feeds, or use Focus Lock to add a cooldown before changing your settings. Intentional YT is free and open source under the MIT license, with no telemetry or paid features.
+          Set a daily watch limit, hide distracting feeds, or use Focus Lock to add a cooldown before changing your settings. Your settings and watch-time counters stay in your browser, with no extension telemetry.
         </p>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '6px' }}>
           <a 
@@ -172,15 +172,6 @@ export default function BlogPost({ slug, onNavigate }) {
             style={{ fontSize: '13.5px', padding: '8px 16px' }}
           >
             <span>Firefox Add-on ↗</span>
-          </a>
-          <a 
-            href={APP_CONFIG.githubRepoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-secondary"
-            style={{ fontSize: '13.5px', padding: '8px 16px' }}
-          >
-            <span>View Source on GitHub ↗</span>
           </a>
         </div>
       </div>

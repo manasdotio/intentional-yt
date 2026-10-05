@@ -69,7 +69,7 @@ const svg = `
     <!-- Pill 1 -->
     <rect x="0" y="0" width="220" height="46" rx="14" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1"/>
     <text x="110" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="600" fill="#e2e8f0" text-anchor="middle">
-      100% Free &amp; Open Source
+      Local Settings &amp; Privacy
     </text>
 
     <!-- Pill 2 -->
