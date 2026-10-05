@@ -2,7 +2,7 @@
 title: "Hide YouTube Shorts and Recommendations"
 slug: "hide-youtube-shorts-and-recommendations"
 date: "2026-09-28"
-modified: "2026-09-29"
+modified: "2026-10-05"
 author: "Manas"
 description: "Use a YouTube Shorts blocker to hide Shorts and remove recommendations in Chrome, Firefox, or Edge. Keep search and subscriptions with Intentional YT."
 image: "/screenshots/intentional_yt_marquee_1400x560.png"
@@ -12,7 +12,7 @@ image: "/screenshots/intentional_yt_marquee_1400x560.png"
 
 Open the Intentional YT extension popup and enable **Hide Shorts**, **Hide home feed**, or **Hide recommended sidebar**. Each control works separately, so you can hide the parts of YouTube that distract you and keep ordinary videos, search, and subscriptions.
 
-I develop Intentional YT. These steps cover version 2.3.0 on desktop. The extension does not change the YouTube mobile app.
+I develop Intentional YT. These steps cover version 2.4.0 on desktop. The extension does not change the YouTube mobile app.
 
 ## 1. Install a YouTube Shorts blocker for your browser
 

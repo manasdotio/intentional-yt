@@ -1522,7 +1522,7 @@ export default function Simulator() {
                 </svg>
                 <span>100% Local · Zero Telemetry</span>
               </span>
-                <span>{APP_CONFIG.version ? `v${APP_CONFIG.version}` : 'v2.3.0'}</span>
+                <span>v{APP_CONFIG.version}</span>
               </div>
             </div>
 

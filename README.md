@@ -10,7 +10,7 @@
 [![Microsoft Edge](https://img.shields.io/badge/Microsoft%20Edge-Install%20Add--on-0078D7?logo=microsoft-edge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb)
 [![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install%20Extension-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-2.3.0-brightgreen.svg)
+![Version](https://img.shields.io/badge/version-2.4.0-brightgreen.svg)
 ![Browsers](https://img.shields.io/badge/browsers-Chrome%20%7C%20Edge%20%7C%20Firefox-informational.svg)
 ![Manifest](https://img.shields.io/badge/manifest-v3-blue.svg)
 [![Privacy](https://img.shields.io/badge/telemetry-0%25%20(strictly%20local)-success.svg)](PRIVACY.md)

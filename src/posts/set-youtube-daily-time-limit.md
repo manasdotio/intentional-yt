@@ -2,6 +2,7 @@
 title: "YouTube Time Limit Extension: Setup Guide"
 slug: "set-youtube-daily-time-limit"
 date: "2026-09-28"
+modified: "2026-10-05"
 author: "Manas"
 description: "Set a daily watch budget with a free YouTube time limit extension for Chrome, Firefox, and Edge. Learn how playback tracking and Focus Lock work."
 image: "/screenshots/intentional_yt_marquee_1400x560.png"
@@ -11,7 +12,7 @@ image: "/screenshots/intentional_yt_marquee_1400x560.png"
 
 Open the Intentional YT extension, go to **Focus & Limits**, enable **Daily limit**, and choose how many minutes you want to watch each day. The extension pauses the video when your tracked playback reaches that limit.
 
-I develop Intentional YT. This guide describes version 2.3.0 for YouTube in a supported desktop browser. It is a personal focus tool; it does not impose a device-wide limit or control the YouTube phone app.
+I develop Intentional YT. This guide describes version 2.4.0 for YouTube in a supported desktop browser. It is a personal focus tool; it does not impose a device-wide limit or control the YouTube phone app.
 
 ## How to set a daily YouTube time limit
 

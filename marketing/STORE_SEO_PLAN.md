@@ -10,7 +10,7 @@ Use this English summary (123 characters):
 
 > Hide YouTube Shorts and recommendations, set daily watch time limits, and block distracting channels. Free and open source.
 
-The summary is updated in `_locales/en/messages.json`, which supplies the manifest description. The full description is ready to paste from `marketing/store-listing-description.txt`. It describes repository version 2.3.0; confirm each store's available release supports those features before publishing its listing.
+The summary is updated in `_locales/en/messages.json`, which supplies the manifest description. The full description is ready to paste from `marketing/store-listing-description.txt`. It describes repository version 2.4.0; confirm each store's available release supports those features before publishing its listing.
 
 | Dashboard field | Recommended value |
 | --- | --- |
