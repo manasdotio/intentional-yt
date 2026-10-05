@@ -30,9 +30,9 @@
   --radius-xl: 28px;
   --radius-pill: 9999px;
   
-  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: var(--site-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: var(--site-mono), monospace;
   
   --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.07), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
@@ -594,6 +594,22 @@ button {
   box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
+}
+
+.simulator-placeholder {
+  min-height: 850px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.simulator-placeholder p {
+  max-width: 420px;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 .playground-header {

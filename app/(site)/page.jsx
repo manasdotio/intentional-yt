@@ -2,7 +2,7 @@ import { APP_CONFIG } from '@/src/config/constants'
 import { pageMetadata, serializeJsonLd } from '@/src/config/seo'
 import Guides from '@/src/components/Guides'
 import Hero from '@/src/components/Hero'
-import Simulator from '@/src/components/Simulator'
+import LazySimulator from '@/src/components/LazySimulator'
 import Features from '@/src/components/Features'
 import Comparison from '@/src/components/Comparison'
 import Faq from '@/src/components/Faq'
@@ -71,8 +71,8 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <Hero />
-      <Simulator />
       <Features />
+      <LazySimulator />
       <Comparison />
       <Guides />
       <Faq />

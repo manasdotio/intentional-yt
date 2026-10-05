@@ -1,5 +1,19 @@
 import '../src/index.css'
 import { ThemeProvider } from '../src/context/ThemeContext'
+import { JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google'
+
+const siteSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--site-sans'
+})
+
+const siteMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: false,
+  variable: '--site-mono'
+})
 
 export const metadata = {
   metadataBase: new URL('https://www.intentionalyt.me'),
@@ -66,7 +80,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth" data-theme="light" suppressHydrationWarning>
+    <html lang="en" className={`scroll-smooth ${siteSans.variable} ${siteMono.variable}`} data-theme="light" suppressHydrationWarning>
       <head>
         {/* Anti-Flicker: Set data-theme immediately before first paint */}
         <script
@@ -76,9 +90,6 @@ export default function RootLayout({ children }) {
         />
         <meta name="theme-color" content="#fbfbfe" id="meta-theme-color" />
         <meta name="color-scheme" content="light dark" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
       </head>
       <body>
         <ThemeProvider>
