@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "à¦«à¦¿à¦¡",
+                         "message":  "ফিড ও Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "à¦­à¦¿à¦¡à¦¿à¦“",
+                          "message":  "প্লেব্যাক",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "à¦¸à¦¾à¦®à¦¾à¦œà¦¿à¦•",
+                           "message":  "মন্তব্য ও ছবি",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "à¦‡à¦¨à§à¦Ÿà¦¾à¦°à¦«à§‡à¦¸",
+                              "message":  "নেভিগেশন ও পৃষ্ঠার বিবরণ",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "à¦¶à§à¦°à§ à¦•à¦°à¦¤à§‡ à¦à¦•à¦Ÿà¦¿ à¦ªà§à¦°à¦¿à¦¸à§‡à¦Ÿ à¦¬à¦¾à¦›à§à¦¨, à¦…à¦¥à¦¬à¦¾ à¦¨à¦¿à¦šà§‡à¦° à¦Ÿà¦—à¦²à¦—à§à¦²à¦¿ à¦•à¦¾à¦¸à§à¦Ÿà¦®à¦¾à¦‡à¦œ à¦•à¦°à§à¦¨à¥¤",
+                         "message":  "শুরুর সেটিংস বেছে নিন। নিচে যেকোনো সময় বদলাতে পারবেন।",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "আপনার দৈনিক সীমা আজকের জন্য বরখাস্ত করা হয়েছে।"
-                               }
+                               },
+  "setup_note": {
+    "message": "অন্য সেটিংস একই থাকবে। দৈনিক সময় শেষ হলে ভিডিও থামবে।"
+  },
+  "setup_save": {
+    "message": "সেভ করে দেখা শুরু করুন"
+  },
+  "setup_skip": {
+    "message": "এখন বাদ দিন"
+  },
+  "setup_saved": {
+    "message": "শুরুর সেটিংস সেভ হয়েছে।"
+  },
+  "setup_save_failed": {
+    "message": "সেভ করা যায়নি। আবার চেষ্টা করুন।"
+  },
+  "blocklist_example_label": {
+    "message": "উদাহরণ:"
+  },
+  "setup_daily_limit": {
+    "message": "à¦¦à§ˆà¦¨à¦¿à¦• à¦¸à§€à¦®à¦¾",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "à¦¸à§€à¦®à¦¾à¦¹à§€à¦¨",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

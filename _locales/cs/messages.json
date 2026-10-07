@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "InformaÄnÃ­ kanÃ¡l",
+                         "message":  "Kanály videí a Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "Video",
+                          "message":  "Přehrávání",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "Komunita",
+                           "message":  "Komentáře a fotky",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "RozhranÃ­",
+                              "message":  "Navigace a podrobnosti stránky",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "Zvolte pÅ™edvolbu pro rychlÃ½ zaÄÃ¡tek nebo upravte pÅ™epÃ­naÄe nÃ­Å¾e.",
+                         "message":  "Vyberte počáteční nastavení. Níže je můžete kdykoli změnit.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "Váš denní limit je pro dnešek zrušen."
-                               }
+                               },
+  "setup_note": {
+    "message": "Ostatní nastavení zůstanou stejná. Po vyčerpání denního limitu se přehrávání pozastaví."
+  },
+  "setup_save": {
+    "message": "Uložit a začít sledovat"
+  },
+  "setup_skip": {
+    "message": "Přeskočit nastavení"
+  },
+  "setup_saved": {
+    "message": "Počáteční nastavení je uložené."
+  },
+  "setup_save_failed": {
+    "message": "Uložení se nezdařilo. Zkuste to znovu."
+  },
+  "blocklist_example_label": {
+    "message": "Příklad:"
+  },
+  "setup_daily_limit": {
+    "message": "DennÃ­ limit",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "bez limitu",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

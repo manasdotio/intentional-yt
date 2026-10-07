@@ -23,8 +23,7 @@
     "focus",
     "distraction-free",
     "browser-extension",
-    "react",
-    "vite"
+    "react"
   ],
   "author": "manasdotio",
   "license": "MIT",
@@ -37,8 +36,6 @@
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^6.1.1",
-    "sharp": "^0.35.4",
-    "vite": "^8.2.2"
+    "sharp": "^0.35.4"
   }
 }

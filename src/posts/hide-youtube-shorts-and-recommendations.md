@@ -47,4 +47,4 @@ No. These instructions apply to the YouTube website in a supported desktop brows
 
 ## Add a watch budget if hiding feeds is not enough
 
-You can hide every recommendation and still spend longer than planned on a playlist. Follow the [daily YouTube time-limit guide](/blog/set-youtube-daily-time-limit) to set a watch budget. If you are still choosing an extension, [compare Intentional YT with Unhook and UnTrap](/blog/intentional-yt-vs-unhook-vs-untrap).
+You can hide every recommendation and still spend longer than planned on a playlist. Follow the [daily YouTube time-limit guide](/blog/set-youtube-daily-time-limit) to set a watch budget. If unwanted creators still appear in search, see [how to block YouTube channels from search results](/blog/block-youtube-channels-from-search-results). If you are still choosing an extension, [compare Intentional YT with Unhook and UnTrap](/blog/intentional-yt-vs-unhook-vs-untrap).

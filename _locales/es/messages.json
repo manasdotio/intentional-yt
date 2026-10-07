@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "Feed",
+                         "message":  "Feeds y Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "Video",
+                          "message":  "Reproducción",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "Social",
+                           "message":  "Comentarios y fotos",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "Interfaz",
+                              "message":  "Navegación y detalles de página",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "Elige un modo predefinido para comenzar o personaliza las opciones abajo.",
+                         "message":  "Elige tus ajustes iniciales. Puedes cambiarlos abajo cuando quieras.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "Tu límite diario ha sido cancelado por hoy."
-                               }
+                               },
+  "setup_note": {
+    "message": "Los demás ajustes se mantienen. El límite diario pausa el vídeo cuando se acaba el tiempo."
+  },
+  "setup_save": {
+    "message": "Guardar y empezar a ver"
+  },
+  "setup_skip": {
+    "message": "Omitir configuración"
+  },
+  "setup_saved": {
+    "message": "Se guardaron tus ajustes iniciales."
+  },
+  "setup_save_failed": {
+    "message": "No se pudo guardar. Inténtalo de nuevo."
+  },
+  "blocklist_example_label": {
+    "message": "Ejemplo:"
+  },
+  "setup_daily_limit": {
+    "message": "LÃ­mite diario",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "sin lÃ­mite",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

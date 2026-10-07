@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "åŠ¨æ€æµ",
+                         "message":  "信息流与 Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "è§†é¢‘æ’­æ”¾",
+                          "message":  "播放",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "ç¤¾äº¤äº’åŠ¨",
+                           "message":  "评论与头像",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "ç•Œé¢å…ƒç´ ",
+                              "message":  "导航与页面详情",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "é€‰æ‹©é¢„è®¾å¿«é€Ÿä¸Šæ‰‹ï¼Œæˆ–åœ¨ä¸‹æ–¹è‡ªç”±å®šåˆ¶å„é¡¹å¼€å…³ã€‚",
+                         "message":  "选择初始设置。你可以随时在下方修改。",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "今天取消您的每日限额。"
-                               }
+                               },
+  "setup_note": {
+    "message": "其他设置保持不变。达到每日时限后，视频会暂停。"
+  },
+  "setup_save": {
+    "message": "保存并开始观看"
+  },
+  "setup_skip": {
+    "message": "跳过设置"
+  },
+  "setup_saved": {
+    "message": "初始设置已保存。"
+  },
+  "setup_save_failed": {
+    "message": "无法保存，请重试。"
+  },
+  "blocklist_example_label": {
+    "message": "示例："
+  },
+  "setup_daily_limit": {
+    "message": "æ¯æ—¥æ—¶é—´ä¸Šé™",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "æ— é™åˆ¶",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

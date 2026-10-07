@@ -1,97 +1,21 @@
-import React from 'react'
-
+'use client'
+import { useRef, useState } from 'react'
+const features = [
+  { key: 'limits', label: 'Daily limits', title: 'Decide when to call it a day.', copy: 'Set a daily watch limit and playback pauses when you reach it. The timer counts time spent watching, so leaving a tab open won’t use up your limit.', detail: 'Want a heads-up first? Add a break reminder.', alt: 'Actual Focus tab showing a 45-minute daily limit and a reminder every 30 minutes' },
+  { key: 'filters', label: 'Channel filters', title: 'Skip the channels you’re tired of seeing.', copy: 'Add a channel name, handle, or title keyword to your filters. Matching video cards disappear from supported feeds and search results.', detail: 'Remove an entry whenever you want to see those videos again.', alt: 'Actual Filters tab with an example channel and the keyword spoiler' },
+  { key: 'schedule', label: 'Focus schedules', title: 'Keep YouTube out of study hours.', copy: 'Pick the days and hours when you want blocking to run. Use Strict Focus or block YouTube entirely during that time.', detail: 'Focus Lock can also add a PIN and a cooldown before settings change.', alt: 'Actual Scheduled Focus Sessions controls with a weekday study schedule from 9 AM to noon' }
+]
 export default function Features() {
-  return (
-    <section id="features" className="features-section">
-      <div className="section-head">
-        <div className="section-kicker">
-          <span>✦ Designed for calm</span>
-        </div>
-        <h2 className="section-title">Watch YouTube without distractions</h2>
-        <p className="section-desc">
-          Find the tutorial or lecture you came for. Hide the recommendations that pull you away, and choose how long you want to watch.
-        </p>
-      </div>
-
-      <div className="bento-grid">
-        {/* Card 1: Zero Flash */}
-        <div className="bento-card">
-          <div className="bento-icon bento-icon-blue">
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <h3 className="bento-title">Hide YouTube recommendations</h3>
-          <p className="bento-text">
-            Hide the home feed or recommended sidebar while keeping search and subscriptions. Blocking starts as the page loads.
-          </p>
-          <div className="bento-card-badge">
-            <span>Hide Home Feed</span>
-            <span className="bento-badge-sep">&middot;</span>
-            <span>Hide Sidebar</span>
-          </div>
-        </div>
-
-        {/* Card 2: 100% Shorts Eradication */}
-        <div className="bento-card">
-          <div className="bento-icon bento-icon-red">
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="5" y="2" width="14" height="20" rx="3" />
-              <line x1="9" y1="18" x2="15" y2="18" />
-            </svg>
-          </div>
-          <h3 className="bento-title">Block YouTube Shorts</h3>
-          <p className="bento-text">
-            Hide YouTube Shorts from feeds, search results, channels, and the sidebar. Watch ordinary videos without browsing short-form recommendations.
-          </p>
-          <div className="bento-card-badge">
-            <span>Home</span>
-            <span className="bento-badge-sep">&middot;</span>
-            <span>Search</span>
-            <span className="bento-badge-sep">&middot;</span>
-            <span>Sidebar</span>
-            <span className="bento-badge-sep">&middot;</span>
-            <span>Watch</span>
-          </div>
-        </div>
-
-        {/* Card 3: Limits & Focus Lock */}
-        <div className="bento-card">
-          <div className="bento-icon bento-icon-purple">
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
-          </div>
-          <h3 className="bento-title">Set a daily YouTube time limit</h3>
-          <p className="bento-text">
-            Choose a daily watch budget. The timer counts active playback and pauses the video when you reach your limit. You can also add break reminders or a Focus Lock cooldown before changing protected settings.
-          </p>
-          <div className="bento-card-badge">
-            <span>Soft Reminders</span>
-            <span className="bento-badge-sep">&middot;</span>
-            <span>Cooldown Locks</span>
-          </div>
-        </div>
-
-        {/* Card 4: 100% Local Privacy */}
-        <div className="bento-card">
-          <div className="bento-icon bento-icon-emerald">
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-          </div>
-          <h3 className="bento-title">Your data stays in your browser</h3>
-          <p className="bento-text">
-            Your settings and watch-time counters stay in local browser storage. The extension has no analytics or tracking pixels, and you do not need an account.
-          </p>
-          <div className="bento-card-badge">
-            <span>0% Telemetry</span>
-            <span className="bento-badge-sep">&middot;</span>
-            <span>Local Settings</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+  const [selected, setSelected] = useState(0)
+  const tabs = useRef([])
+  const feature = features[selected]
+  function navigate(event, index) {
+    const next = event.key === 'ArrowRight' ? (index + 1) % 3 : event.key === 'ArrowLeft' ? (index + 2) % 3 : event.key === 'Home' ? 0 : event.key === 'End' ? 2 : null
+    if (next === null) return
+    event.preventDefault(); setSelected(next); tabs.current[next]?.focus()
+  }
+  return <section id="features" className="real-features"><div className="section-head"><h2 className="section-title">A few controls that make a difference.</h2><p className="section-desc">Use the ones you need. Leave the rest alone.</p></div>
+    <div className="real-feature-tabs" role="tablist" aria-label="Extension features">{features.map((item, index) => <button type="button" key={item.key} ref={el => { tabs.current[index] = el }} role="tab" id={'feature-tab-' + item.key} aria-controls={'feature-panel-' + item.key} aria-selected={selected === index} tabIndex={selected === index ? 0 : -1} onClick={() => setSelected(index)} onKeyDown={event => navigate(event, index)}>{item.label}</button>)}</div>
+    <div className="real-feature-panel" key={feature.key} role="tabpanel" id={'feature-panel-' + feature.key} aria-labelledby={'feature-tab-' + feature.key} tabIndex={0}><div className="real-feature-copy"><h3>{feature.title}</h3><p>{feature.copy}</p><p>{feature.detail}</p><a href={'/screenshots/product-' + feature.key + '.webp'} target="_blank" rel="noopener noreferrer">Open full-size screenshot ↗</a></div><figure><img src={'/screenshots/product-' + feature.key + '.webp'} alt={feature.alt} width="1080" height="1060" loading="lazy" /><figcaption>Actual extension · Example settings</figcaption></figure></div>
+  </section>
 }

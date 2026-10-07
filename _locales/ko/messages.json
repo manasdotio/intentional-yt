@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "í”¼ë“œ",
+                         "message":  "피드 및 Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "ë™ì˜ìƒ",
+                          "message":  "재생",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "ì†Œì…œ",
+                           "message":  "댓글 및 사진",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "ì¸í„°íŽ˜ì´ìŠ¤",
+                              "message":  "탐색 및 페이지 정보",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "í”„ë¦¬ì…‹ì„ ì„ íƒí•˜ì—¬ ë°”ë¡œ ì‹œìž‘í•˜ê±°ë‚˜, ì•„ëž˜ì˜ í† ê¸€ì„ ì§ì ‘ ë§žì¶¤ ì„¤ì •í•´ ë³´ì„¸ìš”.",
+                         "message":  "시작 설정을 선택하세요. 아래에서 언제든 변경할 수 있습니다.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "오늘의 일일 한도가 해제되었습니다."
-                               }
+                               },
+  "setup_note": {
+    "message": "다른 설정은 그대로 유지됩니다. 일일 제한 시간이 끝나면 재생이 일시 정지됩니다."
+  },
+  "setup_save": {
+    "message": "저장하고 시청 시작"
+  },
+  "setup_skip": {
+    "message": "설정 건너뛰기"
+  },
+  "setup_saved": {
+    "message": "시작 설정을 저장했습니다."
+  },
+  "setup_save_failed": {
+    "message": "저장하지 못했습니다. 다시 시도해 주세요."
+  },
+  "blocklist_example_label": {
+    "message": "예:"
+  },
+  "setup_daily_limit": {
+    "message": "ì¼ì¼ ì‹œì²­ ì œí•œ",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "ì œí•œ ì—†ìŒ",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

@@ -275,7 +275,7 @@ export default function Simulator() {
   }
 
   return (
-    <section id="demo" className="playground-section">
+    <section id="simulator" className="playground-section">
       <div className="section-head" style={{ marginBottom: '32px' }}>
         <div className="section-kicker">
           <span>✦ Interactive preview</span>

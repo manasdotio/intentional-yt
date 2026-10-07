@@ -1,0 +1,27 @@
+{
+  "voice": "en-US-JennyNeural",
+  "provider": "Microsoft Edge Read Aloud via msedge-tts",
+  "segments": [
+    {
+      "text": "Less scrolling. More intention.",
+      "start": 0.45,
+      "slot": 3.1,
+      "tempo": 1,
+      "seconds": 2.89
+    },
+    {
+      "text": "Hide Shorts and recommendations. Set a daily watch limit.",
+      "start": 4.2,
+      "slot": 5.05,
+      "tempo": 1,
+      "seconds": 4.27
+    },
+    {
+      "text": "Intentional YouTube. Your YouTube. A little calmer.",
+      "start": 10.15,
+      "slot": 4.5,
+      "tempo": 1.0266666666666666,
+      "seconds": 4.62
+    }
+  ]
+}

@@ -28,7 +28,7 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Feed",
+    "message": "Feeds & Shorts",
     "description": "Feed controls section header"
   },
   "toggle_block_home_feed": {
@@ -72,11 +72,11 @@
     "description": "Toggle label to hide More from YouTube section in left sidebar"
   },
   "toggle_block_irrelevant_search": {
-    "message": "Hide irrelevant search shelves",
+    "message": "Hide extra sections in search",
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Video Player",
+    "message": "Playback",
     "description": "Video controls section header"
   },
   "toggle_block_endscreen_videowall": {
@@ -144,7 +144,7 @@
     "description": "Subheading description for Description sub-toggle"
   },
   "section_social": {
-    "message": "Comments & Social",
+    "message": "Comments & photos",
     "description": "Social controls section header"
   },
   "toggle_block_comments": {
@@ -156,7 +156,7 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Interface & Navigation",
+    "message": "Navigation & page details",
     "description": "Interface controls section header"
   },
   "toggle_block_sidebar": {
@@ -196,7 +196,7 @@
     "description": "Time controls section header"
   },
   "toggle_soft_reminder": {
-    "message": "Soft reminder",
+    "message": "Break reminder",
     "description": "Toggle label for mindful interval toast notification"
   },
   "time_hint_every": {
@@ -356,7 +356,7 @@
     "description": "Status text shown when video has been paused via toast"
   },
   "desc_soft_reminder": {
-    "message": "Calm on-screen nudge at regular intervals to keep you mindful of time without blocking you.",
+    "message": "Remind me to take a break while a video is playing.",
     "description": "Description under Soft reminder toggle in Focus tab"
   },
   "btn_preview_reminder": {
@@ -440,11 +440,11 @@
     "description": "Button text for 1-click in-feed channel block button"
   },
   "filters_quick_block_title": {
-    "message": "1-Click Quick Block Button",
+    "message": "Show Block buttons",
     "description": "Label for toggle allowing 1-click channel block buttons on video cards"
   },
   "filters_quick_block_desc": {
-    "message": "Show a block button next to channel names when hovering video cards",
+    "message": "Show a Block button beside channels on video cards.",
     "description": "Description for 1-click quick block button toggle"
   },
   "filters_tip_text": {
@@ -476,11 +476,11 @@
     "description": "Placeholder for channel blocklist text input"
   },
   "blocklist_channels_empty": {
-    "message": "No blocked channels yet",
+    "message": "No channels added",
     "description": "Empty state label for Channel Blocklist"
   },
   "blocklist_channels_empty_desc": {
-    "message": "Add a channel name or @handle to hide their videos from view.",
+    "message": "Enter a channel name or @handle above to hide its video cards in feeds and search.",
     "description": "Empty state description for Channel Blocklist"
   },
   "section_keyword_blocklist": {
@@ -496,11 +496,11 @@
     "description": "Placeholder for keyword blocklist text input"
   },
   "blocklist_keywords_empty": {
-    "message": "No blocked keywords yet",
+    "message": "No keywords added",
     "description": "Empty state label for Keyword Blocklist"
   },
   "blocklist_keywords_empty_desc": {
-    "message": "Add keywords to hide matching video titles automatically.",
+    "message": "Enter a word or phrase above. For example, spoiler hides cards with that word in the title.",
     "description": "Empty state description for Keyword Blocklist"
   },
   "btn_add_channel": {
@@ -512,7 +512,7 @@
     "description": "Button to add a keyword to blocklist"
   },
   "blocklist_privacy_note": {
-    "message": "100% Local filtering · Titles and channels are matched client-side with zero telemetry.",
+    "message": "Filters hide matching video cards. Direct video links still open. Your lists stay in this browser.",
     "description": "Privacy note at the bottom of the filters panel"
   },
   "toast_channel_added": {
@@ -580,11 +580,11 @@
     "description": "Section header for Focus Lock feature"
   },
   "section_time_limits_title": {
-    "message": "Mindful Time & Limits",
+    "message": "Watch time & limits",
     "description": "Card header title for Time and Daily limits section"
   },
   "section_time_limits_sub": {
-    "message": "Gentle break nudges & daily screen time boundaries",
+    "message": "Break reminders and a daily watch limit",
     "description": "Card header subtitle for Time and Daily limits section"
   },
   "section_focus_lock_title": {
@@ -1000,19 +1000,19 @@
     "description": "Preset mode label when customized"
   },
   "preset_desc_balanced": {
-    "message": "Balanced · Hides feeds and suggestions",
+    "message": "Hides the home feed, Shorts, and suggestions. Keeps comments and subscriptions.",
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Zen · Search only, all feeds hidden",
+    "message": "Also hides comments, subscriptions, playlists, and thumbnails.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
-    "message": "Video Only · Minimal player, distractions hidden",
+    "message": "Hides feeds, suggestions, and comments. Keeps subscriptions and playlists.",
     "description": "Description of video only preset"
   },
   "preset_desc_custom": {
-    "message": "Custom configuration",
+    "message": "Your own mix of settings. Choose a preset to replace these controls.",
     "description": "Description of custom mode"
   },
   "detailed_controls_title": {
@@ -1046,11 +1046,11 @@
     }
   },
   "welcome_title": {
-    "message": "Welcome to Intentional YT",
+    "message": "Make YouTube work for you",
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Choose a preset to get started, or customize toggles below.",
+    "message": "Choose your starting settings. You can change them below any time.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1058,11 +1058,11 @@
     "description": "Aria label for welcome banner dismiss button"
   },
   "search_toggles_placeholder": {
-    "message": "Search toggles...",
+    "message": "Find a setting…",
     "description": "Placeholder for toggle search input in Distractions tab"
   },
   "search_no_results": {
-    "message": "No toggles found",
+    "message": "No settings found",
     "description": "Empty state title when search matches no toggles"
   },
   "search_no_results_sub": {
@@ -1222,7 +1222,11 @@
   },
   "limit_warning_message": {
     "message": "Time left today: $value$ min. Wrap up before the daily block starts.",
-    "placeholders": { "value": { "content": "$1" } }
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
   },
   "clear_status_active": {
     "message": "Your blocking settings are active."
@@ -1232,36 +1236,88 @@
   },
   "clear_status_snoozed": {
     "message": "Protections are paused until $value$.",
-    "placeholders": { "value": { "content": "$1" } }
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
   },
   "clear_status_full": {
     "message": "YouTube is blocked by: $value$.",
-    "placeholders": { "value": { "content": "$1" } }
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
   },
   "clear_status_strict": {
     "message": "Strict Focus is on for: $value$.",
-    "placeholders": { "value": { "content": "$1" } }
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
   },
   "clear_status_until": {
     "message": "Until $value$.",
-    "placeholders": { "value": { "content": "$1" } }
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
   },
   "clear_status_session": {
     "message": "Focus session: Strict Focus until $value$.",
-    "placeholders": { "value": { "content": "$1" } }
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
   },
   "clear_status_session_paused": {
     "message": "Focus session is paused; its timer ends at $value$.",
-    "placeholders": { "value": { "content": "$1" } }
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
   },
   "clear_status_remaining": {
     "message": "Time left today: $value$ min.",
-    "placeholders": { "value": { "content": "$1" } }
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
   },
   "clear_status_limit_reached": {
     "message": "Your daily limit is reached."
   },
   "clear_status_dismissed": {
     "message": "Your daily limit is dismissed for today."
+  },
+  "setup_daily_limit": {
+    "message": "Daily watch limit"
+  },
+  "setup_no_limit": {
+    "message": "No daily limit"
+  },
+  "setup_note": {
+    "message": "Other controls keep their current settings. A daily limit pauses playback when your time is up."
+  },
+  "setup_save": {
+    "message": "Save & start watching"
+  },
+  "setup_skip": {
+    "message": "Skip setup"
+  },
+  "setup_saved": {
+    "message": "Your starting settings are saved."
+  },
+  "setup_save_failed": {
+    "message": "Could not save. Please try again."
+  },
+  "blocklist_example_label": {
+    "message": "Example:"
   }
 }

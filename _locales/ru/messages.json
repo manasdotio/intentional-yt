@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "Ð›ÐµÐ½Ñ‚Ð°",
+                         "message":  "Ленты и Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "Ð’Ð¸Ð´ÐµÐ¾",
+                          "message":  "Воспроизведение",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "ÐžÐ±Ñ‰ÐµÐ½Ð¸Ðµ",
+                           "message":  "Комментарии и фото",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "Ð˜Ð½Ñ‚ÐµÑ€Ñ„ÐµÐ¹Ñ",
+                              "message":  "Навигация и сведения страницы",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¿Ñ€ÐµÑÐµÑ‚ Ð´Ð»Ñ Ð±Ñ‹ÑÑ‚Ñ€Ð¾Ð³Ð¾ ÑÑ‚Ð°Ñ€Ñ‚Ð° Ð¸Ð»Ð¸ Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹Ñ‚Ðµ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ Ð½Ð¸Ð¶Ðµ.",
+                         "message":  "Выберите начальные настройки. Ниже их можно изменить в любое время.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "Ваш дневной лимит на сегодня отменен."
-                               }
+                               },
+  "setup_note": {
+    "message": "Остальные настройки не изменятся. Дневной лимит приостановит видео, когда время закончится."
+  },
+  "setup_save": {
+    "message": "Сохранить и начать просмотр"
+  },
+  "setup_skip": {
+    "message": "Пропустить настройку"
+  },
+  "setup_saved": {
+    "message": "Начальные настройки сохранены."
+  },
+  "setup_save_failed": {
+    "message": "Не удалось сохранить. Попробуйте ещё раз."
+  },
+  "blocklist_example_label": {
+    "message": "Пример:"
+  },
+  "setup_daily_limit": {
+    "message": "Ð”Ð½ÐµÐ²Ð½Ð¾Ð¹ Ð»Ð¸Ð¼Ð¸Ñ‚",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "Ð±ÐµÐ· Ð»Ð¸Ð¼Ð¸Ñ‚Ð°",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

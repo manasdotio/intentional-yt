@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "Báº£ng tin",
+                         "message":  "Bảng tin và Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "Video",
+                          "message":  "Phát video",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "Cá»™ng Ä‘á»“ng",
+                           "message":  "Bình luận và ảnh",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "Giao diá»‡n",
+                              "message":  "Điều hướng và thông tin trang",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "Chá»n má»™t cáº¥u hÃ¬nh sáºµn Ä‘á»ƒ báº¯t Ä‘áº§u, hoáº·c tÃ¹y chá»‰nh cÃ¡c cÃ´ng táº¯c bÃªn dÆ°á»›i.",
+                         "message":  "Chọn cài đặt ban đầu. Bạn có thể thay đổi bên dưới bất cứ lúc nào.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "Giới hạn hàng ngày của bạn sẽ bị loại bỏ trong ngày hôm nay."
-                               }
+                               },
+  "setup_note": {
+    "message": "Các cài đặt khác giữ nguyên. Giới hạn hằng ngày sẽ tạm dừng video khi hết giờ."
+  },
+  "setup_save": {
+    "message": "Lưu và bắt đầu xem"
+  },
+  "setup_skip": {
+    "message": "Bỏ qua thiết lập"
+  },
+  "setup_saved": {
+    "message": "Đã lưu cài đặt ban đầu."
+  },
+  "setup_save_failed": {
+    "message": "Không thể lưu. Vui lòng thử lại."
+  },
+  "blocklist_example_label": {
+    "message": "Ví dụ:"
+  },
+  "setup_daily_limit": {
+    "message": "Giá»›i háº¡n hÃ ng ngÃ y",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "khÃ´ng giá»›i háº¡n",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

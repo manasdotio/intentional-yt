@@ -119,43 +119,43 @@ const TOGGLE_LABELS = {
 };
 
 const SECTION_TOGGLES = {
-  feed: [
-    'blockHomeFeed',
-    'limitHomeFeed',
-    'blockSubscriptionsFeed',
-    'blockRecommended',
-    'blockShorts',
-    'redirectShorts',
-    'blockExploreAndTrending',
-    'blockMoreFromYouTube',
-    'blockIrrelevantSearchResults'
+  "feed": [
+    "blockShorts",
+    "blockHomeFeed",
+    "blockRecommended",
+    "blockSubscriptionsFeed",
+    "limitHomeFeed",
+    "redirectShorts",
+    "blockExploreAndTrending",
+    "blockMoreFromYouTube",
+    "blockIrrelevantSearchResults",
+    "blockMixPlaylists"
   ],
-  video: [
-    'blockEndScreenVideowall',
-    'blockEndScreenCards',
-    'blockLiveChat',
-    'blockPlaylist',
-    'disableAutoplay',
-    'disableAnnotations',
-    'blockVideoInfo',
-    'blockVideoButtons',
-    'blockChannelInfo',
-    'blockVideoDescription'
+  "video": [
+    "disableAutoplay",
+    "blockEndScreenVideowall",
+    "blockEndScreenCards",
+    "blockLiveChat",
+    "blockPlaylist",
+    "disableAnnotations"
   ],
-  social: [
-    'blockComments',
-    'blockProfilePhotos'
+  "social": [
+    "blockComments",
+    "blockProfilePhotos"
   ],
-  interface: [
-    'blockSidebar',
-    'blockTopHeader',
-    'blockNotificationBell',
-    'blockMerch',
-    'blockMixPlaylists'
+  "interface": [
+    "blockSidebar",
+    "blockNotificationBell",
+    "blockTopHeader",
+    "blockVideoInfo",
+    "blockVideoButtons",
+    "blockChannelInfo",
+    "blockVideoDescription",
+    "blockMerch"
   ],
-  appearance: [
-    'hideThumbnails',
-    'grayscaleMode'
+  "appearance": [
+    "hideThumbnails",
+    "grayscaleMode"
   ]
 };
 
@@ -593,16 +593,6 @@ function updatePresetUI(s) {
     }
   }
 
-  // Backward compatibility with chips if present
-  ['balanced', 'zen', 'player', 'custom'].forEach(p => {
-    const chip = $(`chip-preset-${p}`);
-    if (chip) {
-      const isActive = (p === active);
-      chip.classList.toggle('active', isActive);
-      chip.setAttribute('aria-checked', isActive ? 'true' : 'false');
-    }
-  });
-
   const tooltipText = $('preset-tooltip-text');
   if (tooltipText) {
     const descKey = `preset_desc_${active}`;
@@ -661,6 +651,54 @@ async function applyPreset(presetName) {
 }
 
 /* ── 1st-Run Welcome Card ──────────────────────────────── */
+
+function initializeWelcomeSetup(s) {
+  $('setup-hide-shorts').checked = !!s.blockShorts;
+  $('setup-hide-home').checked = !!s.blockHomeFeed;
+  $('setup-hide-recommended').checked = !!s.blockRecommended;
+  const select = $('setup-daily-limit');
+  const minutes = s.dailyLimit?.enabled ? s.dailyLimit.limitMinutes : 0;
+  if (![...select.options].some(option => option.value === String(minutes))) {
+    const option = document.createElement('option');
+    option.value = String(minutes);
+    option.textContent = t('time_option_minutes', [String(minutes)]) || `${minutes} min`;
+    select.append(option);
+  }
+  select.value = String(minutes);
+}
+
+async function saveWelcomeSetup(event) {
+  event.preventDefault();
+  const button = $('btn-save-setup');
+  if (button.disabled) return;
+  button.disabled = true;
+  try {
+    const minutes = Number($('setup-daily-limit').value);
+    const fresh = await StorageManager.getSettings();
+    const updates = {
+      blockShorts: $('setup-hide-shorts').checked,
+      blockHomeFeed: $('setup-hide-home').checked,
+      blockRecommended: $('setup-hide-recommended').checked,
+      dailyLimit: { ...fresh.dailyLimit, enabled: minutes > 0, limitMinutes: minutes || fresh.dailyLimit.limitMinutes }
+    };
+    if (updates.blockHomeFeed) updates.limitHomeFeed = false;
+    // Send only changed values through the shared, Focus Lock-protected writer.
+    for (const key of Object.keys(updates)) {
+      if (JSON.stringify(updates[key]) === JSON.stringify(fresh[key])) delete updates[key];
+    }
+    const updated = Object.keys(updates).length ? await StorageManager.updateSettings(updates) : fresh;
+    _s = updated;
+    renderAll(updated);
+    broadcastSettingsToTabs(updated);
+    await dismissWelcomeCard();
+    showToast(t('setup_saved') || 'Your starting settings are saved.');
+    $('input-toggle-search')?.focus();
+  } catch (error) {
+    if (error.code !== 'IYT_DEFERRED') showToast(t('setup_save_failed') || 'Could not save. Please try again.');
+  } finally {
+    button.disabled = false;
+  }
+}
 
 async function dismissWelcomeCard() {
   const card = $('welcome-card');
@@ -805,8 +843,8 @@ function filterToggles(query) {
       }
     });
 
-    // Handle video info parent + sub-rows coordination in sec-video
-    if (sec === 'video') {
+    // Coordinate parent and child matches in whichever section contains video info.
+    if (videoInfoRow && body.contains(videoInfoRow)) {
       let anySubMatches = false;
       subRows.forEach(subRow => {
         if (checkRowMatch(subRow)) {
@@ -1746,6 +1784,11 @@ function bindAll() {
 
   // 1st-Run Welcome Card dismiss
   $('btn-dismiss-welcome')?.addEventListener('click', dismissWelcomeCard);
+  $('btn-skip-setup')?.addEventListener('click', async () => {
+    await dismissWelcomeCard();
+    $('input-toggle-search')?.focus();
+  });
+  $('welcome-setup-form')?.addEventListener('submit', saveWelcomeSetup);
 
   // Snooze Button, Modal & Banner actions
   $('btn-snooze')?.addEventListener('click', openSnoozeModal);
@@ -1796,14 +1839,6 @@ function bindAll() {
       applyPreset(e.target.value);
     });
   }
-
-  // Quick Modes Preset chips
-  ['balanced', 'zen', 'player', 'custom'].forEach(p => {
-    const chip = $(`chip-preset-${p}`);
-    if (chip) {
-      chip.addEventListener('click', () => applyPreset(p));
-    }
-  });
 
   // Simple distraction toggles
   for (const key of TOGGLES) {
@@ -2261,19 +2296,6 @@ function bindAll() {
     renderSchedulesList(_s);
   });
 
-  // Stats reset with spinning icon animation
-  const statsResetBtn = $('stats-reset');
-  if (statsResetBtn) {
-    statsResetBtn.addEventListener('click', async () => {
-      const icon = statsResetBtn.querySelector('.watch-reset-icon');
-      if (icon) {
-        icon.classList.add('is-spinning');
-        setTimeout(() => icon.classList.remove('is-spinning'), 500);
-      }
-      await StorageManager.resetDailyStats();
-    });
-  }
-
   // Watch bar capsule click -> navigate to Stats tab
   $('watch-capsule')?.addEventListener('click', () => {
     switchTab('stats');
@@ -2494,19 +2516,6 @@ function bindAll() {
   $('btn-clear-channels')?.addEventListener('click', () => handleClearBlocklist('channel'));
   $('btn-clear-keywords')?.addEventListener('click', () => handleClearBlocklist('keyword'));
 
-  // Quick suggestion chips
-  document.querySelectorAll('.btn-suggestion-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const type = btn.getAttribute('data-for');
-      const val = btn.getAttribute('data-val');
-      const input = $(`input-${type}-blocklist`);
-      if (input && val) {
-        input.value = val;
-        handleAddBlocklistEntry(type);
-      }
-    });
-  });
-
   // Backdrop click dismisses any active modal overlay
   document.querySelectorAll('.iyt-modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', e => {
@@ -2578,6 +2587,7 @@ async function init() {
 
   // Show 1st-run welcome card if not dismissed yet
   if (!storedWelcome?.welcomeDismissed) {
+    initializeWelcomeSetup(s);
     const welcomeCard = $('welcome-card');
     if (welcomeCard) welcomeCard.style.display = 'flex';
   }

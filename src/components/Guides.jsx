@@ -1,21 +1,7 @@
 import Link from 'next/link'
 import { getAllPosts } from '@/src/utils/blog'
-
+import GuideCards from './GuideCards'
 export default function Guides() {
-  return (
-    <section className="faq-section" aria-labelledby="guides-title">
-      <div className="section-head">
-        <h2 id="guides-title" className="section-title">Set up distraction-free YouTube</h2>
-        <p className="section-desc">Choose the controls that fit your study or work routine.</p>
-      </div>
-      <div className="faq-grid">
-        {getAllPosts().map(post => (
-          <article className="table-card blog-card" key={post.slug}>
-            <h3><Link href={'/blog/' + post.slug}>{post.title}</Link></h3>
-            <p>{post.description}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
+  const posts = getAllPosts().filter(post => ['block-youtube-channels-from-search-results', 'set-youtube-daily-time-limit'].includes(post.slug))
+  return <section className="visual-guides compact-guides" aria-labelledby="guides-title"><div className="visual-section-heading"><h2 id="guides-title" className="section-title">Need a hand setting up?</h2><Link href="/blog" className="visual-text-link">All guides ↗</Link></div><GuideCards posts={posts} /><p id="comparison" className="comparison-shortcut">Still choosing an extension? <Link href="/blog/intentional-yt-vs-unhook-vs-untrap">Compare Intentional YT, Unhook, and UnTrap.</Link></p></section>
 }

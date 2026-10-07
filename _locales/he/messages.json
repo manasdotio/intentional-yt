@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "×¤×™×“",
+                         "message":  "פידים ו-Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "×•×™×“××•",
+                          "message":  "ניגון",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "×—×‘×¨×ª×™",
+                           "message":  "תגובות ותמונות",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "×ž×ž×©×§",
+                              "message":  "ניווט ופרטי הדף",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "×‘×—×¨ ×¤×¨×•×¤×™×œ ×ž×•×’×“×¨ ×ž×¨××© ×›×“×™ ×œ×”×ª×—×™×œ, ××• ×”×ª×× ××™×©×™×ª ××ª ×”×ž×ª×’×™× ×œ×ž×˜×”.",
+                         "message":  "בחרו הגדרות התחלתיות. אפשר לשנות אותן למטה בכל עת.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "המגבלה היומית שלך בוטלה להיום."
-                               }
+                               },
+  "setup_note": {
+    "message": "שאר ההגדרות נשארות כפי שהן. המגבלה היומית משהה את הניגון כשהזמן נגמר."
+  },
+  "setup_save": {
+    "message": "שמירה והתחלת צפייה"
+  },
+  "setup_skip": {
+    "message": "דילוג על ההגדרה"
+  },
+  "setup_saved": {
+    "message": "ההגדרות ההתחלתיות נשמרו."
+  },
+  "setup_save_failed": {
+    "message": "לא ניתן לשמור. נסו שוב."
+  },
+  "blocklist_example_label": {
+    "message": "דוגמה:"
+  },
+  "setup_daily_limit": {
+    "message": "×ž×’×‘×œ×” ×™×•×ž×™×ª",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "×œ×œ× ×ž×’×‘×œ×”",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

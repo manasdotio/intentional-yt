@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "Î¡Î¿Î®",
+                         "message":  "Ροές και Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "Î’Î¯Î½Ï„ÎµÎ¿",
+                          "message":  "Αναπαραγωγή",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "ÎšÎ¿Î¹Î½Ï‰Î½Î¹ÎºÎ¬",
+                           "message":  "Σχόλια και φωτογραφίες",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "Î”Î¹ÎµÏ€Î±Ï†Î®",
+                              "message":  "Πλοήγηση και στοιχεία σελίδας",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Î¼Î¹Î± Ï€ÏÎ¿ÎµÏ€Î¹Î»Î¿Î³Î® Î³Î¹Î± Î½Î± Î¾ÎµÎºÎ¹Î½Î®ÏƒÎµÏ„Îµ Î® Ï€ÏÎ¿ÏƒÎ±ÏÎ¼ÏŒÏƒÏ„Îµ Ï„Î¿Ï…Ï‚ Î´Î¹Î±ÎºÏŒÏ€Ï„ÎµÏ‚ Ï€Î±ÏÎ±ÎºÎ¬Ï„Ï‰.",
+                         "message":  "Διάλεξε τις αρχικές ρυθμίσεις. Μπορείς να τις αλλάξεις παρακάτω όποτε θέλεις.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "Το ημερήσιό σας όριο καταργείται για σήμερα."
-                               }
+                               },
+  "setup_note": {
+    "message": "Οι άλλες ρυθμίσεις μένουν ίδιες. Το ημερήσιο όριο σταματά την αναπαραγωγή όταν τελειώσει ο χρόνος."
+  },
+  "setup_save": {
+    "message": "Αποθήκευση και παρακολούθηση"
+  },
+  "setup_skip": {
+    "message": "Παράλειψη ρύθμισης"
+  },
+  "setup_saved": {
+    "message": "Οι αρχικές ρυθμίσεις αποθηκεύτηκαν."
+  },
+  "setup_save_failed": {
+    "message": "Η αποθήκευση απέτυχε. Δοκίμασε ξανά."
+  },
+  "blocklist_example_label": {
+    "message": "Παράδειγμα:"
+  },
+  "setup_daily_limit": {
+    "message": "Î—Î¼ÎµÏÎ®ÏƒÎ¹Î¿ ÏŒÏÎ¹Î¿",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "Ï‡Ï‰ÏÎ¯Ï‚ ÏŒÏÎ¹Î¿",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

@@ -4,8 +4,10 @@ import Guides from '@/src/components/Guides'
 import Hero from '@/src/components/Hero'
 import LazySimulator from '@/src/components/LazySimulator'
 import Features from '@/src/components/Features'
-import Comparison from '@/src/components/Comparison'
+import BeforeAfter from '@/src/components/BeforeAfter'
+import SetupSteps from '@/src/components/SetupSteps'
 import Faq from '@/src/components/Faq'
+import ClosingCta from '@/src/components/ClosingCta'
 
 export const metadata = pageMetadata({ title: 'YouTube Distraction Blocker & Daily Limit', description: 'Hide YouTube Shorts and recommendations, set daily watch limits, and stay focused. Available for Chrome, Firefox, and Edge.' })
 
@@ -69,11 +71,13 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <Hero />
+      <BeforeAfter />
       <Features />
       <LazySimulator />
-      <Comparison />
+      <SetupSteps />
       <Guides />
       <Faq />
+      <ClosingCta />
     </>
   )
 }

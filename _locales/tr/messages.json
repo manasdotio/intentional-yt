@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "AkÄ±ÅŸ",
+                         "message":  "Akışlar ve Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "Video",
+                          "message":  "Oynatma",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "Sosyal",
+                           "message":  "Yorumlar ve fotoğraflar",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "ArayÃ¼z",
+                              "message":  "Gezinme ve sayfa ayrıntıları",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "BaÅŸlamak iÃ§in bir hazÄ±r ayar seÃ§in veya aÅŸaÄŸÄ±daki anahtarlarÄ± Ã¶zelleÅŸtirin.",
+                         "message":  "Başlangıç ayarlarını seçin. Bunları aşağıdan istediğiniz zaman değiştirebilirsiniz.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "Günlük limitiniz bugünlük kaldırıldı."
-                               }
+                               },
+  "setup_note": {
+    "message": "Diğer ayarlar aynı kalır. Günlük süre dolduğunda video duraklatılır."
+  },
+  "setup_save": {
+    "message": "Kaydet ve izlemeye başla"
+  },
+  "setup_skip": {
+    "message": "Kurulumu atla"
+  },
+  "setup_saved": {
+    "message": "Başlangıç ayarları kaydedildi."
+  },
+  "setup_save_failed": {
+    "message": "Kaydedilemedi. Tekrar deneyin."
+  },
+  "blocklist_example_label": {
+    "message": "Örnek:"
+  },
+  "setup_daily_limit": {
+    "message": "GÃ¼nlÃ¼k limit",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "limitsiz",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

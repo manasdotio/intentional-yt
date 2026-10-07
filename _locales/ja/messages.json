@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "ãƒ•ã‚£ãƒ¼ãƒ‰",
+                         "message":  "フィードとShorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "å‹•ç”»",
+                          "message":  "再生",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "ã‚½ãƒ¼ã‚·ãƒ£ãƒ«",
+                           "message":  "コメントと写真",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹",
+                              "message":  "ナビゲーションとページ情報",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "ãƒ—ãƒªã‚»ãƒƒãƒˆã‚’é¸ã‚“ã§ã™ãã«å§‹ã‚ã‚‹ã‹ã€ä¸‹ã®ãƒˆã‚°ãƒ«ã§è‡ªç”±ã«ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚ºã—ã¦ãã ã•ã„ã€‚",
+                         "message":  "最初の設定を選んでください。下の項目からいつでも変更できます。",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "今日の 1 日の制限は解除されます。"
-                               }
+                               },
+  "setup_note": {
+    "message": "ほかの設定は変わりません。1日の制限時間に達すると再生が一時停止します。"
+  },
+  "setup_save": {
+    "message": "保存して視聴を始める"
+  },
+  "setup_skip": {
+    "message": "設定をスキップ"
+  },
+  "setup_saved": {
+    "message": "最初の設定を保存しました。"
+  },
+  "setup_save_failed": {
+    "message": "保存できませんでした。もう一度お試しください。"
+  },
+  "blocklist_example_label": {
+    "message": "例:"
+  },
+  "setup_daily_limit": {
+    "message": "1æ—¥ã®åˆ¶é™æ™‚é–“",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "åˆ¶é™ãªã—",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

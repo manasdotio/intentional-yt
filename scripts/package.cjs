@@ -149,20 +149,33 @@ function packageExtension() {
   delete firefoxManifest.background.service_worker;
   const firefoxManifestBuffer = Buffer.from(JSON.stringify(firefoxManifest, null, 2), 'utf8');
 
-  // Common items to include
-  const standardDirs = ['background', 'content', 'icons', 'styles', 'ui', 'utils', 'fonts'];
+  // Runtime code only. Documentation and design assets stay out of store uploads.
+  const standardDirs = ['background', 'content', 'ui', 'utils'];
   const commonFiles = [];
   for (const dir of standardDirs) {
     const dirPath = path.join(ROOT_DIR, dir);
     if (fs.existsSync(dirPath)) {
-      commonFiles.push(...collectFiles(dirPath));
+      commonFiles.push(...collectFiles(dirPath).filter(file => /\.(?:js|html)$/.test(file.name)));
     }
   }
+
+  const runtimeAssets = [
+    'styles/blocker.css', 'styles/popup.css',
+    'icons/icon-16.png', 'icons/icon-32.png', 'icons/icon-48.png', 'icons/icon-128.png',
+    'icons/icon.png', 'icons/icon.svg',
+    'fonts/Inter-Regular.woff2', 'fonts/Inter-Medium.woff2',
+    'fonts/Inter-SemiBold.woff2', 'fonts/Inter-Bold.woff2'
+  ];
+  for (const name of runtimeAssets) {
+    commonFiles.push({ name, data: fs.readFileSync(path.join(ROOT_DIR, name)) });
+  }
+  const localeFiles = collectFiles(path.join(ROOT_DIR, '_locales'))
+    .filter(file => /^_locales\/[^/]+\/messages\.json$/.test(file.name));
 
   // 1. Chrome Web Store package (all 26 locales, service_worker only)
   const chromeFiles = [
     { name: 'manifest.json', data: chromeManifestBuffer },
-    ...collectFiles(path.join(ROOT_DIR, '_locales')),
+    ...localeFiles,
     ...commonFiles
   ];
   createZip(chromeFiles, CHROME_OUT);
@@ -170,7 +183,7 @@ function packageExtension() {
   // 2. Microsoft Edge Add-ons package (all supported locales, service_worker only)
   const edgeFiles = [
     { name: 'manifest.json', data: chromeManifestBuffer },
-    ...collectFiles(path.join(ROOT_DIR, '_locales')),
+    ...localeFiles,
     ...commonFiles
   ];
   createZip(edgeFiles, EDGE_OUT);
@@ -178,7 +191,7 @@ function packageExtension() {
   // 3. Mozilla Firefox AMO package (all 26 locales, retains background.scripts and Gecko settings)
   const firefoxFiles = [
     { name: 'manifest.json', data: firefoxManifestBuffer },
-    ...collectFiles(path.join(ROOT_DIR, '_locales')),
+    ...localeFiles,
     ...commonFiles
   ];
   createZip(firefoxFiles, FIREFOX_OUT);

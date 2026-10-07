@@ -76,7 +76,7 @@ export default function Navbar() {
         <div className="nav-links">
           <Link href="/#demo" className="nav-link">Demo</Link>
           <Link href="/#features" className="nav-link">Features</Link>
-          <Link href="/#comparison" className="nav-link">Comparison</Link>
+          <Link href="/#setup" className="nav-link">Setup</Link>
           <Link href="/#faq" className="nav-link">FAQ</Link>
           <Link href="/blog" className="nav-link">Blog</Link>
         </div>
@@ -163,12 +163,12 @@ export default function Navbar() {
                 <span className="mobile-nav-text">Core Features</span>
               </Link>
               <Link 
-                href="/#comparison" 
+                href="/#setup"
                 className="mobile-nav-link"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="mobile-nav-icon">⚖️</span>
-                <span className="mobile-nav-text">Unhook &amp; Untrap Comparison</span>
+                <span className="mobile-nav-text">How to set it up</span>
               </Link>
               <Link 
                 href="/#faq" 

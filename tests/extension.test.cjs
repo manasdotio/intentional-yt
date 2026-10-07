@@ -257,6 +257,14 @@ test('every release archive has fonts, all selectable languages and correct back
     assert.equal([...entries.keys()].filter(k=>k.startsWith('fonts/')).length,4);
     assert.equal([...entries.keys()].filter(k=>k.startsWith('_locales/')).length,26);
     const manifest=JSON.parse(entries.get('manifest.json'));
+    for (const name of entries.keys()) {
+      assert.ok(!/\.(?:md|map)$/.test(name), `Development file shipped: ${name}`);
+      assert.ok(!['styles/ui.css','icons/icon-512.png'].includes(name), `Unused asset shipped: ${name}`);
+    }
+    const runtimePaths = [manifest.action.default_popup, ...Object.values(manifest.icons),
+      ...(manifest.background.scripts || []), ...(manifest.background.service_worker ? [manifest.background.service_worker] : []),
+      ...manifest.content_scripts.flatMap(script => [...(script.js || []), ...(script.css || [])])];
+    for (const name of runtimePaths) assert.ok(entries.has(name), `Missing runtime file: ${name}`);
     if(file.includes('firefox')) { assert.ok(manifest.background.scripts); assert.equal(manifest.background.service_worker,undefined); }
     else assert.equal(manifest.background.scripts,undefined);
     for(const match of entries.get('styles/popup.css').toString().matchAll(/url\(['"]?(\.\.\/[^)'"\s]+)/g)) assert.ok(entries.has(path.posix.normalize('styles/'+match[1])),match[1]);

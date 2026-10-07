@@ -25,11 +25,6 @@ export default function Footer() {
           <p className="footer-brand-desc">
             A browser extension for watching YouTube without losing your afternoon.
           </p>
-          <div className="footer-badges">
-            <span className="footer-tag">No Account</span>
-            <span className="footer-tag">100% Local</span>
-            <span className="footer-tag">0% Telemetry</span>
-          </div>
         </div>
 
         {/* Product & Features Column */}
@@ -38,7 +33,8 @@ export default function Footer() {
           <ul className="footer-nav-list">
             <li><Link href="/#demo" className="footer-nav-link">Interactive Demo</Link></li>
             <li><Link href="/#features" className="footer-nav-link">Core Features</Link></li>
-            <li><Link href="/#comparison" className="footer-nav-link">Comparison</Link></li>
+            <li><Link href="/blog/intentional-yt-vs-unhook-vs-untrap" className="footer-nav-link">Compare extensions</Link></li>
+            <li><Link href="/#setup" className="footer-nav-link">How to set it up</Link></li>
             <li><Link href="/#faq" className="footer-nav-link">FAQ</Link></li>
             <li><Link href="/blog" className="footer-nav-link">Blog &amp; Articles</Link></li>
           </ul>

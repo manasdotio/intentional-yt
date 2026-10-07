@@ -1,0 +1,74 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Intentional YT · 15 second promo</title>
+<style>html,body{margin:0;background:#f7f8f3}canvas{display:block;width:100vw;height:auto}</style></head>
+<body><canvas width="1920" height="1080"></canvas><script>
+const c=document.querySelector('canvas'),g=c.getContext('2d');
+const P={ink:'#182a31',blue:'#2563eb',sage:'#496b58',paper:'#f7f8f3',muted:'#697b76'};
+const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>1-Math.pow(1-clamp(x),4),mix=(a,b,x)=>a+(b-a)*x;
+const A={};
+window.ready=(async()=>{
+  for(const [key,url] of Object.entries({logo:'../icons/icon-512.png',land:'../public/screenshots/hero-calm-landscape.webp',ui:'../public/screenshots/hero-extension-light.webp'})){
+    A[key]=new Image();A[key].src=url;await A[key].decode();
+  }
+  for(const [name,file,weight] of [['Inter','Regular','400'],['Inter','Bold','700']]){
+    const f=new FontFace(name,`url(../fonts/Inter-${file}.woff2)`,{weight});await f.load();document.fonts.add(f);
+  }
+})();
+function box(x,y,w,h,r,fill,stroke){g.beginPath();g.roundRect(x,y,w,h,r);if(fill){g.fillStyle=fill;g.fill()}if(stroke){g.strokeStyle=stroke;g.lineWidth=1.5;g.stroke()}}
+function text(s,x,y,size=28,color=P.ink,weight=400){g.fillStyle=color;g.font=`${weight} ${size}px Inter`;g.fillText(s,x,y)}
+function serif(s,x,y,size,color=P.sage){g.fillStyle=color;g.font=`italic ${size}px Georgia`;g.fillText(s,x,y)}
+function layer(x,y,r,scale,alpha,fn){g.save();g.globalAlpha*=clamp(alpha);g.translate(x,y);g.rotate(r);g.scale(scale,scale);fn();g.restore()}
+function shadow(fn){g.save();g.shadowColor='#19382e24';g.shadowBlur=55;g.shadowOffsetY=25;fn();g.restore()}
+function imageCover(img,x,y,w,h,r=0){g.save();g.beginPath();g.roundRect(x,y,w,h,r);g.clip();const s=Math.max(w/img.width,h/img.height);g.drawImage(img,x+(w-img.width*s)/2,y+(h-img.height*s)/2,img.width*s,img.height*s);g.restore()}
+function brand(){g.drawImage(A.logo,92,70,54,54);text('Intentional YT',164,108,28,P.ink,700);text('A LITTLE MORE INTENTION',92,1007,16,P.muted);}
+function chip(s,x,y,w){box(x,y,w,48,24,'#ffffffd9','#dce4da');text(s,x+20,y+32,19,P.sage,700)}
+function browser(x,y,w,angle=0){layer(x,y,angle,w/760,1,()=>{
+  shadow(()=>box(0,0,760,512,24,'white'));box(0,0,760,512,24,'white','#d8e1d8');
+  for(let i=0;i<3;i++)box(22+i*17,21,9,9,5,['#d9aba0','#dccca4','#a9c5b0'][i]);
+  box(160,12,420,28,8,'#f3f5f1');text('youtube.com',310,32,14,P.muted);
+  box(23,65,30,20,5,'#e4483d');text('▶',32,80,13,'white');text('YouTube',63,82,19,P.ink,700);
+  imageCover(A.land,23,105,714,350,14);serif('Room for what matters.',57,164,34,'#fffbef');
+  text('Just the video. Room to focus.',27,490,18,P.muted);
+})}
+function panel(x,y,w,angle=0){layer(x,y,angle,w/A.ui.width,1,()=>{shadow(()=>box(0,0,A.ui.width,A.ui.height,32,'white'));g.save();g.beginPath();g.roundRect(0,0,A.ui.width,A.ui.height,32);g.clip();g.drawImage(A.ui,0,0);g.restore()})}
+function wash(t){g.fillStyle=P.paper;g.fillRect(0,0,1920,1080);g.save();g.translate(1450,530);g.rotate(-.22);g.fillStyle='#e3ece2';g.beginPath();g.ellipse(0,0,640,475,0,0,Math.PI*2);g.fill();g.strokeStyle='#c8d8c9';g.lineWidth=1.5;g.beginPath();g.ellipse(-20,20,590,430,.1+Math.min(t,13)*.006,0,Math.PI*2);g.stroke();g.restore()}
+function intro(t){
+  const enter=ease(t/.85);text('01 / RECLAIM YOUR ATTENTION',96,235,20,P.sage,700);
+  layer(94,0,0,1,enter,()=>{text('Less',0,410+40*(1-enter),145,P.ink,700);text('scrolling.',0,561+40*(1-enter),145,P.ink,700);text('Choose what gets your time.',7,633,30,P.muted)});
+  browser(975,275,730,-.04);
+  const cards=[[-25,4,-.10,'JUST ONE MORE','#dce6f7'],[490,-25,.12,'UP NEXT','#e9dfce'],[490,425,.08,'RECOMMENDED','#dde9dc'],[-55,400,-.07,'KEEP WATCHING','#eadce1']];
+  cards.forEach(([x,y,r,label,color],i)=>{const e=ease((t-.16*i)/.7),exit=ease((t-3.15-i*.07)/.7);layer(985+x+(i%2?520:-550)*exit,190+y+Math.sin(t*2+i)*14+(1-e)*200,r+(i%2?1:-1)*exit*.28,.92+.08*e,e*(1-exit),()=>{
+    shadow(()=>box(0,0,310,208,20,'white'));box(12,12,286,135,12,color);g.fillStyle='#ffffffa0';g.beginPath();g.arc(155,79,28,0,Math.PI*2);g.fill();text('▶',147,87,22,P.ink);text(label,18,181,17,P.ink,700);
+  })});
+  layer(1480,405,.1,.9,1-ease((t-3.35)/.6),()=>{shadow(()=>box(0,0,195,280,22,P.blue));text('SHORTS',26,51,20,'white',700);text('↗',42,192,120,'white')});
+}
+function control(t){
+  const e=ease(t/.8);text('02 / MAKE ROOM',96,235,20,P.sage,700);
+  text('More',94,397,125,P.ink,700);serif('intention.',92,534,143);
+  text('Small controls. A calmer day.',100,602,29,P.muted);
+  const toggles=[['Hide Shorts',.6],['Hide recommendations',1.35]];
+  toggles.forEach(([s,start],i)=>{const on=ease((t-start)/.4),y=666+i*78;box(96,y,700,65,18,'white','#dde5dc');text(s,119,y+42,24,P.ink,700);box(696,y+16,69,34,17,on>.4?P.blue:'#cad2d1');box(mix(701,735,on),y+21,24,24,12,'white')});
+  const d=ease((t-2.45)/.8);layer(96,841+(1-d)*35,0,1,d,()=>{box(0,0,700,77,18,'#e5ede3');text('Daily watch limit',23,47,24,P.sage,700);text('45 min',554,49,31,P.sage,700)});
+  layer(0,0,0,1,e,()=>{panel(1000+(1-e)*300,218,740,-.025+Math.sin(Math.min(t,5)*.6)*.012)});
+  const ring=ease((t-2.5)/1.4);g.save();g.translate(1745,823);g.rotate(-Math.PI/2);g.fillStyle=P.paper;g.beginPath();g.arc(0,0,87,0,2*Math.PI);g.fill();g.strokeStyle='#dce7dd';g.lineWidth=12;g.beginPath();g.arc(0,0,80,0,2*Math.PI);g.stroke();g.strokeStyle=P.blue;g.beginPath();g.arc(0,0,80,0,2*Math.PI*.75*ring);g.stroke();g.restore();text('45',1708,836,43,P.ink,700);text('MIN',1723,863,16,P.muted);
+  text('Actual extension interface · Animated feature callouts',1010,987,17,P.muted);
+}
+function outro(t){
+  const e=ease(t/1.1);text('03 / YOUR TIME, BACK',96,235,20,P.sage,700);
+  layer(0,30*(1-e),0,1,e,()=>{text('Your YouTube.',92,416,99,P.ink,700);serif('A little calmer.',91,535,113);text('Keep the videos you came for.',99,614,29,P.muted);chip('Free & open source',98,687,239);chip('No account. No tracking.',352,687,288);});
+  browser(957+(1-e)*170,294,750,-.055);panel(1376+(1-e)*290,436,432,.055);
+  layer(998,835+(1-e)*70,-.03,1,e,()=>{shadow(()=>box(0,0,334,66,18,'white'));text('✓',20,44,30,P.sage,700);text('Room for what matters.',66,42,22,P.sage,700)});
+  text('Illustrated watch page · Actual extension interface',1130,987,17,P.muted);
+}
+window.draw=t=>{
+  t=Math.min(t,13);wash(t);brand();
+  const cut1=3.8,cut2=9.7,d=.6;
+  if(t<cut1)intro(t);
+  else if(t<cut1+d){const e=ease((t-cut1)/d);layer(-140*e,0,0,1,1-e,()=>intro(t));layer(160*(1-e),0,0,1,e,()=>control(t-cut1));}
+  else if(t<cut2)control(t-cut1);
+  else if(t<cut2+d){const e=ease((t-cut2)/d);layer(-130*e,0,0,1,1-e,()=>control(t-cut1));layer(160*(1-e),0,0,1,e,()=>outro(t-cut2));}
+  else outro(t-cut2);
+};
+// Optional in-browser preview: open this HTML from a local static server.
+if(!new URLSearchParams(location.search).has('render'))ready.then(()=>{const start=performance.now();function tick(now){draw(((now-start)/1000)%15);requestAnimationFrame(tick)}requestAnimationFrame(tick)});
+</script></body></html>

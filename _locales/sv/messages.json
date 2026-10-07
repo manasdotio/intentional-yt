@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "FlÃ¶de",
+                         "message":  "Flöden och Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "Video",
+                          "message":  "Uppspelning",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "Socialt",
+                           "message":  "Kommentarer och bilder",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "GrÃ¤nssnitt",
+                              "message":  "Navigering och sidinformation",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "VÃ¤lj en fÃ¶rinstÃ¤llning fÃ¶r att komma igÃ¥ng, eller anpassa reglagen nedan.",
+                         "message":  "Välj dina startinställningar. Du kan ändra dem nedan när du vill.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "Din dagliga gräns tas bort för idag."
-                               }
+                               },
+  "setup_note": {
+    "message": "Övriga inställningar är oförändrade. Dagsgränsen pausar videon när tiden är slut."
+  },
+  "setup_save": {
+    "message": "Spara och börja titta"
+  },
+  "setup_skip": {
+    "message": "Hoppa över inställningen"
+  },
+  "setup_saved": {
+    "message": "Dina startinställningar har sparats."
+  },
+  "setup_save_failed": {
+    "message": "Kunde inte spara. Försök igen."
+  },
+  "blocklist_example_label": {
+    "message": "Exempel:"
+  },
+  "setup_daily_limit": {
+    "message": "Daglig grÃ¤ns",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "ingen grÃ¤ns",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

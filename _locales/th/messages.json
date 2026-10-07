@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "à¸Ÿà¸µà¸”",
+                         "message":  "ฟีดและ Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "à¸§à¸´à¸”à¸µà¹‚à¸­",
+                          "message":  "การเล่น",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "à¹‚à¸‹à¹€à¸Šà¸µà¸¢à¸¥",
+                           "message":  "ความคิดเห็นและรูปภาพ",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "à¸­à¸´à¸™à¹€à¸—à¸­à¸£à¹Œà¹€à¸Ÿà¸‹",
+                              "message":  "การนำทางและรายละเอียดหน้า",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "à¹€à¸¥à¸·à¸­à¸à¸žà¸£à¸µà¹€à¸‹à¹‡à¸•à¹€à¸žà¸·à¹ˆà¸­à¹€à¸£à¸´à¹ˆà¸¡à¸•à¹‰à¸™ à¸«à¸£à¸·à¸­à¸›à¸£à¸±à¸šà¹à¸•à¹ˆà¸‡à¸à¸²à¸£à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸”à¹‰à¸²à¸™à¸¥à¹ˆà¸²à¸‡",
+                         "message":  "เลือกการตั้งค่าเริ่มต้น คุณเปลี่ยนได้ทุกเมื่อด้านล่าง",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "ขีดจำกัดรายวันของคุณถูกยกเลิกสำหรับวันนี้"
-                               }
+                               },
+  "setup_note": {
+    "message": "การตั้งค่าอื่นยังเหมือนเดิม วิดีโอจะหยุดชั่วคราวเมื่อครบเวลาจำกัดรายวัน"
+  },
+  "setup_save": {
+    "message": "บันทึกและเริ่มดู"
+  },
+  "setup_skip": {
+    "message": "ข้ามการตั้งค่า"
+  },
+  "setup_saved": {
+    "message": "บันทึกการตั้งค่าเริ่มต้นแล้ว"
+  },
+  "setup_save_failed": {
+    "message": "บันทึกไม่สำเร็จ โปรดลองอีกครั้ง"
+  },
+  "blocklist_example_label": {
+    "message": "ตัวอย่าง:"
+  },
+  "setup_daily_limit": {
+    "message": "à¸ˆà¸³à¸à¸±à¸”à¹€à¸§à¸¥à¸²à¸£à¸²à¸¢à¸§à¸±à¸™",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "à¹„à¸¡à¹ˆà¸ˆà¸³à¸à¸±à¸”",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

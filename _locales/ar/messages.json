@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "Ø§Ù„Ø®Ù„Ø§ØµØ©",
+                         "message":  "الخلاصات وShorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "Ø§Ù„ÙÙŠØ¯ÙŠÙˆ",
+                          "message":  "التشغيل",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "Ø§Ù„ØªÙØ§Ø¹Ù„",
+                           "message":  "التعليقات والصور",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "Ø§Ù„ÙˆØ§Ø¬Ù‡Ø©",
+                              "message":  "التنقل وتفاصيل الصفحة",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "Ø§Ø®ØªØ± Ø¥Ø¹Ø¯Ø§Ø¯Ø§Ù‹ Ù…Ø³Ø¨Ù‚Ø§Ù‹ Ù„Ù„Ø¨Ø¯Ø¡ØŒ Ø£Ùˆ Ø®ØµØµ Ø§Ù„Ù…ÙØ§ØªÙŠØ­ Ø£Ø¯Ù†Ø§Ù‡.",
+                         "message":  "اختر إعدادات البداية. يمكنك تغييرها أدناه في أي وقت.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "تم تجاهل الحد اليومي الخاص بك لهذا اليوم."
-                               }
+                               },
+  "setup_note": {
+    "message": "تبقى الإعدادات الأخرى كما هي. يوقف الحد اليومي التشغيل عند انتهاء الوقت."
+  },
+  "setup_save": {
+    "message": "حفظ وبدء المشاهدة"
+  },
+  "setup_skip": {
+    "message": "تخطي الإعداد"
+  },
+  "setup_saved": {
+    "message": "تم حفظ إعدادات البداية."
+  },
+  "setup_save_failed": {
+    "message": "تعذر الحفظ. حاول مجددًا."
+  },
+  "blocklist_example_label": {
+    "message": "مثال:"
+  },
+  "setup_daily_limit": {
+    "message": "Ø§Ù„Ø­Ø¯ Ø§Ù„ÙŠÙˆÙ…ÙŠ",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "Ø¨Ù„Ø§ Ø­Ø¯",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }

@@ -28,7 +28,7 @@
                           "description":  "Badge status when the extension is paused"
                       },
     "section_feed":  {
-                         "message":  "Flux",
+                         "message":  "Fluxuri și Shorts",
                          "description":  "Feed controls section header"
                      },
     "toggle_block_home_feed":  {
@@ -76,7 +76,7 @@
                                            "description":  "Toggle label to hide People also watched, For you, and related search shelves"
                                        },
     "section_video":  {
-                          "message":  "Video",
+                          "message":  "Redare",
                           "description":  "Video controls section header"
                       },
     "toggle_block_endscreen_videowall":  {
@@ -144,7 +144,7 @@
                                          "description":  "Subheading description for Description sub-toggle"
                                      },
     "section_social":  {
-                           "message":  "Social",
+                           "message":  "Comentarii și fotografii",
                            "description":  "Social controls section header"
                        },
     "toggle_block_comments":  {
@@ -156,7 +156,7 @@
                                         "description":  "Toggle label to hide profile avatars of commenters"
                                     },
     "section_interface":  {
-                              "message":  "InterfaÈ›Äƒ",
+                              "message":  "Navigare și detalii pagină",
                               "description":  "Interface controls section header"
                           },
     "toggle_block_sidebar":  {
@@ -942,7 +942,7 @@
                           "description":  "Title on first-run welcome card"
                       },
     "welcome_desc":  {
-                         "message":  "Alege un profil prestabilit pentru a Ã®ncepe sau personalizeazÄƒ opÈ›iunile de mai jos.",
+                         "message":  "Alege setările inițiale. Le poți schimba mai jos oricând.",
                          "description":  "Description on first-run welcome card"
                      },
     "welcome_dismiss_aria":  {
@@ -1303,5 +1303,31 @@
                                    },
     "clear_status_dismissed":  {
                                    "message":  "Limita dvs. zilnică este respinsă pentru astăzi."
-                               }
+                               },
+  "setup_note": {
+    "message": "Celelalte setări rămân la fel. Limita zilnică pune redarea pe pauză când timpul expiră."
+  },
+  "setup_save": {
+    "message": "Salvează și începe vizionarea"
+  },
+  "setup_skip": {
+    "message": "Omite configurarea"
+  },
+  "setup_saved": {
+    "message": "Setările inițiale au fost salvate."
+  },
+  "setup_save_failed": {
+    "message": "Salvarea a eșuat. Încearcă din nou."
+  },
+  "blocklist_example_label": {
+    "message": "Exemplu:"
+  },
+  "setup_daily_limit": {
+    "message": "LimitÄƒ zilnicÄƒ",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "fÄƒrÄƒ limitÄƒ",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  }
 }
