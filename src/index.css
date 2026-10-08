@@ -3846,6 +3846,7 @@ input:checked + .demo-slider:before {
 }
 
 .uninstall-opt-left {
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -3913,6 +3914,8 @@ input:checked + .demo-slider:before {
 }
 
 .uninstall-tag-btn {
+  max-width: 100%;
+  overflow-wrap: anywhere;
   padding: 5px 10px;
   border-radius: var(--radius-pill);
   background: var(--surface);
@@ -3984,6 +3987,8 @@ input:checked + .demo-slider:before {
 }
 
 .uninstall-form-actions {
+  flex-wrap: wrap;
+  gap: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -4400,6 +4405,18 @@ input:checked + .demo-slider:before {
   .visual-guide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .visual-faq { gap: 30px; }
   .closing-copy { padding: 30px; }
+}
+
+.uninstall-drawer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.uninstall-card button:disabled {
+  cursor: wait;
+  opacity: 0.65;
 }
 @media (max-width: 700px) {
   .visual-guides { margin-bottom: 72px; }

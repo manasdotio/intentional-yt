@@ -478,6 +478,26 @@ body {
   position: relative;
 }
 
+.popup-feedback-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin-inline-start: auto;
+  color: var(--ink-secondary);
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.popup-feedback-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.popup-feedback-link:hover { color: var(--accent); }
+.popup-feedback-link svg { flex-shrink: 0; }
+
 /* ── Global focus ring ───────────────────────────────────── */
 :focus { outline: none; }
 :focus-visible {
@@ -4007,8 +4027,7 @@ body.ext-off .lang-row {
 }
 
 /* ============================================================
-   PERSISTENT WATCH-TIME STATUS BAR (Option A: Inset Capsule Widget)
-   A sleek, modern status capsule keeping watch time visible & clear.
+   PERSISTENT FOOTER: watch time, limit status, and feedback
    ============================================================ */
 #watch-bar {
   background: var(--surface-header);
@@ -4071,18 +4090,20 @@ body.ext-off .lang-row {
 
 /* ── Progress Track & Limit Information ────────────────────── */
 .watch-bar-center {
-  flex: 1;
+  flex: 0 1 auto;
   display: flex;
   align-items: center;
   gap: 8px;
   min-width: 0;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 #watch-bar .prog {
   height: 4px;
   flex: 1;
   max-width: 130px;
+  width: 70px;
+  min-width: 16px;
   background: var(--surface-inset);
   border-radius: 3px;
   overflow: hidden;
@@ -4134,7 +4155,8 @@ body.ext-off .lang-row {
 /* ── Reset Action Button ───────────────────────────────────── */
 
 /* Disabled state: bar goes ghosted when extension is off */
-body.ext-off #watch-bar {
+body.ext-off .watch-bar-left,
+body.ext-off .watch-bar-center {
   opacity: 0.35;
   pointer-events: none;
 }
@@ -4327,6 +4349,10 @@ body.ext-off #watch-bar {
 }
 
 @media (max-width: 400px) {
+  #watch-bar { padding-inline: 10px; gap: 8px; }
+  .watch-capsule { padding-inline: 6px; gap: 4px; }
+  .watch-capsule-label { display: none; }
+  #watch-bar .prog { width: 24px; }
   #hd { gap: 6px; padding-inline: 10px; }
   .hd-name { min-width: 0; font-size: 14px; }
   .tab-btn { min-width: 0; padding-inline: 6px; }

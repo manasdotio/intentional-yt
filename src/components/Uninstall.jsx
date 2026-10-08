@@ -9,22 +9,36 @@ const REASON_OPTIONS = [
     id: 'performance',
     title: 'It slowed down YouTube or felt laggy',
     icon: '⚡',
-    label: 'What felt slow? (Click tags to add or type below)',
+    label: 'What felt slow?',
     tags: ['Typing lag in comments', 'Video stutter on 4K/60fps', 'Initial YouTube page load', 'High browser memory']
   },
   {
     id: 'bugs',
-    title: "Something broke or didn't work as expected",
+    title: "Blocking didn't work reliably",
     icon: '🐛',
-    label: 'What glitched? (Click tags to add or type below)',
+    label: 'What was not working?',
     tags: ['Shorts still appeared', 'Comments failed to load', 'Player controls issue', 'Search page problem']
   },
   {
     id: 'strict',
-    title: 'Too strict or missing a toggle I needed',
+    title: 'It hid something I wanted to see',
     icon: '🎛️',
-    label: 'Which toggle did you miss?',
-    tags: ['Wanted home feed back', 'PIN lock was too strict', 'Needed quick pause', 'Sidebar missing']
+    label: 'What did you want to keep visible?',
+    tags: ['Home feed', 'Recommended videos', 'Comments', 'Shorts']
+  },
+  {
+    id: 'configuration',
+    title: 'It was difficult to configure',
+    icon: '⚙️',
+    label: 'What was difficult to set up or change?',
+    tags: ['Too many settings', 'Unclear setting names', 'Focus Lock', 'Schedules or time limits']
+  },
+  {
+    id: 'missing_feature',
+    title: 'A feature I need is missing',
+    icon: '💡',
+    label: 'What would you like Intentional YT to do?',
+    tags: []
   },
   {
     id: 'privacy',
@@ -37,7 +51,7 @@ const REASON_OPTIONS = [
     id: 'not_needed',
     title: "I just don't need it anymore",
     icon: '🎯',
-    label: 'Did you achieve your focus goal?',
+    label: 'What changed for you?',
     tags: ['Broke the habit', 'Taking a break from YouTube', 'Switched browser/device']
   },
   {
@@ -69,6 +83,8 @@ export default function Uninstall() {
   const [detailsText, setDetailsText] = useState('')
   const [selectedTags, setSelectedTags] = useState([])
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
   const hasSubmittedRef = React.useRef(false)
   const [browserInfo, setBrowserInfo] = useState({
     name: 'Chrome',
@@ -82,8 +98,10 @@ export default function Uninstall() {
     setBrowserInfo(detectBrowserInfo())
   }, [])
 
-  const sendPayload = (reasonTitle, details = '') => {
-    if (!UNINSTALL_FEEDBACK_CONFIG?.formActionUrl) return
+  const sendPayload = async (reasonTitle, details = '') => {
+    if (!UNINSTALL_FEEDBACK_CONFIG?.formActionUrl || !UNINSTALL_FEEDBACK_CONFIG.reasonEntryId) {
+      throw new Error('Feedback form is unavailable')
+    }
 
     let finalString = reasonTitle
     if (details && details.trim()) {
@@ -91,45 +109,25 @@ export default function Uninstall() {
     }
     finalString += ` [${browserInfo.name || 'Browser'}]`
 
-    try {
-      const formData = new URLSearchParams()
-      if (UNINSTALL_FEEDBACK_CONFIG.reasonEntryId) {
-        formData.append(UNINSTALL_FEEDBACK_CONFIG.reasonEntryId, finalString)
-      }
+    const formData = new URLSearchParams()
+    formData.append(UNINSTALL_FEEDBACK_CONFIG.reasonEntryId, finalString)
 
-      fetch(UNINSTALL_FEEDBACK_CONFIG.formActionUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        keepalive: true,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString()
-      }).catch(() => {})
-    } catch (e) {
-      // Non-blocking
-    }
+    // Google Forms returns an opaque response; only network failures are detectable.
+    await fetch(UNINSTALL_FEEDBACK_CONFIG.formActionUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString()
+    })
   }
 
-  // Auto-send on page close if option was selected but not submitted
-  useEffect(() => {
-    const handleLeave = () => {
-      if (selectedReason && !hasSubmittedRef.current) {
-        hasSubmittedRef.current = true
-        const activeOption = REASON_OPTIONS.find((r) => r.id === selectedReason)
-        if (activeOption) {
-          sendPayload(activeOption.title)
-        }
-      }
-    }
-    window.addEventListener('pagehide', handleLeave)
-    return () => {
-      window.removeEventListener('pagehide', handleLeave)
-    }
-  }, [selectedReason])
-
   const handleSelectReason = (option) => {
+    if (option.id === selectedReason) return
     setSelectedReason(option.id)
     setSelectedTags([])
     setDetailsText('')
+    setSubmitError(false)
   }
 
   const handleTagClick = (tag) => {
@@ -139,41 +137,29 @@ export default function Uninstall() {
       : [...selectedTags, tag]
 
     setSelectedTags(nextTags)
-
-    let current = detailsText.trim()
-    if (!isSelected) {
-      setDetailsText(current ? `${current}, ${tag}` : tag)
-    } else {
-      const updated = current
-        .replace(tag, '')
-        .replace(/,\s*,/g, ',')
-        .replace(/^,\s*|,\s*$/g, '')
-        .trim()
-      setDetailsText(updated)
-    }
   }
 
-  const handleSubmitDetails = (e) => {
+  const handleSubmitDetails = async (e, reasonOnly = false) => {
     if (e) e.preventDefault()
     if (hasSubmittedRef.current) return
-    hasSubmittedRef.current = true
-
     const activeOption = REASON_OPTIONS.find((r) => r.id === selectedReason)
-    if (activeOption) {
-      sendPayload(activeOption.title, detailsText)
-    }
-    setIsSubmitted(true)
-  }
-
-  const handleSkip = () => {
-    if (hasSubmittedRef.current) return
+    if (!activeOption) return
     hasSubmittedRef.current = true
-
-    const activeOption = REASON_OPTIONS.find((r) => r.id === selectedReason)
-    if (activeOption) {
-      sendPayload(activeOption.title)
+    setIsSubmitting(true)
+    setSubmitError(false)
+    const details = reasonOnly ? '' : [
+      selectedTags.length ? `${activeOption.label} ${selectedTags.join('; ')}` : '',
+      detailsText.trim() ? `Comment: ${detailsText.trim()}` : ''
+    ].filter(Boolean).join(' | ')
+    try {
+      await sendPayload(activeOption.title, details)
+      setIsSubmitted(true)
+    } catch {
+      hasSubmittedRef.current = false
+      setSubmitError(true)
+    } finally {
+      setIsSubmitting(false)
     }
-    setIsSubmitted(true)
   }
 
   return (
@@ -214,22 +200,23 @@ export default function Uninstall() {
                   <span>✦ Community Feedback</span>
                 </div>
                 <h1 className="uninstall-title">
-                  Sorry to see you go — mind telling us why?
+                  What made you uninstall Intentional YT?
                 </h1>
                 <p className="uninstall-desc">
-                  A single click helps us fix bugs and improve focus for everyone.
+                  Choose the main reason. A little feedback helps me decide what to improve next.
                 </p>
               </div>
 
-              <div className="uninstall-options-list" role="radiogroup" aria-label="Reason for uninstalling">
+              <div className="uninstall-options-list" role="group" aria-label="Reason for uninstalling">
                 {REASON_OPTIONS.map((option) => {
                   const isSelected = selectedReason === option.id
                   return (
                     <div key={option.id} className="opt-group">
                       <button
                         type="button"
-                        role="radio"
-                        aria-checked={isSelected}
+                        aria-expanded={isSelected}
+                        aria-controls={isSelected ? `follow-up-${option.id}` : undefined}
+                        disabled={isSubmitting}
                         className={`uninstall-opt-btn ${isSelected ? 'active' : ''}`}
                         onClick={() => handleSelectReason(option)}
                       >
@@ -244,14 +231,16 @@ export default function Uninstall() {
 
                       {/* Progressive Follow-up Drawer */}
                       {isSelected && (
-                        <div className="uninstall-drawer">
-                          <span className="uninstall-drawer-label">{option.label}</span>
+                        <div className="uninstall-drawer" id={`follow-up-${option.id}`}>
+                          <label htmlFor={`details-${option.id}`} className="uninstall-drawer-label">{option.label} (Optional)</label>
                           {option.tags.length > 0 && (
                             <div className="uninstall-quick-tags">
                               {option.tags.map((tag) => (
                                 <button
                                   key={tag}
                                   type="button"
+                                  aria-pressed={selectedTags.includes(tag)}
+                                  disabled={isSubmitting}
                                   className={`uninstall-tag-btn ${selectedTags.includes(tag) ? 'active' : ''}`}
                                   onClick={() => handleTagClick(tag)}
                                 >
@@ -263,26 +252,27 @@ export default function Uninstall() {
                           <form onSubmit={handleSubmitDetails} className="uninstall-drawer-form">
                             <textarea
                               className="uninstall-textarea"
+                              id={`details-${option.id}`}
                               rows="2"
-                              autoFocus
-                              placeholder="Any details to share? (Optional)"
+                              maxLength={2000}
+                              disabled={isSubmitting}
+                              placeholder="Add anything else you would like me to know."
                               value={detailsText}
                               onChange={(e) => setDetailsText(e.target.value)}
-                              onKeyDown={(e) => {
-                                if (e.key === 'Enter' && !e.shiftKey) {
-                                  e.preventDefault()
-                                  handleSubmitDetails()
-                                }
-                              }}
                             />
                             <div className="uninstall-form-actions">
-                              <button type="button" className="uninstall-skip-btn" onClick={handleSkip}>
-                                Skip & Finish
+                              <button type="button" className="uninstall-skip-btn" disabled={isSubmitting} onClick={() => handleSubmitDetails(null, true)}>
+                                Send reason only
                               </button>
-                              <button type="submit" className="uninstall-submit-btn">
-                                Send Details →
+                              <button type="submit" className="uninstall-submit-btn" disabled={isSubmitting}>
+                                {isSubmitting ? 'Sending…' : 'Send feedback'}
                               </button>
                             </div>
+                            {submitError && (
+                              <p role="alert" className="uninstall-desc">
+                                Could not send your feedback. Try again or <a href={UNINSTALL_FEEDBACK_CONFIG.fallbackFormUrl} target="_blank" rel="noopener noreferrer">open the Google Form</a>.
+                              </p>
+                            )}
                           </form>
                         </div>
                       )}
@@ -290,6 +280,9 @@ export default function Uninstall() {
                   )
                 })}
               </div>
+              <p className="uninstall-desc">
+                Only sent when you press Send: your chosen reason, any details you include, and browser name go to Google Forms. Please leave out personal information.
+              </p>
             </>
           ) : (
             /* Instant Thank-You State */
@@ -302,7 +295,7 @@ export default function Uninstall() {
               </div>
               <h2 className="uninstall-success-title">Thank you for your feedback</h2>
               <p className="uninstall-success-desc">
-                Your response has been noted. We truly appreciate the time you took trying Intentional YT.
+                Thanks for taking the time to help improve Intentional YT. You can close this page.
               </p>
             </div>
           )}
