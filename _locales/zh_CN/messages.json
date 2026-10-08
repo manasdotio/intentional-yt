@@ -1,1309 +1,1309 @@
 {
-    "extensionName":  {
-                          "message":  "Intentional YT - YouTube é˜²æ²‰è¿·ä¸Žæ¯æ—¥æ—¶é—´é™åˆ¶",
-                          "description":  "Official extension name in stores and browser management pages"
-                      },
-    "extensionShortName":  {
-                               "message":  "Intentional",
-                               "description":  "Short name of the extension"
-                           },
-    "extensionDescription":  {
-                                 "message":  "é€šè¿‡ç»†ç²’åº¦æŽ§åˆ¶åŠ¨æ€ã€Shorts çŸ­è§†é¢‘ã€è¯„è®ºå’Œè§‚çœ‹æ—¶é—´ä¸Šé™ï¼Œæ‰“é€ ä¸“æ³¨æ— å¹²æ‰°çš„ YouTube ä½“éªŒã€‚100% æœ¬åœ°éšç§å®‰å…¨ã€‚",
-                                 "description":  "Extension description in stores and browser management pages"
-                             },
-    "popup_window_title":  {
-                               "message":  "Intentional YT - YouTube é˜²æ²‰è¿·ä¸Žæ¯æ—¥æ—¶é—´é™åˆ¶",
-                               "description":  "Title tag of the popup document"
-                           },
-    "header_title":  {
-                         "message":  "Intentional YT",
-                         "description":  "Header brand name in the extension popup"
-                     },
-    "status_active":  {
-                          "message":  "è¿è¡Œä¸­",
-                          "description":  "Badge status when the extension is active"
-                      },
-    "status_paused":  {
-                          "message":  "å·²æš‚åœ",
-                          "description":  "Badge status when the extension is paused"
-                      },
-    "section_feed":  {
-                         "message":  "信息流与 Shorts",
-                         "description":  "Feed controls section header"
-                     },
-    "toggle_block_home_feed":  {
-                                   "message":  "éšè—é¦–é¡µæŽ¨è",
-                                   "description":  "Toggle label to hide YouTube home recommendations feed"
-                               },
-    "desc_block_home_feed":  {
-                                 "message":  "éšè— YouTube é¦–é¡µçš„ç®—æ³•æŽ¨èè§†é¢‘æµ",
-                                 "description":  "Helper description for Hide home feed toggle"
-                             },
-    "toggle_limit_home_feed":  {
-                                   "message":  "é™åˆ¶é¦–é¡µæŽ¨èï¼ˆé˜²æ— å°½åˆ·å±ï¼‰",
-                                   "description":  "Toggle label to limit videos on the home feed and stop doomscrolling"
-                               },
-    "desc_limit_home_feed":  {
-                                 "message":  "å°†é¦–é¡µæŽ¨èé™åˆ¶ä¸º 15 ä¸ªè§†é¢‘å¹¶ç¦ç”¨æ— å°½æ»šåŠ¨",
-                                 "description":  "Helper explanation for limiting home feed videos"
-                             },
-    "toggle_block_subscriptions":  {
-                                       "message":  "éšè—è®¢é˜…åŠ¨æ€",
-                                       "description":  "Toggle label to hide YouTube subscriptions feed"
-                                   },
-    "toggle_block_recommended":  {
-                                     "message":  "éšè—ä¾§è¾¹æ æŽ¨èè§†é¢‘",
-                                     "description":  "Toggle label to hide recommended video sidebar on watch page"
-                                 },
-    "toggle_block_shorts":  {
-                                "message":  "éšè— Shorts çŸ­è§†é¢‘",
-                                "description":  "Toggle label to hide Shorts carousels and tabs"
-                            },
-    "desc_block_shorts":  {
-                              "message":  "åœ¨ä¾§è¾¹æ ã€æŽ¨èæµã€æœç´¢ç»“æžœå’Œé¢‘é“ç­‰æ‰€æœ‰ä½ç½®éšè— Shorts çŸ­è§†é¢‘",
-                              "description":  "Helper explanation for hiding Shorts across YouTube"
-                          },
-    "toggle_block_explore_trending":  {
-                                          "message":  "éšè—æŽ¢ç´¢ä¸Žæ—¶ä¸‹æµè¡Œ",
-                                          "description":  "Toggle label to hide Explore and Trending navigation items"
-                                      },
-    "toggle_block_more_from_youtube":  {
-                                           "message":  "éšè—â€œYouTube æ›´å¤šåŠŸèƒ½â€",
-                                           "description":  "Toggle label to hide More from YouTube section in left sidebar"
-                                       },
-    "toggle_block_irrelevant_search":  {
-                                           "message":  "éšè—æœç´¢æ— å…³æŽ¨èæ ",
-                                           "description":  "Toggle label to hide People also watched, For you, and related search shelves"
-                                       },
-    "section_video":  {
-                          "message":  "播放",
-                          "description":  "Video controls section header"
-                      },
-    "toggle_block_endscreen_videowall":  {
-                                             "message":  "éšè—ç‰‡å°¾æŽ¨èè§†é¢‘ç½‘æ ¼",
-                                             "description":  "Toggle label to hide grid of recommended videos at video end"
-                                         },
-    "desc_block_endscreen_videowall":  {
-                                           "message":  "è§†é¢‘æ’­æ”¾ç»“æŸæ—¶ï¼Œéšè—æŽ¨èè§†é¢‘ç½‘æ ¼ä¸ŽåŽç»­è§†é¢‘å¢™",
-                                           "description":  "Description for end screen videowall toggle"
-                                       },
-    "toggle_block_endscreen_cards":  {
-                                         "message":  "éšè—ç‰‡å°¾å¡ç‰‡ä¸Žå…ƒç´ ",
-                                         "description":  "Toggle label to hide creator end screen cards and elements"
-                                     },
-    "desc_block_endscreen_cards":  {
-                                       "message":  "éšè—è§†é¢‘æœ€åŽ 20 ç§’åˆ›ä½œè€…æ”¾ç½®çš„æŽ¨èè§†é¢‘ã€æ’­æ”¾åˆ—è¡¨å’Œè®¢é˜…å¡ç‰‡",
-                                       "description":  "Description for creator end screen cards toggle"
-                                   },
-    "toggle_block_live_chat":  {
-                                   "message":  "éšè—ç›´æ’­èŠå¤©å®¤",
-                                   "description":  "Toggle label to hide live chat panel"
-                               },
-    "toggle_block_playlist":  {
-                                  "message":  "éšè—æ’­æ”¾åˆ—è¡¨ä¾§æ ",
-                                  "description":  "Toggle label to hide playlist side panel on watch page"
-                              },
-    "toggle_disable_autoplay":  {
-                                    "message":  "ç¦ç”¨è‡ªåŠ¨æ’­æ”¾ä¸‹ä¸€é›†",
-                                    "description":  "Toggle label to prevent YouTube from automatically playing next video"
-                                },
-    "toggle_disable_annotations":  {
-                                       "message":  "éšè—è§†é¢‘å†…æ³¨é‡Š",
-                                       "description":  "Toggle label to hide in-video popups and annotations"
-                                   },
-    "toggle_block_video_info":  {
-                                    "message":  "éšè—è§†é¢‘ä¿¡æ¯é¢æ¿",
-                                    "description":  "Toggle label to hide video metadata panel below player"
-                                },
-    "desc_block_video_info":  {
-                                  "message":  "éšè—è§†é¢‘æ’­æ”¾å™¨ä¸‹æ–¹çš„æ‰€æœ‰ä¿¡æ¯ä¸Žæ“ä½œæŒ‰é’®",
-                                  "description":  "Subheading description for Hide video info panel toggle"
-                              },
-    "toggle_block_video_buttons":  {
-                                       "message":  "æ“ä½œæŒ‰é’®",
-                                       "description":  "Nested toggle label to hide like, dislike, share, download buttons"
-                                   },
-    "desc_block_video_buttons":  {
-                                     "message":  "éšè—ç‚¹èµžã€ç‚¹è¸©ã€åˆ†äº«ã€ä¸‹è½½å’Œå‰ªè¾‘æŒ‰é’®",
-                                     "description":  "Subheading description for Action buttons sub-toggle"
-                                 },
-    "toggle_block_channel_info":  {
-                                      "message":  "é¢‘é“ä¿¡æ¯",
-                                      "description":  "Nested toggle label to hide channel subscriber count and avatar"
-                                  },
-    "desc_block_channel_info":  {
-                                    "message":  "éšè—é¢‘é“åç§°ã€å¤´åƒå’Œè®¢é˜…æŒ‰é’®",
-                                    "description":  "Subheading description for Channel info sub-toggle"
-                                },
-    "toggle_block_video_description":  {
-                                           "message":  "è§†é¢‘æè¿°",
-                                           "description":  "Nested toggle label to hide video description box"
-                                       },
-    "desc_block_video_description":  {
-                                         "message":  "éšè—å¯å±•å¼€çš„è§†é¢‘ç®€ä»‹æ–‡æœ¬ä¸Žè¯¦ç»†ä¿¡æ¯",
-                                         "description":  "Subheading description for Description sub-toggle"
-                                     },
-    "section_social":  {
-                           "message":  "评论与头像",
-                           "description":  "Social controls section header"
-                       },
-    "toggle_block_comments":  {
-                                  "message":  "éšè—è¯„è®ºåŒº",
-                                  "description":  "Toggle label to hide YouTube comments section"
-                              },
-    "toggle_block_profile_photos":  {
-                                        "message":  "éšè—è¯„è®ºè€…å¤´åƒ",
-                                        "description":  "Toggle label to hide profile avatars of commenters"
-                                    },
-    "section_interface":  {
-                              "message":  "导航与页面详情",
-                              "description":  "Interface controls section header"
-                          },
-    "toggle_block_sidebar":  {
-                                 "message":  "éšè—å·¦ä¾§å¯¼èˆªæ ",
-                                 "description":  "Toggle label to hide YouTube left drawer/guide navigation"
-                             },
-    "toggle_block_top_header":  {
-                                    "message":  "éšè—é¡¶éƒ¨æœç´¢å¯¼èˆªæ¡",
-                                    "description":  "Toggle label to hide YouTube top search and navigation header"
-                                },
-    "toggle_block_notification_bell":  {
-                                           "message":  "éšè—é€šçŸ¥é“ƒé“›",
-                                           "description":  "Toggle label to hide notification bell icon"
-                                       },
-    "toggle_block_merch":  {
-                               "message":  "éšè—å•†å“ä¸Žä¼˜æƒ æŽ¨å¹¿",
-                               "description":  "Toggle label to hide merchandise shelf and product offers"
-                           },
-    "toggle_block_mix_playlists":  {
-                                       "message":  "éšè—åˆè¾‘æ’­æ”¾åˆ—è¡¨",
-                                       "description":  "Toggle label to hide algorithmic YouTube mix playlists"
-                                   },
-    "section_appearance":  {
-                               "message":  "å¤–è§‚è°ƒèŠ‚",
-                               "description":  "Appearance controls section header"
-                           },
-    "toggle_hide_thumbnails":  {
-                                   "message":  "éšè—è§†é¢‘ç¼©ç•¥å›¾",
-                                   "description":  "Toggle label to neutralize/blur video thumbnail images"
-                               },
-    "toggle_grayscale_mode":  {
-                                  "message":  "é»‘ç™½ç°åº¦æ¨¡å¼",
-                                  "description":  "Toggle label for black and white desaturation mode"
-                              },
-    "section_time":  {
-                         "message":  "æ—¶é—´ç®¡ç†",
-                         "description":  "Time controls section header"
-                     },
-    "toggle_soft_reminder":  {
-                                 "message":  "æ¸©å’Œä¼‘æ¯æé†’",
-                                 "description":  "Toggle label for mindful interval toast notification"
-                             },
-    "time_hint_every":  {
-                            "message":  "æ¯éš”",
-                            "description":  "Prefix label before interval dropdown"
-                        },
-    "time_option_minutes":  {
-                                "message":  "$MINUTES$ åˆ†é’Ÿ",
-                                "description":  "Preset time in minutes",
-                                "placeholders":  {
-                                                     "minutes":  {
-                                                                     "content":  "$1",
-                                                                     "example":  "15"
-                                                                 }
-                                                 }
-                            },
-    "time_option_custom":  {
-                               "message":  "è‡ªå®šä¹‰...",
-                               "description":  "Option in dropdown to enter a custom duration"
-                           },
-    "time_placeholder_min":  {
-                                 "message":  "åˆ†é’Ÿ",
-                                 "description":  "Placeholder text inside custom minutes input field"
-                             },
-    "time_unit_min":  {
-                          "message":  "åˆ†é’Ÿ",
-                          "description":  "Unit label beside custom minutes input"
-                      },
-    "toggle_daily_limit":  {
-                               "message":  "æ¯æ—¥æ—¶é—´ä¸Šé™",
-                               "description":  "Toggle label for daily total playback time limit"
-                           },
-    "desc_daily_limit":  {
-                             "message":  "è¾¾åˆ°æ¯æ—¥è§‚çœ‹æ—¶é•¿ä¸Šé™æ—¶æš‚åœè§†é¢‘æ’­æ”¾",
-                             "description":  "Subheading description for Daily Limit toggle"
-                         },
-    "time_hint_stop_after":  {
-                                 "message":  "è¾¾ä¸Šé™åŽåœæ­¢",
-                                 "description":  "Prefix label before daily limit duration dropdown"
-                             },
-    "blocklist_stub_alert":  {
-                                 "message":  "é¢‘é“ä¸Žå…³é”®è¯è¿‡æ»¤åŠŸèƒ½å³å°†åœ¨ä¸‹ä¸ªç‰ˆæœ¬æŽ¨å‡ºã€‚æ ¸å¿ƒæŽ¨èæµå±è”½å·²ç”Ÿæ•ˆï¼",
-                                 "description":  "Alert displayed when clicking stub add buttons in Blocklists tab"
-                             },
-    "stats_watch_time_below":  {
-                                   "message":  "æ‚¨çš„æ¯æ—¥è§‚çœ‹æ—¶é—´å§‹ç»ˆæ˜¾ç¤ºåœ¨åº•éƒ¨çŠ¶æ€æ ã€‚",
-                                   "description":  "Hint text shown in the Stats tab when stats moved to persistent watch bar"
-                               },
-    "stats_title_today":  {
-                              "message":  "ä»Šæ—¥è§‚çœ‹",
-                              "description":  "Heading for daily watch stats card"
-                          },
-    "aria_about_daily_watchtime":  {
-                                       "message":  "å…³äºŽä»Šæ—¥è§‚çœ‹æ—¶é•¿",
-                                       "description":  "Accessibility label for daily watchtime info icon"
-                                   },
-    "stats_tooltip_info":  {
-                               "message":  "è®°å½•ä»Šæ—¥ YouTube è§‚çœ‹åˆ†é’Ÿæ•°ã€‚æ¯æ—¥åˆå¤œé›¶ç‚¹è‡ªåŠ¨é‡ç½®ã€‚å¯å¼€å¯ä¸Šæ–¹æ¯æ—¥é™åˆ¶æŽ§åˆ¶è§‚çœ‹æ—¶é—´ã€‚",
-                               "description":  "Tooltip text explaining watchtime tracking"
-                           },
-    "stats_no_limit":  {
-                           "message":  "æ— é™åˆ¶",
-                           "description":  "Stats subtitle when daily watch limit is disabled"
-                       },
-    "stats_limit_progress":  {
-                                 "message":  "$MINUTES$åˆ†é’Ÿçš„ $PERCENT$%",
-                                 "description":  "Stats progress indicator showing percentage of daily limit",
-                                 "placeholders":  {
-                                                      "percent":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "50"
-                                                                  },
-                                                      "minutes":  {
-                                                                      "content":  "$2",
-                                                                      "example":  "60"
-                                                                  }
-                                                  }
-                             },
-    "stats_button_reset":  {
-                               "message":  "é‡ç½®",
-                               "description":  "Button to reset today\u0027s accumulated watch time"
-                           },
-    "time_fmt_zero_min":  {
-                              "message":  "0 åˆ†é’Ÿ",
-                              "description":  "Formatted time for 0 minutes"
-                          },
-    "time_fmt_seconds":  {
-                             "message":  "$SECONDS$ç§’",
-                             "description":  "Formatted time in seconds",
-                             "placeholders":  {
-                                                  "seconds":  {
-                                                                  "content":  "$1",
-                                                                  "example":  "42"
-                                                              }
-                                              }
-                         },
-    "time_fmt_minutes":  {
-                             "message":  "$MINUTES$ åˆ†é’Ÿ",
-                             "description":  "Formatted time in minutes",
-                             "placeholders":  {
-                                                  "minutes":  {
-                                                                  "content":  "$1",
-                                                                  "example":  "25"
-                                                              }
-                                              }
-                         },
-    "time_fmt_hours_minutes":  {
-                                   "message":  "$HOURS$å°æ—¶ $MINUTES$åˆ†é’Ÿ",
-                                   "description":  "Formatted time in hours and minutes",
-                                   "placeholders":  {
-                                                        "hours":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "1"
-                                                                  },
-                                                        "minutes":  {
-                                                                        "content":  "$2",
-                                                                        "example":  "15"
-                                                                    }
-                                                    }
-                               },
-    "footer_local_privacy":  {
-                                 "message":  "100% æœ¬åœ°å®‰å…¨",
-                                 "description":  "Footer badge indicating offline-first local storage"
-                             },
-    "footer_feedback_link":  {
-                                 "message":  "åé¦ˆä¸Žå»ºè®® â†—",
-                                 "description":  "Footer link text to submit feedback form"
-                             },
-    "toast_reminder_message":  {
-                                   "message":  "æ‚¨å·²æŒç»­è§‚çœ‹ $MINUTES$ åˆ†é’Ÿã€‚",
-                                   "description":  "Toast notification message when mindful interval triggers (plural)",
-                                   "placeholders":  {
-                                                        "minutes":  {
-                                                                        "content":  "$1",
-                                                                        "example":  "30"
-                                                                    }
-                                                    }
-                               },
-    "toast_reminder_message_singular":  {
-                                            "message":  "æ‚¨å·²æŒç»­è§‚çœ‹ 1 åˆ†é’Ÿã€‚",
-                                            "description":  "Toast notification message when mindful interval triggers (singular)"
-                                        },
-    "toast_dismiss_aria":  {
-                               "message":  "å…³é—­",
-                               "description":  "Accessibility aria-label for closing toast notification"
-                           },
-    "toast_reminder_badge":  {
-                                 "message":  "æ¸©å’Œæé†’",
-                                 "description":  "Top badge in soft reminder notification card"
-                             },
-    "toast_button_pause":  {
-                               "message":  "æš‚åœè§†é¢‘",
-                               "description":  "Button to immediately pause playback from reminder toast"
-                           },
-    "toast_button_continue":  {
-                                  "message":  "ç»§ç»­è§‚çœ‹",
-                                  "description":  "Button to dismiss reminder toast and continue playback"
-                              },
-    "toast_status_paused":  {
-                                "message":  "å·²æš‚åœ âœ“",
-                                "description":  "Status text shown when video has been paused via toast"
-                            },
-    "desc_soft_reminder":  {
-                               "message":  "æŒ‰è®¾å®šé—´éš”åœ¨å±å¹•ä¸Šæ˜¾ç¤ºæ¸©å’Œæé†’ï¼Œåœ¨ä¸å¼ºåˆ¶ä¸­æ–­çš„æƒ…å†µä¸‹è®©æ‚¨ä¿æŒæ—¶é—´æ„è¯†ã€‚",
-                               "description":  "Description under Soft reminder toggle in Focus tab"
-                           },
-    "btn_preview_reminder":  {
-                                 "message":  "é¢„è§ˆ",
-                                 "description":  "Button to test and trigger soft reminder toast on active tab"
-                             },
-    "btn_preview_sent":  {
-                             "message":  "å·²å‘é€ï¼",
-                             "description":  "Button text confirmation after preview toast is sent"
-                         },
-    "toast_preview_need_yt":  {
-                                  "message":  "è¯·æ‰“å¼€ä¸€ä¸ª YouTube æ ‡ç­¾é¡µä»¥é¢„è§ˆæé†’é€šçŸ¥",
-                                  "description":  "Notice when attempting to preview toast without YouTube active"
-                              },
-    "overlay_limit_title":  {
-                                "message":  "å·²è¾¾ä»Šæ—¥è§‚çœ‹ä¸Šé™",
-                                "description":  "Title on full-player limit overlay modal"
-                            },
-    "overlay_limit_message":  {
-                                  "message":  "æ‚¨å·²è¾¾åˆ°ä»Šå¤©è®¾ç½®çš„ $LIMIT$ åˆ†é’Ÿ YouTube æ¯æ—¥è§‚çœ‹ä¸Šé™ã€‚",
-                                  "description":  "Explanation message on limit overlay modal",
-                                  "placeholders":  {
-                                                       "limit":  {
-                                                                     "content":  "$1",
-                                                                     "example":  "60"
-                                                                 }
-                                                   }
-                              },
-    "overlay_button_finish_video":  {
-                                        "message":  "æ’­å®Œå½“å‰è§†é¢‘",
-                                        "description":  "Button label to allow completing current video before blocking"
-                                    },
-    "overlay_button_finish_video_remaining":  {
-                                                  "message":  "æ’­å®Œå½“å‰è§†é¢‘ï¼ˆå‰©ä½™ $MINUTES$ åˆ†é’Ÿï¼‰",
-                                                  "description":  "Button label with remaining duration to allow completing current video",
-                                                  "placeholders":  {
-                                                                       "minutes":  {
-                                                                                       "content":  "$1",
-                                                                                       "example":  "4"
-                                                                                   }
-                                                                   }
-                                              },
-    "overlay_button_stop_watching":  {
-                                         "message":  "åœæ­¢è§‚çœ‹ï¼ˆè¿”å›žé¦–é¡µï¼‰",
-                                         "description":  "Primary action button to leave video and return to homepage"
-                                     },
-    "overlay_button_dismiss_today":  {
-                                         "message":  "ä»Šæ—¥ä¸å†é™åˆ¶",
-                                         "description":  "Secondary action button to override limit for remainder of today"
-                                     },
-    "tab_block":  {
-                      "message":  "å±è”½",
-                      "description":  "Label for the Block tab in popup navigation"
-                  },
-    "tab_blocklists":  {
-                           "message":  "è¿‡æ»¤",
-                           "description":  "Label for the Filters (blocklists) tab in popup navigation"
-                       },
-    "tab_focus":  {
-                      "message":  "ä¸“æ³¨",
-                      "description":  "Label for the Focus tab in popup navigation"
-                  },
-    "tab_stats":  {
-                      "message":  "ç»Ÿè®¡",
-                      "description":  "Label for the Stats tab in popup navigation"
-                  },
-    "tab_settings":  {
-                         "message":  "è®¾ç½®",
-                         "description":  "Label for the Settings tab in popup navigation"
-                     },
-    "action_collapse_all":  {
-                                "message":  "å…¨éƒ¨æŠ˜å ",
-                                "description":  "Button to collapse all detailed control accordion sections"
-                            },
-    "action_expand_all":  {
-                              "message":  "å…¨éƒ¨å±•å¼€",
-                              "description":  "Button to expand all detailed control accordion sections"
-                          },
-    "section_channel_blocklist":  {
-                                      "message":  "é¢‘é“é»‘åå•",
-                                      "description":  "Section header for Channel Blocklist"
-                                  },
-    "desc_channel_blocklist":  {
-                                   "message":  "å±è”½ç‰¹å®šé¢‘é“ï¼Œä½¿å…¶ä¸åœ¨æŽ¨èæµå’Œç›¸å…³æŽ¨èä¸­å‡ºçŽ°ã€‚",
-                                   "description":  "Description for Channel Blocklist feature"
-                               },
-    "blocklist_channels_empty":  {
-                                     "message":  "æš‚æ— å±è”½çš„é¢‘é“ã€‚",
-                                     "description":  "Empty state label for Channel Blocklist"
-                                 },
-    "section_keyword_blocklist":  {
-                                      "message":  "å…³é”®è¯é»‘åå•",
-                                      "description":  "Section header for Keyword Blocklist"
-                                  },
-    "desc_keyword_blocklist":  {
-                                   "message":  "éšè—æ ‡é¢˜åŒ…å«æŒ‡å®šå…³é”®è¯çš„è§†é¢‘ã€‚",
-                                   "description":  "Description for Keyword Blocklist feature"
-                               },
-    "blocklist_keywords_empty":  {
-                                     "message":  "æš‚æ— å±è”½çš„å…³é”®è¯ã€‚",
-                                     "description":  "Empty state label for Keyword Blocklist"
-                                 },
-    "btn_add_channel":  {
-                            "message":  "æ·»åŠ é¢‘é“",
-                            "description":  "Button to add a channel to blocklist"
-                        },
-    "btn_add_keyword":  {
-                            "message":  "æ·»åŠ å…³é”®è¯",
-                            "description":  "Button to add a keyword to blocklist"
-                        },
-    "section_focus_lock":  {
-                               "message":  "ä¸“æ³¨é”",
-                               "description":  "Section header for Focus Lock feature"
-                           },
-    "section_time_limits_title":  {
-                                      "message":  "æ­£å¿µæ—¶é—´ä¸Žé™é¢",
-                                      "description":  "Card header title for Time and Daily limits section"
-                                  },
-    "section_time_limits_sub":  {
-                                    "message":  "æ¸©å’Œä¼‘æ¯æé†’ä¸Žæ¯æ—¥å±å¹•æ—¶é—´è¾¹ç•Œ",
-                                    "description":  "Card header subtitle for Time and Daily limits section"
-                                },
-    "section_focus_lock_title":  {
-                                     "message":  "ä¸“æ³¨é”ä¿æŠ¤ç›¾",
-                                     "description":  "Card header title for Focus Lock section"
-                                 },
-    "section_focus_lock_sub":  {
-                                   "message":  "é€šè¿‡é¢„è®¾å»¶è¿Ÿé˜²æ­¢å†²åŠ¨ä¿®æ”¹ä¿æŠ¤è®¾ç½®",
-                                   "description":  "Card header subtitle for Focus Lock section"
-                               },
-    "section_scheduled_title":  {
-                                    "message":  "å®šæ—¶ä¸“æ³¨æ—¶æ®µ",
-                                    "description":  "Card header title for Scheduled Blocking section"
-                                },
-    "section_scheduled_sub":  {
-                                  "message":  "åœ¨å·¥ä½œã€å­¦ä¹ æˆ–ç¡çœ æ—¶æ®µè‡ªåŠ¨å±è”½ YouTube",
-                                  "description":  "Card header subtitle for Scheduled Blocking section"
-                              },
-    "desc_focus_lock":  {
-                            "message":  "å…³é—­ä¿æŠ¤å‰éœ€è¦ç»åŽ†ä¸€æ®µå†·å´å»¶è¿Ÿ",
-                            "description":  "Subheading description for Focus Lock toggle"
-                        },
-    "toggle_focus_lock":  {
-                              "message":  "ä¸“æ³¨é”",
-                              "description":  "Toggle label for Focus Lock"
-                          },
-    "focus_lock_cooldown_label":  {
-                                      "message":  "å†·å´å»¶è¿Ÿæ—¶é•¿",
-                                      "description":  "Label for Focus Lock cooldown duration selector"
-                                  },
-    "focus_lock_duration_5m":  {
-                                   "message":  "5 åˆ†é’Ÿ",
-                                   "description":  "5 minutes cooldown option"
-                               },
-    "focus_lock_duration_10m":  {
-                                    "message":  "10 åˆ†é’Ÿ",
-                                    "description":  "10 minutes cooldown option"
-                                },
-    "focus_lock_duration_30m":  {
-                                    "message":  "30 åˆ†é’Ÿ",
-                                    "description":  "30 minutes cooldown option"
-                                },
-    "focus_lock_duration_60m":  {
-                                    "message":  "60 åˆ†é’Ÿ",
-                                    "description":  "60 minutes cooldown option"
-                                },
-    "focus_lock_pin_modal_title":  {
-                                       "message":  "è®¾ç½® 4 ä½æ•°å­— PIN ç ",
-                                       "description":  "Title for Focus Lock PIN setup modal"
-                                   },
-    "focus_lock_enter_pin":  {
-                                 "message":  "è¾“å…¥ 4 ä½ PIN ç ",
-                                 "description":  "Placeholder for PIN input"
-                             },
-    "focus_lock_confirm_pin":  {
-                                   "message":  "ç¡®è®¤ 4 ä½ PIN ç ",
-                                   "description":  "Placeholder for PIN confirmation input"
-                               },
-    "focus_lock_pin_warning":  {
-                                   "message":  "å¦‚æžœå¿˜è®°æ­¤ PIN ç ï¼Œé‡ç½®çš„å”¯ä¸€æ–¹æ³•æ˜¯å¸è½½å¹¶é‡æ–°å®‰è£…æ‰©å±•ï¼Œè¿™å°†æ¸…é™¤æ‰€æœ‰é…ç½®ã€‚è¯·åŠ¡å¿…å¦¥å–„è®°å½•ã€‚",
-                                   "description":  "One-time setup warning for Focus Lock PIN recovery"
-                               },
-    "focus_lock_btn_save_pin":  {
-                                    "message":  "ä¿å­˜ PIN å¹¶å¯ç”¨",
-                                    "description":  "Button to save PIN and enable Focus Lock"
-                                },
-    "focus_lock_btn_cancel":  {
-                                  "message":  "å–æ¶ˆ",
-                                  "description":  "Cancel button for Focus Lock modal"
-                              },
-    "focus_lock_verify_title":  {
-                                    "message":  "å—ä¸“æ³¨é”ä¿æŠ¤",
-                                    "description":  "Title for Focus Lock verification modal"
-                                },
-    "focus_lock_verify_prompt":  {
-                                     "message":  "è¯·è¾“å…¥ 4 ä½ PIN ç ä»¥å¯åŠ¨å†·å´å€’è®¡æ—¶ï¼š",
-                                     "description":  "Prompt for Focus Lock PIN verification"
-                                 },
-    "focus_lock_btn_submit_pin":  {
-                                      "message":  "å¼€å§‹å†·å´",
-                                      "description":  "Button to submit PIN and start cooldown"
-                                  },
-    "focus_lock_error_mismatch":  {
-                                      "message":  "ä¸¤æ¬¡è¾“å…¥çš„ PIN ç ä¸ä¸€è‡´ï¼Œè¯·é‡è¯•ã€‚",
-                                      "description":  "Error when PIN confirmation does not match"
-                                  },
-    "focus_lock_error_invalid_pin":  {
-                                         "message":  "PIN ç å¿…é¡»ä¸º 4 ä½æ•°å­—ã€‚",
-                                         "description":  "Error when entered PIN is not 4 digits"
-                                     },
-    "focus_lock_error_incorrect_pin":  {
-                                           "message":  "PIN ç é”™è¯¯ï¼Œè¯·é‡è¯•ã€‚",
-                                           "description":  "Error when entered PIN does not match stored hash"
-                                       },
-    "focus_lock_banner_unlocking":  {
-                                        "message":  "æ­£åœ¨è§£é”ï¼š$SETTING$",
-                                        "description":  "Banner message showing setting being unlocked",
-                                        "placeholders":  {
-                                                             "setting":  {
-                                                                             "content":  "$1",
-                                                                             "example":  "Hide Shorts"
-                                                                         }
-                                                         }
-                                    },
-    "focus_lock_banner_cooldown":  {
-                                       "message":  "$TIME$ åŽè§£é”",
-                                       "description":  "Banner message showing remaining cooldown time",
-                                       "placeholders":  {
-                                                            "time":  {
-                                                                         "content":  "$1",
-                                                                         "example":  "09:45"
-                                                                     }
-                                                        }
-                                   },
-    "focus_lock_banner_cancel":  {
-                                     "message":  "å–æ¶ˆ",
-                                     "description":  "Cancel button on pending unlock banner"
-                                 },
-    "focus_lock_already_pending":  {
-                                       "message":  "å·²æœ‰æ­£åœ¨è¿›è¡Œçš„è§£é”å€’è®¡æ—¶ã€‚åœ¨è§£é”å…¶ä»–è®¾ç½®å‰è¯·å…ˆå–æ¶ˆå½“å‰å€’è®¡æ—¶ã€‚",
-                                       "description":  "Notice when user attempts to unlock another setting while cooldown is running"
-                                   },
-    "section_scheduled_blocking":  {
-                                       "message":  "å®šæ—¶å±è”½",
-                                       "description":  "Section header for Scheduled Blocking"
-                                   },
-    "desc_scheduled_blocking":  {
-                                    "message":  "åœ¨è®¾å®šæ—¶æ®µå†…è‡ªåŠ¨å±è”½ YouTube",
-                                    "description":  "Subheading description for Scheduled Blocking"
-                                },
-    "toggle_scheduled_blocking":  {
-                                      "message":  "å®šæ—¶å±è”½",
-                                      "description":  "Toggle label for Scheduled Blocking"
-                                  },
-    "scheduled_blocking_add_btn":  {
-                                       "message":  "+ æ·»åŠ å®šæ—¶è®¡åˆ’",
-                                       "description":  "Button to open schedule creation form"
-                                   },
-    "scheduled_blocking_no_schedules":  {
-                                            "message":  "æš‚æ— å®šæ—¶è®¡åˆ’ã€‚ç‚¹å‡»â€œæ·»åŠ å®šæ—¶è®¡åˆ’â€å³å¯åˆ›å»ºã€‚",
-                                            "description":  "Empty state when no schedules exist"
-                                        },
-    "schedule_form_title_add":  {
-                                    "message":  "æ–°å¢žå®šæ—¶è®¡åˆ’",
-                                    "description":  "Title when adding a new schedule"
-                                },
-    "schedule_form_title_edit":  {
-                                     "message":  "ç¼–è¾‘å®šæ—¶è®¡åˆ’",
-                                     "description":  "Title when editing an existing schedule"
-                                 },
-    "schedule_form_label":  {
-                                "message":  "æ ‡ç­¾åç§°",
-                                "description":  "Label for schedule name input"
-                            },
-    "schedule_form_label_placeholder":  {
-                                            "message":  "ä¾‹å¦‚ï¼šå·¥ä½œæ—¶é—´ã€è‡ªä¹ æ—¶æ®µ",
-                                            "description":  "Placeholder for schedule name"
-                                        },
-    "schedule_form_days":  {
-                               "message":  "é€‚ç”¨æ˜ŸæœŸ",
-                               "description":  "Label for day chips in schedule form"
-                           },
-    "schedule_form_start_time":  {
-                                     "message":  "å¼€å§‹æ—¶é—´",
-                                     "description":  "Label for start time input"
-                                 },
-    "schedule_form_end_time":  {
-                                   "message":  "ç»“æŸæ—¶é—´",
-                                   "description":  "Label for end time input"
-                               },
-    "schedule_form_mode":  {
-                               "message":  "å±è”½æ¨¡å¼",
-                               "description":  "Label for mode selector"
-                           },
-    "schedule_mode_full":  {
-                               "message":  "å®Œå…¨å±è”½ YouTube",
-                               "description":  "Option to block YouTube entirely during schedule"
-                           },
-    "schedule_mode_full_desc":  {
-                                    "message":  "å°† YouTube æ›¿æ¢ä¸ºé”å®šçš„ä¸“æ³¨æ‰¿è¯ºç•Œé¢ï¼Œå®Œå…¨é˜»æ–­è®¿é—®",
-                                    "description":  "Description for full block mode"
-                                },
-    "schedule_mode_strict":  {
-                                 "message":  "å¼ºåˆ¶å¼€å¯æ‰€æœ‰ä¿æŠ¤é¡¹",
-                                 "description":  "Option to force all distraction blockers on during schedule"
-                             },
-    "schedule_mode_strict_desc":  {
-                                      "message":  "åœ¨ä¸å®Œå…¨é”æ­»ç½‘ç«™çš„å‰æä¸‹æ‰§è¡Œæœ€é«˜å¼ºåº¦çš„åˆ†å¿ƒé˜»æ–­",
-                                      "description":  "Description for strict protections mode"
-                                  },
-    "schedule_btn_save":  {
-                              "message":  "ä¿å­˜è®¡åˆ’",
-                              "description":  "Button to save schedule"
-                          },
-    "schedule_btn_cancel":  {
-                                "message":  "å–æ¶ˆ",
-                                "description":  "Button to cancel schedule editing"
-                            },
-    "schedule_card_edit":  {
-                               "message":  "ç¼–è¾‘",
-                               "description":  "Edit button on schedule card"
-                           },
-    "schedule_card_delete":  {
-                                 "message":  "åˆ é™¤",
-                                 "description":  "Delete button on schedule card"
-                             },
-    "schedule_days_all":  {
-                              "message":  "æ¯å¤©",
-                              "description":  "Summary for schedule active all 7 days"
-                          },
-    "schedule_days_weekdays":  {
-                                   "message":  "å‘¨ä¸€è‡³å‘¨äº”",
-                                   "description":  "Summary for schedule active on weekdays"
-                               },
-    "schedule_days_weekends":  {
-                                   "message":  "å‘¨æœ« (å‘¨å…­ã€å‘¨æ—¥)",
-                                   "description":  "Summary for schedule active on weekends"
-                               },
-    "day_sun":  {
-                    "message":  "æ—¥",
-                    "description":  "Sunday abbreviation"
-                },
-    "day_mon":  {
-                    "message":  "ä¸€",
-                    "description":  "Monday abbreviation"
-                },
-    "day_tue":  {
-                    "message":  "äºŒ",
-                    "description":  "Tuesday abbreviation"
-                },
-    "day_wed":  {
-                    "message":  "ä¸‰",
-                    "description":  "Wednesday abbreviation"
-                },
-    "day_thu":  {
-                    "message":  "å››",
-                    "description":  "Thursday abbreviation"
-                },
-    "day_fri":  {
-                    "message":  "äº”",
-                    "description":  "Friday abbreviation"
-                },
-    "day_sat":  {
-                    "message":  "å…­",
-                    "description":  "Saturday abbreviation"
-                },
-    "schedule_validation_days":  {
-                                     "message":  "è¯·è‡³å°‘é€‰æ‹©ä¸€å¤©ã€‚",
-                                     "description":  "Validation message when no days are selected"
-                                 },
-    "schedule_validation_label":  {
-                                      "message":  "è¯·è¾“å…¥è®¡åˆ’æ ‡ç­¾åç§°ã€‚",
-                                      "description":  "Validation message when label is empty"
-                                  },
-    "schedule_validation_times":  {
-                                      "message":  "è¯·åŒæ—¶æŒ‡å®šå¼€å§‹ä¸Žç»“æŸæ—¶é—´ã€‚",
-                                      "description":  "Validation message when times are missing"
-                                  },
-    "scheduled_block_title":  {
-                                  "message":  "YouTube å½“å‰å¤„äºŽé”å®šçŠ¶æ€",
-                                  "description":  "Heading on full scheduled blocking commitment screen"
-                              },
-    "scheduled_block_reopens":  {
-                                    "message":  "å°†äºŽ $TIME$ é‡æ–°å¼€æ”¾",
-                                    "description":  "Reopen time on full scheduled blocking commitment screen",
-                                    "placeholders":  {
-                                                         "time":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "17:00"
-                                                                  }
-                                                     }
-                                },
-    "scheduled_block_commitment":  {
-                                       "message":  "æ­¤å®šæ—¶è®¡åˆ’ç”± Intentional YT å¼ºåˆ¶æ‰§è¡Œï¼Œä»¥å®ˆæŠ¤æ‚¨çš„ä¸“æ³¨åŠ›ã€‚",
-                                       "description":  "Commitment message on full scheduled blocking screen"
-                                   },
-    "section_settings":  {
-                             "message":  "è®¾ç½®",
-                             "description":  "Section header for Settings tab"
-                         },
-    "setting_language":  {
-                             "message":  "è¯­è¨€",
-                             "description":  "Language selector label in Settings tab"
-                         },
-    "setting_reset_title":  {
-                                "message":  "é‡ç½®è®¾ç½®",
-                                "description":  "Header for reset settings action"
-                            },
-    "setting_reset_desc":  {
-                               "message":  "æ¢å¤æ‰€æœ‰é»˜è®¤é…ç½®å¹¶æ¸…é™¤è‡ªå®šä¹‰å®šæ—¶è®¡åˆ’ã€‚",
-                               "description":  "Description explaining reset button"
-                           },
-    "btn_reset_defaults":  {
-                               "message":  "æ¢å¤æ‰€æœ‰è®¾ç½®ä¸ºé»˜è®¤å€¼",
-                               "description":  "Button to restore default extension settings"
-                           },
-    "confirm_reset_all_settings":  {
-                                       "message":  "ç¡®å®šè¦å°†æ‰€æœ‰è®¾ç½®æ¢å¤ä¸ºé»˜è®¤å€¼å—ï¼Ÿè¿™å°†æ¸…é™¤æ‚¨æ‰€æœ‰çš„è‡ªå®šä¹‰åå¥½ä¸Žå®šæ—¶è®¡åˆ’ã€‚",
-                                       "description":  "Confirmation prompt before resetting all settings"
-                                   },
-    "section_stats":  {
-                          "message":  "æ´»åŠ¨æ¦‚è§ˆ",
-                          "description":  "Section header for Activity \u0026 Stats tab"
-                      },
-    "stats_dashboard_title":  {
-                                  "message":  "ä»Šæ—¥ YouTube æ’­æ”¾æ¦‚å†µ",
-                                  "description":  "Header title in stats hero card"
-                              },
-    "stats_unit_watchtime":  {
-                                 "message":  "ç´¯è®¡è§‚çœ‹æ—¶é•¿",
-                                 "description":  "Unit label beside watch time number"
-                             },
-    "stats_callout_info":  {
-                               "message":  "è§‚çœ‹æ—¶é•¿ä»…åœ¨ YouTube è§†é¢‘å®žé™…æ’­æ”¾æ—¶ç´¯è®¡ï¼Œæ¯å¤©åˆå¤œè‡ªåŠ¨é‡ç½®ã€‚å¸¸é©»çŠ¶æ€æ å§‹ç»ˆä½äºŽæ¯ä¸ªæ ‡ç­¾é¡µçš„åº•éƒ¨ã€‚",
-                               "description":  "Explanation text in stats callout note"
-                           },
-    "stats_btn_set_limit":  {
-                                "message":  "é…ç½®é™é¢",
-                                "description":  "Button to navigate to daily limit settings"
-                            },
-    "stats_btn_reset_panel":  {
-                                  "message":  "é‡ç½®ä»Šæ—¥",
-                                  "description":  "Button in stats panel to reset today\u0027s watch time"
-                              },
-    "scheduled_blocking_empty_sub":  {
-                                         "message":  "è‡ªåŠ¨åŒ–å®‰æŽ’å…æ‰“æ‰°å­¦ä¹ æ—¶æ®µæˆ–å¤œé—´ä¼‘æ¯æ—¶é—´ã€‚",
-                                         "description":  "Subtitle on schedule list empty state"
-                                     },
-    "setting_theme":  {
-                          "message":  "å¤–è§‚ä¸»é¢˜",
-                          "description":  "Appearance / Theme selector label in Settings tab"
-                      },
-    "theme_auto":  {
-                       "message":  "è‡ªåŠ¨ï¼ˆè·Ÿéšç³»ç»Ÿï¼‰",
-                       "description":  "Automatic system theme option"
-                   },
-    "theme_dark":  {
-                       "message":  "æ·±è‰²æ¨¡å¼",
-                       "description":  "Dark theme option"
-                   },
-    "theme_light":  {
-                        "message":  "æµ…è‰²æ¨¡å¼",
-                        "description":  "Light theme option"
-                    },
-    "setting_backup_title":  {
-                                 "message":  "å¤‡ä»½ä¸Žæ¢å¤",
-                                 "description":  "Title for import and export section in Settings"
-                             },
-    "setting_backup_desc":  {
-                                "message":  "å°†æ‚¨çš„è®¾ç½®å¯¼å‡ºä¸º JSON æ–‡ä»¶ï¼Œæˆ–å¯¼å…¥ä»¥å‰çš„å¤‡ä»½ã€‚",
-                                "description":  "Description for import and export section in Settings"
-                            },
-    "setting_rate_store":  {
-                               "message":  "åœ¨ Web Store è¯„åˆ†",
-                               "description":  "Button linking to Chrome Web Store review page"
-                           },
-    "setting_rate_firefox":  {
-                                 "message":  "åœ¨ Firefox AMO è¯„åˆ†",
-                                 "description":  "Button linking to Firefox Add-ons review page"
-                             },
-    "btn_export_settings":  {
-                                "message":  "å¯¼å‡º",
-                                "description":  "Button label to export settings JSON"
-                            },
-    "btn_import_settings":  {
-                                "message":  "å¯¼å…¥",
-                                "description":  "Button label to import settings JSON"
-                            },
-    "settings_exported":  {
-                              "message":  "è®¾ç½®å¯¼å‡ºæˆåŠŸ",
-                              "description":  "Toast message after exporting settings"
-                          },
-    "settings_imported":  {
-                              "message":  "è®¾ç½®å¯¼å…¥æˆåŠŸ",
-                              "description":  "Toast message after importing settings"
-                          },
-    "settings_import_failed":  {
-                                   "message":  "å¯¼å…¥è®¾ç½®å¤±è´¥ï¼šæ— æ•ˆçš„ JSON æ–‡ä»¶",
-                                   "description":  "Toast error message when import fails"
-                               },
-    "section_active_count":  {
-                                 "message":  "$COUNT$ é¡¹å·²å¯ç”¨",
-                                 "description":  "Number of active toggles in a collapsible section",
-                                 "placeholders":  {
-                                                      "count":  {
-                                                                    "content":  "$1",
-                                                                    "example":  "3"
-                                                                }
-                                                  }
-                             },
-    "presets_title":  {
-                          "message":  "é¢„è®¾æ¨¡å¼",
-                          "description":  "Header for distraction preset modes"
-                      },
-    "preset_balanced":  {
-                            "message":  "å‡è¡¡æ¨¡å¼",
-                            "description":  "Preset mode label for balanced focus"
-                        },
-    "preset_zen":  {
-                       "message":  "æžç®€ç¦…å®š (Zen)",
-                       "description":  "Preset mode label for zen search-only focus"
-                   },
-    "preset_player":  {
-                          "message":  "çº¯æ’­æ”¾å™¨",
-                          "description":  "Preset mode label for clean video playback focus"
-                      },
-    "preset_custom":  {
-                          "message":  "è‡ªå®šä¹‰",
-                          "description":  "Preset mode label when customized"
-                      },
-    "preset_desc_balanced":  {
-                                 "message":  "å‡è¡¡ Â· éšè—æŽ¨èæµä¸ŽæŽ¨èæ ",
-                                 "description":  "Description of balanced preset"
-                             },
-    "preset_desc_zen":  {
-                            "message":  "æžç®€ Â· ä»…ä¿ç•™æœç´¢ï¼Œéšè—æ‰€æœ‰æŽ¨èæµ",
-                            "description":  "Description of zen preset"
-                        },
-    "preset_desc_player":  {
-                               "message":  "çº¯æ’­æ”¾ Â· çº¯å‡€æ’­æ”¾å™¨ï¼Œéšè—å››å‘¨å¹²æ‰°",
-                               "description":  "Description of video only preset"
-                           },
-    "preset_desc_custom":  {
-                               "message":  "è‡ªå®šä¹‰ä¸ªæ€§åŒ–é…ç½®",
-                               "description":  "Description of custom mode"
-                           },
-    "detailed_controls_title":  {
-                                    "message":  "è¯¦ç»†æŽ§åˆ¶",
-                                    "description":  "Section header above the accordion list"
-                                },
-    "preset_tooltip_balanced":  {
-                                    "message":  "å±è”½é¦–é¡µæŽ¨èã€Shorts çŸ­è§†é¢‘å’Œä¾§è¾¹æ æŽ¨èã€‚ä¿ç•™æœç´¢ã€è®¢é˜…å’Œè¯„è®ºå¯ç”¨ã€‚",
-                                    "description":  "Tooltip description for Balanced preset"
-                                },
-    "preset_tooltip_zen":  {
-                               "message":  "æžè‡´ä¸“æ³¨ã€‚çº¯ç²¹æœç´¢ã€‚æ‰€æœ‰æŽ¨èæµã€è¯„è®ºåŒºã€è§†é¢‘ç¼©ç•¥å›¾å’Œé¢‘é“å¤´åƒå…¨éƒ¨éšè—ã€‚",
-                               "description":  "Tooltip description for Zen preset"
-                           },
-    "preset_tooltip_player":  {
-                                  "message":  "çº¯å‡€æ’­æ”¾å™¨ä½“éªŒã€‚éšè—è§†é¢‘å››å‘¨çš„ç›¸å…³æŽ¨èã€è¯„è®ºåŒºåŠä¾§è¾¹æ æ‚ä¹±å…ƒç´ ã€‚",
-                                  "description":  "Tooltip description for Video Only preset"
-                              },
-    "preset_tooltip_custom":  {
-                                  "message":  "è‡ªç”±é…ç½®å„é¡¹å¼€å…³ã€‚",
-                                  "description":  "Tooltip description for Custom mode"
-                              },
-    "preset_applied":  {
-                           "message":  "å·²åˆ‡æ¢è‡³ $PRESET$ æ¨¡å¼",
-                           "description":  "Toast notification when switching preset mode",
-                           "placeholders":  {
-                                                "preset":  {
-                                                               "content":  "$1",
-                                                               "example":  "Balanced"
-                                                           }
-                                            }
-                       },
-    "welcome_title":  {
-                          "message":  "æ¬¢è¿Žä½¿ç”¨ Intentional YT",
-                          "description":  "Title on first-run welcome card"
-                      },
-    "welcome_desc":  {
-                         "message":  "选择初始设置。你可以随时在下方修改。",
-                         "description":  "Description on first-run welcome card"
-                     },
-    "welcome_dismiss_aria":  {
-                                 "message":  "å…³é—­æ¬¢è¿Žæ¨ªå¹…",
-                                 "description":  "Aria label for welcome banner dismiss button"
-                             },
-    "search_toggles_placeholder":  {
-                                       "message":  "æœç´¢å¼€å…³é€‰é¡¹...",
-                                       "description":  "Placeholder for toggle search input in Distractions tab"
-                                   },
-    "search_no_results":  {
-                              "message":  "æœªæ‰¾åˆ°åŒ¹é…çš„å¼€å…³",
-                              "description":  "Empty state title when search matches no toggles"
-                          },
-    "search_no_results_sub":  {
-                                  "message":  "å°è¯•æœç´¢ shortsã€è¯„è®º æˆ– ä¾§è¾¹æ ",
-                                  "description":  "Empty state subtitle when search matches no toggles"
-                              },
-    "panel_filters_title":  {
-                                "message":  "é¢‘é“ä¸Žå…³é”®è¯è¿‡æ»¤",
-                                "description":  "Panel header title for Filters tab"
-                            },
-    "panel_filters_subtitle":  {
-                                   "message":  "å±è”½æŒ‡å®šé¢‘é“ï¼Œå¹¶æŒ‰å…³é”®è¯è¿‡æ»¤è§†é¢‘ã€‚",
-                                   "description":  "Panel header subtitle for Filters tab"
-                               },
-    "panel_focus_title":  {
-                              "message":  "ä¸“æ³¨ä¸Žé™é¢",
-                              "description":  "Panel header title for Focus tab"
-                          },
-    "panel_focus_subtitle":  {
-                                 "message":  "å®šæ—¶æé†’ã€æ¯æ—¥é™é¢ä¸Žè®¡åˆ’å±è”½ã€‚",
-                                 "description":  "Panel header subtitle for Focus tab"
-                             },
-    "panel_stats_title":  {
-                              "message":  "æ’­æ”¾ç»Ÿè®¡",
-                              "description":  "Panel header title for Stats tab"
-                          },
-    "panel_stats_subtitle":  {
-                                 "message":  "è¿½è¸ªæ‚¨çš„æ¯æ—¥è§‚çœ‹æ—¶é•¿ä¸Žä½¿ç”¨ä¹ æƒ¯ã€‚",
-                                 "description":  "Panel header subtitle for Stats tab"
-                             },
-    "panel_settings_title":  {
-                                 "message":  "åå¥½è®¾ç½®",
-                                 "description":  "Panel header title for Settings tab"
-                             },
-    "panel_settings_subtitle":  {
-                                    "message":  "ä¸»é¢˜ã€è¯­è¨€ä¸Žé…ç½®å¤‡ä»½ã€‚",
-                                    "description":  "Panel header subtitle for Settings tab"
-                                },
-    "toggle_redirect_shorts":  {
-                                   "message":  "å°† Shorts é‡å®šå‘è‡³å¸¸è§„æ’­æ”¾å™¨",
-                                   "description":  "Label for toggle to play Shorts in standard watch player"
-                               },
-    "desc_redirect_shorts":  {
-                                 "message":  "åœ¨å…·å¤‡å®Œæ•´è¿›åº¦æ¡å’ŒæŽ§åˆ¶æŒ‰é’®çš„æ ‡å‡†é¡µé¢æ’­æ”¾ Shorts",
-                                 "description":  "Description for redirect shorts toggle"
-                             },
-    "action_snooze":  {
-                          "message":  "å°æ†©",
-                          "description":  "Button to temporarily pause protections"
-                      },
-    "status_snoozed":  {
-                           "message":  "å°æ†©ä¸­",
-                           "description":  "Status badge label when protections are temporarily paused"
-                       },
-    "snooze_modal_title":  {
-                               "message":  "æš‚åœä¿æŠ¤",
-                               "description":  "Title for snooze modal"
-                           },
-    "snooze_modal_desc":  {
-                              "message":  "å€’è®¡æ—¶ç»“æŸåŽï¼Œæ‰€æœ‰ä¿æŠ¤å°†è‡ªåŠ¨æ¢å¤ã€‚",
-                              "description":  "Subtitle description for snooze modal"
-                          },
-    "snooze_duration_15":  {
-                               "message":  "15 åˆ†é’Ÿ",
-                               "description":  "15 minute snooze option"
-                           },
-    "snooze_duration_15_desc":  {
-                                    "message":  "å¿«é€Ÿä¼‘æ¯",
-                                    "description":  "Description for 15 minute snooze"
-                                },
-    "snooze_duration_30":  {
-                               "message":  "30 åˆ†é’Ÿ",
-                               "description":  "30 minute snooze option"
-                           },
-    "snooze_duration_30_desc":  {
-                                    "message":  "ä¸“æ³¨å·¥ä½œæ—¶æ®µ",
-                                    "description":  "Description for 30 minute snooze"
-                                },
-    "snooze_duration_60":  {
-                               "message":  "1 å°æ—¶",
-                               "description":  "60 minute snooze option"
-                           },
-    "snooze_duration_60_desc":  {
-                                    "message":  "å»¶é•¿ä¼‘æ¯",
-                                    "description":  "Description for 60 minute snooze"
-                                },
-    "action_resume_now":  {
-                              "message":  "ç«‹å³æ¢å¤",
-                              "description":  "Button to immediately restore protections from snooze"
-                          },
-    "snooze_banner_title":  {
-                                "message":  "ä¿æŠ¤å·²æš‚åœ",
-                                "description":  "Title on snooze countdown banner"
-                            },
-    "snooze_banner_remaining":  {
-                                    "message":  "å‰©ä½™ $TIME$",
-                                    "description":  "Countdown remaining on snooze banner",
-                                    "placeholders":  {
-                                                         "time":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "14:59"
-                                                                  }
-                                                     }
-                                },
-    "snooze_activated":  {
-                             "message":  "ä¿æŠ¤å·²æš‚åœ $MINUTES$ åˆ†é’Ÿ",
-                             "description":  "Toast notification when snooze is turned on",
-                             "placeholders":  {
-                                                  "minutes":  {
-                                                                  "content":  "$1",
-                                                                  "example":  "15"
-                                                              }
-                                              }
-                         },
-    "snooze_resumed":  {
-                           "message":  "ä¿æŠ¤å·²æ¢å¤",
-                           "description":  "Toast notification when snooze ends or is canceled"
-                       },
-    "status_off":  {
-                       "message":  "å…³é—­",
-                       "description":  "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
-                   },
-    "toggle_extension_enabled":  {
-                                     "message":  "æ‰©å±•ä¸»å¼€å…³",
-                                     "description":  "Label for the master extension toggle in the header"
-                                 },
-    "stats_reset_toast":  {
-                              "message":  "ä»Šæ—¥è§‚çœ‹æ—¶é•¿å·²é‡ç½®",
-                              "description":  "Toast message when user resets today\u0027s watch time"
-                          },
-    "filters_status_in_development":  {
-                                          "message":  "å¼€å‘ä¸­",
-                                          "description":  "Status pill label on the content filters roadmap preview card"
-                                      },
-    "action_block":  {
-                         "message":  "å±è”½",
-                         "description":  "Button text for 1-click in-feed channel block button"
-                     },
-    "filters_quick_block_title":  {
-                                      "message":  "ä¸€é”®å¿«é€Ÿå±è”½æŒ‰é’®",
-                                      "description":  "Label for toggle allowing 1-click channel block buttons on video cards"
-                                  },
-    "filters_quick_block_desc":  {
-                                     "message":  "é¼ æ ‡æ‚¬åœåœ¨è§†é¢‘å¡ç‰‡ä¸Šæ—¶åœ¨é¢‘é“åç§°æ—æ˜¾ç¤ºå±è”½æŒ‰é’®",
-                                     "description":  "Description for 1-click quick block button toggle"
-                                 },
-    "filters_tip_text":  {
-                             "message":  "åœ¨YouTubeä¸Šæ‚¬åœä»»æ„è§†é¢‘ï¼Œå³å¯ä½¿ç”¨æ–°å±è”½æŒ‰é’®ä¸€é”®å±è”½é¢‘é“ï¼",
-                             "description":  "Quick tip text at the top of the Filters tab"
-                         },
-    "btn_clear_all":  {
-                          "message":  "æ¸…ç©ºå…¨éƒ¨",
-                          "description":  "Button to clear all items in a blocklist"
-                      },
-    "toast_channel_cleared":  {
-                                  "message":  "å·²æ¸…ç©ºæ‰€æœ‰å·²å±è”½çš„é¢‘é“",
-                                  "description":  "Toast notification when all channels are cleared"
-                              },
-    "toast_keyword_cleared":  {
-                                  "message":  "å·²æ¸…ç©ºæ‰€æœ‰å·²å±è”½çš„å…³é”®è¯",
-                                  "description":  "Toast notification when all keywords are cleared"
-                              },
-    "placeholder_channel_input":  {
-                                      "message":  "é¢‘é“åç§°æˆ– @handle...",
-                                      "description":  "Placeholder for channel blocklist text input"
-                                  },
-    "blocklist_channels_empty_desc":  {
-                                          "message":  "æ·»åŠ é¢‘é“åç§°æˆ– @handle å³å¯éšè—è¯¥é¢‘é“çš„è§†é¢‘ã€‚",
-                                          "description":  "Empty state description for Channel Blocklist"
-                                      },
-    "placeholder_keyword_input":  {
-                                      "message":  "ä¾‹å¦‚ï¼šæ’­å®¢ã€å‰§é€ã€reaction...",
-                                      "description":  "Placeholder for keyword blocklist text input"
-                                  },
-    "blocklist_keywords_empty_desc":  {
-                                          "message":  "æ·»åŠ å…³é”®è¯ä»¥è‡ªåŠ¨éšè—åŒ…å«åŒ¹é…æ ‡é¢˜çš„è§†é¢‘ã€‚",
-                                          "description":  "Empty state description for Keyword Blocklist"
-                                      },
-    "blocklist_privacy_note":  {
-                                   "message":  "100% æœ¬åœ°è¿‡æ»¤ Â· æ ‡é¢˜å’Œé¢‘é“ä»…åœ¨å®¢æˆ·ç«¯åŒ¹é…ï¼Œç»æ— ä»»ä½•æ•°æ®é¥æµ‹ã€‚",
-                                   "description":  "Privacy note at the bottom of the filters panel"
-                               },
-    "toast_channel_added":  {
-                                "message":  "å·²å°† \"$NAME$\" åŠ å…¥å±è”½é¢‘é“",
-                                "description":  "Toast confirmation when channel is added to blocklist",
-                                "placeholders":  {
-                                                     "name":  {
-                                                                  "content":  "$1",
-                                                                  "example":  "TechLead"
-                                                              }
-                                                 }
-                            },
-    "toast_channel_removed":  {
-                                  "message":  "å·²å°† \"$NAME$\" ä»Žå±è”½é¢‘é“ç§»é™¤",
-                                  "description":  "Toast confirmation when channel is removed from blocklist",
-                                  "placeholders":  {
-                                                       "name":  {
-                                                                    "content":  "$1",
-                                                                    "example":  "TechLead"
-                                                                }
-                                                   }
-                              },
-    "toast_channel_exists":  {
-                                 "message":  "\"$NAME$\" å·²åœ¨å±è”½åˆ—è¡¨ä¸­",
-                                 "description":  "Toast warning when adding duplicate channel",
-                                 "placeholders":  {
-                                                      "name":  {
-                                                                   "content":  "$1",
-                                                                   "example":  "TechLead"
-                                                               }
-                                                  }
-                             },
-    "toast_keyword_added":  {
-                                "message":  "å·²å°†å…³é”®è¯ \"$KEYWORD$\" åŠ å…¥å±è”½åˆ—è¡¨",
-                                "description":  "Toast confirmation when keyword is added to blocklist",
-                                "placeholders":  {
-                                                     "keyword":  {
-                                                                     "content":  "$1",
-                                                                     "example":  "spoiler"
-                                                                 }
-                                                 }
-                            },
-    "toast_keyword_removed":  {
-                                  "message":  "å·²å°†å…³é”®è¯ \"$KEYWORD$\" ä»Žå±è”½åˆ—è¡¨ç§»é™¤",
-                                  "description":  "Toast confirmation when keyword is removed from blocklist",
-                                  "placeholders":  {
-                                                       "keyword":  {
-                                                                       "content":  "$1",
-                                                                       "example":  "spoiler"
-                                                                   }
-                                                   }
-                              },
-    "toast_keyword_exists":  {
-                                 "message":  "å…³é”®è¯ \"$KEYWORD$\" å·²åœ¨å±è”½åˆ—è¡¨ä¸­",
-                                 "description":  "Toast warning when adding duplicate keyword",
-                                 "placeholders":  {
-                                                      "keyword":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "spoiler"
-                                                                  }
-                                                  }
-                             },
-    "setting_rate_edge":  {
-                              "message":  "åœ¨ Edge Add-ons è¯„ä»·",
-                              "description":  "Button linking to Microsoft Edge Add-ons review page"
-                          },
-    "scheduled_close_tab":  {
-                                "message":  "å…³é—­æ ‡ç­¾é¡µ"
-                            },
-    "scheduled_blank_screen":  {
-                                   "message":  "ç©ºç™½å±å¹•"
-                               },
-    "action_undo":  {
-                        "message":  "æ’¤é”€"
-                    },
-    "channel_blocked":  {
-                            "message":  "å·²å±è”½ $1"
-                        },
-    "focus_session_title":  {
-                                "message":  "焦点会话"
-                            },
-    "focus_session_description":  {
-                                      "message":  "打开“严格焦点”进行短暂会话。结束后您的常用设置将恢复。时间表和每日限制仍然适用。"
-                                  },
-    "focus_session_end":  {
-                              "message":  "结束会话"
-                          },
-    "limit_warning_option":  {
-                                 "message":  "还剩 5 分钟时警告我（短期限制为 1 分钟）。"
-                             },
-    "limit_warning_title":  {
-                                "message":  "几乎达到每日限制"
-                            },
-    "limit_warning_message":  {
-                                  "message":  "今天剩余时间：$value$ 分钟。在每日区块开始之前总结一下。",
-                                  "placeholders":  {
-                                                       "value":  {
-                                                                     "content":  "$1"
-                                                                 }
-                                                   }
-                              },
-    "clear_status_active":  {
-                                "message":  "您的阻止设置已激活。"
-                            },
-    "clear_status_off":  {
-                             "message":  "保护已关闭。"
-                         },
-    "clear_status_snoozed":  {
-                                 "message":  "保护暂停直至 $value$。",
-                                 "placeholders":  {
-                                                      "value":  {
-                                                                    "content":  "$1"
-                                                                }
-                                                  }
-                             },
-    "clear_status_full":  {
-                              "message":  "YouTube 被屏蔽：$value$。",
-                              "placeholders":  {
-                                                   "value":  {
-                                                                 "content":  "$1"
-                                                             }
-                                               }
-                          },
-    "clear_status_strict":  {
-                                "message":  "严格关注于：$value$。",
-                                "placeholders":  {
-                                                     "value":  {
-                                                                   "content":  "$1"
-                                                               }
-                                                 }
-                            },
-    "clear_status_until":  {
-                               "message":  "直到 $value$。",
-                               "placeholders":  {
-                                                    "value":  {
-                                                                  "content":  "$1"
-                                                              }
-                                                }
-                           },
-    "clear_status_session":  {
-                                 "message":  "焦点会议：严格焦点直至 $value$。",
-                                 "placeholders":  {
-                                                      "value":  {
-                                                                    "content":  "$1"
-                                                                }
-                                                  }
-                             },
-    "clear_status_session_paused":  {
-                                        "message":  "焦点会话已暂停；它的计时器以 $value$ 结束。",
-                                        "placeholders":  {
-                                                             "value":  {
-                                                                           "content":  "$1"
-                                                                       }
-                                                         }
-                                    },
-    "clear_status_remaining":  {
-                                   "message":  "今天剩余时间：$value$ 分钟。",
-                                   "placeholders":  {
-                                                        "value":  {
-                                                                      "content":  "$1"
-                                                                  }
-                                                    }
-                               },
-    "clear_status_limit_reached":  {
-                                       "message":  "您的每日限额已达到。"
-                                   },
-    "clear_status_dismissed":  {
-                                   "message":  "今天取消您的每日限额。"
-                               },
+  "extensionName": {
+    "message": "Intentional YT - YouTube 防沉迷与每日时间限制",
+    "description": "Official extension name in stores and browser management pages"
+  },
+  "extensionShortName": {
+    "message": "Intentional",
+    "description": "Short name of the extension"
+  },
+  "extensionDescription": {
+    "message": "通过细粒度控制动态、Shorts 短视频、评论和观看时间上限，打造专注无干扰的 YouTube 体验。100% 本地隐私安全。",
+    "description": "Extension description in stores and browser management pages"
+  },
+  "popup_window_title": {
+    "message": "Intentional YT - YouTube 防沉迷与每日时间限制",
+    "description": "Title tag of the popup document"
+  },
+  "header_title": {
+    "message": "Intentional YT",
+    "description": "Header brand name in the extension popup"
+  },
+  "status_active": {
+    "message": "运行中",
+    "description": "Badge status when the extension is active"
+  },
+  "status_paused": {
+    "message": "已暂停",
+    "description": "Badge status when the extension is paused"
+  },
+  "section_feed": {
+    "message": "信息流与 Shorts",
+    "description": "Feed controls section header"
+  },
+  "toggle_block_home_feed": {
+    "message": "隐藏首页推荐",
+    "description": "Toggle label to hide YouTube home recommendations feed"
+  },
+  "desc_block_home_feed": {
+    "message": "隐藏 YouTube 首页的算法推荐视频流",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "限制首页推荐（防无尽刷屏）",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "将首页推荐限制为 15 个视频并禁用无尽滚动",
+    "description": "Helper explanation for limiting home feed videos"
+  },
+  "toggle_block_subscriptions": {
+    "message": "隐藏订阅动态",
+    "description": "Toggle label to hide YouTube subscriptions feed"
+  },
+  "toggle_block_recommended": {
+    "message": "隐藏侧边栏推荐视频",
+    "description": "Toggle label to hide recommended video sidebar on watch page"
+  },
+  "toggle_block_shorts": {
+    "message": "隐藏 Shorts 短视频",
+    "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "在侧边栏、推荐流、搜索结果和频道等所有位置隐藏 Shorts 短视频",
+    "description": "Helper explanation for hiding Shorts across YouTube"
+  },
+  "toggle_block_explore_trending": {
+    "message": "隐藏探索与时下流行",
+    "description": "Toggle label to hide Explore and Trending navigation items"
+  },
+  "toggle_block_more_from_youtube": {
+    "message": "隐藏“YouTube 更多功能”",
+    "description": "Toggle label to hide More from YouTube section in left sidebar"
+  },
+  "toggle_block_irrelevant_search": {
+    "message": "隐藏搜索无关推荐栏",
+    "description": "Toggle label to hide People also watched, For you, and related search shelves"
+  },
+  "section_video": {
+    "message": "播放",
+    "description": "Video controls section header"
+  },
+  "toggle_block_endscreen_videowall": {
+    "message": "隐藏片尾推荐视频网格",
+    "description": "Toggle label to hide grid of recommended videos at video end"
+  },
+  "desc_block_endscreen_videowall": {
+    "message": "视频播放结束时，隐藏推荐视频网格与后续视频墙",
+    "description": "Description for end screen videowall toggle"
+  },
+  "toggle_block_endscreen_cards": {
+    "message": "隐藏片尾卡片与元素",
+    "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "隐藏视频最后 20 秒创作者放置的推荐视频、播放列表和订阅卡片",
+    "description": "Description for creator end screen cards toggle"
+  },
+  "toggle_block_live_chat": {
+    "message": "隐藏直播聊天室",
+    "description": "Toggle label to hide live chat panel"
+  },
+  "toggle_block_playlist": {
+    "message": "隐藏播放列表侧栏",
+    "description": "Toggle label to hide playlist side panel on watch page"
+  },
+  "toggle_disable_autoplay": {
+    "message": "禁用自动播放下一集",
+    "description": "Toggle label to prevent YouTube from automatically playing next video"
+  },
+  "toggle_disable_annotations": {
+    "message": "隐藏视频内注释",
+    "description": "Toggle label to hide in-video popups and annotations"
+  },
+  "toggle_block_video_info": {
+    "message": "隐藏视频信息面板",
+    "description": "Toggle label to hide video metadata panel below player"
+  },
+  "desc_block_video_info": {
+    "message": "隐藏视频播放器下方的所有信息与操作按钮",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
+  "toggle_block_video_buttons": {
+    "message": "操作按钮",
+    "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "隐藏点赞、点踩、分享、下载和剪辑按钮",
+    "description": "Subheading description for Action buttons sub-toggle"
+  },
+  "toggle_block_channel_info": {
+    "message": "频道信息",
+    "description": "Nested toggle label to hide channel subscriber count and avatar"
+  },
+  "desc_block_channel_info": {
+    "message": "隐藏频道名称、头像和订阅按钮",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
+  "toggle_block_video_description": {
+    "message": "视频描述",
+    "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "隐藏可展开的视频简介文本与详细信息",
+    "description": "Subheading description for Description sub-toggle"
+  },
+  "section_social": {
+    "message": "评论与头像",
+    "description": "Social controls section header"
+  },
+  "toggle_block_comments": {
+    "message": "隐藏评论区",
+    "description": "Toggle label to hide YouTube comments section"
+  },
+  "toggle_block_profile_photos": {
+    "message": "隐藏评论者头像",
+    "description": "Toggle label to hide profile avatars of commenters"
+  },
+  "section_interface": {
+    "message": "导航与页面详情",
+    "description": "Interface controls section header"
+  },
+  "toggle_block_sidebar": {
+    "message": "隐藏左侧导航栏",
+    "description": "Toggle label to hide YouTube left drawer/guide navigation"
+  },
+  "toggle_block_top_header": {
+    "message": "隐藏顶部搜索导航条",
+    "description": "Toggle label to hide YouTube top search and navigation header"
+  },
+  "toggle_block_notification_bell": {
+    "message": "隐藏通知铃铛",
+    "description": "Toggle label to hide notification bell icon"
+  },
+  "toggle_block_merch": {
+    "message": "隐藏商品与优惠推广",
+    "description": "Toggle label to hide merchandise shelf and product offers"
+  },
+  "toggle_block_mix_playlists": {
+    "message": "隐藏合辑播放列表",
+    "description": "Toggle label to hide algorithmic YouTube mix playlists"
+  },
+  "section_appearance": {
+    "message": "外观调节",
+    "description": "Appearance controls section header"
+  },
+  "toggle_hide_thumbnails": {
+    "message": "隐藏视频缩略图",
+    "description": "Toggle label to neutralize/blur video thumbnail images"
+  },
+  "toggle_grayscale_mode": {
+    "message": "黑白灰度模式",
+    "description": "Toggle label for black and white desaturation mode"
+  },
+  "section_time": {
+    "message": "时间管理",
+    "description": "Time controls section header"
+  },
+  "toggle_soft_reminder": {
+    "message": "温和休息提醒",
+    "description": "Toggle label for mindful interval toast notification"
+  },
+  "time_hint_every": {
+    "message": "每隔",
+    "description": "Prefix label before interval dropdown"
+  },
+  "time_option_minutes": {
+    "message": "$MINUTES$ 分钟",
+    "description": "Preset time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "time_option_custom": {
+    "message": "自定义...",
+    "description": "Option in dropdown to enter a custom duration"
+  },
+  "time_placeholder_min": {
+    "message": "分钟",
+    "description": "Placeholder text inside custom minutes input field"
+  },
+  "time_unit_min": {
+    "message": "分钟",
+    "description": "Unit label beside custom minutes input"
+  },
+  "toggle_daily_limit": {
+    "message": "每日时间上限",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "desc_daily_limit": {
+    "message": "达到每日观看时长上限时暂停视频播放",
+    "description": "Subheading description for Daily Limit toggle"
+  },
+  "time_hint_stop_after": {
+    "message": "达上限后停止",
+    "description": "Prefix label before daily limit duration dropdown"
+  },
+  "stats_watch_time_below": {
+    "message": "您的每日观看时间始终显示在底部状态栏。",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
+  },
+  "stats_title_today": {
+    "message": "今日观看",
+    "description": "Heading for daily watch stats card"
+  },
+  "aria_about_daily_watchtime": {
+    "message": "关于今日观看时长",
+    "description": "Accessibility label for daily watchtime info icon"
+  },
+  "stats_tooltip_info": {
+    "message": "记录今日 YouTube 观看分钟数。每日午夜零点自动重置。可开启上方每日限制控制观看时间。",
+    "description": "Tooltip text explaining watchtime tracking"
+  },
+  "stats_no_limit": {
+    "message": "无限制",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  },
+  "stats_limit_progress": {
+    "message": "$MINUTES$分钟的 $PERCENT$%",
+    "description": "Stats progress indicator showing percentage of daily limit",
+    "placeholders": {
+      "percent": {
+        "content": "$1",
+        "example": "50"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "60"
+      }
+    }
+  },
+  "stats_button_reset": {
+    "message": "重置",
+    "description": "Button to reset today's accumulated watch time"
+  },
+  "time_fmt_zero_min": {
+    "message": "0 分钟",
+    "description": "Formatted time for 0 minutes"
+  },
+  "time_fmt_seconds": {
+    "message": "$SECONDS$秒",
+    "description": "Formatted time in seconds",
+    "placeholders": {
+      "seconds": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "time_fmt_minutes": {
+    "message": "$MINUTES$ 分钟",
+    "description": "Formatted time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "time_fmt_hours_minutes": {
+    "message": "$HOURS$小时 $MINUTES$分钟",
+    "description": "Formatted time in hours and minutes",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "1"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "15"
+      }
+    }
+  },
+  "footer_local_privacy": {
+    "message": "100% 本地安全",
+    "description": "Footer badge indicating offline-first local storage"
+  },
+  "footer_feedback_link": {
+    "message": "反馈与建议 ↗",
+    "description": "Footer link text to submit feedback form"
+  },
+  "toast_reminder_message": {
+    "message": "您已持续观看 $MINUTES$ 分钟。",
+    "description": "Toast notification message when mindful interval triggers (plural)",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "toast_reminder_message_singular": {
+    "message": "您已持续观看 1 分钟。",
+    "description": "Toast notification message when mindful interval triggers (singular)"
+  },
+  "toast_dismiss_aria": {
+    "message": "关闭",
+    "description": "Accessibility aria-label for closing toast notification"
+  },
+  "toast_reminder_badge": {
+    "message": "温和提醒",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "暂停视频",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "继续观看",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "已暂停 ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "按设定间隔在屏幕上显示温和提醒，在不强制中断的情况下让您保持时间意识。",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "预览",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "已发送！",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "请打开一个 YouTube 标签页以预览提醒通知",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
+  "overlay_limit_title": {
+    "message": "已达今日观看上限",
+    "description": "Title on full-player limit overlay modal"
+  },
+  "overlay_limit_message": {
+    "message": "您已达到今天设置的 $LIMIT$ 分钟 YouTube 每日观看上限。",
+    "description": "Explanation message on limit overlay modal",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "60"
+      }
+    }
+  },
+  "overlay_button_finish_video": {
+    "message": "播完当前视频",
+    "description": "Button label to allow completing current video before blocking"
+  },
+  "overlay_button_finish_video_remaining": {
+    "message": "播完当前视频（剩余 $MINUTES$ 分钟）",
+    "description": "Button label with remaining duration to allow completing current video",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "overlay_button_stop_watching": {
+    "message": "停止观看（返回首页）",
+    "description": "Primary action button to leave video and return to homepage"
+  },
+  "overlay_button_dismiss_today": {
+    "message": "今日不再限制",
+    "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "屏蔽",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "过滤",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "专注",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "统计",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "设置",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "全部折叠",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "全部展开",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "action_block": {
+    "message": "屏蔽",
+    "description": "Button text for 1-click in-feed channel block button"
+  },
+  "filters_quick_block_title": {
+    "message": "一键快速屏蔽按钮",
+    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
+  },
+  "filters_quick_block_desc": {
+    "message": "鼠标悬停在视频卡片上时在频道名称旁显示屏蔽按钮",
+    "description": "Description for 1-click quick block button toggle"
+  },
+  "filters_tip_text": {
+    "message": "在YouTube上悬停任意视频，即可使用新屏蔽按钮一键屏蔽频道！",
+    "description": "Quick tip text at the top of the Filters tab"
+  },
+  "btn_clear_all": {
+    "message": "清空全部",
+    "description": "Button to clear all items in a blocklist"
+  },
+  "toast_channel_cleared": {
+    "message": "已清空所有已屏蔽的频道",
+    "description": "Toast notification when all channels are cleared"
+  },
+  "toast_keyword_cleared": {
+    "message": "已清空所有已屏蔽的关键词",
+    "description": "Toast notification when all keywords are cleared"
+  },
+  "section_channel_blocklist": {
+    "message": "频道黑名单",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "屏蔽特定频道，使其不在推荐流和相关推荐中出现。",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "placeholder_channel_input": {
+    "message": "频道名称或 @handle...",
+    "description": "Placeholder for channel blocklist text input"
+  },
+  "blocklist_channels_empty": {
+    "message": "暂无屏蔽的频道。",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "blocklist_channels_empty_desc": {
+    "message": "添加频道名称或 @handle 即可隐藏该频道的视频。",
+    "description": "Empty state description for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "关键词黑名单",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "隐藏标题包含指定关键词的视频。",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "placeholder_keyword_input": {
+    "message": "例如：播客、剧透、reaction...",
+    "description": "Placeholder for keyword blocklist text input"
+  },
+  "blocklist_keywords_empty": {
+    "message": "暂无屏蔽的关键词。",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "blocklist_keywords_empty_desc": {
+    "message": "添加关键词以自动隐藏包含匹配标题的视频。",
+    "description": "Empty state description for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "添加频道",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "添加关键词",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "blocklist_privacy_note": {
+    "message": "100% 本地过滤 · 标题和频道仅在客户端匹配，绝无任何数据遥测。",
+    "description": "Privacy note at the bottom of the filters panel"
+  },
+  "toast_channel_added": {
+    "message": "已将 \"$NAME$\" 加入屏蔽频道",
+    "description": "Toast confirmation when channel is added to blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_removed": {
+    "message": "已将 \"$NAME$\" 从屏蔽频道移除",
+    "description": "Toast confirmation when channel is removed from blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_exists": {
+    "message": "\"$NAME$\" 已在屏蔽列表中",
+    "description": "Toast warning when adding duplicate channel",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_keyword_added": {
+    "message": "已将关键词 \"$KEYWORD$\" 加入屏蔽列表",
+    "description": "Toast confirmation when keyword is added to blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_removed": {
+    "message": "已将关键词 \"$KEYWORD$\" 从屏蔽列表移除",
+    "description": "Toast confirmation when keyword is removed from blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_exists": {
+    "message": "关键词 \"$KEYWORD$\" 已在屏蔽列表中",
+    "description": "Toast warning when adding duplicate keyword",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "section_focus_lock": {
+    "message": "专注锁",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "正念时间与限额",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "温和休息提醒与每日屏幕时间边界",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "专注锁保护盾",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "通过预设延迟防止冲动修改保护设置",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "定时专注时段",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "在工作、学习或睡眠时段自动屏蔽 YouTube",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "关闭保护前需要经历一段冷却延迟",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "专注锁",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "冷却延迟时长",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 分钟",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 分钟",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 分钟",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 分钟",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "设置 4 位数字 PIN 码",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "输入 4 位 PIN 码",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "确认 4 位 PIN 码",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "如果忘记此 PIN 码，重置的唯一方法是卸载并重新安装扩展，这将清除所有配置。请务必妥善记录。",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "保存 PIN 并启用",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "取消",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "受专注锁保护",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "请输入 4 位 PIN 码以启动冷却倒计时：",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "开始冷却",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "两次输入的 PIN 码不一致，请重试。",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "PIN 码必须为 4 位数字。",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "PIN 码错误，请重试。",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "正在解锁：$SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "$TIME$ 后解锁",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "取消",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "已有正在进行的解锁倒计时。在解锁其他设置前请先取消当前倒计时。",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "定时屏蔽",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "在设定时段内自动屏蔽 YouTube",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "定时屏蔽",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ 添加定时计划",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "暂无定时计划。点击“添加定时计划”即可创建。",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "新增定时计划",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "编辑定时计划",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "标签名称",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "例如：工作时间、自习时段",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "适用星期",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "开始时间",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "结束时间",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "屏蔽模式",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "完全屏蔽 YouTube",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "将 YouTube 替换为锁定的专注承诺界面，完全阻断访问",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "强制开启所有保护项",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "在不完全锁死网站的前提下执行最高强度的分心阻断",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "保存计划",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "取消",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "编辑",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "删除",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "每天",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "周一至周五",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "周末 (周六、周日)",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "日",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "一",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "二",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "三",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "四",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "五",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "六",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "请至少选择一天。",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "请输入计划标签名称。",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "请同时指定开始与结束时间。",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube 当前处于锁定状态",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "将于 $TIME$ 重新开放",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "此定时计划由 Intentional YT 强制执行，以守护您的专注力。",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "设置",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "语言",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "重置设置",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "恢复所有默认配置并清除自定义定时计划。",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "恢复所有设置为默认值",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "确定要将所有设置恢复为默认值吗？这将清除您所有的自定义偏好与定时计划。",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "活动概览",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "今日 YouTube 播放概况",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "累计观看时长",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "观看时长仅在 YouTube 视频实际播放时累计，每天午夜自动重置。常驻状态栏始终位于每个标签页的底部。",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "配置限额",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "重置今日",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "自动化安排免打扰学习时段或夜间休息时间。",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "外观主题",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "自动（跟随系统）",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "深色模式",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "浅色模式",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "备份与恢复",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "将您的设置导出为 JSON 文件，或导入以前的备份。",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "在 Web Store 评分",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_edge": {
+    "message": "在 Edge Add-ons 评价",
+    "description": "Button linking to Microsoft Edge Add-ons review page"
+  },
+  "setting_rate_firefox": {
+    "message": "在 Firefox AMO 评分",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "导出",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "导入",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "设置导出成功",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "设置导入成功",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "导入设置失败：无效的 JSON 文件",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ 项已启用",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "预设模式",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "均衡模式",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "极简禅定 (Zen)",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "纯播放器",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "自定义",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "均衡 · 隐藏推荐流与推荐栏",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "极简 · 仅保留搜索，隐藏所有推荐流",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "纯播放 · 纯净播放器，隐藏四周干扰",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "自定义个性化配置",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "详细控制",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "屏蔽首页推荐、Shorts 短视频和侧边栏推荐。保留搜索、订阅和评论可用。",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "极致专注。纯粹搜索。所有推荐流、评论区、视频缩略图和频道头像全部隐藏。",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "纯净播放器体验。隐藏视频四周的相关推荐、评论区及侧边栏杂乱元素。",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "自由配置各项开关。",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "已切换至 $PRESET$ 模式",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "欢迎使用 Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "选择初始设置。你可以随时在下方修改。",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "关闭欢迎横幅",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "搜索开关选项...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "未找到匹配的开关",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "尝试搜索 shorts、评论 或 侧边栏",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "频道与关键词过滤",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "屏蔽指定频道，并按关键词过滤视频。",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "专注与限额",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "定时提醒、每日限额与计划屏蔽。",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "播放统计",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "追踪您的每日观看时长与使用习惯。",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "偏好设置",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "主题、语言与配置备份。",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "将 Shorts 重定向至常规播放器",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "在具备完整进度条和控制按钮的标准页面播放 Shorts",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "小憩",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "小憩中",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "暂停保护",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "倒计时结束后，所有保护将自动恢复。",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 分钟",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "快速休息",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 分钟",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "专注工作时段",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1 小时",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "延长休息",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "立即恢复",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "保护已暂停",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "剩余 $TIME$",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "保护已暂停 $MINUTES$ 分钟",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "保护已恢复",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "关闭",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "扩展主开关",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "今日观看时长已重置",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "scheduled_close_tab": {
+    "message": "关闭标签页"
+  },
+  "scheduled_blank_screen": {
+    "message": "空白屏幕"
+  },
+  "action_undo": {
+    "message": "撤销"
+  },
+  "channel_blocked": {
+    "message": "已屏蔽 $1"
+  },
+  "focus_session_title": {
+    "message": "焦点会话"
+  },
+  "focus_session_description": {
+    "message": "打开“严格焦点”进行短暂会话。结束后您的常用设置将恢复。时间表和每日限制仍然适用。"
+  },
+  "focus_session_end": {
+    "message": "结束会话"
+  },
+  "limit_warning_option": {
+    "message": "还剩 5 分钟时警告我（短期限制为 1 分钟）。"
+  },
+  "limit_warning_title": {
+    "message": "几乎达到每日限制"
+  },
+  "limit_warning_message": {
+    "message": "今天剩余时间：$value$ 分钟。在每日区块开始之前总结一下。",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_active": {
+    "message": "您的阻止设置已激活。"
+  },
+  "clear_status_off": {
+    "message": "保护已关闭。"
+  },
+  "clear_status_snoozed": {
+    "message": "保护暂停直至 $value$。",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_full": {
+    "message": "YouTube 被屏蔽：$value$。",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_strict": {
+    "message": "严格关注于：$value$。",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_until": {
+    "message": "直到 $value$。",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_session": {
+    "message": "焦点会议：严格焦点直至 $value$。",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_session_paused": {
+    "message": "焦点会话已暂停；它的计时器以 $value$ 结束。",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_remaining": {
+    "message": "今天剩余时间：$value$ 分钟。",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_limit_reached": {
+    "message": "您的每日限额已达到。"
+  },
+  "clear_status_dismissed": {
+    "message": "今天取消您的每日限额。"
+  },
+  "setup_daily_limit": {
+    "message": "每日时间上限",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "无限制",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  },
   "setup_note": {
     "message": "其他设置保持不变。达到每日时限后，视频会暂停。"
   },
@@ -1321,13 +1321,5 @@
   },
   "blocklist_example_label": {
     "message": "示例："
-  },
-  "setup_daily_limit": {
-    "message": "æ¯æ—¥æ—¶é—´ä¸Šé™",
-    "description": "Toggle label for daily total playback time limit"
-  },
-  "setup_no_limit": {
-    "message": "æ— é™åˆ¶",
-    "description": "Stats subtitle when daily watch limit is disabled"
   }
 }

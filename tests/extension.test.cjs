@@ -255,7 +255,12 @@ test('every release archive has fonts, all selectable languages and correct back
       assert.equal(zlib.crc32(data),buffer.readUInt32LE(offset+14));entries.set(name,data);offset=start+size;
     }
     assert.equal([...entries.keys()].filter(k=>k.startsWith('fonts/')).length,4);
-    assert.equal([...entries.keys()].filter(k=>k.startsWith('_locales/')).length,26);
+    if (file.includes('edge')) {
+      assert.equal([...entries.keys()].filter(k=>k.startsWith('_locales/')).length, 1);
+      assert.ok(entries.has('_locales/en/messages.json'));
+    } else {
+      assert.equal([...entries.keys()].filter(k=>k.startsWith('_locales/')).length, 26);
+    }
     const manifest=JSON.parse(entries.get('manifest.json'));
     for (const name of entries.keys()) {
       assert.ok(!/\.(?:md|map)$/.test(name), `Development file shipped: ${name}`);
@@ -277,6 +282,8 @@ test('locale catalogs contain new labels without encoding corruption', () => {
     const catalog=JSON.parse(source(`_locales/${lang}/messages.json`));
     for(const key of Object.keys(english)) assert.ok(catalog[key],`${lang}: ${key}`);
     for(const key of ['scheduled_close_tab','scheduled_blank_screen','action_undo','channel_blocked']) assert.ok(!/^\?+[\s?$1]*$/.test(catalog[key].message),lang);
+    assert.ok(catalog.extensionName?.message?.length <= 75, `${lang} extensionName exceeds 75 chars: ${catalog.extensionName?.message?.length}`);
+    assert.ok(!/[ØÙ]|à[¦¤]|\u00c3[\u00a0-\u00ff]|\u00d0[\u00b0-\u00bf]|\u00ce[\u0090-\u00bf]/.test(catalog.extensionName?.message), `${lang} extensionName has mojibake`);
   }
 });
 

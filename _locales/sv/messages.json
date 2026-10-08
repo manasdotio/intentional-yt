@@ -1,1309 +1,1309 @@
 {
-    "extensionName":  {
-                          "message":  "Intentional YT - YouTube Distraktionsblockerare \u0026 Daglig TidsgrÃ¤ns",
-                          "description":  "Official extension name in stores and browser management pages"
-                      },
-    "extensionShortName":  {
-                               "message":  "Intentional",
-                               "description":  "Short name of the extension"
-                           },
-    "extensionDescription":  {
-                                 "message":  "Distraktionsfritt YouTube med detaljerade kontroller fÃ¶r flÃ¶den, Shorts, kommentarer och tidsgrÃ¤nser. 100 % privat och lokalt.",
-                                 "description":  "Extension description in stores and browser management pages"
-                             },
-    "popup_window_title":  {
-                               "message":  "Intentional YT - YouTube Distraktionsblockerare \u0026 Daglig TidsgrÃ¤ns",
-                               "description":  "Title tag of the popup document"
-                           },
-    "header_title":  {
-                         "message":  "Intentional YT",
-                         "description":  "Header brand name in the extension popup"
-                     },
-    "status_active":  {
-                          "message":  "Aktiv",
-                          "description":  "Badge status when the extension is active"
-                      },
-    "status_paused":  {
-                          "message":  "Pausad",
-                          "description":  "Badge status when the extension is paused"
-                      },
-    "section_feed":  {
-                         "message":  "Flöden och Shorts",
-                         "description":  "Feed controls section header"
-                     },
-    "toggle_block_home_feed":  {
-                                   "message":  "DÃ¶lj startsidesflÃ¶de",
-                                   "description":  "Toggle label to hide YouTube home recommendations feed"
-                               },
-    "desc_block_home_feed":  {
-                                 "message":  "DÃ¶ljer det algoritmiska videoflÃ¶det pÃ¥ YouTubes startsida",
-                                 "description":  "Helper description for Hide home feed toggle"
-                             },
-    "toggle_limit_home_feed":  {
-                                   "message":  "BegrÃ¤nsa startsidesflÃ¶det (anti-doomscroll)",
-                                   "description":  "Toggle label to limit videos on the home feed and stop doomscrolling"
-                               },
-    "desc_limit_home_feed":  {
-                                 "message":  "BegrÃ¤nsar startsidesflÃ¶det till 15 videor och inaktiverar oÃ¤ndlig rullning",
-                                 "description":  "Helper explanation for limiting home feed videos"
-                             },
-    "toggle_block_subscriptions":  {
-                                       "message":  "DÃ¶lj prenumerationer",
-                                       "description":  "Toggle label to hide YouTube subscriptions feed"
-                                   },
-    "toggle_block_recommended":  {
-                                     "message":  "DÃ¶lj rekommendationer i sidofÃ¤ltet",
-                                     "description":  "Toggle label to hide recommended video sidebar on watch page"
-                                 },
-    "toggle_block_shorts":  {
-                                "message":  "DÃ¶lj Shorts",
-                                "description":  "Toggle label to hide Shorts carousels and tabs"
-                            },
-    "desc_block_shorts":  {
-                              "message":  "DÃ¶ljer Shorts Ã¶verallt â€“ sidofÃ¤lt, flÃ¶den, sÃ¶kresultat och kanaler",
-                              "description":  "Helper explanation for hiding Shorts across YouTube"
-                          },
-    "toggle_block_explore_trending":  {
-                                          "message":  "DÃ¶lj Utforska och Trender",
-                                          "description":  "Toggle label to hide Explore and Trending navigation items"
-                                      },
-    "toggle_block_more_from_youtube":  {
-                                           "message":  "DÃ¶lj \"Mer frÃ¥n YouTube\"",
-                                           "description":  "Toggle label to hide More from YouTube section in left sidebar"
-                                       },
-    "toggle_block_irrelevant_search":  {
-                                           "message":  "DÃ¶lj irrelevanta sÃ¶kresultat",
-                                           "description":  "Toggle label to hide People also watched, For you, and related search shelves"
-                                       },
-    "section_video":  {
-                          "message":  "Uppspelning",
-                          "description":  "Video controls section header"
-                      },
-    "toggle_block_endscreen_videowall":  {
-                                             "message":  "DÃ¶lj slutskÃ¤rmsrekommendationer",
-                                             "description":  "Toggle label to hide grid of recommended videos at video end"
-                                         },
-    "desc_block_endscreen_videowall":  {
-                                           "message":  "DÃ¶lj rutnÃ¤t med rekommenderade videor och videovÃ¤gg nÃ¤r uppspelningen tar slut",
-                                           "description":  "Description for end screen videowall toggle"
-                                       },
-    "toggle_block_endscreen_cards":  {
-                                         "message":  "DÃ¶lj slutskÃ¤rmskort",
-                                         "description":  "Toggle label to hide creator end screen cards and elements"
-                                     },
-    "desc_block_endscreen_cards":  {
-                                       "message":  "DÃ¶lj skaparens video-, spelliste- och prenumerationskort under de sista 20 sekunderna",
-                                       "description":  "Description for creator end screen cards toggle"
-                                   },
-    "toggle_block_live_chat":  {
-                                   "message":  "DÃ¶lj livechatt",
-                                   "description":  "Toggle label to hide live chat panel"
-                               },
-    "toggle_block_playlist":  {
-                                  "message":  "DÃ¶lj spellistepanel",
-                                  "description":  "Toggle label to hide playlist side panel on watch page"
-                              },
-    "toggle_disable_autoplay":  {
-                                    "message":  "Inaktivera automatisk uppspelning",
-                                    "description":  "Toggle label to prevent YouTube from automatically playing next video"
-                                },
-    "toggle_disable_annotations":  {
-                                       "message":  "DÃ¶lj videoanteckningar",
-                                       "description":  "Toggle label to hide in-video popups and annotations"
-                                   },
-    "toggle_block_video_info":  {
-                                    "message":  "DÃ¶lj videoinformationspanel",
-                                    "description":  "Toggle label to hide video metadata panel below player"
-                                },
-    "desc_block_video_info":  {
-                                  "message":  "DÃ¶ljer all information och alla Ã¥tgÃ¤rder under videospelaren",
-                                  "description":  "Subheading description for Hide video info panel toggle"
-                              },
-    "toggle_block_video_buttons":  {
-                                       "message":  "Ã…tgÃ¤rdsknappar",
-                                       "description":  "Nested toggle label to hide like, dislike, share, download buttons"
-                                   },
-    "desc_block_video_buttons":  {
-                                     "message":  "DÃ¶ljer knappar fÃ¶r gilla, ogilla, dela, ladda ned och klipp",
-                                     "description":  "Subheading description for Action buttons sub-toggle"
-                                 },
-    "toggle_block_channel_info":  {
-                                      "message":  "Kanalinformation",
-                                      "description":  "Nested toggle label to hide channel subscriber count and avatar"
-                                  },
-    "desc_block_channel_info":  {
-                                    "message":  "DÃ¶ljer kanalnamn, profilbild och prenumerationsknapp",
-                                    "description":  "Subheading description for Channel info sub-toggle"
-                                },
-    "toggle_block_video_description":  {
-                                           "message":  "Beskrivning",
-                                           "description":  "Nested toggle label to hide video description box"
-                                       },
-    "desc_block_video_description":  {
-                                         "message":  "DÃ¶ljer expanderbar videobeskrivningstext och detaljer",
-                                         "description":  "Subheading description for Description sub-toggle"
-                                     },
-    "section_social":  {
-                           "message":  "Kommentarer och bilder",
-                           "description":  "Social controls section header"
-                       },
-    "toggle_block_comments":  {
-                                  "message":  "DÃ¶lj kommentarer",
-                                  "description":  "Toggle label to hide YouTube comments section"
-                              },
-    "toggle_block_profile_photos":  {
-                                        "message":  "DÃ¶lj profilbilder i kommentarer",
-                                        "description":  "Toggle label to hide profile avatars of commenters"
-                                    },
-    "section_interface":  {
-                              "message":  "Navigering och sidinformation",
-                              "description":  "Interface controls section header"
-                          },
-    "toggle_block_sidebar":  {
-                                 "message":  "DÃ¶lj vÃ¤nster sidofÃ¤lt",
-                                 "description":  "Toggle label to hide YouTube left drawer/guide navigation"
-                             },
-    "toggle_block_top_header":  {
-                                    "message":  "DÃ¶lj Ã¶vre fÃ¤ltet",
-                                    "description":  "Toggle label to hide YouTube top search and navigation header"
-                                },
-    "toggle_block_notification_bell":  {
-                                           "message":  "DÃ¶lj aviseringsklocka",
-                                           "description":  "Toggle label to hide notification bell icon"
-                                       },
-    "toggle_block_merch":  {
-                               "message":  "DÃ¶lj varor och erbjudanden",
-                               "description":  "Toggle label to hide merchandise shelf and product offers"
-                           },
-    "toggle_block_mix_playlists":  {
-                                       "message":  "DÃ¶lj Mix-spellistor",
-                                       "description":  "Toggle label to hide algorithmic YouTube mix playlists"
-                                   },
-    "section_appearance":  {
-                               "message":  "Utseende",
-                               "description":  "Appearance controls section header"
-                           },
-    "toggle_hide_thumbnails":  {
-                                   "message":  "DÃ¶lj miniatyrer",
-                                   "description":  "Toggle label to neutralize/blur video thumbnail images"
-                               },
-    "toggle_grayscale_mode":  {
-                                  "message":  "GrÃ¥skala",
-                                  "description":  "Toggle label for black and white desaturation mode"
-                              },
-    "section_time":  {
-                         "message":  "Tid",
-                         "description":  "Time controls section header"
-                     },
-    "toggle_soft_reminder":  {
-                                 "message":  "Mjuk pÃ¥minnelse",
-                                 "description":  "Toggle label for mindful interval toast notification"
-                             },
-    "time_hint_every":  {
-                            "message":  "Varje",
-                            "description":  "Prefix label before interval dropdown"
-                        },
-    "time_option_minutes":  {
-                                "message":  "$MINUTES$ min",
-                                "description":  "Preset time in minutes",
-                                "placeholders":  {
-                                                     "minutes":  {
-                                                                     "content":  "$1",
-                                                                     "example":  "15"
-                                                                 }
-                                                 }
-                            },
-    "time_option_custom":  {
-                               "message":  "Anpassad...",
-                               "description":  "Option in dropdown to enter a custom duration"
-                           },
-    "time_placeholder_min":  {
-                                 "message":  "min",
-                                 "description":  "Placeholder text inside custom minutes input field"
-                             },
-    "time_unit_min":  {
-                          "message":  "min",
-                          "description":  "Unit label beside custom minutes input"
-                      },
-    "toggle_daily_limit":  {
-                               "message":  "Daglig grÃ¤ns",
-                               "description":  "Toggle label for daily total playback time limit"
-                           },
-    "desc_daily_limit":  {
-                             "message":  "Pausa videouppspelning nÃ¤r din dagliga visningsgrÃ¤ns har nÃ¥tts",
-                             "description":  "Subheading description for Daily Limit toggle"
-                         },
-    "time_hint_stop_after":  {
-                                 "message":  "Stoppa efter",
-                                 "description":  "Prefix label before daily limit duration dropdown"
-                             },
-    "blocklist_stub_alert":  {
-                                 "message":  "Kanal- och nyckelordsfiltrering kommer i nÃ¤sta version. De grundlÃ¤ggande flÃ¶desblockerarna Ã¤r aktiva!",
-                                 "description":  "Alert displayed when clicking stub add buttons in Blocklists tab"
-                             },
-    "stats_watch_time_below":  {
-                                   "message":  "Din dagliga visningstid visas alltid nedanfÃ¶r.",
-                                   "description":  "Hint text shown in the Stats tab when stats moved to persistent watch bar"
-                               },
-    "stats_title_today":  {
-                              "message":  "Idag",
-                              "description":  "Heading for daily watch stats card"
-                          },
-    "aria_about_daily_watchtime":  {
-                                       "message":  "Om daglig visningstid",
-                                       "description":  "Accessibility label for daily watchtime info icon"
-                                   },
-    "stats_tooltip_info":  {
-                               "message":  "Registrerar hur mÃ¥nga minuter du har tittat pÃ¥ YouTube idag. Ã…terstÃ¤lls automatiskt vid midnatt. AnvÃ¤nd den dagliga grÃ¤nsen fÃ¶r att styra din tid.",
-                               "description":  "Tooltip text explaining watchtime tracking"
-                           },
-    "stats_no_limit":  {
-                           "message":  "ingen grÃ¤ns",
-                           "description":  "Stats subtitle when daily watch limit is disabled"
-                       },
-    "stats_limit_progress":  {
-                                 "message":  "$PERCENT$ % av $MINUTES$m",
-                                 "description":  "Stats progress indicator showing percentage of daily limit",
-                                 "placeholders":  {
-                                                      "percent":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "50"
-                                                                  },
-                                                      "minutes":  {
-                                                                      "content":  "$2",
-                                                                      "example":  "60"
-                                                                  }
-                                                  }
-                             },
-    "stats_button_reset":  {
-                               "message":  "Ã¥terstÃ¤ll",
-                               "description":  "Button to reset today\u0027s accumulated watch time"
-                           },
-    "time_fmt_zero_min":  {
-                              "message":  "0 min",
-                              "description":  "Formatted time for 0 minutes"
-                          },
-    "time_fmt_seconds":  {
-                             "message":  "$SECONDS$s",
-                             "description":  "Formatted time in seconds",
-                             "placeholders":  {
-                                                  "seconds":  {
-                                                                  "content":  "$1",
-                                                                  "example":  "42"
-                                                              }
-                                              }
-                         },
-    "time_fmt_minutes":  {
-                             "message":  "$MINUTES$ min",
-                             "description":  "Formatted time in minutes",
-                             "placeholders":  {
-                                                  "minutes":  {
-                                                                  "content":  "$1",
-                                                                  "example":  "25"
-                                                              }
-                                              }
-                         },
-    "time_fmt_hours_minutes":  {
-                                   "message":  "$HOURS$h $MINUTES$m",
-                                   "description":  "Formatted time in hours and minutes",
-                                   "placeholders":  {
-                                                        "hours":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "1"
-                                                                  },
-                                                        "minutes":  {
-                                                                        "content":  "$2",
-                                                                        "example":  "15"
-                                                                    }
-                                                    }
-                               },
-    "footer_local_privacy":  {
-                                 "message":  "100 % Lokalt",
-                                 "description":  "Footer badge indicating offline-first local storage"
-                             },
-    "footer_feedback_link":  {
-                                 "message":  "Feedback och idÃ©er â†—",
-                                 "description":  "Footer link text to submit feedback form"
-                             },
-    "toast_reminder_message":  {
-                                   "message":  "Du har tittat i $MINUTES$ minuter.",
-                                   "description":  "Toast notification message when mindful interval triggers (plural)",
-                                   "placeholders":  {
-                                                        "minutes":  {
-                                                                        "content":  "$1",
-                                                                        "example":  "30"
-                                                                    }
-                                                    }
-                               },
-    "toast_reminder_message_singular":  {
-                                            "message":  "Du har tittat i 1 minut.",
-                                            "description":  "Toast notification message when mindful interval triggers (singular)"
-                                        },
-    "toast_dismiss_aria":  {
-                               "message":  "StÃ¤ng",
-                               "description":  "Accessibility aria-label for closing toast notification"
-                           },
-    "toast_reminder_badge":  {
-                                 "message":  "Mjuk pÃ¥minnelse",
-                                 "description":  "Top badge in soft reminder notification card"
-                             },
-    "toast_button_pause":  {
-                               "message":  "Pausa video",
-                               "description":  "Button to immediately pause playback from reminder toast"
-                           },
-    "toast_button_continue":  {
-                                  "message":  "FortsÃ¤tt titta",
-                                  "description":  "Button to dismiss reminder toast and continue playback"
-                              },
-    "toast_status_paused":  {
-                                "message":  "Pausad âœ“",
-                                "description":  "Status text shown when video has been paused via toast"
-                            },
-    "desc_soft_reminder":  {
-                               "message":  "En diskret pÃ¥minnelse med jÃ¤mna mellanrum som hjÃ¤lper dig hÃ¥lla koll pÃ¥ tiden utan att blockera dig.",
-                               "description":  "Description under Soft reminder toggle in Focus tab"
-                           },
-    "btn_preview_reminder":  {
-                                 "message":  "FÃ¶rhandsgranska",
-                                 "description":  "Button to test and trigger soft reminder toast on active tab"
-                             },
-    "btn_preview_sent":  {
-                             "message":  "Skickat!",
-                             "description":  "Button text confirmation after preview toast is sent"
-                         },
-    "toast_preview_need_yt":  {
-                                  "message":  "Ã–ppna en YouTube-flik fÃ¶r att fÃ¶rhandsgranska pÃ¥minnelsen",
-                                  "description":  "Notice when attempting to preview toast without YouTube active"
-                              },
-    "overlay_limit_title":  {
-                                "message":  "Daglig tidsgrÃ¤ns nÃ¥dd",
-                                "description":  "Title on full-player limit overlay modal"
-                            },
-    "overlay_limit_message":  {
-                                  "message":  "Du har nÃ¥tt din dagliga grÃ¤ns pÃ¥ $LIMIT$ minuter fÃ¶r YouTube idag.",
-                                  "description":  "Explanation message on limit overlay modal",
-                                  "placeholders":  {
-                                                       "limit":  {
-                                                                     "content":  "$1",
-                                                                     "example":  "60"
-                                                                 }
-                                                   }
-                              },
-    "overlay_button_finish_video":  {
-                                        "message":  "Se klart den hÃ¤r videon",
-                                        "description":  "Button label to allow completing current video before blocking"
-                                    },
-    "overlay_button_finish_video_remaining":  {
-                                                  "message":  "Se klart den hÃ¤r videon ($MINUTES$m kvar)",
-                                                  "description":  "Button label with remaining duration to allow completing current video",
-                                                  "placeholders":  {
-                                                                       "minutes":  {
-                                                                                       "content":  "$1",
-                                                                                       "example":  "4"
-                                                                                   }
-                                                                   }
-                                              },
-    "overlay_button_stop_watching":  {
-                                         "message":  "Sluta titta (Till startsidan)",
-                                         "description":  "Primary action button to leave video and return to homepage"
-                                     },
-    "overlay_button_dismiss_today":  {
-                                         "message":  "Ignorera fÃ¶r idag",
-                                         "description":  "Secondary action button to override limit for remainder of today"
-                                     },
-    "tab_block":  {
-                      "message":  "Blockera",
-                      "description":  "Label for the Block tab in popup navigation"
-                  },
-    "tab_blocklists":  {
-                           "message":  "Filter",
-                           "description":  "Label for the Filters (blocklists) tab in popup navigation"
-                       },
-    "tab_focus":  {
-                      "message":  "Fokus",
-                      "description":  "Label for the Focus tab in popup navigation"
-                  },
-    "tab_stats":  {
-                      "message":  "Statistik",
-                      "description":  "Label for the Stats tab in popup navigation"
-                  },
-    "tab_settings":  {
-                         "message":  "InstÃ¤llningar",
-                         "description":  "Label for the Settings tab in popup navigation"
-                     },
-    "action_collapse_all":  {
-                                "message":  "FÃ¤ll ihop alla",
-                                "description":  "Button to collapse all detailed control accordion sections"
-                            },
-    "action_expand_all":  {
-                              "message":  "Expandera alla",
-                              "description":  "Button to expand all detailed control accordion sections"
-                          },
-    "section_channel_blocklist":  {
-                                      "message":  "SpÃ¤rrlista fÃ¶r kanaler",
-                                      "description":  "Section header for Channel Blocklist"
-                                  },
-    "desc_channel_blocklist":  {
-                                   "message":  "Blockera specifika kanaler frÃ¥n att visas i flÃ¶den och rekommendationer.",
-                                   "description":  "Description for Channel Blocklist feature"
-                               },
-    "blocklist_channels_empty":  {
-                                     "message":  "Inga blockerade kanaler.",
-                                     "description":  "Empty state label for Channel Blocklist"
-                                 },
-    "section_keyword_blocklist":  {
-                                      "message":  "SpÃ¤rrlista fÃ¶r nyckelord",
-                                      "description":  "Section header for Keyword Blocklist"
-                                  },
-    "desc_keyword_blocklist":  {
-                                   "message":  "DÃ¶lj videor vars titlar matchar blockerade nyckelord.",
-                                   "description":  "Description for Keyword Blocklist feature"
-                               },
-    "blocklist_keywords_empty":  {
-                                     "message":  "Inga blockerade nyckelord.",
-                                     "description":  "Empty state label for Keyword Blocklist"
-                                 },
-    "btn_add_channel":  {
-                            "message":  "LÃ¤gg till kanal",
-                            "description":  "Button to add a channel to blocklist"
-                        },
-    "btn_add_keyword":  {
-                            "message":  "LÃ¤gg till nyckelord",
-                            "description":  "Button to add a keyword to blocklist"
-                        },
-    "section_focus_lock":  {
-                               "message":  "FokuslÃ¥s",
-                               "description":  "Section header for Focus Lock feature"
-                           },
-    "section_time_limits_title":  {
-                                      "message":  "Medveten tid och grÃ¤nser",
-                                      "description":  "Card header title for Time and Daily limits section"
-                                  },
-    "section_time_limits_sub":  {
-                                    "message":  "Diskreta pauspÃ¥minnelser och dagliga skÃ¤rmtidsgrÃ¤nser",
-                                    "description":  "Card header subtitle for Time and Daily limits section"
-                                },
-    "section_focus_lock_title":  {
-                                     "message":  "FokuslÃ¥sskydd",
-                                     "description":  "Card header title for Focus Lock section"
-                                 },
-    "section_focus_lock_sub":  {
-                                   "message":  "FÃ¶rhindra impulsiva Ã¤ndringar med en avsiktlig fÃ¶rdrÃ¶jning",
-                                   "description":  "Card header subtitle for Focus Lock section"
-                               },
-    "section_scheduled_title":  {
-                                    "message":  "Schemalagda fokussessioner",
-                                    "description":  "Card header title for Scheduled Blocking section"
-                                },
-    "section_scheduled_sub":  {
-                                  "message":  "Blockera YouTube automatiskt under arbete, studier eller sÃ¶mn",
-                                  "description":  "Card header subtitle for Scheduled Blocking section"
-                              },
-    "desc_focus_lock":  {
-                            "message":  "KrÃ¤v en fÃ¶rdrÃ¶jning innan skydd kan inaktiveras",
-                            "description":  "Subheading description for Focus Lock toggle"
-                        },
-    "toggle_focus_lock":  {
-                              "message":  "FokuslÃ¥s",
-                              "description":  "Toggle label for Focus Lock"
-                          },
-    "focus_lock_cooldown_label":  {
-                                      "message":  "NedrÃ¤kningsfÃ¶rdrÃ¶jning",
-                                      "description":  "Label for Focus Lock cooldown duration selector"
-                                  },
-    "focus_lock_duration_5m":  {
-                                   "message":  "5 min",
-                                   "description":  "5 minutes cooldown option"
-                               },
-    "focus_lock_duration_10m":  {
-                                    "message":  "10 min",
-                                    "description":  "10 minutes cooldown option"
-                                },
-    "focus_lock_duration_30m":  {
-                                    "message":  "30 min",
-                                    "description":  "30 minutes cooldown option"
-                                },
-    "focus_lock_duration_60m":  {
-                                    "message":  "60 min",
-                                    "description":  "60 minutes cooldown option"
-                                },
-    "focus_lock_pin_modal_title":  {
-                                       "message":  "Ange fyrsiffrig PIN-kod",
-                                       "description":  "Title for Focus Lock PIN setup modal"
-                                   },
-    "focus_lock_enter_pin":  {
-                                 "message":  "Ange 4-siffrig PIN-kod",
-                                 "description":  "Placeholder for PIN input"
-                             },
-    "focus_lock_confirm_pin":  {
-                                   "message":  "BekrÃ¤fta 4-siffrig PIN-kod",
-                                   "description":  "Placeholder for PIN confirmation input"
-                               },
-    "focus_lock_pin_warning":  {
-                                   "message":  "Om du glÃ¶mmer denna PIN-kod kan den bara Ã¥terstÃ¤llas genom att avinstallera och installera om tillÃ¤gget, vilket raderar alla dina instÃ¤llningar. Skriv upp den pÃ¥ ett sÃ¤kert stÃ¤lle.",
-                                   "description":  "One-time setup warning for Focus Lock PIN recovery"
-                               },
-    "focus_lock_btn_save_pin":  {
-                                    "message":  "Spara PIN \u0026 aktivera",
-                                    "description":  "Button to save PIN and enable Focus Lock"
-                                },
-    "focus_lock_btn_cancel":  {
-                                  "message":  "Avbryt",
-                                  "description":  "Cancel button for Focus Lock modal"
-                              },
-    "focus_lock_verify_title":  {
-                                    "message":  "Skyddad av fokuslÃ¥s",
-                                    "description":  "Title for Focus Lock verification modal"
-                                },
-    "focus_lock_verify_prompt":  {
-                                     "message":  "Ange din 4-siffriga PIN-kod fÃ¶r att pÃ¥bÃ¶rja nedrÃ¤kningen:",
-                                     "description":  "Prompt for Focus Lock PIN verification"
-                                 },
-    "focus_lock_btn_submit_pin":  {
-                                      "message":  "Starta nedrÃ¤kning",
-                                      "description":  "Button to submit PIN and start cooldown"
-                                  },
-    "focus_lock_error_mismatch":  {
-                                      "message":  "PIN-koderna matchar inte. FÃ¶rsÃ¶k igen.",
-                                      "description":  "Error when PIN confirmation does not match"
-                                  },
-    "focus_lock_error_invalid_pin":  {
-                                         "message":  "PIN-koden mÃ¥ste bestÃ¥ av exakt 4 siffror.",
-                                         "description":  "Error when entered PIN is not 4 digits"
-                                     },
-    "focus_lock_error_incorrect_pin":  {
-                                           "message":  "Fel PIN-kod. FÃ¶rsÃ¶k igen.",
-                                           "description":  "Error when entered PIN does not match stored hash"
-                                       },
-    "focus_lock_banner_unlocking":  {
-                                        "message":  "LÃ¥ser upp: $SETTING$",
-                                        "description":  "Banner message showing setting being unlocked",
-                                        "placeholders":  {
-                                                             "setting":  {
-                                                                             "content":  "$1",
-                                                                             "example":  "Hide Shorts"
-                                                                         }
-                                                         }
-                                    },
-    "focus_lock_banner_cooldown":  {
-                                       "message":  "LÃ¥ses upp om $TIME$",
-                                       "description":  "Banner message showing remaining cooldown time",
-                                       "placeholders":  {
-                                                            "time":  {
-                                                                         "content":  "$1",
-                                                                         "example":  "09:45"
-                                                                     }
-                                                        }
-                                   },
-    "focus_lock_banner_cancel":  {
-                                     "message":  "Avbryt",
-                                     "description":  "Cancel button on pending unlock banner"
-                                 },
-    "focus_lock_already_pending":  {
-                                       "message":  "En upplÃ¥sningsnedrÃ¤kning pÃ¥gÃ¥r redan. Avbryt den innan du lÃ¥ser upp en annan instÃ¤llning.",
-                                       "description":  "Notice when user attempts to unlock another setting while cooldown is running"
-                                   },
-    "section_scheduled_blocking":  {
-                                       "message":  "Schemalagd blockering",
-                                       "description":  "Section header for Scheduled Blocking"
-                                   },
-    "desc_scheduled_blocking":  {
-                                    "message":  "Blockera YouTube automatiskt under instÃ¤llda tider",
-                                    "description":  "Subheading description for Scheduled Blocking"
-                                },
-    "toggle_scheduled_blocking":  {
-                                      "message":  "Schemalagd blockering",
-                                      "description":  "Toggle label for Scheduled Blocking"
-                                  },
-    "scheduled_blocking_add_btn":  {
-                                       "message":  "+ LÃ¤gg till schema",
-                                       "description":  "Button to open schedule creation form"
-                                   },
-    "scheduled_blocking_no_schedules":  {
-                                            "message":  "Inga scheman Ã¤nnu. Klicka pÃ¥ LÃ¤gg till schema fÃ¶r att skapa ett.",
-                                            "description":  "Empty state when no schedules exist"
-                                        },
-    "schedule_form_title_add":  {
-                                    "message":  "Nytt schema",
-                                    "description":  "Title when adding a new schedule"
-                                },
-    "schedule_form_title_edit":  {
-                                     "message":  "Redigera schema",
-                                     "description":  "Title when editing an existing schedule"
-                                 },
-    "schedule_form_label":  {
-                                "message":  "Etikett",
-                                "description":  "Label for schedule name input"
-                            },
-    "schedule_form_label_placeholder":  {
-                                            "message":  "t.ex. Arbetstid, Studietid",
-                                            "description":  "Placeholder for schedule name"
-                                        },
-    "schedule_form_days":  {
-                               "message":  "Veckodagar",
-                               "description":  "Label for day chips in schedule form"
-                           },
-    "schedule_form_start_time":  {
-                                     "message":  "Starttid",
-                                     "description":  "Label for start time input"
-                                 },
-    "schedule_form_end_time":  {
-                                   "message":  "Sluttid",
-                                   "description":  "Label for end time input"
-                               },
-    "schedule_form_mode":  {
-                               "message":  "BlockeringslÃ¤ge",
-                               "description":  "Label for mode selector"
-                           },
-    "schedule_mode_full":  {
-                               "message":  "Blockera YouTube helt",
-                               "description":  "Option to block YouTube entirely during schedule"
-                           },
-    "schedule_mode_full_desc":  {
-                                    "message":  "ErsÃ¤tter YouTube med en lÃ¥st fokusskÃ¤rm",
-                                    "description":  "Description for full block mode"
-                                },
-    "schedule_mode_strict":  {
-                                 "message":  "Tvinga pÃ¥ alla skydd",
-                                 "description":  "Option to force all distraction blockers on during schedule"
-                             },
-    "schedule_mode_strict_desc":  {
-                                      "message":  "TillÃ¤mpar maximal distraktionsblockering utan att lÃ¥sa hela webbplatsen",
-                                      "description":  "Description for strict protections mode"
-                                  },
-    "schedule_btn_save":  {
-                              "message":  "Spara schema",
-                              "description":  "Button to save schedule"
-                          },
-    "schedule_btn_cancel":  {
-                                "message":  "Avbryt",
-                                "description":  "Button to cancel schedule editing"
-                            },
-    "schedule_card_edit":  {
-                               "message":  "Redigera",
-                               "description":  "Edit button on schedule card"
-                           },
-    "schedule_card_delete":  {
-                                 "message":  "Ta bort",
-                                 "description":  "Delete button on schedule card"
-                             },
-    "schedule_days_all":  {
-                              "message":  "Varje dag",
-                              "description":  "Summary for schedule active all 7 days"
-                          },
-    "schedule_days_weekdays":  {
-                                   "message":  "MÃ¥nâ€“fre",
-                                   "description":  "Summary for schedule active on weekdays"
-                               },
-    "schedule_days_weekends":  {
-                                   "message":  "LÃ¶r, sÃ¶n",
-                                   "description":  "Summary for schedule active on weekends"
-                               },
-    "day_sun":  {
-                    "message":  "SÃ¶n",
-                    "description":  "Sunday abbreviation"
-                },
-    "day_mon":  {
-                    "message":  "MÃ¥n",
-                    "description":  "Monday abbreviation"
-                },
-    "day_tue":  {
-                    "message":  "Tis",
-                    "description":  "Tuesday abbreviation"
-                },
-    "day_wed":  {
-                    "message":  "Ons",
-                    "description":  "Wednesday abbreviation"
-                },
-    "day_thu":  {
-                    "message":  "Tor",
-                    "description":  "Thursday abbreviation"
-                },
-    "day_fri":  {
-                    "message":  "Fre",
-                    "description":  "Friday abbreviation"
-                },
-    "day_sat":  {
-                    "message":  "LÃ¶r",
-                    "description":  "Saturday abbreviation"
-                },
-    "schedule_validation_days":  {
-                                     "message":  "VÃ¤lj minst en dag.",
-                                     "description":  "Validation message when no days are selected"
-                                 },
-    "schedule_validation_label":  {
-                                      "message":  "Ange en schemaetikett.",
-                                      "description":  "Validation message when label is empty"
-                                  },
-    "schedule_validation_times":  {
-                                      "message":  "Ange bÃ¥de start- och sluttid.",
-                                      "description":  "Validation message when times are missing"
-                                  },
-    "scheduled_block_title":  {
-                                  "message":  "YouTube Ã¤r inte tillgÃ¤ngligt just nu",
-                                  "description":  "Heading on full scheduled blocking commitment screen"
-                              },
-    "scheduled_block_reopens":  {
-                                    "message":  "Ã–ppnar igen kl. $TIME$",
-                                    "description":  "Reopen time on full scheduled blocking commitment screen",
-                                    "placeholders":  {
-                                                         "time":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "17:00"
-                                                                  }
-                                                     }
-                                },
-    "scheduled_block_commitment":  {
-                                       "message":  "Detta schema tillÃ¤mpas av Intentional YT fÃ¶r att skydda ditt fokus.",
-                                       "description":  "Commitment message on full scheduled blocking screen"
-                                   },
-    "section_settings":  {
-                             "message":  "InstÃ¤llningar",
-                             "description":  "Section header for Settings tab"
-                         },
-    "setting_language":  {
-                             "message":  "SprÃ¥k",
-                             "description":  "Language selector label in Settings tab"
-                         },
-    "setting_reset_title":  {
-                                "message":  "Ã…terstÃ¤ll instÃ¤llningar",
-                                "description":  "Header for reset settings action"
-                            },
-    "setting_reset_desc":  {
-                               "message":  "Ã…terstÃ¤ll alla standardalternativ och rensa anpassade scheman.",
-                               "description":  "Description explaining reset button"
-                           },
-    "btn_reset_defaults":  {
-                               "message":  "Ã…terstÃ¤ll alla instÃ¤llningar till standard",
-                               "description":  "Button to restore default extension settings"
-                           },
-    "confirm_reset_all_settings":  {
-                                       "message":  "Ã„r du sÃ¤ker pÃ¥ att du vill Ã¥terstÃ¤lla alla instÃ¤llningar till standard? Detta raderar alla dina anpassade instÃ¤llningar och scheman.",
-                                       "description":  "Confirmation prompt before resetting all settings"
-                                   },
-    "section_stats":  {
-                          "message":  "AktivitetsÃ¶versikt",
-                          "description":  "Section header for Activity \u0026 Stats tab"
-                      },
-    "stats_dashboard_title":  {
-                                  "message":  "Dagens YouTube-uppspelning",
-                                  "description":  "Header title in stats hero card"
-                              },
-    "stats_unit_watchtime":  {
-                                 "message":  "total visningstid",
-                                 "description":  "Unit label beside watch time number"
-                             },
-    "stats_callout_info":  {
-                               "message":  "Visningstid rÃ¤knas endast medan en YouTube-video spelas upp aktivt. Den Ã¥terstÃ¤lls automatiskt vid midnatt. Din permanenta statusrad fÃ¶rblir synlig lÃ¤ngst ned pÃ¥ varje flik.",
-                               "description":  "Explanation text in stats callout note"
-                           },
-    "stats_btn_set_limit":  {
-                                "message":  "Konfigurera grÃ¤ns",
-                                "description":  "Button to navigate to daily limit settings"
-                            },
-    "stats_btn_reset_panel":  {
-                                  "message":  "Ã…terstÃ¤ll idag",
-                                  "description":  "Button in stats panel to reset today\u0027s watch time"
-                              },
-    "scheduled_blocking_empty_sub":  {
-                                         "message":  "Automatisera distraktionsfria studiepass eller lugna timmar.",
-                                         "description":  "Subtitle on schedule list empty state"
-                                     },
-    "setting_theme":  {
-                          "message":  "Utseende",
-                          "description":  "Appearance / Theme selector label in Settings tab"
-                      },
-    "theme_auto":  {
-                       "message":  "Automatiskt (fÃ¶lj system)",
-                       "description":  "Automatic system theme option"
-                   },
-    "theme_dark":  {
-                       "message":  "MÃ¶rkt lÃ¤ge",
-                       "description":  "Dark theme option"
-                   },
-    "theme_light":  {
-                        "message":  "Ljust lÃ¤ge",
-                        "description":  "Light theme option"
-                    },
-    "setting_backup_title":  {
-                                 "message":  "SÃ¤kerhetskopiering och Ã¥terstÃ¤llning",
-                                 "description":  "Title for import and export section in Settings"
-                             },
-    "setting_backup_desc":  {
-                                "message":  "Exportera dina instÃ¤llningar till en JSON-fil eller importera en tidigare sÃ¤kerhetskopia.",
-                                "description":  "Description for import and export section in Settings"
-                            },
-    "setting_rate_store":  {
-                               "message":  "BetygsÃ¤tt i Web Store",
-                               "description":  "Button linking to Chrome Web Store review page"
-                           },
-    "setting_rate_firefox":  {
-                                 "message":  "BetygsÃ¤tt pÃ¥ Firefox AMO",
-                                 "description":  "Button linking to Firefox Add-ons review page"
-                             },
-    "btn_export_settings":  {
-                                "message":  "Exportera",
-                                "description":  "Button label to export settings JSON"
-                            },
-    "btn_import_settings":  {
-                                "message":  "Importera",
-                                "description":  "Button label to import settings JSON"
-                            },
-    "settings_exported":  {
-                              "message":  "InstÃ¤llningarna har exporterats",
-                              "description":  "Toast message after exporting settings"
-                          },
-    "settings_imported":  {
-                              "message":  "InstÃ¤llningarna har importerats",
-                              "description":  "Toast message after importing settings"
-                          },
-    "settings_import_failed":  {
-                                   "message":  "Kunde inte importera instÃ¤llningar: Ogiltig JSON-fil",
-                                   "description":  "Toast error message when import fails"
-                               },
-    "section_active_count":  {
-                                 "message":  "$COUNT$ aktiva",
-                                 "description":  "Number of active toggles in a collapsible section",
-                                 "placeholders":  {
-                                                      "count":  {
-                                                                    "content":  "$1",
-                                                                    "example":  "3"
-                                                                }
-                                                  }
-                             },
-    "presets_title":  {
-                          "message":  "FÃ¶rinstÃ¤llningar",
-                          "description":  "Header for distraction preset modes"
-                      },
-    "preset_balanced":  {
-                            "message":  "Balanserad",
-                            "description":  "Preset mode label for balanced focus"
-                        },
-    "preset_zen":  {
-                       "message":  "Zen",
-                       "description":  "Preset mode label for zen search-only focus"
-                   },
-    "preset_player":  {
-                          "message":  "Endast video",
-                          "description":  "Preset mode label for clean video playback focus"
-                      },
-    "preset_custom":  {
-                          "message":  "Anpassad",
-                          "description":  "Preset mode label when customized"
-                      },
-    "preset_desc_balanced":  {
-                                 "message":  "Balanserad Â· DÃ¶ljer flÃ¶den och fÃ¶rslag",
-                                 "description":  "Description of balanced preset"
-                             },
-    "preset_desc_zen":  {
-                            "message":  "Zen Â· Endast sÃ¶kning, alla flÃ¶den dolda",
-                            "description":  "Description of zen preset"
-                        },
-    "preset_desc_player":  {
-                               "message":  "Endast video Â· Minimal spelare, distraktioner dolda",
-                               "description":  "Description of video only preset"
-                           },
-    "preset_desc_custom":  {
-                               "message":  "Anpassad konfiguration",
-                               "description":  "Description of custom mode"
-                           },
-    "detailed_controls_title":  {
-                                    "message":  "Detaljerade kontroller",
-                                    "description":  "Section header above the accordion list"
-                                },
-    "preset_tooltip_balanced":  {
-                                    "message":  "Blockerar startsidesflÃ¶de, Shorts och fÃ¶rslag i sidofÃ¤ltet. LÃ¤mnar sÃ¶kning, prenumerationer och kommentarer tillgÃ¤ngliga.",
-                                    "description":  "Tooltip description for Balanced preset"
-                                },
-    "preset_tooltip_zen":  {
-                               "message":  "Maximalt fokus. Enbart ren sÃ¶kning. FlÃ¶den, kommentarer, miniatyrer och kanalprofilbilder Ã¤r dolda.",
-                               "description":  "Tooltip description for Zen preset"
-                           },
-    "preset_tooltip_player":  {
-                                  "message":  "Ren videospelare. DÃ¶ljer rekommendationer, kommentarer och sidofÃ¤ltsstÃ¶rningar runt videon.",
-                                  "description":  "Tooltip description for Video Only preset"
-                              },
-    "preset_tooltip_custom":  {
-                                  "message":  "Anpassad vÃ¤xlingskonfiguration.",
-                                  "description":  "Tooltip description for Custom mode"
-                              },
-    "preset_applied":  {
-                           "message":  "VÃ¤xlade till lÃ¤get $PRESET$",
-                           "description":  "Toast notification when switching preset mode",
-                           "placeholders":  {
-                                                "preset":  {
-                                                               "content":  "$1",
-                                                               "example":  "Balanced"
-                                                           }
-                                            }
-                       },
-    "welcome_title":  {
-                          "message":  "VÃ¤lkommen till Intentional YT",
-                          "description":  "Title on first-run welcome card"
-                      },
-    "welcome_desc":  {
-                         "message":  "Välj dina startinställningar. Du kan ändra dem nedan när du vill.",
-                         "description":  "Description on first-run welcome card"
-                     },
-    "welcome_dismiss_aria":  {
-                                 "message":  "Avvisa vÃ¤lkomstbanderoll",
-                                 "description":  "Aria label for welcome banner dismiss button"
-                             },
-    "search_toggles_placeholder":  {
-                                       "message":  "SÃ¶k reglage...",
-                                       "description":  "Placeholder for toggle search input in Distractions tab"
-                                   },
-    "search_no_results":  {
-                              "message":  "Inga reglage hittades",
-                              "description":  "Empty state title when search matches no toggles"
-                          },
-    "search_no_results_sub":  {
-                                  "message":  "Prova att sÃ¶ka efter shorts, kommentarer eller sidofÃ¤lt",
-                                  "description":  "Empty state subtitle when search matches no toggles"
-                              },
-    "panel_filters_title":  {
-                                "message":  "Kanal- och nyckelordsfilter",
-                                "description":  "Panel header title for Filters tab"
-                            },
-    "panel_filters_subtitle":  {
-                                   "message":  "Blockera specifika kanaler och filtrera videor efter nyckelord.",
-                                   "description":  "Panel header subtitle for Filters tab"
-                               },
-    "panel_focus_title":  {
-                              "message":  "Fokus och grÃ¤nser",
-                              "description":  "Panel header title for Focus tab"
-                          },
-    "panel_focus_subtitle":  {
-                                 "message":  "PÃ¥minnelser, dagliga grÃ¤nser och schemalagd blockering.",
-                                 "description":  "Panel header subtitle for Focus tab"
-                             },
-    "panel_stats_title":  {
-                              "message":  "Uppspelningsaktivitet",
-                              "description":  "Panel header title for Stats tab"
-                          },
-    "panel_stats_subtitle":  {
-                                 "message":  "FÃ¶lj din dagliga visningstid och dina tittarvanor.",
-                                 "description":  "Panel header subtitle for Stats tab"
-                             },
-    "panel_settings_title":  {
-                                 "message":  "InstÃ¤llningar",
-                                 "description":  "Panel header title for Settings tab"
-                             },
-    "panel_settings_subtitle":  {
-                                    "message":  "Tema, sprÃ¥k och sÃ¤kerhetskopiering av konfiguration.",
-                                    "description":  "Panel header subtitle for Settings tab"
-                                },
-    "toggle_redirect_shorts":  {
-                                   "message":  "Omdirigera Shorts till vanlig spelare",
-                                   "description":  "Label for toggle to play Shorts in standard watch player"
-                               },
-    "desc_redirect_shorts":  {
-                                 "message":  "Spelar Shorts i standardvisningslÃ¤get med uppspelningskontroller",
-                                 "description":  "Description for redirect shorts toggle"
-                             },
-    "action_snooze":  {
-                          "message":  "Snooza",
-                          "description":  "Button to temporarily pause protections"
-                      },
-    "status_snoozed":  {
-                           "message":  "Snoozad",
-                           "description":  "Status badge label when protections are temporarily paused"
-                       },
-    "snooze_modal_title":  {
-                               "message":  "Pausa skydd",
-                               "description":  "Title for snooze modal"
-                           },
-    "snooze_modal_desc":  {
-                              "message":  "Skydden Ã¥terupptas automatiskt nÃ¤r timern gÃ¥r ut.",
-                              "description":  "Subtitle description for snooze modal"
-                          },
-    "snooze_duration_15":  {
-                               "message":  "15 minuter",
-                               "description":  "15 minute snooze option"
-                           },
-    "snooze_duration_15_desc":  {
-                                    "message":  "Kort paus",
-                                    "description":  "Description for 15 minute snooze"
-                                },
-    "snooze_duration_30":  {
-                               "message":  "30 minuter",
-                               "description":  "30 minute snooze option"
-                           },
-    "snooze_duration_30_desc":  {
-                                    "message":  "Arbetspass",
-                                    "description":  "Description for 30 minute snooze"
-                                },
-    "snooze_duration_60":  {
-                               "message":  "1 timme",
-                               "description":  "60 minute snooze option"
-                           },
-    "snooze_duration_60_desc":  {
-                                    "message":  "LÃ¤ngre pass",
-                                    "description":  "Description for 60 minute snooze"
-                                },
-    "action_resume_now":  {
-                              "message":  "Ã…teruppta nu",
-                              "description":  "Button to immediately restore protections from snooze"
-                          },
-    "snooze_banner_title":  {
-                                "message":  "Skydd pausade",
-                                "description":  "Title on snooze countdown banner"
-                            },
-    "snooze_banner_remaining":  {
-                                    "message":  "$TIME$ Ã¥terstÃ¥r",
-                                    "description":  "Countdown remaining on snooze banner",
-                                    "placeholders":  {
-                                                         "time":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "14:59"
-                                                                  }
-                                                     }
-                                },
-    "snooze_activated":  {
-                             "message":  "Skydd pausade i $MINUTES$ minuter",
-                             "description":  "Toast notification when snooze is turned on",
-                             "placeholders":  {
-                                                  "minutes":  {
-                                                                  "content":  "$1",
-                                                                  "example":  "15"
-                                                              }
-                                              }
-                         },
-    "snooze_resumed":  {
-                           "message":  "Skydd Ã¥terupptagna",
-                           "description":  "Toast notification when snooze ends or is canceled"
-                       },
-    "status_off":  {
-                       "message":  "Av",
-                       "description":  "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
-                   },
-    "toggle_extension_enabled":  {
-                                     "message":  "HuvudstrÃ¶mbrytare fÃ¶r tillÃ¤gget",
-                                     "description":  "Label for the master extension toggle in the header"
-                                 },
-    "stats_reset_toast":  {
-                              "message":  "Daglig visningstid Ã¥terstÃ¤lld",
-                              "description":  "Toast message when user resets today\u0027s watch time"
-                          },
-    "filters_status_in_development":  {
-                                          "message":  "Under utveckling",
-                                          "description":  "Status pill label on the content filters roadmap preview card"
-                                      },
-    "action_block":  {
-                         "message":  "Blockera",
-                         "description":  "Button text for 1-click in-feed channel block button"
-                     },
-    "filters_quick_block_title":  {
-                                      "message":  "Snabbknapp fÃ¶r 1-klicksblockering",
-                                      "description":  "Label for toggle allowing 1-click channel block buttons on video cards"
-                                  },
-    "filters_quick_block_desc":  {
-                                     "message":  "Visa en blockeringsknapp bredvid kanalnamn nÃ¤r muspekaren fÃ¶rs Ã¶ver videokort",
-                                     "description":  "Description for 1-click quick block button toggle"
-                                 },
-    "filters_tip_text":  {
-                             "message":  "FÃ¶r muspekaren Ã¶ver valfri video pÃ¥ YouTube fÃ¶r att blockera kanaler med 1 klick!",
-                             "description":  "Quick tip text at the top of the Filters tab"
-                         },
-    "btn_clear_all":  {
-                          "message":  "Rensa alla",
-                          "description":  "Button to clear all items in a blocklist"
-                      },
-    "toast_channel_cleared":  {
-                                  "message":  "Alla blockerade kanaler har rensats",
-                                  "description":  "Toast notification when all channels are cleared"
-                              },
-    "toast_keyword_cleared":  {
-                                  "message":  "Alla blockerade sÃ¶kord har rensats",
-                                  "description":  "Toast notification when all keywords are cleared"
-                              },
-    "placeholder_channel_input":  {
-                                      "message":  "Kanalnamn eller @anvÃ¤ndarnamn...",
-                                      "description":  "Placeholder for channel blocklist text input"
-                                  },
-    "blocklist_channels_empty_desc":  {
-                                          "message":  "LÃ¤gg till ett kanalnamn eller @anvÃ¤ndarnamn fÃ¶r att dÃ¶lja dess videor.",
-                                          "description":  "Empty state description for Channel Blocklist"
-                                      },
-    "placeholder_keyword_input":  {
-                                      "message":  "t.ex. podcast, spoiler, reaktion...",
-                                      "description":  "Placeholder for keyword blocklist text input"
-                                  },
-    "blocklist_keywords_empty_desc":  {
-                                          "message":  "LÃ¤gg till sÃ¶kord fÃ¶r att automatiskt dÃ¶lja matchande videor.",
-                                          "description":  "Empty state description for Keyword Blocklist"
-                                      },
-    "blocklist_privacy_note":  {
-                                   "message":  "100% lokal filtrering Â· Titlar och kanaler matchas i webblÃ¤saren utan telemetri.",
-                                   "description":  "Privacy note at the bottom of the filters panel"
-                               },
-    "toast_channel_added":  {
-                                "message":  "Lade till \"$NAME$\" bland blockerade kanaler",
-                                "description":  "Toast confirmation when channel is added to blocklist",
-                                "placeholders":  {
-                                                     "name":  {
-                                                                  "content":  "$1",
-                                                                  "example":  "TechLead"
-                                                              }
-                                                 }
-                            },
-    "toast_channel_removed":  {
-                                  "message":  "Tog bort \"$NAME$\" frÃ¥n blockerade kanaler",
-                                  "description":  "Toast confirmation when channel is removed from blocklist",
-                                  "placeholders":  {
-                                                       "name":  {
-                                                                    "content":  "$1",
-                                                                    "example":  "TechLead"
-                                                                }
-                                                   }
-                              },
-    "toast_channel_exists":  {
-                                 "message":  "\"$NAME$\" finns redan i blockeringslistan",
-                                 "description":  "Toast warning when adding duplicate channel",
-                                 "placeholders":  {
-                                                      "name":  {
-                                                                   "content":  "$1",
-                                                                   "example":  "TechLead"
-                                                               }
-                                                  }
-                             },
-    "toast_keyword_added":  {
-                                "message":  "Lade till \"$KEYWORD$\" bland blockerade sÃ¶kord",
-                                "description":  "Toast confirmation when keyword is added to blocklist",
-                                "placeholders":  {
-                                                     "keyword":  {
-                                                                     "content":  "$1",
-                                                                     "example":  "spoiler"
-                                                                 }
-                                                 }
-                            },
-    "toast_keyword_removed":  {
-                                  "message":  "Tog bort \"$KEYWORD$\" frÃ¥n blockerade sÃ¶kord",
-                                  "description":  "Toast confirmation when keyword is removed from blocklist",
-                                  "placeholders":  {
-                                                       "keyword":  {
-                                                                       "content":  "$1",
-                                                                       "example":  "spoiler"
-                                                                   }
-                                                   }
-                              },
-    "toast_keyword_exists":  {
-                                 "message":  "\"$KEYWORD$\" finns redan i sÃ¶kordslistan",
-                                 "description":  "Toast warning when adding duplicate keyword",
-                                 "placeholders":  {
-                                                      "keyword":  {
-                                                                      "content":  "$1",
-                                                                      "example":  "spoiler"
-                                                                  }
-                                                  }
-                             },
-    "setting_rate_edge":  {
-                              "message":  "Rate on Edge Add-ons",
-                              "description":  "Button linking to Microsoft Edge Add-ons review page"
-                          },
-    "scheduled_close_tab":  {
-                                "message":  "StÃ¤ng fliken"
-                            },
-    "scheduled_blank_screen":  {
-                                   "message":  "Tom skÃ¤rm"
-                               },
-    "action_undo":  {
-                        "message":  "Ã…ngra"
-                    },
-    "channel_blocked":  {
-                            "message":  "$1 blockerad"
-                        },
-    "focus_session_title":  {
-                                "message":  "Fokussession"
-                            },
-    "focus_session_description":  {
-                                      "message":  "Slå på Strikt fokus för en kort session. Dina vanliga inställningar återgår när det är slut. Scheman och dagliga gränser gäller fortfarande."
-                                  },
-    "focus_session_end":  {
-                              "message":  "Avsluta sessionen"
-                          },
-    "limit_warning_option":  {
-                                 "message":  "Varna mig med 5 minuter kvar (1 minut för korta gränser)."
-                             },
-    "limit_warning_title":  {
-                                "message":  "Nästan vid din dagliga gräns"
-                            },
-    "limit_warning_message":  {
-                                  "message":  "Tid kvar idag: $value$ min. Avsluta innan det dagliga blocket börjar.",
-                                  "placeholders":  {
-                                                       "value":  {
-                                                                     "content":  "$1"
-                                                                 }
-                                                   }
-                              },
-    "clear_status_active":  {
-                                "message":  "Dina blockeringsinställningar är aktiva."
-                            },
-    "clear_status_off":  {
-                             "message":  "Skydden är avstängda."
-                         },
-    "clear_status_snoozed":  {
-                                 "message":  "Skydd är pausat till $value$.",
-                                 "placeholders":  {
-                                                      "value":  {
-                                                                    "content":  "$1"
-                                                                }
-                                                  }
-                             },
-    "clear_status_full":  {
-                              "message":  "YouTube är blockerad av: $value$.",
-                              "placeholders":  {
-                                                   "value":  {
-                                                                 "content":  "$1"
-                                                             }
-                                               }
-                          },
-    "clear_status_strict":  {
-                                "message":  "Strikt fokus är på för: $value$.",
-                                "placeholders":  {
-                                                     "value":  {
-                                                                   "content":  "$1"
-                                                               }
-                                                 }
-                            },
-    "clear_status_until":  {
-                               "message":  "Till $value$.",
-                               "placeholders":  {
-                                                    "value":  {
-                                                                  "content":  "$1"
-                                                              }
-                                                }
-                           },
-    "clear_status_session":  {
-                                 "message":  "Fokussession: Strikt fokus till $value$.",
-                                 "placeholders":  {
-                                                      "value":  {
-                                                                    "content":  "$1"
-                                                                }
-                                                  }
-                             },
-    "clear_status_session_paused":  {
-                                        "message":  "Fokussessionen är pausad; dess timer slutar vid $value$.",
-                                        "placeholders":  {
-                                                             "value":  {
-                                                                           "content":  "$1"
-                                                                       }
-                                                         }
-                                    },
-    "clear_status_remaining":  {
-                                   "message":  "Tid kvar idag: $value$ min.",
-                                   "placeholders":  {
-                                                        "value":  {
-                                                                      "content":  "$1"
-                                                                  }
-                                                    }
-                               },
-    "clear_status_limit_reached":  {
-                                       "message":  "Din dagliga gräns är nådd."
-                                   },
-    "clear_status_dismissed":  {
-                                   "message":  "Din dagliga gräns tas bort för idag."
-                               },
+  "extensionName": {
+    "message": "Intentional YT - YouTube Distraktionsblockerare & Daglig Tidsgräns",
+    "description": "Official extension name in stores and browser management pages"
+  },
+  "extensionShortName": {
+    "message": "Intentional",
+    "description": "Short name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Distraktionsfritt YouTube med detaljerade kontroller för flöden, Shorts, kommentarer och tidsgränser. 100 % privat och lokalt.",
+    "description": "Extension description in stores and browser management pages"
+  },
+  "popup_window_title": {
+    "message": "Intentional YT - YouTube Distraktionsblockerare & Daglig Tidsgräns",
+    "description": "Title tag of the popup document"
+  },
+  "header_title": {
+    "message": "Intentional YT",
+    "description": "Header brand name in the extension popup"
+  },
+  "status_active": {
+    "message": "Aktiv",
+    "description": "Badge status when the extension is active"
+  },
+  "status_paused": {
+    "message": "Pausad",
+    "description": "Badge status when the extension is paused"
+  },
+  "section_feed": {
+    "message": "Flöden och Shorts",
+    "description": "Feed controls section header"
+  },
+  "toggle_block_home_feed": {
+    "message": "Dölj startsidesflöde",
+    "description": "Toggle label to hide YouTube home recommendations feed"
+  },
+  "desc_block_home_feed": {
+    "message": "Döljer det algoritmiska videoflödet på YouTubes startsida",
+    "description": "Helper description for Hide home feed toggle"
+  },
+  "toggle_limit_home_feed": {
+    "message": "Begränsa startsidesflödet (anti-doomscroll)",
+    "description": "Toggle label to limit videos on the home feed and stop doomscrolling"
+  },
+  "desc_limit_home_feed": {
+    "message": "Begränsar startsidesflödet till 15 videor och inaktiverar oändlig rullning",
+    "description": "Helper explanation for limiting home feed videos"
+  },
+  "toggle_block_subscriptions": {
+    "message": "Dölj prenumerationer",
+    "description": "Toggle label to hide YouTube subscriptions feed"
+  },
+  "toggle_block_recommended": {
+    "message": "Dölj rekommendationer i sidofältet",
+    "description": "Toggle label to hide recommended video sidebar on watch page"
+  },
+  "toggle_block_shorts": {
+    "message": "Dölj Shorts",
+    "description": "Toggle label to hide Shorts carousels and tabs"
+  },
+  "desc_block_shorts": {
+    "message": "Döljer Shorts överallt – sidofält, flöden, sökresultat och kanaler",
+    "description": "Helper explanation for hiding Shorts across YouTube"
+  },
+  "toggle_block_explore_trending": {
+    "message": "Dölj Utforska och Trender",
+    "description": "Toggle label to hide Explore and Trending navigation items"
+  },
+  "toggle_block_more_from_youtube": {
+    "message": "Dölj \"Mer från YouTube\"",
+    "description": "Toggle label to hide More from YouTube section in left sidebar"
+  },
+  "toggle_block_irrelevant_search": {
+    "message": "Dölj irrelevanta sökresultat",
+    "description": "Toggle label to hide People also watched, For you, and related search shelves"
+  },
+  "section_video": {
+    "message": "Uppspelning",
+    "description": "Video controls section header"
+  },
+  "toggle_block_endscreen_videowall": {
+    "message": "Dölj slutskärmsrekommendationer",
+    "description": "Toggle label to hide grid of recommended videos at video end"
+  },
+  "desc_block_endscreen_videowall": {
+    "message": "Dölj rutnät med rekommenderade videor och videovägg när uppspelningen tar slut",
+    "description": "Description for end screen videowall toggle"
+  },
+  "toggle_block_endscreen_cards": {
+    "message": "Dölj slutskärmskort",
+    "description": "Toggle label to hide creator end screen cards and elements"
+  },
+  "desc_block_endscreen_cards": {
+    "message": "Dölj skaparens video-, spelliste- och prenumerationskort under de sista 20 sekunderna",
+    "description": "Description for creator end screen cards toggle"
+  },
+  "toggle_block_live_chat": {
+    "message": "Dölj livechatt",
+    "description": "Toggle label to hide live chat panel"
+  },
+  "toggle_block_playlist": {
+    "message": "Dölj spellistepanel",
+    "description": "Toggle label to hide playlist side panel on watch page"
+  },
+  "toggle_disable_autoplay": {
+    "message": "Inaktivera automatisk uppspelning",
+    "description": "Toggle label to prevent YouTube from automatically playing next video"
+  },
+  "toggle_disable_annotations": {
+    "message": "Dölj videoanteckningar",
+    "description": "Toggle label to hide in-video popups and annotations"
+  },
+  "toggle_block_video_info": {
+    "message": "Dölj videoinformationspanel",
+    "description": "Toggle label to hide video metadata panel below player"
+  },
+  "desc_block_video_info": {
+    "message": "Döljer all information och alla åtgärder under videospelaren",
+    "description": "Subheading description for Hide video info panel toggle"
+  },
+  "toggle_block_video_buttons": {
+    "message": "Åtgärdsknappar",
+    "description": "Nested toggle label to hide like, dislike, share, download buttons"
+  },
+  "desc_block_video_buttons": {
+    "message": "Döljer knappar för gilla, ogilla, dela, ladda ned och klipp",
+    "description": "Subheading description for Action buttons sub-toggle"
+  },
+  "toggle_block_channel_info": {
+    "message": "Kanalinformation",
+    "description": "Nested toggle label to hide channel subscriber count and avatar"
+  },
+  "desc_block_channel_info": {
+    "message": "Döljer kanalnamn, profilbild och prenumerationsknapp",
+    "description": "Subheading description for Channel info sub-toggle"
+  },
+  "toggle_block_video_description": {
+    "message": "Beskrivning",
+    "description": "Nested toggle label to hide video description box"
+  },
+  "desc_block_video_description": {
+    "message": "Döljer expanderbar videobeskrivningstext och detaljer",
+    "description": "Subheading description for Description sub-toggle"
+  },
+  "section_social": {
+    "message": "Kommentarer och bilder",
+    "description": "Social controls section header"
+  },
+  "toggle_block_comments": {
+    "message": "Dölj kommentarer",
+    "description": "Toggle label to hide YouTube comments section"
+  },
+  "toggle_block_profile_photos": {
+    "message": "Dölj profilbilder i kommentarer",
+    "description": "Toggle label to hide profile avatars of commenters"
+  },
+  "section_interface": {
+    "message": "Navigering och sidinformation",
+    "description": "Interface controls section header"
+  },
+  "toggle_block_sidebar": {
+    "message": "Dölj vänster sidofält",
+    "description": "Toggle label to hide YouTube left drawer/guide navigation"
+  },
+  "toggle_block_top_header": {
+    "message": "Dölj övre fältet",
+    "description": "Toggle label to hide YouTube top search and navigation header"
+  },
+  "toggle_block_notification_bell": {
+    "message": "Dölj aviseringsklocka",
+    "description": "Toggle label to hide notification bell icon"
+  },
+  "toggle_block_merch": {
+    "message": "Dölj varor och erbjudanden",
+    "description": "Toggle label to hide merchandise shelf and product offers"
+  },
+  "toggle_block_mix_playlists": {
+    "message": "Dölj Mix-spellistor",
+    "description": "Toggle label to hide algorithmic YouTube mix playlists"
+  },
+  "section_appearance": {
+    "message": "Utseende",
+    "description": "Appearance controls section header"
+  },
+  "toggle_hide_thumbnails": {
+    "message": "Dölj miniatyrer",
+    "description": "Toggle label to neutralize/blur video thumbnail images"
+  },
+  "toggle_grayscale_mode": {
+    "message": "Gråskala",
+    "description": "Toggle label for black and white desaturation mode"
+  },
+  "section_time": {
+    "message": "Tid",
+    "description": "Time controls section header"
+  },
+  "toggle_soft_reminder": {
+    "message": "Mjuk påminnelse",
+    "description": "Toggle label for mindful interval toast notification"
+  },
+  "time_hint_every": {
+    "message": "Varje",
+    "description": "Prefix label before interval dropdown"
+  },
+  "time_option_minutes": {
+    "message": "$MINUTES$ min",
+    "description": "Preset time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "time_option_custom": {
+    "message": "Anpassad...",
+    "description": "Option in dropdown to enter a custom duration"
+  },
+  "time_placeholder_min": {
+    "message": "min",
+    "description": "Placeholder text inside custom minutes input field"
+  },
+  "time_unit_min": {
+    "message": "min",
+    "description": "Unit label beside custom minutes input"
+  },
+  "toggle_daily_limit": {
+    "message": "Daglig gräns",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "desc_daily_limit": {
+    "message": "Pausa videouppspelning när din dagliga visningsgräns har nåtts",
+    "description": "Subheading description for Daily Limit toggle"
+  },
+  "time_hint_stop_after": {
+    "message": "Stoppa efter",
+    "description": "Prefix label before daily limit duration dropdown"
+  },
+  "stats_watch_time_below": {
+    "message": "Din dagliga visningstid visas alltid nedanför.",
+    "description": "Hint text shown in the Stats tab when stats moved to persistent watch bar"
+  },
+  "stats_title_today": {
+    "message": "Idag",
+    "description": "Heading for daily watch stats card"
+  },
+  "aria_about_daily_watchtime": {
+    "message": "Om daglig visningstid",
+    "description": "Accessibility label for daily watchtime info icon"
+  },
+  "stats_tooltip_info": {
+    "message": "Registrerar hur många minuter du har tittat på YouTube idag. Återställs automatiskt vid midnatt. Använd den dagliga gränsen för att styra din tid.",
+    "description": "Tooltip text explaining watchtime tracking"
+  },
+  "stats_no_limit": {
+    "message": "ingen gräns",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  },
+  "stats_limit_progress": {
+    "message": "$PERCENT$ % av $MINUTES$m",
+    "description": "Stats progress indicator showing percentage of daily limit",
+    "placeholders": {
+      "percent": {
+        "content": "$1",
+        "example": "50"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "60"
+      }
+    }
+  },
+  "stats_button_reset": {
+    "message": "återställ",
+    "description": "Button to reset today's accumulated watch time"
+  },
+  "time_fmt_zero_min": {
+    "message": "0 min",
+    "description": "Formatted time for 0 minutes"
+  },
+  "time_fmt_seconds": {
+    "message": "$SECONDS$s",
+    "description": "Formatted time in seconds",
+    "placeholders": {
+      "seconds": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "time_fmt_minutes": {
+    "message": "$MINUTES$ min",
+    "description": "Formatted time in minutes",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "25"
+      }
+    }
+  },
+  "time_fmt_hours_minutes": {
+    "message": "$HOURS$h $MINUTES$m",
+    "description": "Formatted time in hours and minutes",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "1"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "15"
+      }
+    }
+  },
+  "footer_local_privacy": {
+    "message": "100 % Lokalt",
+    "description": "Footer badge indicating offline-first local storage"
+  },
+  "footer_feedback_link": {
+    "message": "Feedback och idéer ↗",
+    "description": "Footer link text to submit feedback form"
+  },
+  "toast_reminder_message": {
+    "message": "Du har tittat i $MINUTES$ minuter.",
+    "description": "Toast notification message when mindful interval triggers (plural)",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "toast_reminder_message_singular": {
+    "message": "Du har tittat i 1 minut.",
+    "description": "Toast notification message when mindful interval triggers (singular)"
+  },
+  "toast_dismiss_aria": {
+    "message": "Stäng",
+    "description": "Accessibility aria-label for closing toast notification"
+  },
+  "toast_reminder_badge": {
+    "message": "Mjuk påminnelse",
+    "description": "Top badge in soft reminder notification card"
+  },
+  "toast_button_pause": {
+    "message": "Pausa video",
+    "description": "Button to immediately pause playback from reminder toast"
+  },
+  "toast_button_continue": {
+    "message": "Fortsätt titta",
+    "description": "Button to dismiss reminder toast and continue playback"
+  },
+  "toast_status_paused": {
+    "message": "Pausad ✓",
+    "description": "Status text shown when video has been paused via toast"
+  },
+  "desc_soft_reminder": {
+    "message": "En diskret påminnelse med jämna mellanrum som hjälper dig hålla koll på tiden utan att blockera dig.",
+    "description": "Description under Soft reminder toggle in Focus tab"
+  },
+  "btn_preview_reminder": {
+    "message": "Förhandsgranska",
+    "description": "Button to test and trigger soft reminder toast on active tab"
+  },
+  "btn_preview_sent": {
+    "message": "Skickat!",
+    "description": "Button text confirmation after preview toast is sent"
+  },
+  "toast_preview_need_yt": {
+    "message": "Öppna en YouTube-flik för att förhandsgranska påminnelsen",
+    "description": "Notice when attempting to preview toast without YouTube active"
+  },
+  "overlay_limit_title": {
+    "message": "Daglig tidsgräns nådd",
+    "description": "Title on full-player limit overlay modal"
+  },
+  "overlay_limit_message": {
+    "message": "Du har nått din dagliga gräns på $LIMIT$ minuter för YouTube idag.",
+    "description": "Explanation message on limit overlay modal",
+    "placeholders": {
+      "limit": {
+        "content": "$1",
+        "example": "60"
+      }
+    }
+  },
+  "overlay_button_finish_video": {
+    "message": "Se klart den här videon",
+    "description": "Button label to allow completing current video before blocking"
+  },
+  "overlay_button_finish_video_remaining": {
+    "message": "Se klart den här videon ($MINUTES$m kvar)",
+    "description": "Button label with remaining duration to allow completing current video",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "overlay_button_stop_watching": {
+    "message": "Sluta titta (Till startsidan)",
+    "description": "Primary action button to leave video and return to homepage"
+  },
+  "overlay_button_dismiss_today": {
+    "message": "Ignorera för idag",
+    "description": "Secondary action button to override limit for remainder of today"
+  },
+  "tab_block": {
+    "message": "Blockera",
+    "description": "Label for the Block tab in popup navigation"
+  },
+  "tab_blocklists": {
+    "message": "Filter",
+    "description": "Label for the Filters (blocklists) tab in popup navigation"
+  },
+  "tab_focus": {
+    "message": "Fokus",
+    "description": "Label for the Focus tab in popup navigation"
+  },
+  "tab_stats": {
+    "message": "Statistik",
+    "description": "Label for the Stats tab in popup navigation"
+  },
+  "tab_settings": {
+    "message": "Inställningar",
+    "description": "Label for the Settings tab in popup navigation"
+  },
+  "action_collapse_all": {
+    "message": "Fäll ihop alla",
+    "description": "Button to collapse all detailed control accordion sections"
+  },
+  "action_expand_all": {
+    "message": "Expandera alla",
+    "description": "Button to expand all detailed control accordion sections"
+  },
+  "action_block": {
+    "message": "Blockera",
+    "description": "Button text for 1-click in-feed channel block button"
+  },
+  "filters_quick_block_title": {
+    "message": "Snabbknapp för 1-klicksblockering",
+    "description": "Label for toggle allowing 1-click channel block buttons on video cards"
+  },
+  "filters_quick_block_desc": {
+    "message": "Visa en blockeringsknapp bredvid kanalnamn när muspekaren förs över videokort",
+    "description": "Description for 1-click quick block button toggle"
+  },
+  "filters_tip_text": {
+    "message": "För muspekaren över valfri video på YouTube för att blockera kanaler med 1 klick!",
+    "description": "Quick tip text at the top of the Filters tab"
+  },
+  "btn_clear_all": {
+    "message": "Rensa alla",
+    "description": "Button to clear all items in a blocklist"
+  },
+  "toast_channel_cleared": {
+    "message": "Alla blockerade kanaler har rensats",
+    "description": "Toast notification when all channels are cleared"
+  },
+  "toast_keyword_cleared": {
+    "message": "Alla blockerade sökord har rensats",
+    "description": "Toast notification when all keywords are cleared"
+  },
+  "section_channel_blocklist": {
+    "message": "Spärrlista för kanaler",
+    "description": "Section header for Channel Blocklist"
+  },
+  "desc_channel_blocklist": {
+    "message": "Blockera specifika kanaler från att visas i flöden och rekommendationer.",
+    "description": "Description for Channel Blocklist feature"
+  },
+  "placeholder_channel_input": {
+    "message": "Kanalnamn eller @användarnamn...",
+    "description": "Placeholder for channel blocklist text input"
+  },
+  "blocklist_channels_empty": {
+    "message": "Inga blockerade kanaler.",
+    "description": "Empty state label for Channel Blocklist"
+  },
+  "blocklist_channels_empty_desc": {
+    "message": "Lägg till ett kanalnamn eller @användarnamn för att dölja dess videor.",
+    "description": "Empty state description for Channel Blocklist"
+  },
+  "section_keyword_blocklist": {
+    "message": "Spärrlista för nyckelord",
+    "description": "Section header for Keyword Blocklist"
+  },
+  "desc_keyword_blocklist": {
+    "message": "Dölj videor vars titlar matchar blockerade nyckelord.",
+    "description": "Description for Keyword Blocklist feature"
+  },
+  "placeholder_keyword_input": {
+    "message": "t.ex. podcast, spoiler, reaktion...",
+    "description": "Placeholder for keyword blocklist text input"
+  },
+  "blocklist_keywords_empty": {
+    "message": "Inga blockerade nyckelord.",
+    "description": "Empty state label for Keyword Blocklist"
+  },
+  "blocklist_keywords_empty_desc": {
+    "message": "Lägg till sökord för att automatiskt dölja matchande videor.",
+    "description": "Empty state description for Keyword Blocklist"
+  },
+  "btn_add_channel": {
+    "message": "Lägg till kanal",
+    "description": "Button to add a channel to blocklist"
+  },
+  "btn_add_keyword": {
+    "message": "Lägg till nyckelord",
+    "description": "Button to add a keyword to blocklist"
+  },
+  "blocklist_privacy_note": {
+    "message": "100% lokal filtrering · Titlar och kanaler matchas i webbläsaren utan telemetri.",
+    "description": "Privacy note at the bottom of the filters panel"
+  },
+  "toast_channel_added": {
+    "message": "Lade till \"$NAME$\" bland blockerade kanaler",
+    "description": "Toast confirmation when channel is added to blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_removed": {
+    "message": "Tog bort \"$NAME$\" från blockerade kanaler",
+    "description": "Toast confirmation when channel is removed from blocklist",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_channel_exists": {
+    "message": "\"$NAME$\" finns redan i blockeringslistan",
+    "description": "Toast warning when adding duplicate channel",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "TechLead"
+      }
+    }
+  },
+  "toast_keyword_added": {
+    "message": "Lade till \"$KEYWORD$\" bland blockerade sökord",
+    "description": "Toast confirmation when keyword is added to blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_removed": {
+    "message": "Tog bort \"$KEYWORD$\" från blockerade sökord",
+    "description": "Toast confirmation when keyword is removed from blocklist",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "toast_keyword_exists": {
+    "message": "\"$KEYWORD$\" finns redan i sökordslistan",
+    "description": "Toast warning when adding duplicate keyword",
+    "placeholders": {
+      "keyword": {
+        "content": "$1",
+        "example": "spoiler"
+      }
+    }
+  },
+  "section_focus_lock": {
+    "message": "Fokuslås",
+    "description": "Section header for Focus Lock feature"
+  },
+  "section_time_limits_title": {
+    "message": "Medveten tid och gränser",
+    "description": "Card header title for Time and Daily limits section"
+  },
+  "section_time_limits_sub": {
+    "message": "Diskreta pauspåminnelser och dagliga skärmtidsgränser",
+    "description": "Card header subtitle for Time and Daily limits section"
+  },
+  "section_focus_lock_title": {
+    "message": "Fokuslåsskydd",
+    "description": "Card header title for Focus Lock section"
+  },
+  "section_focus_lock_sub": {
+    "message": "Förhindra impulsiva ändringar med en avsiktlig fördröjning",
+    "description": "Card header subtitle for Focus Lock section"
+  },
+  "section_scheduled_title": {
+    "message": "Schemalagda fokussessioner",
+    "description": "Card header title for Scheduled Blocking section"
+  },
+  "section_scheduled_sub": {
+    "message": "Blockera YouTube automatiskt under arbete, studier eller sömn",
+    "description": "Card header subtitle for Scheduled Blocking section"
+  },
+  "desc_focus_lock": {
+    "message": "Kräv en fördröjning innan skydd kan inaktiveras",
+    "description": "Subheading description for Focus Lock toggle"
+  },
+  "toggle_focus_lock": {
+    "message": "Fokuslås",
+    "description": "Toggle label for Focus Lock"
+  },
+  "focus_lock_cooldown_label": {
+    "message": "Nedräkningsfördröjning",
+    "description": "Label for Focus Lock cooldown duration selector"
+  },
+  "focus_lock_duration_5m": {
+    "message": "5 min",
+    "description": "5 minutes cooldown option"
+  },
+  "focus_lock_duration_10m": {
+    "message": "10 min",
+    "description": "10 minutes cooldown option"
+  },
+  "focus_lock_duration_30m": {
+    "message": "30 min",
+    "description": "30 minutes cooldown option"
+  },
+  "focus_lock_duration_60m": {
+    "message": "60 min",
+    "description": "60 minutes cooldown option"
+  },
+  "focus_lock_pin_modal_title": {
+    "message": "Ange fyrsiffrig PIN-kod",
+    "description": "Title for Focus Lock PIN setup modal"
+  },
+  "focus_lock_enter_pin": {
+    "message": "Ange 4-siffrig PIN-kod",
+    "description": "Placeholder for PIN input"
+  },
+  "focus_lock_confirm_pin": {
+    "message": "Bekräfta 4-siffrig PIN-kod",
+    "description": "Placeholder for PIN confirmation input"
+  },
+  "focus_lock_pin_warning": {
+    "message": "Om du glömmer denna PIN-kod kan den bara återställas genom att avinstallera och installera om tillägget, vilket raderar alla dina inställningar. Skriv upp den på ett säkert ställe.",
+    "description": "One-time setup warning for Focus Lock PIN recovery"
+  },
+  "focus_lock_btn_save_pin": {
+    "message": "Spara PIN & aktivera",
+    "description": "Button to save PIN and enable Focus Lock"
+  },
+  "focus_lock_btn_cancel": {
+    "message": "Avbryt",
+    "description": "Cancel button for Focus Lock modal"
+  },
+  "focus_lock_verify_title": {
+    "message": "Skyddad av fokuslås",
+    "description": "Title for Focus Lock verification modal"
+  },
+  "focus_lock_verify_prompt": {
+    "message": "Ange din 4-siffriga PIN-kod för att påbörja nedräkningen:",
+    "description": "Prompt for Focus Lock PIN verification"
+  },
+  "focus_lock_btn_submit_pin": {
+    "message": "Starta nedräkning",
+    "description": "Button to submit PIN and start cooldown"
+  },
+  "focus_lock_error_mismatch": {
+    "message": "PIN-koderna matchar inte. Försök igen.",
+    "description": "Error when PIN confirmation does not match"
+  },
+  "focus_lock_error_invalid_pin": {
+    "message": "PIN-koden måste bestå av exakt 4 siffror.",
+    "description": "Error when entered PIN is not 4 digits"
+  },
+  "focus_lock_error_incorrect_pin": {
+    "message": "Fel PIN-kod. Försök igen.",
+    "description": "Error when entered PIN does not match stored hash"
+  },
+  "focus_lock_banner_unlocking": {
+    "message": "Låser upp: $SETTING$",
+    "description": "Banner message showing setting being unlocked",
+    "placeholders": {
+      "setting": {
+        "content": "$1",
+        "example": "Hide Shorts"
+      }
+    }
+  },
+  "focus_lock_banner_cooldown": {
+    "message": "Låses upp om $TIME$",
+    "description": "Banner message showing remaining cooldown time",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "09:45"
+      }
+    }
+  },
+  "focus_lock_banner_cancel": {
+    "message": "Avbryt",
+    "description": "Cancel button on pending unlock banner"
+  },
+  "focus_lock_already_pending": {
+    "message": "En upplåsningsnedräkning pågår redan. Avbryt den innan du låser upp en annan inställning.",
+    "description": "Notice when user attempts to unlock another setting while cooldown is running"
+  },
+  "section_scheduled_blocking": {
+    "message": "Schemalagd blockering",
+    "description": "Section header for Scheduled Blocking"
+  },
+  "desc_scheduled_blocking": {
+    "message": "Blockera YouTube automatiskt under inställda tider",
+    "description": "Subheading description for Scheduled Blocking"
+  },
+  "toggle_scheduled_blocking": {
+    "message": "Schemalagd blockering",
+    "description": "Toggle label for Scheduled Blocking"
+  },
+  "scheduled_blocking_add_btn": {
+    "message": "+ Lägg till schema",
+    "description": "Button to open schedule creation form"
+  },
+  "scheduled_blocking_no_schedules": {
+    "message": "Inga scheman ännu. Klicka på Lägg till schema för att skapa ett.",
+    "description": "Empty state when no schedules exist"
+  },
+  "schedule_form_title_add": {
+    "message": "Nytt schema",
+    "description": "Title when adding a new schedule"
+  },
+  "schedule_form_title_edit": {
+    "message": "Redigera schema",
+    "description": "Title when editing an existing schedule"
+  },
+  "schedule_form_label": {
+    "message": "Etikett",
+    "description": "Label for schedule name input"
+  },
+  "schedule_form_label_placeholder": {
+    "message": "t.ex. Arbetstid, Studietid",
+    "description": "Placeholder for schedule name"
+  },
+  "schedule_form_days": {
+    "message": "Veckodagar",
+    "description": "Label for day chips in schedule form"
+  },
+  "schedule_form_start_time": {
+    "message": "Starttid",
+    "description": "Label for start time input"
+  },
+  "schedule_form_end_time": {
+    "message": "Sluttid",
+    "description": "Label for end time input"
+  },
+  "schedule_form_mode": {
+    "message": "Blockeringsläge",
+    "description": "Label for mode selector"
+  },
+  "schedule_mode_full": {
+    "message": "Blockera YouTube helt",
+    "description": "Option to block YouTube entirely during schedule"
+  },
+  "schedule_mode_full_desc": {
+    "message": "Ersätter YouTube med en låst fokusskärm",
+    "description": "Description for full block mode"
+  },
+  "schedule_mode_strict": {
+    "message": "Tvinga på alla skydd",
+    "description": "Option to force all distraction blockers on during schedule"
+  },
+  "schedule_mode_strict_desc": {
+    "message": "Tillämpar maximal distraktionsblockering utan att låsa hela webbplatsen",
+    "description": "Description for strict protections mode"
+  },
+  "schedule_btn_save": {
+    "message": "Spara schema",
+    "description": "Button to save schedule"
+  },
+  "schedule_btn_cancel": {
+    "message": "Avbryt",
+    "description": "Button to cancel schedule editing"
+  },
+  "schedule_card_edit": {
+    "message": "Redigera",
+    "description": "Edit button on schedule card"
+  },
+  "schedule_card_delete": {
+    "message": "Ta bort",
+    "description": "Delete button on schedule card"
+  },
+  "schedule_days_all": {
+    "message": "Varje dag",
+    "description": "Summary for schedule active all 7 days"
+  },
+  "schedule_days_weekdays": {
+    "message": "Mån–fre",
+    "description": "Summary for schedule active on weekdays"
+  },
+  "schedule_days_weekends": {
+    "message": "Lör, sön",
+    "description": "Summary for schedule active on weekends"
+  },
+  "day_sun": {
+    "message": "Sön",
+    "description": "Sunday abbreviation"
+  },
+  "day_mon": {
+    "message": "Mån",
+    "description": "Monday abbreviation"
+  },
+  "day_tue": {
+    "message": "Tis",
+    "description": "Tuesday abbreviation"
+  },
+  "day_wed": {
+    "message": "Ons",
+    "description": "Wednesday abbreviation"
+  },
+  "day_thu": {
+    "message": "Tor",
+    "description": "Thursday abbreviation"
+  },
+  "day_fri": {
+    "message": "Fre",
+    "description": "Friday abbreviation"
+  },
+  "day_sat": {
+    "message": "Lör",
+    "description": "Saturday abbreviation"
+  },
+  "schedule_validation_days": {
+    "message": "Välj minst en dag.",
+    "description": "Validation message when no days are selected"
+  },
+  "schedule_validation_label": {
+    "message": "Ange en schemaetikett.",
+    "description": "Validation message when label is empty"
+  },
+  "schedule_validation_times": {
+    "message": "Ange både start- och sluttid.",
+    "description": "Validation message when times are missing"
+  },
+  "scheduled_block_title": {
+    "message": "YouTube är inte tillgängligt just nu",
+    "description": "Heading on full scheduled blocking commitment screen"
+  },
+  "scheduled_block_reopens": {
+    "message": "Öppnar igen kl. $TIME$",
+    "description": "Reopen time on full scheduled blocking commitment screen",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "17:00"
+      }
+    }
+  },
+  "scheduled_block_commitment": {
+    "message": "Detta schema tillämpas av Intentional YT för att skydda ditt fokus.",
+    "description": "Commitment message on full scheduled blocking screen"
+  },
+  "section_settings": {
+    "message": "Inställningar",
+    "description": "Section header for Settings tab"
+  },
+  "setting_language": {
+    "message": "Språk",
+    "description": "Language selector label in Settings tab"
+  },
+  "setting_reset_title": {
+    "message": "Återställ inställningar",
+    "description": "Header for reset settings action"
+  },
+  "setting_reset_desc": {
+    "message": "Återställ alla standardalternativ och rensa anpassade scheman.",
+    "description": "Description explaining reset button"
+  },
+  "btn_reset_defaults": {
+    "message": "Återställ alla inställningar till standard",
+    "description": "Button to restore default extension settings"
+  },
+  "confirm_reset_all_settings": {
+    "message": "Är du säker på att du vill återställa alla inställningar till standard? Detta raderar alla dina anpassade inställningar och scheman.",
+    "description": "Confirmation prompt before resetting all settings"
+  },
+  "section_stats": {
+    "message": "Aktivitetsöversikt",
+    "description": "Section header for Activity & Stats tab"
+  },
+  "stats_dashboard_title": {
+    "message": "Dagens YouTube-uppspelning",
+    "description": "Header title in stats hero card"
+  },
+  "stats_unit_watchtime": {
+    "message": "total visningstid",
+    "description": "Unit label beside watch time number"
+  },
+  "stats_callout_info": {
+    "message": "Visningstid räknas endast medan en YouTube-video spelas upp aktivt. Den återställs automatiskt vid midnatt. Din permanenta statusrad förblir synlig längst ned på varje flik.",
+    "description": "Explanation text in stats callout note"
+  },
+  "stats_btn_set_limit": {
+    "message": "Konfigurera gräns",
+    "description": "Button to navigate to daily limit settings"
+  },
+  "stats_btn_reset_panel": {
+    "message": "Återställ idag",
+    "description": "Button in stats panel to reset today's watch time"
+  },
+  "scheduled_blocking_empty_sub": {
+    "message": "Automatisera distraktionsfria studiepass eller lugna timmar.",
+    "description": "Subtitle on schedule list empty state"
+  },
+  "setting_theme": {
+    "message": "Utseende",
+    "description": "Appearance / Theme selector label in Settings tab"
+  },
+  "theme_auto": {
+    "message": "Automatiskt (följ system)",
+    "description": "Automatic system theme option"
+  },
+  "theme_dark": {
+    "message": "Mörkt läge",
+    "description": "Dark theme option"
+  },
+  "theme_light": {
+    "message": "Ljust läge",
+    "description": "Light theme option"
+  },
+  "setting_backup_title": {
+    "message": "Säkerhetskopiering och återställning",
+    "description": "Title for import and export section in Settings"
+  },
+  "setting_backup_desc": {
+    "message": "Exportera dina inställningar till en JSON-fil eller importera en tidigare säkerhetskopia.",
+    "description": "Description for import and export section in Settings"
+  },
+  "setting_rate_store": {
+    "message": "Betygsätt i Web Store",
+    "description": "Button linking to Chrome Web Store review page"
+  },
+  "setting_rate_edge": {
+    "message": "Rate on Edge Add-ons",
+    "description": "Button linking to Microsoft Edge Add-ons review page"
+  },
+  "setting_rate_firefox": {
+    "message": "Betygsätt på Firefox AMO",
+    "description": "Button linking to Firefox Add-ons review page"
+  },
+  "btn_export_settings": {
+    "message": "Exportera",
+    "description": "Button label to export settings JSON"
+  },
+  "btn_import_settings": {
+    "message": "Importera",
+    "description": "Button label to import settings JSON"
+  },
+  "settings_exported": {
+    "message": "Inställningarna har exporterats",
+    "description": "Toast message after exporting settings"
+  },
+  "settings_imported": {
+    "message": "Inställningarna har importerats",
+    "description": "Toast message after importing settings"
+  },
+  "settings_import_failed": {
+    "message": "Kunde inte importera inställningar: Ogiltig JSON-fil",
+    "description": "Toast error message when import fails"
+  },
+  "section_active_count": {
+    "message": "$COUNT$ aktiva",
+    "description": "Number of active toggles in a collapsible section",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "presets_title": {
+    "message": "Förinställningar",
+    "description": "Header for distraction preset modes"
+  },
+  "preset_balanced": {
+    "message": "Balanserad",
+    "description": "Preset mode label for balanced focus"
+  },
+  "preset_zen": {
+    "message": "Zen",
+    "description": "Preset mode label for zen search-only focus"
+  },
+  "preset_player": {
+    "message": "Endast video",
+    "description": "Preset mode label for clean video playback focus"
+  },
+  "preset_custom": {
+    "message": "Anpassad",
+    "description": "Preset mode label when customized"
+  },
+  "preset_desc_balanced": {
+    "message": "Balanserad · Döljer flöden och förslag",
+    "description": "Description of balanced preset"
+  },
+  "preset_desc_zen": {
+    "message": "Zen · Endast sökning, alla flöden dolda",
+    "description": "Description of zen preset"
+  },
+  "preset_desc_player": {
+    "message": "Endast video · Minimal spelare, distraktioner dolda",
+    "description": "Description of video only preset"
+  },
+  "preset_desc_custom": {
+    "message": "Anpassad konfiguration",
+    "description": "Description of custom mode"
+  },
+  "detailed_controls_title": {
+    "message": "Detaljerade kontroller",
+    "description": "Section header above the accordion list"
+  },
+  "preset_tooltip_balanced": {
+    "message": "Blockerar startsidesflöde, Shorts och förslag i sidofältet. Lämnar sökning, prenumerationer och kommentarer tillgängliga.",
+    "description": "Tooltip description for Balanced preset"
+  },
+  "preset_tooltip_zen": {
+    "message": "Maximalt fokus. Enbart ren sökning. Flöden, kommentarer, miniatyrer och kanalprofilbilder är dolda.",
+    "description": "Tooltip description for Zen preset"
+  },
+  "preset_tooltip_player": {
+    "message": "Ren videospelare. Döljer rekommendationer, kommentarer och sidofältsstörningar runt videon.",
+    "description": "Tooltip description for Video Only preset"
+  },
+  "preset_tooltip_custom": {
+    "message": "Anpassad växlingskonfiguration.",
+    "description": "Tooltip description for Custom mode"
+  },
+  "preset_applied": {
+    "message": "Växlade till läget $PRESET$",
+    "description": "Toast notification when switching preset mode",
+    "placeholders": {
+      "preset": {
+        "content": "$1",
+        "example": "Balanced"
+      }
+    }
+  },
+  "welcome_title": {
+    "message": "Välkommen till Intentional YT",
+    "description": "Title on first-run welcome card"
+  },
+  "welcome_desc": {
+    "message": "Välj dina startinställningar. Du kan ändra dem nedan när du vill.",
+    "description": "Description on first-run welcome card"
+  },
+  "welcome_dismiss_aria": {
+    "message": "Avvisa välkomstbanderoll",
+    "description": "Aria label for welcome banner dismiss button"
+  },
+  "search_toggles_placeholder": {
+    "message": "Sök reglage...",
+    "description": "Placeholder for toggle search input in Distractions tab"
+  },
+  "search_no_results": {
+    "message": "Inga reglage hittades",
+    "description": "Empty state title when search matches no toggles"
+  },
+  "search_no_results_sub": {
+    "message": "Prova att söka efter shorts, kommentarer eller sidofält",
+    "description": "Empty state subtitle when search matches no toggles"
+  },
+  "panel_filters_title": {
+    "message": "Kanal- och nyckelordsfilter",
+    "description": "Panel header title for Filters tab"
+  },
+  "panel_filters_subtitle": {
+    "message": "Blockera specifika kanaler och filtrera videor efter nyckelord.",
+    "description": "Panel header subtitle for Filters tab"
+  },
+  "panel_focus_title": {
+    "message": "Fokus och gränser",
+    "description": "Panel header title for Focus tab"
+  },
+  "panel_focus_subtitle": {
+    "message": "Påminnelser, dagliga gränser och schemalagd blockering.",
+    "description": "Panel header subtitle for Focus tab"
+  },
+  "panel_stats_title": {
+    "message": "Uppspelningsaktivitet",
+    "description": "Panel header title for Stats tab"
+  },
+  "panel_stats_subtitle": {
+    "message": "Följ din dagliga visningstid och dina tittarvanor.",
+    "description": "Panel header subtitle for Stats tab"
+  },
+  "panel_settings_title": {
+    "message": "Inställningar",
+    "description": "Panel header title for Settings tab"
+  },
+  "panel_settings_subtitle": {
+    "message": "Tema, språk och säkerhetskopiering av konfiguration.",
+    "description": "Panel header subtitle for Settings tab"
+  },
+  "toggle_redirect_shorts": {
+    "message": "Omdirigera Shorts till vanlig spelare",
+    "description": "Label for toggle to play Shorts in standard watch player"
+  },
+  "desc_redirect_shorts": {
+    "message": "Spelar Shorts i standardvisningsläget med uppspelningskontroller",
+    "description": "Description for redirect shorts toggle"
+  },
+  "action_snooze": {
+    "message": "Snooza",
+    "description": "Button to temporarily pause protections"
+  },
+  "status_snoozed": {
+    "message": "Snoozad",
+    "description": "Status badge label when protections are temporarily paused"
+  },
+  "snooze_modal_title": {
+    "message": "Pausa skydd",
+    "description": "Title for snooze modal"
+  },
+  "snooze_modal_desc": {
+    "message": "Skydden återupptas automatiskt när timern går ut.",
+    "description": "Subtitle description for snooze modal"
+  },
+  "snooze_duration_15": {
+    "message": "15 minuter",
+    "description": "15 minute snooze option"
+  },
+  "snooze_duration_15_desc": {
+    "message": "Kort paus",
+    "description": "Description for 15 minute snooze"
+  },
+  "snooze_duration_30": {
+    "message": "30 minuter",
+    "description": "30 minute snooze option"
+  },
+  "snooze_duration_30_desc": {
+    "message": "Arbetspass",
+    "description": "Description for 30 minute snooze"
+  },
+  "snooze_duration_60": {
+    "message": "1 timme",
+    "description": "60 minute snooze option"
+  },
+  "snooze_duration_60_desc": {
+    "message": "Längre pass",
+    "description": "Description for 60 minute snooze"
+  },
+  "action_resume_now": {
+    "message": "Återuppta nu",
+    "description": "Button to immediately restore protections from snooze"
+  },
+  "snooze_banner_title": {
+    "message": "Skydd pausade",
+    "description": "Title on snooze countdown banner"
+  },
+  "snooze_banner_remaining": {
+    "message": "$TIME$ återstår",
+    "description": "Countdown remaining on snooze banner",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "14:59"
+      }
+    }
+  },
+  "snooze_activated": {
+    "message": "Skydd pausade i $MINUTES$ minuter",
+    "description": "Toast notification when snooze is turned on",
+    "placeholders": {
+      "minutes": {
+        "content": "$1",
+        "example": "15"
+      }
+    }
+  },
+  "snooze_resumed": {
+    "message": "Skydd återupptagna",
+    "description": "Toast notification when snooze ends or is canceled"
+  },
+  "status_off": {
+    "message": "Av",
+    "description": "Badge label when a feature (daily limit, focus lock, scheduled blocking) is disabled"
+  },
+  "toggle_extension_enabled": {
+    "message": "Huvudströmbrytare för tillägget",
+    "description": "Label for the master extension toggle in the header"
+  },
+  "stats_reset_toast": {
+    "message": "Daglig visningstid återställd",
+    "description": "Toast message when user resets today's watch time"
+  },
+  "scheduled_close_tab": {
+    "message": "Stäng fliken"
+  },
+  "scheduled_blank_screen": {
+    "message": "Tom skärm"
+  },
+  "action_undo": {
+    "message": "Ångra"
+  },
+  "channel_blocked": {
+    "message": "$1 blockerad"
+  },
+  "focus_session_title": {
+    "message": "Fokussession"
+  },
+  "focus_session_description": {
+    "message": "Slå på Strikt fokus för en kort session. Dina vanliga inställningar återgår när det är slut. Scheman och dagliga gränser gäller fortfarande."
+  },
+  "focus_session_end": {
+    "message": "Avsluta sessionen"
+  },
+  "limit_warning_option": {
+    "message": "Varna mig med 5 minuter kvar (1 minut för korta gränser)."
+  },
+  "limit_warning_title": {
+    "message": "Nästan vid din dagliga gräns"
+  },
+  "limit_warning_message": {
+    "message": "Tid kvar idag: $value$ min. Avsluta innan det dagliga blocket börjar.",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_active": {
+    "message": "Dina blockeringsinställningar är aktiva."
+  },
+  "clear_status_off": {
+    "message": "Skydden är avstängda."
+  },
+  "clear_status_snoozed": {
+    "message": "Skydd är pausat till $value$.",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_full": {
+    "message": "YouTube är blockerad av: $value$.",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_strict": {
+    "message": "Strikt fokus är på för: $value$.",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_until": {
+    "message": "Till $value$.",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_session": {
+    "message": "Fokussession: Strikt fokus till $value$.",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_session_paused": {
+    "message": "Fokussessionen är pausad; dess timer slutar vid $value$.",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_remaining": {
+    "message": "Tid kvar idag: $value$ min.",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "clear_status_limit_reached": {
+    "message": "Din dagliga gräns är nådd."
+  },
+  "clear_status_dismissed": {
+    "message": "Din dagliga gräns tas bort för idag."
+  },
+  "setup_daily_limit": {
+    "message": "Daglig gräns",
+    "description": "Toggle label for daily total playback time limit"
+  },
+  "setup_no_limit": {
+    "message": "ingen gräns",
+    "description": "Stats subtitle when daily watch limit is disabled"
+  },
   "setup_note": {
     "message": "Övriga inställningar är oförändrade. Dagsgränsen pausar videon när tiden är slut."
   },
@@ -1321,13 +1321,5 @@
   },
   "blocklist_example_label": {
     "message": "Exempel:"
-  },
-  "setup_daily_limit": {
-    "message": "Daglig grÃ¤ns",
-    "description": "Toggle label for daily total playback time limit"
-  },
-  "setup_no_limit": {
-    "message": "ingen grÃ¤ns",
-    "description": "Stats subtitle when daily watch limit is disabled"
   }
 }

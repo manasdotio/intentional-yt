@@ -180,10 +180,11 @@ function packageExtension() {
   ];
   createZip(chromeFiles, CHROME_OUT);
 
-  // 2. Microsoft Edge Add-ons package (all supported locales, service_worker only)
+  // 2. Microsoft Edge Add-ons package (English only, service_worker only)
+  const edgeLocaleFiles = localeFiles.filter(file => file.name === '_locales/en/messages.json');
   const edgeFiles = [
     { name: 'manifest.json', data: chromeManifestBuffer },
-    ...localeFiles,
+    ...edgeLocaleFiles,
     ...commonFiles
   ];
   createZip(edgeFiles, EDGE_OUT);
@@ -199,7 +200,7 @@ function packageExtension() {
   console.log('==================================================');
   console.log('✔ Packages created successfully:');
   console.log('  • Chrome Web Store        : ' + CHROME_OUT + ' (' + (fs.statSync(CHROME_OUT).size / 1024).toFixed(1) + ' KB)');
-  console.log('  • Microsoft Edge Add-ons  : ' + EDGE_OUT + ' (' + (fs.statSync(EDGE_OUT).size / 1024).toFixed(1) + ' KB, all locales)');
+  console.log('  • Microsoft Edge Add-ons  : ' + EDGE_OUT + ' (' + (fs.statSync(EDGE_OUT).size / 1024).toFixed(1) + ' KB, English only)');
   console.log('  • Mozilla Firefox (AMO)   : ' + FIREFOX_OUT + ' (' + (fs.statSync(FIREFOX_OUT).size / 1024).toFixed(1) + ' KB)');
   console.log('==================================================');
 }
