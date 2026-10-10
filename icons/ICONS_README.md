@@ -14,6 +14,9 @@ solid play symbol for legibility at favicon and pinned-toolbar sizes.
 
 After editing `icons/icon.svg`, run `node scripts/generate-icons.cjs`.
 This regenerates the PNGs, copies the source and assets to `public/icons/`,
-and updates both favicon.ico files with 16px, 32px, and 48px images.
+and updates both favicon.ico files with 16px, 32px, 48px, and 96px images.
+Favicons use `icons/favicon.svg`, with an edge-to-edge blue background and
+a centered mark for circular crops. The generator also exports this source
+to `public/favicon.svg` and creates `public/favicon-96.png`.
 Sharp is used only by this build script; extension runtime scripts remain
 dependency-free.

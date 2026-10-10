@@ -1,7 +1,7 @@
 /**
  * blocker.js — Intentional YT v3
  * Applies CSS classes to <html> based on settings. No dynamic JS blocking.
- * Purely event-driven and zero-overhead.
+ * Event-driven blocking with batched DOM maintenance.
  */
 
 'use strict';
@@ -80,7 +80,9 @@ function onSnoozeExpired() {
     applyAutoplay(_settings);
   }
   StorageManager.updateSetting('snoozeUntil', null).catch(() => {});
-  applyAllSettings();
+  applyAllSettings().catch(error => {
+    if (!/Extension context invalidated/i.test(error?.message || '')) console.warn('[IYT] Snooze update failed', error);
+  });
 }
 
 function scheduleSnoozeWakeup(settings) {
@@ -198,10 +200,10 @@ let _domPurgeScheduled = false;
 function scheduleShortsPurge() {
   if (_domPurgeScheduled || !isEffectiveActive(_settings) || !_settings.blockShorts) return;
   _domPurgeScheduled = true;
-  requestAnimationFrame(() => {
+  setTimeout(() => {
     _domPurgeScheduled = false;
     purgeShortsFromDOM();
-  });
+  }, 150);
 }
 
 let _nudgeTimer = null;
@@ -600,6 +602,7 @@ function showQuickBlockToast(displayName, identifier, card) {
   undoBtn.textContent = I18N.getMessage('action_undo', null, 'Undo');
   undoBtn.hidden = !!_settings?.focusLock?.enabled;
   undoBtn.addEventListener('click', async (e) => {
+    try {
     e.stopPropagation();
     if (_quickBlockToastTimer) {
       clearTimeout(_quickBlockToastTimer);
@@ -612,6 +615,9 @@ function showQuickBlockToast(displayName, identifier, card) {
       _settings = IYT_Policy.effective(await StorageManager.changeList('channelBlocklist', identifier, true));
       unhideCard(card);
       scanAllCards(document);
+    }
+    } catch (error) {
+      if (!/Extension context invalidated/i.test(error?.message || '')) console.warn('[IYT] Undo failed', error);
     }
   });
 
@@ -750,6 +756,8 @@ function scanAllCards(root = document) {
 
 let _filterDebounceTimer = null;
 const _pendingFilterNodes = new Set();
+let _pendingFullFilterScan = false;
+const MAX_PENDING_FILTER_NODES = 256;
 
 function scheduleFilterScanForNodes(nodes) {
   if (!isEffectiveActive(_settings)) return;
@@ -759,12 +767,20 @@ function scheduleFilterScanForNodes(nodes) {
   if (channelList.length === 0 && keywordList.length === 0 && !enableQuickBlock) return;
 
   for (const node of nodes) {
-    if (node.nodeType === 1) {
+    if (_pendingFullFilterScan) break;
+    if (node.nodeType === 1 && node.isConnected) {
       _pendingFilterNodes.add(node);
+      if (_pendingFilterNodes.size >= MAX_PENDING_FILTER_NODES) {
+        // Throttled background tabs can accumulate entire detached page trees.
+        // Retain no nodes once a single full scan is cheaper than the queue.
+        _pendingFilterNodes.clear();
+        _pendingFullFilterScan = true;
+      }
     }
   }
 
-  if (_filterDebounceTimer) clearTimeout(_filterDebounceTimer);
+  // Keep a bounded batch window even while YouTube continuously updates.
+  if (_filterDebounceTimer) return;
   _filterDebounceTimer = setTimeout(() => {
     flushPendingFilterNodes();
   }, 300);
@@ -772,7 +788,17 @@ function scheduleFilterScanForNodes(nodes) {
 
 function flushPendingFilterNodes() {
   _filterDebounceTimer = null;
-  if (!isEffectiveActive(_settings)) { _pendingFilterNodes.clear(); return; }
+  if (!isEffectiveActive(_settings)) {
+    _pendingFilterNodes.clear();
+    _pendingFullFilterScan = false;
+    return;
+  }
+  if (_pendingFullFilterScan) {
+    _pendingFullFilterScan = false;
+    _pendingFilterNodes.clear();
+    scanAllCards(document);
+    return;
+  }
   if (_pendingFilterNodes.size === 0) return;
 
   const channelList = _settings?.channelBlocklist || [];
@@ -889,6 +915,16 @@ function applyAutoplay(settings) {
   if (btn) btn.click();
 }
 
+let _autoplayScheduled = false;
+function scheduleAutoplay() {
+  if (_autoplayScheduled || !_settings?.disableAutoplay) return;
+  _autoplayScheduled = true;
+  setTimeout(() => {
+    _autoplayScheduled = false;
+    applyAutoplay(_settings);
+  }, 150);
+}
+
 let _settingsGeneration = 0;
 async function applyAllSettings() {
   const generation = ++_settingsGeneration;
@@ -941,24 +977,39 @@ function initDomObserver() {
   const observer = new MutationObserver((mutations) => {
     if (!isEffectiveActive(_settings)) return;
     const addedElements = [];
+    let structureChanged = false;
     for (let i = 0; i < mutations.length; i++) {
       const mutation = mutations[i];
+      const target = mutation.target.nodeType === 1 ? mutation.target : mutation.target.parentElement;
+      if (target?.closest('.iyt-quick-block-btn')) continue;
+      // Player clocks, captions and live chat update continuously. Only card
+      // metadata changes can affect channel/keyword filtering.
+      if (mutation.type !== 'childList') {
+        if (target && getCardContainer(target)) addedElements.push(target);
+        if (mutation.type === 'attributes' && mutation.attributeName === 'href' && target?.matches('a[href*="/shorts/"]')) {
+          addedElements.push(target);
+          structureChanged = true;
+        }
+        continue;
+      }
       if (mutation.type !== 'childList' || mutation.addedNodes.length === 0 || [...mutation.addedNodes].some(node => node.nodeType === 3)) {
         const changed = mutation.target.nodeType === 1 ? mutation.target : mutation.target.parentElement;
-        if (changed && !changed.closest('.iyt-quick-block-btn')) addedElements.push(changed);
+        if (changed && getCardContainer(changed)) addedElements.push(changed);
       }
       const added = mutation.addedNodes;
       for (let j = 0; j < added.length; j++) {
         if (added[j].nodeType === 1) {
+          if (added[j].matches('.iyt-quick-block-btn')) continue;
           addedElements.push(added[j]);
+          structureChanged = true;
         }
       }
     }
     if (addedElements.length > 0) {
-      if (_settings.blockShorts) scheduleShortsPurge();
-      if (_settings.limitHomeFeed) scheduleHomeFeedLimit();
+      if (structureChanged && _settings.blockShorts) scheduleShortsPurge();
+      if (structureChanged && _settings.limitHomeFeed) scheduleHomeFeedLimit();
       scheduleFilterScanForNodes(addedElements);
-      applyAutoplay(_settings);
+      if (structureChanged) scheduleAutoplay();
     }
   });
   observer.observe(target, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href','title','aria-label'] });
@@ -970,11 +1021,9 @@ function initDomObserver() {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     initDomObserver();
-    scanAllCards(document);
   }, { once: true });
 } else {
   initDomObserver();
-  scanAllCards(document);
 }
 
 window.addEventListener('load', () => {

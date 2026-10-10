@@ -8,6 +8,22 @@
   let _lastPath = '';
   let _routeTimer = null;
   let _generation = 0;
+  let _stopped = false;
+
+  function reportError(error) {
+    if (/Extension context invalidated/i.test(error?.message || '')) {
+      _stopped = true;
+      ++_generation;
+      clearTimeout(_routeTimer);
+      window.__iytTimer?.detach();
+      return;
+    }
+    console.warn('[IYT] Navigation update failed', error);
+  }
+
+  function runRouteChange(force) {
+    if (!_stopped) handleRouteChange(force).catch(reportError);
+  }
 
   function isVideoPage() {
     const p = location.pathname;
@@ -15,7 +31,9 @@
   }
 
   function waitFor(getter, cb, tries, ms) {
-    if (getter()) { cb(getter()); return; }
+    if (_stopped) return;
+    const value = getter();
+    if (value) { Promise.resolve().then(() => cb(value)).catch(reportError); return; }
     if (tries <= 0) return;
     setTimeout(() => waitFor(getter, cb, tries - 1, ms), ms);
   }
@@ -36,7 +54,7 @@
     if (generation !== _generation || path !== location.pathname + location.search) return;
     if (isVideoPage()) {
       if (window.__iytTimer) {
-        window.__iytTimer.attach();
+        await window.__iytTimer.attach();
       } else {
         waitFor(() => window.__iytTimer, t => t.attach(), 30, 100);
       }
@@ -48,8 +66,9 @@
   }
 
   function schedule(force = false) {
+    if (_stopped) return;
     clearTimeout(_routeTimer);
-    _routeTimer = setTimeout(() => handleRouteChange(force), 100);
+    _routeTimer = setTimeout(() => runRouteChange(force), 100);
   }
 
   document.addEventListener('yt-navigate-finish', () => schedule(true));
@@ -58,8 +77,8 @@
   window.addEventListener('popstate', () => schedule(true));
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => handleRouteChange(true), { once: true });
+    document.addEventListener('DOMContentLoaded', () => runRouteChange(true), { once: true });
   } else {
-    handleRouteChange(true);
+    runRouteChange(true);
   }
 })();

@@ -232,10 +232,57 @@ test('snooze starts its full duration after the cooldown, not before', async () 
 
 test('manual localization follows declared placeholder indices and preserves dollar text', async () => {
   const catalog={message_test:{message:'$SECOND$ / $FIRST$ / $$',placeholders:{first:{content:'$1'},second:{content:'$2'}}}};
-  const context=vm.createContext({console,browser:{runtime:{getURL:p=>p},i18n:{getMessage:()=>''}},fetch:async()=>({ok:true,json:async()=>catalog})});
+  const requests=[];
+  const context=vm.createContext({console,browser:{runtime:{sendMessage:async message=>{requests.push(message);return {ok:true,catalog};}},i18n:{getMessage:()=>''}},fetch:()=>{throw new Error('Content scripts must not fetch locale files');}});
   vm.runInContext(source('utils/i18n.js'),context);
   await context.I18N.setLanguage('fr');
   assert.equal(context.I18N.getMessage('message_test',['$&','two']),'two / $& / $');
+  assert.deepEqual(requests.map(message=>message.lang).sort(),['en','fr']);
+  assert.ok(requests.every(message=>message.type==='IYT_LOCALE'));
+});
+
+test('background serves local catalogs and rejects invalid locale paths and foreign senders', async () => {
+  let listener;
+  const fetched=[];
+  const event={addListener(){}};
+  const context=vm.createContext({console,fetch:async url=>{
+    fetched.push(url);
+    return {ok:true,json:async()=>({hello:{message:'Hello'}})};
+  },StorageManager:{execute:async()=>({focusLock:{}})},browser:{
+    runtime:{id:'test-extension',getURL:p=>'chrome-extension://test-extension/'+p,
+      onMessage:{addListener:fn=>{listener=fn;}},onStartup:event,onInstalled:event},
+    alarms:{get:async()=>null,create:async()=>{},clear:async()=>{},onAlarm:event}
+  }});
+  vm.runInContext(source('background/background.js'),context);
+  const request=lang=>new Promise(resolve=>{
+    assert.equal(listener({type:'IYT_LOCALE',lang},{id:'test-extension'},resolve),true);
+  });
+  assert.equal((await request('en')).catalog.hello.message,'Hello');
+  assert.equal((await request('en')).ok,true);
+  assert.equal(fetched.length,1);
+  assert.equal(fetched[0],'chrome-extension://test-extension/_locales/en/messages.json');
+  assert.equal((await request('../../manifest')).ok,false);
+  assert.equal(listener({type:'IYT_LOCALE',lang:'fr'},{id:'foreign'},()=>assert.fail('Foreign sender accepted')),undefined);
+  assert.equal(fetched.length,1);
+});
+
+test('schedule evaluation stops retrying after extension context invalidation', async () => {
+  let reads=0, timers=0;
+  const handlers=[];
+  const context=vm.createContext({
+    console:{warn(){assert.fail('Invalidated contexts should stop quietly');}},
+    document:{documentElement:{},readyState:'complete',addEventListener:(_,fn)=>handlers.push(fn)},
+    window:{addEventListener:(_,fn)=>handlers.push(fn)},
+    browser:{storage:{onChanged:{addListener:fn=>handlers.push(()=>fn({settings:{}}))}}},
+    MutationObserver:class {disconnect(){}},
+    StorageManager:{getSettings:async()=>{reads++;throw new Error('Extension context invalidated.');}},
+    clearTimeout(){},setTimeout(){timers++;}
+  });
+  vm.runInContext(source('content/scheduledBlocker.js'),context);
+  await new Promise(resolve=>setImmediate(resolve));
+  for(const handler of handlers) await handler();
+  assert.equal(reads,1);
+  assert.equal(timers,0);
 });
 
 test('every release archive has fonts, all selectable languages and correct backgrounds', () => {
@@ -339,17 +386,36 @@ function timerHarness(overrides = {}) {
 
 test('timer counts elapsed playback when callbacks are delayed, not callback count', async () => {
   const h=timerHarness();await h.timer.attach();await h.tick(12);
-  assert.equal(h.settings().stats.todayWatchSeconds,12);
+  assert.equal(h.settings().stats.todayWatchSeconds,0);
   h.video.pause();assert.equal(h.intervals.size,0);
+  assert.equal(h.settings().stats.todayWatchSeconds,12);
   await h.tick(20,0);assert.equal(h.settings().stats.todayWatchSeconds,12);
+});
+
+test('watch time syncs every fifteen seconds and every five near the daily limit', async () => {
+  const h=timerHarness({dailyLimit:{enabled:true,limitMinutes:60}});
+  await h.timer.attach();await h.tick(14);
+  assert.equal(h.settings().stats.todayWatchSeconds,0);
+  await h.tick(1);assert.equal(h.settings().stats.todayWatchSeconds,15);
+  await h.tick(14);assert.equal(h.settings().stats.todayWatchSeconds,15);
+  await h.tick(1);assert.equal(h.settings().stats.todayWatchSeconds,30);
+  h.timer.detach();
+  const near=timerHarness({dailyLimit:{enabled:true,limitMinutes:60,warningEnabled:false}});
+  near.settings().stats.todayWatchSeconds=3295;
+  await near.timer.attach();await near.tick(4);
+  assert.equal(near.settings().stats.todayWatchSeconds,3295);
+  await near.tick(1);assert.equal(near.settings().stats.todayWatchSeconds,3300);
+  await near.tick(5);assert.equal(near.settings().stats.todayWatchSeconds,3305);
+  await near.tick(2);near.timer.detach();
+  assert.equal(near.settings().stats.todayWatchSeconds,3307);
 });
 
 test('buffering and seeking do not count as playback', async () => {
   const h=timerHarness();await h.timer.attach();h.video.readyState=2;h.video.emit('waiting');
   await h.tick(10,0);assert.equal(h.settings().stats.todayWatchSeconds,0);
-  h.video.readyState=4;h.video.emit('playing');await h.tick(5);assert.equal(h.settings().stats.todayWatchSeconds,5);
+  h.video.readyState=4;h.video.emit('playing');await h.tick(5);assert.equal(h.settings().stats.todayWatchSeconds,0);
   h.video.seeking=true;h.video.emit('seeking');await h.tick(10,90);h.video.seeking=false;h.video.emit('seeked');
-  await h.tick(5);assert.equal(h.settings().stats.todayWatchSeconds,10);
+  await h.tick(5);h.video.pause();assert.equal(h.settings().stats.todayWatchSeconds,10);
 });
 
 test('disabled and snoozed timers never pause playback or mount a limit overlay', async () => {
@@ -375,6 +441,128 @@ test('navigation cancels a pending video poll and home cannot acquire a limit ov
   for(const fn of h.timeouts.values())fn();await pending;
   h.settings().stats.todayWatchSeconds=60;await h.change({extensionEnabled:true});
   assert.equal(h.intervals.size,0);assert.equal(h.nodes.has('iyt-limit-overlay'),false);
+});
+
+test('unrelated player mutations do not schedule document scans; card changes still filter', () => {
+  const s=source('content/blocker.js');
+  let observe, filters=0, shorts=0, autoplay=0;
+  const context=vm.createContext({
+    document:{body:{},addEventListener(){}},
+    MutationObserver:class {constructor(fn){observe=fn;}observe(){}},
+    _settings:{blockShorts:true,limitHomeFeed:false},isEffectiveActive:()=>true,
+    getCardContainer:node=>node.card || null,
+    scheduleShortsPurge:()=>shorts++,scheduleHomeFeedLimit(){},
+    scheduleFilterScanForNodes:()=>filters++,scheduleAutoplay:()=>autoplay++,scanAllCards(){}
+  });
+  vm.runInContext(s.slice(s.indexOf('function initDomObserver()'),s.indexOf("if (document.readyState === 'loading')",s.indexOf('function initDomObserver()'))),context);
+  context.initDomObserver();
+  const player={nodeType:1,closest:()=>null,matches:()=>false};
+  for(let i=0;i<1000;i++) observe([{type:'attributes',attributeName:'aria-label',target:player,addedNodes:[]}]);
+  assert.equal(filters,0);assert.equal(shorts,0);assert.equal(autoplay,0);
+  const card={...player,card:{}};
+  observe([{type:'characterData',target:{nodeType:3,parentElement:card},addedNodes:[]}]);
+  assert.equal(filters,1);assert.equal(shorts,0);assert.equal(autoplay,0);
+  observe([{type:'childList',target:player,addedNodes:[card]}]);
+  assert.equal(filters,2);assert.equal(shorts,1);assert.equal(autoplay,1);
+});
+
+test('continuous mutations cannot postpone card filtering indefinitely', () => {
+  const s=source('content/blocker.js');
+  let callback, timers=0;
+  const context=vm.createContext({_settings:{enableQuickBlock:true},isEffectiveActive:()=>true,
+    setTimeout:fn=>{callback=fn;return ++timers;},clearTimeout:()=>assert.fail('Pending batch must not restart')});
+  vm.runInContext(s.slice(s.indexOf('let _filterDebounceTimer'),s.indexOf('function flushPendingFilterNodes')),context);
+  let flushed=0;context.flushPendingFilterNodes=()=>flushed++;
+  for(let i=0;i<1000;i++) context.scheduleFilterScanForNodes([{nodeType:1,isConnected:true}]);
+  assert.equal(timers,1);callback();assert.equal(flushed,1);
+});
+
+test('large mutation bursts release queued DOM references and still run filtering', () => {
+  const s=source('content/blocker.js');
+  let callback, scans=0;
+  const context=vm.createContext({_settings:{enableQuickBlock:true},isEffectiveActive:()=>true,document:{},
+    setTimeout:fn=>{callback=fn;return 1;},scanAllCards:()=>scans++});
+  vm.runInContext(s.slice(s.indexOf('let _filterDebounceTimer'),s.indexOf('const _routeFilterTimers')),context);
+  for(let i=0;i<10000;i++) context.scheduleFilterScanForNodes([{nodeType:1,isConnected:true}]);
+  assert.equal(vm.runInContext('_pendingFilterNodes.size',context),0);
+  callback();assert.equal(scans,1);
+  assert.equal(vm.runInContext('_pendingFullFilterScan',context),false);
+  context.scheduleFilterScanForNodes([{nodeType:1,isConnected:false}]);
+  callback();assert.equal(scans,1);
+});
+
+test('dialog releases removed page sections and cleans up if its overlay disappears', () => {
+  let notify, disconnected=0;
+  const previous={isConnected:true,getClientRects:()=>[],focus(){}};
+  const sibling={isConnected:true,inert:false};
+  const body={children:[]};
+  const overlay={isConnected:true,parentElement:body,setAttribute(){},hasAttribute:()=>true,
+    querySelectorAll:()=>[],focus(){}};
+  body.children=[overlay,sibling];
+  const context=vm.createContext({document:{body,documentElement:{},activeElement:previous,addEventListener(){}},
+    MutationObserver:class {constructor(fn){notify=fn;}observe(){}disconnect(){disconnected++;}}});
+  vm.runInContext(source('utils/dialog.js'),context);
+  context.IYT_Dialog.open(overlay);assert.equal(sibling.inert,true);
+  sibling.isConnected=false;body.children=[overlay];notify();
+  assert.equal(sibling.inert,false);
+  // Once released, closing the dialog must no longer mutate this old node.
+  sibling.inert=true;
+  const before=disconnected;overlay.isConnected=false;notify();
+  assert.equal(disconnected,before+1);assert.equal(sibling.inert,true);
+});
+
+test('navigation handles invalidated storage and timer promises and stops retrying', async () => {
+  for (const failure of ['storage','timer']) {
+    let reads=0,detaches=0,timers=0;
+    const events=[];
+    const context=vm.createContext({
+      console:{warn(){assert.fail('Expected invalidation should stop quietly');}},
+      location:{pathname:failure==='storage'?'/feed/subscriptions':'/watch',search:''},
+      document:{readyState:'complete',addEventListener:(_,fn)=>events.push(fn)},
+      window:{addEventListener:(_,fn)=>events.push(fn),
+        __iytBlocker:{applyAllSettings:async()=>{reads++;if(failure==='storage')throw new Error('Extension context invalidated.');}},
+        __iytTimer:{detach:()=>detaches++,attach:async()=>{throw new Error('Extension context invalidated.');}}},
+      setTimeout:()=>++timers,clearTimeout(){}
+    });
+    vm.runInContext(source('content/youtubeObserver.js'),context);
+    await new Promise(resolve=>setImmediate(resolve));
+    for(const event of events) event();
+    assert.equal(reads,1);assert.ok(detaches>=1);assert.equal(timers,0);
+  }
+});
+
+test('watch tracking stops after invalidation without retrying or restarting playback timers', async () => {
+  const h=timerHarness();
+  let requests=0;
+  h.context.StorageManager.recordWatch=()=>{requests++;throw new Error('Extension context invalidated.');};
+  await h.timer.attach();await h.tick(15);
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(requests,1);assert.equal(h.intervals.size,0);assert.equal(h.timeouts.size,0);
+  await h.timer.attach();h.video.emit('playing');await h.tick(10);
+  assert.equal(requests,1);assert.equal(h.intervals.size,0);
+});
+
+test('invalidated locale messaging stops further requests for both sync and async failures', async () => {
+  for(const asynchronous of [false,true]) {
+    let requests=0;
+    const context=vm.createContext({console:{warn(){assert.fail('Expected invalidation should stop quietly');}},
+      browser:{runtime:{sendMessage(){requests++;const error=new Error('Extension context invalidated.');
+        if(asynchronous)return Promise.reject(error);throw error;}},i18n:{getMessage:()=>''}}});
+    vm.runInContext(source('utils/i18n.js'),context);
+    await context.I18N.setLanguage('auto');await context.I18N.setLanguage('fr');
+    assert.equal(requests,1);
+    assert.equal(context.I18N.getMessage('missing',null,'Fallback'),'Fallback');
+  }
+});
+
+test('popup invalidation recovery tells the user to reopen without retrying storage', () => {
+  let handler, message, prevented=false;
+  const s=source('ui/popup.js');
+  const context=vm.createContext({window:{addEventListener:(_,fn)=>handler=fn},
+    showToast:text=>message=text,StorageManager:{getSettings:()=>assert.fail('Must not retry a dead context')}});
+  vm.runInContext(s.slice(s.indexOf("window.addEventListener('unhandledrejection'"),s.indexOf('function renderPendingUnlockBanner')),context);
+  handler({reason:new Error('Extension context invalidated.'),preventDefault(){prevented=true;}});
+  assert.equal(prevented,true);assert.match(message,/reopen/);
 });
 
 test('channel matches are exact and do not inherit page ownership', () => {

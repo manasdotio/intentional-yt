@@ -9,7 +9,7 @@ import SetupSteps from '@/src/components/SetupSteps'
 import Faq from '@/src/components/Faq'
 import ClosingCta from '@/src/components/ClosingCta'
 
-export const metadata = pageMetadata({ title: 'YouTube Distraction Blocker & Daily Limit', description: 'Hide YouTube Shorts and recommendations, set daily watch limits, and stay focused. Available for Chrome, Firefox, and Edge.' })
+export const metadata = pageMetadata({ title: 'YouTube Distraction Blocker & Daily Limit', description: 'Free YouTube distraction blocker for Chrome, Firefox, and Edge. Hide Shorts and recommendations, set daily watch limits, and keep your settings local.' })
 
 const jsonLd = {
   "@context": "https://schema.org",

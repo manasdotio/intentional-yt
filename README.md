@@ -209,9 +209,12 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 ### Google Chrome & Chromium (Chrome, Brave, Arc, Opera)
 - **Official Store (Recommended)**: Install directly from the [**Chrome Web Store**](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg).
 - **From Source**:
-  1. Navigate to `chrome://extensions` (or `brave://extensions`, `edge://extensions`).
-  2. Enable **Developer mode** via the toggle in the top-right corner.
-  3. Click **Load unpacked** and select the root `intentional-yt` folder.
+  1. Run `npm run package` from the repository root.
+  2. Navigate to `chrome://extensions` (or `brave://extensions`, `edge://extensions`) and enable **Developer mode**.
+  3. Click **Load unpacked** and select `dist/chrome`.
+  4. After source changes, rerun `npm run package`, reload the extension, and refresh YouTube tabs.
+
+  The source manifest contains both browser background formats. Load the generated Chrome folder to avoid the Manifest V3 `background.scripts` error.
 
 ### 📦 Packaging for Release
 To package the extension into a distributable `.zip` file:
@@ -221,7 +224,7 @@ To package the extension into a distributable `.zip` file:
   ```
 - **Windows (PowerShell)**:
   ```powershell
-  ./package-firefox.ps1
+  npm run package
   ```
 
 ---

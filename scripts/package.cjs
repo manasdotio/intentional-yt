@@ -179,6 +179,15 @@ function packageExtension() {
     ...commonFiles
   ];
   createZip(chromeFiles, CHROME_OUT);
+  if (process.argv.includes('--unpacked')) {
+    const unpackedDir = path.join(ROOT_DIR, 'dist', 'chrome');
+    for (const entry of chromeFiles) {
+      const target = path.join(unpackedDir, entry.name);
+      fs.mkdirSync(path.dirname(target), { recursive: true });
+      fs.writeFileSync(target, entry.data);
+    }
+    console.log('Chrome Load unpacked folder: ' + unpackedDir);
+  }
 
   // 2. Microsoft Edge Add-ons package (English only, service_worker only)
   const edgeLocaleFiles = localeFiles.filter(file => file.name === '_locales/en/messages.json');

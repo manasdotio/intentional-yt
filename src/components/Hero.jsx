@@ -11,12 +11,12 @@ export default function Hero() {
           <span>Watch without the distractions</span>
         </div>
         <h1 className="hero-title" id="hero-heading">
-          Your YouTube.<br />
-          <span className="hero-title-calm">A little calmer.</span>
+          YouTube, with<br />
+          <span className="hero-title-calm">fewer distractions.</span>
         </h1>
         <p className="hero-subtitle">
-          Hide Shorts and recommendations so you can watch the video you came for.
-          Set a daily limit if you tend to stay longer than you meant to.
+          A free YouTube distraction blocker that hides Shorts and recommendations.
+          Watch the video you came for, and set a daily limit to help you stop on time.
         </p>
         <p className="hero-product-label">Free for Chrome, Firefox &amp; Edge on desktop.</p>
         <div className="hero-actions">

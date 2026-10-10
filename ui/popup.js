@@ -1020,6 +1020,10 @@ StorageManager.onProtectedChange = async command => {
 };
 window.addEventListener('unhandledrejection', event => {
   event.preventDefault();
+  if (/Extension context invalidated/i.test(event.reason?.message || '')) {
+    showToast('Extension updated. Close and reopen this popup, then refresh YouTube.');
+    return;
+  }
   if (event.reason?.code !== 'IYT_DEFERRED') showToast(event.reason?.message || 'Could not save settings');
   StorageManager.getSettings().then(renderAll).catch(console.error);
 });

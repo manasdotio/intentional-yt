@@ -17,7 +17,7 @@ marked.use({
       const escape = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       const dimensions = ['/screenshots/focus-lock-cooldown.webp', '/screenshots/scheduled-blocking-setup.webp'].includes(href)
         ? ' width="1280" height="800"'
-        : href === '/screenshots/channel-keyword-filters.webp' ? ' width="1080" height="1060"' : ''
+        : ['/screenshots/channel-keyword-filters.webp', '/screenshots/product-overview.webp', '/screenshots/product-limits.webp'].includes(href) ? ' width="1080" height="1060"' : ''
       const captionHtml = title ? `<figcaption class="blog-caption">${escape(title)}</figcaption>` : ''
       return `<figure class="blog-figure"><img src="${escape(href)}" alt="${escape(text)}"${dimensions} loading="lazy" decoding="async" class="blog-post-img" />${captionHtml}</figure>`
     },

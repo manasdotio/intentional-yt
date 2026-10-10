@@ -44,11 +44,18 @@ async function main() {
       fs.copyFileSync(path.join(root, 'icons/ICONS_README.md'), path.join(destination, 'ICONS_README.md'));
     }
   }
-  const favicon = createIco(rendered.filter(image => image.size <= 48));
+  const faviconSource = fs.readFileSync(path.join(root, 'icons/favicon.svg'));
+  const faviconImages = await Promise.all([16, 32, 48, 96].map(async size => ({
+    size,
+    data: await sharp(faviconSource, { density: 576 }).resize(size, size).png().toBuffer()
+  })));
+  fs.writeFileSync(path.join(root, 'public/favicon.svg'), faviconSource);
+  fs.writeFileSync(path.join(root, 'public/favicon-96.png'), faviconImages.find(image => image.size === 96).data);
+  const favicon = createIco(faviconImages);
   for (const filename of ['favicon.ico', 'public/favicon.ico']) {
     fs.writeFileSync(path.join(root, filename), favicon);
   }
-  console.log('Generated SVG, PNG icons (16–512px), popup icon, and 16/32/48px favicons.');
+  console.log('Generated app icons and full-bleed SVG, PNG, and 16/32/48/96px ICO favicons.');
 }
 
 main().catch(error => { console.error(error); process.exitCode = 1; });

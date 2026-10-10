@@ -11,6 +11,7 @@ var browser = globalThis.browser || globalThis.chrome;
 
 const IYT_Timer = (() => {
   let _video = null;
+  let _contextInvalidated = false;
   let _attachGeneration = 0;
   let _attachedId = null;
   let _videoSeconds = 0;
@@ -49,7 +50,10 @@ const IYT_Timer = (() => {
       if (result.claimed && !document.hidden && _enforcing() && !_video.paused && !_isLimitExceeded() && IYT_Policy.limitWarning(_settings)) {
         _showToast(result.minutes, true);
       }
-    } catch (error) { _warningRetryAt = Date.now() + 60000; console.warn('[IYT] Limit warning unavailable', error); }
+    } catch (error) {
+      _warningRetryAt = Date.now() + 60000;
+      handleTimerError(error);
+    }
     finally { _warningPending = false; }
   }
 
@@ -387,11 +391,12 @@ const IYT_Timer = (() => {
 
   // ─── Write accumulated seconds to storage ─────────────────────────────────
   function _flushToStorage(seconds) {
-    if (seconds <= 0) return Promise.resolve();
+    if (_contextInvalidated || seconds <= 0) return Promise.resolve();
     const id = _batchPrefix + ':' + (++_batchSequence);
     const batch = { seconds, day: _day };
     _pendingBatches.set(id, batch);
     async function send(attempt = 0) {
+      if (_contextInvalidated) return;
       try {
         const settings = await StorageManager.recordWatch(seconds, id, batch.day);
         _pendingBatches.delete(id);
@@ -399,6 +404,10 @@ const IYT_Timer = (() => {
         _baseWatchSeconds = settings.stats.todayWatchSeconds;
         if (_isLimitExceeded()) { _video?.pause(); _showLimitOverlay(); }
       } catch (error) {
+        if (/Extension context invalidated/i.test(error?.message || '')) {
+          handleTimerError(error);
+          return;
+        }
         if (attempt < 2) setTimeout(() => send(attempt + 1), 1000 * (attempt + 1));
         else { _pendingBatches.delete(id); console.warn('[IYT] Watch update failed', error); }
       }
@@ -426,7 +435,7 @@ const IYT_Timer = (() => {
     if (!_video || !_video.isConnected) {
       const newVideo = _findActiveVideo();
       if (newVideo && newVideo !== _video) {
-        attach();
+        attach().catch(handleTimerError);
         return;
       }
     }
@@ -463,8 +472,13 @@ const IYT_Timer = (() => {
       return;
     }
 
-    // Batch-write every 5 seconds
-    if (_batchAccumulator >= 5) {
+    // Reduce storage traffic; synchronize more often in the final five minutes.
+    const remainingSeconds = (_settings?.dailyLimit?.limitMinutes || 60) * 60
+      - (_baseWatchSeconds + _batchAccumulator + _pendingSeconds());
+    const nearLimit = _enforcing() && _settings?.dailyLimit?.enabled
+      && !_settings.stats?.limitDismissedToday && remainingSeconds <= 300;
+    const flushInterval = nearLimit ? 5 : 15;
+    if (_batchAccumulator >= flushInterval) {
       const toFlush = _batchAccumulator;
       _batchAccumulator = 0;
       _flushToStorage(toFlush);
@@ -484,6 +498,7 @@ const IYT_Timer = (() => {
 
   // ─── Video event handlers ──────────────────────────────────────────────────
   function _onPlay() {
+    if (_contextInvalidated) return;
     if (_allowedVideoId && _allowedVideoId !== _getVideoId()) {
       _allowedVideoId = null;
     }
@@ -554,6 +569,7 @@ const IYT_Timer = (() => {
 
   // ─── Attach to video element ───────────────────────────────────────────────
   async function attach() {
+    if (_contextInvalidated) return;
     const generation = ++_attachGeneration;
     const id = _getVideoId();
     let video;
@@ -621,7 +637,18 @@ const IYT_Timer = (() => {
   });
 
   // Keep _settings in sync when popup or another tab changes settings
+  function handleTimerError(error) {
+    if (/Extension context invalidated/i.test(error?.message || '')) {
+      _contextInvalidated = true;
+      _pendingBatches.clear();
+      detach();
+      return;
+    }
+    console.warn('[IYT] Timer update failed', error);
+  }
   browser.storage.onChanged.addListener(async (changes) => {
+    try {
+    if (_contextInvalidated) return;
     if (!changes.settings && !changes.usage) return;
     if (changes.usage?.newValue) {
       const usage = changes.usage.newValue;
@@ -638,6 +665,7 @@ const IYT_Timer = (() => {
     if (_isLimitExceeded()) { _video?.pause(); _showLimitOverlay(); }
     else _removeLimitOverlay();
     if (!IYT_Policy.active(settings) || (document.getElementById('iyt-toast')?.getAttribute('data-limit-warning') === 'true' && !IYT_Policy.limitWarning(settings))) document.getElementById('iyt-toast')?.remove();
+    } catch (error) { handleTimerError(error); }
   });
 
   // Listen for preview messages from extension popup

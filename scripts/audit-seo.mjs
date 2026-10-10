@@ -47,8 +47,8 @@ for (const url of urls) {
   console.log(`PASS ${url.pathname}: title, description, canonical, H1, social tags, JSON-LD, local links and images`)
 }
 const home = fs.readFileSync(htmlPath('/'), 'utf8')
-assert.equal((home.match(/<details class="faq-item"/g) || []).length, 7, 'FAQs must be present without JavaScript')
-assert.ok(home.includes('without an account') || home.includes('account required'))
+assert.equal((home.match(/<details class="faq-item"/g) || []).length, 5, 'FAQs must be present without JavaScript')
+assert.ok(home.includes('No account needed'), 'Account requirements must be visible without JavaScript')
 assert.ok(!/Intentional YT.*Intentional YT/.test(home.match(/<title>(.*?)<\/title>/)[1]), 'Homepage brand repeated')
 const robots = fs.readFileSync(`${output}/robots.txt.body`, 'utf8')
 assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`))

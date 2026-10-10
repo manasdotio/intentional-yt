@@ -45,9 +45,9 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icons/icon.svg', type: 'image/svg+xml' },
-      { url: '/icons/icon-32.png', type: 'image/png', sizes: '32x32' }
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48 96x96' },
+      { url: '/favicon.svg', type: 'image/svg+xml', sizes: 'any' },
+      { url: '/favicon-96.png', type: 'image/png', sizes: '96x96' }
     ],
     apple: [
       { url: '/icons/icon-128.png', sizes: '128x128', type: 'image/png' }

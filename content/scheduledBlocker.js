@@ -12,6 +12,7 @@ var browser = globalThis.browser || globalThis.chrome;
   const html = document.documentElement;
   let _evaluation = 0;
   let _intervalHandle = null;
+  let _contextInvalidated = false;
 
   function freezeMedia(el) {
     if (!el) return;
@@ -182,7 +183,9 @@ var browser = globalThis.browser || globalThis.chrome;
     if (closeBtn) {
       closeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        browser.runtime.sendMessage({ type: 'IYT_CLOSE_TAB' }).catch(() => window.location.replace('about:blank'));
+        // Invalidated APIs can throw before returning a promise.
+        Promise.resolve().then(() => browser.runtime.sendMessage({ type: 'IYT_CLOSE_TAB' }))
+          .catch(() => window.location.replace('about:blank'));
       });
     }
 
@@ -206,6 +209,7 @@ var browser = globalThis.browser || globalThis.chrome;
   }
 
   async function evaluateSchedules() {
+    if (_contextInvalidated) return;
     const generation = ++_evaluation;
     try {
       const settings = await StorageManager.getSettings();
@@ -220,9 +224,18 @@ var browser = globalThis.browser || globalThis.chrome;
         showFullBlockOverlay({ ...full, endTime, language: settings.userLanguage });
       } else hideFullBlockOverlay();
       await window.__iytBlocker?.applyAllSettings();
-    } catch (error) { console.warn('[IYT] Schedule evaluation failed', error); }
+    } catch (error) {
+      if (/Extension context invalidated/i.test(error?.message || '')) {
+        // Reloading the extension leaves old content scripts in open tabs.
+        // They cannot reconnect; stop retries until the page is refreshed.
+        _contextInvalidated = true;
+        ++_evaluation;
+        clearTimeout(_intervalHandle);
+        stopMediaLock();
+      } else console.warn('[IYT] Schedule evaluation failed', error);
+    }
     finally {
-      if (generation === _evaluation) {
+      if (!_contextInvalidated && generation === _evaluation) {
         clearTimeout(_intervalHandle);
         _intervalHandle = setTimeout(evaluateSchedules, 60000 - Date.now() % 60000 + 20);
       }

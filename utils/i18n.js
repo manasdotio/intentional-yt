@@ -19,6 +19,7 @@ const I18N = (() => {
   let _messageCatalog = null;    // Parsed messages.json for explicit language override
   let _fallbackCatalog = null;   // Parsed _locales/en/messages.json for missing key fallbacks
   const _catalogCache = new Map();
+  let _contextInvalidated = false;
 
   // Supported languages sorted alphabetically by native name
   const SUPPORTED_LANGUAGES = [
@@ -54,19 +55,23 @@ const I18N = (() => {
    * Fetch and parse a locale's messages.json catalog from extension assets
    */
   async function fetchCatalog(lang) {
+    if (_contextInvalidated) return null;
     if (!lang || lang === 'auto') return null;
     if (_catalogCache.has(lang)) {
       return _catalogCache.get(lang);
     }
     try {
-      const url = browser.runtime.getURL(`_locales/${lang}/messages.json`);
-      const res = await fetch(url);
-      if (res.ok) {
-        const json = await res.json();
+      const res = await browser.runtime.sendMessage({ type: 'IYT_LOCALE', lang });
+      if (res?.ok && res.catalog) {
+        const json = res.catalog;
         _catalogCache.set(lang, json);
         return json;
       }
     } catch (err) {
+      if (/Extension context invalidated/i.test(err?.message || '')) {
+        _contextInvalidated = true;
+        return null;
+      }
       console.warn(`[IYT] Could not fetch catalog for locale "${lang}":`, err);
     }
     return null;

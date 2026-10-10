@@ -1,11 +1,12 @@
 'use client'
 import { useState } from 'react'
+import Link from 'next/link'
 import { Play, Search } from 'lucide-react'
 
 export default function BeforeAfter() {
   const [enabled, setEnabled] = useState(false)
   return <section id="before-after" className="before-after-section" aria-labelledby="before-after-title">
-    <div className="section-head"><h2 id="before-after-title" className="section-title">Keep watching what you came for.</h2><p className="section-desc">Hide the suggestions and Shorts that send you somewhere else.</p></div>
+    <div className="section-head"><h2 id="before-after-title" className="section-title">Hide Shorts and recommendations.</h2><p className="section-desc">Keep the video you chose. Follow the <Link href="/blog/hide-youtube-shorts-and-recommendations">YouTube Shorts and recommendations setup guide</Link> to choose what stays visible.</p></div>
     <div className="before-after-switch" role="group" aria-label="Compare YouTube with and without blocking"><button type="button" aria-pressed={!enabled} onClick={() => setEnabled(false)}>Without Intentional YT</button><button type="button" aria-pressed={enabled} onClick={() => setEnabled(true)}>With Intentional YT</button></div>
     <div className={'watch-comparison' + (enabled ? ' is-calm' : '')} aria-hidden="true">
       <div className="watch-comparison-bar"><span><b>▶</b> YouTube</span><span className="watch-comparison-search"><Search size={15} /> A walk in the mountains</span><span className="watch-comparison-dot" /></div>

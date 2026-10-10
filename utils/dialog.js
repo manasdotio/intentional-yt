@@ -5,7 +5,16 @@ globalThis.IYT_Dialog = (() => {
   const inertNodes = new Map();
   const focusable = () => current ? [...current.querySelectorAll('button, input, select, textarea, a[href], [tabindex]')].filter(el => !el.disabled && el.tabIndex >= 0 && el.getClientRects().length) : [];
   function isolate() {
-    if (!current?.isConnected) return;
+    if (!current?.isConnected) { close(); return; }
+    // YouTube replaces page sections during SPA navigation. Do not keep those
+    // detached trees alive for the entire lifetime of a scheduled block.
+    for (const [node, inert] of inertNodes) {
+      if (!node.isConnected) {
+        node.inert = inert;
+        inertNodes.delete(node);
+      }
+    }
+    if (previous && !previous.isConnected) previous = null;
     let child = current;
     while (child.parentElement) {
       for (const sibling of child.parentElement.children) {
