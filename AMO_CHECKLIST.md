@@ -4,7 +4,7 @@
 - [x] WebExtension Manifest V3 configured in `manifest.json` with Gecko ID (`intentional-yt@intentional-yt.local`).
 - [x] No remote code loading or third-party network requests.
 - [x] No eval or inline script execution.
-- [x] Complete local storage privacy policy hosted at https://www.intentionalyt.me/privacy (source in `PRIVACY.md`).
+- [x] Complete local storage privacy policy in `PRIVACY.md` (publicly accessible at https://raw.githubusercontent.com/manasdotio/intentional-yt/main/PRIVACY.md).
 - [x] Full icon set provided in `icons/` (16, 32, 48, 128, 512px).
 
 ## Submission Steps for addons.mozilla.org (AMO)
@@ -19,7 +19,7 @@
    - **Detailed description**: Use `marketing/store-listing-description.txt` after confirming the listed features are available in the submitted release.
    - **License**: Confirm the license for the submitted release matches the store listing and the repository's `LICENSE` file.
    - **Website**: https://www.intentionalyt.me/
-   - **Privacy Policy**: https://www.intentionalyt.me/privacy
+   - **Privacy Policy**: https://raw.githubusercontent.com/manasdotio/intentional-yt/main/PRIVACY.md
    - **Category**: Privacy & Security / Photos, Music & Videos / Productivity.
    - **Reviewer notes**:
      - *Only executes on `youtube.com` and `m.youtube.com`, explicitly excluding `music.youtube.com`.*
