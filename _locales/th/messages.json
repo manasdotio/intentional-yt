@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "ซ่อน Shorts ทุกที่ — แถบด้านข้าง, ฟีด, ผลการค้นหา และหน้าช่อง",
+    "message": "ซ่อน Shorts จากฟีด ผลการค้นหา และหน้าช่องที่รองรับ",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "บันทึกเวลาที่คุณดู YouTube ในวันนี้ รีเซ็ตอัตโนมัติเมื่อถึงเที่ยงคืน เปิดใช้การจำกัดเวลารายวันเพื่อช่วยควบคุมเวลา.",
+    "message": "รวมเวลาเล่นจากทุกแท็บ รวมถึงแท็บเบื้องหลัง วิดีโอที่เล่นพร้อมกันนับแยกกัน แม้ปิดหรือพักการป้องกัน รีเซ็ตตอนเที่ยงคืน",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "เวลาดูจะสะสมเฉพาะเมื่อกำลังเล่นวิดีโอ YouTube อยู่เท่านั้น โดยจะรีเซ็ตอัตโนมัติทุกเที่ยงคืน แถบสถานะแบบถาวรจะแสดงอยู่ด้านล่างสุดของทุกแท็บ",
+    "message": "รวมเวลาเล่นจากทุกแท็บ รวมถึงแท็บเบื้องหลัง วิดีโอที่เล่นพร้อมกันนับแยกกัน แม้ปิดหรือพักการป้องกัน รีเซ็ตตอนเที่ยงคืน",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

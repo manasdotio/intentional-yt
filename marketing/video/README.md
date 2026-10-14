@@ -18,3 +18,7 @@ Editable composition: `../promo-animation.html`. Open via a local static server 
 To render, set `IYT_PLAYWRIGHT_MODULE` to an external Playwright module directory and `IYT_FFMPEG` to an FFmpeg executable supporting libx264. Run `node scripts/generate-promo-video.mjs` from the repository. No extension or website dependencies are added.
 
 The renderer verifies duration, resolution, frame rate, audio presence, and full-file decoding. `storyboard.jpg` contains four representative frames.
+
+## October 14 copy update
+
+The composition now says “Free to use,” not “Free & open source.” Both local MP4s and the storyboard were refreshed. The narrated version retains its existing narration/music audio with the new visuals.

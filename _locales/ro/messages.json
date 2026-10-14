@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Ascunde Shorts peste tot: bară laterală, fluxuri, rezultate de căutare și canale",
+    "message": "Ascunde Shorts din fluxurile, rezultatele căutării și paginile canalelor compatibile",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Contorizează timpul petrecut astăzi pe YouTube. Se resetează automat la miezul nopții. Folosește limita zilnică pentru a-ți gestiona timpul.",
+    "message": "Adună redarea din toate filele, inclusiv în fundal. Videoclipurile simultane se numără separat, chiar cu protecția oprită sau amânată. Se resetează la miezul nopții.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Timpul de vizionare se acumulează doar atunci când un videoclip YouTube rulează activ. Se resetează automat în fiecare noapte la miezul nopții. Bara de stare persistentă rămâne vizibilă în partea de jos pe fiecare filă.",
+    "message": "Adună redarea din toate filele, inclusiv în fundal. Videoclipurile simultane se numără separat, chiar cu protecția oprită sau amânată. Se resetează la miezul nopții.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

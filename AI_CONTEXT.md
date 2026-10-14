@@ -1,5 +1,7 @@
 # Intentional YT — AI Context & Knowledge Base
 
+License: current changes are source available under LICENSE, not open source. Historical MIT and third-party permissions remain unchanged.
+
 > **Use this file as a ready-to-use context prompt for any LLM / AI tool to write social posts, Reddit threads, Product Hunt listings, release notes, documentation, or code contributions.**
 
 ---
@@ -8,7 +10,7 @@
 - **Name**: Intentional YT - YouTube Distraction Blocker & Daily Time Limit
 - **Version**: 2.4.1
 - **Tagline**: Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.
-- **One-Liner**: A zero-flash, privacy-first browser extension and modern React web app that turns YouTube into a distraction-free, search-first utility by stripping algorithmic rabbit holes, Shorts carousels, clickbait thumbnails, and infinite feeds.
+- **One-Liner**: A browser extension with local settings and modern React web app that turns YouTube into a distraction-free, search-first utility by stripping algorithmic rabbit holes, Shorts carousels, clickbait thumbnails, and infinite feeds.
 
 ---
 
@@ -16,13 +18,13 @@
 Traditional YouTube blockers either rely on rigid "all-or-nothing" settings or sluggish JavaScript DOM mutations that briefly flash distracting clickbait content before hiding it. 
 
 **Intentional YT solves this with:**
-1. **Zero-Flash DOM Ingestion**: Injects high-specificity CSS rules onto `<html>` at `document_start` before the browser renders the first pixel (0ms render lag, 0 flicker).
+1. **CSS Blocking**: Hides selected distractions on supported YouTube layouts.
 2. **Surgical Granularity (20+ Independent Toggles)**: Keep subscriptions while hiding home feed recommendations; hide comments but keep descriptions; etc.
 3. **Quick Focus Presets (Zero Space Overhead)**: Instant switching between **Balanced**, **Zen**, and **Video Only** modes with non-intrusive floating hover tooltips.
 4. **Anti-Doomscroll Feed Limiter**: Option to limit the homepage feed to a single calm batch of 15 recommendations, stopping infinite scroll with a peaceful caught-up banner (`✦ You're all caught up`).
 5. **Deep Shorts Elimination & Redirection**: Completely suppresses YouTube Shorts across shelves, tabs, and search results, or redirects Shorts into standard `/watch` desktop video players.
 6. **Dopamine De-stimulation**: Clickbait thumbnail neutralization (with duration badges and video titles preserved) and site-wide hardware-accelerated grayscale mode.
-7. **Mindful Watch Tracking, Focus Lock & Scheduling**: Local active playback meter (HTML5 video tracking), customizable soft break reminder toasts, weekly automation scheduling, PIN-protected Focus Lock cooldowns, and hard daily watch ceilings.
+7. **Mindful Watch Tracking, Focus Lock & Scheduling**: Local active playback meter (HTML5 video tracking), customizable soft break reminder toasts, weekly automation scheduling, PIN-protected Focus Lock cooldowns, and daily playback budgets.
 8. **Modern 5-Tab Popup UI**: Clean sidebar navigation (**Block**, **Filters**, **Focus**, **Stats**, **Settings**) with instant live search across all toggles.
 9. **Interactive Web Simulator**: Landing page features an authentic YouTube desktop replica with dynamic Light & Dark themes, category chips, channel avatars, and live control mirroring.
 10. **100% Local Privacy (0% Telemetry)**: No remote analytics, no tracking pixels, zero external network requests. Everything is strictly sandboxed in `browser.storage.local`.
@@ -97,7 +99,7 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
 - **Passive Active Watch Meter**: Accurately tracks active `<video>` playback seconds (ignoring paused time), writing in 5-second batches.
 - **Automatic Midnight Reset**: Alarms API ensures daily watch counters reset at `00:00` local time every night.
 - **Soft Break Reminder Toasts**: Floating notification toasts at customizable intervals (e.g., 15m, 30m, 45m).
-- **Hard Daily Playback Ceilings**: Daily watch quota locking video playback with a mindful pause overlay when exhausted.
+- **Daily Playback Budgets**: Daily watch quota locking video playback with a mindful pause overlay when exhausted.
 - **PIN-Protected Focus Lock**: Protects settings during study sessions. Requires a 4-digit PIN and a mandatory cooldown delay (1m, 3m, 5m) before protections can be disabled, preventing impulse unlocks.
 - **Scheduled Blocking Engine**: Automates quiet hours and work periods. Supports custom multi-day schedules (Mon–Sun), start/end time windows, and two modes:
   - *Full Block*: Reopens YouTube only when the scheduled window closes with a serene commitment screen.
@@ -134,7 +136,7 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
 | :--- | :--- |
 | **Extension Standard** | WebExtensions Manifest V3 (Cross-browser compatible) |
 | **Browsers Supported** | Google Chrome (Chrome Web Store Verified), Microsoft Edge (Edge Add-ons Verified), Mozilla Firefox (AMO Verified), Brave, Arc |
-| **Styling & Injection** | Zero-flash high-specificity CSS injected at `document_start` |
+| **Styling & Injection** | CSS rules injected at `document_start` |
 | **State & Lifecycle** | Native `browser.storage.local` with sequential FIFO write queue & SPA route observers |
 | **Web & Landing Page** | React 19, Vite, Lucide Icons, pure CSS design system |
 | **Hosting & Deploy** | Vercel (`dist/` build output) & GitHub Pages |

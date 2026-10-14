@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Ukrywa Shorts w całym serwisie — w menu bocznym, na stronie głównej, w wynikach wyszukiwania i na kanałach",
+    "message": "Ukrywa Shorts w obsługiwanych kanałach treści, wynikach wyszukiwania i stronach kanałów",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Mierzy czas spędzony dziś na YouTube. Resetuje się automatycznie o północy. Włącz dzienny limit, by kontrolować sesję.",
+    "message": "Sumuje odtwarzanie ze wszystkich kart, także w tle. Jednoczesne filmy liczą się osobno, nawet przy wyłączonej lub wstrzymanej ochronie. Zeruje się o północy.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Czas oglądania nalicza się tylko wtedy, gdy film na YouTube jest aktywnie odtwarzany. Resetuje się automatycznie o północy. Pasek stanu pozostaje widoczny na dole każdej karty.",
+    "message": "Sumuje odtwarzanie ze wszystkich kart, także w tle. Jednoczesne filmy liczą się osobno, nawet przy wyłączonej lub wstrzymanej ochronie. Zeruje się o północy.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

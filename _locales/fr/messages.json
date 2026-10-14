@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Masque les Shorts partout : barre latérale, flux, résultats de recherche et chaînes",
+    "message": "Masque les Shorts dans les flux, résultats de recherche et pages de chaînes pris en charge",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Mesure votre temps de visionnage YouTube aujourd'hui. Se réinitialise automatiquement à minuit. Définissez une limite quotidienne pour cadrer votre temps.",
+    "message": "Additionne la lecture dans tous les onglets, même en arrière-plan. Les vidéos simultanées comptent séparément, même si la protection est désactivée ou en pause. Remise à zéro à minuit.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Le temps de visionnage s'accumule uniquement lorsqu'une vidéo YouTube est en cours de lecture. Il se réinitialise automatiquement chaque nuit à minuit. Votre barre d'état reste visible en bas sur tous les onglets.",
+    "message": "Additionne la lecture dans tous les onglets, même en arrière-plan. Les vidéos simultanées comptent séparément, même si la protection est désactivée ou en pause. Remise à zéro à minuit.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

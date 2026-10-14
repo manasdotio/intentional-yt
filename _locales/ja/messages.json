@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "サイドバー、フィード、検索結果、チャンネルなど、YouTube全体のShortsを非表示にします",
+    "message": "対応するフィード、検索結果、チャンネルページからショート動画を非表示にします",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "本日のYouTube再生時間を記録します。深夜0時に自動でリセットされます。上部の制限トグルで視聴時間を管理できます。",
+    "message": "バックグラウンドを含む全タブの再生時間を合計します。同時再生は別々に加算され、保護がオフまたは一時停止中でも計測します。深夜0時にリセットします。",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "再生時間はYouTube動画がアクティブに再生されている間のみ記録されます。深夜0時に自動でリセットされます。常時表示されるステータスバーはどのタブでも画面下部に表示されます。",
+    "message": "バックグラウンドを含む全タブの再生時間を合計します。同時再生は別々に加算され、保護がオフまたは一時停止中でも計測します。深夜0時にリセットします。",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

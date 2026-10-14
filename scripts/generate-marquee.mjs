@@ -59,7 +59,7 @@ try {
     <div class="wash"></div><div class="orbit"></div>
     <div class="brand"><img src="${logo}"><span>Intentional YT<small>A LITTLE MORE INTENTION</small></span></div>
     <div class="copy"><h1>Your YouTube.<br><em>A little calmer.</em></h1><p class="description">Hide Shorts and recommendations.<br>Set a daily watch limit. Keep your day.</p></div>
-    <div class="footer"><span class="dot"></span>FREE & OPEN SOURCE &nbsp; · &nbsp; NO ACCOUNT. NO TRACKING.</div>
+    <div class="footer"><span class="dot"></span>FREE TO USE &nbsp; · &nbsp; NO ACCOUNT. NO TRACKING.</div>
     <div class="note">Room for what matters.<svg viewBox="0 0 95 40"><path d="M4 4C35 1 27 31 82 29M74 22l10 7-9 7"/></svg></div>
     <div class="browser"><div class="toolbar"><i></i><i></i><i></i><span class="address">youtube.com</span></div><div class="content">
       <div class="yt"><span>▶</span>YouTube</div>

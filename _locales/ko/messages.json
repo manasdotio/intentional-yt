@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "사이드바, 피드, 검색 결과, 채널 등 YouTube 전체에서 Shorts를 숨깁니다",
+    "message": "지원되는 피드, 검색 결과 및 채널 페이지에서 Shorts를 숨깁니다",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "오늘 YouTube를 시청한 시간을 기록합니다. 매일 자정에 자동으로 초기화됩니다. 일일 제한 기능을 켜서 시청 시간을 조절하세요.",
+    "message": "백그라운드를 포함한 모든 탭의 재생 시간을 합산합니다. 동시 재생은 각각 계산하며, 보호를 끄거나 일시 중지해도 기록합니다. 자정에 초기화됩니다.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "시청 시간은 YouTube 동영상이 재생되는 동안에만 집계됩니다. 매일 자정에 자동으로 초기화됩니다. 상시 상태 표시줄은 모든 탭의 하단에 고정 표시됩니다.",
+    "message": "백그라운드를 포함한 모든 탭의 재생 시간을 합산합니다. 동시 재생은 각각 계산하며, 보호를 끄거나 일시 중지해도 기록합니다. 자정에 초기화됩니다.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

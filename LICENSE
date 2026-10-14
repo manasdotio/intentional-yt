@@ -1,21 +1,63 @@
-MIT License
+Intentional YT Source-Available License 1.0
+Copyright (c) 2026 Manas (manasdotio). All rights reserved except as stated below.
+Effective for material first distributed under these terms on or after October 14, 2026.
 
-Copyright (c) 2026 Manas (manasdotio)
+1. Scope
+"Software" means the Intentional YT extension, website source, documentation,
+and original assets supplied under this license, to the extent the copyright
+holder has authority to license them. This is a source-available license, not
+an open-source license. Separately licensed material is excluded (see section 4).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+2. Permission
+You may view, download and inspect the source for understanding, learning and
+security review. You may make private copies, build, run and privately modify
+the Software for your own use, including use at work, without providing it as
+a product or service to others. Keep copyright and license notices intact.
+No fee is charged for these permissions.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+3. Restrictions
+Except as permitted in section 4 or by prior written permission from the
+copyright holder, you may not:
+- redistribute, publish, sublicense, sell, rent or otherwise supply copies
+  of the Software or modified versions to others;
+- use the Software or substantial portions of it to create, distribute or
+  operate a competing extension, application, website or service; or
+- use the project's name, logos or branding to imply official endorsement.
+These restrictions concern use of the covered Software; they do not prohibit
+independently developed software that does not use it. The copyright holder
+and distributors expressly authorized by the copyright holder, including
+appointed browser stores and hosting providers, may distribute official releases.
+Sharing links to the official repository, website or store listings is allowed.
 
+4. Existing rights and third-party material
+This license does not withdraw or restrict permissions already granted for
+copies or portions previously released under MIT. The last repository commit
+before this transition is 5fdfb6c8a4153da2f1d34cf21c0ff621da62907e; the historical
+MIT notice is preserved in licenses/MIT-legacy.txt. Material obtained under
+that license may still be used under its terms, including in derivatives.
+Third-party code, dependencies, fonts and other separately licensed assets
+remain governed by their own licenses; their notices must be preserved.
+Nothing here restricts rights required by applicable law, or viewing and
+forking rights granted under the terms of the platform hosting the repository.
+Those platform rights do not otherwise authorize redistribution or competing
+use of newly covered material.
+
+5. Contributions
+Inspection and issue reports are welcome. This license does not authorize
+public distribution of modified versions as a contribution workflow. Obtain
+written permission and agree contribution terms with the maintainer before
+submitting code. No copyright assignment is implied by submitting an issue.
+
+6. Termination
+Permissions under this license end if you breach its conditions. This does
+not terminate rights you hold independently under section 4.
+
+7. Disclaimer
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. TO THE EXTENT PERMITTED BY LAW, THE COPYRIGHT HOLDER IS NOT
+LIABLE FOR CLAIMS, DAMAGES OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR
+ITS USE, WHETHER IN CONTRACT, TORT OR OTHERWISE.
+
+For additional permissions, contact the maintainer through the official
+repository or https://www.intentionalyt.me/.

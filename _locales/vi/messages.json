@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Ẩn Shorts ở mọi nơi — thanh bên, bảng tin, kết quả tìm kiếm và kênh",
+    "message": "Ẩn Shorts trong bảng tin, kết quả tìm kiếm và trang kênh được hỗ trợ",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Ghi nhận số phút bạn xem YouTube hôm nay. Tự động đặt lại vào lúc nửa đêm. Sử dụng giới hạn hàng ngày để kiểm soát thời gian.",
+    "message": "Cộng thời gian phát từ mọi thẻ, kể cả thẻ nền. Video phát đồng thời được tính riêng, ngay cả khi tắt hoặc tạm dừng bảo vệ. Đặt lại lúc nửa đêm.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Thời gian xem chỉ được tính khi video YouTube đang thực sự phát. Dữ liệu sẽ tự động đặt lại vào mỗi nửa đêm. Thanh trạng thái cố định luôn hiển thị ở cuối mỗi tab.",
+    "message": "Cộng thời gian phát từ mọi thẻ, kể cả thẻ nền. Video phát đồng thời được tính riêng, ngay cả khi tắt hoặc tạm dừng bảo vệ. Đặt lại lúc nửa đêm.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

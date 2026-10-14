@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Verbergt Shorts overal — zijbalk, feeds, zoekresultaten en kanalen",
+    "message": "Verbergt Shorts in ondersteunde feeds, zoekresultaten en kanaalpagina’s",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Houdt bij hoeveel minuten je vandaag naar YouTube hebt gekeken. Wordt om middernacht automatisch gereset. Gebruik de dagelijkse limiet om je tijd te beheren.",
+    "message": "Telt afspelen in alle tabbladen op, ook op de achtergrond. Gelijktijdige video’s tellen apart, ook bij uitgeschakelde of gepauzeerde bescherming. Wordt om middernacht gereset.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Kijktijd telt alleen mee terwijl een YouTube-video actief wordt afgespeeld. Deze wordt om middernacht automatisch gereset. Je permanente statusbalk blijft zichtbaar onderaan elk tabblad.",
+    "message": "Telt afspelen in alle tabbladen op, ook op de achtergrond. Gelijktijdige video’s tellen apart, ook bij uitgeschakelde of gepauzeerde bescherming. Wordt om middernacht gereset.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

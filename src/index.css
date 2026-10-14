@@ -4697,3 +4697,86 @@ input:checked + .demo-slider:before {
     scroll-behavior: auto !important;
   }
 }
+
+/* Interactive preview and privacy copy */
+.simulator-v2 { padding: 28px 0; }
+.demo-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-bottom:18px; }
+.demo-toolbar > span { color:var(--text-secondary); font-size:13px; }
+.simulator-v2 select, .simulator-v2 input:not([type="checkbox"]) { font:inherit; background:var(--surface); color:var(--text-primary); border:1px solid var(--border-strong); border-radius:8px; padding:8px; max-width:100%; min-width:0; }
+.simulator-v2 input[type="checkbox"] { accent-color:var(--accent-blue); width:17px; height:17px; flex-shrink:0; }
+.simulator-v2 label { font-size:13px; color:var(--text-primary); }
+.demo-toolbar label, .demo-budget { display:flex; align-items:center; gap:8px; }
+.demo-layout { display:grid; grid-template-columns:minmax(0, 1.2fr) minmax(0, 1fr); gap:20px; align-items:start; }
+.demo-youtube { border:1px solid var(--border-strong); border-radius:14px; overflow:hidden; background:var(--surface); min-width:0; }
+.demo-grayscale { filter:grayscale(1); }
+.demo-youtube-header { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:16px; border-bottom:1px solid var(--border); }
+.demo-youtube-header strong { font-size:14px; }
+.demo-youtube-header strong span { color:var(--accent-red); }
+.demo-youtube-header label { display:flex; align-items:center; gap:6px; }
+.demo-preview-body { padding:18px; min-height:300px; }
+.demo-preview-body h3, .demo-controls h3 { font-size:17px; margin:0 0 12px; }
+.demo-preview-body h4 { margin:20px 0 12px; }
+.demo-video-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.demo-video-card { display:flex; flex-direction:column; gap:6px; min-width:0; font-size:12px; overflow-wrap:anywhere; }
+.demo-video-card > span { color:var(--text-secondary); }
+.demo-thumbnail { aspect-ratio:16/10; position:relative; background:var(--bg-subtle); border-radius:8px; overflow:hidden; display:grid; place-items:center; }
+.demo-thumbnail img { width:100%; height:100%; object-fit:cover; }
+.demo-duration { position:absolute; right:5px; bottom:5px; background:#111b; color:white; padding:2px 4px; border-radius:3px; }
+.demo-empty { padding:40px 10px; text-align:center; }
+.demo-empty p { margin:14px 0; }
+.demo-player { position:relative; border-radius:8px; overflow:hidden; margin-bottom:16px; }
+.demo-player > img { width:100%; height:auto; display:block; }
+.demo-player > span { position:absolute; bottom:0; left:0; right:0; padding:8px; color:white; background:#111c; font-size:12px; }
+.demo-limit-overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:12px; text-align:center; background:#111e; color:white; }
+.demo-limit-overlay p { color:inherit; }
+.demo-caption { padding:12px 16px; border-top:1px solid var(--border); margin:0; font-size:12px; color:var(--text-secondary); }
+.demo-controls { display:flex; flex-direction:column; gap:18px; min-width:0; }
+.demo-controls section { padding:18px; border:1px solid var(--border); background:var(--surface); border-radius:12px; }
+.demo-controls p, .demo-preview-body p { font-size:13px; line-height:1.6; color:var(--text-secondary); }
+.demo-toggles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.demo-toggles label, .demo-control-switch { display:flex; align-items:center; gap:8px; }
+.demo-input-row { display:flex; gap:8px; margin-top:6px; }
+.demo-input-row input { flex:1; width:100%; }
+.demo-filter-list { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 14px; }
+.demo-filter-list button { border:1px solid var(--border-strong); border-radius:12px; background:var(--surface-hover); color:var(--text-primary); padding:6px 10px; cursor:pointer; max-width:100%; overflow-wrap:anywhere; }
+.demo-budget { margin:12px 0; }
+.demo-time-actions { display:flex; flex-wrap:wrap; gap:8px; }
+.simulator-v2 .btn { font-size:12px; padding:9px 12px; }
+.simulator-v2 .btn:disabled { opacity:.5; cursor:default; }
+.demo-notice { min-height:22px; font-size:13px; color:var(--text-secondary); }
+.simulator-v2 :focus-visible { outline:2px solid var(--accent-blue); outline-offset:3px; }
+.privacy-copy { display:flex; flex-direction:column; gap:26px; padding:clamp(18px,4vw,36px); overflow-wrap:anywhere; }
+.privacy-copy h2 { font-size:20px; margin:0 0 10px; }
+.privacy-copy p { font-size:14px; line-height:1.8; color:var(--text-secondary); margin:0 0 12px; }
+.privacy-copy a { text-decoration:underline; }
+@media(max-width:768px) {
+  .demo-layout { grid-template-columns:minmax(0,1fr); }
+  .demo-preview-body { min-height:220px; }
+  .demo-toggles { grid-template-columns:minmax(0,1fr); }
+  .demo-toolbar { gap:10px; }
+}
+
+/* Shared install controls: the same browser choice in every placement. */
+.install-options { min-width: 0; max-width: 100%; scroll-margin-top: 100px; }
+.install-options .install-guidance { color: var(--text-secondary); font-size: 12px; line-height: 1.6; margin: 12px 0 8px; }
+.install-store-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.install-store-links a { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--text-primary); font-size: 12px; text-decoration: none; }
+.install-store-links a:hover { background: var(--surface-hover); border-color: var(--accent-blue); }
+.install-store-links a:focus-visible, .install-primary:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 3px; }
+.install-primary img, .install-store-links img { flex-shrink: 0; }
+.nav-install-btn.install-primary { min-height: 44px; height: auto; }
+.closing-copy .install-options { margin-top: 4px; }
+@media (max-width: 1000px) and (min-width: 769px) {
+  .nav-install-btn.install-primary { padding: 0 10px; font-size: 12px; }
+}
+@media (max-width: 768px) {
+  .hero-copy .install-store-links { justify-content: center; }
+  .nav-install-btn.install-primary { font-size: 11px; padding: 0 8px; gap: 5px; }
+  .nav-install-btn.install-primary > img, .nav-install-btn.install-primary > span[aria-hidden] { display: none; }
+}
+@media (max-width: 380px) {
+  .hero-welcome .hero-actions { flex-direction: column; gap: 12px; }
+  .hero-welcome .install-primary { width: 100%; }
+  .install-store-links { gap: 6px; }
+  .install-store-links a { padding: 8px 10px; }
+}

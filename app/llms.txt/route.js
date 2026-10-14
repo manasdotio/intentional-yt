@@ -31,6 +31,8 @@ Developer: manasdotio
 
 The extension controls YouTube in a supported desktop browser. It does not control the native YouTube phone app. Focus Lock adds friction to settings changes; it does not prevent disabling or uninstalling the extension. YouTube layout changes can affect blocking rules.
 
+Source is available for inspection under the project LICENSE; current changes are not offered under an open-source license. Earlier MIT and third-party permissions remain unchanged.
+
 ## Installation
 
 - [Chrome Web Store](${APP_CONFIG.chromeWebStoreUrl})

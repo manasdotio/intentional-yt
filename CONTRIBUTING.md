@@ -1,13 +1,13 @@
 # Contributing to Intentional YT
 
-Thank you for your interest in contributing to **Intentional YT**! We welcome bug fixes, performance improvements, new distraction-blocking toggles, and documentation improvements.
+Intentional YT is source available under [LICENSE](LICENSE), not an open-source license. Inspection and issue reports are welcome. Before publishing patches or submitting code, contact the maintainer to agree written permission and contribution terms. Historical MIT and third-party permissions remain unchanged. The technical guidance below is for private work or authorized contributions.
 
 ---
 
 ## 🧭 Core Principles
 
 1. **Zero Tracking & Strict Privacy**: Absolutely no external network requests, telemetry, or analytics.
-2. **Zero-Flash Execution**: Blocking is applied at `document_start` by injecting CSS classes onto `<html>`. Avoid polling DOM or heavy runtime mutation observers where pure CSS can do the job.
+2. **CSS Blocking**: Blocking is applied at `document_start` by injecting CSS classes onto `<html>`. Avoid polling DOM or heavy runtime mutation observers where pure CSS can do the job.
 3. **Vanilla Web Standards**: No bundlers, compilers, or heavy frameworks. Pure JavaScript (ES6+), HTML, and CSS.
 
 ---
@@ -31,7 +31,7 @@ cd intentional-yt
 #### Chromium (Chrome / Brave / Edge / Arc)
 1. Navigate to `chrome://extensions` (or `brave://extensions`).
 2. Toggle on **Developer mode** in the top-right corner.
-3. Click **Load unpacked** and select the repository root folder.
+3. Run `npm run package`, click **Load unpacked**, and select `dist/chrome`.
 4. Click the refresh icon on the extension card whenever you make changes.
 
 ---

@@ -1,31 +1,71 @@
-name: Lint and Validate Extension
+﻿name: Regression Checks
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  validate:
-    name: Validate Manifest & Lint Add-on
+  extension:
+    name: Extension tests and browser packages
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run test:extension
+      - run: npm run package
+      - name: Lint the packaged Firefox add-on
+        run: npm exec -- addons-linter intentional-yt-firefox.zip --warnings-as-errors=false
+      - run: npm exec -- playwright install --with-deps chromium
+      - run: node tests/browser-smoke.cjs
 
-      - name: Validate manifest.json format
+  website:
+    name: Website build, SEO and browser checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run audit:seo
+      - run: npm exec -- playwright install --with-deps chromium
+      - name: Test the production website
+        shell: bash
         run: |
-          node -e "const m = JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')); console.log('Manifest is valid JSON: v' + m.version);"
-
-      - name: Install addons-linter
-        run: npm install -g addons-linter
-
-      - name: Lint Extension with Mozilla Addons-Linter
-        run: addons-linter . --warnings-as-errors=false
+          npm run start -- --hostname 127.0.0.1 --port 3105 > "$RUNNER_TEMP/site.log" 2>&1 &
+          site_pid=$!
+          trap 'kill "$site_pid" 2>/dev/null || true; cat "$RUNNER_TEMP/site.log"' EXIT
+          ready=false
+          for attempt in {1..60}; do
+            if curl --fail --silent http://127.0.0.1:3105/ > /dev/null; then
+              ready=true
+              break
+            fi
+            if ! kill -0 "$site_pid" 2>/dev/null; then
+              exit 1
+            fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then
+            echo "Website did not become ready within 60 seconds"
+            exit 1
+          fi
+          IYT_SITE_URL=http://127.0.0.1:3105 node tests/site-smoke.cjs

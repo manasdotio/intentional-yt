@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Blendet Shorts überall aus – Seitenleiste, Feeds, Suchergebnisse und Kanäle",
+    "message": "Blendet Shorts in unterstützten Feeds, Suchergebnissen und Kanalseiten aus",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Erfasst Ihre heutige YouTube-Wiedergabezeit. Wird um Mitternacht automatisch zurückgesetzt. Aktivieren Sie das Tageslimit, um Ihre Zeit zu steuern.",
+    "message": "Addiert Wiedergabe aus allen Tabs, auch im Hintergrund. Gleichzeitige Videos zählen einzeln, auch bei ausgeschaltetem oder pausiertem Schutz. Wird um Mitternacht zurückgesetzt.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Die Wiedergabezeit zählt nur, während ein YouTube-Video aktiv abgespielt wird. Sie wird um Mitternacht automatisch zurückgesetzt. Ihre dauerhafte Statusleiste bleibt unten in jedem Tab sichtbar.",
+    "message": "Addiert Wiedergabe aus allen Tabs, auch im Hintergrund. Gleichzeitige Videos zählen einzeln, auch bei ausgeschaltetem oder pausiertem Schutz. Wird um Mitternacht zurückgesetzt.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

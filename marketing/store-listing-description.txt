@@ -1,7 +1,7 @@
 Intentional YT is a YouTube distraction blocker with daily watch time limits. Hide Shorts, home feed recommendations, and suggested videos while keeping YouTube available for tutorials, lectures, music, and videos you choose to watch.
 
 KEEP THE PARTS OF YOUTUBE YOU NEED
-- Hide YouTube Shorts across feeds, search results, channel pages, and the sidebar.
+- Hide YouTube Shorts in supported feeds, search results, channel pages, and the sidebar.
 - Remove home recommendations and suggested videos beside the player.
 - Keep subscriptions and playlists available with separate controls.
 - Hide comments, live chat, end-screen suggestions, and other distractions.
@@ -10,13 +10,16 @@ KEEP THE PARTS OF YOUTUBE YOU NEED
 
 SET A DAILY YOUTUBE TIME LIMIT
 - Choose a daily watch budget and pause playback when it is reached.
-- Track active video playback time locally; daily counters reset at midnight.
+- Add playback time across tabs, including background tabs; simultaneous videos count separately. Totals reset at midnight.
 - Add optional break reminders at intervals you choose.
 - Schedule blocking for selected days and hours.
 - Use Focus Lock to add a PIN and cooldown before protected settings can change.
 
 FILTER CHANNELS AND KEYWORDS
-Hide matching video cards using channel names or title keywords. Filter unwanted topics while keeping search available for what you came to learn.
+Hide matching video cards in supported feeds and search results using channel names or title keywords. Filter unwanted topics while keeping search available for what you came to learn.
+
+SOURCE AVAILABLE
+Source can be inspected under the project license. Redistribution, sale and competing derivatives of newly covered material require permission. Earlier MIT permissions remain unchanged.
 
 PRIVATE AND LOCAL
 No account is required. Extension settings, blocklists, and watch-time counters stay in your browser. The extension has no telemetry or analytics.

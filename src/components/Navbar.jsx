@@ -4,29 +4,17 @@ import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useTheme } from '../context/ThemeContext'
 import { APP_CONFIG } from '../config/constants'
+import { InstallButton, InstallOptions } from './InstallActions'
 
 export default function Navbar() {
   const { theme, toggleTheme, mounted } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [installUrl, setInstallUrl] = useState(APP_CONFIG.chromeWebStoreUrl)
   const menuButtonRef = useRef(null)
   const menuRef = useRef(null)
   const closeMenu = () => {
     setMobileMenuOpen(false)
     menuButtonRef.current?.focus()
   }
-
-  // Smart detect user browser for primary install CTA
-  useEffect(() => {
-    if (typeof navigator !== 'undefined') {
-      const ua = navigator.userAgent || ''
-      if (ua.includes('Firefox')) {
-        setInstallUrl(APP_CONFIG.firefoxAddonUrl)
-      } else if (ua.includes('Edg/')) {
-        setInstallUrl(APP_CONFIG.edgeAddonUrl)
-      }
-    }
-  }, [])
 
   // Keep keyboard focus and page scrolling inside the open mobile menu.
   useEffect(() => {
@@ -101,16 +89,7 @@ export default function Navbar() {
             )}
           </button>
 
-          <a 
-            href={installUrl} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="btn btn-primary nav-install-btn"
-          >
-            <span className="install-text-desktop">Get Extension</span>
-            <span className="install-text-mobile">Install</span>
-            <span className="hero-btn-arrow" aria-hidden="true" style={{ fontSize: '13px' }}>→</span>
-          </a>
+          <InstallButton compact />
 
           {/* Mobile Menu Hamburger Button */}
           <button
@@ -199,38 +178,7 @@ export default function Navbar() {
             <div className="mobile-nav-divider"></div>
 
             <div className="mobile-nav-footer">
-              <div className="mobile-nav-stores">
-                <a
-                  href={APP_CONFIG.chromeWebStoreUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mobile-store-btn"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <img src="/icons/chrome.svg" alt="" width="16" height="16" aria-hidden="true" />
-                  <span>Chrome</span>
-                </a>
-                <a
-                  href={APP_CONFIG.edgeAddonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mobile-store-btn"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <img src="/icons/edge.svg" alt="" width="16" height="16" aria-hidden="true" />
-                  <span>Edge</span>
-                </a>
-                <a
-                  href={APP_CONFIG.firefoxAddonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mobile-store-btn"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <img src="/icons/firefox.svg" alt="" width="16" height="16" aria-hidden="true" />
-                  <span>Firefox</span>
-                </a>
-              </div>
+              <InstallOptions />
             </div>
           </div>
         </div>

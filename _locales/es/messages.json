@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Oculta Shorts en todas partes: barra lateral, feeds, resultados de búsqueda y canales",
+    "message": "Oculta Shorts en feeds, resultados de búsqueda y páginas de canales compatibles",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Registra los minutos que has visto YouTube hoy. Se reinicia automáticamente a medianoche. Usa el límite diario para controlar tu sesión.",
+    "message": "Suma la reproducción de todas las pestañas, incluso en segundo plano. Los videos simultáneos cuentan por separado, aunque la protección esté desactivada o pausada. Se reinicia a medianoche.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "El tiempo de visualización solo se acumula mientras un video de YouTube se está reproduciendo activamente. Se reinicia automáticamente cada medianoche. Tu barra de estado persistente permanece visible abajo en todas las pestañas.",
+    "message": "Suma la reproducción de todas las pestañas, incluso en segundo plano. Los videos simultáneos cuentan por separado, aunque la protección esté desactivada o pausada. Se reinicia a medianoche.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

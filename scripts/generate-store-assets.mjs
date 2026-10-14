@@ -167,7 +167,7 @@ try {
         <span class="page-number">0${index + 1} / 05</span>
         <div class="copy"><div class="eyebrow">${item.tag}</div><h1>${item.title}</h1><p class="description">${item.description}</p><ul>${item.benefits.map(text => '<li>' + text + '</li>').join('')}</ul></div>
         <div class="capture"><img src="${dataUri(shots.get(item.shot))}"></div>
-        <div class="footer"><b>Free & open source</b> &nbsp;·&nbsp; No account &nbsp;·&nbsp; Settings stay in your browser</div>
+        <div class="footer"><b>Free to use</b> &nbsp;·&nbsp; No account &nbsp;·&nbsp; Settings stay in your browser</div>
         <div class="proof">Actual extension interface · Example settings</div>
       </main></body></html>`)
     await page.evaluate(() => document.fonts.ready)
@@ -187,7 +187,7 @@ try {
     .footer{position:absolute;bottom:24px;left:25px;font-size:8px;letter-spacing:.6px;font-weight:600;color:#456653}
     </style></head><body><main><div class="wash"></div><div class="brand"><img src="${logo}"><span>Intentional YT</span></div>
     <h1>Your YouTube.<br><em>A little calmer.</em></h1><p class="description">Hide distractions.<br>Set your daily watch limit.</p>
-    <div class="capture"><img src="${dataUri(shots.get('overview'))}"></div><div class="footer">FREE · PRIVATE · OPEN SOURCE</div>
+    <div class="capture"><img src="${dataUri(shots.get('overview'))}"></div><div class="footer">FREE · LOCAL SETTINGS · NO ACCOUNT</div>
     </main></body></html>`)
   await page.evaluate(() => document.fonts.ready)
   await saveRgb(page, path.join(output, 'promo-tile-440x280.png'), 440, 280)

@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Sembunyikan Shorts di mana saja — sidebar, feed, hasil pencarian, dan channel",
+    "message": "Menyembunyikan Shorts di feed, hasil pencarian, dan halaman kanal yang didukung",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Mencatat berapa menit Anda menonton YouTube hari ini. Direset otomatis saat tengah malam. Gunakan batas harian untuk membatasi waktu.",
+    "message": "Menjumlahkan pemutaran di semua tab, termasuk latar belakang. Video bersamaan dihitung terpisah, meski perlindungan mati atau dijeda. Direset tengah malam.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Waktu menonton terakumulasi hanya saat video YouTube sedang diputar aktif. Reset otomatis setiap tengah malam. Bilah status persisten Anda tetap terlihat di bagian bawah di setiap tab.",
+    "message": "Menjumlahkan pemutaran di semua tab, termasuk latar belakang. Video bersamaan dihitung terpisah, meski perlindungan mati atau dijeda. Direset tengah malam.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

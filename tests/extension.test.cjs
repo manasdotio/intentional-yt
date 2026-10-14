@@ -317,6 +317,9 @@ test('every release archive has fonts, all selectable languages and correct back
       ...(manifest.background.scripts || []), ...(manifest.background.service_worker ? [manifest.background.service_worker] : []),
       ...manifest.content_scripts.flatMap(script => [...(script.js || []), ...(script.css || [])])];
     for (const name of runtimePaths) assert.ok(entries.has(name), `Missing runtime file: ${name}`);
+    for (const name of ['LICENSE', 'licenses/MIT-legacy.txt']) {
+      assert.equal(entries.get(name)?.toString(), source(name), `Missing or stale license: ${name}`);
+    }
     if(file.includes('firefox')) { assert.ok(manifest.background.scripts); assert.equal(manifest.background.service_worker,undefined); }
     else assert.equal(manifest.background.scripts,undefined);
     for(const match of entries.get('styles/popup.css').toString().matchAll(/url\(['"]?(\.\.\/[^)'"\s]+)/g)) assert.ok(entries.has(path.posix.normalize('styles/'+match[1])),match[1]);
@@ -329,6 +332,9 @@ test('locale catalogs contain new labels without encoding corruption', () => {
     const catalog=JSON.parse(source(`_locales/${lang}/messages.json`));
     for(const key of Object.keys(english)) assert.ok(catalog[key],`${lang}: ${key}`);
     for(const key of ['scheduled_close_tab','scheduled_blank_screen','action_undo','channel_blocked']) assert.ok(!/^\?+[\s?$1]*$/.test(catalog[key].message),lang);
+    for(const key of ['stats_callout_info','stats_tooltip_info','desc_block_shorts']) {
+      assert.ok(!/\?/.test(catalog[key].message), `${lang}: ${key} contains damaged text`);
+    }
     assert.ok(catalog.extensionName?.message?.length <= 75, `${lang} extensionName exceeds 75 chars: ${catalog.extensionName?.message?.length}`);
     assert.ok(!/[ØÙ]|à[¦¤]|\u00c3[\u00a0-\u00ff]|\u00d0[\u00b0-\u00bf]|\u00ce[\u0090-\u00bf]/.test(catalog.extensionName?.message), `${lang} extensionName has mojibake`);
   }
@@ -445,25 +451,25 @@ test('navigation cancels a pending video poll and home cannot acquire a limit ov
 
 test('unrelated player mutations do not schedule document scans; card changes still filter', () => {
   const s=source('content/blocker.js');
-  let observe, filters=0, shorts=0, autoplay=0;
+  let observe, filters=0, autoplay=0;
   const context=vm.createContext({
     document:{body:{},addEventListener(){}},
     MutationObserver:class {constructor(fn){observe=fn;}observe(){}},
     _settings:{blockShorts:true,limitHomeFeed:false},isEffectiveActive:()=>true,
     getCardContainer:node=>node.card || null,
-    scheduleShortsPurge:()=>shorts++,scheduleHomeFeedLimit(){},
+    scheduleHomeFeedLimit(){},
     scheduleFilterScanForNodes:()=>filters++,scheduleAutoplay:()=>autoplay++,scanAllCards(){}
   });
   vm.runInContext(s.slice(s.indexOf('function initDomObserver()'),s.indexOf("if (document.readyState === 'loading')",s.indexOf('function initDomObserver()'))),context);
   context.initDomObserver();
   const player={nodeType:1,closest:()=>null,matches:()=>false};
   for(let i=0;i<1000;i++) observe([{type:'attributes',attributeName:'aria-label',target:player,addedNodes:[]}]);
-  assert.equal(filters,0);assert.equal(shorts,0);assert.equal(autoplay,0);
+  assert.equal(filters,0);assert.equal(autoplay,0);
   const card={...player,card:{}};
   observe([{type:'characterData',target:{nodeType:3,parentElement:card},addedNodes:[]}]);
-  assert.equal(filters,1);assert.equal(shorts,0);assert.equal(autoplay,0);
+  assert.equal(filters,1);assert.equal(autoplay,0);
   observe([{type:'childList',target:player,addedNodes:[card]}]);
-  assert.equal(filters,2);assert.equal(shorts,1);assert.equal(autoplay,1);
+  assert.equal(filters,2);assert.equal(autoplay,1);
 });
 
 test('continuous mutations cannot postpone card filtering indefinitely', () => {

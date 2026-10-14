@@ -24,3 +24,7 @@
    - **Reviewer notes**:
      - *Only executes on `youtube.com` and `m.youtube.com`, explicitly excluding `music.youtube.com`.*
      - *All user settings and daily watch-time metrics are stored strictly in `browser.storage.local` with zero telemetry or network calls.*
+
+## License transition
+
+For the next release, select a custom license and use the current LICENSE text. Do not label newly covered changes as MIT or open source. Keep historical MIT and third-party notices. Update the listing description and upload the refreshed marketing assets; local edits do not change published store metadata.

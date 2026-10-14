@@ -37,17 +37,20 @@
 
 ---
 
+## License
+
+Current changes are **source available, not open source**. You may inspect the code and run it privately. Redistribution, sale and competing derivatives using newly covered material require written permission. See [LICENSE](LICENSE). Earlier MIT permissions remain unchanged; see [the historical notice](licenses/MIT-legacy.txt). Third-party licenses remain unchanged.
+
 ## 💡 Why Intentional YT?
 
 Modern YouTube is engineered around hyper-optimized recommendation algorithms designed to capture and hold your attention. **Intentional YT** reclaims your headspace by turning YouTube into a clean, search-first, and intentional video utility.
 
 | Principle | How We Achieve It |
 |---|---|
-| ⚡ **Zero Content Flash** | Injects high-specificity CSS rules onto `<html>` at `document_start` before the DOM renders. No layout jumps, no visual pop-in, and zero sluggish DOM polling. |
 | 🎛️ **Granular Control** | No rigid "all-or-nothing" blockers. Want to hide the infinite home feed but keep your subscriptions? Want to remove recommendations but keep video descriptions? Every distraction surface is independently customizable. |
-| 🧠 **Dopamine Reduction** | Clickbait thumbnail neutralization (with video duration tags preserved) and site-wide grayscale mode to reduce visual overstimulation. |
+| 🧠 **Visual Simplicity** | Clickbait thumbnail neutralization (with video duration tags preserved) and site-wide grayscale mode to reduce visual overstimulation. |
 | ⏱️ **Mindful Time Tracking** | Built-in passive daily watch counter, custom continuous session toasts, and enforce-able daily watch limits. |
-| 🔒 **100% Privacy & Local** | Zero telemetry, zero analytics, zero external network requests. All preferences and time metrics reside solely within `browser.storage.local`. |
+| 🔒 **Local Extension Data** | The extension stores preferences and totals locally and sends no usage analytics. Optional website feedback goes to Google Forms. |
 
 ---
 
@@ -63,7 +66,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 - **Hide Notification Bell (`blockNotificationBell`)**: Eliminates red unread notification badges and alert popups.
 
 ### ⚡ Deep Shorts Suppression
-- **Universal Shorts Removal (`blockShorts`)**: Deep multi-surface suppression of YouTube Shorts across:
+- **Hide Shorts (`blockShorts`)**: Hides Shorts on supported layouts, including:
   - Homepage Shorts shelves and carousel drawers.
   - Left navigation sidebar Shorts links.
   - Search result Shorts inserts and vertical video carousels.
@@ -105,7 +108,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 - **Passive Active Watch Meter**: Accurately tracks active `<video>` playback seconds (ignoring paused time), writing in 5-second batches to protect storage.
 - **Automatic Midnight Reset**: Alarms API ensures daily watch time counters seamlessly reset at 00:00 local time every night.
 - **Soft Break Reminder Toasts**: Gentle, floating notification toasts at customizable intervals (e.g. every 15, 30, or 45 minutes of continuous watching).
-- **Hard Daily Playback Ceilings**: Optional daily watch quota (e.g. 45 or 60 minutes). When exceeded, video playback locks with a mindful pause overlay.
+- **Daily Playback Budgets**: Optional daily watch quota (e.g. 45 or 60 minutes). At the threshold, playback pauses with a limit overlay. Available bypass options depend on your settings.
 
 ### 🛡️ Channel & Keyword Content Filtering
 - **Channel Blocklist (`channelBlocklist`)**: Hide video cards from specific YouTube creators across the home feed, search results, sidebar suggestions, and channel pages.
@@ -115,7 +118,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 
 ### 🧭 Modern Popup Interface & Automation
 - **Tabbed Experience**: Clean division across **Focus** (presets & toggles), **Filters** (Channel & Keyword Blocklists + 1-Click Quick Block), **Schedule** (automation), and **Settings** (review links, stats reset, backups).
-- **3 One-Click Presets**: **Deep Work** (maximum shielding), **Balanced Focus** (mindful feed + blocked Shorts), and **Video Only** (pure cinema player).
+- **3 One-Click Presets**: **Zen**, **Balanced**, and **Video Only**, with individual controls you can adjust.
 - **Quick Search Filter**: Instant real-time filtering across all 20+ toggles with keyboard navigation and aliases.
 - **Focus Lock**: Lock toggles for set durations during study or work sessions to avoid impulsive override.
 - **Automated Scheduling**: Automatically activate focus modes during custom daily or weekday time windows.
@@ -131,7 +134,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 | **Limit Home Feed (Anti-Doomscroll)** | `limitHomeFeed` | `iyt-limit-home-feed` | `false` |
 | **Hide Recommended Sidebar** | `blockRecommended` | `iyt-no-recommended` | `true` |
 | **Hide Left Sidebar** | `blockSidebar` | `iyt-no-sidebar` | `true` |
-| **Hide Shorts Everywhere** | `blockShorts` | `iyt-no-shorts` | `true` |
+| **Hide Shorts** | `blockShorts` | `iyt-no-shorts` | `true` |
 | **Clean Search Algorithmic Shelves** | `blockIrrelevantSearchResults` | `iyt-no-irrelevant-search` | `true` |
 | **Hide Explore & Trending** | `blockExploreAndTrending` | `iyt-no-explore` | `true` |
 | **Hide More From YouTube** | `blockMoreFromYouTube` | `iyt-no-more-yt` | `true` |
@@ -263,7 +266,7 @@ To package the extension into a distributable `.zip` file:
 ```
 
 1. **`content/blocker.js`**: Executes at `document_start` to read stored configurations and inject corresponding CSS helper classes (e.g., `yt-block-home-feed`) onto `document.documentElement`.
-2. **`styles/blocker.css`**: Contains pure CSS selectors targeting YouTube elements under these root classes, guaranteeing instant suppression with zero visual flicker.
+2. **`styles/blocker.css`**: Contains pure CSS selectors targeting YouTube elements under these root classes, to hide selected distractions on supported layouts.
 3. **`content/youtubeObserver.js`**: Hooks YouTube SPA navigation lifecycle (`yt-navigate-finish`, `yt-page-data-updated`, `popstate`) to keep state perfectly synchronized across seamless page transitions.
 4. **`content/timerToast.js`**: Tracks playback time via HTML5 video events (`play`, `pause`, `timeupdate`) and presents mindful reminder toasts or daily limit blockers.
 5. **`utils/storage.js`**: Cross-browser unified storage interface with an asynchronous write queue to eliminate race conditions during rapid user adjustments.
@@ -280,15 +283,15 @@ We believe in maximum privacy. Intentional YT requires only the bare minimum per
 | `alarms` | Triggers the local midnight reset for your daily watch time. |
 | `*://www.youtube.com/*`, `*://m.youtube.com/*` | Injects CSS rules and time tracking scripts onto YouTube. |
 
-Intentional YT contains **no tracking, no analytics, and makes zero external requests**.
+The extension sends no usage analytics. Settings and playback totals stay local; voluntary website feedback is sent to Google Forms. See [Privacy](PRIVACY.md).
 
 ---
 
 ## ⭐ Support & Feedback
 
 If Intentional YT helps you reclaim your time and focus:
-- ⭐ **[Leave a 5-Star Review on Chrome Web Store](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)** — Reviews help new users discover the extension!
-- ⭐ **[Leave a 5-Star Review on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb)** — Reviews help Edge users discover calm browsing!
-- ⭐ **[Leave a 5-Star Review on Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)** — Every review helps more people discover mindful internet use.
+- ⭐ **[Leave an Honest Review on Chrome Web Store](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)** — Reviews help new users discover the extension!
+- ⭐ **[Leave an Honest Review on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb)** — Reviews help Edge users discover calm browsing!
+- ⭐ **[Leave an Honest Review on Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)** — Every review helps more people discover mindful internet use.
 - 💡 **[Submit Feedback & Feature Requests](https://forms.gle/EFixUed5F5bmVvFX7)** — Tell us what toggles or improvements you'd like to see next!
 - 💬 Have bug reports or selector updates? [Send feedback](https://forms.gle/EFixUed5F5bmVvFX7).

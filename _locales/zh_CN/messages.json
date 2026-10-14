@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "在侧边栏、推荐流、搜索结果和频道等所有位置隐藏 Shorts 短视频",
+    "message": "在支持的信息流、搜索结果和频道页面中隐藏 Shorts",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "记录今日 YouTube 观看分钟数。每日午夜零点自动重置。可开启上方每日限制控制观看时间。",
+    "message": "累计所有标签页的播放时间，包括后台播放。同时播放的视频分别计时，关闭或暂停保护时也会计时。午夜重置。",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "观看时长仅在 YouTube 视频实际播放时累计，每天午夜自动重置。常驻状态栏始终位于每个标签页的底部。",
+    "message": "累计所有标签页的播放时间，包括后台播放。同时播放的视频分别计时，关闭或暂停保护时也会计时。午夜重置。",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

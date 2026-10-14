@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Skryje Shorts všude — v postranním panelu, na domovské stránce, ve vyhledávání i na kanálech",
+    "message": "Skrývá Shorts v podporovaných feedech, výsledcích hledání a na stránkách kanálů",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Měří čas sledování YouTube za dnešní den. Automaticky se resetuje o půlnoci. Zapněte denní limit pro kontrolu času.",
+    "message": "Sčítá přehrávání ve všech kartách, i na pozadí. Souběžná videa se počítají zvlášť, i při vypnuté či odložené ochraně. O půlnoci se vynuluje.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Doba sledování se počítá pouze při aktivním přehrávání videa na YouTube. Resetuje se automaticky každou půlnoc. Stavový řádek zůstává trvale viditelný ve spodní části každého panelu.",
+    "message": "Sčítá přehrávání ve všech kartách, i na pozadí. Souběžná videa se počítají zvlášť, i při vypnuté či odložené ochraně. O půlnoci se vynuluje.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

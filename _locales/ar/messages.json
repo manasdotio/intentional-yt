@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "إخفاء مقاطع Shorts في كل مكان — القائمة الجانبية والخلاصات ونتائج البحث والقنوات",
+    "message": "يخفي Shorts من الخلاصات ونتائج البحث وصفحات القنوات المدعومة",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "يسجل دقائق مشاهدتك ليوتيوب اليوم. يعاد التعيين تلقائياً عند منتصف الليل. استخدم الحد اليومي لضبط وقتك.",
+    "message": "يجمع وقت التشغيل من علامات التبويب، بما فيها الخلفية. تُحسب الفيديوهات المتزامنة منفصلة، حتى عند إيقاف الحماية أو تأجيلها. يُصفّر عند منتصف الليل.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "يتراكم وقت المشاهدة فقط أثناء تشغيل فيديو يوتيوب بشكل نشط. ويُعاد ضبطه تلقائياً كل منتصف ليل. يظل شريط الحالة الدائم ظاهراً في الأسفل في كل علامة تبويب.",
+    "message": "يجمع وقت التشغيل من علامات التبويب، بما فيها الخلفية. تُحسب الفيديوهات المتزامنة منفصلة، حتى عند إيقاف الحماية أو تأجيلها. يُصفّر عند منتصف الليل.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

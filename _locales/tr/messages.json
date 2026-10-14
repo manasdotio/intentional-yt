@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Shorts videolarını her yerde gizler — kenar çubuğu, akışlar, arama sonuçları ve kanallar",
+    "message": "Desteklenen akışlarda, arama sonuçlarında ve kanal sayfalarında Shorts videolarını gizler",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Bugün YouTube izlediğiniz dakikaları kaydeder. Gece yarısı otomatik olarak sıfırlanır. Oturumu sınırlamak için yukarıdaki günlük limiti kullanın.",
+    "message": "Arka plan dahil tüm sekmelerdeki oynatmayı toplar. Eşzamanlı videolar, koruma kapalı veya ertelenmiş olsa da ayrı sayılır. Gece yarısı sıfırlanır.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "İzleme süresi yalnızca bir YouTube videosu aktif olarak oynatılırken birikir. Her gece yarısı otomatik olarak sıfırlanır. Kalıcı durum çubuğunuz her sekmede altta görünür kalır.",
+    "message": "Arka plan dahil tüm sekmelerdeki oynatmayı toplar. Eşzamanlı videolar, koruma kapalı veya ertelenmiş olsa da ayrı sayılır. Gece yarısı sıfırlanır.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

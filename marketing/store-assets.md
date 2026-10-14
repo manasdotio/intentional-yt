@@ -35,3 +35,7 @@ The script checks dimensions, channel count, transparency, and the PNG's
 Run `node scripts/generate-marquee.mjs` with the same environment to regenerate the marquee.
 
 The downloadable archive is `marketing/intentional-yt-store-assets.zip`.
+
+## October 14 license/copy update
+
+The local screenshot set, promo tile and marquee have been regenerated without the old open-source claim. Use the refreshed archive. Published store assets and descriptions still need replacement. Current source is available for inspection under LICENSE, with earlier MIT permissions preserved.

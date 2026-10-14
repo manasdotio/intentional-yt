@@ -320,8 +320,9 @@ html.iyt-no-shorts ytd-mini-guide-entry-renderer:has([title="Shorts" i]) {
 }
 
 /* 2. Shorts Shelves & Carousels (Home, Search, Channel, Watch Next) */
-html.iyt-no-shorts grid-shelf-view-model,
+/* Generic grid shelves also contain ordinary videos. Require Shorts evidence. */
 html.iyt-no-shorts grid-shelf-view-model:has(a[href*="/shorts"]),
+html.iyt-no-shorts grid-shelf-view-model:has(:is(ytd-shorts-lockup-view-model, ytd-shorts-lockup-view-model-renderer, yt-shorts-lockup-view-model, ytm-shorts-lockup-view-model, ytm-shorts-lockup-view-model-v2, ytd-reel-item-renderer, reel-item-view-model, yt-reel-item-view-model, [overlay-style="SHORTS"])),
 html.iyt-no-shorts ytd-reel-shelf-renderer,
 html.iyt-no-shorts yt-reel-shelf-view-model,
 html.iyt-no-shorts reel-shelf-view-model,
@@ -338,7 +339,7 @@ html.iyt-no-shorts ytd-rich-section-renderer:has(yt-shorts-lockup-view-model),
 html.iyt-no-shorts ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
 html.iyt-no-shorts ytd-rich-section-renderer:has(yt-reel-shelf-view-model),
 html.iyt-no-shorts ytd-rich-section-renderer:has(reel-shelf-view-model),
-html.iyt-no-shorts ytd-rich-section-renderer:has(grid-shelf-view-model),
+html.iyt-no-shorts ytd-rich-section-renderer:has(:is(ytm-shorts-lockup-view-model-v2, ytd-shorts-lockup-view-model-renderer, ytd-reel-item-renderer, reel-item-view-model, yt-reel-item-view-model)),
 html.iyt-no-shorts ytd-rich-section-renderer:has(a[href*="/shorts/"]),
 html.iyt-no-shorts ytd-rich-section-renderer:has(a[href^="/shorts/"]),
 html.iyt-no-shorts ytd-rich-section-renderer:has([overlay-style="SHORTS"]),
@@ -350,8 +351,7 @@ html.iyt-no-shorts yt-shelf-header-layout-view-model:has(a[href*="/shorts/"]),
 html.iyt-no-shorts yt-shelf-header-layout-view-model:has([aria-label*="Shorts" i]),
 html.iyt-no-shorts ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer,
 html.iyt-no-shorts ytd-watch-next-secondary-results-renderer yt-reel-shelf-view-model,
-html.iyt-no-shorts ytd-watch-next-secondary-results-renderer reel-shelf-view-model,
-html.iyt-no-shorts ytd-watch-next-secondary-results-renderer grid-shelf-view-model {
+html.iyt-no-shorts ytd-watch-next-secondary-results-renderer reel-shelf-view-model {
   display: none !important;
 }
 
@@ -381,8 +381,6 @@ html.iyt-no-shorts ytd-rich-item-renderer:has([overlay-style="SHORTS"]),
 html.iyt-no-shorts ytd-rich-item-renderer:has(ytd-shorts-lockup-view-model),
 html.iyt-no-shorts ytd-rich-item-renderer:has(yt-shorts-lockup-view-model),
 html.iyt-no-shorts ytd-rich-item-renderer:has(ytd-reel-item-renderer),
-html.iyt-no-shorts ytd-rich-item-renderer:has(yt-lockup-view-model:has(a[href*="/shorts/"])),
-html.iyt-no-shorts ytd-rich-item-renderer:has(yt-lockup-view-model:has([overlay-style="SHORTS"])),
 html.iyt-no-shorts ytd-grid-video-renderer:has(a[href*="/shorts/"]),
 html.iyt-no-shorts ytd-grid-video-renderer:has(a[href^="/shorts/"]),
 html.iyt-no-shorts ytd-grid-video-renderer:has([overlay-style="SHORTS"]),
@@ -390,7 +388,6 @@ html.iyt-no-shorts ytd-compact-video-renderer:has(a[href*="/shorts/"]),
 html.iyt-no-shorts ytd-compact-video-renderer:has(a[href^="/shorts/"]),
 html.iyt-no-shorts ytd-compact-video-renderer:has([overlay-style="SHORTS"]),
 html.iyt-no-shorts ytd-notification-renderer:has(a[href*="/shorts/"]),
-html.iyt-no-shorts [data-iyt-shorts-hidden="true"],
 html.iyt-no-shorts ytd-shorts,
 html.iyt-no-shorts #shorts-container,
 html.iyt-no-shorts #shorts-player {
@@ -1281,6 +1278,4 @@ html.iyt-scheduled-full-block audio {
     opacity: 1;
   }
 }
-
-
 

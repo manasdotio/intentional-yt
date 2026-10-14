@@ -148,63 +148,7 @@ document.addEventListener('yt-navigate-start', (e) => {
   }
 });
 
-function purgeShortsFromDOM() {
-  if (!isEffectiveActive(_settings) || !_settings.blockShorts) return;
-
-  // 1. All anchors pointing to shorts
-  const shortsAnchors = document.querySelectorAll('a[href*="/shorts/"], a[href^="/shorts/"]');
-  for (const a of shortsAnchors) {
-    const container = a.closest(
-      'grid-shelf-view-model, ytd-reel-shelf-renderer, yt-reel-shelf-view-model, ' +
-      'reel-shelf-view-model, ytm-reel-shelf-renderer, ytd-rich-section-renderer, ' +
-      'ytm-shorts-lockup-view-model-v2, ytm-shorts-lockup-view-model, ytd-shorts-lockup-view-model, ' +
-      'yt-shorts-lockup-view-model, ytd-reel-item-renderer, reel-item-view-model, ' +
-      'yt-reel-item-view-model, ytd-video-renderer, yt-lockup-view-model, ' +
-      'ytd-rich-item-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ' +
-      'ytd-guide-entry-renderer, ytd-mini-guide-entry-renderer, yt-guide-entry-view-model'
-    );
-    if (container && container.tagName.toLowerCase() !== 'ytd-item-section-renderer' && container.getAttribute('data-iyt-shorts-hidden') !== 'true') {
-      container.setAttribute('data-iyt-shorts-hidden', 'true');
-      container.style.setProperty('display', 'none', 'important');
-    }
-  }
-
-  // 2. All shorts shelves & lockups by tag or attribute
-  const shortsElements = document.querySelectorAll(
-    'grid-shelf-view-model, ytm-shorts-lockup-view-model-v2, ytm-shorts-lockup-view-model, ' +
-    'ytd-shorts-lockup-view-model, ytd-shorts-lockup-view-model-renderer, yt-shorts-lockup-view-model, ' +
-    'ytd-reel-shelf-renderer, yt-reel-shelf-view-model, reel-shelf-view-model, ytm-reel-shelf-renderer, ' +
-    'ytd-reel-item-renderer, reel-item-view-model, yt-reel-item-view-model, ' +
-    'ytd-rich-shelf-renderer[is-shorts], [overlay-style="SHORTS"]'
-  );
-  for (const el of shortsElements) {
-    const target = el.closest(
-      'grid-shelf-view-model, ytd-rich-section-renderer, ytd-reel-shelf-renderer, ' +
-      'ytd-video-renderer, ytd-rich-item-renderer, yt-lockup-view-model'
-    ) || el;
-    if (target && target.tagName.toLowerCase() !== 'ytd-item-section-renderer' && target.getAttribute('data-iyt-shorts-hidden') !== 'true') {
-      target.setAttribute('data-iyt-shorts-hidden', 'true');
-      target.style.setProperty('display', 'none', 'important');
-    }
-  }
-}
-
-function unpurgeShortsFromDOM() {
-  document.querySelectorAll('[data-iyt-shorts-hidden="true"]').forEach(el => {
-    el.removeAttribute('data-iyt-shorts-hidden');
-    el.style.removeProperty('display');
-  });
-}
-
-let _domPurgeScheduled = false;
-function scheduleShortsPurge() {
-  if (_domPurgeScheduled || !isEffectiveActive(_settings) || !_settings.blockShorts) return;
-  _domPurgeScheduled = true;
-  setTimeout(() => {
-    _domPurgeScheduled = false;
-    purgeShortsFromDOM();
-  }, 150);
-}
+// Shorts visibility is controlled by CSS so reused cards update immediately.
 
 let _nudgeTimer = null;
 function triggerScrollerNudge() {
@@ -873,16 +817,6 @@ function applyAllClasses(settings) {
     } else {
       unlimitHomeFeed();
     }
-    if (active && settings.blockShorts) {
-      purgeShortsFromDOM();
-    } else {
-      unpurgeShortsFromDOM();
-    }
-    // Ensure search results container is never hidden
-    document.querySelectorAll('ytd-item-section-renderer[data-iyt-shorts-hidden]').forEach(el => {
-      el.removeAttribute('data-iyt-shorts-hidden');
-      el.style.removeProperty('display');
-    });
     // Ensure any leftover intentional home element is removed
     const existing = document.getElementById('iyt-intentional-home');
     if (existing) existing.remove();
@@ -986,10 +920,6 @@ function initDomObserver() {
       // metadata changes can affect channel/keyword filtering.
       if (mutation.type !== 'childList') {
         if (target && getCardContainer(target)) addedElements.push(target);
-        if (mutation.type === 'attributes' && mutation.attributeName === 'href' && target?.matches('a[href*="/shorts/"]')) {
-          addedElements.push(target);
-          structureChanged = true;
-        }
         continue;
       }
       if (mutation.type !== 'childList' || mutation.addedNodes.length === 0 || [...mutation.addedNodes].some(node => node.nodeType === 3)) {
@@ -1006,7 +936,6 @@ function initDomObserver() {
       }
     }
     if (addedElements.length > 0) {
-      if (structureChanged && _settings.blockShorts) scheduleShortsPurge();
       if (structureChanged && _settings.limitHomeFeed) scheduleHomeFeedLimit();
       scheduleFilterScanForNodes(addedElements);
       if (structureChanged) scheduleAutoplay();
@@ -1033,7 +962,6 @@ window.addEventListener('load', () => {
 document.addEventListener('yt-navigate-finish', () => {
   updateHomePageState();
   checkSnoozeExpiry();
-  scheduleShortsPurge();
   scheduleHomeFeedLimit();
   scheduleFullFilterScan(50);
   scheduleFullFilterScan(300);
@@ -1042,7 +970,6 @@ document.addEventListener('yt-navigate-finish', () => {
 document.addEventListener('yt-page-data-updated', () => {
   updateHomePageState();
   checkSnoozeExpiry();
-  scheduleShortsPurge();
   scheduleHomeFeedLimit();
   scheduleFullFilterScan(80);
   scheduleFullFilterScan(500);
@@ -1068,7 +995,6 @@ window.addEventListener('focus', () => {
 window.__iytBlocker = {
   applyAllSettings,
   applyAutoplay,
-  purgeShortsFromDOM,
   limitHomeFeedEnforce,
   scanContentFilters: () => scanAllCards(document),
   checkShortsRedirect: () => checkShortsRedirect(_settings)

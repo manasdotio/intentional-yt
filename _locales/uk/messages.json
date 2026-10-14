@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Приховує Shorts усюди: у бічній панелі, стрічках, результатах пошуку та на каналах",
+    "message": "Приховує Shorts у підтримуваних стрічках, результатах пошуку та на сторінках каналів",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Фіксує час перегляду YouTube за сьогодні. Автоматично скидається опівночі. Використовуйте денний ліміт для контролю часу.",
+    "message": "Підсумовує відтворення з усіх вкладок, зокрема фонових. Одночасні відео рахуються окремо, навіть із вимкненим або призупиненим захистом. Скидається опівночі.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Час перегляду накопичується лише тоді, коли відео активно відтворюється. Він автоматично скидається щопівночі. Рядок стану залишається видимим унизу кожної вкладки.",
+    "message": "Підсумовує відтворення з усіх вкладок, зокрема фонових. Одночасні відео рахуються окремо, навіть із вимкненим або призупиненим захистом. Скидається опівночі.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

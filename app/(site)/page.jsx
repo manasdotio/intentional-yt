@@ -46,12 +46,12 @@ const jsonLd = {
         "availability": "https://schema.org/InStock"
       },
       "featureList": [
-        "Zero-flash CSS injection at document_start",
-        "Complete suppression of YouTube Shorts across shelves, sidebar, and search",
+        "Adjustable distraction controls",
+        "Hide Shorts on supported feeds and pages",
         "Clickbait thumbnail neutralization while preserving duration stamps",
         "Granular toggles for 20+ distraction points",
         "Built-in daily playback time tracker and reminder toasts",
-        "100% private with strictly zero telemetry or remote analytics"
+        "Local extension settings and counters, with no usage analytics"
       ],
       "author": {
         "@type": "Person",

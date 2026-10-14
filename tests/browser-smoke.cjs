@@ -71,6 +71,48 @@ fs.writeFileSync(path.join(extension,'manifest.json'),JSON.stringify(manifest));
     await page.waitForFunction(()=>document.querySelector('.iyt-quick-block-btn').dataset.channel==='@different');
     console.log('PASS: document-start CSS, exact channel filtering, Quick Block, reused cards');
 
+    // Generic shelves are also used for long videos. Only Shorts evidence
+    // should hide them, and reusing a card must immediately undo that hiding.
+    await popup.evaluate(()=>StorageManager.updateSettings({blockRecommended:false,blockIrrelevantSearchResults:false}));
+    await page.waitForFunction(()=>!document.documentElement.classList.contains('iyt-no-recommended'));
+    await page.evaluate(()=>{
+      const fixture=document.createElement('section');fixture.id='shorts-regression';
+      fixture.innerHTML=`
+        <ytd-rich-section-renderer id="ordinary-section"><grid-shelf-view-model id="ordinary-shelf"><a href="/watch?v=normal">Normal video</a></grid-shelf-view-model></ytd-rich-section-renderer>
+        <ytd-watch-next-secondary-results-renderer><grid-shelf-view-model id="ordinary-related"><a href="/watch?v=related">Normal related video</a></grid-shelf-view-model></ytd-watch-next-secondary-results-renderer>
+        <grid-shelf-view-model id="shorts-shelf"><a href="/shorts/example">Short</a></grid-shelf-view-model>
+        <grid-shelf-view-model id="shorts-tag-shelf"><ytm-shorts-lockup-view-model-v2>Short without a link yet</ytm-shorts-lockup-view-model-v2></grid-shelf-view-model>
+        <ytd-video-renderer id="reused-short"><a href="/shorts/example">Short card</a></ytd-video-renderer>
+        <ytd-video-renderer id="badge-short"><span overlay-style="SHORTS">Short badge</span></ytd-video-renderer>
+        <ytd-video-renderer id="page-hidden-short" style="display:none"><a href="/shorts/example">Hidden by page</a></ytd-video-renderer>`;
+      document.body.append(fixture);
+    });
+    await page.waitForTimeout(300);
+    for(const id of ['ordinary-section','ordinary-shelf','ordinary-related']) {
+      assert.equal(await page.locator('#'+id).isVisible(),true,id+' must remain visible');
+    }
+    for(const id of ['shorts-shelf','shorts-tag-shelf','reused-short','badge-short']) {
+      assert.equal(await page.locator('#'+id).isVisible(),false,id+' must be hidden');
+    }
+    const reusedVisible=await page.evaluate(()=>{
+      for(const id of ['shorts-shelf','reused-short','page-hidden-short']) document.querySelector('#'+id+' a').href='/watch?v=ordinary';
+      document.querySelector('#badge-short span').removeAttribute('overlay-style');
+      // Read computed styles in the same task, before any delayed JS observer.
+      return ['shorts-shelf','reused-short','badge-short'].every(id=>getComputedStyle(document.getElementById(id)).display!=='none');
+    });
+    assert.equal(reusedVisible,true,'Shorts-to-normal reuse must restore visibility immediately');
+    assert.equal(await page.locator('#page-hidden-short').isVisible(),false,'preserve page-owned display style');
+    await page.evaluate(()=>document.querySelector('#reused-short a').href='/shorts/another');
+    assert.equal(await page.locator('#reused-short').isVisible(),false,'normal-to-Shorts reuse must hide');
+    await popup.evaluate(()=>StorageManager.updateSetting('blockShorts',false));
+    await page.waitForFunction(()=>!document.documentElement.classList.contains('iyt-no-shorts'));
+    assert.equal(await page.locator('#reused-short').isVisible(),true,'turning off Shorts blocking restores cards');
+    assert.equal(await page.locator('#shorts-tag-shelf').isVisible(),true,'turning off Shorts blocking restores shelves');
+    assert.equal(await page.locator('#page-hidden-short').isVisible(),false,'toggling must preserve page-owned styles');
+    await page.locator('#shorts-regression').evaluate(el=>el.remove());
+    await popup.evaluate(()=>StorageManager.updateSettings({blockShorts:true,blockRecommended:true,blockIrrelevantSearchResults:true}));
+    console.log('PASS: ordinary shelves, Shorts evidence, immediate card reuse and page-owned styles');
+
     await popup.evaluate(()=>StorageManager.updateSetting('scheduledBlocking',{enabled:true,schedules:[{id:'work',label:'Work',enabled:true,days:[new Date().getDay()],startTime:'00:00',endTime:'00:00',mode:'strict'}]}));
     await page.waitForFunction(()=>document.documentElement.classList.contains('iyt-no-comments'));
     await page.evaluate(()=>document.dispatchEvent(new Event('yt-navigate-finish')));

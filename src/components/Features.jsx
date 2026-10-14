@@ -1,7 +1,7 @@
 'use client'
 import { useRef, useState } from 'react'
 const features = [
-  { key: 'limits', label: 'Daily limits', title: 'Decide when to call it a day.', copy: 'Set a daily watch limit and playback pauses when you reach it. The timer counts time spent watching, so leaving a tab open won’t use up your limit.', detail: 'Want a heads-up first? Add a break reminder.', alt: 'Actual Focus tab showing a 45-minute daily limit and a reminder every 30 minutes' },
+  { key: 'limits', label: 'Daily limits', title: 'Decide when to call it a day.', copy: 'Set a daily watch limit and playback pauses when you reach it. The timer counts time spent watching, so leaving a tab open won’t use up your limit.', detail: 'Enable the daily-limit warning for a heads-up before your budget runs out.', alt: 'Actual Focus tab showing a 45-minute daily limit and a reminder every 30 minutes' },
   { key: 'filters', label: 'Channel filters', title: 'Skip the channels you’re tired of seeing.', copy: 'Add a channel name, handle, or title keyword to your filters. Matching video cards disappear from supported feeds and search results.', detail: 'Remove an entry whenever you want to see those videos again.', alt: 'Actual Filters tab with an example channel and the keyword spoiler' },
   { key: 'schedule', label: 'Focus schedules', title: 'Keep YouTube out of study hours.', copy: 'Pick the days and hours when you want blocking to run. Use Strict Focus or block YouTube entirely during that time.', detail: 'Focus Lock can also add a PIN and a cooldown before settings change.', alt: 'Actual Scheduled Focus Sessions controls with a weekday study schedule from 9 AM to noon' }
 ]

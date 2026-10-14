@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Αποκρύπτει τα Shorts παντού — πλαϊνή γραμμή, ροές, αποτελέσματα αναζήτησης και κανάλια",
+    "message": "Κρύβει Shorts από υποστηριζόμενες ροές, αποτελέσματα αναζήτησης και σελίδες καναλιών",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Καταγράφει τα λεπτά παρακολούθησης στο YouTube σήμερα. Επαναφέρεται αυτόματα τα μεσάνυχτα. Ενεργοποιήστε το ημερήσιο όριο για να ελέγξετε τον χρόνο σας.",
+    "message": "Προσθέτει την αναπαραγωγή από όλες τις καρτέλες, ακόμη και στο παρασκήνιο. Τα ταυτόχρονα βίντεο μετριούνται χωριστά, ακόμη με ανενεργή ή προσωρινά απενεργοποιημένη προστασία. Μηδενίζεται τα μεσάνυχτα.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Ο χρόνος παρακολούθησης συγκεντρώνεται μόνο όταν ένα βίντεο YouTube αναπαράγεται ενεργά. Επαναφέρεται αυτόματα κάθε μεσάνυχτα. Η μόνιμη γραμμή κατάστασης παραμένει ορατή στο κάτω μέρος σε κάθε καρτέλα.",
+    "message": "Προσθέτει την αναπαραγωγή από όλες τις καρτέλες, ακόμη και στο παρασκήνιο. Τα ταυτόχρονα βίντεο μετριούνται χωριστά, ακόμη με ανενεργή ή προσωρινά απενεργοποιημένη προστασία. Μηδενίζεται τα μεσάνυχτα.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

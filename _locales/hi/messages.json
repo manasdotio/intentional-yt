@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Shorts को हर जगह छुपाता है — साइडबार, फ़ीड, खोज परिणाम और चैनल",
+    "message": "समर्थित फ़ीड, खोज नतीजों और चैनल पेजों से Shorts छिपाता है",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "ट्रैक करता है कि आपने आज YouTube कितने मिनट देखा। आधी रात को स्वतः रीसेट हो जाता है। समय नियंत्रित करने के लिए दैनिक सीमा चालू करें।",
+    "message": "बैकग्राउंड सहित सभी टैब का प्लेबैक समय जुड़ता है। साथ चल रहे वीडियो अलग गिने जाते हैं, सुरक्षा बंद या स्थगित होने पर भी। आधी रात को रीसेट होता है।",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "देखने का समय केवल तभी जुड़ता है जब कोई YouTube वीडियो सक्रिय रूप से चल रहा हो। यह हर मध्यरात्रि को स्वतः रीसेट हो जाता है। आपका स्थायी स्टेटस बार हर टैब पर सबसे नीचे दिखाई देता है।",
+    "message": "बैकग्राउंड सहित सभी टैब का प्लेबैक समय जुड़ता है। साथ चल रहे वीडियो अलग गिने जाते हैं, सुरक्षा बंद या स्थगित होने पर भी। आधी रात को रीसेट होता है।",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

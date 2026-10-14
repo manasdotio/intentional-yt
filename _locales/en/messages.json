@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "Hides Shorts everywhere — sidebar, feeds, search results, and channels",
+    "message": "Hides Shorts from supported feeds, search results and channel pages",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "Tracks how many minutes you've watched YouTube today. Resets automatically at midnight. Use the daily limit toggle above to cap your session.",
+    "message": "Adds playback across tabs, including background tabs. Simultaneous videos count separately, even with protections off or snoozed. Resets at midnight.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "Watch time accumulates only while a YouTube video is actively playing. It resets automatically every midnight. Your persistent status bar stays visible at the bottom on every tab.",
+    "message": "Adds playback across tabs, including background tabs. Simultaneous videos count separately, even with protections off or snoozed. Resets at midnight.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {

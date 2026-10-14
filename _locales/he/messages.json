@@ -60,7 +60,7 @@
     "description": "Toggle label to hide Shorts carousels and tabs"
   },
   "desc_block_shorts": {
-    "message": "הסתרת Shorts בכל מקום — סרגל צד, פידים, תוצאות חיפוש וערוצים",
+    "message": "מסתיר Shorts בפידים, בתוצאות חיפוש ובדפי ערוצים נתמכים",
     "description": "Helper explanation for hiding Shorts across YouTube"
   },
   "toggle_block_explore_trending": {
@@ -250,7 +250,7 @@
     "description": "Accessibility label for daily watchtime info icon"
   },
   "stats_tooltip_info": {
-    "message": "עוקב אחר דקות הצפייה שלך ב-YouTube היום. מתאפס אוטומטית בחצות. הפעל מגבלה יומית לניהול זמנך.",
+    "message": "זמן הניגון מצטבר מכל הלשוניות, גם ברקע. סרטונים שמתנגנים יחד נספרים בנפרד, גם כשההגנה כבויה או מושהית. מתאפס בחצות.",
     "description": "Tooltip text explaining watchtime tracking"
   },
   "stats_no_limit": {
@@ -898,7 +898,7 @@
     "description": "Unit label beside watch time number"
   },
   "stats_callout_info": {
-    "message": "זמן הצפייה נצבר רק כאשר סרטון YouTube מתנגן באופן פעיל. הוא מתאפס אוטומטית בכל חצות. שורת המצב הקבועה נשארת גלויה בחלק התחתון בכל כרטיסייה.",
+    "message": "זמן הניגון מצטבר מכל הלשוניות, גם ברקע. סרטונים שמתנגנים יחד נספרים בנפרד, גם כשההגנה כבויה או מושהית. מתאפס בחצות.",
     "description": "Explanation text in stats callout note"
   },
   "stats_btn_set_limit": {
