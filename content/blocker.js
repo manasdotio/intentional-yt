@@ -151,10 +151,23 @@ document.addEventListener('yt-navigate-start', (e) => {
 // Shorts visibility is controlled by CSS so reused cards update immediately.
 
 let _nudgeTimer = null;
-function triggerScrollerNudge() {
+let _feedNudges = new WeakMap();
+let _feedNudgePath = '';
+function triggerScrollerNudge(grid, count) {
   if (_nudgeTimer) return;
+  const path = location.pathname + location.search;
+  if (path !== _feedNudgePath) {
+    _feedNudgePath = path;
+    _feedNudges = new WeakMap();
+  }
+  const previous = _feedNudges.get(grid);
+  const attempts = previous?.count === count ? previous.attempts : 0;
+  // Allow a retry, then wait for real feed progress instead of our own resize.
+  if (attempts >= 2) return;
+  _feedNudges.set(grid, { count, attempts: attempts + 1 });
   _nudgeTimer = setTimeout(() => {
     _nudgeTimer = null;
+    if (!grid.isConnected || !isHomePage() || !isEffectiveActive(_settings) || !_settings.limitHomeFeed) return;
     try {
       window.dispatchEvent(new Event('resize'));
       window.dispatchEvent(new Event('scroll'));
@@ -199,7 +212,7 @@ function limitHomeFeedEnforce() {
         }
       }
     }
-    triggerScrollerNudge();
+    triggerScrollerNudge(grid, count);
     return;
   }
 
@@ -779,7 +792,7 @@ function flushPendingFilterNodes() {
 
 const _routeFilterTimers = new Map();
 function scheduleFullFilterScan(delayMs = 80) {
-  clearTimeout(_routeFilterTimers.get(delayMs));
+  if (_routeFilterTimers.has(delayMs)) return;
   _routeFilterTimers.set(delayMs, setTimeout(() => {
     _routeFilterTimers.delete(delayMs);
     scanAllCards(document);
@@ -787,6 +800,7 @@ function scheduleFullFilterScan(delayMs = 80) {
 }
 
 let _isApplyingClasses = false;
+let _lastAppliedPreferences = '';
 
 function applyAllClasses(settings) {
   settings = IYT_Policy.effective(settings);
@@ -813,16 +827,24 @@ function applyAllClasses(settings) {
       html.classList.add('iyt-limit-home-feed');
       unlimitHomeFeed();
       scheduleHomeFeedLimit();
-      triggerScrollerNudge();
     } else {
       unlimitHomeFeed();
+      _feedNudges = new WeakMap();
     }
     // Ensure any leftover intentional home element is removed
     const existing = document.getElementById('iyt-intentional-home');
     if (existing) existing.remove();
 
     // Re-evaluate content blocklists whenever settings classes change
-    scanAllCards(document);
+    const { stats, ...preferences } = settings;
+    const signature = JSON.stringify(preferences);
+    if (signature !== _lastAppliedPreferences) {
+      _lastAppliedPreferences = signature;
+      scanAllCards(document);
+    } else {
+      scheduleFullFilterScan();
+    }
+    configureDomObserver();
   } finally {
     _isApplyingClasses = false;
   }
@@ -902,14 +924,41 @@ if (browser && browser.runtime && browser.runtime.onMessage) {
 // Initial injection at document_start
 applyAllSettings().catch(() => html.setAttribute("data-iyt-ready", "true"));
 
+let _domObserver = null;
+let _domObserverMode = '';
+function needsCardObservation() {
+  return isEffectiveActive(_settings) && (_settings.enableQuickBlock !== false ||
+    _settings.channelBlocklist?.length > 0 || _settings.keywordBlocklist?.length > 0);
+}
+function configureDomObserver() {
+  if (!_domObserver) return;
+  const cards = needsCardObservation();
+  const structure = isEffectiveActive(_settings) && (_settings.limitHomeFeed || _settings.disableAutoplay);
+  const mode = cards ? 'cards' : structure ? 'structure' : 'off';
+  if (mode === _domObserverMode) return;
+  _domObserverMode = mode;
+  _domObserver.disconnect();
+  if (!cards) {
+    clearTimeout(_filterDebounceTimer);
+    _filterDebounceTimer = null;
+    _pendingFilterNodes.clear();
+    _pendingFullFilterScan = false;
+  }
+  if (mode === 'off') return;
+  const options = { childList: true, subtree: true };
+  if (cards) Object.assign(options, { characterData: true, attributes: true, attributeFilter: ['href', 'title', 'aria-label'] });
+  _domObserver.observe(document.body || document.documentElement, options);
+}
+
 function initDomObserver() {
   const target = document.body || document.documentElement;
   if (!target) {
     document.addEventListener('DOMContentLoaded', initDomObserver, { once: true });
     return;
   }
-  const observer = new MutationObserver((mutations) => {
+  _domObserver = new MutationObserver((mutations) => {
     if (!isEffectiveActive(_settings)) return;
+    const cards = needsCardObservation();
     const addedElements = [];
     let structureChanged = false;
     for (let i = 0; i < mutations.length; i++) {
@@ -919,12 +968,12 @@ function initDomObserver() {
       // Player clocks, captions and live chat update continuously. Only card
       // metadata changes can affect channel/keyword filtering.
       if (mutation.type !== 'childList') {
-        if (target && getCardContainer(target)) addedElements.push(target);
+        if (cards && target && getCardContainer(target)) addedElements.push(target);
         continue;
       }
       if (mutation.type !== 'childList' || mutation.addedNodes.length === 0 || [...mutation.addedNodes].some(node => node.nodeType === 3)) {
         const changed = mutation.target.nodeType === 1 ? mutation.target : mutation.target.parentElement;
-        if (changed && getCardContainer(changed)) addedElements.push(changed);
+        if (cards && changed && getCardContainer(changed)) addedElements.push(changed);
       }
       const added = mutation.addedNodes;
       for (let j = 0; j < added.length; j++) {
@@ -937,11 +986,11 @@ function initDomObserver() {
     }
     if (addedElements.length > 0) {
       if (structureChanged && _settings.limitHomeFeed) scheduleHomeFeedLimit();
-      scheduleFilterScanForNodes(addedElements);
+      if (cards) scheduleFilterScanForNodes(addedElements);
       if (structureChanged) scheduleAutoplay();
     }
   });
-  observer.observe(target, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href','title','aria-label'] });
+  configureDomObserver();
 
   // Immediately scan any elements already parsed in the DOM
   scanAllCards(document);
@@ -960,11 +1009,11 @@ window.addEventListener('load', () => {
 });
 
 document.addEventListener('yt-navigate-finish', () => {
+  if (!isHomePage()) _feedNudges = new WeakMap();
   updateHomePageState();
   checkSnoozeExpiry();
   scheduleHomeFeedLimit();
-  scheduleFullFilterScan(50);
-  scheduleFullFilterScan(300);
+  scheduleFullFilterScan(80);
   scheduleFullFilterScan(1000);
 });
 document.addEventListener('yt-page-data-updated', () => {
@@ -972,12 +1021,12 @@ document.addEventListener('yt-page-data-updated', () => {
   checkSnoozeExpiry();
   scheduleHomeFeedLimit();
   scheduleFullFilterScan(80);
-  scheduleFullFilterScan(500);
+  scheduleFullFilterScan(1000);
 });
 window.addEventListener('popstate', () => {
   updateHomePageState();
   scheduleHomeFeedLimit();
-  scheduleFullFilterScan(50);
+  scheduleFullFilterScan(80);
 });
 window.addEventListener('resize', () => {
   scheduleHomeFeedLimit();
@@ -985,7 +1034,7 @@ window.addEventListener('resize', () => {
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
     checkSnoozeExpiry();
-    scheduleFullFilterScan(50);
+    scheduleFullFilterScan(80);
   }
 });
 window.addEventListener('focus', () => {

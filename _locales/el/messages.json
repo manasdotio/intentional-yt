@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Ροές και Shorts",
-    "description": "Feed controls section header"
+    "message": "Αρχική σελίδα και περιήγηση",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Απόκρυψη αρχικής ροής",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Απόκρυψη πλαϊνής γραμμής προτάσεων",
+    "message": "Απόκρυψη προτεινόμενων βίντεο δίπλα στο πρόγραμμα αναπαραγωγής",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Αναπαραγωγή",
-    "description": "Video controls section header"
+    "message": "Παρακολούθηση βίντεο",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Απόκρυψη προτάσεων τελικής οθόνης",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Κουμπιά ενεργειών",
+    "message": "Απόκρυψη κουμπιών «Μου αρέσει», κοινοποίησης και άλλων",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Πληροφορίες καναλιού",
+    "message": "Απόκρυψη ονόματος καναλιού και κουμπιού εγγραφής",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Περιγραφή",
+    "message": "Απόκρυψη περιγραφής βίντεο",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Πλοήγηση και στοιχεία σελίδας",
-    "description": "Interface controls section header"
+    "message": "Πλοήγηση και εμφάνιση",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Απόκρυψη αριστερής πλαϊνής γραμμής",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Απόκρυψη επάνω κεφαλίδας",
+    "message": "Απόκρυψη γραμμής αναζήτησης και λογαριασμού",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Zen · Μόνο αναζήτηση, όλες οι ροές κρυφές",
+    "message": "Κρύβει επίσης την πλοήγηση, τη ζωντανή συνομιλία, τα σχόλια, τις συνδρομές, τις λίστες αναπαραγωγής και τις μικρογραφίες.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Προσαρμοσμένη διαμόρφωση",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Λεπτομερή στοιχεία ελέγχου",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Αποκλείει την Αρχική ροή, τα Shorts & τις προτάσεις πλαϊνής γραμμής. Αφήνει προσβάσιμα την αναζήτηση, τις συνδρομές και τα σχόλια.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Διάλεξε τις αρχικές ρυθμίσεις. Μπορείς να τις αλλάξεις παρακάτω όποτε θέλεις.",
+    "message": "Διάλεξε τι θέλεις να κρύψεις και αποθήκευσε. Θα εφαρμοστούν μόνο οι επιλογές σου· οι υπόλοιπες ρυθμίσεις δεν αλλάζουν.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Αναβολή",
+    "message": "Παύση αποκλεισμού",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Συνεδρία εστίασης"
   },
   "focus_session_description": {
-    "message": "Ενεργοποιήστε την Αυστηρή εστίαση για μια σύντομη συνεδρία. Οι συνηθισμένες ρυθμίσεις σας επιστρέφουν όταν τελειώσουν. Τα ωράρια και τα ημερήσια όρια εξακολουθούν να ισχύουν."
+    "message": "Ξεκίνα μια συνεδρία με χρονόμετρο και τις ρυθμίσεις αποκλεισμού που επέλεξες. Τα προγράμματα και τα ημερήσια όρια συνεχίζουν να ισχύουν."
   },
   "focus_session_end": {
     "message": "Τέλος συνεδρίας"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Οι ρυθμίσεις αποκλεισμού είναι ενεργές."
   },
   "clear_status_off": {
     "message": "Οι ασφάλειες είναι απενεργοποιημένες."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Συνεδρία εστίασης: Αυστηρή εστίαση έως $value$.",
+    "message": "Συνεδρία συγκέντρωσης έως $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Η αποθήκευση απέτυχε. Δοκίμασε ξανά."
   },
+  "popup_none": {
+    "message": "Δεν υπάρχει ενεργός αποκλεισμός"
+  },
+  "popup_recommendations": {
+    "message": "Οι προτάσεις είναι κρυφές"
+  },
+  "popup_home": {
+    "message": "Η αρχική ροή είναι κρυφή"
+  },
+  "popup_suggestions": {
+    "message": "Τα προτεινόμενα βίντεο είναι κρυφά"
+  },
+  "popup_shorts": {
+    "message": "Τα Shorts είναι κρυφά"
+  },
+  "popup_override": {
+    "message": "Αυτό το πρόγραμμα υπερισχύει των αποθηκευμένων ρυθμίσεών σου."
+  },
+  "popup_lock": {
+    "message": "Το κλείδωμα συγκέντρωσης απαιτεί PIN και αναμονή για χαλάρωση του αποκλεισμού."
+  },
+  "popup_adjust": {
+    "message": "Άλλαξε τι κρύβεται"
+  },
+  "popup_advanced": {
+    "message": "Προχωρημένες ρυθμίσεις"
+  },
   "blocklist_example_label": {
     "message": "Παράδειγμα:"
+  },
+  "below_video_label": {
+    "message": "Κάτω από το βίντεο"
+  },
+  "home_feed_label": {
+    "message": "Βίντεο αρχικής σελίδας"
+  },
+  "home_feed_show": {
+    "message": "Εμφάνιση όλων"
+  },
+  "home_feed_limit": {
+    "message": "Εμφάνιση μόνο των πρώτων 15"
+  },
+  "home_feed_hide": {
+    "message": "Απόκρυψη όλων"
+  },
+  "home_feed_description": {
+    "message": "Επιλέξτε πόσα βίντεο εμφανίζονται στην αρχική σελίδα. Το όριο των 15 βίντεο σταματά την ατελείωτη κύλιση."
+  },
+  "popup_chat": {
+    "message": "Η ζωντανή συνομιλία είναι κρυφή"
+  },
+  "popup_comments": {
+    "message": "Τα σχόλια είναι κρυφά"
+  },
+  "popup_home_limited": {
+    "message": "Η αρχική σελίδα περιορίζεται σε 15 βίντεο"
+  },
+  "popup_autoplay": {
+    "message": "Η αυτόματη αναπαραγωγή είναι απενεργοποιημένη"
+  },
+  "popup_description": {
+    "message": "Η περιγραφή του βίντεο είναι κρυφή"
+  },
+  "popup_filtered": {
+    "message": "Τα βίντεο που ταιριάζουν είναι κρυφά"
+  },
+  "popup_reminders": {
+    "message": "Οι υπενθυμίσεις διαλείμματος είναι ενεργές"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Κρύβει επίσης συνδέσμους προς εγγραφές και αποθηκευμένες λίστες αναπαραγωγής."
   }
 }

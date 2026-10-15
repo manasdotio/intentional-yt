@@ -19,6 +19,7 @@ class StorageManager {
     return `${yyyy}-${mm}-${dd}`;
   }
 
+  // Retain these defaults for existing/partial settings, backups and explicit resets.
   static getDefaultSettings() {
     return {
       extensionEnabled: true,
@@ -85,6 +86,16 @@ class StorageManager {
     };
   }
 
+  static getInitialSettings() {
+    const settings = this.getDefaultSettings();
+    // A new install has no chosen restrictions yet. Setup saves only the options
+    // it displays. Quick Block offers a button without blocking anything itself.
+    for (const key of Object.keys(settings)) {
+      if (typeof settings[key] === 'boolean' && !['extensionEnabled', 'enableQuickBlock'].includes(key)) settings[key] = false;
+    }
+    return settings;
+  }
+
   static _merge(target, source) {
     const result = { ...target };
     for (const key of Object.keys(source)) {
@@ -123,6 +134,7 @@ class StorageManager {
   static getSettings() { return this._request({ op: 'read' }); }
   static updateSetting(key, value) { return this.updateSettings({ [key]: value }); }
   static updateSettings(updates) { return this._request({ op: 'update', updates }); }
+  static applyPreset(name, updates) { return this._request({ op: 'preset', name, updates }); }
   static updateNestedSetting(parentKey, childKey, value) {
     if (parentKey === 'focusLock' && childKey === 'pendingUnlock' && value === null) return this._request({ op: 'cancelUnlock' });
     return this._request({ op: 'nested', parentKey, childKey, value });
@@ -153,6 +165,10 @@ class StorageManager {
   static _mutate(current, command) {
     const next = this._merge({}, current);
     switch (command.op) {
+      case 'preset':
+        if (!['balanced','zen','player'].includes(command.name) || !command.updates ||
+            !Object.entries(command.updates).every(([key, value]) => this._presetKey(key) && typeof value === 'boolean')) throw new Error('Invalid preset');
+        // Presets use the same validation and lock policy as individual changes.
       case 'update':
         if (!command.updates || typeof command.updates !== 'object' || Array.isArray(command.updates)) throw new Error('Invalid update');
         for (const [key, value] of Object.entries(command.updates)) {
@@ -198,17 +214,23 @@ class StorageManager {
     return validated;
   }
 
+  static _presetKey(key) {
+    return Object.hasOwn(this.getDefaultSettings(), key) &&
+      (/^(block|disable)/.test(key) || ['limitHomeFeed','redirectShorts','hideThumbnails','grayscaleMode'].includes(key));
+  }
+
   static execute(command) {
     return this._enqueue(async () => {
-      const stored = await browser.storage.local.get(['settings','usage']);
+      const stored = await browser.storage.local.get(['settings','usage','presetUndo']);
       let settings;
-      try { settings = IYT_validate(stored.settings || {}); }
+      try { settings = IYT_validate(stored.settings === undefined ? this.getInitialSettings() : stored.settings); }
       catch (error) {
         await browser.storage.local.set({ settingsRecovery: stored.settings });
         settings = this.getDefaultSettings();
       }
       const pending = stored.settings?.focusLock?.pendingUnlock;
-      if (pending?.command && Number.isFinite(pending.unlocksAt)) settings.focusLock.pendingUnlock = pending;
+      // Retire queued preset undo without changing the user's current protections.
+      if (pending?.command && pending.command.op !== 'undoPreset' && Number.isFinite(pending.unlocksAt)) settings.focusLock.pendingUnlock = pending;
       if (stored.usage?.stats) settings.stats = stored.usage.stats;
       const today = this.getTodayString();
       let batches = stored.usage?.batches || [];
@@ -216,10 +238,17 @@ class StorageManager {
       if (settings.stats.lastStatsReset !== today) { settings.stats = this.getDefaultSettings().stats; batches = []; }
       if (settings.snoozeUntil && settings.snoozeUntil <= Date.now()) settings.snoozeUntil = null;
       if (settings.focusSessionUntil && settings.focusSessionUntil <= Date.now()) settings.focusSessionUntil = null;
+      const apply = (action, authorized = false) => {
+        const next = this._mutate(settings, action);
+        if (!authorized && IYT_Policy.weakens(settings, next, action.op)) {
+          const error = new Error('Focus Lock requires a PIN and cooldown for this change.'); error.code = 'LOCKED'; throw error;
+        }
+        settings = next;
+      };
       if (settings.focusLock.pendingUnlock?.unlocksAt <= Date.now()) {
         const queued = settings.focusLock.pendingUnlock.command;
         settings.focusLock.pendingUnlock = null;
-        settings = this._mutate(settings, queued);
+        apply(queued, true);
       }
       const commit = async () => {
         const preferences = { ...settings }; delete preferences.stats;
@@ -228,6 +257,7 @@ class StorageManager {
         if (JSON.stringify(preferences) !== JSON.stringify(stored.settings)) updates.settings = preferences;
         if (JSON.stringify(usage) !== JSON.stringify(stored.usage)) updates.usage = usage;
         if (Object.keys(updates).length) await browser.storage.local.set(updates);
+        if (stored.presetUndo !== undefined) await browser.storage.local.remove('presetUndo');
         return settings;
       };
       if (command.op === 'read' || command.op === 'reconcile') return commit();
@@ -260,12 +290,8 @@ class StorageManager {
         settings.focusLock.pendingUnlock = { command: command.command, requestedAt: now, unlocksAt: now + settings.focusLock.cooldownMinutes * 60000 };
         return commit();
       }
-      const next = this._mutate(settings, command);
-      if (IYT_Policy.weakens(settings, next, command.op)) {
-        await commit();
-        const error = new Error('Focus Lock requires a PIN and cooldown for this change.'); error.code = 'LOCKED'; throw error;
-      }
-      settings = next;
+      try { apply(command); }
+      catch (error) { await commit(); throw error; }
       return commit();
     });
   }

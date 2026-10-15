@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Kanały treści i Shorts",
-    "description": "Feed controls section header"
+    "message": "Strona główna i przeglądanie",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Ukryj stronę główną",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Ukryj pasek boczny z polecanymi",
+    "message": "Ukryj proponowane filmy obok odtwarzacza",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Odtwarzanie",
-    "description": "Video controls section header"
+    "message": "Podczas oglądania filmu",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Ukryj polecane na ekranie końcowym",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Przyciski akcji",
+    "message": "Ukryj przyciski polubienia, udostępniania i inne",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Informacje o kanale",
+    "message": "Ukryj nazwę kanału i przycisk subskrypcji",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Opis",
+    "message": "Ukryj opis filmu",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Nawigacja i szczegóły strony",
-    "description": "Interface controls section header"
+    "message": "Nawigacja i wygląd",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Ukryj lewy pasek boczny",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Ukryj górny nagłówek",
+    "message": "Ukryj pasek wyszukiwania i konta",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Zen · Tylko wyszukiwanie, ukryte wszystkie karty główne",
+    "message": "Ukrywa też nawigację, czat na żywo, komentarze, subskrypcje, playlisty i miniatury.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Własna konfiguracja",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Szczegółowe ustawienia",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Blokuje stronę główną, Shorts i polecane w panelu bocznym. Pozostawia wyszukiwarkę, subskrypcje i komentarze.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Wybierz ustawienia początkowe. Możesz je zmienić poniżej w każdej chwili.",
+    "message": "Wybierz, co ukryć, i zapisz. Zastosowane zostaną tylko wybrane opcje; pozostałe ustawienia się nie zmienią.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Drzemka",
+    "message": "Wstrzymaj blokowanie",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Sesja fokusowa"
   },
   "focus_session_description": {
-    "message": "Włącz Ścisłe skupienie na krótką sesję. Twoje zwykłe ustawienia zostaną przywrócone po zakończeniu. Harmonogramy i limity dzienne nadal obowiązują."
+    "message": "Rozpocznij sesję na określony czas z wybranymi ustawieniami blokowania. Harmonogramy i limity dzienne nadal obowiązują."
   },
   "focus_session_end": {
     "message": "Zakończ sesję"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Twoje ustawienia blokowania są aktywne."
   },
   "clear_status_off": {
     "message": "Zabezpieczenia są wyłączone."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Sesja fokusowa: Ścisłe skupienie do $value$.",
+    "message": "Sesja skupienia do $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Nie udało się zapisać. Spróbuj ponownie."
   },
+  "popup_none": {
+    "message": "Brak aktywnego blokowania"
+  },
+  "popup_recommendations": {
+    "message": "Rekomendacje ukryte"
+  },
+  "popup_home": {
+    "message": "Strona główna ukryta"
+  },
+  "popup_suggestions": {
+    "message": "Sugerowane filmy ukryte"
+  },
+  "popup_shorts": {
+    "message": "Shorts ukryte"
+  },
+  "popup_override": {
+    "message": "Ten harmonogram ma pierwszeństwo przed zapisanymi ustawieniami."
+  },
+  "popup_lock": {
+    "message": "Blokada skupienia wymaga PIN-u i czasu oczekiwania, aby zmniejszyć blokowanie."
+  },
+  "popup_adjust": {
+    "message": "Zmień ukrywane elementy"
+  },
+  "popup_advanced": {
+    "message": "Ustawienia zaawansowane"
+  },
   "blocklist_example_label": {
     "message": "Przykład:"
+  },
+  "below_video_label": {
+    "message": "Pod filmem"
+  },
+  "home_feed_label": {
+    "message": "Filmy na stronie głównej"
+  },
+  "home_feed_show": {
+    "message": "Pokaż wszystkie"
+  },
+  "home_feed_limit": {
+    "message": "Pokaż tylko pierwsze 15"
+  },
+  "home_feed_hide": {
+    "message": "Ukryj wszystkie"
+  },
+  "home_feed_description": {
+    "message": "Wybierz liczbę filmów na stronie głównej. Limit 15 filmów zatrzymuje nieskończone przewijanie."
+  },
+  "popup_chat": {
+    "message": "Czat na żywo ukryty"
+  },
+  "popup_comments": {
+    "message": "Komentarze ukryte"
+  },
+  "popup_home_limited": {
+    "message": "Strona główna ograniczona do 15 filmów"
+  },
+  "popup_autoplay": {
+    "message": "Autoodtwarzanie wyłączone"
+  },
+  "popup_description": {
+    "message": "Opis filmu ukryty"
+  },
+  "popup_filtered": {
+    "message": "Pasujące filmy ukryte"
+  },
+  "popup_reminders": {
+    "message": "Przypomnienia o przerwach włączone"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Ukrywa też linki do subskrypcji i zapisanych playlist."
   }
 }

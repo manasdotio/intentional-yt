@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "ফিড ও Shorts",
-    "description": "Feed controls section header"
+    "message": "হোম ও ব্রাউজিং",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "হোম ফিড লুকান",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "সুপারিশ করা ভিডিও সাইডবার লুকান",
+    "message": "প্লেয়ারের পাশে প্রস্তাবিত ভিডিও লুকান",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "প্লেব্যাক",
-    "description": "Video controls section header"
+    "message": "ভিডিও দেখার সময়",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "ভিডিও শেষের সুপারিশ লুকান",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "অ্যাকশন বোতাম",
+    "message": "লাইক, শেয়ার ও অন্যান্য বোতাম লুকান",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "চ্যানেলের তথ্য",
+    "message": "চ্যানেলের নাম ও সাবস্ক্রাইব বোতাম লুকান",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "বিবরণ",
+    "message": "ভিডিওর বিবরণ লুকান",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "নেভিগেশন ও পৃষ্ঠার বিবরণ",
-    "description": "Interface controls section header"
+    "message": "নেভিগেশন ও চেহারা",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "বাম সাইডবার লুকান",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "উপরের হেডার লুকান",
+    "message": "সার্চ ও অ্যাকাউন্ট বার লুকান",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "জেন · শুধু অনুসন্ধান, সমস্ত ফিড লুকানো",
+    "message": "নেভিগেশন, লাইভ চ্যাট, মন্তব্য, সাবস্ক্রিপশন, প্লেলিস্ট ও থাম্বনেইলও লুকিয়ে রাখে।",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "কাস্টম কনফিগারেশন",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "বিস্তারিত নিয়ন্ত্রণ",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "হোম ফিড, Shorts এবং সাইডবার সুপারিশ ব্লক করে। অনুসন্ধান, সাবস্ক্রিপশন এবং মন্তব্য ব্যবহারযোগ্য রাখে।",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "শুরুর সেটিংস বেছে নিন। নিচে যেকোনো সময় বদলাতে পারবেন।",
+    "message": "কী লুকাতে চান বেছে নিয়ে সেভ করুন। শুধু আপনার বেছে নেওয়া বিকল্পগুলো প্রয়োগ হবে; অন্য সেটিংস অপরিবর্তিত থাকবে।",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "স্নুজ করুন",
+    "message": "ব্লকিং সাময়িক বন্ধ করুন",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "ফোকাস সেশন"
   },
   "focus_session_description": {
-    "message": "একটি ছোট সেশনের জন্য কঠোর ফোকাস চালু করুন। এটি শেষ হলে আপনার স্বাভাবিক সেটিংস ফিরে আসে। সময়সূচী এবং দৈনিক সীমা এখনও প্রযোজ্য."
+    "message": "আপনার বেছে নেওয়া ব্লকিং সেটিংস দিয়ে নির্দিষ্ট সময়ের সেশন শুরু করুন। সময়সূচি ও দৈনিক সীমা বহাল থাকবে।"
   },
   "focus_session_end": {
     "message": "শেষ সেশন"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "আপনার ব্লকিং সেটিংস সক্রিয়।"
   },
   "clear_status_off": {
     "message": "সুরক্ষা বন্ধ করা হয়েছে।"
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "ফোকাস সেশন: $value$ পর্যন্ত কঠোর ফোকাস।",
+    "message": "ফোকাস সেশন $value$ পর্যন্ত।",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "সেভ করা যায়নি। আবার চেষ্টা করুন।"
   },
+  "popup_none": {
+    "message": "কোনো ব্লকিং সক্রিয় নেই"
+  },
+  "popup_recommendations": {
+    "message": "সুপারিশ লুকানো আছে"
+  },
+  "popup_home": {
+    "message": "হোম ফিড লুকানো আছে"
+  },
+  "popup_suggestions": {
+    "message": "প্রস্তাবিত ভিডিও লুকানো আছে"
+  },
+  "popup_shorts": {
+    "message": "Shorts লুকানো আছে"
+  },
+  "popup_override": {
+    "message": "এই সময়সূচি আপনার সংরক্ষিত সেটিংসের চেয়ে অগ্রাধিকার পায়।"
+  },
+  "popup_lock": {
+    "message": "ব্লকিং কমাতে ফোকাস লকের PIN ও অপেক্ষার সময় প্রয়োজন।"
+  },
+  "popup_adjust": {
+    "message": "কী লুকানো থাকবে বদলান"
+  },
+  "popup_advanced": {
+    "message": "উন্নত সেটিংস"
+  },
   "blocklist_example_label": {
     "message": "উদাহরণ:"
+  },
+  "below_video_label": {
+    "message": "ভিডিওর নিচে"
+  },
+  "home_feed_label": {
+    "message": "হোম পেজের ভিডিও"
+  },
+  "home_feed_show": {
+    "message": "সব দেখান"
+  },
+  "home_feed_limit": {
+    "message": "শুধু প্রথম ১৫টি দেখান"
+  },
+  "home_feed_hide": {
+    "message": "সব লুকান"
+  },
+  "home_feed_description": {
+    "message": "হোম পেজে কতটি ভিডিও দেখাবে তা বেছে নিন। ১৫টি ভিডিওর সীমা অসীম স্ক্রলিং বন্ধ করে।"
+  },
+  "popup_chat": {
+    "message": "লাইভ চ্যাট লুকানো আছে"
+  },
+  "popup_comments": {
+    "message": "মন্তব্য লুকানো আছে"
+  },
+  "popup_home_limited": {
+    "message": "হোম ফিড ১৫টি ভিডিওতে সীমিত"
+  },
+  "popup_autoplay": {
+    "message": "অটোপ্লে বন্ধ"
+  },
+  "popup_description": {
+    "message": "ভিডিওর বিবরণ লুকানো আছে"
+  },
+  "popup_filtered": {
+    "message": "মিলে যাওয়া ভিডিও লুকানো আছে"
+  },
+  "popup_reminders": {
+    "message": "বিরতির রিমাইন্ডার চালু"
+  },
+  "desc_sidebar_navigation": {
+    "message": "সাবস্ক্রিপশন ও সংরক্ষিত প্লেলিস্টের লিংকও লুকায়।"
   }
 }

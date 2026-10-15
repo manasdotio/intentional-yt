@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Стрічки та Shorts",
-    "description": "Feed controls section header"
+    "message": "Головна та перегляд стрічок",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Приховати головну стрічку",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Приховати бічні рекомендації",
+    "message": "Приховати рекомендовані відео поруч із програвачем",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Відтворення",
-    "description": "Video controls section header"
+    "message": "Під час перегляду відео",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Приховати рекомендації в кінці відео",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Кнопки дій",
+    "message": "Приховати кнопки вподобання, поширення та інші",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Інформація про канал",
+    "message": "Приховати назву каналу й кнопку підписки",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Опис",
+    "message": "Приховати опис відео",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Навігація й відомості сторінки",
-    "description": "Interface controls section header"
+    "message": "Навігація та оформлення",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Приховати ліву бічну панель",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Приховати верхню панель",
+    "message": "Приховати панель пошуку й облікового запису",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Дзен · Тільки пошук, усі стрічки приховано",
+    "message": "Також приховує навігацію, чат трансляцій, коментарі, підписки, списки відтворення та мініатюри.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Власна конфігурація",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Детальні елементи керування",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Блокує головну стрічку, Shorts і бічні рекомендації. Залишає доступними пошук, підписки та коментарі.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Виберіть початкові налаштування. Нижче їх можна змінити будь-коли.",
+    "message": "Виберіть, що приховати, і збережіть. Застосуються лише вибрані параметри; решта налаштувань не зміниться.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Відкласти",
+    "message": "Призупинити блокування",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Зосереджений сеанс"
   },
   "focus_session_description": {
-    "message": "Увімкніть суворий фокус для короткого сеансу. Ваші звичайні налаштування повертаються, коли він закінчується. Розклади та денні ліміти все ще діють."
+    "message": "Почніть сеанс на визначений час із вибраними налаштуваннями блокування. Розклади та денні ліміти продовжують діяти."
   },
   "focus_session_end": {
     "message": "Завершити сеанс"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Ваші налаштування блокування активні."
   },
   "clear_status_off": {
     "message": "Захист вимкнено."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Зосереджена сесія: сувора зосередженість до $value$.",
+    "message": "Сеанс зосередження до $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Не вдалося зберегти. Спробуйте ще раз."
   },
+  "popup_none": {
+    "message": "Немає активного блокування"
+  },
+  "popup_recommendations": {
+    "message": "Рекомендації приховано"
+  },
+  "popup_home": {
+    "message": "Головну стрічку приховано"
+  },
+  "popup_suggestions": {
+    "message": "Пропоновані відео приховано"
+  },
+  "popup_shorts": {
+    "message": "Shorts приховано"
+  },
+  "popup_override": {
+    "message": "Цей розклад має пріоритет над збереженими налаштуваннями."
+  },
+  "popup_lock": {
+    "message": "Для послаблення блокування потрібні PIN і час очікування блокування зосередження."
+  },
+  "popup_adjust": {
+    "message": "Змінити приховані елементи"
+  },
+  "popup_advanced": {
+    "message": "Додаткові налаштування"
+  },
   "blocklist_example_label": {
     "message": "Приклад:"
+  },
+  "below_video_label": {
+    "message": "Під відео"
+  },
+  "home_feed_label": {
+    "message": "Відео на головній сторінці"
+  },
+  "home_feed_show": {
+    "message": "Показати всі"
+  },
+  "home_feed_limit": {
+    "message": "Показати лише перші 15"
+  },
+  "home_feed_hide": {
+    "message": "Приховати всі"
+  },
+  "home_feed_description": {
+    "message": "Виберіть кількість відео на головній сторінці. Обмеження до 15 відео зупиняє нескінченне прокручування."
+  },
+  "popup_chat": {
+    "message": "Чат трансляції приховано"
+  },
+  "popup_comments": {
+    "message": "Коментарі приховано"
+  },
+  "popup_home_limited": {
+    "message": "Головну сторінку обмежено 15 відео"
+  },
+  "popup_autoplay": {
+    "message": "Автовідтворення вимкнено"
+  },
+  "popup_description": {
+    "message": "Опис відео приховано"
+  },
+  "popup_filtered": {
+    "message": "Відео, що відповідають умовам, приховано"
+  },
+  "popup_reminders": {
+    "message": "Нагадування про перерви ввімкнено"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Також приховує посилання на підписки й збережені списки відтворення."
   }
 }

@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Feed e Shorts",
-    "description": "Feed controls section header"
+    "message": "Home ed esplorazione",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Nascondi feed principale",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Nascondi barra laterale consigliati",
+    "message": "Nascondi video suggeriti accanto al player",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Riproduzione",
-    "description": "Video controls section header"
+    "message": "Durante un video",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Nascondi consigli a fine video",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Pulsanti azione",
+    "message": "Nascondi i pulsanti Mi piace, Condividi e altri",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Informazioni canale",
+    "message": "Nascondi nome del canale e pulsante Iscriviti",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Descrizione",
+    "message": "Nascondi descrizione del video",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Navigazione e dettagli pagina",
-    "description": "Interface controls section header"
+    "message": "Navigazione e aspetto",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Nascondi barra laterale sinistra",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Nascondi barra di navigazione superiore",
+    "message": "Nascondi barra di ricerca e account",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Zen · Solo ricerca, tutti i feed nascosti",
+    "message": "Nasconde anche navigazione, chat dal vivo, commenti, iscrizioni, playlist e miniature.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Configurazione personalizzata",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Controlli dettagliati",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Blocca il feed della home, gli Shorts e i suggerimenti nella barra laterale. Mantiene accessibili ricerca, iscrizioni e commenti.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Scegli le impostazioni iniziali. Puoi cambiarle qui sotto in qualsiasi momento.",
+    "message": "Scegli cosa nascondere, poi salva. Verranno applicate solo le opzioni scelte; le altre impostazioni resteranno invariate.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Sospendi",
+    "message": "Sospendi blocco",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Sessione di messa a fuoco"
   },
   "focus_session_description": {
-    "message": "Attiva la messa a fuoco rigorosa per una breve sessione. Al termine dell'operazione, verranno ripristinate le impostazioni abituali. Gli orari e i limiti giornalieri restano validi."
+    "message": "Avvia una sessione a tempo con le impostazioni di blocco che hai scelto. Programmazioni e limiti giornalieri restano attivi."
   },
   "focus_session_end": {
     "message": "Fine sessione"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Le tue impostazioni di blocco sono attive."
   },
   "clear_status_off": {
     "message": "Le protezioni sono disattivate."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Sessione di focus: Focus rigoroso fino al $value$.",
+    "message": "Sessione di concentrazione fino alle $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Impossibile salvare. Riprova."
   },
+  "popup_none": {
+    "message": "Nessun blocco attivo"
+  },
+  "popup_recommendations": {
+    "message": "Consigli nascosti"
+  },
+  "popup_home": {
+    "message": "Feed iniziale nascosto"
+  },
+  "popup_suggestions": {
+    "message": "Video suggeriti nascosti"
+  },
+  "popup_shorts": {
+    "message": "Shorts nascosti"
+  },
+  "popup_override": {
+    "message": "Questa programmazione prevale sulle impostazioni salvate."
+  },
+  "popup_lock": {
+    "message": "Il blocco concentrazione richiede il PIN e un’attesa per ridurre le restrizioni."
+  },
+  "popup_adjust": {
+    "message": "Modifica cosa nascondere"
+  },
+  "popup_advanced": {
+    "message": "Impostazioni avanzate"
+  },
   "blocklist_example_label": {
     "message": "Esempio:"
+  },
+  "below_video_label": {
+    "message": "Sotto il video"
+  },
+  "home_feed_label": {
+    "message": "Video della pagina iniziale"
+  },
+  "home_feed_show": {
+    "message": "Mostra tutti"
+  },
+  "home_feed_limit": {
+    "message": "Mostra solo i primi 15"
+  },
+  "home_feed_hide": {
+    "message": "Nascondi tutti"
+  },
+  "home_feed_description": {
+    "message": "Scegli quanti video mostrare nella pagina iniziale. Il limite di 15 video interrompe lo scorrimento infinito."
+  },
+  "popup_chat": {
+    "message": "Chat dal vivo nascosta"
+  },
+  "popup_comments": {
+    "message": "Commenti nascosti"
+  },
+  "popup_home_limited": {
+    "message": "Pagina iniziale limitata a 15 video"
+  },
+  "popup_autoplay": {
+    "message": "Riproduzione automatica disattivata"
+  },
+  "popup_description": {
+    "message": "Descrizione del video nascosta"
+  },
+  "popup_filtered": {
+    "message": "Video corrispondenti nascosti"
+  },
+  "popup_reminders": {
+    "message": "Promemoria per le pause attivati"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Nasconde anche i link alle iscrizioni e alle playlist salvate."
   }
 }

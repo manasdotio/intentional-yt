@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "फ़ीड और Shorts",
-    "description": "Feed controls section header"
+    "message": "होम और ब्राउज़िंग",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "होम फ़ीड छुपाएं",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "सुझाए गए वीडियो साइडबार छुपाएं",
+    "message": "प्लेयर के पास सुझाए गए वीडियो छिपाएँ",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "प्लेबैक",
-    "description": "Video controls section header"
+    "message": "वीडियो देखते समय",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "वीडियो समाप्ति सुझाव छुपाएं",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "एक्शन बटन",
+    "message": "लाइक, शेयर और अन्य बटन छिपाएँ",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "चैनल जानकारी",
+    "message": "चैनल का नाम और सब्सक्राइब बटन छिपाएँ",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "विवरण",
+    "message": "वीडियो का विवरण छिपाएँ",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "नेविगेशन और पेज विवरण",
-    "description": "Interface controls section header"
+    "message": "नेविगेशन और रूप-रंग",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "बायां साइडबार छुपाएं",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "शीर्ष हेडर छुपाएं",
+    "message": "खोज और खाता बार छिपाएँ",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "ज़ेन · केवल खोज, सभी फ़ीड छिपे हैं",
+    "message": "नेविगेशन, लाइव चैट, टिप्पणियाँ, सदस्यताएँ, प्लेलिस्ट और थंबनेल भी छिपाता है।",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "कस्टम कॉन्फ़िगरेशन",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "विस्तृत नियंत्रण",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "होम फ़ीड, Shorts और साइडबार सुझाव ब्लॉक करता है। खोज, सदस्यता और टिप्पणियां खुली रखता है।",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "शुरुआती सेटिंग चुनें। नीचे इन्हें कभी भी बदल सकते हैं।",
+    "message": "चुनें कि क्या छिपाना है, फिर सहेजें। केवल आपके चुने विकल्प लागू होंगे; बाकी सेटिंग वैसी ही रहेंगी।",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "स्नूज़ करें",
+    "message": "ब्लॉकिंग रोकें",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "फोकस सत्र"
   },
   "focus_session_description": {
-    "message": "एक छोटे सत्र के लिए स्ट्रिक्ट फोकस चालू करें। इसके समाप्त होने पर आपकी सामान्य सेटिंग्स वापस आ जाती हैं। अनुसूचियाँ और दैनिक सीमाएँ अभी भी लागू हैं।"
+    "message": "अपनी चुनी हुई ब्लॉकिंग सेटिंग के साथ तय अवधि का सत्र शुरू करें। शेड्यूल और दैनिक सीमाएँ लागू रहेंगी।"
   },
   "focus_session_end": {
     "message": "समाप्ति सत्र"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "आपकी अवरोधन सेटिंग सक्रिय हैं."
   },
   "clear_status_off": {
     "message": "सुरक्षाएँ बंद हैं।"
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "फोकस सत्र: $value$ तक सख्त फोकस।",
+    "message": "फ़ोकस सत्र $value$ तक।",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "सेव नहीं हो सका। फिर से कोशिश करें।"
   },
+  "popup_none": {
+    "message": "कोई ब्लॉकिंग सक्रिय नहीं"
+  },
+  "popup_recommendations": {
+    "message": "सुझाव छिपे हैं"
+  },
+  "popup_home": {
+    "message": "होम फ़ीड छिपी है"
+  },
+  "popup_suggestions": {
+    "message": "सुझाए गए वीडियो छिपे हैं"
+  },
+  "popup_shorts": {
+    "message": "Shorts छिपे हैं"
+  },
+  "popup_override": {
+    "message": "यह शेड्यूल आपकी सहेजी गई सेटिंग पर प्राथमिकता लेता है।"
+  },
+  "popup_lock": {
+    "message": "ब्लॉकिंग कम करने के लिए फ़ोकस लॉक में PIN और प्रतीक्षा अवधि ज़रूरी है।"
+  },
+  "popup_adjust": {
+    "message": "क्या छिपाना है बदलें"
+  },
+  "popup_advanced": {
+    "message": "उन्नत सेटिंग"
+  },
   "blocklist_example_label": {
     "message": "उदाहरण:"
+  },
+  "below_video_label": {
+    "message": "वीडियो के नीचे"
+  },
+  "home_feed_label": {
+    "message": "होम पेज के वीडियो"
+  },
+  "home_feed_show": {
+    "message": "सभी दिखाएँ"
+  },
+  "home_feed_limit": {
+    "message": "केवल पहले 15 दिखाएँ"
+  },
+  "home_feed_hide": {
+    "message": "सभी छिपाएँ"
+  },
+  "home_feed_description": {
+    "message": "चुनें कि होम पेज पर कितने वीडियो दिखें। 15 वीडियो की सीमा अंतहीन स्क्रॉलिंग रोकती है।"
+  },
+  "popup_chat": {
+    "message": "लाइव चैट छिपी है"
+  },
+  "popup_comments": {
+    "message": "टिप्पणियाँ छिपी हैं"
+  },
+  "popup_home_limited": {
+    "message": "होम फ़ीड 15 वीडियो तक सीमित है"
+  },
+  "popup_autoplay": {
+    "message": "ऑटोप्ले बंद है"
+  },
+  "popup_description": {
+    "message": "वीडियो का विवरण छिपा है"
+  },
+  "popup_filtered": {
+    "message": "मेल खाने वाले वीडियो छिपे हैं"
+  },
+  "popup_reminders": {
+    "message": "ब्रेक रिमाइंडर चालू हैं"
+  },
+  "desc_sidebar_navigation": {
+    "message": "सब्सक्रिप्शन और सहेजी गई प्लेलिस्ट के लिंक भी छिपाता है।"
   }
 }

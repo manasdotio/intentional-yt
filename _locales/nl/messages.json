@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Feeds en Shorts",
-    "description": "Feed controls section header"
+    "message": "Home en browsen",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Startpaginafeed verbergen",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Zijbalk met aanbevelingen verbergen",
+    "message": "Voorgestelde video's naast de speler verbergen",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Afspelen",
-    "description": "Video controls section header"
+    "message": "Tijdens het kijken",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Aanbevelingen op eindscherm verbergen",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Actieknoppen",
+    "message": "Like-, deel- en andere knoppen verbergen",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Kanaalinformatie",
+    "message": "Kanaalnaam en abonneerknop verbergen",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Beschrijving",
+    "message": "Videobeschrijving verbergen",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Navigatie en paginadetails",
-    "description": "Interface controls section header"
+    "message": "Navigatie en uiterlijk",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Linkerzijbalk verbergen",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Bovenste balk verbergen",
+    "message": "Zoek- en accountbalk verbergen",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Zen · Alleen zoeken, alle feeds verborgen",
+    "message": "Verbergt ook navigatie, livechat, reacties, abonnementen, afspeellijsten en miniaturen.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Aangepaste configuratie",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Gedetailleerde bediening",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Blokkeert startpaginafeed, Shorts & zijbalksuggesties. Laat zoeken, abonnementen en reacties toegankelijk.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Kies je begininstellingen. Je kunt ze hieronder altijd aanpassen.",
+    "message": "Kies wat je wilt verbergen en sla op. Alleen je gekozen opties worden toegepast; andere instellingen blijven ongewijzigd.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Snoozen",
+    "message": "Blokkering pauzeren",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Focussessie"
   },
   "focus_session_description": {
-    "message": "Schakel Strict Focus in voor een korte sessie. Uw gebruikelijke instellingen keren terug wanneer het eindigt. Schema's en daglimieten zijn nog steeds van toepassing."
+    "message": "Start een sessie met timer met je gekozen blokkeerinstellingen. Schema’s en daglimieten blijven gelden."
   },
   "focus_session_end": {
     "message": "Sessie beëindigen"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Uw blokkeerinstellingen zijn actief."
   },
   "clear_status_off": {
     "message": "Beveiligingen zijn uitgeschakeld."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Focussessie: strikte focus tot $value$.",
+    "message": "Focussessie tot $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Opslaan mislukt. Probeer het opnieuw."
   },
+  "popup_none": {
+    "message": "Geen blokkering actief"
+  },
+  "popup_recommendations": {
+    "message": "Aanbevelingen verborgen"
+  },
+  "popup_home": {
+    "message": "Homefeed verborgen"
+  },
+  "popup_suggestions": {
+    "message": "Voorgestelde video’s verborgen"
+  },
+  "popup_shorts": {
+    "message": "Shorts verborgen"
+  },
+  "popup_override": {
+    "message": "Dit schema overschrijft je opgeslagen instellingen."
+  },
+  "popup_lock": {
+    "message": "Focusvergrendeling vereist je pincode en een wachttijd om blokkeringen te verminderen."
+  },
+  "popup_adjust": {
+    "message": "Wijzig wat verborgen is"
+  },
+  "popup_advanced": {
+    "message": "Geavanceerde instellingen"
+  },
   "blocklist_example_label": {
     "message": "Voorbeeld:"
+  },
+  "below_video_label": {
+    "message": "Onder de video"
+  },
+  "home_feed_label": {
+    "message": "Video's op de startpagina"
+  },
+  "home_feed_show": {
+    "message": "Alles tonen"
+  },
+  "home_feed_limit": {
+    "message": "Alleen de eerste 15 tonen"
+  },
+  "home_feed_hide": {
+    "message": "Alles verbergen"
+  },
+  "home_feed_description": {
+    "message": "Kies hoeveel video's op de startpagina verschijnen. De limiet van 15 video's stopt eindeloos scrollen."
+  },
+  "popup_chat": {
+    "message": "Livechat verborgen"
+  },
+  "popup_comments": {
+    "message": "Reacties verborgen"
+  },
+  "popup_home_limited": {
+    "message": "Startpagina beperkt tot 15 video's"
+  },
+  "popup_autoplay": {
+    "message": "Automatisch afspelen uitgeschakeld"
+  },
+  "popup_description": {
+    "message": "Videobeschrijving verborgen"
+  },
+  "popup_filtered": {
+    "message": "Overeenkomende video's verborgen"
+  },
+  "popup_reminders": {
+    "message": "Pauzeherinneringen ingeschakeld"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Verbergt ook links naar abonnementen en opgeslagen afspeellijsten."
   }
 }

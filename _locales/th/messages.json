@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "ฟีดและ Shorts",
-    "description": "Feed controls section header"
+    "message": "หน้าแรกและการเรียกดู",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "ซ่อนฟีดหน้าแรก",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "ซ่อนแถบวิดีโอแนะนำด้านข้าง",
+    "message": "ซ่อนวิดีโอแนะนำข้างโปรแกรมเล่น",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "การเล่น",
-    "description": "Video controls section header"
+    "message": "ขณะดูวิดีโอ",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "ซ่อนวิดีโอแนะนำท้ายคลิป",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "ปุ่มการดำเนินการ",
+    "message": "ซ่อนปุ่มถูกใจ แชร์ และปุ่มอื่น ๆ",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "ข้อมูลช่อง",
+    "message": "ซ่อนชื่อช่องและปุ่มติดตาม",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "คำอธิบาย",
+    "message": "ซ่อนคำอธิบายวิดีโอ",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "การนำทางและรายละเอียดหน้า",
-    "description": "Interface controls section header"
+    "message": "การนำทางและรูปลักษณ์",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "ซ่อนแถบด้านข้างซ้าย",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "ซ่อนแถบด้านบน",
+    "message": "ซ่อนแถบค้นหาและบัญชี",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "เซน · ค้นหาอย่างเดียว ซ่อนฟีดทั้งหมด",
+    "message": "ซ่อนเมนูนำทาง แชทสด ความคิดเห็น การติดตาม เพลย์ลิสต์ และภาพขนาดย่อด้วย",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "การกำหนดค่าด้วยตนเอง",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "การควบคุมโดยละเอียด",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "บล็อกฟีดหน้าแรก, Shorts และคำแนะนำแถบด้านข้าง โดยยังคงค้นหา การติดตาม และความคิดเห็นไว้ได้",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "เลือกการตั้งค่าเริ่มต้น คุณเปลี่ยนได้ทุกเมื่อด้านล่าง",
+    "message": "เลือกสิ่งที่ต้องการซ่อนแล้วบันทึก ระบบจะใช้เฉพาะตัวเลือกที่คุณเลือก ส่วนการตั้งค่าอื่นจะคงเดิม",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "เลื่อนการเตือน",
+    "message": "หยุดบล็อกชั่วคราว",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "เซสชั่นโฟกัส"
   },
   "focus_session_description": {
-    "message": "เปิดการโฟกัสแบบเข้มงวดสำหรับเซสชั่นสั้นๆ การตั้งค่าตามปกติของคุณจะกลับมาอีกครั้งเมื่อสิ้นสุด กำหนดการและขีดจำกัดรายวันยังคงมีผลอยู่"
+    "message": "เริ่มเซสชันแบบจับเวลาด้วยการตั้งค่าการบล็อกที่คุณเลือก ตารางเวลาและขีดจำกัดรายวันยังคงมีผล"
   },
   "focus_session_end": {
     "message": "สิ้นสุดเซสชัน"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "การตั้งค่าการบล็อกของคุณเปิดใช้งานอยู่"
   },
   "clear_status_off": {
     "message": "การป้องกันถูกปิด"
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "เซสชั่นโฟกัส: โฟกัสอย่างเข้มงวดจนถึง $value$",
+    "message": "เซสชันโฟกัสจนถึง $value$",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "บันทึกไม่สำเร็จ โปรดลองอีกครั้ง"
   },
+  "popup_none": {
+    "message": "ไม่มีการบล็อกที่ทำงานอยู่"
+  },
+  "popup_recommendations": {
+    "message": "ซ่อนคำแนะนำแล้ว"
+  },
+  "popup_home": {
+    "message": "ซ่อนฟีดหน้าแรกแล้ว"
+  },
+  "popup_suggestions": {
+    "message": "ซ่อนวิดีโอแนะนำแล้ว"
+  },
+  "popup_shorts": {
+    "message": "ซ่อน Shorts แล้ว"
+  },
+  "popup_override": {
+    "message": "ตารางเวลานี้มีผลแทนการตั้งค่าที่บันทึกไว้"
+  },
+  "popup_lock": {
+    "message": "ล็อกโฟกัสต้องใช้ PIN และระยะเวลารอเพื่อลดการบล็อก"
+  },
+  "popup_adjust": {
+    "message": "เปลี่ยนสิ่งที่ซ่อน"
+  },
+  "popup_advanced": {
+    "message": "การตั้งค่าขั้นสูง"
+  },
   "blocklist_example_label": {
     "message": "ตัวอย่าง:"
+  },
+  "below_video_label": {
+    "message": "ใต้วิดีโอ"
+  },
+  "home_feed_label": {
+    "message": "วิดีโอในหน้าแรก"
+  },
+  "home_feed_show": {
+    "message": "แสดงทั้งหมด"
+  },
+  "home_feed_limit": {
+    "message": "แสดงเฉพาะ 15 รายการแรก"
+  },
+  "home_feed_hide": {
+    "message": "ซ่อนทั้งหมด"
+  },
+  "home_feed_description": {
+    "message": "เลือกจำนวนวิดีโอที่แสดงในหน้าแรก การจำกัดไว้ที่ 15 รายการจะหยุดการเลื่อนแบบไม่สิ้นสุด"
+  },
+  "popup_chat": {
+    "message": "ซ่อนแชทสดแล้ว"
+  },
+  "popup_comments": {
+    "message": "ซ่อนความคิดเห็นแล้ว"
+  },
+  "popup_home_limited": {
+    "message": "จำกัดหน้าแรกไว้ที่ 15 วิดีโอ"
+  },
+  "popup_autoplay": {
+    "message": "ปิดการเล่นอัตโนมัติแล้ว"
+  },
+  "popup_description": {
+    "message": "ซ่อนคำอธิบายวิดีโอแล้ว"
+  },
+  "popup_filtered": {
+    "message": "ซ่อนวิดีโอที่ตรงตามเงื่อนไขแล้ว"
+  },
+  "popup_reminders": {
+    "message": "เปิดการแจ้งเตือนให้พักแล้ว"
+  },
+  "desc_sidebar_navigation": {
+    "message": "ซ่อนลิงก์ไปยังช่องที่ติดตามและเพลย์ลิสต์ที่บันทึกไว้ด้วย"
   }
 }

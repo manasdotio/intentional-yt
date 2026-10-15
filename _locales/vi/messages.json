@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Bảng tin và Shorts",
-    "description": "Feed controls section header"
+    "message": "Trang chủ và duyệt nội dung",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Ẩn bảng tin trang chủ",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Ẩn thanh đề xuất bên cạnh",
+    "message": "Ẩn video đề xuất bên cạnh trình phát",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Phát video",
-    "description": "Video controls section header"
+    "message": "Khi xem video",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Ẩn đề xuất màn hình kết thúc",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Nút thao tác",
+    "message": "Ẩn nút thích, chia sẻ và các nút khác",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Thông tin kênh",
+    "message": "Ẩn tên kênh và nút đăng ký",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Mô tả",
+    "message": "Ẩn mô tả video",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Điều hướng và thông tin trang",
-    "description": "Interface controls section header"
+    "message": "Điều hướng và giao diện",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Ẩn thanh bên trái",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Ẩn thanh tiêu đề trên cùng",
+    "message": "Ẩn thanh tìm kiếm và tài khoản",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Zen · Chỉ tìm kiếm, ẩn toàn bộ bảng tin",
+    "message": "Cũng ẩn điều hướng, trò chuyện trực tiếp, bình luận, kênh đăng ký, danh sách phát và hình thu nhỏ.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Cấu hình tùy chỉnh",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Điều khiển chi tiết",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Chặn Bảng tin trang chủ, Shorts & gợi ý thanh bên. Vẫn cho phép tìm kiếm, kênh đăng ký và bình luận.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Chọn cài đặt ban đầu. Bạn có thể thay đổi bên dưới bất cứ lúc nào.",
+    "message": "Chọn nội dung muốn ẩn rồi lưu. Chỉ các tùy chọn bạn chọn được áp dụng; những cài đặt khác giữ nguyên.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Tạm hoãn",
+    "message": "Tạm dừng chặn",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Phiên tập trung"
   },
   "focus_session_description": {
-    "message": "Bật Tập trung nghiêm ngặt trong một phiên ngắn. Cài đặt thông thường của bạn sẽ trở lại khi nó kết thúc. Lịch trình và giới hạn hàng ngày vẫn được áp dụng."
+    "message": "Bắt đầu phiên có hẹn giờ bằng cài đặt chặn bạn đã chọn. Lịch và giới hạn hằng ngày vẫn áp dụng."
   },
   "focus_session_end": {
     "message": "Kết thúc phiên"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Cài đặt chặn của bạn đang hoạt động."
   },
   "clear_status_off": {
     "message": "Các biện pháp bảo vệ đã bị tắt."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Phiên tập trung: Tập trung nghiêm ngặt cho đến $value$.",
+    "message": "Phiên tập trung đến $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Không thể lưu. Vui lòng thử lại."
   },
+  "popup_none": {
+    "message": "Không có chặn đang hoạt động"
+  },
+  "popup_recommendations": {
+    "message": "Đã ẩn đề xuất"
+  },
+  "popup_home": {
+    "message": "Đã ẩn bảng tin trang chủ"
+  },
+  "popup_suggestions": {
+    "message": "Đã ẩn video gợi ý"
+  },
+  "popup_shorts": {
+    "message": "Đã ẩn Shorts"
+  },
+  "popup_override": {
+    "message": "Lịch này được ưu tiên hơn cài đặt đã lưu."
+  },
+  "popup_lock": {
+    "message": "Khóa tập trung yêu cầu mã PIN và thời gian chờ để giảm chặn."
+  },
+  "popup_adjust": {
+    "message": "Thay đổi nội dung ẩn"
+  },
+  "popup_advanced": {
+    "message": "Cài đặt nâng cao"
+  },
   "blocklist_example_label": {
     "message": "Ví dụ:"
+  },
+  "below_video_label": {
+    "message": "Bên dưới video"
+  },
+  "home_feed_label": {
+    "message": "Video trên trang chủ"
+  },
+  "home_feed_show": {
+    "message": "Hiện tất cả"
+  },
+  "home_feed_limit": {
+    "message": "Chỉ hiện 15 video đầu tiên"
+  },
+  "home_feed_hide": {
+    "message": "Ẩn tất cả"
+  },
+  "home_feed_description": {
+    "message": "Chọn số video xuất hiện trên trang chủ. Giới hạn 15 video sẽ dừng cuộn vô hạn."
+  },
+  "popup_chat": {
+    "message": "Đã ẩn trò chuyện trực tiếp"
+  },
+  "popup_comments": {
+    "message": "Đã ẩn bình luận"
+  },
+  "popup_home_limited": {
+    "message": "Trang chủ giới hạn ở 15 video"
+  },
+  "popup_autoplay": {
+    "message": "Đã tắt tự động phát"
+  },
+  "popup_description": {
+    "message": "Đã ẩn mô tả video"
+  },
+  "popup_filtered": {
+    "message": "Đã ẩn video trùng khớp"
+  },
+  "popup_reminders": {
+    "message": "Đã bật nhắc nghỉ giải lao"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Cũng ẩn liên kết đến kênh đã đăng ký và danh sách phát đã lưu."
   }
 }

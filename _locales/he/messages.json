@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "פידים ו-Shorts",
-    "description": "Feed controls section header"
+    "message": "דף הבית וגלישה",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "הסתרת פיד הבית",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "הסתרת סרגל המלצות בצד",
+    "message": "הסתרת סרטונים מוצעים לצד הנגן",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "ניגון",
-    "description": "Video controls section header"
+    "message": "בזמן צפייה בסרטון",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "הסתרת המלצות בסיום הסרטון",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "כפתורי פעולה",
+    "message": "הסתרת כפתורי לייק, שיתוף ואחרים",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "פרטי הערוץ",
+    "message": "הסתרת שם הערוץ וכפתור ההרשמה",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "תיאור",
+    "message": "הסתרת תיאור הסרטון",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "ניווט ופרטי הדף",
-    "description": "Interface controls section header"
+    "message": "ניווט ומראה",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "הסתרת סרגל צד שמאלי",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "הסתרת כותרת עליונה",
+    "message": "הסתרת סרגל החיפוש והחשבון",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "זן · חיפוש בלבד, כל הפידים מוסתרים",
+    "message": "מסתיר גם ניווט, צ'אט חי, תגובות, מינויים, רשימות השמעה ותמונות ממוזערות.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "הגדרה מותאמת אישית",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "בקרות מפורטות",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "חוסם את פיד הבית, ה-Shorts והמלצות סרגל הצד. משאיר חיפוש, מנויים ותגובות נגישים.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "בחרו הגדרות התחלתיות. אפשר לשנות אותן למטה בכל עת.",
+    "message": "בחרו מה להסתיר ושמרו. רק האפשרויות שבחרתם יוחלו; שאר ההגדרות יישארו ללא שינוי.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "השהיה",
+    "message": "השהיית חסימה",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "מפגש פוקוס"
   },
   "focus_session_description": {
-    "message": "הפעל את מיקוד קפדני לסשן קצר. ההגדרות הרגילות שלך חוזרות כשהיא מסתיימת. לוחות זמנים ומגבלות יומיות עדיין חלות."
+    "message": "התחילו הפעלה לזמן מוגדר עם הגדרות החסימה שבחרתם. לוחות הזמנים והמגבלות היומיות עדיין חלים."
   },
   "focus_session_end": {
     "message": "סיום הסשן"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "הגדרות החסימה שלך פעילות."
   },
   "clear_status_off": {
     "message": "ההגנות כבויות."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "מפגש מיקוד: מיקוד קפדני עד $value$.",
+    "message": "הפעלת מיקוד עד $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "לא ניתן לשמור. נסו שוב."
   },
+  "popup_none": {
+    "message": "אין חסימה פעילה"
+  },
+  "popup_recommendations": {
+    "message": "ההמלצות מוסתרות"
+  },
+  "popup_home": {
+    "message": "הפיד הראשי מוסתר"
+  },
+  "popup_suggestions": {
+    "message": "הסרטונים המוצעים מוסתרים"
+  },
+  "popup_shorts": {
+    "message": "סרטוני Shorts מוסתרים"
+  },
+  "popup_override": {
+    "message": "לוח הזמנים הזה גובר על ההגדרות השמורות."
+  },
+  "popup_lock": {
+    "message": "נעילת המיקוד דורשת PIN וזמן המתנה כדי להקל את החסימה."
+  },
+  "popup_adjust": {
+    "message": "שינוי הפריטים המוסתרים"
+  },
+  "popup_advanced": {
+    "message": "הגדרות מתקדמות"
+  },
   "blocklist_example_label": {
     "message": "דוגמה:"
+  },
+  "below_video_label": {
+    "message": "מתחת לסרטון"
+  },
+  "home_feed_label": {
+    "message": "סרטונים בדף הבית"
+  },
+  "home_feed_show": {
+    "message": "הצגת הכול"
+  },
+  "home_feed_limit": {
+    "message": "הצגת 15 הראשונים בלבד"
+  },
+  "home_feed_hide": {
+    "message": "הסתרת הכול"
+  },
+  "home_feed_description": {
+    "message": "בחרו כמה סרטונים יופיעו בדף הבית. הגבלה ל־15 סרטונים עוצרת גלילה אינסופית."
+  },
+  "popup_chat": {
+    "message": "הצ׳אט החי מוסתר"
+  },
+  "popup_comments": {
+    "message": "התגובות מוסתרות"
+  },
+  "popup_home_limited": {
+    "message": "דף הבית מוגבל ל־15 סרטונים"
+  },
+  "popup_autoplay": {
+    "message": "ההפעלה האוטומטית כבויה"
+  },
+  "popup_description": {
+    "message": "תיאור הסרטון מוסתר"
+  },
+  "popup_filtered": {
+    "message": "סרטונים תואמים מוסתרים"
+  },
+  "popup_reminders": {
+    "message": "תזכורות להפסקה מופעלות"
+  },
+  "desc_sidebar_navigation": {
+    "message": "מסתיר גם קישורים למינויים ולפלייליסטים שמורים."
   }
 }

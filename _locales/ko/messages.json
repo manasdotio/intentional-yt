@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "피드 및 Shorts",
-    "description": "Feed controls section header"
+    "message": "홈 및 탐색",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "홈 피드 숨기기",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "추천 영상 사이드바 숨기기",
+    "message": "플레이어 옆 추천 동영상 숨기기",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "재생",
-    "description": "Video controls section header"
+    "message": "동영상 시청 중",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "최종 화면 추천 영상 숨기기",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "작업 버튼",
+    "message": "좋아요, 공유 및 기타 버튼 숨기기",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "채널 정보",
+    "message": "채널 이름과 구독 버튼 숨기기",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "설명",
+    "message": "동영상 설명 숨기기",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "탐색 및 페이지 정보",
-    "description": "Interface controls section header"
+    "message": "탐색 메뉴 및 외관",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "왼쪽 사이드바 숨기기",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "상단 헤더 숨기기",
+    "message": "검색 및 계정 표시줄 숨기기",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "젠 · 오직 검색만 가능, 모든 피드 숨김",
+    "message": "탐색 메뉴, 실시간 채팅, 댓글, 구독, 재생목록, 썸네일도 숨깁니다.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "맞춤 설정 구성",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "세부 설정",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "홈 피드, Shorts, 사이드바 추천을 차단합니다. 검색, 구독 피드 및 댓글은 정상적으로 이용할 수 있습니다.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "시작 설정을 선택하세요. 아래에서 언제든 변경할 수 있습니다.",
+    "message": "숨길 항목을 선택한 뒤 저장하세요. 선택한 옵션만 적용되며 다른 설정은 그대로 유지됩니다.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "일시 해제",
+    "message": "차단 일시 중지",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "집중 세션"
   },
   "focus_session_description": {
-    "message": "짧은 세션 동안은 집중 집중을 켜세요. 종료되면 평소 설정으로 돌아갑니다. 일정과 일일 한도는 계속 적용됩니다."
+    "message": "선택한 차단 설정으로 시간 제한 세션을 시작하세요. 예약과 일일 한도는 계속 적용됩니다."
   },
   "focus_session_end": {
     "message": "세션 종료"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "차단 설정이 활성화되었습니다."
   },
   "clear_status_off": {
     "message": "보호 기능이 꺼졌습니다."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "집중 세션: $value$까지 집중 집중.",
+    "message": "집중 세션: $value$까지.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "저장하지 못했습니다. 다시 시도해 주세요."
   },
+  "popup_none": {
+    "message": "활성 차단 없음"
+  },
+  "popup_recommendations": {
+    "message": "추천 숨김"
+  },
+  "popup_home": {
+    "message": "홈 피드 숨김"
+  },
+  "popup_suggestions": {
+    "message": "추천 동영상 숨김"
+  },
+  "popup_shorts": {
+    "message": "Shorts 숨김"
+  },
+  "popup_override": {
+    "message": "이 예약은 저장된 설정보다 우선 적용됩니다."
+  },
+  "popup_lock": {
+    "message": "차단을 완화하려면 집중 잠금 PIN과 대기 시간이 필요합니다."
+  },
+  "popup_adjust": {
+    "message": "숨길 항목 변경"
+  },
+  "popup_advanced": {
+    "message": "고급 설정"
+  },
   "blocklist_example_label": {
     "message": "예:"
+  },
+  "below_video_label": {
+    "message": "동영상 아래"
+  },
+  "home_feed_label": {
+    "message": "홈 화면 동영상"
+  },
+  "home_feed_show": {
+    "message": "모두 표시"
+  },
+  "home_feed_limit": {
+    "message": "처음 15개만 표시"
+  },
+  "home_feed_hide": {
+    "message": "모두 숨기기"
+  },
+  "home_feed_description": {
+    "message": "홈 화면에 표시할 동영상 수를 선택하세요. 15개로 제한하면 무한 스크롤이 중단됩니다."
+  },
+  "popup_chat": {
+    "message": "실시간 채팅 숨김"
+  },
+  "popup_comments": {
+    "message": "댓글 숨김"
+  },
+  "popup_home_limited": {
+    "message": "홈 화면 동영상을 15개로 제한"
+  },
+  "popup_autoplay": {
+    "message": "자동재생 꺼짐"
+  },
+  "popup_description": {
+    "message": "동영상 설명 숨김"
+  },
+  "popup_filtered": {
+    "message": "조건에 맞는 동영상 숨김"
+  },
+  "popup_reminders": {
+    "message": "휴식 알림 켜짐"
+  },
+  "desc_sidebar_navigation": {
+    "message": "구독 및 저장된 재생목록 링크도 숨깁니다."
   }
 }

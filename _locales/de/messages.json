@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Feeds & Shorts",
-    "description": "Feed controls section header"
+    "message": "Startseite & Stöbern",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Startseiten-Feed ausblenden",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Empfehlungsleiste ausblenden",
+    "message": "Videovorschläge neben dem Player ausblenden",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Wiedergabe",
-    "description": "Video controls section header"
+    "message": "Beim Ansehen eines Videos",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Endbildschirm-Empfehlungen ausblenden",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Aktionsschaltflächen",
+    "message": "Gefällt-mir-, Teilen- und weitere Schaltflächen ausblenden",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Kanal-Informationen",
+    "message": "Kanalnamen und Abonnieren-Schaltfläche ausblenden",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Beschreibung",
+    "message": "Videobeschreibung ausblenden",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Navigation & Seitendetails",
-    "description": "Interface controls section header"
+    "message": "Navigation & Darstellung",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Linke Seitenleiste ausblenden",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Kopfzeile ausblenden",
+    "message": "Such- und Kontoleiste ausblenden",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Zen · Nur Suche, alle Feeds ausgeblendet",
+    "message": "Blendet zusätzlich Navigation, Livechat, Kommentare, Abos, Playlists und Vorschaubilder aus.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Benutzerdefinierte Konfiguration",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Detaillierte Steuerung",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Blockiert den Startseiten-Feed, Shorts & Seitenleisten-Vorschläge. Suche, Abos und Kommentare bleiben zugänglich.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Wähle deine Starteinstellungen. Du kannst sie unten jederzeit ändern.",
+    "message": "Wähle aus, was du ausblenden möchtest, und speichere. Nur deine Auswahl wird angewendet; andere Einstellungen bleiben unverändert.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Schlummern",
+    "message": "Blockierung pausieren",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Fokussitzung"
   },
   "focus_session_description": {
-    "message": "Schalten Sie Strict Focus für eine kurze Sitzung ein. Sobald der Vorgang beendet ist, kehren Sie zu Ihren gewohnten Einstellungen zurück. Es gelten weiterhin die Fahrpläne und Tageslimits."
+    "message": "Starte eine zeitlich begrenzte Sitzung mit deinen gewählten Blockiereinstellungen. Zeitpläne und Tageslimits gelten weiterhin."
   },
   "focus_session_end": {
     "message": "Sitzung beenden"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Ihre Blockierungseinstellungen sind aktiv."
   },
   "clear_status_off": {
     "message": "Schutzmaßnahmen sind deaktiviert."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Fokussitzung: Strikter Fokus bis $value$.",
+    "message": "Fokussitzung bis $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Speichern fehlgeschlagen. Bitte erneut versuchen."
   },
+  "popup_none": {
+    "message": "Keine Blockierung aktiv"
+  },
+  "popup_recommendations": {
+    "message": "Empfehlungen ausgeblendet"
+  },
+  "popup_home": {
+    "message": "Startseitenfeed ausgeblendet"
+  },
+  "popup_suggestions": {
+    "message": "Videovorschläge ausgeblendet"
+  },
+  "popup_shorts": {
+    "message": "Shorts ausgeblendet"
+  },
+  "popup_override": {
+    "message": "Dieser Zeitplan überschreibt deine gespeicherten Einstellungen."
+  },
+  "popup_lock": {
+    "message": "Die Fokussperre erfordert deine PIN und eine Wartezeit, um Blockierungen zu lockern."
+  },
+  "popup_adjust": {
+    "message": "Ausgeblendete Inhalte ändern"
+  },
+  "popup_advanced": {
+    "message": "Erweiterte Einstellungen"
+  },
   "blocklist_example_label": {
     "message": "Beispiel:"
+  },
+  "below_video_label": {
+    "message": "Unter dem Video"
+  },
+  "home_feed_label": {
+    "message": "Videos auf der Startseite"
+  },
+  "home_feed_show": {
+    "message": "Alle anzeigen"
+  },
+  "home_feed_limit": {
+    "message": "Nur die ersten 15 anzeigen"
+  },
+  "home_feed_hide": {
+    "message": "Alle ausblenden"
+  },
+  "home_feed_description": {
+    "message": "Wähle, wie viele Videos auf der Startseite erscheinen. Das Limit von 15 Videos stoppt endloses Scrollen."
+  },
+  "popup_chat": {
+    "message": "Livechat ausgeblendet"
+  },
+  "popup_comments": {
+    "message": "Kommentare ausgeblendet"
+  },
+  "popup_home_limited": {
+    "message": "Startseite auf 15 Videos begrenzt"
+  },
+  "popup_autoplay": {
+    "message": "Automatische Wiedergabe deaktiviert"
+  },
+  "popup_description": {
+    "message": "Videobeschreibung ausgeblendet"
+  },
+  "popup_filtered": {
+    "message": "Passende Videos ausgeblendet"
+  },
+  "popup_reminders": {
+    "message": "Pausenerinnerungen aktiviert"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Blendet auch Links zu Abos und gespeicherten Playlists aus."
   }
 }

@@ -22,6 +22,7 @@ function getMsg(key, subs, fallback) {
 }
 
 const t = getMsg;
+let dismissSettingHelp = () => {};
 
 function applyTheme(themeMode) {
   const mode = themeMode || 'auto';
@@ -35,6 +36,7 @@ function applyTheme(themeMode) {
 }
 
 function localizeDOM() {
+  dismissSettingHelp();
   const dir = (typeof I18N !== 'undefined' && I18N.getDirection)
     ? I18N.getDirection()
     : (getMsg('@@bidi_dir') || 'ltr');
@@ -120,40 +122,32 @@ const TOGGLE_LABELS = {
 
 const SECTION_TOGGLES = {
   "feed": [
-    "blockShorts",
-    "blockHomeFeed",
-    "blockRecommended",
     "blockSubscriptionsFeed",
-    "limitHomeFeed",
-    "redirectShorts",
     "blockExploreAndTrending",
-    "blockMoreFromYouTube",
     "blockIrrelevantSearchResults",
     "blockMixPlaylists"
   ],
   "video": [
     "disableAutoplay",
-    "blockEndScreenVideowall",
-    "blockEndScreenCards",
+    "redirectShorts",
+    "blockComments",
+    "blockProfilePhotos",
     "blockLiveChat",
     "blockPlaylist",
-    "disableAnnotations"
-  ],
-  "social": [
-    "blockComments",
-    "blockProfilePhotos"
-  ],
-  "interface": [
-    "blockSidebar",
-    "blockNotificationBell",
-    "blockTopHeader",
+    "blockEndScreenVideowall",
+    "blockEndScreenCards",
+    "disableAnnotations",
     "blockVideoInfo",
     "blockVideoButtons",
     "blockChannelInfo",
     "blockVideoDescription",
     "blockMerch"
   ],
-  "appearance": [
+  "interface": [
+    "blockSidebar",
+    "blockTopHeader",
+    "blockNotificationBell",
+    "blockMoreFromYouTube",
     "hideThumbnails",
     "grayscaleMode"
   ]
@@ -163,9 +157,9 @@ const PRESET_DEFINITIONS = {
   balanced: {
     blockHomeFeed: true,
     limitHomeFeed: false,
-    blockSidebar: true,
+    blockSidebar: false,
     blockRecommended: true,
-    blockLiveChat: true,
+    blockLiveChat: false,
     blockPlaylist: false,
     blockEndScreenVideowall: true,
     blockEndScreenCards: true,
@@ -221,9 +215,9 @@ const PRESET_DEFINITIONS = {
   player: {
     blockHomeFeed: true,
     limitHomeFeed: false,
-    blockSidebar: true,
+    blockSidebar: false,
     blockRecommended: true,
-    blockLiveChat: true,
+    blockLiveChat: false,
     blockPlaylist: false,
     blockEndScreenVideowall: true,
     blockEndScreenCards: true,
@@ -259,6 +253,7 @@ let _pendingVerificationCallback = null;
 const $ = id => document.getElementById(id);
 
 function getSettingFriendlyName(settingKey) {
+  if (settingKey === 'homeFeed') return t('home_feed_label');
   if (TOGGLE_LABELS[settingKey]) {
     return t(TOGGLE_LABELS[settingKey]) || settingKey;
   }
@@ -328,7 +323,7 @@ async function hashPin(pin) {
 
 /* ── Block Tab Accordion Cards & Active Badges ─────────── */
 
-const ACCORDION_SECTIONS = ['feed', 'video', 'social', 'interface', 'appearance'];
+const ACCORDION_SECTIONS = ['feed', 'video', 'interface'];
 
 function getSectionActiveCount(secName, s) {
   const settings = s || _s;
@@ -398,13 +393,18 @@ async function saveAccordionState() {
 }
 
 function restoreAccordionState(state) {
-  const collapsedMap = state || {};
+  const collapsedMap = { ...state };
+  // Keep moved controls reachable when their old category was expanded.
+  if (state && ('social' in state || 'appearance' in state)) {
+    collapsedMap.video = !['video', 'social', 'interface', 'feed'].some(key => state[key] === false);
+    collapsedMap.interface = !['interface', 'appearance', 'feed'].some(key => state[key] === false);
+  }
   for (const sec of ACCORDION_SECTIONS) {
     const secEl = $(`sec-${sec}`);
     const btn = secEl?.querySelector('.sh-btn');
     if (!secEl || !btn) continue;
 
-    const shouldCollapse = !!collapsedMap[sec];
+    const shouldCollapse = state ? !!collapsedMap[sec] : true;
     secEl.classList.toggle('collapsed', shouldCollapse);
     btn.setAttribute('aria-expanded', shouldCollapse ? 'false' : 'true');
   }
@@ -423,6 +423,9 @@ function updateToggleAllAccordionsBtn() {
   const key = anyOpen ? 'action_collapse_all' : 'action_expand_all';
   const text = getMsg(key) || (anyOpen ? 'Collapse All' : 'Expand All');
   label.textContent = text;
+  label.setAttribute('data-i18n', key);
+  btn.title = text;
+  btn.setAttribute('aria-label', text);
   btn.setAttribute('data-action', anyOpen ? 'collapse' : 'expand');
 }
 
@@ -612,8 +615,8 @@ function getPresetRelaxedKeys(targetPreset) {
 }
 
 async function doApplyPreset(preset, presetName) {
-  dismissWelcomeCard();
-  const updated = await StorageManager.updateSettings(preset);
+  const updated = await StorageManager.applyPreset(presetName, preset);
+  await dismissWelcomeCard();
   _s = updated;
   broadcastSettingsToTabs(updated);
   renderAll(updated);
@@ -623,7 +626,7 @@ async function doApplyPreset(preset, presetName) {
 
 async function applyPreset(presetName) {
   if (presetName === 'custom') {
-    const detailedHeader = document.querySelector('.detailed-header');
+    const detailedHeader = $('sec-feed');
     if (detailedHeader) {
       detailedHeader.scrollIntoView({ behavior: 'smooth' });
     }
@@ -692,7 +695,7 @@ async function saveWelcomeSetup(event) {
     broadcastSettingsToTabs(updated);
     await dismissWelcomeCard();
     showToast(t('setup_saved') || 'Your starting settings are saved.');
-    $('input-toggle-search')?.focus();
+    $('toggle-blockShorts')?.focus();
   } catch (error) {
     if (error.code !== 'IYT_DEFERRED') showToast(t('setup_save_failed') || 'Could not save. Please try again.');
   } finally {
@@ -749,6 +752,7 @@ const SEARCH_ALIASES = {
 };
 
 let _searchPrevCollapsed = null;
+let _searchPrevBelowVideoOpen = null;
 
 function filterToggles(query) {
   const q = (query || '').trim().toLowerCase();
@@ -780,12 +784,13 @@ function filterToggles(query) {
       }
     }
 
-    // Restore subordinate container to stored toggle state
-    const videoInfoChildren = $('video-info-children');
-    if (videoInfoChildren) {
-      videoInfoChildren.style.display = _s?.blockVideoInfo ? 'block' : 'none';
-    }
+    const belowVideo = $('below-video-controls');
+    belowVideo.style.display = '';
+    if (_searchPrevBelowVideoOpen !== null) belowVideo.open = _searchPrevBelowVideoOpen;
+    _searchPrevBelowVideoOpen = null;
 
+    $('common-controls').style.display = '';
+    $('common-controls').querySelectorAll('.row').forEach(row => { row.style.display = ''; });
     _searchPrevCollapsed = null;
     updateAccordionBadges(_s);
     return;
@@ -794,6 +799,7 @@ function filterToggles(query) {
   // Save previous collapsed state on first keystroke
   if (!_searchPrevCollapsed) {
     _searchPrevCollapsed = {};
+    _searchPrevBelowVideoOpen = $('below-video-controls').open;
     for (const sec of ACCORDION_SECTIONS) {
       const secEl = $(`sec-${sec}`);
       if (secEl) {
@@ -805,83 +811,35 @@ function filterToggles(query) {
   const queryTerms = q.split(/\s+/).filter(Boolean);
   let totalMatches = 0;
 
-  for (const sec of ACCORDION_SECTIONS) {
-    const secEl = $(`sec-${sec}`);
-    const body = $(`sec-${sec}-body`);
+  let categoryMatches = 0;
+  for (const sec of ['common', ...ACCORDION_SECTIONS]) {
+    const secEl = sec === 'common' ? $('common-controls') : $(`sec-${sec}`);
+    const body = sec === 'common' ? secEl : $(`sec-${sec}-body`);
     if (!secEl || !body) continue;
 
     let secMatches = 0;
-    const regularRows = body.querySelectorAll('.row:not(.sub)');
-    const subRows = body.querySelectorAll('.row.sub');
-    const videoInfoChildren = $('video-info-children');
-    const videoInfoRow = $('toggle-blockVideoInfo')?.closest('.row');
-
-    // Helper to evaluate row match against all query tokens
-    const checkRowMatch = (row) => {
-      const chk = row.querySelector('input.chk');
-      const key = chk?.id?.replace(/^toggle-/, '') || '';
-      const text = row.querySelector('.row-text')?.textContent || '';
-      const desc = row.querySelector('.row-desc')?.textContent || '';
-      const aliases = (key && SEARCH_ALIASES[key]) ? SEARCH_ALIASES[key] : '';
-      const isSub = row.classList.contains('sub');
-      const parentContext = isSub ? 'video info panel metadata ' : '';
-      const combined = (text + ' ' + desc + ' ' + aliases + ' ' + parentContext).toLowerCase();
-
-      return queryTerms.every(term => combined.includes(term));
-    };
-
-    // Evaluate regular rows
-    regularRows.forEach(row => {
-      if (row === videoInfoRow) return;
-
-      if (checkRowMatch(row)) {
-        row.style.display = 'flex';
+    const belowVideo = body.querySelector('#below-video-controls');
+    let belowMatches = 0;
+    for (const row of body.querySelectorAll('.row')) {
+      const key = row.dataset.setting || row.querySelector('input.chk')?.id?.replace(/^toggle-/, '') || '';
+      const aliases = key === 'homeFeed'
+        ? SEARCH_ALIASES.blockHomeFeed + ' ' + SEARCH_ALIASES.limitHomeFeed
+        : SEARCH_ALIASES[key] || '';
+      const group = row.closest('.setting-group');
+      const context = group ? group.querySelector('summary').textContent + ' video info panel metadata ' : '';
+      const combined = (row.textContent + ' ' + aliases + ' ' + context).toLowerCase();
+      const matches = queryTerms.every(term => combined.includes(term));
+      row.style.display = matches ? '' : 'none';
+      if (matches) {
         secMatches++;
         totalMatches++;
-      } else {
-        row.style.display = 'none';
+        if (sec !== 'common') categoryMatches++;
+        if (group) belowMatches++;
       }
-    });
-
-    // Coordinate parent and child matches in whichever section contains video info.
-    if (videoInfoRow && body.contains(videoInfoRow)) {
-      let anySubMatches = false;
-      subRows.forEach(subRow => {
-        if (checkRowMatch(subRow)) {
-          subRow.style.display = 'flex';
-          anySubMatches = true;
-          secMatches++;
-          totalMatches++;
-        } else {
-          subRow.style.display = 'none';
-        }
-      });
-
-      const parentMatches = videoInfoRow ? checkRowMatch(videoInfoRow) : false;
-
-      if (anySubMatches) {
-        // A sub-toggle (e.g. "Description") matched!
-        // Show video-info-children container AND show the parent row for context & tree rail
-        if (videoInfoChildren) videoInfoChildren.style.display = 'block';
-        if (videoInfoRow) videoInfoRow.style.display = 'flex';
-        if (parentMatches) {
-          secMatches++;
-          totalMatches++;
-        }
-      } else if (parentMatches) {
-        // Parent matched (e.g. "video info"), show parent AND open drawer with all sub-toggles
-        if (videoInfoRow) videoInfoRow.style.display = 'flex';
-        if (videoInfoChildren) videoInfoChildren.style.display = 'block';
-        subRows.forEach(subRow => {
-          subRow.style.display = 'flex';
-        });
-        secMatches++;
-        totalMatches++;
-      } else {
-        // Neither parent nor sub-rows matched
-        if (videoInfoRow) videoInfoRow.style.display = 'none';
-        if (videoInfoChildren) videoInfoChildren.style.display = 'none';
-      }
+    }
+    if (belowVideo) {
+      belowVideo.style.display = belowMatches ? '' : 'none';
+      if (belowMatches) belowVideo.open = true;
     }
 
     if (secMatches > 0) {
@@ -895,7 +853,7 @@ function filterToggles(query) {
   }
 
   if (noResultsEl) noResultsEl.style.display = totalMatches === 0 ? 'flex' : 'none';
-  if (detailedHeader) detailedHeader.style.display = totalMatches === 0 ? 'none' : 'flex';
+  if (detailedHeader) detailedHeader.style.display = categoryMatches === 0 ? 'none' : 'flex';
 }
 
 /* ── Tab Management ──────────────────────────────────── */
@@ -1005,7 +963,10 @@ StorageManager.onProtectedChange = async command => {
   if (fresh.focusLock.pendingUnlock) {
     showToast(t('focus_lock_already_pending') || 'An unlock countdown is already active.');
   } else {
-    const label = command.parentKey ? getSettingFriendlyName(command.parentKey) : getSettingFriendlyName(Object.keys(command.updates || {})[0] || command.op);
+    const label = command.updates && Object.keys(command.updates).length === 2 &&
+      'blockHomeFeed' in command.updates && 'limitHomeFeed' in command.updates ? getSettingFriendlyName('homeFeed')
+      : command.op === 'preset' ? getSettingFriendlyName('preset:' + command.name)
+      : command.parentKey ? getSettingFriendlyName(command.parentKey) : getSettingFriendlyName(Object.keys(command.updates || {})[0] || command.op);
     promptForPinVerification(async pin => {
       try {
         const updated = await StorageManager.queueUnlock(command, pin);
@@ -1043,7 +1004,10 @@ function renderPendingUnlockBanner() {
 
   banner.style.display = 'flex';
   const command = pending.command || {};
-  const friendlyLabel = getSettingFriendlyName(command.parentKey || Object.keys(command.updates || {})[0] || command.op || 'focusLock');
+  const friendlyLabel = getSettingFriendlyName(command.updates && Object.keys(command.updates).length === 2 &&
+    'blockHomeFeed' in command.updates && 'limitHomeFeed' in command.updates ? 'homeFeed'
+    : command.op === 'preset' ? 'preset:' + command.name
+    : command.parentKey || Object.keys(command.updates || {})[0] || command.op || 'focusLock');
   $('focus-banner-setting').textContent = t('focus_lock_banner_unlocking', [friendlyLabel]) || `Unlocking: ${friendlyLabel}`;
 
   function updateTimer() {
@@ -1512,10 +1476,56 @@ function renderProtectionStatus() {
   $('btn-end-focus-session').hidden = !running;
   renderBudgetStatus();
   $('protection-status').hidden = !main && !running && !$('protection-status-budget').textContent;
+  renderBlockingControls();
   // This timer exists only for the lifetime of the popup.
   const deadlines = [_s.focusSessionUntil, _s.snoozeUntil].filter(value => value > now);
   if (_s.scheduledBlocking.enabled) deadlines.push(now + 60000 - now % 60000);
   if (deadlines.length) _statusTimeout = setTimeout(renderProtectionStatus, Math.min(...deadlines) - now + 30);
+}
+
+function renderBlockingControls() {
+  if (!_s) return;
+  const active = IYT_Policy.active(_s);
+  const effective = IYT_Policy.effective(_s);
+  const schedules = IYT_Policy.schedules(_s);
+  // Tint only protections that are currently effective, including schedule overrides.
+  for (const row of document.querySelectorAll('#setting-controls .row')) {
+    const key = row.querySelector('input.chk')?.id.replace(/^toggle-/, '');
+    row.dataset.active = String(active && (row.dataset.setting === 'homeFeed'
+      ? effective.blockHomeFeed || effective.limitHomeFeed : !!effective[key]));
+  }
+  renderHomeFeedControls();
+  $('schedule-override').hidden = !schedules.length;
+  $('btn-snooze-label').textContent = t(!active ? 'action_resume_now' : 'action_snooze');
+  $('btn-snooze').dataset.resume = String(!active);
+  $('btn-snooze').title = $('btn-snooze-label').textContent;
+  $('btn-snooze').setAttribute('aria-label', $('btn-snooze-label').textContent);
+  for (const input of document.querySelectorAll('#common-controls input.chk')) {
+    input.disabled = schedules.length > 0;
+    const ids = [input.closest('.row').querySelector('.setting-help-text')?.id,
+      schedules.length ? 'schedule-override' : ''].filter(Boolean).join(' ');
+    if (ids) input.setAttribute('aria-describedby', ids);
+    else input.removeAttribute('aria-describedby');
+  }
+}
+
+function renderHomeFeedControls() {
+  const mode = _s.limitHomeFeed ? 'limit' : _s.blockHomeFeed ? 'hide' : 'show';
+  const overridden = IYT_Policy.schedules(_s).length > 0;
+  for (const select of document.querySelectorAll('[data-home-feed]')) {
+    select.value = mode;
+    select.disabled = overridden;
+    const description = select.id === 'select-homeFeed' ? 'home-feed-description' : '';
+    const ids = [description, overridden ? 'schedule-override' : ''].filter(Boolean).join(' ');
+    if (ids) select.setAttribute('aria-describedby', ids);
+    else select.removeAttribute('aria-describedby');
+  }
+}
+
+async function pauseOrResume() {
+  if (!_s.extensionEnabled) renderAll(await StorageManager.updateSetting('extensionEnabled', true));
+  else if (_s.snoozeUntil > Date.now()) await cancelSnooze();
+  else openSnoozeModal();
 }
 
 function renderAll(s) {
@@ -1548,8 +1558,6 @@ function renderAll(s) {
   const searchInput = $('input-toggle-search');
   if (searchInput?.value?.trim()) {
     filterToggles(searchInput.value);
-  } else {
-    $('video-info-children').style.display = s.blockVideoInfo ? 'block' : 'none';
   }
 
   // Soft reminder
@@ -1720,7 +1728,72 @@ async function broadcastSettingsToTabs(settings) {
 
 /* ── Event Bindings ──────────────────────────────────── */
 
+function bindSettingHelp() {
+  const tooltip = $('setting-help-tooltip');
+  let trigger = null;
+  let pinned = false;
+  let hideTimer;
+  const hide = () => {
+    clearTimeout(hideTimer);
+    tooltip.hidden = true;
+    trigger = null;
+    pinned = false;
+  };
+  dismissSettingHelp = hide;
+  const show = button => {
+    clearTimeout(hideTimer);
+    if (trigger !== button) pinned = false;
+    trigger = button;
+    tooltip.textContent = $(button.dataset.help).textContent;
+    tooltip.hidden = false;
+    const rect = button.getBoundingClientRect();
+    const width = tooltip.offsetWidth;
+    const height = tooltip.offsetHeight;
+    const left = document.documentElement.dir === 'rtl' ? rect.right - width : rect.left;
+    tooltip.style.left = Math.max(8, Math.min(left, innerWidth - width - 8)) + 'px';
+    const top = rect.bottom + height + 8 <= innerHeight - 8 ? rect.bottom + 8 : rect.top - height - 8;
+    tooltip.style.top = Math.max(8, Math.min(top, innerHeight - height - 8)) + 'px';
+  };
+  const leave = () => {
+    clearTimeout(hideTimer);
+    // Keep the explanation available while moving from its icon onto the text.
+    hideTimer = setTimeout(() => {
+      if (!pinned && document.activeElement !== trigger && !tooltip.matches(':hover')) hide();
+    }, 150);
+  };
+  for (const button of document.querySelectorAll('.setting-help')) {
+    button.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'touch') show(button);
+    });
+    button.addEventListener('pointerleave', leave);
+    button.addEventListener('focus', () => show(button));
+    button.addEventListener('blur', hide);
+    button.addEventListener('click', () => {
+      if (trigger === button && pinned) hide();
+      else { show(button); pinned = true; }
+    });
+  }
+  tooltip.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+  tooltip.addEventListener('pointerleave', leave);
+  document.addEventListener('pointerdown', event => {
+    if (!event.target.closest('.setting-help, #setting-help-tooltip')) hide();
+  });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') hide(); });
+  document.addEventListener('scroll', event => {
+    if (event.target === tooltip) return;
+    // Scrolling a focused/hovered icon into view must not dismiss its help.
+    const rect = trigger?.getBoundingClientRect();
+    const viewport = $('scroll').getBoundingClientRect();
+    if (rect && rect.top >= viewport.top && rect.bottom <= viewport.bottom &&
+        (trigger.matches(':hover') || document.activeElement === trigger)) show(trigger);
+    else hide();
+  }, true);
+  document.addEventListener('input', hide);
+  window.addEventListener('resize', hide);
+}
+
 function bindAll() {
+  bindSettingHelp();
   document.querySelectorAll('[data-focus-minutes]').forEach(button => {
     button.addEventListener('click', async () => {
       button.disabled = true;
@@ -1790,12 +1863,25 @@ function bindAll() {
   $('btn-dismiss-welcome')?.addEventListener('click', dismissWelcomeCard);
   $('btn-skip-setup')?.addEventListener('click', async () => {
     await dismissWelcomeCard();
-    $('input-toggle-search')?.focus();
+    $('toggle-blockShorts')?.focus();
   });
   $('welcome-setup-form')?.addEventListener('submit', saveWelcomeSetup);
 
   // Snooze Button, Modal & Banner actions
-  $('btn-snooze')?.addEventListener('click', openSnoozeModal);
+  $('btn-snooze')?.addEventListener('click', pauseOrResume);
+  for (const select of document.querySelectorAll('[data-home-feed]')) {
+    select.addEventListener('change', async () => {
+      const mode = select.value;
+      if (!['show', 'limit', 'hide'].includes(mode)) return;
+      for (const control of document.querySelectorAll('[data-home-feed]')) control.disabled = true;
+      try {
+        renderAll(await StorageManager.updateSettings({
+          blockHomeFeed: mode === 'hide',
+          limitHomeFeed: mode === 'limit'
+        }));
+      } finally { renderHomeFeedControls(); }
+    });
+  }
   $('btn-cancel-snooze')?.addEventListener('click', closeSnoozeModal);
   $('btn-resume-snooze')?.addEventListener('click', cancelSnooze);
   document.querySelectorAll('.snooze-opt-btn').forEach(btn => {
@@ -1867,49 +1953,7 @@ function bindAll() {
           }
         );
       } else {
-        // Mutual exclusivity between blockHomeFeed and limitHomeFeed
-        // If enabling limitHomeFeed while blockHomeFeed was on and Focus Lock is active,
-        // intercept since turning off blockHomeFeed relaxes full feed blocking.
-        if (key === 'limitHomeFeed' && targetVal && _s?.blockHomeFeed && isFocusLockActive()) {
-          await interceptSettingChange(
-            'blockHomeFeed',
-            false,
-            () => { el.checked = false; },
-            async () => {
-              const blockFeedEl = $('toggle-blockHomeFeed');
-              if (blockFeedEl) blockFeedEl.checked = false;
-              const updated = await StorageManager.updateSettings({
-                limitHomeFeed: true,
-                blockHomeFeed: false
-              });
-              if (updated) _s = updated;
-              broadcastSettingsToTabs(_s);
-              updateAccordionBadges(_s);
-              updatePresetUI(_s);
-            }
-          );
-          return;
-        }
-
         const updates = { [key]: targetVal };
-        if (_s) _s[key] = targetVal;
-
-        if (key === 'limitHomeFeed' && targetVal) {
-          const blockFeedEl = $('toggle-blockHomeFeed');
-          if (blockFeedEl && blockFeedEl.checked) {
-            blockFeedEl.checked = false;
-            updates.blockHomeFeed = false;
-            if (_s) _s.blockHomeFeed = false;
-          }
-        } else if (key === 'blockHomeFeed' && targetVal) {
-          const limitFeedEl = $('toggle-limitHomeFeed');
-          if (limitFeedEl && limitFeedEl.checked) {
-            limitFeedEl.checked = false;
-            updates.limitHomeFeed = false;
-            if (_s) _s.limitHomeFeed = false;
-          }
-        }
-
         const updated = await StorageManager.updateSettings(updates);
         if (updated) _s = updated;
         broadcastSettingsToTabs(_s);
@@ -1918,14 +1962,6 @@ function bindAll() {
           const badge = $('ext-badge');
           if (badge) {
             badge.textContent = targetVal ? (t('status_active') || 'Active') : (t('status_paused') || 'Paused');
-          }
-        }
-        if (key === 'blockVideoInfo') {
-          const searchInput = $('input-toggle-search');
-          if (searchInput?.value?.trim()) {
-            filterToggles(searchInput.value);
-          } else {
-            $('video-info-children').style.display = targetVal ? 'block' : 'none';
           }
         }
         updateAccordionBadges(_s);
@@ -2544,7 +2580,7 @@ function bindAll() {
   browser.storage.onChanged.addListener(async changes => {
     if (changes.usage?.newValue) _latestUsageStats = changes.usage.newValue.stats;
     if (changes.usage?.newValue && !changes.settings) {
-      if (_s) { _s.stats = changes.usage.newValue.stats; renderStats(_s); renderBudgetStatus(); }
+      if (_s) { _s.stats = changes.usage.newValue.stats; renderStats(_s); renderProtectionStatus(); }
     }
     if (changes.settings?.newValue) {
       const newSettings = await StorageManager.getSettings();

@@ -32,6 +32,7 @@ jobs:
         run: npm exec -- addons-linter intentional-yt-firefox.zip --warnings-as-errors=false
       - run: npm exec -- playwright install --with-deps chromium
       - run: node tests/browser-smoke.cjs
+      - run: node tests/performance-smoke.cjs
 
   website:
     name: Website build, SEO and browser checks

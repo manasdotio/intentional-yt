@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "信息流与 Shorts",
-    "description": "Feed controls section header"
+    "message": "首页与浏览",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "隐藏首页推荐",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "隐藏侧边栏推荐视频",
+    "message": "隐藏播放器旁的推荐视频",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "播放",
-    "description": "Video controls section header"
+    "message": "观看视频时",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "隐藏片尾推荐视频网格",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "操作按钮",
+    "message": "隐藏点赞、分享等按钮",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "频道信息",
+    "message": "隐藏频道名称和订阅按钮",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "视频描述",
+    "message": "隐藏视频简介",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "导航与页面详情",
-    "description": "Interface controls section header"
+    "message": "导航与外观",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "隐藏左侧导航栏",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "隐藏顶部搜索导航条",
+    "message": "隐藏搜索和账号栏",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "极简 · 仅保留搜索，隐藏所有推荐流",
+    "message": "还会隐藏导航、直播聊天、评论、订阅、播放列表和缩略图。",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "自定义个性化配置",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "详细控制",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "屏蔽首页推荐、Shorts 短视频和侧边栏推荐。保留搜索、订阅和评论可用。",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "选择初始设置。你可以随时在下方修改。",
+    "message": "选择要隐藏的内容，然后保存。只会应用你选择的选项，其他设置保持不变。",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "小憩",
+    "message": "暂停屏蔽",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "焦点会话"
   },
   "focus_session_description": {
-    "message": "打开“严格焦点”进行短暂会话。结束后您的常用设置将恢复。时间表和每日限制仍然适用。"
+    "message": "使用你选择的屏蔽设置开始定时专注。计划和每日时限仍然有效。"
   },
   "focus_session_end": {
     "message": "结束会话"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "您的阻止设置已激活。"
   },
   "clear_status_off": {
     "message": "保护已关闭。"
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "焦点会议：严格焦点直至 $value$。",
+    "message": "专注时段至 $value$。",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "无法保存，请重试。"
   },
+  "popup_none": {
+    "message": "当前没有屏蔽"
+  },
+  "popup_recommendations": {
+    "message": "已隐藏推荐"
+  },
+  "popup_home": {
+    "message": "已隐藏首页信息流"
+  },
+  "popup_suggestions": {
+    "message": "已隐藏建议视频"
+  },
+  "popup_shorts": {
+    "message": "已隐藏 Shorts"
+  },
+  "popup_override": {
+    "message": "此计划会覆盖你保存的设置。"
+  },
+  "popup_lock": {
+    "message": "减少屏蔽需要输入专注锁 PIN 并等待冷静期。"
+  },
+  "popup_adjust": {
+    "message": "更改隐藏内容"
+  },
+  "popup_advanced": {
+    "message": "高级设置"
+  },
   "blocklist_example_label": {
     "message": "示例："
+  },
+  "below_video_label": {
+    "message": "视频下方"
+  },
+  "home_feed_label": {
+    "message": "首页视频"
+  },
+  "home_feed_show": {
+    "message": "显示全部"
+  },
+  "home_feed_limit": {
+    "message": "仅显示前15个"
+  },
+  "home_feed_hide": {
+    "message": "隐藏全部"
+  },
+  "home_feed_description": {
+    "message": "选择首页显示的视频数量。限制为15个视频可停止无限滚动。"
+  },
+  "popup_chat": {
+    "message": "已隐藏直播聊天"
+  },
+  "popup_comments": {
+    "message": "已隐藏评论"
+  },
+  "popup_home_limited": {
+    "message": "首页限制为15个视频"
+  },
+  "popup_autoplay": {
+    "message": "已关闭自动播放"
+  },
+  "popup_description": {
+    "message": "已隐藏视频简介"
+  },
+  "popup_filtered": {
+    "message": "已隐藏匹配的视频"
+  },
+  "popup_reminders": {
+    "message": "已开启休息提醒"
+  },
+  "desc_sidebar_navigation": {
+    "message": "同时隐藏订阅内容和已保存播放列表的链接。"
   }
 }

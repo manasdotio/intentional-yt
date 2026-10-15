@@ -13,7 +13,8 @@ function store(initial = {}) {
   const state = clone(initial), writes = [];
   const browser = { storage: { local: {
     async get(keys) { return Object.fromEntries((Array.isArray(keys) ? keys : [keys]).map(k => [k, clone(state[k])])); },
-    async set(values) { writes.push(clone(values)); Object.assign(state, clone(values)); }
+    async set(values) { writes.push(clone(values)); Object.assign(state, clone(values)); },
+    async remove(keys) { for (const key of Array.isArray(keys) ? keys : [keys]) delete state[key]; }
   } } };
   const context = vm.createContext({ browser, console, crypto: crypto.webcrypto, TextEncoder });
   for (const file of ['utils/storage.js','utils/policy.js','utils/schema.js']) vm.runInContext(source(file), context);
@@ -25,6 +26,98 @@ const locked = async env => {
   await env.manager.updateSetting('focusLock', { ...env.manager.getDefaultSettings().focusLock, enabled: true, pin });
 };
 
+test('presets apply atomically without snapshots and preserve unrelated preferences', async () => {
+  const env = store();
+  await env.manager.updateSettings({ themeMode:'dark', dailyLimit:{enabled:true,limitMinutes:45} });
+  await env.manager.recordWatch(20, 'preset-watch', env.manager.getTodayString());
+  const writesBefore = env.writes.length;
+  await env.manager.applyPreset('balanced', { blockShorts:true, blockComments:true });
+  assert.equal(env.writes.length, writesBefore + 1);
+  const result = await store(env.state).manager.getSettings();
+  assert.equal(result.blockShorts, true);
+  assert.equal(result.blockComments, true);
+  assert.equal(result.themeMode, 'dark');
+  assert.equal(result.dailyLimit.limitMinutes, 45);
+  assert.equal(result.stats.todayWatchSeconds, 20);
+  assert.equal(env.state.presetUndo, undefined);
+  await assert.rejects(env.manager.applyPreset('zen', { extensionEnabled:false }), /Invalid preset/);
+  await assert.rejects(env.manager.execute({op:'undoPreset',id:'obsolete'}), /Unknown settings command/);
+});
+
+test('presets still respect Focus Lock and apply after an authorized cooldown', async () => {
+  const env = store();
+  await env.manager.updateSetting('blockHomeFeed', true);
+  await locked(env);
+  const command = { op:'preset',name:'balanced',updates:{blockHomeFeed:false,blockShorts:true} };
+  await assert.rejects(env.manager.applyPreset(command.name, command.updates), {code:'LOCKED'});
+  await env.manager.queueUnlock(command, '1234');
+  assert.equal(env.state.settings.blockHomeFeed, true);
+  await env.manager.updateSetting('blockComments', true);
+  env.state.settings.focusLock.pendingUnlock.unlocksAt = Date.now() - 1;
+  const restarted=store(env.state);
+  const result=await restarted.manager.getSettings();
+  assert.equal(result.blockHomeFeed, false);
+  assert.equal(result.blockShorts, true);
+  assert.equal(result.blockComments, true);
+  assert.equal(result.focusLock.pendingUnlock, null);
+  assert.equal(restarted.state.presetUndo, undefined);
+});
+
+test('obsolete undo snapshots and pending undo are retired without changing preferences', async () => {
+  for (const offset of [-1000, 60000]) {
+    const env=store();
+    await env.manager.updateSetting('blockShorts', true);
+    await locked(env);
+    env.state.presetUndo={id:'old',name:'balanced',before:{blockShorts:false},after:{blockShorts:true}};
+    env.state.settings.focusLock.pendingUnlock={command:{op:'undoPreset',id:'old'},unlocksAt:Date.now()+offset};
+    const restarted=store(env.state);
+    const result=await restarted.manager.getSettings();
+    assert.equal(result.blockShorts,true);
+    assert.equal(result.focusLock.enabled,true);
+    assert.equal(result.focusLock.pendingUnlock,null);
+    assert.equal(restarted.state.presetUndo,undefined);
+    await restarted.manager.queueUnlock({op:'update',updates:{blockShorts:false}},'1234');
+    assert.ok(restarted.state.settings.focusLock.pendingUnlock,'obsolete undo cannot block future authorized changes');
+  }
+});
+
+test('new installations stay unconfigured until the user chooses restrictions', async () => {
+  const env = store();
+  const initial = await env.manager.getSettings();
+  assert.equal(initial.extensionEnabled, true);
+  assert.deepEqual(Object.entries(initial).filter(([key, value]) => value === true).map(([key]) => key), ['extensionEnabled', 'enableQuickBlock']);
+  assert.equal(initial.dailyLimit.enabled, false);
+  assert.equal(initial.softReminder.enabled, false);
+  assert.equal(initial.scheduledBlocking.enabled, false);
+  assert.equal(initial.focusLock.enabled, false);
+  const chosen = await env.manager.updateSettings({ blockShorts: true, blockRecommended: true });
+  assert.equal(chosen.blockShorts, true);
+  assert.equal(chosen.blockRecommended, true);
+  assert.equal(chosen.enableQuickBlock, true);
+  for (const key of ['blockHomeFeed', 'blockSidebar', 'blockLiveChat', 'blockPlaylist', 'blockVideoDescription', 'redirectShorts', 'disableAutoplay']) {
+    assert.equal(chosen[key], false, key);
+  }
+  const restarted = store(env.state);
+  assert.deepEqual(clone(await restarted.manager.getSettings()), clone(chosen));
+});
+
+test('existing full and legacy partial settings keep their previous behavior', async () => {
+  const env = store();
+  const existing = env.manager.getDefaultSettings();
+  existing.blockHomeFeed = false;
+  existing.blockComments = true;
+  existing.enableQuickBlock = false;
+  existing.dailyLimit = { enabled: true, limitMinutes: 45, warningEnabled: false };
+  const upgraded = store({ settings: existing });
+  assert.deepEqual(clone(await upgraded.manager.getSettings()), clone(existing));
+  const partial = store({ settings: { blockHomeFeed: false, blockComments: true } });
+  const migrated = await partial.manager.getSettings();
+  assert.equal(migrated.blockHomeFeed, false);
+  assert.equal(migrated.blockComments, true);
+  assert.equal(migrated.blockSidebar, true);
+  assert.equal(migrated.blockLiveChat, true);
+});
+
 test('focus sessions persist, expire, and leave saved preferences and schedules intact', async () => {
   const env = store();
   await env.manager.updateSettings({ extensionEnabled: false, blockComments: false });
@@ -33,7 +126,7 @@ test('focus sessions persist, expire, and leave saved preferences and schedules 
   assert.equal(started.extensionEnabled, true);
   assert.equal(started.snoozeUntil, null);
   assert.equal(started.blockComments, false);
-  assert.equal(env.policy.effective(started).blockComments, true);
+  assert.equal(env.policy.effective(started).blockComments, false);
   const restarted = store(env.state);
   assert.equal((await restarted.manager.getSettings()).focusSessionUntil, started.focusSessionUntil);
   await assert.rejects(restarted.manager.startFocusSession(45), /already running/);
@@ -45,6 +138,25 @@ test('focus sessions persist, expire, and leave saved preferences and schedules 
   assert.equal(expired.focusSessionUntil, null);
   assert.equal(restarted.policy.effective(expired).blockComments, false);
   await assert.rejects(restarted.manager.startFocusSession(26), /Invalid focus duration/);
+});
+
+test('timed focus preserves learning tools and honors explicitly selected restrictions', async () => {
+  const env = store();
+  await env.manager.updateSettings({ blockShorts: true, blockRecommended: true, blockComments: true });
+  const started = await env.manager.startFocusSession(25);
+  assert.deepEqual(clone(env.policy.effective(started)), clone(started));
+  for (const key of ['blockSidebar','blockPlaylist','blockTopHeader','blockVideoDescription','blockVideoButtons','blockLiveChat','blockSubscriptionsFeed','hideThumbnails','grayscaleMode']) {
+    assert.equal(env.policy.effective(started)[key], false, key);
+  }
+  const ended = await env.manager.endFocusSession();
+  assert.equal(ended.blockShorts, true);
+  assert.equal(ended.blockRecommended, true);
+  assert.equal(ended.blockComments, true);
+
+  const strict = await env.manager.updateSettings({ scheduledBlocking: { enabled: true, schedules: [{ id:'work',label:'Work',enabled:true,days:[new Date().getDay()],startTime:'00:00',endTime:'00:00',mode:'strict' }] } });
+  await env.manager.startFocusSession(25);
+  assert.equal(env.policy.effective(await env.manager.getSettings()).blockPlaylist, true, 'explicit strict schedules still apply during timed sessions');
+  assert.equal(strict.blockPlaylist, false, 'strict schedules never rewrite saved choices');
 });
 
 test('Focus Lock protects early session endings and cooldown applies with popup closed', async () => {
@@ -174,7 +286,7 @@ test('Focus Lock rejects every audited weakening path centrally', async () => {
 });
 
 test('PIN deadlines survive context restart and apply once without a popup', async () => {
-  const env=store();await locked(env);
+  const env=store();await env.manager.updateSetting('blockHomeFeed',true);await locked(env);
   const command={op:'update',updates:{blockHomeFeed:false}};
   await assert.rejects(env.manager.queueUnlock(command,'9999'),/Incorrect PIN/);
   await env.manager.queueUnlock(command,'1234');
@@ -342,7 +454,7 @@ test('locale catalogs contain new labels without encoding corruption', () => {
 
 test('new focus messages are translated and retain their time placeholder', () => {
   const english = JSON.parse(source('_locales/en/messages.json'));
-  const keys = ['focus_session_title','focus_session_description','focus_session_end','limit_warning_option','limit_warning_title','limit_warning_message','clear_status_active','clear_status_off','clear_status_snoozed','clear_status_full','clear_status_strict','clear_status_until','clear_status_session','clear_status_session_paused','clear_status_remaining','clear_status_limit_reached','clear_status_dismissed'];
+  const keys = ['focus_session_title','focus_session_description','focus_session_end','limit_warning_option','limit_warning_title','limit_warning_message','clear_status_off','clear_status_snoozed','clear_status_full','clear_status_strict','clear_status_until','clear_status_session','clear_status_session_paused','clear_status_remaining','clear_status_limit_reached','clear_status_dismissed','popup_chat','popup_comments','popup_home_limited','popup_autoplay','popup_description','popup_filtered','popup_reminders','desc_sidebar_navigation'];
   for (const lang of fs.readdirSync(path.join(root, '_locales'))) {
     const catalog = JSON.parse(source(`_locales/${lang}/messages.json`));
     for (const key of keys) {
@@ -456,6 +568,7 @@ test('unrelated player mutations do not schedule document scans; card changes st
     document:{body:{},addEventListener(){}},
     MutationObserver:class {constructor(fn){observe=fn;}observe(){}},
     _settings:{blockShorts:true,limitHomeFeed:false},isEffectiveActive:()=>true,
+    needsCardObservation:()=>true,configureDomObserver(){},
     getCardContainer:node=>node.card || null,
     scheduleHomeFeedLimit(){},
     scheduleFilterScanForNodes:()=>filters++,scheduleAutoplay:()=>autoplay++,scanAllCards(){}
@@ -481,6 +594,56 @@ test('continuous mutations cannot postpone card filtering indefinitely', () => {
   let flushed=0;context.flushPendingFilterNodes=()=>flushed++;
   for(let i=0;i<1000;i++) context.scheduleFilterScanForNodes([{nodeType:1,isConnected:true}]);
   assert.equal(timers,1);callback();assert.equal(flushed,1);
+});
+
+test('feed nudges stop without progress, retry new cards, and ignore detached grids', () => {
+  const s=source('content/blocker.js');
+  const pending=[];let resizes=0;
+  const grid={isConnected:true};
+  const context=vm.createContext({WeakMap,Event,location:{pathname:'/',search:''},
+    _settings:{limitHomeFeed:true},isEffectiveActive:()=>true,isHomePage:()=>true,
+    setTimeout:fn=>{pending.push(fn);return pending.length;},
+    window:{dispatchEvent:()=>resizes++,scrollY:1},document:{querySelector:()=>null}});
+  vm.runInContext(s.slice(s.indexOf('let _nudgeTimer'),s.indexOf('function limitHomeFeedEnforce')),context);
+  for(let i=0;i<100;i++) {context.triggerScrollerNudge(grid,1);pending.shift()?.();}
+  assert.equal(resizes,4,'Only two nudges, each dispatching resize and scroll');
+  context.triggerScrollerNudge(grid,2);pending.shift()();assert.equal(resizes,6);
+  grid.isConnected=false;
+  context.triggerScrollerNudge(grid,2);pending.shift()();assert.equal(resizes,6);
+});
+
+test('overlapping navigation scans share bounded deadlines without starvation', () => {
+  const s=source('content/blocker.js');let scans=0;
+  const callbacks=[];
+  const context=vm.createContext({document:{},scanAllCards:()=>scans++,setTimeout:(fn,ms)=>{callbacks.push({fn,ms});return callbacks.length;}});
+  vm.runInContext(s.slice(s.indexOf('const _routeFilterTimers'),s.indexOf('let _isApplyingClasses')),context);
+  for(let i=0;i<100;i++) {context.scheduleFullFilterScan(80);context.scheduleFullFilterScan(1000);}
+  assert.equal(callbacks.length,2);
+  callbacks.forEach(({fn})=>fn());assert.equal(scans,2);
+  context.scheduleFullFilterScan(80);assert.equal(callbacks.length,3);
+});
+
+test('observer follows filtering, autoplay, feed limiting, off and snooze settings', () => {
+  const s=source('content/blocker.js');const options=[];let disconnects=0;
+  const settings={extensionEnabled:true,enableQuickBlock:false,channelBlocklist:[],keywordBlocklist:[]};
+  const context=vm.createContext({_settings:settings,document:{body:{}},
+    isEffectiveActive:s=>s.extensionEnabled && !s.snoozeUntil,
+    clearTimeout(){},_filterDebounceTimer:1,_pendingFilterNodes:new Set([{}]),_pendingFullFilterScan:true});
+  vm.runInContext(s.slice(s.indexOf('let _domObserver'),s.indexOf('function initDomObserver')),context);
+  context.observer={disconnect:()=>disconnects++,observe:(_,value)=>options.push(value)};
+  vm.runInContext('_domObserver = observer',context);
+  context.configureDomObserver();assert.equal(options.length,0);assert.equal(disconnects,1);
+  assert.equal(context._pendingFilterNodes.size,0);
+  settings.disableAutoplay=true;context.configureDomObserver();
+  assert.equal(options.at(-1).attributes,undefined);assert.equal(options.at(-1).childList,true);
+  settings.enableQuickBlock=true;context.configureDomObserver();assert.equal(options.at(-1).characterData,true);
+  settings.enableQuickBlock=false;settings.keywordBlocklist=['test'];context.configureDomObserver();
+  assert.equal(options.length,2,'Same observation mode must not reconnect and discard queued records');
+  settings.extensionEnabled=false;context.configureDomObserver();assert.equal(disconnects,4);
+  settings.extensionEnabled=true;context.configureDomObserver();assert.equal(options.length,3);
+  settings.snoozeUntil=123;context.configureDomObserver();assert.equal(disconnects,6);
+  settings.snoozeUntil=null;settings.keywordBlocklist=[];settings.disableAutoplay=false;settings.limitHomeFeed=true;
+  context.configureDomObserver();assert.equal(options.at(-1).attributes,undefined);
 });
 
 test('large mutation bursts release queued DOM references and still run filtering', () => {

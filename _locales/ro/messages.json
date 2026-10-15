@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Fluxuri și Shorts",
-    "description": "Feed controls section header"
+    "message": "Pagina principală și explorare",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Ascunde pagina de pornire",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Ascunde bara laterală cu recomandări",
+    "message": "Ascunde videoclipurile sugerate lângă player",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Redare",
-    "description": "Video controls section header"
+    "message": "În timpul unui videoclip",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Ascunde recomandările de final",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Butoane de acțiune",
+    "message": "Ascunde butoanele de apreciere, distribuire și altele",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Informații canal",
+    "message": "Ascunde numele canalului și butonul de abonare",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Descriere",
+    "message": "Ascunde descrierea videoclipului",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Navigare și detalii pagină",
-    "description": "Interface controls section header"
+    "message": "Navigare și aspect",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Ascunde bara laterală din stânga",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Ascunde antetul superior",
+    "message": "Ascunde bara de căutare și cont",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Zen · Doar căutare, toate fluxurile sunt ascunse",
+    "message": "Ascunde și navigarea, chatul live, comentariile, abonamentele, listele de redare și miniaturile.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Configurație personalizată",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Comenzi detaliate",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Blochează fluxul paginii principale, Shorts și sugestiile din bara laterală. Păstrează accesibile căutarea, abonamentele și comentariile.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Alege setările inițiale. Le poți schimba mai jos oricând.",
+    "message": "Alege ce vrei să ascunzi, apoi salvează. Se aplică doar opțiunile alese; celelalte setări rămân neschimbate.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Amână",
+    "message": "Pauză blocare",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Sesiune de focalizare"
   },
   "focus_session_description": {
-    "message": "Activați Focusul strict pentru o sesiune scurtă. Setările tale obișnuite revin când se termină. Programele și limitele zilnice încă se aplică."
+    "message": "Pornește o sesiune cronometrată cu setările de blocare alese. Programele și limitele zilnice se aplică în continuare."
   },
   "focus_session_end": {
     "message": "Încheiați sesiunea"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Setările dvs. de blocare sunt active."
   },
   "clear_status_off": {
     "message": "Protecțiile sunt dezactivate."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Sesiune Focus: Concentrare strictă până la $value$.",
+    "message": "Sesiune de concentrare până la $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Salvarea a eșuat. Încearcă din nou."
   },
+  "popup_none": {
+    "message": "Nicio blocare activă"
+  },
+  "popup_recommendations": {
+    "message": "Recomandări ascunse"
+  },
+  "popup_home": {
+    "message": "Fluxul principal ascuns"
+  },
+  "popup_suggestions": {
+    "message": "Videoclipuri sugerate ascunse"
+  },
+  "popup_shorts": {
+    "message": "Shorts ascunse"
+  },
+  "popup_override": {
+    "message": "Acest program are prioritate față de setările salvate."
+  },
+  "popup_lock": {
+    "message": "Blocarea concentrării necesită PIN-ul și o perioadă de așteptare pentru a reduce restricțiile."
+  },
+  "popup_adjust": {
+    "message": "Schimbă ce este ascuns"
+  },
+  "popup_advanced": {
+    "message": "Setări avansate"
+  },
   "blocklist_example_label": {
     "message": "Exemplu:"
+  },
+  "below_video_label": {
+    "message": "Sub videoclip"
+  },
+  "home_feed_label": {
+    "message": "Videoclipuri pe pagina principală"
+  },
+  "home_feed_show": {
+    "message": "Arată toate"
+  },
+  "home_feed_limit": {
+    "message": "Arată doar primele 15"
+  },
+  "home_feed_hide": {
+    "message": "Ascunde toate"
+  },
+  "home_feed_description": {
+    "message": "Alege câte videoclipuri apar pe pagina principală. Limita de 15 videoclipuri oprește derularea infinită."
+  },
+  "popup_chat": {
+    "message": "Chatul live este ascuns"
+  },
+  "popup_comments": {
+    "message": "Comentariile sunt ascunse"
+  },
+  "popup_home_limited": {
+    "message": "Pagina principală este limitată la 15 videoclipuri"
+  },
+  "popup_autoplay": {
+    "message": "Redarea automată este dezactivată"
+  },
+  "popup_description": {
+    "message": "Descrierea videoclipului este ascunsă"
+  },
+  "popup_filtered": {
+    "message": "Videoclipurile care se potrivesc sunt ascunse"
+  },
+  "popup_reminders": {
+    "message": "Mementourile de pauză sunt activate"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Ascunde și linkurile către abonamente și playlisturi salvate."
   }
 }

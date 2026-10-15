@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Fils et Shorts",
-    "description": "Feed controls section header"
+    "message": "Accueil et exploration",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Masquer le flux d'accueil",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Masquer la barre des recommandations",
+    "message": "Masquer les vidéos suggérées à côté du lecteur",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Lecture",
-    "description": "Video controls section header"
+    "message": "Pendant une vidéo",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Masquer les recommandations de fin d'écran",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Boutons d'action",
+    "message": "Masquer les boutons J’aime, Partager et autres",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Informations sur la chaîne",
+    "message": "Masquer le nom de la chaîne et le bouton d’abonnement",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Description",
+    "message": "Masquer la description de la vidéo",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Navigation et détails de page",
-    "description": "Interface controls section header"
+    "message": "Navigation et apparence",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Masquer la barre latérale gauche",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Masquer l'en-tête supérieur",
+    "message": "Masquer la barre de recherche et de compte",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Zen · Recherche uniquement, tous les flux masqués",
+    "message": "Masque aussi la navigation, le chat en direct, les commentaires, les abonnements, les playlists et les miniatures.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Configuration personnalisée",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Contrôles détaillés",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Bloque le flux d'accueil, les Shorts et les suggestions de la barre latérale. Conserve l'accès à la recherche, aux abonnements et aux commentaires.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Choisissez vos réglages de départ. Vous pourrez les modifier ci-dessous à tout moment.",
+    "message": "Choisissez ce que vous souhaitez masquer, puis enregistrez. Seuls vos choix seront appliqués ; les autres réglages resteront inchangés.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Mettre en pause",
+    "message": "Suspendre le blocage",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Session de mise au point"
   },
   "focus_session_description": {
-    "message": "Activez la mise au point stricte pour une courte session. Vos paramètres habituels reviennent à la fin. Les horaires et les limites quotidiennes s'appliquent toujours."
+    "message": "Lancez une session chronométrée avec vos réglages de blocage. Les plages horaires et les limites quotidiennes restent actives."
   },
   "focus_session_end": {
     "message": "Fin de session"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Vos paramètres de blocage sont actifs."
   },
   "clear_status_off": {
     "message": "Les protections sont désactivées."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Session de focus : Concentration stricte jusqu'à $value$.",
+    "message": "Session de concentration jusqu’à $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Enregistrement impossible. Réessayez."
   },
+  "popup_none": {
+    "message": "Aucun blocage actif"
+  },
+  "popup_recommendations": {
+    "message": "Recommandations masquées"
+  },
+  "popup_home": {
+    "message": "Fil d’accueil masqué"
+  },
+  "popup_suggestions": {
+    "message": "Vidéos suggérées masquées"
+  },
+  "popup_shorts": {
+    "message": "Shorts masqués"
+  },
+  "popup_override": {
+    "message": "Cette plage horaire remplace vos réglages enregistrés."
+  },
+  "popup_lock": {
+    "message": "Le verrouillage de concentration exige votre PIN et un délai pour réduire le blocage."
+  },
+  "popup_adjust": {
+    "message": "Modifier les éléments masqués"
+  },
+  "popup_advanced": {
+    "message": "Réglages avancés"
+  },
   "blocklist_example_label": {
     "message": "Exemple :"
+  },
+  "below_video_label": {
+    "message": "Sous la vidéo"
+  },
+  "home_feed_label": {
+    "message": "Vidéos de la page d’accueil"
+  },
+  "home_feed_show": {
+    "message": "Tout afficher"
+  },
+  "home_feed_limit": {
+    "message": "Afficher seulement les 15 premières"
+  },
+  "home_feed_hide": {
+    "message": "Tout masquer"
+  },
+  "home_feed_description": {
+    "message": "Choisissez combien de vidéos afficher sur l’accueil. La limite de 15 vidéos arrête le défilement infini."
+  },
+  "popup_chat": {
+    "message": "Chat en direct masqué"
+  },
+  "popup_comments": {
+    "message": "Commentaires masqués"
+  },
+  "popup_home_limited": {
+    "message": "Accueil limité à 15 vidéos"
+  },
+  "popup_autoplay": {
+    "message": "Lecture automatique désactivée"
+  },
+  "popup_description": {
+    "message": "Description de la vidéo masquée"
+  },
+  "popup_filtered": {
+    "message": "Vidéos correspondantes masquées"
+  },
+  "popup_reminders": {
+    "message": "Rappels de pause activés"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Masque aussi les liens vers les abonnements et les playlists enregistrées."
   }
 }

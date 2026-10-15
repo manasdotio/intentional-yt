@@ -97,7 +97,6 @@ html.iyt-no-recommended ytd-watch-next-secondary-results-renderer,
 html.iyt-no-recommended #secondary ytd-compact-video-renderer,
 html.iyt-no-recommended #secondary-inner #related,
 html.iyt-no-recommended #below #related,
-html.iyt-no-recommended ytd-watch-grid #secondary,
 html.iyt-no-recommended ytd-item-section-renderer[section-identifier="related-items"] {
   display: none !important;
 }
@@ -295,7 +294,13 @@ html.iyt-no-explore ytd-mini-guide-entry-renderer:has(a[href*="/feed/explore"]) 
 /* ═══════════════════════════════════════════════════════════
    MORE FROM YOUTUBE (last guide section)
 ═══════════════════════════════════════════════════════════ */
-html.iyt-no-more-yt ytd-guide-section-renderer:last-child {
+/* Sidebar sections can move. Hide product links, never an arbitrary section. */
+html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="/premium"]),
+html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="/musicpremium"]),
+html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="https://www.youtube.com/premium"]),
+html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="https://music.youtube.com/"]),
+html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="https://tv.youtube.com/"]),
+html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="https://www.youtubekids.com/"]) {
   display: none !important;
 }
 

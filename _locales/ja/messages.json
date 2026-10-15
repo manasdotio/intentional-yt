@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "フィードとShorts",
-    "description": "Feed controls section header"
+    "message": "ホームとブラウジング",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "ホームフィードを非表示",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "関連動画サイドバーを非表示",
+    "message": "プレーヤー横のおすすめ動画を非表示",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "再生",
-    "description": "Video controls section header"
+    "message": "動画の視聴中",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "動画終了画面のおすすめを非表示",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "操作ボタン",
+    "message": "高評価・共有などのボタンを非表示",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "チャンネル情報",
+    "message": "チャンネル名と登録ボタンを非表示",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "概要欄",
+    "message": "動画の説明を非表示",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "ナビゲーションとページ情報",
-    "description": "Interface controls section header"
+    "message": "ナビゲーションと表示",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "左サイドバーを非表示",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "上部ヘッダーを非表示",
+    "message": "検索・アカウントバーを非表示",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "禅 · 検索のみ、すべてのフィードを非表示",
+    "message": "ナビゲーション、ライブチャット、コメント、登録チャンネル、再生リスト、サムネイルも非表示にします。",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "カスタム構成",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "詳細コントロール",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "ホームフィード、Shorts、サイドバーのおすすめをブロックします。検索、登録チャンネル、コメントは引き続き利用可能です。",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "最初の設定を選んでください。下の項目からいつでも変更できます。",
+    "message": "非表示にする項目を選んで保存してください。選んだ項目だけが適用され、その他の設定は変わりません。",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "スヌーズ",
+    "message": "ブロックを一時停止",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "フォーカス セッション"
   },
   "focus_session_description": {
-    "message": "短いセッションでは厳密なフォーカスをオンにします。終了すると通常の設定に戻ります。スケジュールと 1 日あたりの制限は引き続き適用されます。"
+    "message": "選択したブロック設定で時間制限付きセッションを開始します。スケジュールと1日の上限は引き続き適用されます。"
   },
   "focus_session_end": {
     "message": "セッション終了"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "ブロック設定が有効になっています。"
   },
   "clear_status_off": {
     "message": "保護機能がオフになっています。"
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "フォーカス セッション: $value$ まで厳密にフォーカスします。",
+    "message": "集中セッションは$value$まで。",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "保存できませんでした。もう一度お試しください。"
   },
+  "popup_none": {
+    "message": "ブロックは無効です"
+  },
+  "popup_recommendations": {
+    "message": "おすすめを非表示"
+  },
+  "popup_home": {
+    "message": "ホームフィードを非表示"
+  },
+  "popup_suggestions": {
+    "message": "関連動画を非表示"
+  },
+  "popup_shorts": {
+    "message": "Shortsを非表示"
+  },
+  "popup_override": {
+    "message": "このスケジュールは保存済みの設定より優先されます。"
+  },
+  "popup_lock": {
+    "message": "ブロックを緩めるには、集中ロックのPINと待機時間が必要です。"
+  },
+  "popup_adjust": {
+    "message": "非表示の項目を変更"
+  },
+  "popup_advanced": {
+    "message": "詳細設定"
+  },
   "blocklist_example_label": {
     "message": "例:"
+  },
+  "below_video_label": {
+    "message": "動画の下"
+  },
+  "home_feed_label": {
+    "message": "ホームの動画"
+  },
+  "home_feed_show": {
+    "message": "すべて表示"
+  },
+  "home_feed_limit": {
+    "message": "最初の15本のみ表示"
+  },
+  "home_feed_hide": {
+    "message": "すべて非表示"
+  },
+  "home_feed_description": {
+    "message": "ホームに表示する動画数を選択します。15本に制限すると無限スクロールを停止します。"
+  },
+  "popup_chat": {
+    "message": "ライブチャットを非表示中"
+  },
+  "popup_comments": {
+    "message": "コメントを非表示中"
+  },
+  "popup_home_limited": {
+    "message": "ホームの動画を15本に制限中"
+  },
+  "popup_autoplay": {
+    "message": "自動再生は無効"
+  },
+  "popup_description": {
+    "message": "動画の説明を非表示中"
+  },
+  "popup_filtered": {
+    "message": "条件に一致する動画を非表示中"
+  },
+  "popup_reminders": {
+    "message": "休憩リマインダーは有効"
+  },
+  "desc_sidebar_navigation": {
+    "message": "登録チャンネルと保存済み再生リストへのリンクも非表示になります。"
   }
 }

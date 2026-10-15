@@ -28,8 +28,8 @@
     "description": "Badge status when the extension is paused"
   },
   "section_feed": {
-    "message": "Ленты и Shorts",
-    "description": "Feed controls section header"
+    "message": "Главная и просмотр лент",
+    "description": "Settings group: Home & browsing"
   },
   "toggle_block_home_feed": {
     "message": "Скрыть главную ленту",
@@ -52,7 +52,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Скрыть рекомендации сбоку",
+    "message": "Скрыть рекомендуемые видео рядом с плеером",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -76,8 +76,8 @@
     "description": "Toggle label to hide People also watched, For you, and related search shelves"
   },
   "section_video": {
-    "message": "Воспроизведение",
-    "description": "Video controls section header"
+    "message": "При просмотре видео",
+    "description": "Settings group: Watching a video"
   },
   "toggle_block_endscreen_videowall": {
     "message": "Скрыть рекомендации в конце видео",
@@ -120,7 +120,7 @@
     "description": "Subheading description for Hide video info panel toggle"
   },
   "toggle_block_video_buttons": {
-    "message": "Кнопки действий",
+    "message": "Скрыть кнопки «Нравится», «Поделиться» и другие",
     "description": "Nested toggle label to hide like, dislike, share, download buttons"
   },
   "desc_block_video_buttons": {
@@ -128,7 +128,7 @@
     "description": "Subheading description for Action buttons sub-toggle"
   },
   "toggle_block_channel_info": {
-    "message": "Информация о канале",
+    "message": "Скрыть название канала и кнопку подписки",
     "description": "Nested toggle label to hide channel subscriber count and avatar"
   },
   "desc_block_channel_info": {
@@ -136,7 +136,7 @@
     "description": "Subheading description for Channel info sub-toggle"
   },
   "toggle_block_video_description": {
-    "message": "Описание",
+    "message": "Скрыть описание видео",
     "description": "Nested toggle label to hide video description box"
   },
   "desc_block_video_description": {
@@ -156,15 +156,15 @@
     "description": "Toggle label to hide profile avatars of commenters"
   },
   "section_interface": {
-    "message": "Навигация и сведения страницы",
-    "description": "Interface controls section header"
+    "message": "Навигация и оформление",
+    "description": "Settings group: Navigation & appearance"
   },
   "toggle_block_sidebar": {
     "message": "Скрыть левую панель",
     "description": "Toggle label to hide YouTube left drawer/guide navigation"
   },
   "toggle_block_top_header": {
-    "message": "Скрыть верхнюю панель",
+    "message": "Скрыть панель поиска и аккаунта",
     "description": "Toggle label to hide YouTube top search and navigation header"
   },
   "toggle_block_notification_bell": {
@@ -1004,7 +1004,7 @@
     "description": "Description of balanced preset"
   },
   "preset_desc_zen": {
-    "message": "Дзен · Только поиск, все ленты скрыты",
+    "message": "Также скрывает навигацию, чат трансляций, комментарии, подписки, плейлисты и миниатюры.",
     "description": "Description of zen preset"
   },
   "preset_desc_player": {
@@ -1014,10 +1014,6 @@
   "preset_desc_custom": {
     "message": "Индивидуальная конфигурация",
     "description": "Description of custom mode"
-  },
-  "detailed_controls_title": {
-    "message": "Точные настройки",
-    "description": "Section header above the accordion list"
   },
   "preset_tooltip_balanced": {
     "message": "Блокирует главную ленту, Shorts и рекомендации сбоку. Оставляет доступными поиск, подписки и комментарии.",
@@ -1050,7 +1046,7 @@
     "description": "Title on first-run welcome card"
   },
   "welcome_desc": {
-    "message": "Выберите начальные настройки. Ниже их можно изменить в любое время.",
+    "message": "Выберите, что скрыть, и сохраните. Применятся только выбранные параметры; остальные настройки не изменятся.",
     "description": "Description on first-run welcome card"
   },
   "welcome_dismiss_aria": {
@@ -1110,7 +1106,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Отложить",
+    "message": "Приостановить блокировку",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {
@@ -1209,7 +1205,7 @@
     "message": "Сеанс фокусировки"
   },
   "focus_session_description": {
-    "message": "Включите строгий фокус для короткого сеанса. Ваши обычные настройки вернутся, когда он закончится. Расписания и дневные лимиты по-прежнему действуют."
+    "message": "Начните сеанс на заданное время с выбранными настройками блокировки. Расписания и дневные лимиты продолжают действовать."
   },
   "focus_session_end": {
     "message": "Завершить сеанс"
@@ -1227,9 +1223,6 @@
         "content": "$1"
       }
     }
-  },
-  "clear_status_active": {
-    "message": "Ваши настройки блокировки активны."
   },
   "clear_status_off": {
     "message": "Защита отключена."
@@ -1267,7 +1260,7 @@
     }
   },
   "clear_status_session": {
-    "message": "Фокус-сеанс: строгий фокус до $value$.",
+    "message": "Сеанс концентрации до $value$.",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1319,7 +1312,76 @@
   "setup_save_failed": {
     "message": "Не удалось сохранить. Попробуйте ещё раз."
   },
+  "popup_none": {
+    "message": "Нет активных блокировок"
+  },
+  "popup_recommendations": {
+    "message": "Рекомендации скрыты"
+  },
+  "popup_home": {
+    "message": "Главная лента скрыта"
+  },
+  "popup_suggestions": {
+    "message": "Предлагаемые видео скрыты"
+  },
+  "popup_shorts": {
+    "message": "Shorts скрыты"
+  },
+  "popup_override": {
+    "message": "Это расписание имеет приоритет над сохранёнными настройками."
+  },
+  "popup_lock": {
+    "message": "Для ослабления блокировки нужен PIN и время ожидания блокировки концентрации."
+  },
+  "popup_adjust": {
+    "message": "Изменить скрытые элементы"
+  },
+  "popup_advanced": {
+    "message": "Дополнительные настройки"
+  },
   "blocklist_example_label": {
     "message": "Пример:"
+  },
+  "below_video_label": {
+    "message": "Под видео"
+  },
+  "home_feed_label": {
+    "message": "Видео на главной странице"
+  },
+  "home_feed_show": {
+    "message": "Показать все"
+  },
+  "home_feed_limit": {
+    "message": "Показать только первые 15"
+  },
+  "home_feed_hide": {
+    "message": "Скрыть все"
+  },
+  "home_feed_description": {
+    "message": "Выберите количество видео на главной странице. Ограничение до 15 видео останавливает бесконечную прокрутку."
+  },
+  "popup_chat": {
+    "message": "Чат трансляции скрыт"
+  },
+  "popup_comments": {
+    "message": "Комментарии скрыты"
+  },
+  "popup_home_limited": {
+    "message": "Главная страница ограничена 15 видео"
+  },
+  "popup_autoplay": {
+    "message": "Автовоспроизведение отключено"
+  },
+  "popup_description": {
+    "message": "Описание видео скрыто"
+  },
+  "popup_filtered": {
+    "message": "Совпадающие видео скрыты"
+  },
+  "popup_reminders": {
+    "message": "Напоминания о перерывах включены"
+  },
+  "desc_sidebar_navigation": {
+    "message": "Также скрывает ссылки на подписки и сохранённые плейлисты."
   }
 }

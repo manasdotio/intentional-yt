@@ -19,7 +19,9 @@ globalThis.IYT_Policy = {
   },
   effective(s, now = new Date()) {
     const result = { ...s };
-    if (this.focusSessionActive(s, now.getTime()) || this.schedules(s, now).some(rule => rule.mode === 'strict')) {
+    // Timed sessions use the user's chosen controls. Only an explicitly strict
+    // schedule may temporarily enable every protection.
+    if (this.schedules(s, now).some(rule => rule.mode === 'strict')) {
       for (const key of Object.keys(result)) {
         if (/^(block|disable)/.test(key) && typeof result[key] === 'boolean') result[key] = true;
       }
