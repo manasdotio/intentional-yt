@@ -24,16 +24,17 @@ html.iyt-no-notif-bell ytm-notification-topbar-button-renderer {
 /* ═══════════════════════════════════════════════════════════
    HOME FEED
 ═══════════════════════════════════════════════════════════ */
-html.iyt-no-home-feed ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
-html.iyt-no-home-feed ytd-browse[page-subtype="home"] #primary ytd-rich-grid-renderer,
-html.iyt-no-home-feed ytd-browse[page-subtype="home"] #contents,
-html.iyt-no-home-feed ytd-browse[page-subtype="home"] #primary,
-html.iyt-no-home-feed ytd-two-column-browse-results-renderer[page-subtype="home"],
-html.iyt-no-home-feed [page-subtype="home"] #contents,
-html.iyt-no-home-feed [page-subtype="home"] #primary,
-html.iyt-no-home-feed [page-subtype="home"] ytd-rich-grid-renderer,
-html.iyt-no-home-feed ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer,
-html.iyt-no-home-feed ytd-page-manager > ytd-browse:not([page-subtype]) #contents,
+/* Channel pages share browse/grid markup; home controls require the root URL. */
+html[data-iyt-is-home="true"].iyt-no-home-feed ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
+html[data-iyt-is-home="true"].iyt-no-home-feed ytd-browse[page-subtype="home"] #primary ytd-rich-grid-renderer,
+html[data-iyt-is-home="true"].iyt-no-home-feed ytd-browse[page-subtype="home"] #contents,
+html[data-iyt-is-home="true"].iyt-no-home-feed ytd-browse[page-subtype="home"] #primary,
+html[data-iyt-is-home="true"].iyt-no-home-feed ytd-two-column-browse-results-renderer[page-subtype="home"],
+html[data-iyt-is-home="true"].iyt-no-home-feed [page-subtype="home"] #contents,
+html[data-iyt-is-home="true"].iyt-no-home-feed [page-subtype="home"] #primary,
+html[data-iyt-is-home="true"].iyt-no-home-feed [page-subtype="home"] ytd-rich-grid-renderer,
+html[data-iyt-is-home="true"].iyt-no-home-feed ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer,
+html[data-iyt-is-home="true"].iyt-no-home-feed ytd-page-manager > ytd-browse:not([page-subtype]) #contents,
 html[data-iyt-is-home="true"].iyt-no-home-feed ytd-rich-grid-renderer,
 html[data-iyt-is-home="true"].iyt-no-home-feed #contents,
 html[data-iyt-is-home="true"].iyt-no-home-feed ytd-rich-item-renderer,
@@ -48,7 +49,7 @@ html[data-iyt-is-home="true"].iyt-no-home-feed ytd-continuation-item-renderer {
    Limits home feed to 15 videos & stops infinite scroll
 ═══════════════════════════════════════════════════════════ */
 /* Exactly 15 cards across layouts; structural CSS applies before DOM observers. */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
 html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
 html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) [data-iyt-feed-hidden="true"],
 html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytm-rich-grid-renderer > ytm-rich-item-renderer:nth-of-type(n+16),
@@ -58,12 +59,12 @@ html[data-iyt-is-home="true"].iyt-limit-home-feed [data-iyt-limit-reached="true"
 }
 
 /* Calm End-of-Feed Banner — only visible once feed limit is reached */
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"]::after,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"]::after,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"]::after,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"]::after,
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"]::after,
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"]::after,
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"]::after,
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) [page-subtype="home"] ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"]::after,
 html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents[data-iyt-limit-reached="true"]::after,
-html.iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents:has(> ytd-rich-item-renderer:nth-of-type(15))::after {
+html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents:has(> ytd-rich-item-renderer:nth-of-type(15))::after {
   content: "✦ You're all caught up • Feed limit active";
   display: flex !important;
   justify-content: center !important;
