@@ -1304,6 +1304,10 @@
   "setup_skip": {
     "message": "Skip setup"
   },
+  "review_prompt_title": { "message": "How's Intentional YT working for you?" },
+  "review_prompt_description": { "message": "Share your experience with a review." },
+  "review_prompt_action": { "message": "Leave a review" },
+  "review_prompt_dismiss": { "message": "Dismiss" },
   "setup_saved": {
     "message": "Your starting settings are saved."
   },

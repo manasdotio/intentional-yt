@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Intentional YT 用起来怎么样？" },
+  "review_prompt_description": { "message": "写一条评价，分享你的使用体验。" },
+  "review_prompt_action": { "message": "撰写评价" },
+  "review_prompt_dismiss": { "message": "关闭" },
   "extensionName": {
     "message": "Intentional YT - YouTube 防沉迷与每日时间限制",
     "description": "Official extension name in stores and browser management pages"

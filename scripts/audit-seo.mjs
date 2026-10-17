@@ -47,7 +47,16 @@ for (const url of urls) {
   console.log(`PASS ${url.pathname}: title, description, canonical, H1, social tags, JSON-LD, local links and images`)
 }
 const home = fs.readFileSync(htmlPath('/'), 'utf8')
-assert.equal((home.match(/<details class="faq-item"/g) || []).length, 5, 'FAQs must be present without JavaScript')
+const homeGraph = [...home.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+  .flatMap(([, json]) => JSON.parse(json)['@graph'] || [])
+const software = homeGraph.find(entity => entity['@type'] === 'SoftwareApplication')
+const webpage = homeGraph.find(entity => entity['@type'] === 'WebPage')
+assert.equal(webpage?.mainEntity?.['@id'], software?.['@id'], 'Homepage must identify the product it describes')
+assert.ok(software?.description && home.includes(`<p class="hero-subtitle">${software.description}</p>`), 'Product description must agree with visible page content')
+assert.ok(fs.readFileSync(`${output}/llms.txt.body`, 'utf8').includes(software.description), 'Discovery text must use the same product description')
+assert.equal(software.isAccessibleForFree, true)
+assert.equal(software.offers.price, '0')
+assert.equal((home.match(/<details class="faq-item"/g) || []).length, 8, 'FAQs must be present without JavaScript')
 assert.ok(home.includes('No account needed'), 'Account requirements must be visible without JavaScript')
 assert.ok(!/Intentional YT.*Intentional YT/.test(home.match(/<title>(.*?)<\/title>/)[1]), 'Homepage brand repeated')
 const robots = fs.readFileSync(`${output}/robots.txt.body`, 'utf8')

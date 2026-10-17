@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Intentional YT 사용 경험은 어떠신가요?" },
+  "review_prompt_description": { "message": "리뷰로 경험을 공유해 주세요." },
+  "review_prompt_action": { "message": "리뷰 작성" },
+  "review_prompt_dismiss": { "message": "닫기" },
   "extensionName": {
     "message": "Intentional YT - YouTube 집중 모드 & 일일 시청 제한",
     "description": "Official extension name in stores and browser management pages"

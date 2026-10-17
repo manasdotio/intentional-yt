@@ -1,5 +1,5 @@
 import { APP_CONFIG } from '@/src/config/constants'
-import { pageMetadata, serializeJsonLd } from '@/src/config/seo'
+import { HOME_TITLE, HOME_DESCRIPTION, pageMetadata, serializeJsonLd } from '@/src/config/seo'
 import Guides from '@/src/components/Guides'
 import Hero from '@/src/components/Hero'
 import LazySimulator from '@/src/components/LazySimulator'
@@ -9,7 +9,7 @@ import SetupSteps from '@/src/components/SetupSteps'
 import Faq from '@/src/components/Faq'
 import ClosingCta from '@/src/components/ClosingCta'
 
-export const metadata = pageMetadata({ title: 'YouTube Distraction Blocker & Daily Limit', description: 'Free YouTube distraction blocker for Chrome, Firefox, and Edge. Hide Shorts and recommendations, set daily watch limits, and keep your settings local.' })
+export const metadata = pageMetadata({ title: HOME_TITLE, description: HOME_DESCRIPTION })
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -19,19 +19,20 @@ const jsonLd = {
       "@id": "https://www.intentionalyt.me/#website",
       "url": "https://www.intentionalyt.me/",
       "name": "Intentional YT",
-      "description": "YouTube distraction blocker and daily time limit browser extension.",
+      "description": APP_CONFIG.description,
       "inLanguage": "en-US"
     },
     {
       "@type": "SoftwareApplication",
       "@id": "https://www.intentionalyt.me/#software",
-      "name": "Intentional YT - YouTube Distraction Blocker & Daily Time Limit",
+      "name": APP_CONFIG.shortName,
       "operatingSystem": "Windows, macOS, Linux",
       "browserRequirements": "Requires Chrome, Firefox, Edge, or a compatible desktop browser",
       "applicationCategory": "ProductivityApplication",
       "applicationSubCategory": "Browser Extension",
       "softwareVersion": APP_CONFIG.version,
-      "description": "A distraction-free YouTube extension that blocks YouTube recommendations, hides Shorts, neutralizes clickbait thumbnails, and sets daily time limits.",
+      "description": APP_CONFIG.description,
+      "isAccessibleForFree": true,
       "url": "https://www.intentionalyt.me/",
       "downloadUrl": "https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg",
       "sameAs": [
@@ -46,11 +47,12 @@ const jsonLd = {
         "availability": "https://schema.org/InStock"
       },
       "featureList": [
-        "Adjustable distraction controls",
+        "Hide YouTube home-feed and sidebar recommendations",
         "Hide Shorts on supported feeds and pages",
         "Clickbait thumbnail neutralization while preserving duration stamps",
         "Granular toggles for 20+ distraction points",
-        "Built-in daily playback time tracker and reminder toasts",
+        "Set a daily watch-time limit that pauses playback when reached",
+        "Keep search and subscriptions available",
         "Local extension settings and counters, with no usage analytics"
       ],
       "author": {
@@ -58,6 +60,15 @@ const jsonLd = {
         "name": "manasdotio",
         "url": "https://github.com/manasdotio"
       }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.intentionalyt.me/#webpage",
+      "url": "https://www.intentionalyt.me/",
+      "name": `${HOME_TITLE} — Intentional YT`,
+      "description": HOME_DESCRIPTION,
+      "isPartOf": { "@id": "https://www.intentionalyt.me/#website" },
+      "mainEntity": { "@id": "https://www.intentionalyt.me/#software" }
     }
 
   ]

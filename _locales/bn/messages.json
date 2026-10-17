@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Intentional YT কেমন লাগছে?" },
+  "review_prompt_description": { "message": "একটি রিভিউ লিখে আপনার অভিজ্ঞতা জানান।" },
+  "review_prompt_action": { "message": "রিভিউ লিখুন" },
+  "review_prompt_dismiss": { "message": "বন্ধ করুন" },
   "extensionName": {
     "message": "Intentional YT - YouTube বিভ্রান্তি নিরোধক এবং দৈনিক সময়সীমা",
     "description": "Official extension name in stores and browser management pages"

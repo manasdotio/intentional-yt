@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Hur fungerar Intentional YT för dig?" },
+  "review_prompt_description": { "message": "Dela din upplevelse i en recension." },
+  "review_prompt_action": { "message": "Skriv en recension" },
+  "review_prompt_dismiss": { "message": "Stäng" },
   "extensionName": {
     "message": "Intentional YT - YouTube Distraktionsblockerare & Daglig Tidsgräns",
     "description": "Official extension name in stores and browser management pages"

@@ -1,6 +1,8 @@
 import { APP_CONFIG } from './constants'
 
 export const SITE_URL = APP_CONFIG.liveWebsiteUrl.replace(/\/$/, '')
+export const HOME_TITLE = 'Block YouTube Shorts & Recommendations'
+export const HOME_DESCRIPTION = 'Hide YouTube Shorts, home feed, and recommendations. Set a daily watch limit. Free extension for Chrome, Firefox, and Edge. No account needed.'
 export const SOCIAL_IMAGE = {
   url: '/screenshots/intentional_yt_marquee_1400x560.png',
   width: 1400,

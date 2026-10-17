@@ -88,11 +88,14 @@ class StorageManager {
 
   static getInitialSettings() {
     const settings = this.getDefaultSettings();
-    // A new install has no chosen restrictions yet. Setup saves only the options
-    // it displays. Quick Block offers a button without blocking anything itself.
+    // Start with the three core distractions hidden. Setup reflects these
+    // choices; advanced restrictions remain opt-in on a fresh install.
     for (const key of Object.keys(settings)) {
       if (typeof settings[key] === 'boolean' && !['extensionEnabled', 'enableQuickBlock'].includes(key)) settings[key] = false;
     }
+    settings.blockShorts = true;
+    settings.blockHomeFeed = true;
+    settings.blockRecommended = true;
     return settings;
   }
 
@@ -113,6 +116,22 @@ class StorageManager {
   }
 
   static _background = false;
+  // Background-only, serialized with other local writes so two popups cannot
+  // claim the same prompt. Kept outside settings/backups and settings resets.
+  static reviewPrompt(claim = false) {
+    return this._enqueue(async () => {
+      const state = await browser.storage.local.get(['reviewEligibleAt', 'reviewPromptShown']);
+      if (state.reviewPromptShown) return false;
+      if (!Number.isFinite(state.reviewEligibleAt)) {
+        await browser.storage.local.set({ reviewEligibleAt: Date.now() + 7 * 24 * 60 * 60 * 1000 });
+        return false;
+      }
+      if (!claim || Date.now() < state.reviewEligibleAt) return false;
+      // Persist before displaying: closing the popup must not cause a repeat.
+      await browser.storage.local.set({ reviewPromptShown: true });
+      return true;
+    });
+  }
   static _writeQueue = Promise.resolve();
   static onProtectedChange = null;
   static _enqueue(fn) {

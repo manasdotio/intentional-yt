@@ -3,11 +3,11 @@
  * Single source of truth for versioning, links, and metadata.
  */
 export const APP_CONFIG = {
-  name: 'Intentional YT - YouTube Distraction Blocker & Daily Time Limit',
+  name: 'Intentional YT - Block YouTube Shorts, Recommendations & Set Time Limits',
   shortName: 'Intentional YT',
   version: '2.4.3',
   versionShort: 'v2.4.3',
-  description: 'Distraction-Free YouTube Extension for Deep Focus',
+  description: 'Intentional YT is a free browser extension for Chrome, Firefox, and Edge that hides YouTube Shorts, home-feed recommendations, and suggested videos. Set a daily watch-time limit while keeping search and subscriptions available.',
   chromeWebStoreUrl: 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg',
   edgeAddonUrl: 'https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb',
   firefoxAddonUrl: 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/',

@@ -1130,6 +1130,8 @@ body.ext-off .lang-row {
 .welcome-setup-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 3px; }
 .welcome-setup-actions button { padding: 8px 11px; font-size: 11px; min-height: 32px; }
 .welcome-setup-actions button:disabled { opacity: .6; cursor: wait; }
+#review-card .btn-primary { padding: 8px 11px; font-size: 11px; min-height: 32px; text-decoration: none; }
+#review-card :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .welcome-setup-form :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .blocklist-example { padding: 4px 8px; border-radius: 5px; background: var(--surface-inset); color: var(--ink-secondary); font-size: 11px; }
 

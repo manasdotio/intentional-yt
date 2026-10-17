@@ -17,7 +17,7 @@ export function GET() {
 
   return new Response(`# Intentional YT
 
-> Intentional YT is a browser extension for Chrome, Firefox, and Edge that hides YouTube distractions and provides daily playback limits.
+> ${APP_CONFIG.description}
 
 Official website: ${SITE_URL}/
 Current version: ${APP_CONFIG.version}

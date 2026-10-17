@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Intentional YT कैसा लग रहा है?" },
+  "review_prompt_description": { "message": "समीक्षा लिखकर अपना अनुभव साझा करें।" },
+  "review_prompt_action": { "message": "समीक्षा लिखें" },
+  "review_prompt_dismiss": { "message": "बंद करें" },
   "extensionName": {
     "message": "Intentional YT - YouTube ध्यान भटकाव रोधक और दैनिक समय सीमा",
     "description": "Official extension name in stores and browser management pages"

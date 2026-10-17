@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Jak sprawdza się Intentional YT?" },
+  "review_prompt_description": { "message": "Podziel się swoimi doświadczeniami w opinii." },
+  "review_prompt_action": { "message": "Napisz opinię" },
+  "review_prompt_dismiss": { "message": "Zamknij" },
   "extensionName": {
     "message": "Intentional YT - Blokada rozpraszaczy i dzienny limit na YouTube",
     "description": "Official extension name in stores and browser management pages"

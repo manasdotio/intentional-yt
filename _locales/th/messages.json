@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "คุณรู้สึกอย่างไรกับ Intentional YT?" },
+  "review_prompt_description": { "message": "แบ่งปันประสบการณ์ของคุณด้วยการเขียนรีวิว" },
+  "review_prompt_action": { "message": "เขียนรีวิว" },
+  "review_prompt_dismiss": { "message": "ปิด" },
   "extensionName": {
     "message": "Intentional YT - บล็อกสิ่งรบกวนและจำกัดเวลาการใช้ YouTube รายวัน",
     "description": "Official extension name in stores and browser management pages"

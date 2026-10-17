@@ -120,21 +120,22 @@ fs.writeFileSync(path.join(extension,'manifest.json'),JSON.stringify(manifest));
     await context.route('https://www.youtube.com/**',route=>route.fulfill({contentType:'text/html',body:`<!doctype html><html><body><ytd-app><ytd-browse page-subtype="home"><ytd-rich-grid-renderer><div id="contents"><ytd-rich-item-renderer><h3><a id="video-title">A useful video</a></h3><ytd-channel-name><a href="/@ScienceDaily">ScienceDaily</a></ytd-channel-name></ytd-rich-item-renderer></div></ytd-rich-grid-renderer></ytd-browse><div id="movie_player"><video class="html5-main-video"></video></div><div id="comments">Comments</div></ytd-app></body></html>`}));
     const page=await context.newPage();await page.goto('https://www.youtube.com/');
     await page.waitForFunction(()=>document.documentElement.hasAttribute('data-iyt-ready'));
-    assert.equal(await page.locator('ytd-rich-grid-renderer').isVisible(),true,'new installations leave the feed visible before setup');
+    assert.equal(await page.locator('ytd-rich-grid-renderer').isVisible(),false,'new installations hide the home feed before setup');
     await popup.waitForSelector('#welcome-card', { state: 'visible' });
     for (const selector of ['#setup-hide-shorts','#setup-hide-home','#setup-hide-recommended']) {
-      assert.equal(await popup.locator(selector).isChecked(),false,selector);
+      assert.equal(await popup.locator(selector).isChecked(),true,selector);
     }
     assert.equal(await popup.locator('#setup-daily-limit').inputValue(),'0');
     await popup.locator('#btn-skip-setup').click();
     await popup.waitForSelector('#welcome-card', { state: 'hidden' });
-    assert.deepEqual(await popup.evaluate(async()=>Object.entries(await StorageManager.getSettings()).filter(([,value])=>value===true).map(([key])=>key)),['extensionEnabled','enableQuickBlock'],'skipping setup keeps Quick Block available without activating restrictions');
+    assert.deepEqual(await popup.evaluate(async()=>Object.entries(await StorageManager.getSettings()).filter(([,value])=>value===true).map(([key])=>key)),['extensionEnabled','blockHomeFeed','blockRecommended','blockShorts','enableQuickBlock'],'skipping setup preserves the core protections');
 
     await popup.evaluate(()=>browser.storage.local.set({welcomeDismissed:false}));
     await popup.reload();
     await popup.waitForSelector('#welcome-card', { state: 'visible' });
     await popup.locator('#setup-hide-shorts').check();
     await popup.locator('#setup-hide-recommended').check();
+    await popup.locator('#setup-hide-home').uncheck();
     await popup.locator('#setup-daily-limit').selectOption('45');
     await popup.locator('#btn-save-setup').click();
     await popup.waitForSelector('#welcome-card', { state: 'hidden' });
@@ -553,6 +554,32 @@ fs.writeFileSync(path.join(extension,'manifest.json'),JSON.stringify(manifest));
     assert.equal(await mobile.locator('ytm-video-with-context-renderer').nth(14).isVisible(),true);
     assert.equal(await mobile.locator('ytm-video-with-context-renderer').nth(15).isVisible(),false);
     console.log('PASS: mobile-origin document-start blocking and consistent 15-card limit');
+    await popup.reload();
+    await popup.waitForFunction(()=>document.getElementById('link-review-prompt')?.hasAttribute('href'));
+    assert.equal(await popup.locator('#review-card').isVisible(),false,'review prompt is hidden before seven days');
+    await popup.evaluate(()=>browser.storage.local.set({reviewEligibleAt:Date.now()-1}));
+    await popup.reload();
+    await popup.waitForSelector('#review-card',{state:'visible'});
+    assert.equal(await popup.locator('#link-review-prompt').getAttribute('href'),await popup.locator('#link-rate-store').getAttribute('href'));
+    assert.equal(await popup.evaluate(async()=>(await browser.storage.local.get('reviewPromptShown')).reviewPromptShown),true);
+    for (const theme of ['light','dark']) {
+      await popup.evaluate(theme=>StorageManager.updateSetting('themeMode',theme),theme);
+      await popup.setViewportSize({width:320,height:640});
+      assert.equal(await popup.evaluate(()=>document.documentElement.scrollWidth<=320),true,'review card fits at 320px');
+    }
+    await popup.reload();
+    await popup.waitForFunction(()=>document.getElementById('link-review-prompt')?.hasAttribute('href'));
+    assert.equal(await popup.locator('#review-card').isVisible(),false,'closing without clicking never repeats the prompt');
+    // Exercise dismissal with a fresh eligible state.
+    await popup.evaluate(()=>browser.storage.local.set({reviewPromptShown:false}));
+    await popup.reload();
+    await popup.waitForSelector('#review-card',{state:'visible'});
+    await popup.locator('#btn-dismiss-review').click();
+    assert.equal(await popup.locator('#review-card').isVisible(),false);
+    await popup.reload();
+    await popup.waitForFunction(()=>document.getElementById('link-review-prompt')?.hasAttribute('href'));
+    assert.equal(await popup.locator('#review-card').isVisible(),false,'dismissal never repeats the prompt');
+    console.log('PASS: delayed review card, store link, local once-only flag, dismissal and narrow layout');
     assert.deepEqual(errors,[]);
     console.log('PASS: no page JavaScript errors');
   } finally { await context.close(); }

@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Bagaimana pengalaman Anda dengan Intentional YT?" },
+  "review_prompt_description": { "message": "Bagikan pengalaman Anda melalui ulasan." },
+  "review_prompt_action": { "message": "Tulis ulasan" },
+  "review_prompt_dismiss": { "message": "Tutup" },
   "extensionName": {
     "message": "Intentional YT - Pemblokir Gangguan & Batas Waktu Harian YouTube",
     "description": "Official extension name in stores and browser management pages"

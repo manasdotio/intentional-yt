@@ -26,6 +26,29 @@ const locked = async env => {
   await env.manager.updateSetting('focusLock', { ...env.manager.getDefaultSettings().focusLock, enabled: true, pin });
 };
 
+test('review prompt waits seven days, is claimed once, and survives resets and restarts', async () => {
+  const env = store();
+  const now = Date.now();
+  assert.equal(await env.manager.reviewPrompt(), false);
+  assert.ok(env.state.reviewEligibleAt >= now + 7 * 86400000);
+  assert.ok(env.state.reviewEligibleAt <= Date.now() + 7 * 86400000);
+  const deadline = env.state.reviewEligibleAt;
+  assert.equal(await env.manager.reviewPrompt(true), false);
+  assert.equal(env.state.reviewEligibleAt, deadline);
+  assert.equal(env.state.reviewPromptShown, undefined);
+  env.state.reviewEligibleAt = Date.now() - 1;
+  assert.deepEqual(await Promise.all([env.manager.reviewPrompt(true), env.manager.reviewPrompt(true)]), [true, false]);
+  assert.equal(env.state.reviewPromptShown, true);
+  await env.manager.resetToDefaults();
+  assert.equal(await store(env.state).manager.reviewPrompt(true), false);
+});
+
+test('review prompt fails closed when its one-time flag cannot be saved', async () => {
+  const env = store({ reviewEligibleAt: Date.now() - 1 });
+  env.context.browser.storage.local.set = async () => { throw new Error('Storage unavailable'); };
+  await assert.rejects(env.manager.reviewPrompt(true), /Storage unavailable/);
+});
+
 test('presets apply atomically without snapshots and preserve unrelated preferences', async () => {
   const env = store();
   await env.manager.updateSettings({ themeMode:'dark', dailyLimit:{enabled:true,limitMinutes:45} });
@@ -81,16 +104,16 @@ test('obsolete undo snapshots and pending undo are retired without changing pref
   }
 });
 
-test('new installations stay unconfigured until the user chooses restrictions', async () => {
+test('new installations hide core distractions and preserve subsequent choices', async () => {
   const env = store();
   const initial = await env.manager.getSettings();
   assert.equal(initial.extensionEnabled, true);
-  assert.deepEqual(Object.entries(initial).filter(([key, value]) => value === true).map(([key]) => key), ['extensionEnabled', 'enableQuickBlock']);
+  assert.deepEqual(Object.entries(initial).filter(([key, value]) => value === true).map(([key]) => key), ['extensionEnabled', 'blockHomeFeed', 'blockRecommended', 'blockShorts', 'enableQuickBlock']);
   assert.equal(initial.dailyLimit.enabled, false);
   assert.equal(initial.softReminder.enabled, false);
   assert.equal(initial.scheduledBlocking.enabled, false);
   assert.equal(initial.focusLock.enabled, false);
-  const chosen = await env.manager.updateSettings({ blockShorts: true, blockRecommended: true });
+  const chosen = await env.manager.updateSettings({ blockHomeFeed: false });
   assert.equal(chosen.blockShorts, true);
   assert.equal(chosen.blockRecommended, true);
   assert.equal(chosen.enableQuickBlock, true);
@@ -360,7 +383,7 @@ test('background serves local catalogs and rejects invalid locale paths and fore
   const context=vm.createContext({console,fetch:async url=>{
     fetched.push(url);
     return {ok:true,json:async()=>({hello:{message:'Hello'}})};
-  },StorageManager:{execute:async()=>({focusLock:{}})},browser:{
+  },StorageManager:{execute:async()=>({focusLock:{}}),reviewPrompt:async()=>false},browser:{
     runtime:{id:'test-extension',getURL:p=>'chrome-extension://test-extension/'+p,
       onMessage:{addListener:fn=>{listener=fn;}},onStartup:event,onInstalled:event},
     alarms:{get:async()=>null,create:async()=>{},clear:async()=>{},onAlarm:event}

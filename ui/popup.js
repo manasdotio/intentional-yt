@@ -2388,6 +2388,11 @@ function bindAll() {
       ? 'https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb'
       : 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews';
   }
+  const reviewLink = $('link-review-prompt');
+  if (reviewLink && linkRateStore) reviewLink.href = linkRateStore.href;
+  const dismissReview = () => { $('review-card').style.display = 'none'; };
+  reviewLink?.addEventListener('click', dismissReview);
+  $('btn-dismiss-review')?.addEventListener('click', dismissReview);
   if (isFirefox) {
     if (linkRateStore) {
       linkRateStore.title = t('setting_rate_firefox') || 'Rate on Firefox AMO';
@@ -2635,6 +2640,10 @@ async function init() {
   // Restore persisted active tab (default 'block')
   const initialTab = storedTab?.activeTab || 'block';
   switchTab(initialTab);
+  try {
+    const response = await browser.runtime.sendMessage({ type: 'IYT_REVIEW_PROMPT' });
+    if (response?.show) $('review-card').style.display = 'flex';
+  } catch (_) { /* A review request must never prevent using the popup. */ }
 }
 
 document.addEventListener('DOMContentLoaded', init);

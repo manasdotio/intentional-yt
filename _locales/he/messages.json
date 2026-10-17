@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "איך Intentional YT עובד בשבילך?" },
+  "review_prompt_description": { "message": "אפשר לשתף את החוויה שלך בביקורת." },
+  "review_prompt_action": { "message": "כתיבת ביקורת" },
+  "review_prompt_dismiss": { "message": "סגירה" },
   "extensionName": {
     "message": "Intentional YT - חוסם הסחות דעת ומגבלת זמן ב-YouTube",
     "description": "Official extension name in stores and browser management pages"

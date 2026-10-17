@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Que pensez-vous d’Intentional YT ?" },
+  "review_prompt_description": { "message": "Partagez votre expérience en laissant un avis." },
+  "review_prompt_action": { "message": "Laisser un avis" },
+  "review_prompt_dismiss": { "message": "Fermer" },
   "extensionName": {
     "message": "Intentional YT - Bloqueur de distractions et limite quotidienne YouTube",
     "description": "Official extension name in stores and browser management pages"

@@ -1,4 +1,5 @@
 import '../src/index.css'
+import { HOME_TITLE, HOME_DESCRIPTION } from '../src/config/seo'
 import { ThemeProvider } from '../src/context/ThemeContext'
 import { JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google'
 
@@ -18,10 +19,10 @@ const siteMono = JetBrains_Mono({
 export const metadata = {
   metadataBase: new URL('https://www.intentionalyt.me'),
   title: {
-    default: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
+    default: `${HOME_TITLE} — Intentional YT`,
     template: '%s — Intentional YT'
   },
-  description: 'YouTube distraction blocker to hide recommendations, block Shorts, and set daily time limits. Private settings and watch-time tracking stay in your browser.',
+  description: HOME_DESCRIPTION,
   keywords: [
     'youtube distraction blocker',
     'block youtube recommendations extension',
@@ -59,8 +60,8 @@ export const metadata = {
     locale: 'en_US',
     url: 'https://www.intentionalyt.me/',
     siteName: 'Intentional YT',
-    title: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
-    description: 'YouTube distraction blocker. Hide recommendations, block YouTube Shorts, neutralize clickbait, and set custom daily time limits.',
+    title: `${HOME_TITLE} — Intentional YT`,
+    description: HOME_DESCRIPTION,
     images: [
       {
         url: '/screenshots/intentional_yt_marquee_1400x560.png',
@@ -72,8 +73,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'YouTube Distraction Blocker & Daily Limit — Intentional YT',
-    description: 'YouTube distraction blocker. Hide recommendations, block YouTube Shorts, neutralize clickbait, and set custom daily time limits.',
+    title: `${HOME_TITLE} — Intentional YT`,
+    description: HOME_DESCRIPTION,
     images: ['/screenshots/intentional_yt_marquee_1400x560.png']
   }
 }

@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Як вам Intentional YT?" },
+  "review_prompt_description": { "message": "Поділіться враженнями у відгуку." },
+  "review_prompt_action": { "message": "Залишити відгук" },
+  "review_prompt_dismiss": { "message": "Закрити" },
   "extensionName": {
     "message": "Intentional YT - Блокування відволікань і денний ліміт YouTube",
     "description": "Official extension name in stores and browser management pages"

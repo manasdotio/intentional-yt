@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Intentional YT の使い心地はいかがですか？" },
+  "review_prompt_description": { "message": "レビューで使用感をお聞かせください。" },
+  "review_prompt_action": { "message": "レビューを書く" },
+  "review_prompt_dismiss": { "message": "閉じる" },
   "extensionName": {
     "message": "Intentional YT - YouTubeの誘惑ブロック＆毎日の利用制限",
     "description": "Official extension name in stores and browser management pages"

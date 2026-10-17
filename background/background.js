@@ -37,6 +37,13 @@ async function reconcile() {
 }
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (sender.id !== browser.runtime.id) return;
+  if (message?.type === 'IYT_REVIEW_PROMPT') {
+    if (sender.url !== browser.runtime.getURL('ui/popup.html')) return;
+    StorageManager.reviewPrompt(true)
+      .then(show => sendResponse({ show }))
+      .catch(() => sendResponse({ show: false }));
+    return true;
+  }
   if (message?.type === 'IYT_LOCALE') {
     loadLocaleCatalog(message.lang)
       .then(catalog => sendResponse({ ok: true, catalog }))
@@ -56,6 +63,9 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 browser.alarms.onAlarm.addListener(() => { reconcile().catch(console.error); });
 browser.runtime.onStartup.addListener(() => { reconcile().catch(console.error); });
+// Starts the seven-day wait on install, or on first run of this version for
+// existing users whose original installation date is unknown.
+StorageManager.reviewPrompt().catch(console.error);
 browser.runtime.onInstalled.addListener(() => {
   reconcile().catch(console.error);
   browser.runtime.setUninstallURL('https://intentionalyt.me/uninstall').catch(() => {});

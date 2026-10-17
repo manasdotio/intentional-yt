@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Cum vi se pare Intentional YT?" },
+  "review_prompt_description": { "message": "Împărtășiți experiența printr-o recenzie." },
+  "review_prompt_action": { "message": "Scrieți o recenzie" },
+  "review_prompt_dismiss": { "message": "Închide" },
   "extensionName": {
     "message": "Intentional YT - Blocare distrageri și limită zilnică pe YouTube",
     "description": "Official extension name in stores and browser management pages"

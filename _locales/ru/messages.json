@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Как вам Intentional YT?" },
+  "review_prompt_description": { "message": "Поделитесь впечатлениями в отзыве." },
+  "review_prompt_action": { "message": "Оставить отзыв" },
+  "review_prompt_dismiss": { "message": "Закрыть" },
   "extensionName": {
     "message": "Intentional YT - Блокировка отвлечений и лимит времени на YouTube",
     "description": "Official extension name in stores and browser management pages"

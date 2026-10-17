@@ -63,6 +63,7 @@ const origin = process.env.IYT_SITE_URL || 'http://localhost:3105';
       await page.setViewportSize({width,height:900});
       await page.evaluate(t=>document.documentElement.dataset.theme=t,theme);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+      assert.equal(await page.locator('.hero-copy').evaluate(e=>[...e.querySelectorAll('h1,p')].every(el=>el.scrollWidth<=el.clientWidth)),true,'hero copy must fit without clipping at '+width);
       const overflow=await demo.evaluate(e=>[...e.querySelectorAll('*')].filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+1||r.left< -1)}).map(el=>el.className));
       assert.deepEqual(overflow,[],width+' '+theme+' demo overflow');
       await demo.screenshot({path:require('node:path').join(require('node:os').tmpdir(),'iyt-demo-'+width+'-'+theme+'.png')});

@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "كيف تجد Intentional YT؟" },
+  "review_prompt_description": { "message": "شارك تجربتك بكتابة مراجعة." },
+  "review_prompt_action": { "message": "اكتب مراجعة" },
+  "review_prompt_dismiss": { "message": "إغلاق" },
   "extensionName": {
     "message": "Intentional YT - حظر المشتتات والحد اليومي ليوتيوب",
     "description": "Official extension name in stores and browser management pages"

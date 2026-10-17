@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Hoe bevalt Intentional YT?" },
+  "review_prompt_description": { "message": "Deel je ervaring in een beoordeling." },
+  "review_prompt_action": { "message": "Beoordeling schrijven" },
+  "review_prompt_dismiss": { "message": "Sluiten" },
   "extensionName": {
     "message": "Intentional YT - YouTube Afleidingsblokkering & Dagelijkse Tijdslimiet",
     "description": "Official extension name in stores and browser management pages"

@@ -1,6 +1,7 @@
 import React from 'react'
 import { InstallButton, InstallOptions } from './InstallActions'
 import HeroShowcase from './HeroShowcase'
+import { APP_CONFIG } from '../config/constants'
 
 export default function Hero() {
   return (
@@ -11,12 +12,11 @@ export default function Hero() {
           <span>Watch without the distractions</span>
         </div>
         <h1 className="hero-title" id="hero-heading">
-          YouTube, with<br />
-          <span className="hero-title-calm">fewer distractions.</span>
+          Block YouTube Shorts.<br />
+          <span className="hero-title-calm">Keep your focus.</span>
         </h1>
         <p className="hero-subtitle">
-          A free YouTube distraction blocker that hides Shorts and recommendations.
-          Watch the video you came for, and set a daily limit to help you stop on time.
+          {APP_CONFIG.description}
         </p>
         <p className="hero-product-label">Free for Chrome, Firefox &amp; Edge on desktop.</p>
         <div className="hero-actions">

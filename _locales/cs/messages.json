@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Jak vám Intentional YT vyhovuje?" },
+  "review_prompt_description": { "message": "Podělte se o své zkušenosti v recenzi." },
+  "review_prompt_action": { "message": "Napsat recenzi" },
+  "review_prompt_dismiss": { "message": "Zavřít" },
   "extensionName": {
     "message": "Intentional YT - Blokování rozptýlení a denní limit pro YouTube",
     "description": "Official extension name in stores and browser management pages"

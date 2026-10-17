@@ -1,4 +1,8 @@
 {
+  "review_prompt_title": { "message": "Bạn thấy Intentional YT thế nào?" },
+  "review_prompt_description": { "message": "Chia sẻ trải nghiệm của bạn bằng một bài đánh giá." },
+  "review_prompt_action": { "message": "Viết đánh giá" },
+  "review_prompt_dismiss": { "message": "Đóng" },
   "extensionName": {
     "message": "Intentional YT - Chặn xao nhãng & Giới hạn thời gian YouTube hàng ngày",
     "description": "Official extension name in stores and browser management pages"
