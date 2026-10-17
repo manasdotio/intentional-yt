@@ -8,7 +8,7 @@ License: current changes are source available under LICENSE, not open source. Hi
 
 ## 📌 Executive Summary
 - **Name**: Intentional YT - YouTube Distraction Blocker & Daily Time Limit
-- **Version**: 2.4.3
+- **Version**: 2.4.5
 - **Tagline**: Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.
 - **One-Liner**: A browser extension with local settings and modern React web app that turns YouTube into a distraction-free, search-first utility by stripping algorithmic rabbit holes, Shorts carousels, clickbait thumbnails, and infinite feeds.
 
