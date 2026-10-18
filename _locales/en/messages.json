@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "Intentional YT - YouTube Distraction Blocker & Daily Time Limit",
+    "message": "Intentional YT - Block YouTube Shorts, Recommendations & Set Time Limits",
     "description": "Official extension name in stores and browser management pages"
   },
   "extensionShortName": {
@@ -12,7 +12,7 @@
     "description": "Extension description in stores and browser management pages"
   },
   "popup_window_title": {
-    "message": "Intentional YT - YouTube Distraction Blocker & Daily Time Limit",
+    "message": "Intentional YT - Block YouTube Shorts, Recommendations & Set Time Limits",
     "description": "Title tag of the popup document"
   },
   "header_title": {
