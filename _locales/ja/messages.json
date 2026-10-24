@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "チャンネルのホームタブを非表示",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Intentional YT の使い心地はいかがですか？" },
   "review_prompt_description": { "message": "レビューで使用感をお聞かせください。" },
   "review_prompt_action": { "message": "レビューを書く" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "タイトルに指定したキーワードを含む動画を非表示にします。",
+    "message": "タイトルや動画カードに表示される説明の抜粋に一致する単語やフレーズがある動画を非表示にします。説明文の全文は確認しません。",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% ローカルフィルタリング · タイトルとチャンネルはテレメトリなしでクライアント側でのみ照合されます。",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "YouTube チャンネルのリンク、チャンネル名、または @ハンドルを入力してください。動画や再生リストのリンクはここでは使えません。"
   },
   "toast_channel_added": {
     "message": "「$NAME$」をブロックリストに追加しました",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "登録チャンネルと保存済み再生リストへのリンクも非表示になります。"
+  },
+  "youtube_reload_needed": {
+    "message": "???????????????YouTube??????????????????YouTube???????????????????????????YouTube??????????????????"
   }
 }

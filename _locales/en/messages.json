@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "Hide channel Home tab",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "extensionName": {
     "message": "Intentional YT - Block YouTube Shorts, Recommendations & Set Time Limits",
     "description": "Official extension name in stores and browser management pages"
@@ -488,7 +492,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Hide videos containing specific words or phrases in their titles.",
+    "message": "Hide videos with matching words or phrases in their titles or description snippets shown on video cards. Full descriptions aren't checked.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -514,6 +518,9 @@
   "blocklist_privacy_note": {
     "message": "Filters hide matching video cards. Direct video links still open. Your lists stay in this browser.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "Use a YouTube channel link, channel name or @handle. Video and playlist links won't work here."
   },
   "toast_channel_added": {
     "message": "Added \"$NAME$\" to blocked channels",
@@ -1385,5 +1392,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "Also hides links to subscriptions and saved playlists."
+  },
+  "youtube_reload_needed": {
+    "message": "Your settings are saved, but this YouTube tab isn't connected. Reload YouTube. If this continues, check the extension's access to YouTube."
   }
 }

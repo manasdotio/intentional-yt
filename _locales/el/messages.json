@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "Απόκρυψη αρχικής καρτέλας καναλιού",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Πώς σας φαίνεται το Intentional YT;" },
   "review_prompt_description": { "message": "Μοιραστείτε την εμπειρία σας με μια κριτική." },
   "review_prompt_action": { "message": "Γράψτε μια κριτική" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Αποκρύψτε βίντεο των οποίων οι τίτλοι ταιριάζουν με αποκλεισμένες λέξεις-κλειδιά.",
+    "message": "Απόκρυψη βίντεο με λέξεις ή φράσεις που ταιριάζουν στον τίτλο ή στο απόσπασμα περιγραφής της κάρτας τους. Δεν ελέγχονται οι πλήρεις περιγραφές.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% Τοπικό φιλτράρισμα · Οι τίτλοι και τα κανάλια ελέγχονται τοπικά χωρίς τηλεμετρία.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "Χρησιμοποιήστε σύνδεσμο καναλιού YouTube, όνομα καναλιού ή @handle. Οι σύνδεσμοι βίντεο και λιστών αναπαραγωγής δεν λειτουργούν εδώ."
   },
   "toast_channel_added": {
     "message": "Προστέθηκε το \"$NAME$\" στα αποκλεισμένα κανάλια",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "Κρύβει επίσης συνδέσμους προς εγγραφές και αποθηκευμένες λίστες αναπαραγωγής."
+  },
+  "youtube_reload_needed": {
+    "message": "?? ????????? ??? ?????????????, ???? ???? ? ??????? YouTube ??? ????? ???????????. ???????? ???? ?? YouTube. ?? ?? ???????? ??????????, ??????? ??? ???????? ??? ????????? ??? YouTube."
   }
 }

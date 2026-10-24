@@ -3,11 +3,18 @@ html:not([data-iyt-ready]) ytd-browse[page-subtype="home"] ytd-rich-grid-rendere
 html:not([data-iyt-ready]) ytd-watch-flexy #related,
 html:not([data-iyt-ready]) ytd-reel-shelf-renderer,
 html:not([data-iyt-ready]) ytm-reel-shelf-renderer,
+html:not([data-iyt-ready])[data-iyt-is-channel-home] ytd-browse ytd-section-list-renderer,
+html:not([data-iyt-ready])[data-iyt-is-channel-home] ytd-browse ytd-rich-grid-renderer,
+html:not([data-iyt-ready])[data-iyt-is-channel-home] ytd-browse ytd-channel-video-player-renderer,
+html:not([data-iyt-ready])[data-iyt-is-channel-home] ytm-browse ytm-section-list-renderer,
+html:not([data-iyt-ready])[data-iyt-is-channel-home] ytm-browse ytm-item-section-renderer,
+html:not([data-iyt-ready])[data-iyt-is-channel-home] ytm-browse ytm-rich-grid-renderer,
 html:not([data-iyt-ready]) ytm-browse[tab-identifier="FEwhat_to_watch"] {
   visibility: hidden !important;
 }
 /* Mobile core surfaces use the same effective classes as desktop. */
 html[data-iyt-is-home="true"].iyt-no-home-feed ytm-browse,
+html:not([data-iyt-is-channel]).iyt-no-home-feed ytm-browse[tab-identifier="FEwhat_to_watch"],
 html.iyt-no-comments ytm-comment-section-renderer,
 html.iyt-no-comments ytm-comments-entry-point-header-renderer,
 html.iyt-no-recommended ytm-watch-next-secondary-results-renderer,
@@ -24,15 +31,16 @@ html.iyt-no-notif-bell ytm-notification-topbar-button-renderer {
 /* ═══════════════════════════════════════════════════════════
    HOME FEED
 ═══════════════════════════════════════════════════════════ */
-/* Channel pages share browse/grid markup; home controls require the root URL. */
-html[data-iyt-is-home="true"].iyt-no-home-feed ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
-html[data-iyt-is-home="true"].iyt-no-home-feed ytd-browse[page-subtype="home"] #primary ytd-rich-grid-renderer,
-html[data-iyt-is-home="true"].iyt-no-home-feed ytd-browse[page-subtype="home"] #contents,
-html[data-iyt-is-home="true"].iyt-no-home-feed ytd-browse[page-subtype="home"] #primary,
-html[data-iyt-is-home="true"].iyt-no-home-feed ytd-two-column-browse-results-renderer[page-subtype="home"],
-html[data-iyt-is-home="true"].iyt-no-home-feed [page-subtype="home"] #contents,
-html[data-iyt-is-home="true"].iyt-no-home-feed [page-subtype="home"] #primary,
-html[data-iyt-is-home="true"].iyt-no-home-feed [page-subtype="home"] ytd-rich-grid-renderer,
+/* Explicit home surfaces stay blocked while SPA navigation changes the URL
+   before replacing the old feed. Generic channel/grid markup stays URL-scoped. */
+html:not([data-iyt-is-channel]).iyt-no-home-feed ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
+html:not([data-iyt-is-channel]).iyt-no-home-feed ytd-browse[page-subtype="home"] #primary ytd-rich-grid-renderer,
+html:not([data-iyt-is-channel]).iyt-no-home-feed ytd-browse[page-subtype="home"] #contents,
+html:not([data-iyt-is-channel]).iyt-no-home-feed ytd-browse[page-subtype="home"] #primary,
+html:not([data-iyt-is-channel]).iyt-no-home-feed ytd-two-column-browse-results-renderer[page-subtype="home"],
+html:not([data-iyt-is-channel]).iyt-no-home-feed [page-subtype="home"] #contents,
+html:not([data-iyt-is-channel]).iyt-no-home-feed [page-subtype="home"] #primary,
+html:not([data-iyt-is-channel]).iyt-no-home-feed [page-subtype="home"] ytd-rich-grid-renderer,
 html[data-iyt-is-home="true"].iyt-no-home-feed ytd-page-manager > ytd-browse:not([page-subtype]) ytd-rich-grid-renderer,
 html[data-iyt-is-home="true"].iyt-no-home-feed ytd-page-manager > ytd-browse:not([page-subtype]) #contents,
 html[data-iyt-is-home="true"].iyt-no-home-feed ytd-rich-grid-renderer,
@@ -48,6 +56,17 @@ html[data-iyt-is-home="true"].iyt-no-home-feed ytd-continuation-item-renderer {
    HOME FEED LIMIT (Anti-Doomscroll)
    Limits home feed to 15 videos & stops infinite scroll
 ═══════════════════════════════════════════════════════════ */
+/* Channel Home content only; keep the channel header and tab navigation usable.
+   URL state changes synchronously on navigation, including reused browse DOM. */
+html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-section-list-renderer,
+html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-rich-grid-renderer,
+html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-channel-video-player-renderer,
+html[data-iyt-is-channel-home].iyt-no-channel-home ytm-browse ytm-section-list-renderer,
+html[data-iyt-is-channel-home].iyt-no-channel-home ytm-browse ytm-item-section-renderer,
+html[data-iyt-is-channel-home].iyt-no-channel-home ytm-browse ytm-rich-grid-renderer {
+  display: none !important;
+}
+
 /* Exactly 15 cards across layouts; structural CSS applies before DOM observers. */
 html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
 html[data-iyt-is-home="true"].iyt-limit-home-feed:not(.iyt-no-home-feed) ytd-rich-grid-renderer #contents > ytd-rich-item-renderer:nth-of-type(n+16),
@@ -106,8 +125,24 @@ html.iyt-no-recommended ytd-item-section-renderer[section-identifier="related-it
    LIVE CHAT
 ═══════════════════════════════════════════════════════════ */
 html.iyt-no-live-chat #chat,
+html.iyt-no-live-chat #chat-container,
 html.iyt-no-live-chat ytd-live-chat-frame {
   display: none !important;
+}
+
+/* The full-bleed layout reserves a separate column even when its chat is hidden.
+   Collapse that column only when it contains chat and no other expanded panel. */
+html.iyt-no-live-chat ytd-watch-flexy:is([fullscreen], [theater]) #full-bleed-container:has(> #panels-full-bleed-container #chat-container):not(:has(#panels-full-bleed-container ytd-engagement-panel-section-list-renderer[visibility="ENGAGEMENT_PANEL_VISIBILITY_EXPANDED"], #panels-full-bleed-container ytd-playlist-panel-renderer:not([hidden]))) > #panels-full-bleed-container {
+  display: none !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  flex: 0 0 0 !important;
+}
+
+html.iyt-no-live-chat ytd-watch-flexy:is([fullscreen], [theater]) #full-bleed-container:has(> #panels-full-bleed-container #chat-container):not(:has(#panels-full-bleed-container ytd-engagement-panel-section-list-renderer[visibility="ENGAGEMENT_PANEL_VISIBILITY_EXPANDED"], #panels-full-bleed-container ytd-playlist-panel-renderer:not([hidden]))) > #player-full-bleed-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: 1 1 100% !important;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -274,8 +309,8 @@ html.iyt-no-notif-bell ytd-notification-topbar-button-renderer {
 /* ═══════════════════════════════════════════════════════════
    IRRELEVANT SEARCH RESULTS (shelf rows in search)
 ═══════════════════════════════════════════════════════════ */
-html.iyt-no-irrelevant-search ytd-shelf-renderer,
-html.iyt-no-irrelevant-search ytd-horizontal-card-list-renderer,
+html.iyt-no-irrelevant-search ytd-search ytd-shelf-renderer,
+html.iyt-no-irrelevant-search ytd-search ytd-horizontal-card-list-renderer,
 html.iyt-no-irrelevant-search ytd-search grid-shelf-view-model {
   display: none !important;
 }

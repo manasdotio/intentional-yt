@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "Skrýt kartu Domů kanálu",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Jak vám Intentional YT vyhovuje?" },
   "review_prompt_description": { "message": "Podělte se o své zkušenosti v recenzi." },
   "review_prompt_action": { "message": "Napsat recenzi" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Skrýt videa, jejichž názvy odpovídají blokovaným klíčovým slovům.",
+    "message": "Skrýt videa s odpovídajícími slovy nebo frázemi v názvech či úryvcích popisu na kartách videí. Úplné popisy se nekontrolují.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% lokální filtrování · Názvy a kanály jsou porovnávány lokálně bez telemetrie.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "Použijte odkaz na kanál YouTube, název kanálu nebo @handle. Odkazy na videa a playlisty zde nefungují."
   },
   "toast_channel_added": {
     "message": "Přidáno \"$NAME$\" do blokovaných kanálů",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "Skryje také odkazy na odběry a uložené seznamy videí."
+  },
+  "youtube_reload_needed": {
+    "message": "Nastaven? je ulo?en?, ale tato karta YouTube nen? p?ipojena k roz???en?. Znovu na?t?te YouTube. Pokud probl?m p?etrv?v?, zkontrolujte p??stup roz???en? k YouTube."
   }
 }

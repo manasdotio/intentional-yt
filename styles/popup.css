@@ -1156,6 +1156,40 @@ body.ext-off .lang-row {
 /* ============================================================
    SEARCH & PRESETS UTILITY BAR (Unified Single-Row Control)
    ============================================================ */
+.youtube-connection-notice {
+  margin: 10px 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--accent-border);
+  border-radius: 10px;
+  background: var(--accent-subtle);
+  color: var(--ink-primary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.setting-search-shortcuts:not([hidden]) {
+  display: grid;
+  gap: 6px;
+  margin: 0 12px 12px;
+}
+.setting-search-shortcut {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  background: var(--accent-subtle);
+  color: var(--ink-primary);
+  font: inherit;
+  font-size: 12px;
+  text-align: start;
+  cursor: pointer;
+}
+.setting-search-shortcut small { color: var(--ink-secondary); }
+.setting-search-shortcut:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 .search-filter-card {
   display: flex;
   align-items: center;

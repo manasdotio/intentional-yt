@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "Ukryj kartę Główna kanału",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Jak sprawdza się Intentional YT?" },
   "review_prompt_description": { "message": "Podziel się swoimi doświadczeniami w opinii." },
   "review_prompt_action": { "message": "Napisz opinię" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Ukrywaj filmy, których tytuły zawierają zablokowane słowa kluczowe.",
+    "message": "Ukrywaj filmy z pasującymi słowami lub frazami w tytule albo fragmencie opisu na karcie filmu. Pełne opisy nie są sprawdzane.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% lokalne filtrowanie · Tytuły i kanały są sprawdzane w przeglądarce bez telemetrii.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "Użyj linku do kanału YouTube, nazwy kanału lub @handle. Linki do filmów i playlist nie działają w tym polu."
   },
   "toast_channel_added": {
     "message": "Dodano \"$NAME$\" do zablokowanych kanałów",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "Ukrywa też linki do subskrypcji i zapisanych playlist."
+  },
+  "youtube_reload_needed": {
+    "message": "Ustawienia s? zapisane, ale ta karta YouTube nie jest po??czona z rozszerzeniem. Od?wie? YouTube. Je?li problem nadal wyst?puje, sprawd? dost?p rozszerzenia do YouTube."
   }
 }

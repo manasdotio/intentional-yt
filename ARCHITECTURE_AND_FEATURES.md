@@ -308,7 +308,7 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 
 #### 30. Keyword Blocklist
 - **Configuration**: `keywordBlocklist` (Array of lowercase keyword strings).
-- **Behavior**: Matches against video title elements (`#video-title`, `yt-formatted-string[title]`, etc.). If a title contains any blocklist keyword as a substring (case-insensitive), the parent card is hidden immediately.
+- **Behavior**: Matches video titles and description snippets (`.metadata-snippet-text`, `#description-text`, `.media-item-description`) on supported video cards. Each title/snippet is checked separately, ignoring case; entries up to three characters use word boundaries, longer entries use substring matching. Matching cards use the existing filtered-card CSS. Description additions, removals, text changes and `hidden`/`aria-hidden` changes trigger reevaluation. Channel bios, playlist descriptions and full watch-page descriptions are excluded; no descriptions are fetched.
 
 #### 31. 1-Click In-Feed Quick Block
 - **Configuration**: `enableQuickBlock` (Boolean, default `true`).

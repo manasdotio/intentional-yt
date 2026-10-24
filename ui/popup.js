@@ -70,7 +70,7 @@ function localizeDOM() {
 
 const TOGGLES = [
   'extensionEnabled',
-  'blockHomeFeed', 'limitHomeFeed', 'blockSidebar', 'blockRecommended',
+  'blockHomeFeed', 'blockChannelHome', 'limitHomeFeed', 'blockSidebar', 'blockRecommended',
   'blockLiveChat', 'blockPlaylist', 'blockEndScreenVideowall',
   'blockEndScreenCards', 'blockComments', 'blockProfilePhotos',
   'blockMixPlaylists', 'blockMerch', 'blockVideoInfo',
@@ -86,6 +86,7 @@ const TOGGLES = [
 const TOGGLE_LABELS = {
   extensionEnabled: 'toggle_extension_enabled',
   blockHomeFeed: 'toggle_block_home_feed',
+  blockChannelHome: 'toggle_block_channel_home',
   limitHomeFeed: 'toggle_limit_home_feed',
   blockSidebar: 'toggle_block_sidebar',
   blockRecommended: 'toggle_block_recommended',
@@ -122,6 +123,7 @@ const TOGGLE_LABELS = {
 
 const SECTION_TOGGLES = {
   "feed": [
+    "blockChannelHome",
     "blockSubscriptionsFeed",
     "blockExploreAndTrending",
     "blockIrrelevantSearchResults",
@@ -156,6 +158,7 @@ const SECTION_TOGGLES = {
 const PRESET_DEFINITIONS = {
   balanced: {
     blockHomeFeed: true,
+    blockChannelHome: false,
     limitHomeFeed: false,
     blockSidebar: false,
     blockRecommended: true,
@@ -185,6 +188,7 @@ const PRESET_DEFINITIONS = {
   },
   zen: {
     blockHomeFeed: true,
+    blockChannelHome: true,
     limitHomeFeed: false,
     blockSidebar: true,
     blockRecommended: true,
@@ -214,6 +218,7 @@ const PRESET_DEFINITIONS = {
   },
   player: {
     blockHomeFeed: true,
+    blockChannelHome: false,
     limitHomeFeed: false,
     blockSidebar: false,
     blockRecommended: true,
@@ -727,6 +732,7 @@ const SEARCH_ALIASES = {
   blockVideoDescription: 'description text summary details expandable video description hide description sub toggle',
   limitHomeFeed: 'limit home feed doomscroll anti-doomscroll scroll infinite',
   blockHomeFeed: 'home feed recommendations homepage algorithmic feed',
+  blockChannelHome: 'channel home homepage featured creator landing page',
   blockSubscriptionsFeed: 'subscriptions subs feed channels subscribed subscription',
   blockShorts: 'shorts reel reels tiktok vertical videos',
   redirectShorts: 'redirect shorts normal player standard view',
@@ -754,6 +760,62 @@ const SEARCH_ALIASES = {
 let _searchPrevCollapsed = null;
 let _searchPrevBelowVideoOpen = null;
 
+// Reuse the translated control labels so search follows the selected language.
+const SEARCH_DESTINATIONS = [
+  { tab: 'blocklists', target: 'input-channel-blocklist', label: 'section_channel_blocklist', aliases: 'block channel channels creator handle url filter' },
+  { tab: 'blocklists', target: 'input-keyword-blocklist', label: 'section_keyword_blocklist', aliases: 'block keyword keywords words title description descriptions snippet topic filter' },
+  { tab: 'blocklists', target: 'toggle-enableQuickBlock', label: 'filters_quick_block_title', aliases: 'quick block buttons channel' },
+  { tab: 'focus', target: 'toggle-dailyLimit', label: 'toggle_daily_limit', aliases: 'daily limit timer time watch budget minutes stop' },
+  { tab: 'focus', target: 'toggle-softReminder', label: 'toggle_soft_reminder', aliases: 'break reminder reminders time interval' },
+  { tab: 'focus', target: 'toggle-focusLockEnabled', label: 'toggle_focus_lock', aliases: 'focus lock pin password cooldown unlock protect settings' },
+  { tab: 'focus', target: 'toggle-scheduledBlockingEnabled', label: 'toggle_scheduled_blocking', aliases: 'schedule scheduled blocking hours days strict' },
+  { tab: 'focus', target: 'btn-end-focus-session', label: 'focus_session_title', aliases: 'focus session study 25 45 60 minutes', selector: '[data-focus-minutes="25"]' }
+];
+
+function renderSearchShortcuts(queryTerms) {
+  const container = $('setting-search-shortcuts');
+  const focusedTarget = container.contains(document.activeElement) ? document.activeElement.dataset.target : null;
+  container.replaceChildren();
+  if (queryTerms.length) {
+    for (const destination of SEARCH_DESTINATIONS) {
+      const label = t(destination.label) || '';
+      const tabLabel = t('tab_' + destination.tab) || destination.tab;
+      const terms = (label + ' ' + tabLabel + ' ' + destination.aliases).toLowerCase();
+      if (!queryTerms.every(term => terms.includes(term))) continue;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'setting-search-shortcut';
+      button.dataset.target = destination.target;
+      const name = document.createElement('span');
+      name.textContent = label;
+      const location = document.createElement('small');
+      location.textContent = tabLabel;
+      button.append(name, location);
+      button.addEventListener('click', async () => {
+        $('input-toggle-search').value = '';
+        filterToggles('');
+        await switchTab(destination.tab);
+        const target = destination.selector ? document.querySelector(destination.selector) : $(destination.target);
+        if (!target) return;
+        const card = target.closest('.focus-section-card');
+        if (card?.classList.contains('collapsed')) {
+          card.classList.remove('collapsed');
+          card.querySelector('.focus-card-header')?.setAttribute('aria-expanded', 'true');
+          await saveFocusCardState();
+        }
+        target.scrollIntoView({ block: 'center' });
+        target.focus({ preventScroll: true });
+      });
+      container.append(button);
+    }
+  }
+  container.hidden = !container.childElementCount;
+  if (focusedTarget) {
+    [...container.children].find(button => button.dataset.target === focusedTarget)?.focus({ preventScroll: true });
+  }
+  return container.childElementCount;
+}
+
 function filterToggles(query) {
   const q = (query || '').trim().toLowerCase();
   const clearBtn = $('btn-clear-search');
@@ -763,6 +825,7 @@ function filterToggles(query) {
   if (clearBtn) clearBtn.style.display = q ? 'flex' : 'none';
 
   if (!q) {
+    renderSearchShortcuts([]);
     if (noResultsEl) noResultsEl.style.display = 'none';
     if (detailedHeader) detailedHeader.style.display = 'flex';
 
@@ -809,7 +872,7 @@ function filterToggles(query) {
   }
 
   const queryTerms = q.split(/\s+/).filter(Boolean);
-  let totalMatches = 0;
+  let totalMatches = renderSearchShortcuts(queryTerms);
 
   let categoryMatches = 0;
   for (const sec of ['common', ...ACCORDION_SECTIONS]) {
@@ -1376,6 +1439,28 @@ function renderBlocklist(type, items) {
   });
 }
 
+function normalizeChannelEntry(rawValue) {
+  const value = rawValue.trim().toLowerCase();
+  if (value.startsWith('@')) return value.length > 1 && !/[\s/?#\\]/u.test(value) ? value : null;
+  // Names and handles remain local text matches. Only link-shaped input needs URL parsing.
+  const looksLikeLink = /^(?:[a-z][a-z\d+.-]*:(?=\S)|\/\/|www\.)|^(?:[^\s/]+\.)+[a-z]{2,}(?:[/?#:]|$)/iu.test(value);
+  if (!looksLikeLink) return value;
+  try {
+    const url = new URL(value.startsWith('//') ? 'https:' + value
+      : /^[a-z][a-z\d+.-]*:/i.test(value) ? value : 'https://' + value);
+    if (!['http:', 'https:'].includes(url.protocol)
+      || !['youtube.com', 'www.youtube.com', 'm.youtube.com'].includes(url.hostname)
+      || url.username || url.password || url.port) return null;
+    const parts = url.pathname.split('/').filter(Boolean).map(part => decodeURIComponent(part));
+    const identifier = parts[0]?.startsWith('@') ? parts[0]
+      : ['channel', 'c', 'user'].includes(parts[0]) ? parts[1] : null;
+    if (!identifier || identifier === '@' || /[\s/?#\\\u0000-\u001f\u007f]/u.test(identifier)) return null;
+    return identifier.toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
 async function handleAddBlocklistEntry(type) {
   const input = $(`input-${type}-blocklist`);
   if (!input) return;
@@ -1387,16 +1472,16 @@ async function handleAddBlocklistEntry(type) {
     return;
   }
 
-  // Preserve international handles and stable channel IDs from pasted URLs.
   if (type === 'channel') {
-    try {
-      const url = new URL(cleanVal.startsWith('http') ? cleanVal : 'https://' + cleanVal);
-      if (['youtube.com','www.youtube.com','m.youtube.com'].includes(url.hostname)) {
-        const parts = decodeURIComponent(url.pathname).split('/').filter(Boolean);
-        if (parts[0]?.startsWith('@')) cleanVal = parts[0];
-        else if (['channel','c','user'].includes(parts[0]) && parts[1]) cleanVal = parts[1];
-      }
-    } catch {}
+    cleanVal = normalizeChannelEntry(rawVal);
+    const invalid = cleanVal === null;
+    $('channel-input-error').hidden = !invalid;
+    if (!invalid) input.removeAttribute('aria-invalid');
+    if (invalid) {
+      input.setAttribute('aria-invalid', 'true');
+      input.focus();
+      return;
+    }
   }
 
   const settingKey = type === 'channel' ? 'channelBlocklist' : 'keywordBlocklist';
@@ -1688,12 +1773,49 @@ function renderStats(s) {
   }
 }
 
+const YOUTUBE_CONTENT_URLS = ['*://www.youtube.com/*', '*://m.youtube.com/*'];
+let _connectionCheckGeneration = 0;
+
+function isSupportedYouTubeTab(tab) {
+  try {
+    const url = new URL(tab?.url);
+    return ['http:', 'https:'].includes(url.protocol) && ['www.youtube.com', 'm.youtube.com'].includes(url.hostname);
+  } catch (_) { return false; }
+}
+
+async function checkYouTubeConnection() {
+  const generation = ++_connectionCheckGeneration;
+  const notice = $('youtube-connection-notice');
+  if (!notice || !browser?.tabs) return;
+  try {
+    const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+    if (generation !== _connectionCheckGeneration) return;
+    if (!isSupportedYouTubeTab(tab) || !Number.isInteger(tab.id) || tab.status === 'loading') {
+      notice.hidden = true;
+      return;
+    }
+    let timeout;
+    let response;
+    try {
+      response = await Promise.race([
+        browser.tabs.sendMessage(tab.id, { type: 'IYT_CONNECTION_CHECK' }),
+        new Promise(resolve => { timeout = setTimeout(() => resolve(null), 1500); })
+      ]);
+    } catch (_) { /* Missing or invalidated content script: offer a reload. */ }
+    finally { clearTimeout(timeout); }
+    if (generation === _connectionCheckGeneration) notice.hidden = response?.ready === true;
+  } catch (_) {
+    // An unknown tab or a failed query isn't evidence that YouTube needs a reload.
+    if (generation === _connectionCheckGeneration) notice.hidden = true;
+  }
+}
+
 async function broadcastSettingsToTabs(settings) {
   if (!browser || !browser.tabs) return;
   const contactedTabIds = new Set();
 
   const sendToTab = (tabId) => {
-    if (tabId && !contactedTabIds.has(tabId)) {
+    if (Number.isInteger(tabId) && !contactedTabIds.has(tabId)) {
       contactedTabIds.add(tabId);
       try {
         browser.tabs.sendMessage(tabId, { type: 'IYT_APPLY_SETTINGS', settings }).catch(() => {});
@@ -1704,11 +1826,7 @@ async function broadcastSettingsToTabs(settings) {
   // 1. Primary: match all YouTube URL patterns
   try {
     const tabs = await browser.tabs.query({
-      url: [
-        '*://*.youtube.com/*',
-        '*://youtube.com/*',
-        '*://m.youtube.com/*'
-      ]
+      url: YOUTUBE_CONTENT_URLS
     });
     if (Array.isArray(tabs)) {
       for (const tab of tabs) {
@@ -1720,10 +1838,12 @@ async function broadcastSettingsToTabs(settings) {
   // 2. Active tab fallback (requires no tabs permission in MV3)
   try {
     const activeTabs = await browser.tabs.query({ active: true, currentWindow: true });
-    if (Array.isArray(activeTabs) && activeTabs[0]?.id) {
+    if (Array.isArray(activeTabs) && isSupportedYouTubeTab(activeTabs[0])) {
       sendToTab(activeTabs[0].id);
     }
   } catch (e) {}
+  // Readiness is checked separately: saving settings does not prove a tab received them.
+  await checkYouTubeConnection();
 }
 
 /* ── Event Bindings ──────────────────────────────────── */
@@ -1904,6 +2024,15 @@ function bindAll() {
     });
 
     searchInput.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown' && searchInput.value.trim()) {
+        const firstBlockControl = [...$('setting-controls').querySelectorAll('.row input.chk, .row select')]
+          .find(control => !control.disabled && control.getClientRects().length > 0);
+        const firstResult = firstBlockControl || $('setting-search-shortcuts').querySelector('button');
+        if (firstResult) {
+          e.preventDefault();
+          firstResult.focus();
+        }
+      }
       if (e.key === 'Escape') {
         searchInput.value = '';
         filterToggles('');
@@ -2542,6 +2671,10 @@ function bindAll() {
 
   // Channel & Keyword Blocklist Form Actions
   $('btn-add-channel')?.addEventListener('click', () => handleAddBlocklistEntry('channel'));
+  $('input-channel-blocklist')?.addEventListener('input', e => {
+    $('channel-input-error').hidden = true;
+    e.target.removeAttribute('aria-invalid');
+  });
   $('input-channel-blocklist')?.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -2640,6 +2773,11 @@ async function init() {
   // Restore persisted active tab (default 'block')
   const initialTab = storedTab?.activeTab || 'block';
   switchTab(initialTab);
+  checkYouTubeConnection();
+  browser.tabs.onActivated?.addListener(() => { checkYouTubeConnection(); });
+  browser.tabs.onUpdated?.addListener((_tabId, changeInfo, tab) => {
+    if (tab.active && (changeInfo.status || changeInfo.url)) checkYouTubeConnection();
+  });
   try {
     const response = await browser.runtime.sendMessage({ type: 'IYT_REVIEW_PROMPT' });
     if (response?.show) $('review-card').style.display = 'flex';

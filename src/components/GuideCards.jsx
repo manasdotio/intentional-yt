@@ -3,6 +3,8 @@ import ProductArt from './ProductArt'
 
 function topic(slug) {
   if (slug.includes('channels')) return ['filters', 'CHANNEL FILTERS']
+  if (slug.includes('keyword')) return ['filters', 'KEYWORD FILTERS']
+  if (slug.includes('studying')) return ['feed', 'STUDY SETUP']
   if (slug.includes('time-limit')) return ['time', 'DAILY LIMITS']
   if (slug.includes('-vs-')) return ['compare', 'COMPARISON']
   return ['feed', 'SHORTS & RECOMMENDATIONS']

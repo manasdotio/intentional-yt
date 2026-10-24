@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "隐藏频道首页标签页",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Intentional YT 用起来怎么样？" },
   "review_prompt_description": { "message": "写一条评价，分享你的使用体验。" },
   "review_prompt_action": { "message": "撰写评价" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "隐藏标题包含指定关键词的视频。",
+    "message": "隐藏标题或视频卡片上显示的描述摘要中包含匹配词语或短语的视频。不会检查完整描述。",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% 本地过滤 · 标题和频道仅在客户端匹配，绝无任何数据遥测。",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "请输入 YouTube 频道链接、频道名称或 @账号。此处不支持视频和播放列表链接。"
   },
   "toast_channel_added": {
     "message": "已将 \"$NAME$\" 加入屏蔽频道",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "同时隐藏订阅内容和已保存播放列表的链接。"
+  },
+  "youtube_reload_needed": {
+    "message": "???????? YouTube ?????????????????? YouTube?????????????????? YouTube ??????"
   }
 }

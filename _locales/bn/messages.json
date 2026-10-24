@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "চ্যানেলের হোম ট্যাব লুকান",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Intentional YT কেমন লাগছে?" },
   "review_prompt_description": { "message": "একটি রিভিউ লিখে আপনার অভিজ্ঞতা জানান।" },
   "review_prompt_action": { "message": "রিভিউ লিখুন" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "যেসব ভিডিওর শিরোনাম ব্লক করা কীওয়ার্ডের সাথে মেলে সেগুলি লুকান।",
+    "message": "ভিডিওর শিরোনাম বা কার্ডে দেখানো বিবরণের অংশে মিলে যাওয়া শব্দ বা বাক্যাংশ থাকলে ভিডিও লুকান। সম্পূর্ণ বিবরণ পরীক্ষা করা হয় না।",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "১০০% স্থানীয় ফিল্টারিং · শিরোনাম ও চ্যানেল কোনো টেলিমেট্রি ছাড়াই ব্রাউজারে ফিল্টার হয়।",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "YouTube চ্যানেলের লিঙ্ক, চ্যানেলের নাম বা @handle ব্যবহার করুন। ভিডিও ও প্লেলিস্টের লিঙ্ক এখানে কাজ করবে না।"
   },
   "toast_channel_added": {
     "message": "ব্লক চ্যানেলে \"$NAME$\" যোগ করা হয়েছে",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "সাবস্ক্রিপশন ও সংরক্ষিত প্লেলিস্টের লিংকও লুকায়।"
+  },
+  "youtube_reload_needed": {
+    "message": "????? ?????? ???????? ???, ?????? ?? YouTube ??????? ??????????? ????? ??????? ???? YouTube ???? ??? ????? ?????? ????? YouTube-? ??????????? ???????????? ??????? ?????"
   }
 }

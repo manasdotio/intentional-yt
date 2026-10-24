@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "Startseite des Kanals ausblenden",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Wie gefällt dir Intentional YT?" },
   "review_prompt_description": { "message": "Teile deine Erfahrungen in einer Bewertung." },
   "review_prompt_action": { "message": "Bewertung schreiben" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Videos ausblenden, deren Titel blockierte Keywords enthalten.",
+    "message": "Blendet Videos mit passenden Wörtern oder Wortgruppen im Titel oder Beschreibungsausschnitt auf der Videokarte aus. Vollständige Beschreibungen werden nicht geprüft.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% lokale Filterung · Titel und Kanäle werden clientseitig ohne Telemetrie abgeglichen.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "Gib einen YouTube-Kanallink, Kanalnamen oder @Handle ein. Video- und Playlist-Links funktionieren hier nicht."
   },
   "toast_channel_added": {
     "message": "\"$NAME$\" zu blockierten Kanälen hinzugefügt",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "Blendet auch Links zu Abos und gespeicherten Playlists aus."
+  },
+  "youtube_reload_needed": {
+    "message": "Deine Einstellungen sind gespeichert, aber dieser YouTube-Tab ist nicht verbunden. Lade YouTube neu. Falls das Problem bleibt, pr?fe den Zugriff der Erweiterung auf YouTube."
   }
 }

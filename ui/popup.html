@@ -83,6 +83,9 @@
 
       <!-- Scrollable Tab Content Container -->
       <div id="scroll">
+      <div id="youtube-connection-notice" class="youtube-connection-notice" role="status" aria-live="polite" hidden>
+        <span data-i18n="youtube_reload_needed">Your settings are saved, but this YouTube tab isn't connected. Reload YouTube. If this continues, check the extension's access to YouTube.</span>
+      </div>
       <section class="welcome-card" id="review-card" style="display:none" aria-labelledby="review-title">
         <div class="welcome-text-wrap">
           <span class="welcome-title" id="review-title" data-i18n="review_prompt_title">How's Intentional YT working for you?</span>
@@ -129,7 +132,7 @@
       <div class="search-filter-card">
         <div class="toggle-search-wrap">
           <svg class="toggle-search-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="input-toggle-search" class="toggle-search-input" placeholder="Find a setting…" data-i18n-placeholder="search_toggles_placeholder" autocomplete="off" spellcheck="false" />
+          <input type="text" id="input-toggle-search" class="toggle-search-input" placeholder="Find a setting…" data-i18n-placeholder="search_toggles_placeholder" aria-label="Find a setting" data-i18n-aria="search_toggles_placeholder" autocomplete="off" spellcheck="false" />
           <button type="button" id="btn-clear-search" class="toggle-search-clear" style="display:none" aria-label="Clear search">
             <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
@@ -202,6 +205,10 @@
         <div class="accordion-body" id="sec-feed-body">
           <div class="accordion-inner">
             <div class="rows"><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                <span class="row-text" data-i18n="toggle_block_channel_home">Hide channel Home tab</span>
+                <input type="checkbox" class="chk" id="toggle-blockChannelHome">
+              </label><label class="row">
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 <span class="row-text" data-i18n="toggle_block_subscriptions">Hide subscriptions</span>
                 <input type="checkbox" class="chk" id="toggle-blockSubscriptionsFeed">
@@ -362,6 +369,7 @@
         </div>
       </div>
 
+      <div id="setting-search-shortcuts" class="setting-search-shortcuts" hidden></div>
       </div><!-- /#setting-controls -->
     </div><!-- /#panel-block -->
 
@@ -379,9 +387,10 @@
           </div>
           <div id="help-filter-channel" class="setting-help-text" hidden><span data-i18n="desc_channel_blocklist">Hide video cards from specific creators across feeds, search, and related videos.</span> <span data-i18n="blocklist_privacy_note">Filters hide matching video cards. Direct video links still open. Your lists stay in this browser.</span></div>
           <div class="blocklist-input-group">
-            <input type="text" id="input-channel-blocklist" class="blocklist-text-input" aria-labelledby="channel-filter-title" aria-describedby="help-filter-channel" placeholder="Channel name or @handle..." data-i18n-placeholder="placeholder_channel_input" autocomplete="off" spellcheck="false" />
+            <input type="text" id="input-channel-blocklist" class="blocklist-text-input" aria-labelledby="channel-filter-title" aria-describedby="help-filter-channel channel-input-error" placeholder="Channel name or @handle..." data-i18n-placeholder="placeholder_channel_input" autocomplete="off" spellcheck="false" />
             <button type="button" id="btn-add-channel" class="btn-blocklist-add" data-i18n-aria="btn_add_channel" data-i18n-title="btn_add_channel" aria-label="Add" title="Add"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="blocklist-add-label" data-i18n="btn_add_channel">Add</span></button>
           </div>
+          <div id="channel-input-error" class="form-error" role="alert" data-i18n="channel_input_invalid" hidden>Use a YouTube channel link, channel name or @handle. Video and playlist links won't work here.</div>
           <div class="blocklist-items-container" id="channel-blocklist-container">
             <div class="blocklist-chips-list" id="channel-blocklist-chips" style="display:none"></div>
             <div class="blocklist-empty-state" id="channel-blocklist-empty" data-i18n="blocklist_channels_empty">No channels added</div>
@@ -401,7 +410,7 @@
             </div>
             <button type="button" class="btn-blocklist-clear" id="btn-clear-keywords" style="display:none" data-i18n="btn_clear_all">Clear all</button>
           </div>
-          <div id="help-filter-keyword" class="setting-help-text" hidden><span data-i18n="desc_keyword_blocklist">Hide videos containing specific words or phrases in their titles.</span> <span data-i18n="blocklist_privacy_note">Filters hide matching video cards. Direct video links still open. Your lists stay in this browser.</span></div>
+          <div id="help-filter-keyword" class="setting-help-text" hidden><span data-i18n="desc_keyword_blocklist">Hide videos with matching words or phrases in their titles or description snippets shown on video cards. Full descriptions aren't checked.</span> <span data-i18n="blocklist_privacy_note">Filters hide matching video cards. Direct video links still open. Your lists stay in this browser.</span></div>
           <div class="blocklist-input-group">
             <input type="text" id="input-keyword-blocklist" class="blocklist-text-input" aria-labelledby="keyword-filter-title" aria-describedby="help-filter-keyword" placeholder="e.g. podcast, spoiler, react..." data-i18n-placeholder="placeholder_keyword_input" autocomplete="off" spellcheck="false" />
             <button type="button" id="btn-add-keyword" class="btn-blocklist-add" data-i18n-aria="btn_add_keyword" data-i18n-title="btn_add_keyword" aria-label="Add" title="Add"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="blocklist-add-label" data-i18n="btn_add_keyword">Add</span></button>
@@ -713,7 +722,7 @@
             <div class="settings-about-info">
               <div class="settings-about-title-row">
                 <span class="settings-about-title">Intentional YT</span>
-                <span class="settings-about-ver">v2.4.5</span>
+                <span class="settings-about-ver">v2.4.6</span>
               </div>
               <div class="settings-about-privacy">
                 <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>

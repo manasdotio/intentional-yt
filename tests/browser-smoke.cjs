@@ -248,6 +248,58 @@ fs.writeFileSync(path.join(extension,'manifest.json'),JSON.stringify(manifest));
     });
     await page.waitForTimeout(1200);
     assert.equal(await page.locator('ytd-rich-grid-renderer').isVisible(),true);
+    // A reused browse renderer may still say "home" on a channel route.
+    await popup.evaluate(() => StorageManager.updateSetting('blockIrrelevantSearchResults', true));
+    await page.evaluate(() => {
+      document.querySelector('ytd-browse').setAttribute('page-subtype', 'home');
+      document.querySelector('ytd-browse').insertAdjacentHTML('afterbegin', '<header id="channel-header-fixture">Creator</header><nav id="channel-tabs-fixture">Home Videos Playlists</nav><ytd-channel-video-player-renderer id="channel-trailer-fixture">Featured video</ytd-channel-video-player-renderer><ytd-section-list-renderer id="channel-shelves-fixture"><ytd-item-section-renderer><ytd-shelf-renderer id="channel-for-you-fixture">For you</ytd-shelf-renderer><ytd-horizontal-card-list-renderer id="channel-cards-fixture">Featured channels</ytd-horizontal-card-list-renderer></ytd-item-section-renderer></ytd-section-list-renderer>');
+      document.body.insertAdjacentHTML('beforeend', '<ytd-search id="channel-search-fixture"><ytd-shelf-renderer>Extra search section</ytd-shelf-renderer><ytd-horizontal-card-list-renderer>Extra search cards</ytd-horizontal-card-list-renderer><ytd-video-renderer>Normal search result</ytd-video-renderer></ytd-search>');
+      document.body.insertAdjacentHTML('beforeend', '<ytm-browse id="channel-mobile-fixture"><ytm-section-list-renderer>Mobile featured videos</ytm-section-list-renderer></ytm-browse>');
+      history.pushState({}, '', '/@ScienceDaily');
+      document.dispatchEvent(new Event('yt-navigate-finish'));
+    });
+    assert.equal(await page.locator('ytd-rich-grid-renderer').isVisible(), true, 'main Home blocking does not hide a channel Home tab');
+    for (const selector of ['#channel-trailer-fixture', '#channel-for-you-fixture', '#channel-cards-fixture']) {
+      assert.equal(await page.locator(selector).isVisible(), true, 'search cleanup must preserve channel content: ' + selector);
+    }
+    assert.equal(await page.locator('#channel-search-fixture ytd-shelf-renderer').isVisible(), false);
+    assert.equal(await page.locator('#channel-search-fixture ytd-horizontal-card-list-renderer').isVisible(), false);
+    assert.equal(await page.locator('#channel-search-fixture ytd-video-renderer').isVisible(), true);
+    await popup.locator('#input-toggle-search').fill('channel home');
+    assert.equal(await popup.locator('#toggle-blockChannelHome').isVisible(), true, 'channel Home control is searchable');
+    await popup.locator('#toggle-blockChannelHome').check();
+    await page.waitForFunction(() => document.documentElement.classList.contains('iyt-no-channel-home'));
+    for (const base of ['/@ScienceDaily', '/channel/UCfixture', '/c/ScienceDaily', '/user/ScienceDaily']) {
+      for (const tab of ['', '/', '/featured', '/featured/', '/videos', '/shorts', '/streams', '/playlists', '/posts', '/about']) {
+        await page.evaluate(url => {
+          history.pushState({}, '', url);
+          document.dispatchEvent(new Event('yt-navigate-finish'));
+        }, base + tab);
+        const visible = !['', '/', '/featured', '/featured/'].includes(tab);
+        for (const selector of ['ytd-rich-grid-renderer', '#channel-shelves-fixture', '#channel-trailer-fixture', '#channel-for-you-fixture', '#channel-cards-fixture', '#channel-mobile-fixture ytm-section-list-renderer']) {
+          assert.equal(await page.locator(selector).isVisible(), visible, base + tab + ': ' + selector);
+        }
+        assert.equal(await page.locator('#channel-header-fixture').isVisible(), true);
+        assert.equal(await page.locator('#channel-tabs-fixture').isVisible(), true);
+      }
+    }
+    await page.evaluate(() => {
+      history.pushState({}, '', '/@ScienceDaily');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    });
+    assert.equal(await page.locator('ytd-rich-grid-renderer').isVisible(), false, 'history navigation reapplies channel blocking');
+    await popup.locator('#toggle-blockChannelHome').uncheck();
+    await page.waitForFunction(() => !document.documentElement.classList.contains('iyt-no-channel-home'));
+    assert.equal(await page.locator('ytd-rich-grid-renderer').isVisible(), true, 'turning off channel blocking restores content immediately');
+    for (const selector of ['#channel-trailer-fixture', '#channel-for-you-fixture', '#channel-cards-fixture']) {
+      assert.equal(await page.locator(selector).isVisible(), true, 'turning off channel blocking restores ' + selector);
+    }
+    assert.equal((await popup.evaluate(() => StorageManager.getSettings())).blockChannelHome, false);
+    await popup.locator('#input-toggle-search').fill('');
+    await page.evaluate(() => {
+      for (const id of ['channel-header-fixture', 'channel-tabs-fixture', 'channel-trailer-fixture', 'channel-shelves-fixture', 'channel-mobile-fixture', 'channel-search-fixture']) document.getElementById(id).remove();
+    });
+    console.log('PASS: independent channel Home toggle, route variants, other tabs, mobile content, SPA/history navigation and live restore');
     await page.evaluate(()=>{
       history.pushState({}, '', '/');
       document.querySelector('ytd-browse').setAttribute('page-subtype','home');
@@ -270,6 +322,63 @@ fs.writeFileSync(path.join(extension,'manifest.json'),JSON.stringify(manifest));
     await page.waitForFunction(()=>!document.querySelector('ytd-rich-item-renderer').hasAttribute('data-iyt-filtered'));
     await page.waitForFunction(()=>document.querySelector('.iyt-quick-block-btn').dataset.channel==='@different');
     console.log('PASS: document-start CSS, exact channel filtering, Quick Block, reused cards');
+
+    const beforeKeywordFixture = await popup.evaluate(() => StorageManager.getSettings());
+    await popup.evaluate(() => StorageManager.updateSettings({channelBlocklist:[],keywordBlocklist:['podcast','car','season finale'],enableQuickBlock:false}));
+    await page.evaluate(() => {
+      const fixture = document.createElement('div'); fixture.id = 'keyword-snippets';
+      fixture.innerHTML = `
+        <ytd-video-renderer id="kw-description"><a id="video-title">Physics explained</a><div class="metadata-snippet-text">A PODCAST about physics</div></ytd-video-renderer>
+        <ytd-video-renderer id="kw-legacy"><a id="video-title">Repair basics</a><div id="description-text">Learn car repairs</div></ytd-video-renderer>
+        <ytm-video-with-context-renderer id="kw-mobile"><h3 class="media-item-headline">Episode recap</h3><div class="media-item-description">The season <b>finale</b> explained</div></ytm-video-with-context-renderer>
+        <ytd-rich-item-renderer id="kw-rich"><yt-lockup-view-model><h3>Audio lesson</h3><div class="metadata-snippet-text">A podcast lesson</div></yt-lockup-view-model></ytd-rich-item-renderer>
+        <ytd-compact-video-renderer id="kw-title"><h3 id="video-title">Podcast episode</h3></ytd-compact-video-renderer>
+        <ytd-video-renderer id="kw-unrelated"><a id="video-title">Physics explained</a><ytd-channel-name>Podcast creator</ytd-channel-name><span class="badge">podcast</span></ytd-video-renderer>
+        <ytd-video-renderer id="kw-short"><a id="video-title">Film awards</a><div class="metadata-snippet-text">Oscar predictions</div></ytd-video-renderer>
+        <ytd-video-renderer id="kw-split"><a id="video-title">Season</a><div class="metadata-snippet-text">Finale explained</div></ytd-video-renderer>
+        <ytd-video-renderer id="kw-hidden"><a id="video-title">Physics lesson</a><div class="metadata-snippet-text" hidden>podcast</div></ytd-video-renderer>
+        <ytd-channel-renderer id="kw-channel"><a id="video-title">Physics channel</a><div id="description-text">A podcast creator</div></ytd-channel-renderer>
+        <ytd-playlist-renderer id="kw-playlist"><a id="video-title">Physics course</a><div id="description-text">A podcast collection</div></ytd-playlist-renderer>
+        <ytd-video-renderer id="kw-lazy"><a id="video-title">New lesson</a></ytd-video-renderer>
+        <ytd-watch-metadata id="kw-watch"><div id="description">podcast</div></ytd-watch-metadata>`;
+      document.body.append(fixture);
+    });
+    const keywordHidden = async (id, hidden) => {
+      try {
+        await page.waitForFunction(({id,hidden}) =>
+          (document.getElementById(id).getAttribute('data-iyt-filtered') === 'true') === hidden, {id,hidden});
+      } catch (error) { throw new Error(id + ': expected filtered=' + hidden, {cause:error}); }
+    };
+    for (const id of ['kw-description','kw-legacy','kw-mobile','kw-rich','kw-title']) {
+      await keywordHidden(id, true);
+      assert.equal(await page.locator('#'+id).isVisible(), false, id);
+    }
+    for (const id of ['kw-unrelated','kw-short','kw-split','kw-hidden','kw-channel','kw-playlist','kw-lazy','kw-watch']) {
+      assert.equal(await page.locator('#'+id).isVisible(), true, id+' must not match unrelated text');
+    }
+    // Keep filtering stable while our own CSS hides a matching card, then
+    // restore it when YouTube reuses its description text node.
+    await page.locator('#kw-description #video-title').evaluate(el => el.textContent = 'Another physics lesson');
+    await page.waitForTimeout(400);
+    await keywordHidden('kw-description', true);
+    await page.locator('#kw-description .metadata-snippet-text').evaluate(el => el.firstChild.data = 'A lecture about physics');
+    await keywordHidden('kw-description', false);
+    await page.locator('#kw-rich .metadata-snippet-text').evaluate(el => el.firstChild.data = 'A physics lecture');
+    await keywordHidden('kw-rich', false);
+    assert.equal(await page.locator('#kw-rich yt-lockup-view-model').isVisible(), true, 'nested lockup must not retain a separate hidden state');
+    await page.locator('#kw-lazy').evaluate(el => el.insertAdjacentHTML('beforeend', '<div class="metadata-snippet-text">A podcast</div>'));
+    await keywordHidden('kw-lazy', true);
+    await page.locator('#kw-lazy .metadata-snippet-text').evaluate(el => el.remove());
+    await keywordHidden('kw-lazy', false);
+    await page.locator('#kw-hidden .metadata-snippet-text').evaluate(el => el.hidden = false);
+    await keywordHidden('kw-hidden', true);
+    await page.locator('#kw-hidden .metadata-snippet-text').evaluate(el => el.setAttribute('aria-hidden','true'));
+    await keywordHidden('kw-hidden', false);
+    await popup.evaluate(() => StorageManager.updateSetting('keywordBlocklist', []));
+    await page.waitForFunction(() => !document.querySelector('#keyword-snippets [data-iyt-filtered="true"]'));
+    await page.locator('#keyword-snippets').evaluate(el => el.remove());
+    await popup.evaluate(s => StorageManager.updateSettings({channelBlocklist:s.channelBlocklist,keywordBlocklist:s.keywordBlocklist,enableQuickBlock:s.enableQuickBlock}), beforeKeywordFixture);
+    console.log('PASS: keyword titles and card descriptions, unrelated text, hidden snippets, lazy descriptions and reused cards');
 
     // Generic shelves are also used for long videos. Only Shorts evidence
     // should hide them, and reusing a card must immediately undo that hiding.

@@ -29,6 +29,7 @@ class StorageManager {
       themeMode: 'auto',
 
       blockHomeFeed: true,
+      blockChannelHome: false,
       limitHomeFeed: false,
       blockSidebar: true,
       blockRecommended: true,

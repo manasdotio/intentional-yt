@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "Home-tabblad van kanalen verbergen",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Hoe bevalt Intentional YT?" },
   "review_prompt_description": { "message": "Deel je ervaring in een beoordeling." },
   "review_prompt_action": { "message": "Beoordeling schrijven" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Verberg video's waarvan de titel overeenkomt met geblokkeerde trefwoorden.",
+    "message": "Verberg video's met overeenkomende woorden of zinnen in de titel of het beschrijvingsfragment op de videokaart. Volledige beschrijvingen worden niet gecontroleerd.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% lokale filtering · Titels en kanalen worden lokaal gematcht zonder telemetrie.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "Gebruik een YouTube-kanaallink, kanaalnaam of @handle. Links naar video's en afspeellijsten werken hier niet."
   },
   "toast_channel_added": {
     "message": "\"$NAME$\" toegevoegd aan geblokkeerde kanalen",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "Verbergt ook links naar abonnementen en opgeslagen afspeellijsten."
+  },
+  "youtube_reload_needed": {
+    "message": "Je instellingen zijn opgeslagen, maar dit YouTube-tabblad is niet verbonden. Laad YouTube opnieuw. Blijft het probleem bestaan, controleer dan de toegang van de extensie tot YouTube."
   }
 }

@@ -10,6 +10,7 @@ var browser = globalThis.browser || globalThis.chrome;
 
 const CLASS_MAP = {
   blockHomeFeed:               'iyt-no-home-feed',
+  blockChannelHome:            'iyt-no-channel-home',
   limitHomeFeed:               'iyt-limit-home-feed',
   blockSidebar:                'iyt-no-sidebar',
   blockRecommended:            'iyt-no-recommended',
@@ -48,12 +49,29 @@ function isHomePage() {
 }
 
 function updateHomePageState() {
+  const channel = window.location.pathname.match(/^\/(?:@[^/]+|(?:channel|c|user)\/[^/]+)(?:\/(.*))?$/);
+  html.toggleAttribute('data-iyt-is-channel', !!channel);
+  html.toggleAttribute('data-iyt-is-channel-home', !!channel && (!channel[1] || /^featured\/?$/.test(channel[1])));
   if (isHomePage()) {
     html.setAttribute('data-iyt-is-home', 'true');
   } else {
     html.removeAttribute('data-iyt-is-home');
   }
+  pauseBlockedChannelVideos();
 }
+
+// CSS hides channel Home content; separately stop its player from continuing
+// invisibly. Capture play events so late-mounted/autoplaying trailers stop too.
+function pauseBlockedChannelVideos() {
+  if (!isEffectiveActive(_settings) || !_settings.blockChannelHome || !html.hasAttribute('data-iyt-is-channel-home')) return;
+  document.querySelectorAll('ytd-browse video, ytm-browse video').forEach(video => {
+    if (!video.paused) video.pause();
+  });
+}
+
+document.addEventListener('play', event => {
+  if (event.target.matches?.('ytd-browse video, ytm-browse video')) pauseBlockedChannelVideos();
+}, true);
 
 // Initial home page state detection
 updateHomePageState();
@@ -309,6 +327,21 @@ function getCardTitle(card) {
     return attrTitle.trim();
   }
   return (titleEl.textContent || '').trim();
+}
+
+function getCardDescriptions(card) {
+  // Only description snippets belonging to this video card: never channel
+  // bios, playlist descriptions, bylines, badges or the watch-page description.
+  if (!card || card.matches('ytd-channel-renderer, ytm-channel-renderer, ytd-playlist-renderer, ytd-radio-renderer')) return [];
+  const owner = getCardContainer(card);
+  const snippets = card.querySelectorAll('.metadata-snippet-text, #description-text, .media-item-description');
+  const descriptions = [];
+  for (const snippet of snippets) {
+    if (getCardContainer(snippet) !== owner || snippet.closest('[hidden], [aria-hidden="true"]')) continue;
+    const text = cleanChannelText(snippet.textContent);
+    if (text) descriptions.push(text);
+  }
+  return descriptions;
 }
 
 function getCardChannelInfo(card) {
@@ -665,7 +698,10 @@ function evaluateCard(card, channelBlocklist, keywordBlocklist, pageChannelInfo)
   const channelInfo = getCardChannelInfo(card);
   const isBlockedChannel = matchesChannel(channelInfo, channelBlocklist, null);
   const title = getCardTitle(card);
-  const isBlockedKeyword = !isBlockedChannel && matchesKeyword(title, keywordBlocklist);
+  const isBlockedKeyword = !isBlockedChannel && keywordBlocklist.length > 0 && (
+    matchesKeyword(title, keywordBlocklist)
+    || getCardDescriptions(card).some(description => matchesKeyword(description, keywordBlocklist))
+  );
 
   if (isBlockedChannel || isBlockedKeyword) {
     hideCard(card);
@@ -706,8 +742,14 @@ function scanAllCards(root = document) {
 
   const pageChannelInfo = getCurrentPageChannelInfo();
   const cards = root.querySelectorAll(CARD_CONTAINER_SELECTORS);
+  const evaluated = new Set();
   for (let i = 0; i < cards.length; i++) {
-    evaluateCard(cards[i], channelList, keywordList, pageChannelInfo);
+    // Use the same outer card as incremental scans so nested lockups cannot
+    // retain their own hidden state after a card's description changes.
+    const card = getCardContainer(cards[i]);
+    if (!card || evaluated.has(card)) continue;
+    evaluated.add(card);
+    evaluateCard(card, channelList, keywordList, pageChannelInfo);
   }
 }
 
@@ -908,7 +950,12 @@ browser.storage.onChanged.addListener((changes) => {
 
 // Also react immediately to direct runtime messages from popup
 if (browser && browser.runtime && browser.runtime.onMessage) {
-  browser.runtime.onMessage.addListener((msg) => {
+  browser.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+    if (msg?.type === 'IYT_CONNECTION_CHECK') {
+      // A loaded listener can receive settings even while initial storage is loading.
+      sendResponse({ ready: true });
+      return;
+    }
     if (msg && msg.type === 'IYT_APPLY_SETTINGS' && msg.settings) {
       ++_settingsGeneration;
       _settings = IYT_Policy.effective(msg.settings);
@@ -946,7 +993,7 @@ function configureDomObserver() {
   }
   if (mode === 'off') return;
   const options = { childList: true, subtree: true };
-  if (cards) Object.assign(options, { characterData: true, attributes: true, attributeFilter: ['href', 'title', 'aria-label'] });
+  if (cards) Object.assign(options, { characterData: true, attributes: true, attributeFilter: ['href', 'title', 'aria-label', 'hidden', 'aria-hidden'] });
   _domObserver.observe(document.body || document.documentElement, options);
 }
 

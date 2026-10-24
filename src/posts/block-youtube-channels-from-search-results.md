@@ -2,7 +2,7 @@
 title: "How to Block YouTube Channels from Search Results"
 slug: "block-youtube-channels-from-search-results"
 date: "2026-10-07"
-modified: "2026-10-10"
+modified: "2026-10-24"
 author: "Manas"
 description: "Learn how to block YouTube channels from search results on Chrome, Firefox, or Edge, find the right channel handle, and fix results that still appear."
 image: "/screenshots/intentional_yt_marquee_1400x560.png"
@@ -10,15 +10,15 @@ image: "/screenshots/intentional_yt_marquee_1400x560.png"
 
 # How to block YouTube channels from search results
 
-If the same unwanted channel keeps turning up when you search for a tutorial, you can hide its videos with Intentional YT. On desktop, open the extension's **Filters** tab and add the channel's name or `@handle` to **Channel Blocklist**.
+Searching for a tutorial gets frustrating when the same channel keeps filling the results. To hide it with Intentional YT, open **Filters** and add the channel's name or `@handle` to **Channel Blocklist**.
 
-I develop Intentional YT. These instructions are for version 2.4.0 in desktop Chrome, Firefox, and Edge.
+I'm Manas, the developer. Here's how to set that up in desktop Chrome, Firefox, or Edge.
 
 ## What about YouTube's "Don't recommend channel" option?
 
 On pages such as Home and Watch Next, you can open a video's menu and choose **Don't recommend channel**. [YouTube uses that feedback to tune your recommendations](https://support.google.com/youtube/answer/6342839?hl=en). The channel can still appear in search results.
 
-Try that first if you only want fewer suggestions from a creator. The extension's blocklist is useful when you also want their videos out of your searches.
+If recommendations are the only problem, try that option first. Use the extension's blocklist when you also want the channel out of your search results.
 
 ## Block a channel in Chrome, Firefox, or Edge
 
@@ -46,27 +46,13 @@ Use a search where you've just seen a video from the channel. Add the channel, t
 
 To undo the change, remove the entry from Filters. Those videos can appear again, though YouTube may reorder or change the results between searches.
 
-## Hide videos by title keyword
+## Hide videos by keyword
 
 In **Filters**, add a word or phrase to **Keyword Blocklist** and press **Enter** or **Add**.
 
-You might want to keep a creator's tutorials while avoiding their finale discussions. A phrase such as `season finale` lets you do that without blocking the whole channel. The filter reads the visible title; it can't catch a spoiler mentioned only in the description or the video itself.
+This helps when you like a creator but want to skip a particular topic. For example, `season finale` hides videos with that phrase in their title or a description snippet on the card, across creators. It won't catch a spoiler that appears only in a thumbnail, the full description or the video itself.
 
-Matching ignores capital letters. Entries of up to three characters match whole words, while longer entries can match part of a word.
-
-With example titles, that looks like this:
-
-| Entry | Example title | Hidden? |
-| --- | --- | --- |
-| `car` | Car repair basics | Yes: the short entry matches a whole word |
-| `car` | Oscar predictions | No: those letters are inside another word |
-| `spoiler` | SPOILERS: the ending explained | Yes: longer entries match parts of words and ignore case |
-| `season finale` | Season finale explained | Yes: the phrase appears together |
-| `season finale` | Finale recap for the season | No: the words are in a different order |
-
-Start with one phrase. A broad entry such as `news` can catch unrelated titles containing those letters, and `spoiler` also matches "no spoilers." If videos you wanted disappear, remove the entry or use a more specific phrase.
-
-Keywords work across creators, so they're useful for filtering a subject. A channel entry matches an exact name or identifier and hides that creator's videos regardless of title. Similar words in another channel's name won't be enough to match.
+Start with one phrase and check what disappears. Broad words can hide more than you intended: `spoiler` also matches "no spoilers." The [keyword-filtering guide](/blog/hide-youtube-videos-by-keyword) has more examples and explains how short words and phrases are matched.
 
 ## Where the filters work
 
@@ -83,6 +69,6 @@ If you'd rather hide recommendations altogether, the [Shorts and recommendations
 - If the popup says **Protections Snoozed**, choose **Resume Now** to turn filtering back on.
 - Look at what's still showing. A channel heading or a special search section may not be handled like an ordinary video card.
 
-YouTube changes its layouts, and I sometimes need to update the extension to handle them. If a video still slips through, [send me the page type, browser, and extension version](https://forms.gle/EFixUed5F5bmVvFX7). A cropped screenshot of the result helps too; leave out private account details.
+Still seeing it? [Send me the page type, browser, and extension version](https://forms.gle/EFixUed5F5bmVvFX7), along with a cropped screenshot if you can. YouTube layout changes sometimes need a fix on my side.
 
 To put a limit on how long you watch, [set a daily watch limit](/blog/set-youtube-daily-time-limit).

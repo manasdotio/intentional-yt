@@ -7,14 +7,14 @@ export default function Privacy() {
     <div className="section-head" style={{ textAlign: 'left', margin: '28px 0' }}>
       <h1 className="section-title">Privacy Policy</h1>
       <p className="section-desc">Your extension settings and watch-time totals stay on your device. Feedback is sent only when you choose to submit it.</p>
-      <p>Updated October 14, 2026.</p>
+      <p>Updated October 24, 2026.</p>
     </div>
     <div className="table-card privacy-copy">
       <section><h2>Extension data stays on your device</h2>
         <p>Intentional YT stores settings, channel and keyword filters, schedules, Focus Lock settings and daily watch-time totals in your browser’s local extension storage. It does not send these settings or totals to us and includes no usage analytics or tracking beacons. No account is required.</p>
       </section>
       <section><h2>What the extension reads</h2>
-        <p>On www.youtube.com and m.youtube.com, the extension reads page elements such as video titles and channel names to apply your filters, and player events to count playback. It does not maintain a list of watched videos or send your searches or account information to us. It does not run on music.youtube.com.</p>
+        <p>On www.youtube.com and m.youtube.com, the extension reads page elements such as video titles, description snippets on video cards and channel names to apply your filters, and player events to count playback. It does not fetch full video descriptions, maintain a list of watched videos or send your searches or account information to us. It does not run on music.youtube.com.</p>
         <p>Playback counts across tabs, including background tabs. Simultaneous videos add together. Counting continues when protections are off or snoozed. The daily total resets at local midnight.</p>
         <p>The storage permission saves preferences and totals. Alarms reconcile daily resets and timed settings. YouTube site access lets the extension hide selected elements and observe playback.</p>
       </section>

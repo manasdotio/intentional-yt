@@ -20,6 +20,7 @@ Mozilla linting targets the generated Firefox ZIP, not the repository's intentio
 ```sh
 npm exec -- playwright install chromium
 node tests/browser-smoke.cjs
+node tests/popup-discovery.cjs
 node tests/performance-smoke.cjs
 ```
 
@@ -36,12 +37,20 @@ The performance smoke test loads the blocker into a local fixture with mocked se
 
 Coverage includes actual toolbar popup auto-sizing and footer visibility, popup fonts, the MV3 background, matching desktop/mobile origins, document-start hiding, content filters and DOM reuse, schedules/snooze, media-state preservation, Focus Lock UI and persisted deadlines, keyboard-accessible Quick Block, and 320px English/Arabic light/dark popup layouts with mobile device emulation.
 
+Keyword filtering checks titles and description snippets on supported video cards separately. Fixtures cover classic, mobile and nested rich cards; case-insensitive and short-word matching; descriptions added, changed or removed later; hidden snippets; and clearing the list. Channel bios, playlist descriptions, bylines, badges and watch-page descriptions must not become keyword targets.
+
 Shorts regressions verify that ordinary shelves remain visible, Shorts shelves/cards stay hidden, reused cards update immediately in both directions, and disabling Shorts blocking preserves page-owned display styles. Shorts visibility uses document-start CSS rather than delayed inline hiding.
 
 For Firefox validation, extract `intentional-yt-firefox.zip` to a temporary directory and run `web-ext lint --source-dir <directory>`. Runtime checks on Firefox and live YouTube should still be performed before publishing, especially SPA navigation, fullscreen, real sleep/wake, current mobile markup and YouTube layout experiments.
 
 ## Behavioral contracts
 
+- Channel Home content has its own opt-in control under Home & browsing. Main Home blocking must not hide channel content. Channel blocking covers handle, channel-ID, legacy custom and user URLs (including `/featured`), preserves headers and other tabs, and updates on SPA/history navigation and live setting changes.
+- Search cleanup only hides shelves inside search results; it must preserve channel shelves such as For you. Channel Home checks include the featured player and shelves together, live restoration with search cleanup enabled, and pausing hidden trailers (including late autoplay) without affecting watch pages, other channel tabs, snoozed or disabled protection.
+
+- Search in Block shows matching Block controls first, followed by Filters and Focus shortcuts. Results use localized labels, open collapsed destination cards, and focus the control without changing protection settings. Arrow Down focuses the first available Block match or falls back to a shortcut; Enter opens a focused shortcut.
+- Channel input rejects video, playlist, unrelated and malformed links before saving, shows a localized inline error, and retains the input for correction. Channel names, handles (including international handles), and supported channel URLs still work. Browser checks cover Enter/Add submission, correction, duplicates and the error at 320px in English/Arabic and both themes.
+- The popup checks the active supported YouTube tab on opening, settings delivery and tab navigation. A missing receiver produces a localized reload/site-access notice; a successful response clears it. Loading tabs, YouTube Music and unrelated pages do not produce reload warnings. Checks use a bounded timeout, not polling, and add no permissions or network requests.
 - The Block tab shows effective blocking status and pause/resume. Search and the three common settings are directly available, without an Advanced settings or Change what's hidden gate. Each common setting has one control instead of duplicate quick/category controls; search includes those controls. Active schedules explain their override and disable conflicting common edits. Categories retain their saved expansion choices; an old collapsed wrapper preference cannot hide the controls.
 - The Block tab starts directly with controls, without an active-summary card. Effective settings use subtle row highlights; paused/off states clear those highlights. Navigation consequences remain available through setting help.
 - Collapsible controls are grouped into Home & browsing, Watching a video, and Navigation & appearance. Common controls remain at the top without duplication. Counts and search follow the new groups, and expanded legacy categories keep their moved controls reachable after upgrade.

@@ -9,7 +9,7 @@
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install%20Extension-4285F4?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg)
 [![Microsoft Edge](https://img.shields.io/badge/Microsoft%20Edge-Install%20Add--on-0078D7?logo=microsoft-edge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb)
 [![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install%20Extension-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/)
-![Version](https://img.shields.io/badge/version-2.4.5-brightgreen.svg)
+![Version](https://img.shields.io/badge/version-2.4.6-brightgreen.svg)
 ![Browsers](https://img.shields.io/badge/browsers-Chrome%20%7C%20Edge%20%7C%20Firefox-informational.svg)
 ![Manifest](https://img.shields.io/badge/manifest-v3-blue.svg)
 [![Privacy](https://img.shields.io/badge/telemetry-0%25%20(strictly%20local)-success.svg)](PRIVACY.md)
@@ -58,6 +58,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 
 ### 🎛️ Feed & Homepage Discovery
 - **Hide Home Feed (`blockHomeFeed`)**: Replaces the addictive infinite homepage recommendations with a clean, distraction-free search interface.
+- **Hide channel Home tab (`blockChannelHome`)**: Independently hides channel Home content, including the featured video and shelves, and pauses hidden trailers while keeping the channel header and other tabs accessible. Off by default; find it under Home & browsing.
 - **Limit Home Feed / Anti-Doomscroll (`limitHomeFeed`)**: Caps homepage recommendations to the first 15 videos (first screen) and hard-stops infinite scroll with an intentional caught-up banner (`✦ You're all caught up • Feed limit active`). Ideal when you want a quick check without falling into an algorithmic rabbit hole.
 - **Hide Subscriptions Feed (`blockSubscriptionsFeed`)**: Suppresses the subscription grid when you want to look up specific topics without inbox-style pressure.
 - **Hide Explore & Trending (`blockExploreAndTrending`)**: Cleans out trending hubs, gaming, movies, and promotional navigation sections.
@@ -112,7 +113,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 
 ### 🛡️ Channel & Keyword Content Filtering
 - **Channel Blocklist (`channelBlocklist`)**: Hide video cards from specific YouTube creators across the home feed, search results, sidebar suggestions, and channel pages.
-- **Keyword Blocklist (`keywordBlocklist`)**: Case-insensitive substring matching against video titles (e.g. `podcast`, `reaction`, `spoiler`) to automatically hide unwanted video cards.
+- **Keyword Blocklist (`keywordBlocklist`)**: Matches words and phrases against video titles and description snippets on supported video cards (e.g. `podcast`, `reaction`, `spoiler`). Matching ignores case; entries up to three characters use word boundaries. Full video descriptions are not fetched or checked.
 - **1-Click In-Feed Quick Block (`enableQuickBlock`)**: High-contrast, solid Block button positioned next to channel names on video cards for instant one-click channel blocking without opening the popup.
 - **100% Local Text Matching**: Strictly title and channel string matching with zero external API calls, zero telemetry, and zero DOM inferences.
 
@@ -131,6 +132,7 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 | Feature Name | Storage Key | Injected Class on `<html>` | Default |
 | :--- | :--- | :--- | :---: |
 | **Hide Home Feed** | `blockHomeFeed` | `iyt-no-home-feed` | `true` |
+| **Hide channel Home tab** | `blockChannelHome` | `iyt-no-channel-home` | `false` |
 | **Limit Home Feed (Anti-Doomscroll)** | `limitHomeFeed` | `iyt-limit-home-feed` | `false` |
 | **Hide Recommended Sidebar** | `blockRecommended` | `iyt-no-recommended` | `true` |
 | **Hide Left Sidebar** | `blockSidebar` | `iyt-no-sidebar` | `true` |

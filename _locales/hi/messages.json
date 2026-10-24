@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "चैनल का होम टैब छिपाएँ",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Intentional YT कैसा लग रहा है?" },
   "review_prompt_description": { "message": "समीक्षा लिखकर अपना अनुभव साझा करें।" },
   "review_prompt_action": { "message": "समीक्षा लिखें" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "उन वीडियो को छुपाएं जिनके शीर्षक ब्लॉक किए गए कीवर्ड से मेल खाते हैं।",
+    "message": "शीर्षक या वीडियो कार्ड पर दिखने वाले विवरण के अंश में मेल खाने वाले शब्द या वाक्यांश होने पर वीडियो छुपाएँ। पूरा विवरण जाँचा नहीं जाता।",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% स्थानीय फ़िल्टरिंग · शीर्षक और चैनल शून्य टेलीमेट्री के साथ ब्राउज़र में ही फ़िल्टर होते हैं।",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "YouTube चैनल का लिंक, चैनल का नाम या @handle इस्तेमाल करें। वीडियो और प्लेलिस्ट के लिंक यहाँ काम नहीं करेंगे।"
   },
   "toast_channel_added": {
     "message": "\"$NAME$\" को ब्लॉक चैनलों में जोड़ा गया",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "सब्सक्रिप्शन और सहेजी गई प्लेलिस्ट के लिंक भी छिपाता है।"
+  },
+  "youtube_reload_needed": {
+    "message": "???? ???????? ??? ???, ????? ?? YouTube ??? ????????? ?? ????? ???? ??? YouTube ??? ?? ??? ????? ?????? ??? ??? ?? YouTube ?? ????????? ?? ?????? ???????"
   }
 }

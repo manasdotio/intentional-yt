@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "Kanalın Ana Sayfa sekmesini gizle",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Intentional YT deneyiminiz nasıl?" },
   "review_prompt_description": { "message": "Bir değerlendirme yazarak deneyiminizi paylaşın." },
   "review_prompt_action": { "message": "Değerlendirme yaz" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Başlıkları engellenen anahtar kelimelerle eşleşen videoları gizleyin.",
+    "message": "Başlığında veya video kartındaki açıklama özetinde eşleşen kelime ya da ifadeler bulunan videoları gizler. Açıklamaların tamamı kontrol edilmez.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% Yerel filtreleme · Başlıklar ve kanallar sıfır telemetri ile istemci tarafında eşleştirilir.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "YouTube kanal bağlantısı, kanal adı veya @kullanıcıadı kullanın. Video ve oynatma listesi bağlantıları burada çalışmaz."
   },
   "toast_channel_added": {
     "message": "\"$NAME$\" engellenen kanallara eklendi",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "Aboneliklere ve kayıtlı oynatma listelerine giden bağlantıları da gizler."
+  },
+  "youtube_reload_needed": {
+    "message": "Ayarlar?n?z kaydedildi ancak bu YouTube sekmesi ba?l? de?il. YouTube'u yeniden y?kleyin. Sorun devam ederse uzant?n?n YouTube eri?imini kontrol edin."
   }
 }

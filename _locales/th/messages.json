@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "ซ่อนแท็บหน้าแรกของช่อง",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "คุณรู้สึกอย่างไรกับ Intentional YT?" },
   "review_prompt_description": { "message": "แบ่งปันประสบการณ์ของคุณด้วยการเขียนรีวิว" },
   "review_prompt_action": { "message": "เขียนรีวิว" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "ซ่อนวิดีโอที่มีชื่อตรงกับคำสำคัญที่ถูกบล็อก",
+    "message": "ซ่อนวิดีโอที่มีคำหรือวลีตรงกันในชื่อหรือข้อความคำอธิบายบางส่วนที่แสดงบนการ์ดวิดีโอ โดยไม่ตรวจสอบคำอธิบายฉบับเต็ม",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "การกรองในเครื่อง 100% · ตรวจสอบชื่อและช่องในเบราว์เซอร์โดยไม่มีการส่งข้อมูลใดๆ",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "ใช้ลิงก์ช่อง YouTube ชื่อช่อง หรือ @แฮนเดิล ลิงก์วิดีโอและเพลย์ลิสต์ใช้ที่นี่ไม่ได้"
   },
   "toast_channel_added": {
     "message": "เพิ่ม \"$NAME$\" ไปยังช่องที่บล็อกแล้ว",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "ซ่อนลิงก์ไปยังช่องที่ติดตามและเพลย์ลิสต์ที่บันทึกไว้ด้วย"
+  },
+  "youtube_reload_needed": {
+    "message": "???????????????????? ??????? YouTube ???????????????????????????????? ???? YouTube ???? ????????????? ??????????????????????????????????????? YouTube"
   }
 }

@@ -8,7 +8,7 @@ License: current changes are source available under LICENSE, not open source. Hi
 
 ## 📌 Executive Summary
 - **Name**: Intentional YT - Block YouTube Shorts, Recommendations & Set Time Limits
-- **Version**: 2.4.5
+- **Version**: 2.4.6
 - **Tagline**: Take back your focus. Make YouTube an intentional tool, not an endless rabbit hole.
 - **One-Liner**: A browser extension with local settings and modern React web app that turns YouTube into a distraction-free, search-first utility by stripping algorithmic rabbit holes, Shorts carousels, clickbait thumbnails, and infinite feeds.
 
@@ -107,7 +107,7 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
 
 ### 8. Channel & Keyword Filtering (Filters Tab)
 - `channelBlocklist`: Array of blocked channel names/handles (case-insensitive client-side DOM match). Hides whole video cards across home feed, search, and sidebar.
-- `keywordBlocklist`: Array of blocked title keywords (case-insensitive substring match). Hides video cards whose titles contain any blocked keyword.
+- `keywordBlocklist`: Array of blocked keywords. Hides supported video cards when their title or a card description snippet matches. Matching ignores case; entries up to three characters use word boundaries, longer entries use substring matching. Full descriptions are not fetched or checked.
 - `enableQuickBlock`: Solid, high-contrast 1-click Block button displayed next to channel names on video cards for instant blocking without popup interaction.
 - **Strictly Local**: Client-side text matching only, 0% telemetry, zero remote requests.
 

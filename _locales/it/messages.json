@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "Nascondi la scheda Home del canale",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Come ti trovi con Intentional YT?" },
   "review_prompt_description": { "message": "Condividi la tua esperienza con una recensione." },
   "review_prompt_action": { "message": "Scrivi una recensione" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Nasconde i video i cui titoli corrispondono alle parole chiave bloccate.",
+    "message": "Nasconde i video con parole o frasi corrispondenti nel titolo o nell’anteprima della descrizione sulla scheda. Le descrizioni complete non vengono controllate.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "Filtraggio 100% locale · Titoli e canali vengono confrontati lato client con zero telemetria.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "Usa un link a un canale YouTube, il nome del canale o un @handle. I link a video e playlist non funzionano qui."
   },
   "toast_channel_added": {
     "message": "Aggiunto \"$NAME$\" ai canali bloccati",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "Nasconde anche i link alle iscrizioni e alle playlist salvate."
+  },
+  "youtube_reload_needed": {
+    "message": "Le impostazioni sono salvate, ma questa scheda di YouTube non ? collegata. Ricarica YouTube. Se il problema persiste, controlla l'accesso dell'estensione a YouTube."
   }
 }

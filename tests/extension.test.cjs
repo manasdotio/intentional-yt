@@ -9,6 +9,103 @@ const root = path.resolve(__dirname, '..');
 const source = file => fs.readFileSync(path.join(root, file), 'utf8');
 const clone = value => structuredClone(value);
 
+test('channel input accepts creator identifiers and rejects video, playlist and unrelated links', () => {
+  const context = vm.createContext({ URL });
+  const popup = source('ui/popup.js');
+  vm.runInContext(popup.slice(popup.indexOf('function normalizeChannelEntry('), popup.indexOf('async function handleAddBlocklistEntry(')), context);
+  const normalize = context.normalizeChannelEntry;
+  for (const [input, expected] of [
+    ['  Science Channel  ', 'science channel'], ['Science: Explained', 'science: explained'],
+    ['@Creator.Name', '@creator.name'],
+    ['@学習', '@学習'], ['UCAbCd123', 'ucabcd123'],
+    ['https://www.youtube.com/@Creator/videos?view=0', '@creator'],
+    ['youtube.com/@Creator/shorts', '@creator'],
+    ['//m.youtube.com/@Creator', '@creator'],
+    ['www.youtube.com/channel/UCAbCd123?si=share', 'ucabcd123'],
+    ['https://youtube.com/c/Creator', 'creator'], ['https://youtube.com/user/Creator', 'creator'],
+    ['https://youtube.com/@%C3%89cole', '@école'],
+    ['https://youtube.com/@%E5%AD%A6%E7%BF%92', '@学習']
+  ]) assert.equal(normalize(input), expected, input);
+  for (const input of [
+    'https://www.youtube.com/watch?v=123', 'youtube.com/shorts/123',
+    'https://youtu.be/123?si=share', 'https://youtube.com/playlist?list=123',
+    'https://youtube.com/live/123', 'https://youtube.com/embed/123',
+    'https://youtube.com/results?search_query=channel', 'youtube.com',
+    'https://example.com/@Creator', 'https://youtube.com.example.com/@Creator',
+    'ftp://youtube.com/@Creator', 'https://user@youtube.com/@Creator',
+    'https://youtube.com/channel/', 'https://youtube.com/@',
+    'https://youtube.com/@bad%ZZ', 'https://youtube.com/@bad%2Fpath',
+    'https://youtube.com/@bad%20name', 'https://[invalid', '@'
+  ]) assert.equal(normalize(input), null, input);
+});
+
+function popupConnectionCheck(query, sendMessage) {
+  const notice = { hidden: true };
+  const context = vm.createContext({
+    URL, setTimeout, clearTimeout, $: () => notice,
+    browser: { tabs: { query, sendMessage } }
+  });
+  const popup = source('ui/popup.js');
+  vm.runInContext(popup.slice(popup.indexOf('const YOUTUBE_CONTENT_URLS'), popup.indexOf('async function broadcastSettingsToTabs')), context);
+  return { notice, check: () => context.checkYouTubeConnection() };
+}
+
+test('connection notice distinguishes supported YouTube tabs from unrelated pages', async () => {
+  let tab = { id: 1, url: 'https://www.youtube.com/watch?v=lesson', status: 'complete' };
+  let reachable = false;
+  let requests = 0;
+  const env = popupConnectionCheck(async () => [tab], async () => {
+    requests++;
+    if (!reachable) throw new Error('Receiving end does not exist');
+    return { ready: true };
+  });
+  await env.check();
+  assert.equal(env.notice.hidden, false);
+  reachable = true;
+  await env.check();
+  assert.equal(env.notice.hidden, true, 'successful reconnect clears the warning');
+  for (const url of ['https://music.youtube.com/', 'https://example.com/', 'https://www.youtube.com.example.com/', undefined]) {
+    tab = { id: 2, url, status: 'complete' };
+    await env.check();
+    assert.equal(env.notice.hidden, true);
+  }
+  assert.equal(requests, 2, 'unsupported tabs are never messaged');
+  tab = { id: 3, url: 'https://m.youtube.com/', status: 'loading' };
+  await env.check();
+  assert.equal(requests, 2, 'do not warn while a page is still loading');
+  tab.status = 'complete';
+  reachable = false;
+  await env.check();
+  assert.equal(env.notice.hidden, false, 'mobile YouTube uses the same connection check');
+});
+
+test('late connection failures cannot replace newer tab state', async () => {
+  let tab = { id: 1, url: 'https://www.youtube.com/' };
+  let fail;
+  let started;
+  const sending = new Promise(resolve => { started = resolve; });
+  const env = popupConnectionCheck(async () => [tab], () => new Promise((_resolve, reject) => { fail = reject; started(); }));
+  const oldCheck = env.check();
+  await sending;
+  tab = { id: 2, url: 'https://example.com/' };
+  await env.check();
+  fail(new Error('Tab navigated'));
+  await oldCheck;
+  assert.equal(env.notice.hidden, true);
+});
+
+test('failed tab queries do not produce a misleading reload warning', async () => {
+  const env = popupConnectionCheck(async () => { throw new Error('Tab unavailable'); }, () => { throw new Error('Must not send'); });
+  await env.check();
+  assert.equal(env.notice.hidden, true);
+});
+
+test('a receiver that never responds produces a bounded reload notice', async () => {
+  const env = popupConnectionCheck(async () => [{ id: 1, url: 'https://www.youtube.com/' }], () => new Promise(() => {}));
+  await env.check();
+  assert.equal(env.notice.hidden, false);
+});
+
 function store(initial = {}) {
   const state = clone(initial), writes = [];
   const browser = { storage: { local: {
@@ -47,6 +144,57 @@ test('review prompt fails closed when its one-time flag cannot be saved', async 
   const env = store({ reviewEligibleAt: Date.now() - 1 });
   env.context.browser.storage.local.set = async () => { throw new Error('Storage unavailable'); };
   await assert.rejects(env.manager.reviewPrompt(true), /Storage unavailable/);
+});
+
+test('channel Home blocking stops hidden trailers, including late autoplay, without affecting other pages or paused protection', () => {
+  let channelHome = true;
+  let pauses = 0;
+  let scans = 0;
+  let playHandler;
+  const video = { paused: false, pause() { this.paused = true; pauses++; } };
+  const settings = { extensionEnabled: true, blockChannelHome: true };
+  const context = vm.createContext({
+    _settings: settings,
+    isEffectiveActive: s => s.extensionEnabled && !s.snoozeUntil,
+    html: { hasAttribute: () => channelHome },
+    document: {
+      querySelectorAll: selector => { assert.equal(selector, 'ytd-browse video, ytm-browse video'); scans++; return [video]; },
+      addEventListener: (event, handler, capture) => { assert.equal(event, 'play'); assert.equal(capture, true); playHandler = handler; }
+    }
+  });
+  const code = source('content/blocker.js');
+  vm.runInContext(code.slice(code.indexOf('function pauseBlockedChannelVideos()'), code.indexOf('// Initial home page state detection')), context);
+  context.pauseBlockedChannelVideos();
+  assert.equal(pauses, 1);
+  context.pauseBlockedChannelVideos();
+  assert.equal(pauses, 1, 'already-paused videos stay paused');
+  video.paused = false;
+  playHandler({ target: { matches: () => true } });
+  assert.equal(pauses, 2, 'late autoplay is paused by the capturing listener');
+  const scansBefore = scans;
+  playHandler({ target: { matches: () => false } });
+  assert.equal(scans, scansBefore, 'unrelated playback does not scan the channel');
+  for (const state of ['other-tab', 'off', 'snoozed', 'toggle-off']) {
+    channelHome = state !== 'other-tab';
+    settings.extensionEnabled = state !== 'off';
+    settings.snoozeUntil = state === 'snoozed' ? Date.now() + 60000 : null;
+    settings.blockChannelHome = state !== 'toggle-off';
+    video.paused = false;
+    context.pauseBlockedChannelVideos();
+    assert.equal(video.paused, false, state);
+  }
+});
+
+test('channel Home blocking defaults off, persists independently and respects Focus Lock', async () => {
+  const env = store();
+  assert.equal(env.manager.getInitialSettings().blockChannelHome, false);
+  assert.equal(env.manager.getDefaultSettings().blockChannelHome, false);
+  await env.manager.updateSettings({ blockHomeFeed: true, blockChannelHome: true });
+  const saved = await store(env.state).manager.getSettings();
+  assert.equal(saved.blockChannelHome, true);
+  assert.equal(saved.blockHomeFeed, true);
+  await locked(env);
+  await assert.rejects(env.manager.updateSetting('blockChannelHome', false), { code: 'LOCKED' });
 });
 
 test('presets apply atomically without snapshots and preserve unrelated preferences', async () => {

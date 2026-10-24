@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "Ẩn thẻ Trang chủ của kênh",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Bạn thấy Intentional YT thế nào?" },
   "review_prompt_description": { "message": "Chia sẻ trải nghiệm của bạn bằng một bài đánh giá." },
   "review_prompt_action": { "message": "Viết đánh giá" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "Ẩn các video có tiêu đề khớp với từ khóa bị chặn.",
+    "message": "Ẩn video có từ hoặc cụm từ khớp trong tiêu đề hay đoạn mô tả hiển thị trên thẻ video. Không kiểm tra toàn bộ mô tả.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "Lọc 100% cục bộ · Tiêu đề và kênh được đối sánh trực tiếp trên trình duyệt mà không gửi dữ liệu đi.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "Dùng liên kết kênh YouTube, tên kênh hoặc @tên_người_dùng. Liên kết video và danh sách phát không dùng được ở đây."
   },
   "toast_channel_added": {
     "message": "Đã thêm \"$NAME$\" vào danh sách kênh bị chặn",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "Cũng ẩn liên kết đến kênh đã đăng ký và danh sách phát đã lưu."
+  },
+  "youtube_reload_needed": {
+    "message": "C?i ??t ?? ???c l?u nh?ng th? YouTube n?y ch?a k?t n?i v?i ti?n ?ch. H?y t?i l?i YouTube. N?u v?n g?p s? c?, h?y ki?m tra quy?n truy c?p YouTube c?a ti?n ?ch."
   }
 }

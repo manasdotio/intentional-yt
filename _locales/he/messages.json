@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "הסתרת כרטיסיית הבית של הערוץ",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "איך Intentional YT עובד בשבילך?" },
   "review_prompt_description": { "message": "אפשר לשתף את החוויה שלך בביקורת." },
   "review_prompt_action": { "message": "כתיבת ביקורת" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "הסתרת סרטונים שהכותרת שלהם תואמת למילות מפתח חסומות.",
+    "message": "הסתרת סרטונים עם מילים או ביטויים תואמים בכותרת או בקטע התיאור שמוצג בכרטיס הסרטון. התיאורים המלאים אינם נבדקים.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "סינון 100% מקומי · שמות וכותרות מותאמים בדפדפן ללא מעקב או איסוף נתונים.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "יש להזין קישור לערוץ YouTube, שם ערוץ או ‎@handle. קישורים לסרטונים ולפלייליסטים לא יעבדו כאן."
   },
   "toast_channel_added": {
     "message": "\"$NAME$\" נוסף לערוצים החסומים",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "מסתיר גם קישורים למינויים ולפלייליסטים שמורים."
+  },
+  "youtube_reload_needed": {
+    "message": "??????? ??? ?????, ??? ?????? YouTube ??? ???? ?????? ?????. ?? ????? ?? YouTube ????. ?? ????? ?????, ?? ????? ?? ????? ????? ?? ????? ?-YouTube."
   }
 }

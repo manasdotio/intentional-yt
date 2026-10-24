@@ -1,4 +1,8 @@
 {
+  "toggle_block_channel_home": {
+    "message": "채널 홈 탭 숨기기",
+    "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
+  },
   "review_prompt_title": { "message": "Intentional YT 사용 경험은 어떠신가요?" },
   "review_prompt_description": { "message": "리뷰로 경험을 공유해 주세요." },
   "review_prompt_action": { "message": "리뷰 작성" },
@@ -492,7 +496,7 @@
     "description": "Section header for Keyword Blocklist"
   },
   "desc_keyword_blocklist": {
-    "message": "제목에 지정한 키워드가 포함된 동영상을 숨깁니다.",
+    "message": "제목이나 동영상 카드에 표시되는 설명 일부에 일치하는 단어나 문구가 있으면 동영상을 숨깁니다. 전체 설명은 확인하지 않습니다.",
     "description": "Description for Keyword Blocklist feature"
   },
   "placeholder_keyword_input": {
@@ -518,6 +522,9 @@
   "blocklist_privacy_note": {
     "message": "100% 로컬 필터링 · 제목 및 채널은 원격 전송 없이 브라우저 내에서만 매칭됩니다.",
     "description": "Privacy note at the bottom of the filters panel"
+  },
+  "channel_input_invalid": {
+    "message": "YouTube 채널 링크, 채널 이름 또는 @핸들을 입력하세요. 동영상 및 재생목록 링크는 여기에서 사용할 수 없습니다."
   },
   "toast_channel_added": {
     "message": "차단 채널 목록에 \"$NAME$\" 추가됨",
@@ -1387,5 +1394,8 @@
   },
   "desc_sidebar_navigation": {
     "message": "구독 및 저장된 재생목록 링크도 숨깁니다."
+  },
+  "youtube_reload_needed": {
+    "message": "??? ?????? ? YouTube ?? ?? ????? ???? ?? ????. YouTube? ???????. ??? ???? ?? ????? YouTube ?? ??? ?????."
   }
 }

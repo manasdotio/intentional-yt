@@ -2,7 +2,7 @@
 title: "Hide YouTube Shorts and Recommendations"
 slug: "hide-youtube-shorts-and-recommendations"
 date: "2026-09-28"
-modified: "2026-10-16"
+modified: "2026-10-24"
 author: "Manas"
 description: "Hide YouTube's home feed, Shorts, and suggested videos on desktop. Set up Intentional YT for Chrome, Firefox, or Edge while keeping search and subscriptions."
 image: "/screenshots/intentional_yt_marquee_1400x560.png"
@@ -10,11 +10,11 @@ image: "/screenshots/intentional_yt_marquee_1400x560.png"
 
 # How to hide YouTube Shorts and recommendations on desktop
 
-You open YouTube to look up one thing. Before you've typed anything, a thumbnail catches your eye. That's an easy detour to take, especially when you only came for a quick answer.
+YouTube's homepage can get in the way when you already know what you want to watch. You came for a tutorial, but the recommendations are there before you've even typed a search.
 
 If you'd rather skip that feed, open Intentional YT and set **Home page videos** to **Hide all**. You can still search for videos and visit your subscriptions. **Hide Shorts** and **Hide suggested videos beside the player** are separate switches, so you can decide how much to hide.
 
-I'm Manas, the developer of Intentional YT. Below, I'll walk through those settings for the YouTube website on desktop. They won't change the YouTube phone app.
+I'm Manas, the developer of Intentional YT. This guide covers the desktop website; these settings won't change the YouTube phone app.
 
 <div class="table-card" style="padding: 20px; margin: 24px 0;">
 <p><strong>Want to try this setup?</strong><br>Choose your browser below. Once installed, you can pick which parts of YouTube to hide. You don't need an account.</p>
@@ -33,7 +33,7 @@ It helps to pin the extension to your toolbar if you expect to change these sett
 
 ## 2. Hide the YouTube home feed and keep subscriptions
 
-Set **Home page videos** to **Hide all**. In **Home & browsing**, leave **Hide subscriptions** off. On older versions, enable **Hide home feed** under **Feeds & Shorts** instead.
+Set **Home page videos** to **Hide all**. In **Home & browsing**, leave **Hide subscriptions** off.
 
 With this setting, the recommended videos on YouTube's main homepage disappear. You can still type a search, open a link someone sent you, or visit a favorite channel. The **Home** tab on a channel's page should stay available too.
 
@@ -45,11 +45,11 @@ With this setting, the recommended videos on YouTube's main homepage disappear. 
 | Channel pages | Browse a creator's videos | Channel browsing remains available |
 | A direct video link | Open and play a video | Video playback remains available |
 
-If more disappears than you expected, check your other settings and whether a Strict Focus session is running. If hiding the home feed also blanks a channel's Home tab, check for an extension update. If it's still happening, send me the channel URL through the feedback link below.
+If more disappears than you expected, check your other settings and whether a schedule set to **Force all protections on** is active. If hiding the home feed also blanks a channel's Home tab, check for an extension update. If it's still happening, send me the channel URL through the feedback link below.
 
 ### Hide Shorts and video recommendations too
 
-You don't have to turn everything on. Pick the distractions you actually want to remove:
+Start with whichever part keeps pulling you away from what you came to watch:
 
 | Control | Choose this when |
 | --- | --- |
@@ -58,15 +58,13 @@ You don't have to turn everything on. Pick the distractions you actually want to
 | Hide suggested videos beside the player | You want to finish a video without browsing the suggested sidebar |
 | Home page videos: Show only the first 15 | You want a smaller homepage feed with a stopping point |
 
-![Intentional YT popup showing controls for hiding feeds, suggested videos, and Shorts](/screenshots/product-overview.webp "Example popup; older versions use separate Hide home feed and Limit home feed controls.")
+![Intentional YT Block tab with Hide Shorts enabled, Home page videos set to Hide all, and suggested videos hidden](/screenshots/product-overview.webp "The Block tab with Shorts, homepage videos, and suggestions beside the player hidden.")
 
-For following a tutorial, a useful starting point is to hide the home feed, Shorts, and suggestions beside the player. That leaves fewer things competing with the lesson. If you miss browsing recommendations, you can switch **Home page videos** back to **Show all**, or try **Show only the first 15**.
-
-On older versions, the sidebar switch is called **Hide recommended sidebar**.
+For tutorials, try hiding the home feed, Shorts, and suggestions beside the player. Leave the rest alone for now. If you miss browsing recommendations, switch **Home page videos** back to **Show all**, or try **Show only the first 15**.
 
 ## 3. Check your usual YouTube pages
 
-Give it a quick check: visit the homepage, search for something, and open a video. You should be able to get to what you came for without seeing the feeds you hid. If YouTube was already open when you installed the extension, refresh the page first.
+Now visit the homepage, search for a video, and play it. Check that the sections you chose are hidden and that the parts you use still work. If YouTube was open during installation, refresh it first.
 
 If someone sends you a Shorts link, **Redirect Shorts to normal player** lets you open it in the regular video player. Hiding Shorts links and changing how they play are separate settings.
 
@@ -88,16 +86,18 @@ If the matching control is already on:
 
 1. Check the extension's main switch and its access to YouTube in your browser's extension settings.
 2. If the popup says **Protections Snoozed**, choose **Resume Now** to reapply your rules.
-3. Review the selected preset and any active focus session or schedule, then reload YouTube. A Strict Focus session can apply more hiding rules than your usual setup.
+3. Review the selected preset and any active schedule, then reload YouTube. A schedule set to **Force all protections on** can apply more hiding rules than your usual setup.
 4. Check for an extension update. If the problem remains, note whether it happens on the homepage, a search page, a channel, or a watch page.
 
 YouTube changes its layouts, and sometimes the extension needs an update to catch up. If something still slips through, [send me feedback](https://forms.gle/EFixUed5F5bmVvFX7). Tell me which page it happens on, your browser and extension version, and which setting you turned on. A cropped screenshot helps too; leave out private account details.
 
 ## Keep subscriptions or a course playlist available
 
+For a setup built around lectures and course playlists, follow [how to use YouTube for studying without blocking it completely](/blog/use-youtube-for-studying-without-distractions).
+
 Working through a course? Leave **Hide playlist panel** off so the next lesson is easy to find. You can keep **Disable autoplay** on and start each lesson when you're ready. Likewise, leave **Hide subscriptions** off if that's how you keep up with your favorite creators.
 
-If your playlist or subscriptions disappear despite those settings, check for an active Strict Focus session or schedule. Those modes can hide more of the page than your usual setup.
+If your playlist or subscriptions disappear despite those settings, check for an active schedule set to **Force all protections on**. It can temporarily hide those sections. Ordinary focus sessions use your chosen settings.
 
 ## Does this work inside the YouTube phone app?
 
@@ -105,8 +105,8 @@ No. This setup works on the YouTube website in Chrome, Firefox, or Edge on deskt
 
 ## If you're still watching longer than you meant to
 
-Hiding recommendations removes a few ways to get sidetracked, but a good playlist can still keep you watching. If that's the part you struggle with, the [daily YouTube time-limit guide](/blog/set-youtube-daily-time-limit) walks through setting a watch budget.
+Even with recommendations hidden, it's easy to keep going through a playlist. If you want a stopping point, you can [set a daily YouTube watch limit](/blog/set-youtube-daily-time-limit) as well.
 
 For unwanted creators in your search results, see [how to block YouTube channels](/blog/block-youtube-channels-from-search-results).
 
-Still deciding whether to install? Try the [interactive demo](/), or read the [comparison with Unhook and UnTrap](/blog/intentional-yt-vs-unhook-vs-untrap) to see which controls fit how you use YouTube.
+You can try the controls in the [interactive demo](/) before installing. If you're weighing up other extensions, there's also a [comparison with Unhook and UnTrap](/blog/intentional-yt-vs-unhook-vs-untrap).
