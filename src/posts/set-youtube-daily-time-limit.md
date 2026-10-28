@@ -55,7 +55,7 @@ When Focus Lock is off, **Dismiss for today** lets you keep watching for the res
 | Scheduled blocking | Apply blocking rules during selected days and hours |
 | Focus Lock | Add a PIN and cooldown before changing protected settings |
 
-Use a schedule for something that happens at the same time each week, like an afternoon study session. Use a daily budget when the total minutes matter more than the time of day. You can use both together.
+Use a [scheduled blocking rule](/blog/block-youtube-during-work-hours) for something that happens at the same time each week, like an afternoon study session. Use a daily budget when the total minutes matter more than the time of day. You can use both together.
 
 ## Try a short test first
 

@@ -2,6 +2,7 @@
 title: "How to Use YouTube for Studying Without Blocking It Completely"
 slug: "use-youtube-for-studying-without-distractions"
 date: "2026-10-24"
+modified: "2026-10-28"
 author: "Manas"
 description: "Keep YouTube lectures, search, and course playlists while hiding Shorts and recommendations. A practical study setup for Chrome, Firefox, and Edge."
 image: "/screenshots/product-overview.webp"
@@ -65,6 +66,8 @@ Use the [keyword-filtering guide](/blog/hide-youtube-videos-by-keyword) for matc
 ## If a playlist or subscription feed disappears
 
 First check that **Hide playlist panel** or **Hide subscriptions** is off. Then check for an active schedule set to **Force all protections on**, which temporarily turns on extra hiding rules. Ordinary focus sessions use your chosen settings. Reload YouTube after changing the setup.
+
+To turn protections on automatically during class hours, follow [the scheduled YouTube blocking guide](/blog/block-youtube-during-work-hours).
 
 If the page still looks wrong, check for an extension update. YouTube changes its layouts, and some changes need a fix on my side. [Send me feedback](https://forms.gle/EFixUed5F5bmVvFX7) with your browser, extension version, and which part of the page disappeared.
 

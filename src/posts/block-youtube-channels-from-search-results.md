@@ -2,7 +2,7 @@
 title: "How to Block YouTube Channels from Search Results"
 slug: "block-youtube-channels-from-search-results"
 date: "2026-10-07"
-modified: "2026-10-24"
+modified: "2026-10-28"
 author: "Manas"
 description: "Learn how to block YouTube channels from search results on Chrome, Firefox, or Edge, find the right channel handle, and fix results that still appear."
 image: "/screenshots/intentional_yt_marquee_1400x560.png"
@@ -14,11 +14,9 @@ Searching for a tutorial gets frustrating when the same channel keeps filling th
 
 I'm Manas, the developer. Here's how to set that up in desktop Chrome, Firefox, or Edge.
 
-## What about YouTube's "Don't recommend channel" option?
+## Can I exclude a channel from YouTube search results?
 
-On pages such as Home and Watch Next, you can open a video's menu and choose **Don't recommend channel**. [YouTube uses that feedback to tune your recommendations](https://support.google.com/youtube/answer/6342839?hl=en). The channel can still appear in search results.
-
-If recommendations are the only problem, try that option first. Use the extension's blocklist when you also want the channel out of your search results.
+Yes. Add the channel's name or @handle to **Channel Blocklist** under **Filters**. YouTube's **Don't recommend channel** option can tune Home and Watch Next suggestions, but the channel may still appear in Search. Intentional YT hides matching video cards in Search and other supported feeds. It has no search-only setting.
 
 ## Block a channel in Chrome, Firefox, or Edge
 
