@@ -2,8 +2,11 @@ import Link from 'next/link'
 import ProductArt from './ProductArt'
 
 function topic(slug) {
+  if (slug.includes('lock')) return ['compare', 'FOCUS LOCK']
+  if (slug.includes('without-signing-in')) return ['filters', 'GUEST BLOCKING']
   if (slug.includes('channels')) return ['filters', 'CHANNEL FILTERS']
   if (slug.includes('keyword')) return ['filters', 'KEYWORD FILTERS']
+  if (slug.includes('home-feed') || slug.includes('doomscroll')) return ['feed', 'ANTI-DOOMSCROLL']
   if (slug.includes('studying')) return ['feed', 'STUDY SETUP']
   if (slug.includes('work-hours')) return ['feed', 'SCHEDULED BLOCKING']
   if (slug.includes('time-limit')) return ['time', 'DAILY LIMITS']

@@ -11,7 +11,7 @@ image: "/screenshots/channel-keyword-filters.webp"
 
 You may like a channel's reviews but want to skip its finale discussions until you've caught up. In Intentional YT, open **Filters**, add a word or phrase to **Keyword Blocklist**, and press **Enter** or select **Add**. Videos with matching titles or card description snippets disappear from supported search results, the home feed, and suggestions beside a video.
 
-I'm Manas, the developer of Intentional YT. These steps are for version 2.4.6 in desktop Chrome, Firefox, and Edge. If you're looking to filter the YouTube phone app or moderate comments on your own channel, this setting won't do that.
+I'm Manas, the developer of Intentional YT. These steps are for desktop Chrome, Firefox, and Edge. If you're looking to filter the YouTube phone app or moderate comments on your own channel, this setting won't do that.
 
 ## Set up your first keyword filter
 
