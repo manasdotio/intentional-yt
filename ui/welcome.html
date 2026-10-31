@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title data-i18n="welcome_title">Welcome to Intentional YT — Setup in 30 Seconds</title>
+  <link rel="stylesheet" href="../styles/welcome.css" />
+</head>
+<body>
+  <div class="wizard-shell">
+
+    <!-- Header Navigation -->
+    <header class="wizard-header">
+      <div class="wizard-brand">
+        <img src="../icons/icon.png" alt="" class="wizard-logo" />
+        <span class="wizard-brand-text">Intentional YT</span>
+      </div>
+      <div class="wizard-header-meta">
+        <div class="wizard-privacy-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span data-i18n="footer_local_privacy">100% Local · Zero Telemetry</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Pitch -->
+    <section class="wizard-hero">
+      <div class="wizard-step-tag">30-Second Setup</div>
+      <h1 class="wizard-title" data-i18n="welcome_title">Make YouTube work for you</h1>
+      <p class="wizard-subtitle" data-i18n="welcome_desc">Choose what to hide, then save. Only your selected options will be applied; other settings stay as they are.</p>
+    </section>
+
+    <!-- Success banner if saved -->
+    <div id="wizard-success" class="wizard-success-banner" role="status">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      <span data-i18n="setup_saved">Your starting settings are saved. Opening YouTube...</span>
+    </div>
+
+    <!-- Step 1: Goals & Archetypes -->
+    <section class="wizard-section" aria-labelledby="step1-title">
+      <div class="section-header">
+        <span class="section-number">Step 1 of 2</span>
+        <h2 id="step1-title" class="section-title">What is your main browsing goal?</h2>
+        <p class="section-desc">Pick a focus mode to instantly configure your feeds and player. You can fine-tune every switch later.</p>
+      </div>
+
+      <div class="archetype-grid" role="radiogroup" aria-label="Focus Modes">
+
+        <!-- Archetype 1: Balanced (Default) -->
+        <div class="archetype-card selected" data-archetype="balanced" role="radio" aria-checked="true" tabindex="0">
+          <div class="archetype-card-header">
+            <div class="archetype-icon-box">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <span class="archetype-badge badge-recommended">Recommended</span>
+          </div>
+          <div class="archetype-content">
+            <div class="archetype-name">
+              <span data-i18n="preset_balanced">Balanced</span>
+              <div class="archetype-check">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+            </div>
+            <p class="archetype-desc" data-i18n="preset_desc_balanced">Hides the home feed, Shorts, and suggestions. Keeps comments and subscriptions.</p>
+            <div class="archetype-features">
+              <span class="feature-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Home feed &amp; suggestions hidden
+              </span>
+              <span class="feature-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Shorts completely removed
+              </span>
+              <span class="feature-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Subscriptions &amp; comments accessible
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Archetype 2: Anti-Shorts Only -->
+        <div class="archetype-card" data-archetype="antiShorts" role="radio" aria-checked="false" tabindex="0">
+          <div class="archetype-card-header">
+            <div class="archetype-icon-box">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="5 3 19 12 5 21 5 3"/><line x1="19" y1="5" x2="19" y2="19"/>
+              </svg>
+            </div>
+            <span class="archetype-badge badge-popular">Habit Breaker</span>
+          </div>
+          <div class="archetype-content">
+            <div class="archetype-name">
+              <span>Anti-Shorts</span>
+              <div class="archetype-check">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+            </div>
+            <p class="archetype-desc">Leaves YouTube normal, but eliminates Shorts everywhere and caps home feed to 15 calm videos.</p>
+            <div class="archetype-features">
+              <span class="feature-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Shorts eliminated across shelves &amp; search
+              </span>
+              <span class="feature-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Shorts links redirect to standard player
+              </span>
+              <span class="feature-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Home feed limited to 15 (stops infinite scroll)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Archetype 3: Deep Work (Zen) -->
+        <div class="archetype-card" data-archetype="zen" role="radio" aria-checked="false" tabindex="0">
+          <div class="archetype-card-header">
+            <div class="archetype-icon-box">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/>
+              </svg>
+            </div>
+            <span class="archetype-badge badge-focus">Maximum Focus</span>
+          </div>
+          <div class="archetype-content">
+            <div class="archetype-name">
+              <span data-i18n="preset_zen">Deep Work (Zen)</span>
+              <div class="archetype-check">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+            </div>
+            <p class="archetype-desc" data-i18n="preset_desc_zen">Hides feeds, suggestions, comments, and extra controls. Keeps the video player and search.</p>
+            <div class="archetype-features">
+              <span class="feature-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Pure search-first learning environment
+              </span>
+              <span class="feature-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Comments, bells &amp; sidebar hidden
+              </span>
+              <span class="feature-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Autoplay &amp; end-screen cards blocked
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Step 2: Time Limits & Mindfulness -->
+    <section class="wizard-section" aria-labelledby="step2-title">
+      <div class="section-header">
+        <span class="section-number">Step 2 of 2</span>
+        <h2 id="step2-title" class="section-title" data-i18n="setup_daily_limit">Daily watch limit</h2>
+        <p class="section-desc" data-i18n="setup_note">Other controls keep their current settings. A daily limit pauses playback when your time is up.</p>
+      </div>
+
+      <div class="limits-row" role="radiogroup" aria-label="Daily Limit">
+        <button type="button" class="limit-pill-btn selected" data-limit="0" data-i18n="setup_no_limit">No daily limit</button>
+        <button type="button" class="limit-pill-btn" data-limit="30">30 min</button>
+        <button type="button" class="limit-pill-btn" data-limit="45">45 min</button>
+        <button type="button" class="limit-pill-btn" data-limit="60">60 min</button>
+      </div>
+
+      <div class="limits-extra">
+        <label class="reminder-checkbox-label">
+          <input type="checkbox" id="check-soft-reminder" />
+          <span>Show a gentle break reminder toast every 30 minutes of playback</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Live Selection Summary -->
+    <div class="preview-summary-card">
+      <div class="preview-summary-header">
+        <div class="preview-badge-row">
+          <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--ink-tertiary);">Active Configuration:</span>
+          <span id="preview-mode-name" class="preview-mode-tag">Balanced Focus</span>
+        </div>
+      </div>
+      <div class="preview-items-list" id="preview-items-list">
+        <!-- Dynamically populated via welcome.js -->
+      </div>
+    </div>
+
+    <!-- Actions / Footer -->
+    <footer class="wizard-footer">
+      <button type="button" id="btn-skip-setup" class="btn-wizard-secondary" data-i18n="setup_skip">Skip setup</button>
+      <div class="wizard-footer-right">
+        <button type="button" id="btn-save-setup" class="btn-wizard-primary">
+          <span data-i18n="setup_save">Save &amp; start watching</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
+    </footer>
+
+  </div><!-- /.wizard-shell -->
+
+  <script src="../utils/storage.js"></script>
+  <script src="../utils/policy.js"></script>
+  <script src="../utils/schema.js"></script>
+  <script src="../utils/dialog.js"></script>
+  <script src="../utils/i18n.js"></script>
+  <script src="welcome.js"></script>
+</body>
+</html>

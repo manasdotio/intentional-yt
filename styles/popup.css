@@ -642,6 +642,134 @@ body.ext-snoozed #ext-badge::before {
   transform: translateX(16px);
 }
 
+
+/* ── Mode Switch Pill (Header) ────────────────────────────── */
+.mode-switch-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface-inset);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.mode-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: var(--ink-tertiary);
+  font-size: 11px;
+  font-weight: 550;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 120ms var(--ease-out-gentle);
+  user-select: none;
+}
+
+.mode-pill-btn:hover {
+  color: var(--ink-primary);
+}
+
+.mode-pill-btn.active {
+  background: var(--surface-elevated);
+  color: var(--accent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  font-weight: 600;
+}
+
+.mode-pill-btn svg {
+  flex-shrink: 0;
+}
+
+/* ── Simple vs Advanced Mode Toggling ─────────────────────── */
+body.mode-simple .advanced-only {
+  display: none !important;
+}
+
+body.mode-advanced .simple-only {
+  display: none !important;
+}
+
+/* In Simple mode, the preset dropdown takes prominent full width */
+body.mode-simple .search-filter-card {
+  padding: 10px 14px 6px;
+}
+
+body.mode-simple .preset-dropdown-wrap {
+  width: 100%;
+}
+
+body.mode-simple .preset-dropdown {
+  width: 100%;
+}
+
+/* Simple Mode promo banner */
+.simple-mode-banner {
+  margin: 10px 12px 14px;
+  padding: 12px 14px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.simple-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.simple-banner-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+.simple-banner-sub {
+  font-size: 11px;
+  color: var(--ink-tertiary);
+  line-height: 1.4;
+}
+
+.btn-switch-advanced {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  background: var(--surface-inset);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 6px;
+  color: var(--ink-secondary);
+  font-size: 11px;
+  font-weight: 550;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 120ms var(--ease-out-gentle);
+}
+
+.btn-switch-advanced:hover {
+  background: var(--surface-elevated);
+  border-color: var(--rule-strong);
+  color: var(--ink-primary);
+}
+
+.btn-switch-advanced svg {
+  stroke: var(--accent);
+}
+
 /* ============================================================
    MAIN LAYOUT (Sidebar Tabs + Content Area Split)
    ============================================================ */
@@ -1845,7 +1973,7 @@ body.ext-off .lang-row {
   position: fixed;
   z-index: 200;
   width: max-content;
-  max-width: min(280px, calc(100vw - 16px));
+  max-width: min(300px, calc(100vw - 16px));
   max-height: calc(100vh - 16px);
   overflow-y: auto;
   padding: 10px 12px;
@@ -1857,6 +1985,31 @@ body.ext-off .lang-row {
   font-size: 12px;
   line-height: 1.5;
   overflow-wrap: anywhere;
+}
+
+.tooltip-diagram-wrap {
+  width: 100%;
+  height: 96px;
+  background: var(--surface-inset);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.tooltip-diagram-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tooltip-text-content {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--ink-secondary);
 }
 
 .row-desc {
@@ -4057,6 +4210,10 @@ body.ext-off .watch-bar-center {
 }
 
 @media (max-width: 400px) {
+  .mode-switch-pill { gap: 1px; padding: 1px; }
+  .mode-pill-btn { padding: 0 4px; font-size: 10px; height: 22px; }
+  .mode-pill-btn span { display: none; }
+  .simple-mode-banner { flex-direction: column; align-items: stretch; gap: 8px; }
   .btn-blocklist-add { width: 34px; flex: 0 0 34px; padding: 0; }
   .btn-blocklist-add svg { display: block; }
   .blocklist-add-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -4085,4 +4242,80 @@ body.ext-off .watch-bar-center {
   .settings-row-meta, .settings-row-sub { overflow-wrap: anywhere; }
   .settings-select { max-width: 100%; }
   .settings-about-actions { flex-wrap: wrap; }
+}
+
+
+/* ── Full-Screen Options Page Layout ─────────────────────── */
+html.is-options-page,
+body.is-options-page {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  overflow: hidden !important;
+  background: var(--surface-ground);
+}
+
+body.is-options-page #shell {
+  width: 100%;
+  max-width: 960px;
+  height: 100vh;
+  max-height: none;
+  margin: 0 auto;
+  border-left: 1px solid var(--rule-hairline);
+  border-right: 1px solid var(--rule-hairline);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+body.is-options-page #tab-bar {
+  width: 130px;
+}
+
+body.is-options-page .tab-btn {
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 10px 12px;
+  gap: 10px;
+  width: calc(100% - 16px);
+  margin: 0 8px;
+}
+
+body.is-options-page .tab-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+body.is-options-page .tab-btn span {
+  font-size: 13px;
+  font-weight: 550;
+}
+
+body.is-options-page #btn-open-options-page {
+  display: none !important;
+}
+
+.hd-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--surface-inset);
+  border: 1px solid var(--rule-hairline);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 120ms var(--ease-out-gentle);
+}
+
+.hd-icon-btn:hover {
+  background: var(--surface-elevated);
+  color: var(--ink-primary);
+  border-color: var(--rule-strong);
+}
+
+.hd-icon-btn:active {
+  transform: scale(0.95);
 }

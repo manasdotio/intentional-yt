@@ -72,12 +72,107 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true;
 });
 browser.alarms.onAlarm.addListener(() => { reconcile().catch(console.error); });
+
+function setupContextMenus() {
+  if (!browser?.contextMenus?.create) return;
+  try {
+    const menus = [
+      { id: 'iyt-snooze-15', title: '⏸ Snooze Intentional YT (15 mins)' },
+      { id: 'iyt-toggle-grayscale', title: '🔇 Toggle Grayscale Mode' },
+      { id: 'iyt-block-channel', title: '🚫 Block this channel' }
+    ];
+    browser.contextMenus.removeAll(() => {
+      for (const m of menus) {
+        browser.contextMenus.create({
+          id: m.id,
+          title: m.title,
+          contexts: ['page', 'link', 'action'],
+          documentUrlPatterns: ['*://*.youtube.com/*', '*://youtube.com/*']
+        }, () => {
+          if (browser?.runtime?.lastError) { /* ignore duplicate errors */ }
+        });
+      }
+    });
+  } catch (err) {
+    console.warn('[IYT] Context menu registration failed:', err);
+  }
+}
+
+if (browser?.contextMenus?.onClicked) {
+  browser.contextMenus.onClicked.addListener(async (info, tab) => {
+    try {
+      if (info.menuItemId === 'iyt-snooze-15') {
+        const settings = await StorageManager.execute({ op: 'snooze', minutes: 15 });
+        await scheduleDeadlines(settings);
+      } else if (info.menuItemId === 'iyt-toggle-grayscale') {
+        const current = await StorageManager.getSettings();
+        await StorageManager.updateSettings({ grayscaleMode: !current.grayscaleMode });
+      } else if (info.menuItemId === 'iyt-block-channel') {
+        let channel = null;
+        if (info.linkUrl) {
+          try {
+            const u = new URL(info.linkUrl);
+            const p = u.pathname.split('/').filter(Boolean);
+            if (p[0]?.startsWith('@')) channel = p[0];
+            else if (['channel', 'c', 'user'].includes(p[0]) && p[1]) channel = p[1];
+          } catch (_) {}
+        }
+        if (!channel && tab?.url) {
+          try {
+            const u = new URL(tab.url);
+            const p = u.pathname.split('/').filter(Boolean);
+            if (p[0]?.startsWith('@')) channel = p[0];
+            else if (['channel', 'c', 'user'].includes(p[0]) && p[1]) channel = p[1];
+          } catch (_) {}
+        }
+        if (!channel && tab?.id) {
+          try {
+            const res = await browser.tabs.sendMessage(tab.id, { type: 'IYT_GET_CURRENT_CHANNEL' });
+            if (res?.channel) channel = res.channel;
+          } catch (_) {}
+        }
+        if (channel) {
+          const current = await StorageManager.getSettings();
+          const clean = channel.trim();
+          const list = current.channelBlocklist || [];
+          if (!list.some(c => c.toLowerCase() === clean.toLowerCase())) {
+            await StorageManager.updateSettings({ channelBlocklist: [...list, clean] });
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[IYT ContextMenu] Click action error:', err);
+    }
+  });
+}
+
+setupContextMenus();
+// Cross-device sync listener
+if (browser?.storage?.onChanged) {
+  browser.storage.onChanged.addListener(async (changes, area) => {
+    if (area === 'sync' && changes?.iyt_sync_settings?.newValue) {
+      try {
+        const local = await StorageManager.getSettings();
+        if (local.syncEnabled) {
+          const remote = changes.iyt_sync_settings.newValue;
+          await StorageManager.updateSettings(remote);
+        }
+      } catch (err) {
+        console.warn('[IYT Sync] Error applying remote sync settings:', err);
+      }
+    }
+  });
+}
+
 browser.runtime.onStartup.addListener(() => { reconcile().catch(console.error); });
 // Starts the seven-day wait on install, or on first run of this version for
 // existing users whose original installation date is unknown.
 StorageManager.reviewPrompt().catch(console.error);
-browser.runtime.onInstalled.addListener(() => {
+browser.runtime.onInstalled.addListener(details => {
   reconcile().catch(console.error);
   browser.runtime.setUninstallURL('https://intentionalyt.me/uninstall').catch(() => {});
+  if (details?.reason === 'install' && browser?.tabs?.create) {
+    browser.tabs.create({ url: browser.runtime.getURL('ui/welcome.html') }).catch(console.error);
+  }
 });
 reconcile().catch(console.error);

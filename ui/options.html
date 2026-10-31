@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en" class="is-options-page">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Intentional YT - Settings &amp; Focus Options</title>
+  <link rel="stylesheet" href="../styles/popup.css" />
+</head>
+<body class="is-options-page">
+<div id="shell">
+
+  <!-- Persistent Header -->
+  <div id="hd">
+    <img src="../icons/icon.png" alt="" class="hd-icon" />
+    <span class="hd-name" data-i18n="header_title">Intentional YT</span>
+    <div class="mode-switch-pill" role="radiogroup" aria-label="Mode">
+      <button type="button" class="mode-pill-btn active" id="btn-mode-simple" data-mode="simple" aria-checked="true" role="radio" title="Simple mode: essential focus controls">
+        <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>Simple</span>
+      </button>
+      <button type="button" class="mode-pill-btn" id="btn-mode-advanced" data-mode="advanced" aria-checked="false" role="radio" title="Advanced mode: all granular toggles and filters">
+        <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Advanced</span>
+      </button>
+    </div>
+    <button type="button" id="btn-snooze" class="hd-snooze-btn">
+      <svg class="pause-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
+      <svg class="resume-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m8 5 11 7-11 7z"/></svg>
+      <span id="btn-snooze-label" data-i18n="action_snooze">Pause blocking</span>
+    </button>
+    <span id="ext-badge" data-i18n="status_active">Active</span>
+    <button type="button" id="btn-open-options-page" class="hd-icon-btn" title="Open full-screen options in new tab ↗" aria-label="Open full-screen options">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </button>
+    <input type="checkbox" class="chk" id="toggle-extensionEnabled" />
+  </div>
+
+  <!-- ── Main Layout: Sidebar Navigation + Content Area ────── -->
+  <div id="main-layout">
+    <!-- Sidebar Tab Navigation -->
+    <nav id="tab-bar" role="tablist" aria-label="Navigation Tabs">
+      <button type="button" class="tab-btn active" role="tab" id="tab-btn-block" aria-selected="true" aria-controls="panel-block" data-tab="block" data-i18n-title="tab_block">
+        <svg class="tab-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span data-i18n="tab_block">Block</span>
+      </button>
+      <button type="button" class="tab-btn advanced-only" role="tab" id="tab-btn-blocklists" aria-selected="false" aria-controls="panel-blocklists" data-tab="blocklists" data-i18n-title="tab_blocklists">
+        <svg class="tab-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span data-i18n="tab_blocklists">Filters</span>
+      </button>
+      <button type="button" class="tab-btn" role="tab" id="tab-btn-focus" aria-selected="false" aria-controls="panel-focus" data-tab="focus" data-i18n-title="tab_focus">
+        <svg class="tab-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span data-i18n="tab_focus">Focus</span>
+      </button>
+      <button type="button" class="tab-btn" role="tab" id="tab-btn-stats" aria-selected="false" aria-controls="panel-stats" data-tab="stats" data-i18n-title="tab_stats">
+        <svg class="tab-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span data-i18n="tab_stats">Stats</span>
+      </button>
+      <button type="button" class="tab-btn" role="tab" id="tab-btn-settings" aria-selected="false" aria-controls="panel-settings" data-tab="settings" data-i18n-title="tab_settings">
+        <svg class="tab-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span data-i18n="tab_settings">Settings</span>
+      </button>
+    </nav>
+
+    <!-- Main Content Panel (Right Side) -->
+    <main id="content-area">
+      <div id="protection-status" class="protection-status" role="status" aria-live="polite" hidden>
+        <div id="protection-status-main"></div>
+        <div id="schedule-override" hidden data-i18n="popup_override">This schedule overrides your saved controls.</div>
+        <div id="protection-status-session"></div>
+        <div id="protection-status-budget"></div>
+      </div>
+      <!-- Snooze Active Countdown Banner -->
+      <div id="snooze-banner" class="snooze-banner" style="display:none">
+        <div class="snooze-banner-content">
+          <svg class="snooze-banner-icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div class="snooze-banner-text">
+            <div class="snooze-banner-title" data-i18n="snooze_banner_title">Protections Snoozed</div>
+            <div id="snooze-banner-timer" class="snooze-banner-time">--:--</div>
+          </div>
+        </div>
+        <button type="button" id="btn-resume-snooze" class="snooze-banner-resume" data-i18n="action_resume_now">Resume Now</button>
+      </div>
+
+      <!-- Focus Lock Active Cooldown Banner (Persistent across tabs when unlock is pending) -->
+      <div id="focus-lock-banner" class="focus-banner" style="display:none">
+        <div class="focus-banner-content">
+          <svg class="focus-banner-icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
+          <div class="focus-banner-text">
+            <div id="focus-banner-setting" class="focus-banner-title">Unlocking...</div>
+            <div id="focus-banner-timer" class="focus-banner-time">00:00</div>
+          </div>
+        </div>
+        <button type="button" id="btn-cancel-unlock" class="focus-banner-cancel" data-i18n="focus_lock_banner_cancel">Cancel</button>
+      </div>
+
+      <!-- Scrollable Tab Content Container -->
+      <div id="scroll">
+      <div id="youtube-connection-notice" class="youtube-connection-notice" role="status" aria-live="polite" hidden>
+        <span data-i18n="youtube_reload_needed">Your settings are saved, but this YouTube tab isn't connected. Reload YouTube. If this continues, check the extension's access to YouTube.</span>
+      </div>
+      <section class="welcome-card" id="review-card" style="display:none" aria-labelledby="review-title">
+        <div class="welcome-text-wrap">
+          <span class="welcome-title" id="review-title" data-i18n="review_prompt_title">How's Intentional YT working for you?</span>
+          <span class="welcome-desc" data-i18n="review_prompt_description">Share your experience with a review.</span>
+          <div class="welcome-setup-actions">
+            <a id="link-review-prompt" class="btn-primary" target="_blank" rel="noopener noreferrer" data-i18n="review_prompt_action">Leave a review</a>
+            <button type="button" id="btn-dismiss-review" class="btn-secondary" data-i18n="review_prompt_dismiss">Dismiss</button>
+          </div>
+        </div>
+      </section>
+
+    <!-- ── TAB 1: BLOCK ────────────────────────────────────────── -->
+    <div id="panel-block" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-block">
+
+      <!-- ── 1st-Run Gentle Welcome Card ────────────────────────── -->
+      <div class="welcome-card" id="welcome-card" style="display:none">
+        <div class="welcome-icon-box">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="welcome-text-wrap">
+          <span class="welcome-title" data-i18n="welcome_title">Make YouTube work for you</span>
+          <span class="welcome-desc" data-i18n="welcome_desc">Choose what to hide, then save. Only your selected options will be applied; other settings stay as they are.</span>
+          <form id="welcome-setup-form" class="welcome-setup-form">
+            <label class="welcome-choice"><input type="checkbox" id="setup-hide-shorts" /><span data-i18n="toggle_block_shorts">Hide Shorts</span></label>
+            <label class="welcome-choice"><input type="checkbox" id="setup-hide-home" /><span data-i18n="toggle_block_home_feed">Hide home feed</span></label>
+            <label class="welcome-choice"><input type="checkbox" id="setup-hide-recommended" /><span data-i18n="toggle_block_recommended">Hide suggested videos beside the player</span></label>
+            <label class="welcome-limit" for="setup-daily-limit"><span data-i18n="setup_daily_limit">Daily watch limit</span><select id="setup-daily-limit">
+              <option value="0" data-i18n="setup_no_limit">No daily limit</option>
+              <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
+              <option value="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</option>
+              <option value="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</option>
+            </select></label>
+            <span class="welcome-setup-note" data-i18n="setup_note">Other controls keep their current settings. A daily limit pauses playback when your time is up.</span>
+            <div class="welcome-setup-actions"><button type="submit" id="btn-save-setup" class="btn-primary" data-i18n="setup_save">Save &amp; start watching</button><button type="button" id="btn-open-wizard-from-card" class="btn-secondary" title="Open full-page setup wizard in a new tab">Full Wizard ↗</button><button type="button" id="btn-skip-setup" class="btn-secondary" data-i18n="setup_skip">Skip setup</button></div>
+          </form>
+        </div>
+        <button type="button" class="welcome-dismiss-btn" id="btn-dismiss-welcome" aria-label="Dismiss welcome" data-i18n-aria="welcome_dismiss_aria">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- ── Unified Search & Presets Utility Bar ───────────────── -->
+      <div id="setting-controls">
+      <div class="search-filter-card">
+        <div class="toggle-search-wrap advanced-only">
+          <svg class="toggle-search-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="input-toggle-search" class="toggle-search-input" placeholder="Find a setting…" data-i18n-placeholder="search_toggles_placeholder" aria-label="Find a setting" data-i18n-aria="search_toggles_placeholder" autocomplete="off" spellcheck="false" />
+          <button type="button" id="btn-clear-search" class="toggle-search-clear" style="display:none" aria-label="Clear search">
+            <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="preset-dropdown-wrap">
+          <svg class="preset-dropdown-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <select id="select-preset" class="preset-dropdown" aria-label="Focus Preset" aria-describedby="preset-tooltip-text" data-i18n-title="preset_desc_balanced" title="Balanced · Hides feeds and suggestions">
+            <option value="balanced" data-i18n="preset_balanced">Balanced</option>
+            <option value="antiShorts">Anti-Shorts</option>
+
+            <option value="zen" data-i18n="preset_zen">Deep Work (Zen)</option>
+
+            <option value="custom" data-i18n="preset_custom">Custom</option>
+          </select>
+          <svg class="preset-dropdown-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          <div class="preset-tooltip" id="preset-tooltip" role="tooltip">
+            <span class="preset-tooltip-dot"></span>
+            <span id="preset-tooltip-text" data-i18n="preset_desc_balanced">Hides the home feed, Shorts, and suggestions. Keeps comments and subscriptions.</span>
+          </div>
+        </div>
+        <div class="detailed-header advanced-only">
+          <button type="button" id="btn-toggle-all-accordions" class="detailed-action-btn" data-action="expand" aria-controls="sec-feed sec-video sec-interface">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="expand-all-icon" d="m8 8 4-4 4 4m-8 8 4 4 4-4"/><path class="collapse-all-icon" d="m8 4 4 4 4-4m-8 16 4-4 4 4"/></svg>
+            <span id="label-toggle-all-accordions" data-i18n="action_expand_all">Expand All</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="common-controls" class="common-controls">
+        <div class="row">
+          <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+          <div class="row-text-group">
+            <span class="setting-label"><label class="row-text" id="label-toggle-blockShorts" for="toggle-blockShorts" data-i18n="toggle_block_shorts">Hide Shorts</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockShorts" aria-describedby="help-toggle-blockShorts" data-help="help-toggle-blockShorts"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+            <span id="help-toggle-blockShorts" class="setting-help-text" hidden data-i18n="desc_block_shorts">Hides Shorts from supported feeds, search results and channel pages</span>
+          </div>
+          <input type="checkbox" class="chk" id="toggle-blockShorts" aria-describedby="help-toggle-blockShorts" />
+        </div>
+        <div class="row home-feed-choice" data-setting="homeFeed">
+          <div class="row-text-group">
+            <span class="setting-label"><label class="row-text" id="label-select-homeFeed" for="select-homeFeed" data-i18n="home_feed_label">Home page videos</label><button type="button" class="setting-help" aria-labelledby="label-select-homeFeed" aria-describedby="home-feed-description" data-help="home-feed-description"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+            <span id="home-feed-description" class="setting-help-text" hidden data-i18n="home_feed_description">Choose how many videos appear on the home page. The 15-video limit stops infinite scrolling.</span>
+          </div>
+          <select id="select-homeFeed" data-home-feed aria-describedby="home-feed-description"><option value="show" data-i18n="home_feed_show">Show all</option><option value="limit" data-i18n="home_feed_limit">Show only the first 15</option><option value="hide" data-i18n="home_feed_hide">Hide all</option></select>
+        </div>
+        <div class="row home-feed-choice" id="row-homeRedirect" data-setting="homeRedirect" style="display:none">
+          <div class="row-text-group">
+            <span class="setting-label"><label class="row-text" id="label-select-homeRedirect" for="select-homeRedirect" data-i18n="home_redirect_label">Homepage redirect</label><button type="button" class="setting-help" aria-labelledby="label-select-homeRedirect" aria-describedby="home-redirect-description" data-help="home-redirect-description"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+            <span id="home-redirect-description" class="setting-help-text" hidden data-i18n="home_redirect_description">When the home feed is hidden, automatically redirect youtube.com/ to your chosen destination.</span>
+          </div>
+          <select id="select-homeRedirect" aria-describedby="home-redirect-description">
+            <option value="none" data-i18n="home_redirect_none">None (Stay on home)</option>
+            <option value="subscriptions" data-i18n="home_redirect_subscriptions">Subscriptions</option>
+            <option value="watchLater" data-i18n="home_redirect_watch_later">Watch Later</option>
+            <option value="history" data-i18n="home_redirect_history">History</option>
+          </select>
+        </div>
+        <label class="row">
+          <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          <span class="row-text" data-i18n="toggle_block_recommended">Hide suggested videos beside the player</span>
+          <input type="checkbox" class="chk" id="toggle-blockRecommended" />
+        </label>
+      </div>
+
+      <div class="simple-mode-banner simple-only" id="simple-mode-banner">
+        <div class="simple-banner-text">
+          <span class="simple-banner-title">Need granular controls?</span>
+          <span class="simple-banner-sub">25+ advanced toggles for comments, player elements, and custom filters are in Advanced mode.</span>
+        </div>
+        <button type="button" id="btn-switch-to-advanced" class="btn-switch-advanced" title="Switch to Advanced mode">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Advanced ⚙</span>
+        </button>
+      </div>
+
+      <!-- ── No Search Results Empty State ──────────────────────── -->
+      <div id="search-no-results" class="search-empty-state advanced-only" style="display:none">
+        <div class="search-empty-bubble">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+        <span class="search-empty-title" data-i18n="search_no_results">No settings found</span>
+        <span class="search-empty-sub" data-i18n="search_no_results_sub">Try searching for shorts, comments, or sidebar</span>
+      </div>
+
+
+      <!-- Settings grouped by where they appear on YouTube. -->
+      <div class="accordion-section advanced-only" id="sec-feed" data-section="feed">
+        <button type="button" class="sh-btn" aria-expanded="true" aria-controls="sec-feed-body">
+          <div class="sh-left">
+            <svg class="sh-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span class="sh-label" data-i18n="section_feed">Home &amp; browsing</span>
+            <span class="sh-count" id="count-feed" style="display:none">0</span>
+          </div>
+          <svg class="sh-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-body" id="sec-feed-body">
+          <div class="accordion-inner">
+            <div class="rows"><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                <span class="row-text" data-i18n="toggle_block_channel_home">Hide channel Home tab</span>
+                <input type="checkbox" class="chk" id="toggle-blockChannelHome">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                <span class="row-text" data-i18n="toggle_block_subscriptions">Hide subscriptions</span>
+                <input type="checkbox" class="chk" id="toggle-blockSubscriptionsFeed">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                <span class="row-text" data-i18n="toggle_block_explore_trending">Hide Explore &amp; Trending</span>
+                <input type="checkbox" class="chk" id="toggle-blockExploreAndTrending">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                <span class="row-text" data-i18n="toggle_block_irrelevant_search">Hide extra sections in search</span>
+                <input type="checkbox" class="chk" id="toggle-blockIrrelevantSearchResults">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+                <span class="row-text" data-i18n="toggle_block_mix_playlists">Hide mix playlists</span>
+                <input type="checkbox" class="chk" id="toggle-blockMixPlaylists">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                <span class="row-text" data-i18n="toggle_disable_hover_previews">Disable hover previews</span>
+                <input type="checkbox" class="chk" id="toggle-disableHoverPreviews">
+              </label></div>
+          </div>
+        </div>
+      </div>
+
+<div class="accordion-section advanced-only" id="sec-video" data-section="video">
+        <button type="button" class="sh-btn" aria-expanded="true" aria-controls="sec-video-body">
+          <div class="sh-left">
+            <svg class="sh-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            <span class="sh-label" data-i18n="section_video">Watching a video</span>
+            <span class="sh-count" id="count-video" style="display:none">0</span>
+          </div>
+          <svg class="sh-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-body" id="sec-video-body">
+          <div class="accordion-inner">
+            <div class="rows"><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                <span class="row-text" data-i18n="toggle_disable_autoplay">Disable autoplay</span>
+                <input type="checkbox" class="chk" id="toggle-disableAutoplay">
+              </label><div class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 10 20 15 15 20"></polyline><path d="M4 4v7a4 4 0 0 0 4 4h12"></path></svg>
+                <div class="row-text-group">
+                  <span class="setting-label"><label class="row-text" id="label-toggle-redirectShorts" for="toggle-redirectShorts"><span data-i18n="toggle_redirect_shorts">Redirect Shorts to normal player</span><span class="badge-new">NEW</span></label><button type="button" class="setting-help" aria-labelledby="label-toggle-redirectShorts" aria-describedby="help-toggle-redirectShorts" data-help="help-toggle-redirectShorts"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
+                  <span id="help-toggle-redirectShorts" class="setting-help-text" hidden="" data-i18n="desc_redirect_shorts">Plays Shorts in standard watch view with playback controls</span>
+                </div>
+                <input type="checkbox" class="chk" id="toggle-redirectShorts" aria-describedby="help-toggle-redirectShorts">
+              </div><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                <span class="row-text" data-i18n="toggle_block_comments">Hide comments</span>
+                <input type="checkbox" class="chk" id="toggle-blockComments">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle><circle cx="12" cy="12" r="10"></circle></svg>
+                <span class="row-text" data-i18n="toggle_block_profile_photos">Hide commenter photos</span>
+                <input type="checkbox" class="chk" id="toggle-blockProfilePhotos">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="8" y1="10" x2="16" y2="10"></line></svg>
+                <span class="row-text" data-i18n="toggle_block_live_chat">Hide live chat</span>
+                <input type="checkbox" class="chk" id="toggle-blockLiveChat">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><polygon points="3 6 3 18 6 12 3 6"></polygon></svg>
+                <span class="row-text" data-i18n="toggle_block_playlist">Hide playlist panel</span>
+                <input type="checkbox" class="chk" id="toggle-blockPlaylist">
+              </label><div class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                <div class="row-text-group">
+                  <span class="setting-label"><label class="row-text" id="label-toggle-blockEndScreenVideowall" for="toggle-blockEndScreenVideowall" data-i18n="toggle_block_endscreen_videowall">Hide end screen recommendations</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockEndScreenVideowall" aria-describedby="help-toggle-blockEndScreenVideowall" data-help="help-toggle-blockEndScreenVideowall"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
+                  <span id="help-toggle-blockEndScreenVideowall" class="setting-help-text" hidden="" data-i18n="desc_block_endscreen_videowall">Hide recommended video grid and next video wall when playback ends</span>
+                </div>
+                <input type="checkbox" class="chk" id="toggle-blockEndScreenVideowall" aria-describedby="help-toggle-blockEndScreenVideowall">
+              </div><div class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                <div class="row-text-group">
+                  <span class="setting-label"><label class="row-text" id="label-toggle-blockEndScreenCards" for="toggle-blockEndScreenCards" data-i18n="toggle_block_endscreen_cards">Hide end screen cards</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockEndScreenCards" aria-describedby="help-toggle-blockEndScreenCards" data-help="help-toggle-blockEndScreenCards"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
+                  <span id="help-toggle-blockEndScreenCards" class="setting-help-text" hidden="" data-i18n="desc_block_endscreen_cards">Hide creator-placed video, playlist, and subscribe cards in the last 20s</span>
+                </div>
+                <input type="checkbox" class="chk" id="toggle-blockEndScreenCards" aria-describedby="help-toggle-blockEndScreenCards">
+              </div><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span class="row-text" data-i18n="toggle_disable_annotations">Hide annotations</span>
+                <input type="checkbox" class="chk" id="toggle-disableAnnotations">
+              </label><details id="below-video-controls" class="setting-group">
+                <summary data-i18n="below_video_label">Below the video</summary>
+              <div class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <div class="row-text-group">
+                  <span class="setting-label"><label class="row-text" id="label-toggle-blockVideoInfo" for="toggle-blockVideoInfo" data-i18n="toggle_block_video_info">Hide video info panel</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockVideoInfo" aria-describedby="help-toggle-blockVideoInfo" data-help="help-toggle-blockVideoInfo"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
+                  <span id="help-toggle-blockVideoInfo" class="setting-help-text" hidden="" data-i18n="desc_block_video_info">Hides all information and actions under the video player</span>
+                </div>
+                <input type="checkbox" class="chk" id="toggle-blockVideoInfo" aria-describedby="help-toggle-blockVideoInfo">
+              </div>
+                <div class="row">
+                  <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                  <div class="row-text-group">
+                    <span class="setting-label"><label class="row-text" id="label-toggle-blockVideoButtons" for="toggle-blockVideoButtons" data-i18n="toggle_block_video_buttons">Hide like, share, and other buttons</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockVideoButtons" aria-describedby="help-toggle-blockVideoButtons" data-help="help-toggle-blockVideoButtons"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
+                    <span id="help-toggle-blockVideoButtons" class="setting-help-text" hidden="" data-i18n="desc_block_video_buttons">Hides like, dislike, share, download, and clip buttons</span>
+                  </div>
+                  <input type="checkbox" class="chk" id="toggle-blockVideoButtons" aria-describedby="help-toggle-blockVideoButtons">
+                </div>
+                <label class="row">
+                  <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <div class="row-text-group">
+                    <span class="row-text" data-i18n="toggle_block_channel_info">Hide channel name and subscribe button</span>
+                  </div>
+                  <input type="checkbox" class="chk" id="toggle-blockChannelInfo">
+                </label>
+                <label class="row">
+                  <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="18" y1="18" x2="3" y2="18"></line></svg>
+                  <div class="row-text-group">
+                    <span class="row-text" data-i18n="toggle_block_video_description">Hide video description</span>
+                  </div>
+                  <input type="checkbox" class="chk" id="toggle-blockVideoDescription">
+                </label>
+              </details><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span class="row-text" data-i18n="toggle_block_merch">Hide merch &amp; offers</span>
+                <input type="checkbox" class="chk" id="toggle-blockMerch">
+              </label></div>
+          </div>
+        </div>
+      </div>
+
+<div class="accordion-section advanced-only" id="sec-interface" data-section="interface">
+        <button type="button" class="sh-btn" aria-expanded="true" aria-controls="sec-interface-body">
+          <div class="sh-left">
+            <svg class="sh-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+            <span class="sh-label" data-i18n="section_interface">Navigation &amp; appearance</span>
+            <span class="sh-count" id="count-interface" style="display:none">0</span>
+          </div>
+          <svg class="sh-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="accordion-body" id="sec-interface-body">
+          <div class="accordion-inner">
+            <div class="rows"><div class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                <div class="row-text-group">
+                  <span class="setting-label"><label class="row-text" id="label-toggle-blockSidebar" for="toggle-blockSidebar" data-i18n="toggle_block_sidebar">Hide left sidebar</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockSidebar" aria-describedby="help-toggle-blockSidebar" data-help="help-toggle-blockSidebar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
+                  <span id="help-toggle-blockSidebar" class="setting-help-text" hidden="" data-i18n="desc_sidebar_navigation">Also hides links to subscriptions and saved playlists.</span>
+                </div>
+                <input type="checkbox" class="chk" id="toggle-blockSidebar" aria-describedby="help-toggle-blockSidebar">
+              </div><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+                <span class="row-text" data-i18n="toggle_block_top_header">Hide search and account bar</span>
+                <input type="checkbox" class="chk" id="toggle-blockTopHeader">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span class="row-text" data-i18n="toggle_block_notification_bell">Hide notification bell</span>
+                <input type="checkbox" class="chk" id="toggle-blockNotificationBell">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                <span class="row-text" data-i18n="toggle_block_more_from_youtube">Hide "More from YouTube"</span>
+                <input type="checkbox" class="chk" id="toggle-blockMoreFromYouTube">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                <span class="row-text" data-i18n="toggle_hide_thumbnails">Hide thumbnails</span>
+                <input type="checkbox" class="chk" id="toggle-hideThumbnails">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a10 10 0 0 0 0 20v-20z"></path></svg>
+                <span class="row-text" data-i18n="toggle_grayscale_mode">Grayscale</span>
+                <input type="checkbox" class="chk" id="toggle-grayscaleMode">
+              </label></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="setting-search-shortcuts" class="setting-search-shortcuts advanced-only" hidden></div>
+      </div><!-- /#setting-controls -->
+    </div><!-- /#panel-block -->
+
+
+    <!-- ── TAB 2: BLOCKLISTS / FILTERS ────────────────────────── -->
+    <div id="panel-blocklists" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-blocklists">
+      <div class="blocklist-sections-wrap">
+        <section class="blocklist-card" id="card-channel-blocklist" aria-labelledby="channel-filter-title">
+          <div class="blocklist-card-header">
+            <div class="blocklist-header-left">
+              <div class="setting-label"><h2 class="blocklist-title" id="channel-filter-title" data-i18n="section_channel_blocklist">Channel Blocklist</h2><button type="button" class="setting-help" aria-labelledby="channel-filter-title" aria-describedby="help-filter-channel" data-help="help-filter-channel"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></div>
+              <span class="blocklist-count-badge" id="badge-channel-count" style="display:none">0</span>
+            </div>
+            <button type="button" class="btn-blocklist-clear" id="btn-clear-channels" style="display:none" data-i18n="btn_clear_all">Clear all</button>
+          </div>
+          <div id="help-filter-channel" class="setting-help-text" hidden><span data-i18n="desc_channel_blocklist">Hide video cards from specific creators across feeds, search, and related videos.</span> <span data-i18n="blocklist_privacy_note">Filters hide matching video cards. Direct video links still open. Your lists stay in this browser.</span></div>
+          <div class="blocklist-input-group">
+            <input type="text" id="input-channel-blocklist" class="blocklist-text-input" aria-labelledby="channel-filter-title" aria-describedby="help-filter-channel channel-input-error" placeholder="Channel name or @handle..." data-i18n-placeholder="placeholder_channel_input" autocomplete="off" spellcheck="false" />
+            <button type="button" id="btn-add-channel" class="btn-blocklist-add" data-i18n-aria="btn_add_channel" data-i18n-title="btn_add_channel" aria-label="Add" title="Add"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="blocklist-add-label" data-i18n="btn_add_channel">Add</span></button>
+          </div>
+          <div id="channel-input-error" class="form-error" role="alert" data-i18n="channel_input_invalid" hidden>Use a YouTube channel link, channel name or @handle. Video and playlist links won't work here.</div>
+          <div class="blocklist-items-container" id="channel-blocklist-container">
+            <div class="blocklist-chips-list" id="channel-blocklist-chips" style="display:none"></div>
+            <div class="blocklist-empty-state" id="channel-blocklist-empty" data-i18n="blocklist_channels_empty">No channels added</div>
+          </div>
+          <div class="filters-quick-block">
+            <div class="setting-label"><label id="quick-block-label" for="toggle-enableQuickBlock" data-i18n="filters_quick_block_title">Show Block buttons</label><button type="button" class="setting-help" aria-labelledby="quick-block-label" aria-describedby="help-quick-block" data-help="help-quick-block"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></div>
+            <span id="help-quick-block" class="setting-help-text" hidden data-i18n="filters_quick_block_desc">Show a Block button beside channels on video cards.</span>
+            <input type="checkbox" class="chk" id="toggle-enableQuickBlock" aria-describedby="help-quick-block" />
+          </div>
+        </section>
+
+        <section class="blocklist-card" id="card-keyword-blocklist" aria-labelledby="keyword-filter-title">
+          <div class="blocklist-card-header">
+            <div class="blocklist-header-left">
+              <div class="setting-label"><h2 class="blocklist-title" id="keyword-filter-title" data-i18n="section_keyword_blocklist">Keyword Blocklist</h2><button type="button" class="setting-help" aria-labelledby="keyword-filter-title" aria-describedby="help-filter-keyword" data-help="help-filter-keyword"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></div>
+              <span class="blocklist-count-badge" id="badge-keyword-count" style="display:none">0</span>
+            </div>
+            <button type="button" class="btn-blocklist-clear" id="btn-clear-keywords" style="display:none" data-i18n="btn_clear_all">Clear all</button>
+          </div>
+          <div id="help-filter-keyword" class="setting-help-text" hidden><span data-i18n="desc_keyword_blocklist">Hide videos with matching words or phrases in their titles or description snippets shown on video cards. Full descriptions aren't checked.</span> <span data-i18n="blocklist_privacy_note">Filters hide matching video cards. Direct video links still open. Your lists stay in this browser.</span></div>
+          <div class="blocklist-input-group">
+            <input type="text" id="input-keyword-blocklist" class="blocklist-text-input" aria-labelledby="keyword-filter-title" aria-describedby="help-filter-keyword" placeholder="e.g. podcast, spoiler, react..." data-i18n-placeholder="placeholder_keyword_input" autocomplete="off" spellcheck="false" />
+            <button type="button" id="btn-add-keyword" class="btn-blocklist-add" data-i18n-aria="btn_add_keyword" data-i18n-title="btn_add_keyword" aria-label="Add" title="Add"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="blocklist-add-label" data-i18n="btn_add_keyword">Add</span></button>
+          </div>
+          <div class="blocklist-items-container" id="keyword-blocklist-container">
+            <div class="blocklist-chips-list" id="keyword-blocklist-chips" style="display:none"></div>
+            <div class="blocklist-empty-state" id="keyword-blocklist-empty" data-i18n="blocklist_keywords_empty">No keywords added</div>
+          </div>
+        </section>
+      </div>
+    </div><!-- /#panel-blocklists -->
+
+
+    <!-- ── TAB 3: FOCUS ────────────────────────────────────────── -->
+    <div id="panel-focus" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-focus">
+      <div class="focus-cards-wrap">
+        <section class="focus-section-card focus-session-card" aria-labelledby="focus-session-title">
+          <div class="setting-label"><h2 id="focus-session-title" class="focus-card-title" data-i18n="focus_session_title">Focus session</h2><button type="button" class="setting-help" aria-labelledby="focus-session-title" aria-describedby="help-focus-session" data-help="help-focus-session"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></div>
+          <p id="help-focus-session" class="setting-help-text" hidden data-i18n="focus_session_description">Start a timed session using your chosen blocking settings. Schedules and daily limits still apply.</p>
+          <div class="focus-session-actions">
+            <button type="button" class="btn-secondary" data-focus-minutes="25" data-i18n="time_option_minutes" data-i18n-arg="25">25 min</button>
+            <button type="button" class="btn-secondary" data-focus-minutes="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</button>
+            <button type="button" class="btn-secondary" data-focus-minutes="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</button>
+            <button type="button" class="btn-secondary" id="btn-end-focus-session" hidden data-i18n="focus_session_end">End session</button>
+          </div>
+        </section>
+
+        <!-- Card 1: Time & Limits -->
+        <div class="focus-section-card" id="card-focus-time">
+          <div class="focus-card-header" data-card="time" role="button" tabindex="0" aria-expanded="true">
+            <div class="focus-card-header-left">
+              <div class="focus-card-icon-box icon-box-violet">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="focus-card-title-wrap">
+                <span class="focus-card-title" data-i18n="section_time_limits_title">Watch time &amp; limits</span>
+                <span class="focus-card-sub" data-i18n="section_time_limits_sub">Break reminders and a daily watch limit</span>
+              </div>
+            </div>
+            <div class="focus-card-header-right">
+              <span class="focus-card-badge" id="badge-focus-time" data-i18n="status_off">Off</span>
+              <svg class="focus-card-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="focus-card-body" id="card-focus-time-body">
+            <div class="row row-tier1">
+              <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div class="row-text-group">
+                <span class="setting-label"><label class="row-text" id="label-toggle-softReminder" for="toggle-softReminder" data-i18n="toggle_soft_reminder">Break reminder</label><button type="button" class="setting-help" aria-labelledby="label-toggle-softReminder" aria-describedby="help-toggle-softReminder" data-help="help-toggle-softReminder"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+                <span id="help-toggle-softReminder" class="setting-help-text" hidden data-i18n="desc_soft_reminder">Remind me to take a break while a video is playing.</span>
+              </div>
+              <input type="checkbox" class="chk" id="toggle-softReminder" aria-describedby="help-toggle-softReminder" />
+            </div>
+            <div class="time-expand" id="soft-reminder-expand">
+              <span class="time-hint" data-i18n="time_hint_every">Every</span>
+              <select class="time-sel" id="select-softReminderInterval">
+                <option value="15" data-i18n="time_option_minutes" data-i18n-arg="15">15 min</option>
+                <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
+                <option value="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</option>
+                <option value="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</option>
+                <option value="90" data-i18n="time_option_minutes" data-i18n-arg="90">90 min</option>
+                <option value="custom" data-i18n="time_option_custom">Custom...</option>
+              </select>
+              <div class="custom-time-wrap" id="soft-reminder-custom-wrap" style="display:none">
+                <input type="number" class="time-input" id="input-softReminderCustom" min="1" max="1440" placeholder="min" data-i18n-placeholder="time_placeholder_min" />
+                <span class="time-unit" data-i18n="time_unit_min">min</span>
+              </div>
+              <button type="button" id="btn-preview-soft-reminder" class="btn-time-preview" title="Preview on-screen reminder on active YouTube tab">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span data-i18n="btn_preview_reminder">Preview</span>
+              </button>
+            </div>
+
+            <div class="focus-card-divider"></div>
+
+            <div class="row row-tier1">
+              <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              <div class="row-text-group">
+                <span class="setting-label"><label class="row-text" id="label-toggle-dailyLimit" for="toggle-dailyLimit" data-i18n="toggle_daily_limit">Daily limit</label><button type="button" class="setting-help" aria-labelledby="label-toggle-dailyLimit" aria-describedby="help-toggle-dailyLimit" data-help="help-toggle-dailyLimit"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+                <span id="help-toggle-dailyLimit" class="setting-help-text" hidden data-i18n="desc_daily_limit">Pause video playback when your daily watch threshold is reached</span>
+              </div>
+              <input type="checkbox" class="chk" id="toggle-dailyLimit" aria-describedby="help-toggle-dailyLimit" />
+            </div>
+            <div class="time-expand" id="daily-limit-expand">
+              <span class="time-hint" data-i18n="time_hint_stop_after">Stop after</span>
+              <select class="time-sel" id="select-dailyLimitMinutes">
+                <option value="15" data-i18n="time_option_minutes" data-i18n-arg="15">15 min</option>
+                <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
+                <option value="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</option>
+                <option value="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</option>
+                <option value="90" data-i18n="time_option_minutes" data-i18n-arg="90">90 min</option>
+                <option value="120" data-i18n="time_option_minutes" data-i18n-arg="120">120 min</option>
+                <option value="custom" data-i18n="time_option_custom">Custom...</option>
+              </select>
+              <div class="custom-time-wrap" id="daily-limit-custom-wrap" style="display:none">
+                <input type="number" class="time-input" id="input-dailyLimitCustom" min="1" max="1440" placeholder="min" data-i18n-placeholder="time_placeholder_min" />
+                <span class="time-unit" data-i18n="time_unit_min">min</span>
+              </div>
+        <label class="focus-warning-option">
+          <input type="checkbox" id="toggle-limitWarning" />
+          <span data-i18n="limit_warning_option">Warn me with 5 minutes left (1 minute for short limits).</span>
+        </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Focus Lock -->
+        <div class="focus-section-card advanced-only" id="card-focus-lock">
+          <div class="focus-card-header" data-card="lock" role="button" tabindex="0" aria-expanded="true">
+            <div class="focus-card-header-left">
+              <div class="focus-card-icon-box icon-box-amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="focus-card-title-wrap">
+                <span class="focus-card-title" data-i18n="section_focus_lock_title">Focus Lock Shield</span>
+                <span class="focus-card-sub" data-i18n="section_focus_lock_sub">Prevent impulsive changes with an intentional delay</span>
+              </div>
+            </div>
+            <div class="focus-card-header-right">
+              <span class="focus-card-badge" id="badge-focus-lock" data-i18n="status_off">Off</span>
+              <svg class="focus-card-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="focus-card-body" id="card-focus-lock-body">
+            <div class="row row-tier1">
+              <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <div class="row-text-group">
+                <span class="setting-label"><label class="row-text" id="label-toggle-focusLockEnabled" for="toggle-focusLockEnabled" data-i18n="toggle_focus_lock">Focus Lock</label><button type="button" class="setting-help" aria-labelledby="label-toggle-focusLockEnabled" aria-describedby="help-toggle-focusLockEnabled" data-help="help-toggle-focusLockEnabled"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+                <span id="help-toggle-focusLockEnabled" class="setting-help-text" hidden data-i18n="desc_focus_lock">Require a delay before disabling protections</span>
+              </div>
+              <input type="checkbox" class="chk" id="toggle-focusLockEnabled" aria-describedby="help-toggle-focusLockEnabled" />
+            </div>
+            <div class="focus-lock-config" id="focus-lock-config-wrap" style="display:none">
+              <div class="config-row">
+                <span class="time-hint" data-i18n="focus_lock_cooldown_label">Cooldown delay</span>
+                <select class="time-sel" id="select-focusLockCooldown">
+                  <option value="5" data-i18n="focus_lock_duration_5m">5 min</option>
+                  <option value="10" data-i18n="focus_lock_duration_10m" selected>10 min</option>
+                  <option value="30" data-i18n="focus_lock_duration_30m">30 min</option>
+                  <option value="60" data-i18n="focus_lock_duration_60m">60 min</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Scheduled Blocking -->
+        <div class="focus-section-card" id="card-focus-schedule">
+          <div class="focus-card-header" data-card="schedule" role="button" tabindex="0" aria-expanded="true">
+            <div class="focus-card-header-left">
+              <div class="focus-card-icon-box icon-box-indigo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="focus-card-title-wrap">
+                <span class="focus-card-title" data-i18n="section_scheduled_title">Scheduled Focus Sessions</span>
+                <span class="focus-card-sub" data-i18n="section_scheduled_sub">Auto-block YouTube during work, study, or sleep</span>
+              </div>
+            </div>
+            <div class="focus-card-header-right">
+              <span class="focus-card-badge" id="badge-focus-schedule" data-i18n="status_off">Off</span>
+              <svg class="focus-card-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="focus-card-body" id="card-focus-schedule-body">
+            <div class="row row-tier1">
+              <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <div class="row-text-group">
+                <span class="setting-label"><label class="row-text" id="label-toggle-scheduledBlockingEnabled" for="toggle-scheduledBlockingEnabled" data-i18n="toggle_scheduled_blocking">Scheduled Blocking</label><button type="button" class="setting-help" aria-labelledby="label-toggle-scheduledBlockingEnabled" aria-describedby="help-toggle-scheduledBlockingEnabled" data-help="help-toggle-scheduledBlockingEnabled"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+                <span id="help-toggle-scheduledBlockingEnabled" class="setting-help-text" hidden data-i18n="desc_scheduled_blocking">Automatically block YouTube during set times</span>
+              </div>
+              <input type="checkbox" class="chk" id="toggle-scheduledBlockingEnabled" aria-describedby="help-toggle-scheduledBlockingEnabled" />
+            </div>
+
+            <div class="schedules-container" id="schedules-container">
+              <div class="schedules-header">
+                <button type="button" id="btn-add-schedule" class="btn-primary-small">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span data-i18n="scheduled_blocking_add_btn">+ Add Schedule</span>
+                </button>
+              </div>
+
+              <!-- Inline Add/Edit Schedule Form -->
+              <div id="schedule-form-wrap" class="schedule-form-card" style="display:none">
+                <div class="schedule-form-title" id="schedule-form-title" data-i18n="schedule_form_title_add">New Schedule</div>
+                <input type="hidden" id="schedule-edit-id" value="" />
+
+                <div class="form-field">
+                  <label for="schedule-input-label" class="field-label" data-i18n="schedule_form_label">Label</label>
+                  <input type="text" id="schedule-input-label" class="text-input" placeholder="e.g. Work hours, Study time" data-i18n-placeholder="schedule_form_label_placeholder" maxlength="40" />
+                </div>
+
+                <div class="form-field">
+                  <span class="field-label" data-i18n="schedule_form_days">Active Days</span>
+                  <div class="day-chips" id="schedule-day-chips">
+                    <button type="button" class="day-chip active" data-day="1" data-i18n="day_mon">Mon</button>
+                    <button type="button" class="day-chip active" data-day="2" data-i18n="day_tue">Tue</button>
+                    <button type="button" class="day-chip active" data-day="3" data-i18n="day_wed">Wed</button>
+                    <button type="button" class="day-chip active" data-day="4" data-i18n="day_thu">Thu</button>
+                    <button type="button" class="day-chip active" data-day="5" data-i18n="day_fri">Fri</button>
+                    <button type="button" class="day-chip" data-day="6" data-i18n="day_sat">Sat</button>
+                    <button type="button" class="day-chip" data-day="0" data-i18n="day_sun">Sun</button>
+                  </div>
+                </div>
+
+                <div class="form-row-2col">
+                  <div class="form-field">
+                    <label for="schedule-input-start" class="field-label" data-i18n="schedule_form_start_time">Start Time</label>
+                    <input type="time" id="schedule-input-start" class="time-picker-input" value="09:00" />
+                  </div>
+                  <div class="form-field">
+                    <label for="schedule-input-end" class="field-label" data-i18n="schedule_form_end_time">End Time</label>
+                    <input type="time" id="schedule-input-end" class="time-picker-input" value="17:00" />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <span class="field-label" data-i18n="schedule_form_mode">Blocking Mode</span>
+                  <div class="mode-options">
+                    <label class="mode-radio-label">
+                      <input type="radio" name="schedule-mode" value="full" checked />
+                      <div class="mode-info">
+                        <span class="mode-title" data-i18n="schedule_mode_full">Block YouTube entirely</span>
+                        <span class="mode-desc" data-i18n="schedule_mode_full_desc">Replaces YouTube with a locked commitment screen</span>
+                      </div>
+                    </label>
+                    <label class="mode-radio-label">
+                      <input type="radio" name="schedule-mode" value="strict" />
+                      <div class="mode-info">
+                        <span class="mode-title" data-i18n="schedule_mode_strict">Force all protections on</span>
+                        <span class="mode-desc" data-i18n="schedule_mode_strict_desc">Forces all block toggles on during this time</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div id="schedule-form-error" class="form-error" style="display:none"></div>
+
+                <div class="form-actions">
+                  <button type="button" id="btn-save-schedule" class="btn-primary">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span data-i18n="schedule_btn_save">Save Schedule</span>
+                  </button>
+                  <button type="button" id="btn-cancel-schedule" class="btn-secondary" data-i18n="schedule_btn_cancel">Cancel</button>
+                </div>
+              </div>
+
+              <!-- Schedule Cards List -->
+              <div id="schedules-list" class="schedules-list">
+                <!-- Dynamically injected schedule cards -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.focus-cards-wrap -->
+
+    </div><!-- /#panel-focus -->
+
+
+    <!-- ── TAB 4: STATS ────────────────────────────────────────── -->
+    <div id="panel-stats" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-stats">
+      <div class="stats-dashboard">
+        <div class="stats-hero-card">
+          <div class="stats-hero-header">
+            <div class="stats-hero-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span data-i18n="stats_dashboard_title">Today's YouTube Playback</span>
+            </div>
+            <span class="stats-live-indicator">Live</span>
+          </div>
+
+          <div class="stats-hero-body">
+            <div class="stats-metric-row">
+              <span class="stats-hero-num" id="stats-panel-time">0 min</span>
+              <span class="stats-hero-unit" data-i18n="stats_unit_watchtime">total watch time</span>
+            </div>
+            <div class="stats-hero-status" id="stats-panel-status">No daily limit configured</div>
+          </div>
+
+          <div class="stats-hero-actions">
+            <button type="button" id="btn-stats-goto-focus" class="btn-stats-action btn-stats-primary">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span data-i18n="stats_btn_set_limit">Configure Limit</span>
+            </button>
+            <button type="button" id="btn-stats-panel-reset" class="btn-stats-action btn-stats-ghost">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+              <span data-i18n="stats_btn_reset_panel">Reset Today</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-info-callout">
+          <svg class="stats-callout-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <div class="stats-callout-text" data-i18n="stats_callout_info">
+            Adds playback across tabs, including background tabs. Simultaneous videos count separately, even with protections off or snoozed. Resets at midnight.
+          </div>
+        </div>
+      </div>
+    </div><!-- /#panel-stats -->
+
+
+    <!-- ── TAB 5: SETTINGS ─────────────────────────────────────── -->
+    <div id="panel-settings" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-settings">
+      <div class="settings-wrap">
+        <!-- Top: About & Community Support (Immediate Rate & Feedback) -->
+        <div class="settings-about-card">
+          <div class="settings-about-brand">
+            <img src="../icons/icon.png" alt="" class="settings-about-icon" />
+            <div class="settings-about-info">
+              <div class="settings-about-title-row">
+                <span class="settings-about-title">Intentional YT</span>
+                <span class="settings-about-ver">v2.4.6</span>
+              </div>
+              <div class="settings-about-privacy">
+                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span data-i18n="footer_local_privacy">100% Local · Zero Telemetry</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-about-actions">
+            <a id="link-rate-store" href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-highlight" title="Leave a review on Web Store">
+              <svg class="about-action-star" viewBox="0 0 24 24" width="12" height="12" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span id="label-rate-store" data-i18n="setting_rate_store">Rate on Web Store</span>
+              <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Section 1: General Preferences -->
+        <div class="settings-group">
+          <div class="settings-group-title">General</div>
+          <div class="settings-card">
+            <!-- Appearance / Theme Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-violet">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label" data-i18n="setting_theme">Appearance</span>
+                </div>
+              </div>
+              <div class="settings-row-right">
+                <select id="select-themeMode" class="settings-dropdown" aria-label="Theme">
+                  <option value="auto" data-i18n="theme_auto">Auto (match system)</option>
+                  <option value="dark" data-i18n="theme_dark">Dark mode</option>
+                  <option value="light" data-i18n="theme_light">Light mode</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <!-- Relocated Language Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-indigo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label" data-i18n="setting_language">Language</span>
+                </div>
+              </div>
+              <div class="settings-row-right">
+                <select id="select-userLanguage" class="settings-dropdown" aria-label="Language">
+                  <option value="auto">Auto (match browser)</option>
+                  <option value="id">Bahasa Indonesia</option>
+                  <option value="cs">Čeština</option>
+                  <option value="de">Deutsch</option>
+                  <option value="el">Ελληνικά</option>
+                  <option value="en">English</option>
+                  <option value="es">Español</option>
+                  <option value="fr">Français</option>
+                  <option value="it">Italiano</option>
+                  <option value="nl">Nederlands</option>
+                  <option value="pl">Polski</option>
+                  <option value="pt_BR">Português (Brasil)</option>
+                  <option value="ro">Română</option>
+                  <option value="sv">Svenska</option>
+                  <option value="vi">Tiếng Việt</option>
+                  <option value="tr">Türkçe</option>
+                  <option value="ru">Русский</option>
+                  <option value="uk">Українська</option>
+                  <option value="he">עברית</option>
+                  <option value="ar">العربية</option>
+                  <option value="hi">हिन्दी</option>
+                  <option value="bn">বাংলা</option>
+                  <option value="th">ไทย</option>
+                  <option value="ja">日本語</option>
+                  <option value="zh_CN">简体中文</option>
+                  <option value="zh_TW">繁體中文</option>
+                  <option value="ko">한국어</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <!-- Onboarding Setup Wizard Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-emerald">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label">Setup Wizard</span>
+                  <span class="settings-row-sub">Goal-driven 30-second focus setup</span>
+                </div>
+              </div>
+              <div class="settings-row-actions">
+                <button type="button" id="btn-open-welcome-wizard" class="btn-settings-pill" title="Launch onboarding wizard in a new tab">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  <span>Launch ↗</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Data & Backup -->
+        <div class="settings-group advanced-only">
+          <div class="settings-group-title">Data &amp; Backup</div>
+          <div class="settings-card">
+            <!-- Backup & Restore Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-emerald">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="setting-label"><span id="label-setting-backup" class="settings-row-label" data-i18n="setting_backup_title">Configuration Backup</span><button type="button" class="setting-help" aria-labelledby="label-setting-backup" aria-describedby="help-setting-backup" data-help="help-setting-backup"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+                  <span id="help-setting-backup" class="setting-help-text" hidden data-i18n="setting_backup_desc">Export your settings to a JSON file or import a previous backup.</span>
+                </div>
+              </div>
+              <div class="settings-row-actions">
+                <button type="button" id="btn-export-settings" class="btn-settings-pill" title="Export settings to JSON">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span data-i18n="btn_export_settings">Export</span>
+                </button>
+                <button type="button" id="btn-import-settings" class="btn-settings-pill" title="Import settings from JSON">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span data-i18n="btn_import_settings">Import</span>
+                </button>
+                <input type="file" id="input-import-file" accept=".json,application/json" style="display:none;" />
+              </div>
+            </div>
+            <div class="settings-divider"></div>
+
+            <!-- 1-Click Shareable Preset Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-blue">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label">Share My Setup</span>
+                  <span class="settings-row-sub">Generate a 1-click link to share with students, teams, or friends</span>
+                </div>
+              </div>
+              <div class="settings-row-actions">
+                <button type="button" id="btn-share-setup" class="btn-settings-pill" title="Copy 1-click shareable link">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>Share Link</span>
+                </button>
+                <button type="button" id="btn-import-preset-link" class="btn-settings-pill" title="Import shared preset from link or code">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Import</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <!-- Cross-Device Cloud Sync Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-violet">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label">Cross-Device Sync</span>
+                  <span class="settings-row-sub">Sync preferences across browsers via Chrome / Firefox account</span>
+                </div>
+              </div>
+              <div class="settings-row-actions">
+                <input type="checkbox" class="chk" id="toggle-syncEnabled" />
+              </div>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <!-- Reset All Settings to Default Row -->
+            <div class="settings-row">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-danger">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="setting-label"><span id="label-setting-reset" class="settings-row-label" data-i18n="setting_reset_title">Reset Preferences</span><button type="button" class="setting-help" aria-labelledby="label-setting-reset" aria-describedby="help-setting-reset" data-help="help-setting-reset"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+                  <span id="help-setting-reset" class="setting-help-text" hidden data-i18n="setting_reset_desc">Restore all default options and clear custom schedules.</span>
+                </div>
+              </div>
+              <div class="settings-row-actions">
+                <button type="button" id="btn-reset-defaults" class="btn-settings-pill btn-pill-danger" title="Reset all settings to default">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  <span data-i18n="btn_reset_defaults">Reset Defaults</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.settings-wrap -->
+    </div><!-- /#panel-settings -->
+
+  </div><!-- /#scroll -->
+    </main><!-- /#content-area -->
+  </div><!-- /#main-layout -->
+
+  <!-- ── Persistent Watch-Time Status Bar ────────────────────────
+       Single-row 42px status bar keeping popup height calm & focused.
+       JS writes to: #stats-time, #stats-limit-label, #prog-fill.
+       ─────────────────────────────────────────────────────────────── -->
+  <footer id="watch-bar">
+    <div class="watch-bar-left">
+      <div class="watch-capsule" id="watch-capsule" title="Today's Watch Time">
+        <svg class="watch-capsule-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="watch-capsule-label" data-i18n="stats_title_today">Today</span>
+        <span id="stats-time" class="watch-capsule-time">0 min</span>
+      </div>
+    </div>
+    <div class="watch-bar-center">
+      <div class="prog" id="watch-prog-wrap"><div id="prog-fill"></div></div>
+      <span id="stats-limit-label" class="watch-limit-badge" data-i18n="stats_no_limit">no limit</span>
+    </div>
+            <a href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" class="popup-feedback-link" title="Submit feedback and feature ideas">
+              <svg class="about-action-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span data-i18n="footer_feedback_link">Feedback &amp; Ideas ↗</span>
+            </a>
+  </footer>
+
+  <!-- Focus Lock Setup Modal -->
+  <div id="modal-pin-setup" class="iyt-modal-overlay" style="display:none">
+    <div class="iyt-modal-card">
+      <div class="iyt-modal-header">
+        <span class="iyt-modal-title" data-i18n="focus_lock_pin_modal_title">Set 4-Digit PIN</span>
+      </div>
+      <div class="iyt-modal-body">
+        <div class="pin-inputs-wrap">
+          <input type="password" id="input-setup-pin" class="pin-input" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="••••" data-i18n-placeholder="focus_lock_enter_pin" />
+          <input type="password" id="input-setup-pin-confirm" class="pin-input" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="••••" data-i18n-placeholder="focus_lock_confirm_pin" />
+        </div>
+        <div class="pin-warning-box">
+          <svg class="pin-warning-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="warning-text" data-i18n="focus_lock_pin_warning">If you forget this PIN, the only way to reset it is to uninstall and reinstall the extension, which will erase all your settings. Write it down somewhere safe.</span>
+        </div>
+        <div id="setup-pin-error" class="modal-error" style="display:none"></div>
+      </div>
+      <div class="iyt-modal-footer">
+        <button type="button" id="btn-save-setup-pin" class="btn-primary" data-i18n="focus_lock_btn_save_pin">Save PIN &amp; Enable</button>
+        <button type="button" id="btn-cancel-setup-pin" class="btn-secondary" data-i18n="focus_lock_btn_cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Focus Lock Verification Modal -->
+  <div id="modal-pin-verify" class="iyt-modal-overlay" style="display:none">
+    <div class="iyt-modal-card">
+      <div class="iyt-modal-header">
+        <span class="iyt-modal-title" data-i18n="focus_lock_verify_title">Focus Lock Protected</span>
+      </div>
+      <div class="iyt-modal-body">
+        <div class="verify-target-wrap" id="verify-target-wrap" style="display:none">
+          <span class="verify-target-label">Unlocking:</span>
+          <span id="verify-target-name" class="verify-target-badge"></span>
+        </div>
+        <p class="verify-prompt-text" data-i18n="focus_lock_verify_prompt">Enter your 4-digit PIN to begin the cooldown delay:</p>
+        <div class="pin-inputs-wrap">
+          <input type="password" id="input-verify-pin" class="pin-input" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="••••" autocomplete="off" />
+        </div>
+        <div id="verify-pin-error" class="modal-error" style="display:none"></div>
+      </div>
+      <div class="iyt-modal-footer">
+        <button type="button" id="btn-submit-verify-pin" class="btn-primary" data-i18n="focus_lock_btn_submit_pin">Start Cooldown</button>
+        <button type="button" id="btn-cancel-verify-pin" class="btn-secondary" data-i18n="focus_lock_btn_cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Defaults Confirmation Modal (replaces native window.confirm) -->
+  <div id="modal-confirm-reset" class="iyt-modal-overlay" style="display:none">
+    <div class="iyt-modal-card">
+      <div class="iyt-modal-header">
+        <span class="iyt-modal-title" data-i18n="setting_reset_title">Reset All Settings?</span>
+      </div>
+      <div class="iyt-modal-body">
+        <p class="verify-prompt-text" data-i18n="confirm_reset_all_settings">
+          Are you sure you want to reset all settings to default? This will clear all your custom preferences and schedules.
+        </p>
+      </div>
+      <div class="iyt-modal-footer">
+        <button type="button" id="btn-confirm-reset-ok" class="btn-primary btn-danger-solid" data-i18n="btn_reset_defaults">Reset Everything</button>
+        <button type="button" id="btn-confirm-reset-cancel" class="btn-secondary" data-i18n="focus_lock_btn_cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Temporary Snooze Modal -->
+  <div id="modal-snooze" class="iyt-modal-overlay" style="display:none">
+    <div class="iyt-modal-card">
+      <div class="iyt-modal-header">
+        <span class="iyt-modal-title" data-i18n="snooze_modal_title">Pause Protections</span>
+      </div>
+      <div class="iyt-modal-body">
+        <p class="verify-prompt-text" data-i18n="snooze_modal_desc">
+          Protections will resume automatically when the timer ends.
+        </p>
+        <div class="snooze-options-grid">
+          <button type="button" class="snooze-opt-btn" data-minutes="15">
+            <span class="snooze-opt-time" data-i18n="snooze_duration_15">15 Minutes</span>
+            <span class="snooze-opt-desc" data-i18n="snooze_duration_15_desc">Quick break</span>
+          </button>
+          <button type="button" class="snooze-opt-btn" data-minutes="30">
+            <span class="snooze-opt-time" data-i18n="snooze_duration_30">30 Minutes</span>
+            <span class="snooze-opt-desc" data-i18n="snooze_duration_30_desc">Work session</span>
+          </button>
+          <button type="button" class="snooze-opt-btn" data-minutes="60">
+            <span class="snooze-opt-time" data-i18n="snooze_duration_60">1 Hour</span>
+            <span class="snooze-opt-desc" data-i18n="snooze_duration_60_desc">Extended session</span>
+          </button>
+        </div>
+      </div>
+      <div class="iyt-modal-footer">
+        <button type="button" id="btn-cancel-snooze" class="btn-secondary" data-i18n="focus_lock_btn_cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Share / Import Preset Modal -->
+  <div id="import-preset-modal" class="iyt-modal-backdrop" style="display:none">
+    <div class="iyt-modal-card">
+      <div class="iyt-modal-header">
+        <span class="iyt-modal-title">Import Shared Setup</span>
+        <button type="button" class="iyt-modal-close" id="btn-close-import-preset-modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="iyt-modal-body">
+        <p class="verify-prompt-text">Paste an intentionalyt.me/setup link or preset code below:</p>
+        <input type="text" id="input-import-preset" class="blocklist-text-input" placeholder="https://intentionalyt.me/setup#s=... or code" style="width:100%;margin-top:8px" autocomplete="off" spellcheck="false" />
+        <div id="import-preset-preview" style="display:none;margin-top:10px;padding:8px 10px;background:var(--surface-inset);border-radius:6px;font-size:12px;color:var(--ink-secondary);line-height:1.45"></div>
+        <div id="import-preset-error" class="form-error" style="display:none;margin-top:6px" role="alert">Invalid preset link or code</div>
+      </div>
+      <div class="iyt-modal-footer">
+        <button type="button" id="btn-confirm-import-preset" class="btn-primary" style="display:none">Apply Setup</button>
+        <button type="button" id="btn-cancel-import-preset" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Toast Notification (replaces native window.alert) -->
+  <div id="iyt-toast" class="iyt-toast" style="display:none" role="status" aria-live="polite">
+    <svg class="toast-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span id="toast-message" class="toast-text"></span>
+  </div>
+
+</div><!-- /#shell -->
+
+<script src="../utils/storage.js"></script>
+  <script src="../utils/policy.js"></script>
+  <script src="../utils/schema.js"></script>
+  <script src="../utils/dialog.js"></script>
+<script src="../utils/i18n.js"></script>
+<script src="popup.js"></script>
+  <div id="setting-help-tooltip" role="tooltip" hidden></div>
+</body>
+</html>

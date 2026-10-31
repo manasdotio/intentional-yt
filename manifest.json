@@ -18,7 +18,8 @@
   },
   "permissions": [
     "storage",
-    "alarms"
+    "alarms",
+    "contextMenus"
   ],
   "host_permissions": [
     "*://www.youtube.com/*",
@@ -68,6 +69,10 @@
       "48": "icons/icon-48.png",
       "128": "icons/icon-128.png"
     }
+  },
+  "options_ui": {
+    "page": "ui/options.html",
+    "open_in_tab": true
   },
   "web_accessible_resources": [
     {

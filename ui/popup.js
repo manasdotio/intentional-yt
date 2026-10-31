@@ -157,6 +157,41 @@ const SECTION_TOGGLES = {
   ]
 };
 
+const PRESET_METADATA = {
+  balanced: {
+    label: 'Balanced',
+    desc: 'Hides the home feed, Shorts, and suggestions. Keeps comments and subscriptions.'
+  },
+  antiShorts: {
+    label: 'Anti-Shorts',
+    desc: 'Eliminates Shorts across shelves and redirects reels to regular players. Limits home feed to 15 calm videos.'
+  },
+  study: {
+    label: 'Study',
+    desc: 'Zero rabbit holes. Hides home feed, suggestions, and comments. Preserves course playlists, descriptions, and clean search.'
+  },
+  zen: {
+    label: 'Zen',
+    desc: 'Hides feeds, suggestions, comments, and extra controls. Keeps the video player and search.'
+  },
+  player: {
+    label: 'Video Only',
+    desc: 'Hides recommendations and comments, but keeps playlists and standard controls.'
+  },
+  custom: {
+    label: 'Custom',
+    desc: 'Your own mix of settings. Choose a preset to replace these controls.'
+  }
+};
+
+function getPresetLabel(name) {
+  return t(`preset_${name}`) || PRESET_METADATA[name]?.label || name;
+}
+
+function getPresetDesc(name) {
+  return t(`preset_desc_${name}`) || PRESET_METADATA[name]?.desc || '';
+}
+
 const PRESET_DEFINITIONS = {
   balanced: {
     blockHomeFeed: true,
@@ -182,6 +217,71 @@ const PRESET_DEFINITIONS = {
     blockExploreAndTrending: true,
     blockMoreFromYouTube: true,
     blockShorts: true,
+    redirectShorts: false,
+    blockSubscriptionsFeed: false,
+    disableAutoplay: true,
+    disableAnnotations: true,
+    disableHoverPreviews: false,
+    hideThumbnails: false,
+    grayscaleMode: false
+  },
+  antiShorts: {
+    blockHomeFeed: false,
+    blockChannelHome: false,
+    limitHomeFeed: true,
+    blockSidebar: false,
+    blockRecommended: false,
+    blockLiveChat: false,
+    blockPlaylist: false,
+    blockEndScreenVideowall: false,
+    blockEndScreenCards: false,
+    blockComments: false,
+    blockProfilePhotos: false,
+    blockMixPlaylists: false,
+    blockMerch: false,
+    blockVideoInfo: false,
+    blockVideoButtons: false,
+    blockChannelInfo: false,
+    blockVideoDescription: false,
+    blockTopHeader: false,
+    blockNotificationBell: false,
+    blockIrrelevantSearchResults: false,
+    blockExploreAndTrending: false,
+    blockMoreFromYouTube: false,
+    blockShorts: true,
+    redirectShorts: true,
+    blockSubscriptionsFeed: false,
+    disableAutoplay: true,
+    disableAnnotations: false,
+    disableHoverPreviews: false,
+    hideThumbnails: false,
+    grayscaleMode: false
+  },
+  study: {
+    blockHomeFeed: true,
+    blockChannelHome: false,
+    limitHomeFeed: false,
+    blockSidebar: false,
+    blockRecommended: true,
+    blockLiveChat: true,
+    blockPlaylist: false,
+    blockEndScreenVideowall: true,
+    blockEndScreenCards: true,
+    blockComments: true,
+    blockProfilePhotos: true,
+    blockMixPlaylists: true,
+    blockMerch: true,
+    blockVideoInfo: false,
+    blockVideoButtons: false,
+    blockChannelInfo: false,
+    blockVideoDescription: false,
+    blockTopHeader: false,
+    blockNotificationBell: true,
+    blockIrrelevantSearchResults: true,
+    blockExploreAndTrending: true,
+    blockMoreFromYouTube: true,
+    blockShorts: true,
+    redirectShorts: false,
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
     disableAnnotations: true,
@@ -213,6 +313,7 @@ const PRESET_DEFINITIONS = {
     blockExploreAndTrending: true,
     blockMoreFromYouTube: true,
     blockShorts: true,
+    redirectShorts: false,
     blockSubscriptionsFeed: true,
     disableAutoplay: true,
     disableAnnotations: true,
@@ -244,6 +345,7 @@ const PRESET_DEFINITIONS = {
     blockExploreAndTrending: true,
     blockMoreFromYouTube: true,
     blockShorts: true,
+    redirectShorts: false,
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
     disableAnnotations: true,
@@ -257,6 +359,7 @@ let _s = null;
 let _softCustomMode = false;
 let _dailyCustomMode = false;
 let _activeTab = 'block';
+let _uiMode = 'simple';
 let _bannerInterval = null;
 let _pendingVerificationCallback = null;
 
@@ -270,7 +373,7 @@ function getSettingFriendlyName(settingKey) {
   }
   if (settingKey.startsWith('preset:')) {
     const pName = settingKey.split(':')[1];
-    const pLabel = t(`preset_${pName}`) || pName;
+    const pLabel = getPresetLabel(pName);
     return `${t('presets_title') || 'Preset'}: ${pLabel}`;
   }
   if (settingKey === 'dailyLimit.enabled' || settingKey === 'dailyLimit') {
@@ -593,7 +696,7 @@ function updatePresetUI(s) {
   const selectPreset = $('select-preset');
   if (selectPreset) {
     selectPreset.value = active;
-    selectPreset.title = t(`preset_desc_${active}`) || '';
+    selectPreset.title = getPresetDesc(active);
   }
 
   // Update dropdown icon
@@ -601,16 +704,17 @@ function updatePresetUI(s) {
   if (icon) {
     switch (active) {
       case 'balanced': icon.innerHTML = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'; break;
+      case 'antiShorts': icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/><line x1="19" y1="5" x2="19" y2="19"/>'; break;
+      case 'study': icon.innerHTML = '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'; break;
       case 'zen': icon.innerHTML = '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 0-20"/>'; break;
       case 'player': icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>'; break;
-      case 'custom': icon.innerHTML = '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>'; break;
+      case 'custom': icon.innerHTML = '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>'; break;
     }
   }
 
   const tooltipText = $('preset-tooltip-text');
   if (tooltipText) {
-    const descKey = `preset_desc_${active}`;
-    tooltipText.textContent = t(descKey) || '';
+    tooltipText.textContent = getPresetDesc(active);
   }
 }
 
@@ -631,7 +735,7 @@ async function doApplyPreset(preset, presetName) {
   _s = updated;
   broadcastSettingsToTabs(updated);
   renderAll(updated);
-  const pLabel = t(`preset_${presetName}`) || presetName;
+  const pLabel = getPresetLabel(presetName);
   showToast(t('preset_applied', [pLabel]) || `Switched to ${pLabel} mode`);
 }
 
@@ -924,6 +1028,32 @@ function filterToggles(query) {
 
   if (noResultsEl) noResultsEl.style.display = totalMatches === 0 ? 'flex' : 'none';
   if (detailedHeader) detailedHeader.style.display = categoryMatches === 0 ? 'none' : 'flex';
+}
+
+
+/* ── Simple vs Advanced Mode ─────────────────────────── */
+
+function applyUIMode(mode) {
+  _uiMode = mode === 'advanced' ? 'advanced' : 'simple';
+  const isSimple = _uiMode === 'simple';
+  document.body.classList.toggle('mode-simple', isSimple);
+  document.body.classList.toggle('mode-advanced', !isSimple);
+
+  const btnSimple = $('btn-mode-simple');
+  const btnAdvanced = $('btn-mode-advanced');
+  if (btnSimple) {
+    btnSimple.classList.toggle('active', isSimple);
+    btnSimple.setAttribute('aria-checked', isSimple ? 'true' : 'false');
+  }
+  if (btnAdvanced) {
+    btnAdvanced.classList.toggle('active', !isSimple);
+    btnAdvanced.setAttribute('aria-checked', !isSimple ? 'true' : 'false');
+  }
+
+  // If in simple mode and currently on an advanced-only tab (like blocklists), switch to block
+  if (isSimple && _activeTab === 'blocklists') {
+    switchTab('block');
+  }
 }
 
 /* ── Tab Management ──────────────────────────────────── */
@@ -1658,6 +1788,8 @@ function renderAll(s) {
     }
   }
   updateSnoozeBanner(s);
+  const syncEl = $('toggle-syncEnabled');
+  if (syncEl) syncEl.checked = Boolean(s.syncEnabled);
 
   const searchInput = $('input-toggle-search');
   if (searchInput?.value?.trim()) {
@@ -1872,6 +2004,148 @@ async function broadcastSettingsToTabs(settings) {
 
 /* ── Event Bindings ──────────────────────────────────── */
 
+
+function escapeHTML(str) {
+  return String(str || '').replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+  }[tag] || tag));
+}
+
+const SETTING_DIAGRAMS = {
+  endscreen: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <rect x="10" y="8" width="16" height="3" rx="1.5" fill="var(--ink-ghost)"/>
+    <rect x="10" y="20" width="124" height="54" rx="3" fill="var(--surface-inset)" stroke="var(--rule-strong)" stroke-width="1"/>
+    <rect x="16" y="26" width="52" height="19" rx="2" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="2 2"/>
+    <rect x="74" y="26" width="52" height="19" rx="2" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="2 2"/>
+    <rect x="16" y="49" width="52" height="19" rx="2" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="2 2"/>
+    <rect x="74" y="49" width="52" height="19" rx="2" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="2 2"/>
+    <rect x="42" y="38" width="58" height="14" rx="3" fill="var(--accent)"/>
+    <text x="71" y="48" font-size="8" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="sans-serif">END SCREENS</text>
+    <rect x="142" y="20" width="48" height="15" rx="2" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+    <rect x="142" y="39" width="48" height="15" rx="2" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+    <rect x="142" y="58" width="48" height="15" rx="2" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+  </svg>`,
+
+  endscreenCards: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <rect x="10" y="20" width="124" height="54" rx="3" fill="var(--surface-inset)" stroke="var(--rule-strong)" stroke-width="1"/>
+    <polygon points="62 42 76 50 62 58" fill="var(--ink-ghost)" opacity="0.4"/>
+    <rect x="78" y="24" width="50" height="20" rx="3" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.5"/>
+    <circle cx="87" cy="34" r="5" fill="var(--accent)"/>
+    <rect x="96" y="31" width="26" height="3" rx="1.5" fill="var(--accent)"/>
+    <rect x="96" y="36" width="18" height="2" rx="1" fill="var(--accent)"/>
+    <rect x="14" y="52" width="28" height="16" rx="3" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.5"/>
+    <rect x="142" y="20" width="48" height="15" rx="2" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+    <rect x="142" y="39" width="48" height="15" rx="2" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+    <rect x="142" y="58" width="48" height="15" rx="2" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+  </svg>`,
+
+  sidebar: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <rect x="10" y="20" width="124" height="54" rx="3" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+    <rect x="140" y="18" width="52" height="58" rx="4" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <line x1="144" y1="22" x2="188" y2="72" stroke="var(--accent)" stroke-width="1.5"/>
+    <rect x="146" y="40" width="40" height="14" rx="3" fill="var(--accent)"/>
+    <text x="166" y="50" font-size="7.5" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="sans-serif">SIDEBAR</text>
+  </svg>`,
+
+  shorts: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <text x="14" y="23" font-size="7" font-weight="700" fill="var(--ink-secondary)" font-family="sans-serif">SHORTS SHELF</text>
+    <g stroke="var(--accent)" stroke-width="1.4" fill="var(--accent-subtle)">
+      <rect x="24" y="28" width="38" height="48" rx="4"/>
+      <rect x="81" y="28" width="38" height="48" rx="4"/>
+      <rect x="138" y="28" width="38" height="48" rx="4"/>
+    </g>
+    <line x1="28" y1="32" x2="58" y2="72" stroke="var(--accent)" stroke-width="1.5"/>
+    <line x1="85" y1="32" x2="115" y2="72" stroke="var(--accent)" stroke-width="1.5"/>
+    <line x1="142" y1="32" x2="172" y2="72" stroke="var(--accent)" stroke-width="1.5"/>
+    <rect x="71" y="46" width="58" height="13" rx="3" fill="var(--accent)"/>
+    <text x="100" y="55" font-size="7.5" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="sans-serif">BLOCKED</text>
+  </svg>`,
+
+  home: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <rect x="12" y="18" width="22" height="5" rx="2.5" fill="var(--ink-ghost)" opacity="0.5"/>
+    <rect x="38" y="18" width="22" height="5" rx="2.5" fill="var(--ink-ghost)" opacity="0.3"/>
+    <rect x="64" y="18" width="22" height="5" rx="2.5" fill="var(--ink-ghost)" opacity="0.3"/>
+    <g fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.3">
+      <rect x="14" y="28" width="80" height="22" rx="3"/>
+      <rect x="106" y="28" width="80" height="22" rx="3"/>
+      <rect x="14" y="54" width="80" height="22" rx="3"/>
+      <rect x="106" y="54" width="80" height="22" rx="3"/>
+    </g>
+    <rect x="70" y="42" width="60" height="15" rx="3" fill="var(--accent)"/>
+    <text x="100" y="52.5" font-size="7.5" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="sans-serif">HOME FEED</text>
+  </svg>`,
+
+  playerDetails: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <rect x="10" y="18" width="124" height="42" rx="3" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+    <rect x="10" y="63" width="124" height="15" rx="3" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.3"/>
+    <rect x="16" y="67" width="55" height="3" rx="1.5" fill="var(--accent)"/>
+    <rect x="16" y="72" width="35" height="2" rx="1" fill="var(--accent)"/>
+    <circle cx="85" cy="70.5" r="3" fill="var(--accent)"/>
+    <circle cx="95" cy="70.5" r="3" fill="var(--accent)"/>
+    <circle cx="105" cy="70.5" r="3" fill="var(--accent)"/>
+    <rect x="142" y="18" width="48" height="16" rx="2" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+    <rect x="142" y="38" width="48" height="16" rx="2" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+  </svg>`,
+
+  channel: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <rect x="16" y="24" width="70" height="45" rx="3" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+    <rect x="94" y="28" width="85" height="6" rx="2" fill="var(--ink-secondary)" opacity="0.6"/>
+    <rect x="92" y="40" width="94" height="24" rx="3" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.3"/>
+    <circle cx="103" cy="52" r="6" fill="var(--accent)"/>
+    <rect x="114" y="49" width="38" height="4" rx="2" fill="var(--accent)"/>
+    <rect x="156" y="47" width="25" height="10" rx="3" fill="var(--accent)"/>
+    <text x="168" y="54.5" font-size="6.5" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="sans-serif">BLOCK</text>
+  </svg>`,
+
+  focus: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <rect x="25" y="42" width="150" height="8" rx="4" fill="var(--surface-inset)" stroke="var(--rule-hairline)"/>
+    <rect x="25" y="42" width="105" height="8" rx="4" fill="var(--accent)"/>
+    <circle cx="100" cy="27" r="10" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.5"/>
+    <path d="M97 27v-2a3 3 0 0 1 6 0v2m-8 0h10a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H95a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1z" stroke="var(--accent)" stroke-width="1.3" fill="none"/>
+    <text x="100" y="65" font-size="8" font-weight="700" fill="var(--ink-primary)" text-anchor="middle" font-family="sans-serif">DAILY TIME LIMIT ACTIVE</text>
+  </svg>`,
+
+  lock: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <path d="M100 20s22 8 22 24c0 15-22 25-22 25s-22-10-22-25c0-16 22-24 22-24z" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.6"/>
+    <path d="M97 42v-3a3 3 0 0 1 6 0v3m-8 0h10a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H95a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1z" stroke="var(--accent)" stroke-width="1.4" fill="none"/>
+  </svg>`
+};
+
+function getDiagramSVG(helpId) {
+  if (helpId === 'help-toggle-blockEndScreenVideowall') return SETTING_DIAGRAMS.endscreen;
+  if (helpId === 'help-toggle-blockEndScreenCards') return SETTING_DIAGRAMS.endscreenCards;
+  if (helpId === 'help-toggle-blockSidebar') return SETTING_DIAGRAMS.sidebar;
+  if (helpId === 'help-toggle-blockShorts' || helpId === 'help-toggle-redirectShorts') return SETTING_DIAGRAMS.shorts;
+  if (helpId === 'home-feed-description' || helpId === 'home-redirect-description') return SETTING_DIAGRAMS.home;
+  if (helpId === 'help-toggle-blockVideoInfo' || helpId === 'help-toggle-blockVideoButtons') return SETTING_DIAGRAMS.playerDetails;
+  if (helpId === 'help-filter-channel' || helpId === 'help-quick-block' || helpId === 'help-filter-keyword') return SETTING_DIAGRAMS.channel;
+  if (helpId === 'help-toggle-dailyLimit' || helpId === 'help-focus-session' || helpId === 'help-toggle-softReminder') return SETTING_DIAGRAMS.focus;
+  if (helpId === 'help-toggle-focusLockEnabled') return SETTING_DIAGRAMS.lock;
+  return null;
+}
+
 function bindSettingHelp() {
   const tooltip = $('setting-help-tooltip');
   let trigger = null;
@@ -1888,7 +2162,17 @@ function bindSettingHelp() {
     clearTimeout(hideTimer);
     if (trigger !== button) pinned = false;
     trigger = button;
-    tooltip.textContent = $(button.dataset.help).textContent;
+    const helpId = button.dataset.help;
+    const helpEl = $(helpId);
+    const text = helpEl ? helpEl.textContent : '';
+    const diagram = getDiagramSVG(helpId);
+
+    if (diagram) {
+      tooltip.innerHTML = `<div class="tooltip-diagram-wrap">${diagram}</div><div class="tooltip-text-content">${escapeHTML(text)}</div>`;
+    } else {
+      tooltip.innerHTML = `<div class="tooltip-text-content">${escapeHTML(text)}</div>`;
+    }
+
     tooltip.hidden = false;
     const rect = button.getBoundingClientRect();
     const width = tooltip.offsetWidth;
@@ -2008,6 +2292,10 @@ function bindAll() {
   $('btn-skip-setup')?.addEventListener('click', async () => {
     await dismissWelcomeCard();
     $('toggle-blockShorts')?.focus();
+  });
+  $('btn-open-wizard-from-card')?.addEventListener('click', () => {
+    browser.tabs.create({ url: browser.runtime.getURL('ui/welcome.html') });
+    window.close();
   });
   $('welcome-setup-form')?.addEventListener('submit', saveWelcomeSetup);
 
@@ -2721,6 +3009,134 @@ function bindAll() {
 
 
 
+  // Simple vs Advanced Mode switches
+  $('btn-mode-simple')?.addEventListener('click', async () => {
+    applyUIMode('simple');
+    await browser.storage.local.set({ uiMode: 'simple' });
+  });
+
+  $('btn-mode-advanced')?.addEventListener('click', async () => {
+    applyUIMode('advanced');
+    await browser.storage.local.set({ uiMode: 'advanced' });
+  });
+
+  $('btn-switch-to-advanced')?.addEventListener('click', async () => {
+    applyUIMode('advanced');
+    await browser.storage.local.set({ uiMode: 'advanced' });
+  });
+
+    
+  // Cross-device sync toggle
+  $('toggle-syncEnabled')?.addEventListener('change', async (e) => {
+    try {
+      await StorageManager.updateSettings({ syncEnabled: e.target.checked });
+      showToast(e.target.checked ? 'Cross-device sync enabled' : 'Cross-device sync disabled');
+    } catch (err) {
+      showToast(err.message || 'Error updating sync');
+      if (_s) renderAll(_s);
+    }
+  });
+
+  // 1-Click Shareable Preset
+  $('btn-share-setup')?.addEventListener('click', async () => {
+    try {
+      const { url } = await StorageManager.exportShareableSetup();
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+        showToast('Share link copied to clipboard!');
+      } else {
+        prompt('Copy your 1-click setup link:', url);
+      }
+    } catch (err) {
+      showToast('Error sharing setup: ' + err.message);
+    }
+  });
+
+  let _importedPresetData = null;
+  const modalImport = $('import-preset-modal');
+  const inputImport = $('input-import-preset');
+  const previewImport = $('import-preset-preview');
+  const errorImport = $('import-preset-error');
+  const btnConfirmImport = $('btn-confirm-import-preset');
+
+  $('btn-import-preset-link')?.addEventListener('click', () => {
+    if (!modalImport) return;
+    _importedPresetData = null;
+    if (inputImport) inputImport.value = '';
+    if (previewImport) { previewImport.textContent = ''; previewImport.style.display = 'none'; }
+    if (errorImport) { errorImport.style.display = 'none'; }
+    if (btnConfirmImport) { btnConfirmImport.style.display = 'none'; }
+    modalImport.style.display = 'flex';
+    inputImport?.focus();
+  });
+
+  $('btn-close-import-preset-modal')?.addEventListener('click', () => {
+    if (modalImport) modalImport.style.display = 'none';
+  });
+  $('btn-cancel-import-preset')?.addEventListener('click', () => {
+    if (modalImport) modalImport.style.display = 'none';
+  });
+
+  inputImport?.addEventListener('input', (e) => {
+    const val = e.target.value.trim();
+    if (!val) {
+      _importedPresetData = null;
+      if (previewImport) previewImport.style.display = 'none';
+      if (errorImport) errorImport.style.display = 'none';
+      if (btnConfirmImport) btnConfirmImport.style.display = 'none';
+      return;
+    }
+    try {
+      const parsed = StorageManager.decodeShareableSetup(val);
+      _importedPresetData = parsed;
+      if (errorImport) errorImport.style.display = 'none';
+      const items = [];
+      if (parsed.settings.blockShorts) items.push('Hide Shorts');
+      if (parsed.settings.blockHomeFeed) items.push('Hide Home Feed');
+      if (parsed.settings.blockRecommended) items.push('Hide Suggestions');
+      if (parsed.settings.blockComments) items.push('Hide Comments');
+      if (parsed.settings.channelBlocklist?.length) items.push(`${parsed.settings.channelBlocklist.length} channels`);
+      if (parsed.settings.keywordBlocklist?.length) items.push(`${parsed.settings.keywordBlocklist.length} keywords`);
+      if (previewImport) {
+        previewImport.textContent = `Setup "${parsed.name || 'Shared Setup'}": ${items.join(', ') || 'Custom settings'}.`;
+        previewImport.style.display = 'block';
+      }
+      if (btnConfirmImport) btnConfirmImport.style.display = 'inline-flex';
+    } catch (err) {
+      _importedPresetData = null;
+      if (previewImport) previewImport.style.display = 'none';
+      if (btnConfirmImport) btnConfirmImport.style.display = 'none';
+      if (errorImport) {
+        errorImport.textContent = err.message || 'Invalid setup link or code';
+        errorImport.style.display = 'block';
+      }
+    }
+  });
+
+  btnConfirmImport?.addEventListener('click', async () => {
+    if (!_importedPresetData || !inputImport) return;
+    try {
+      const result = await StorageManager.importShareableSetup(inputImport.value);
+      if (modalImport) modalImport.style.display = 'none';
+      showToast(`Setup "${result.name}" applied!`);
+    } catch (err) {
+      showToast(err.message || 'Failed to apply preset');
+    }
+  });
+
+  $('btn-open-options-page')?.addEventListener('click', () => {
+    if (browser?.runtime?.openOptionsPage) {
+      browser.runtime.openOptionsPage();
+    } else {
+      browser.tabs.create({ url: browser.runtime.getURL('ui/options.html') });
+    }
+    window.close();
+  });
+  $('btn-open-welcome-wizard')?.addEventListener('click', () => {
+    browser.tabs.create({ url: browser.runtime.getURL('ui/welcome.html') });
+    window.close();
+  });
+
   // Stats dashboard action buttons
   $('btn-stats-goto-focus')?.addEventListener('click', () => {
     switchTab('focus');
@@ -2798,12 +3214,13 @@ function bindAll() {
 }
 
 async function init() {
-  const [s, storedTab, storedAccordions, storedWelcome, storedFocusCards] = await Promise.all([
+  const [s, storedTab, storedAccordions, storedWelcome, storedFocusCards, storedUiMode] = await Promise.all([
     StorageManager.getSettings(),
     browser.storage.local.get('activeTab'),
     browser.storage.local.get('accordionCollapsed'),
     browser.storage.local.get('welcomeDismissed'),
-    browser.storage.local.get('focusCardsCollapsed')
+    browser.storage.local.get('focusCardsCollapsed'),
+    browser.storage.local.get('uiMode')
   ]);
 
   applyTheme(s.themeMode || 'auto');
@@ -2831,8 +3248,15 @@ async function init() {
     if (welcomeCard) welcomeCard.style.display = 'flex';
   }
 
+  // Apply persisted or default UI mode (simple vs advanced)
+  const uiMode = storedUiMode?.uiMode || 'simple';
+  applyUIMode(uiMode);
+
   // Restore persisted active tab (default 'block')
-  const initialTab = storedTab?.activeTab || 'block';
+  let initialTab = storedTab?.activeTab || 'block';
+  if (uiMode === 'simple' && initialTab === 'blocklists') {
+    initialTab = 'block';
+  }
   switchTab(initialTab);
   checkYouTubeConnection();
   browser.tabs.onActivated?.addListener(() => { checkYouTubeConnection(); });

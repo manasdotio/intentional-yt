@@ -161,7 +161,7 @@ function packageExtension() {
 
   const runtimeAssets = [
     'LICENSE', 'licenses/MIT-legacy.txt',
-    'styles/blocker.css', 'styles/popup.css',
+    'styles/blocker.css', 'styles/popup.css', 'styles/welcome.css',
     'icons/icon-16.png', 'icons/icon-32.png', 'icons/icon-48.png', 'icons/icon-128.png',
     'icons/icon.png', 'icons/icon.svg',
     'fonts/Inter-Regular.woff2', 'fonts/Inter-Medium.woff2',

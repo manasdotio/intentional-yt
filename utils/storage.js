@@ -65,6 +65,7 @@ class StorageManager {
       channelBlocklist: [],
       keywordBlocklist: [],
       enableQuickBlock: true,
+      syncEnabled: false,
 
       softReminder: { enabled: false, intervalMinutes: 30 },
       dailyLimit:   { enabled: false, limitMinutes: 60, warningEnabled: true, resetHour: 4 },
@@ -281,6 +282,12 @@ class StorageManager {
         if (JSON.stringify(preferences) !== JSON.stringify(stored.settings)) updates.settings = preferences;
         if (JSON.stringify(usage) !== JSON.stringify(stored.usage)) updates.usage = usage;
         if (Object.keys(updates).length) await browser.storage.local.set(updates);
+        if (preferences.syncEnabled && browser?.storage?.sync) {
+          try {
+            const syncPayload = StorageManager.extractShareableSettings(preferences);
+            browser.storage.sync.set({ iyt_sync_settings: syncPayload }).catch(() => {});
+          } catch (_) {}
+        }
         if (stored.presetUndo !== undefined) await browser.storage.local.remove('presetUndo');
         return settings;
       };
@@ -319,5 +326,107 @@ class StorageManager {
       return commit();
     });
   }
+  static extractShareableSettings(s) {
+    if (!s || typeof s !== 'object') return {};
+    return {
+      blockHomeFeed: Boolean(s.blockHomeFeed),
+      blockChannelHome: Boolean(s.blockChannelHome),
+      limitHomeFeed: Boolean(s.limitHomeFeed),
+      homeRedirect: typeof s.homeRedirect === 'string' ? s.homeRedirect : 'none',
+      blockSidebar: Boolean(s.blockSidebar),
+      blockRecommended: Boolean(s.blockRecommended),
+      blockLiveChat: Boolean(s.blockLiveChat),
+      blockPlaylist: Boolean(s.blockPlaylist),
+      blockEndScreenVideowall: Boolean(s.blockEndScreenVideowall),
+      blockEndScreenCards: Boolean(s.blockEndScreenCards),
+      blockComments: Boolean(s.blockComments),
+      blockProfilePhotos: Boolean(s.blockProfilePhotos),
+      blockMixPlaylists: Boolean(s.blockMixPlaylists),
+      blockMerch: Boolean(s.blockMerch),
+      blockVideoInfo: Boolean(s.blockVideoInfo),
+      blockVideoButtons: Boolean(s.blockVideoButtons),
+      blockChannelInfo: Boolean(s.blockChannelInfo),
+      blockVideoDescription: Boolean(s.blockVideoDescription),
+      blockTopHeader: Boolean(s.blockTopHeader),
+      blockNotificationBell: Boolean(s.blockNotificationBell),
+      blockIrrelevantSearchResults: Boolean(s.blockIrrelevantSearchResults),
+      blockExploreAndTrending: Boolean(s.blockExploreAndTrending),
+      blockMoreFromYouTube: Boolean(s.blockMoreFromYouTube),
+      blockShorts: Boolean(s.blockShorts),
+      redirectShorts: Boolean(s.redirectShorts),
+      blockSubscriptionsFeed: Boolean(s.blockSubscriptionsFeed),
+      disableAutoplay: Boolean(s.disableAutoplay),
+      disableAnnotations: Boolean(s.disableAnnotations),
+      disableHoverPreviews: Boolean(s.disableHoverPreviews),
+      hideThumbnails: Boolean(s.hideThumbnails),
+      grayscaleMode: Boolean(s.grayscaleMode),
+      channelBlocklist: Array.isArray(s.channelBlocklist) ? [...s.channelBlocklist] : [],
+      keywordBlocklist: Array.isArray(s.keywordBlocklist) ? [...s.keywordBlocklist] : []
+    };
+  }
+
+  static async exportShareableSetup(name = 'My Intentional YT Setup') {
+    const s = await this.getSettings();
+    const payload = {
+      v: 1,
+      name: String(name || 'Custom Setup').slice(0, 50),
+      created: Date.now(),
+      settings: this.extractShareableSettings(s)
+    };
+    const jsonStr = JSON.stringify(payload);
+    let code;
+    if (typeof btoa === 'function') {
+      code = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (_, p1) => String.fromCharCode('0x' + p1)))
+        .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    } else {
+      code = Buffer.from(jsonStr, 'utf8').toString('base64url');
+    }
+    const url = `https://intentionalyt.me/setup#s=${code}`;
+    return { code, url, payload };
+  }
+
+  static decodeShareableSetup(codeOrUrl) {
+    if (!codeOrUrl || typeof codeOrUrl !== 'string') {
+      throw new Error('Please enter a share link or preset code');
+    }
+    let code = codeOrUrl.trim();
+    if (code.includes('#s=')) code = code.split('#s=')[1];
+    else if (code.includes('#p=')) code = code.split('#p=')[1];
+    else if (code.includes('s=')) code = code.split('s=')[1];
+    code = code.split('&')[0].trim();
+
+    let jsonStr;
+    try {
+      if (typeof atob === 'function') {
+        const b64 = code.replace(/-/g, '+').replace(/_/g, '/');
+        const padded = b64.padEnd(b64.length + (4 - (b64.length % 4)) % 4, '=');
+        jsonStr = decodeURIComponent(Array.prototype.map.call(atob(padded), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+      } else {
+        jsonStr = Buffer.from(code, 'base64url').toString('utf8');
+      }
+    } catch (_) {
+      throw new Error('Invalid or corrupted setup code');
+    }
+
+    let parsed;
+    try {
+      parsed = JSON.parse(jsonStr);
+    } catch (_) {
+      throw new Error('Unable to read setup data');
+    }
+
+    if (!parsed || parsed.v !== 1 || !parsed.settings || typeof parsed.settings !== 'object') {
+      throw new Error('Unrecognized preset format');
+    }
+    return parsed;
+  }
+
+  static async importShareableSetup(codeOrUrl) {
+    const parsed = this.decodeShareableSetup(codeOrUrl);
+    const cleanSettings = this.extractShareableSettings(parsed.settings);
+    const updated = await this.updateSettings(cleanSettings);
+    return { name: parsed.name, settings: updated };
+  }
+
 }
 globalThis.StorageManager = StorageManager;

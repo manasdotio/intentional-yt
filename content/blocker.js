@@ -1037,6 +1037,11 @@ browser.storage.onChanged.addListener((changes) => {
 // Also react immediately to direct runtime messages from popup
 if (browser && browser.runtime && browser.runtime.onMessage) {
   browser.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+    if (msg?.type === 'IYT_GET_CURRENT_CHANNEL') {
+      const el = document.querySelector('ytd-channel-name yt-formatted-string, #channel-name yt-formatted-string, ytd-video-owner-renderer ytd-channel-name a, #owner #channel-name a');
+      sendResponse({ channel: el?.textContent?.trim() || null });
+      return;
+    }
     if (msg?.type === 'IYT_CONNECTION_CHECK') {
       // A loaded listener can receive settings even while initial storage is loading.
       sendResponse({ ready: true });

@@ -1,14 +1,16 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
 
 const PRESETS = {
   balanced: { home: true, recommendations: true, shorts: true, subscriptions: false, comments: false, thumbnails: false, autoplay: true, grayscale: false },
+  antiShorts: { home: false, recommendations: false, shorts: true, subscriptions: false, comments: false, thumbnails: false, autoplay: true, grayscale: false },
+
   zen: { home: true, recommendations: true, shorts: true, subscriptions: true, comments: true, thumbnails: true, autoplay: true, grayscale: false },
-  player: { home: true, recommendations: true, shorts: true, subscriptions: false, comments: true, thumbnails: false, autoplay: true, grayscale: false }
+
 }
-const PRESET_NAMES = { balanced: 'Balanced', zen: 'Zen', player: 'Video Only', custom: 'Custom' }
+const PRESET_NAMES = { balanced: 'Balanced', antiShorts: 'Anti-Shorts', zen: 'Deep Work', custom: 'Custom' }
 const TOGGLES = { home: 'Hide home feed', recommendations: 'Hide recommended sidebar', shorts: 'Hide Shorts', subscriptions: 'Hide subscriptions feed', comments: 'Hide comments', thumbnails: 'Hide thumbnails', autoplay: 'Disable autoplay', grayscale: 'Grayscale' }
 const VIDEOS = [
   { id: 'lesson', title: 'Understanding vector fields', channel: 'Learning Lab', handle: '@learninglab', duration: '12:00' },
