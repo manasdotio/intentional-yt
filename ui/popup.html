@@ -175,6 +175,18 @@
           </div>
           <select id="select-homeFeed" data-home-feed aria-describedby="home-feed-description"><option value="show" data-i18n="home_feed_show">Show all</option><option value="limit" data-i18n="home_feed_limit">Show only the first 15</option><option value="hide" data-i18n="home_feed_hide">Hide all</option></select>
         </div>
+        <div class="row home-feed-choice" id="row-homeRedirect" data-setting="homeRedirect" style="display:none">
+          <div class="row-text-group">
+            <span class="setting-label"><label class="row-text" id="label-select-homeRedirect" for="select-homeRedirect" data-i18n="home_redirect_label">Homepage redirect</label><button type="button" class="setting-help" aria-labelledby="label-select-homeRedirect" aria-describedby="home-redirect-description" data-help="home-redirect-description"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></span>
+            <span id="home-redirect-description" class="setting-help-text" hidden data-i18n="home_redirect_description">When the home feed is hidden, automatically redirect youtube.com/ to your chosen destination.</span>
+          </div>
+          <select id="select-homeRedirect" aria-describedby="home-redirect-description">
+            <option value="none" data-i18n="home_redirect_none">None (Stay on home)</option>
+            <option value="subscriptions" data-i18n="home_redirect_subscriptions">Subscriptions</option>
+            <option value="watchLater" data-i18n="home_redirect_watch_later">Watch Later</option>
+            <option value="history" data-i18n="home_redirect_history">History</option>
+          </select>
+        </div>
         <label class="row">
           <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
           <span class="row-text" data-i18n="toggle_block_recommended">Hide suggested videos beside the player</span>
@@ -224,6 +236,10 @@
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
                 <span class="row-text" data-i18n="toggle_block_mix_playlists">Hide mix playlists</span>
                 <input type="checkbox" class="chk" id="toggle-blockMixPlaylists">
+              </label><label class="row">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                <span class="row-text" data-i18n="toggle_disable_hover_previews">Disable hover previews</span>
+                <input type="checkbox" class="chk" id="toggle-disableHoverPreviews">
               </label></div>
           </div>
         </div>
@@ -828,11 +844,11 @@
               </div>
               <div class="settings-row-actions">
                 <button type="button" id="btn-export-settings" class="btn-settings-pill" title="Export settings to JSON">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                   <span data-i18n="btn_export_settings">Export</span>
                 </button>
                 <button type="button" id="btn-import-settings" class="btn-settings-pill" title="Import settings from JSON">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                   <span data-i18n="btn_import_settings">Import</span>
                 </button>
                 <input type="file" id="input-import-file" accept=".json,application/json" style="display:none;" />

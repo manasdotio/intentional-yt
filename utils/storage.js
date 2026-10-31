@@ -11,8 +11,9 @@ if (typeof globalThis !== 'undefined' && !globalThis.browser && globalThis.chrom
 
 
 class StorageManager {
-  static getTodayString() {
-    const d = new Date();
+  static getTodayString(resetHour = 4, now = Date.now()) {
+    const h = (Number.isFinite(resetHour) && resetHour >= 0 && resetHour <= 23) ? resetHour : 4;
+    const d = new Date(now - h * 3600000);
     const yyyy = d.getFullYear();
     const mm = String(d.getMonth() + 1).padStart(2, '0');
     const dd = String(d.getDate()).padStart(2, '0');
@@ -52,9 +53,11 @@ class StorageManager {
       blockMoreFromYouTube: true,
       blockShorts: true,
       redirectShorts: true,
+      homeRedirect: 'none',
       blockSubscriptionsFeed: false,
       disableAutoplay: true,
       disableAnnotations: true,
+      disableHoverPreviews: false,
 
       hideThumbnails: false,
       grayscaleMode: false,
@@ -64,7 +67,7 @@ class StorageManager {
       enableQuickBlock: true,
 
       softReminder: { enabled: false, intervalMinutes: 30 },
-      dailyLimit:   { enabled: false, limitMinutes: 60, warningEnabled: true },
+      dailyLimit:   { enabled: false, limitMinutes: 60, warningEnabled: true, resetHour: 4 },
 
       focusLock: {
         enabled: false,
@@ -252,10 +255,11 @@ class StorageManager {
       // Retire queued preset undo without changing the user's current protections.
       if (pending?.command && pending.command.op !== 'undoPreset' && Number.isFinite(pending.unlocksAt)) settings.focusLock.pendingUnlock = pending;
       if (stored.usage?.stats) settings.stats = stored.usage.stats;
-      const today = this.getTodayString();
+      const resetHour = settings.dailyLimit?.resetHour ?? 4;
+      const today = this.getTodayString(resetHour);
       let batches = stored.usage?.batches || [];
       let warningKey = stored.usage?.warningKey || null;
-      if (settings.stats.lastStatsReset !== today) { settings.stats = this.getDefaultSettings().stats; batches = []; }
+      if (settings.stats.lastStatsReset !== today) { settings.stats = this.getDefaultSettings().stats; settings.stats.lastStatsReset = today; batches = []; }
       if (settings.snoozeUntil && settings.snoozeUntil <= Date.now()) settings.snoozeUntil = null;
       if (settings.focusSessionUntil && settings.focusSessionUntil <= Date.now()) settings.focusSessionUntil = null;
       const apply = (action, authorized = false) => {

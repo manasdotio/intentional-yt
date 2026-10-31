@@ -34,6 +34,7 @@ const CLASS_MAP = {
   blockShorts:                 'iyt-no-shorts',
   blockSubscriptionsFeed:      'iyt-no-subscriptions',
   disableAnnotations:          'iyt-no-annotations',
+  disableHoverPreviews:        'iyt-no-hover-previews',
   hideThumbnails:              'iyt-no-thumbnails',
   grayscaleMode:               'iyt-grayscale',
 };
@@ -71,6 +72,11 @@ function pauseBlockedChannelVideos() {
 
 document.addEventListener('play', event => {
   if (event.target.matches?.('ytd-browse video, ytm-browse video')) pauseBlockedChannelVideos();
+  if (event.target.matches?.('ytd-video-preview video, ytd-inline-preview-renderer video, #video-preview video, .ytp-inline-preview-ui video')) {
+    if (isEffectiveActive(_settings) && _settings.disableHoverPreviews) {
+      event.target.pause();
+    }
+  }
 }, true);
 
 // Initial home page state detection
@@ -289,6 +295,10 @@ const CARD_CONTAINER_SELECTORS = [
   'ytd-channel-renderer',         // Search results channel card
   'ytd-playlist-renderer',        // Search results playlist card
   'ytd-radio-renderer',           // Search results mix/radio
+  'ytd-compact-radio-renderer',   // Watch next mix/radio
+  'ytd-grid-radio-renderer',      // Legacy grid mix/radio
+  'ytm-radio-renderer',
+  'ytm-compact-radio-renderer',
   'ytm-video-with-context-renderer',
   'ytm-compact-video-renderer',
   'ytm-channel-renderer',
@@ -332,7 +342,7 @@ function getCardTitle(card) {
 function getCardDescriptions(card) {
   // Only description snippets belonging to this video card: never channel
   // bios, playlist descriptions, bylines, badges or the watch-page description.
-  if (!card || card.matches('ytd-channel-renderer, ytm-channel-renderer, ytd-playlist-renderer, ytd-radio-renderer')) return [];
+  if (!card || card.matches('ytd-channel-renderer, ytm-channel-renderer, ytd-playlist-renderer, ytd-radio-renderer, ytd-compact-radio-renderer, ytd-grid-radio-renderer, ytm-radio-renderer, ytm-compact-radio-renderer')) return [];
   const owner = getCardContainer(card);
   const snippets = card.querySelectorAll('.metadata-snippet-text, #description-text, .media-item-description');
   const descriptions = [];
@@ -345,7 +355,7 @@ function getCardDescriptions(card) {
 }
 
 function getCardChannelInfo(card) {
-  if (!card) return { names: [], handles: [] };
+  if (!card) return { names: [], handles: [], ids: [] };
 
   const names = new Set();
   const handles = new Set();
@@ -364,6 +374,7 @@ function getCardChannelInfo(card) {
     'yt-lockup-metadata-view-model .yt-lockup-metadata-view-model__byline, ' +
     '.yt-lockup-metadata-view-model-wiz__byline a, .yt-lockup-metadata-view-model-wiz__byline, ' +
     'a.yt-core-attributed-string__link[href*="/@"], a.yt-core-attributed-string__link[href*="/channel/"], ' +
+    'ytd-collaborations-badge-renderer a, yt-collaborations-badge-view-model a, .yt-collaborations-badge-view-model a, ' +
     '#channel-title, yt-formatted-string.ytd-channel-name'
   );
 
@@ -381,28 +392,75 @@ function getCardChannelInfo(card) {
     }
   });
 
-  // 2. Scan all channel-related links in the card for handles and titles (including avatars!)
-  const links = card.querySelectorAll('a[href*="/@"], a[href*="/channel/"], a[href*="/c/"], a[href*="/user/"]');
+  // 2. Scan all channel-related links in the card for handles and titles (including avatars & collab links)
+  const links = card.querySelectorAll(
+    'a[href*="/@"], a[href*="/channel/"], a[href*="/c/"], a[href*="/user/"], ' +
+    '#avatar-link, #avatar-container a, #avatar a, ' +
+    'ytd-channel-avatar-renderer a, ytd-channel-avatar-stack-renderer a, ' +
+    'yt-channel-avatar-stack-view-model a, yt-decorated-avatar-view-model a, yt-avatar-shape a, ' +
+    '#channel-name a, ytd-channel-name a, #byline a, #byline-container a, ' +
+    'yt-content-metadata-view-model a, yt-lockup-metadata-view-model a, .yt-lockup-metadata-view-model-wiz__byline a, ' +
+    'ytd-collaborations-badge-renderer a, yt-collaborations-badge-view-model a, .yt-collaborations-badge-view-model a, ' +
+    'a[href]'
+  );
+
   links.forEach(a => {
-    const href = a.getAttribute('href') || '';
-    const channelId = href.match(/\/channel\/([^/?#]+)/);
-    if (channelId) ids.add(channelId[1].toLowerCase());
-    const handleMatch = href.match(/\/(@[^/?#]+)/u);
+    const href = a.getAttribute('href') || a.href || '';
+    if (!href) return;
+
+    // Extract channel IDs: /channel/([^/?#]+)
+    const channelIdMatch = href.match(/\/channel\/([^/?#]+)/i);
+    if (channelIdMatch) {
+      ids.add(channelIdMatch[1].toLowerCase());
+    }
+
+    // Extract handles: /@([^/?#]+)
+    const handleMatch = href.match(/(?:\/|^)@([^/?#]+)/u);
     if (handleMatch) {
-      try { handles.add(decodeURIComponent(handleMatch[1]).toLowerCase()); } catch {}
+      try {
+        const rawHandle = decodeURIComponent(handleMatch[1]).toLowerCase();
+        handles.add('@' + rawHandle);
+        handles.add(rawHandle);
+      } catch {}
     }
 
-    // Often avatars or links have title="Channel Name" or aria-label="Channel Name"
-    const titleAttr = a.getAttribute('title') || a.getAttribute('aria-label');
-    if (titleAttr) {
-      const cleanAttr = cleanChannelText(titleAttr);
-      if (cleanAttr && !cleanAttr.toLowerCase().startsWith('go to ')) {
-        names.add(cleanAttr);
+    // Extract legacy custom/user paths: /c/([^/?#]+) or /user/([^/?#]+)
+    const customMatch = href.match(/\/(?:c|user)\/([^/?#]+)/i);
+    if (customMatch) {
+      try {
+        const custom = decodeURIComponent(customMatch[1]).toLowerCase();
+        handles.add(custom);
+        names.add(custom);
+      } catch {}
+    }
+
+    // Extract title, aria-label, and textContent when the anchor is a channel/collab link or in metadata/avatar containers
+    const isChannelLink = !!(handleMatch || channelIdMatch || customMatch);
+    const isMetadataOrAvatar = Boolean(a.closest && a.closest(
+      '#channel-name, ytd-channel-name, #byline, #byline-container, ' +
+      'yt-content-metadata-view-model, yt-lockup-metadata-view-model, .yt-lockup-metadata-view-model-wiz__byline, ' +
+      'ytd-collaborations-badge-renderer, yt-collaborations-badge-view-model, .yt-collaborations-badge-view-model, ' +
+      '#avatar-link, ytd-channel-avatar-renderer, ytd-channel-avatar-stack-renderer, yt-channel-avatar-stack-view-model, ' +
+      'yt-decorated-avatar-view-model, yt-avatar-shape, #avatar-container, #avatar, .media-item-byline, .compact-media-item-byline'
+    ));
+
+    if (isChannelLink || isMetadataOrAvatar) {
+      const titleAttr = a.getAttribute('title') || a.getAttribute('aria-label');
+      if (titleAttr) {
+        const cleanAttr = cleanChannelText(titleAttr);
+        if (cleanAttr) {
+          if (!cleanAttr.toLowerCase().startsWith('go to ')) {
+            names.add(cleanAttr);
+          } else {
+            const stripped = cleanAttr.replace(/^go to\s+/i, '').replace(/'s channel$/i, '').trim();
+            if (stripped) names.add(stripped);
+          }
+        }
       }
-    }
 
-    const text = cleanChannelText(a.textContent);
-    if (text) names.add(text);
+      const text = cleanChannelText(a.textContent);
+      if (text) names.add(text);
+    }
   });
 
   return {
@@ -466,9 +524,13 @@ function matchesChannel(channelInfo, channelBlocklist, pageChannelInfo) {
     const bLower = blocked.toLowerCase().trim();
     if (!bLower) continue;
 
-    if (channelInfo?.ids?.includes(bLower.replace(/^\/channel\//, ""))) return true;
-    const bHandle = bLower.startsWith('@') ? bLower : '@' + bLower;
-    const bNoAt = bLower.startsWith('@') ? bLower.slice(1) : bLower;
+    const bChannelId = bLower.includes('/channel/') ? bLower.split('/channel/')[1].split(/[/?#]/)[0] : bLower.replace(/^\/channel\//, "");
+    if (channelInfo?.ids?.includes(bChannelId)) return true;
+    let bClean = bLower;
+    const bHandleUrl = bLower.match(/(?:\/|^)@([^/?#]+)/);
+    if (bHandleUrl) bClean = '@' + bHandleUrl[1];
+    const bHandle = bClean.startsWith('@') ? bClean : '@' + bClean;
+    const bNoAt = bClean.startsWith('@') ? bClean.slice(1) : bClean;
 
     // 1. Direct handle match
     for (const h of candidateHandles) {
@@ -905,12 +967,36 @@ const _classObserver = new MutationObserver(() => {
 });
 _classObserver.observe(html, { attributes: true, attributeFilter: ['class'] });
 
+let _autonavObserver = null;
+let _observedAutonavBtn = null;
+
 function applyAutoplay(settings) {
   settings = IYT_Policy.effective(settings);
-  if (!isEffectiveActive(settings) || !settings.disableAutoplay) return;
+  if (!isEffectiveActive(settings) || !settings.disableAutoplay) {
+    if (_autonavObserver) {
+      _autonavObserver.disconnect();
+      _autonavObserver = null;
+      _observedAutonavBtn = null;
+    }
+    return;
+  }
   document.querySelectorAll('video[autoplay]').forEach(v => v.removeAttribute('autoplay'));
-  const btn = document.querySelector('.ytp-autonav-toggle-button[aria-checked="true"]');
-  if (btn) btn.click();
+  const btn = document.querySelector('.ytp-autonav-toggle-button');
+  if (btn) {
+    if (btn.getAttribute('aria-checked') === 'true') {
+      btn.click();
+    }
+    if (_observedAutonavBtn !== btn) {
+      if (_autonavObserver) _autonavObserver.disconnect();
+      _observedAutonavBtn = btn;
+      _autonavObserver = new MutationObserver(() => {
+        if (isEffectiveActive(_settings) && _settings.disableAutoplay && btn.getAttribute('aria-checked') === 'true') {
+          btn.click();
+        }
+      });
+      _autonavObserver.observe(btn, { attributes: true, attributeFilter: ['aria-checked'] });
+    }
+  }
 }
 
 let _autoplayScheduled = false;
@@ -1093,5 +1179,6 @@ window.__iytBlocker = {
   applyAutoplay,
   limitHomeFeedEnforce,
   scanContentFilters: () => scanAllCards(document),
-  checkShortsRedirect: () => checkShortsRedirect(_settings)
+  checkShortsRedirect: () => checkShortsRedirect(_settings),
+  getSettings: () => _settings
 };

@@ -3,10 +3,18 @@
     "message": "Kanalın Ana Sayfa sekmesini gizle",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Intentional YT deneyiminiz nasıl?" },
-  "review_prompt_description": { "message": "Bir değerlendirme yazarak deneyiminizi paylaşın." },
-  "review_prompt_action": { "message": "Değerlendirme yaz" },
-  "review_prompt_dismiss": { "message": "Kapat" },
+  "review_prompt_title": {
+    "message": "Intentional YT deneyiminiz nasıl?"
+  },
+  "review_prompt_description": {
+    "message": "Bir değerlendirme yazarak deneyiminizi paylaşın."
+  },
+  "review_prompt_action": {
+    "message": "Değerlendirme yaz"
+  },
+  "review_prompt_dismiss": {
+    "message": "Kapat"
+  },
   "extensionName": {
     "message": "Intentional YT - YouTube Dikkat Dağıtıcı Engelleyici ve Günlük Süre Limiti",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "Ayarlar?n?z kaydedildi ancak bu YouTube sekmesi ba?l? de?il. YouTube'u yeniden y?kleyin. Sorun devam ederse uzant?n?n YouTube eri?imini kontrol edin."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "Üzerine gelindiğinde önizlemeyi devre dışı bırak",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "Ana Sayfa Yönlendirmesi",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "Ana sayfa akışı gizlendiğinde, youtube.com/ adresini otomatik olarak seçtiğiniz hedefe yönlendirir.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "Yok (Ana sayfada kal)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "Abonelikler",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "Daha Sonra İzle",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "Geçmiş",
+    "description": "Option to redirect to watch history"
   }
 }

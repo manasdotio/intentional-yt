@@ -206,7 +206,6 @@ html.iyt-no-endscreen-wall #movie_player.ended-mode .ytp-ce-element {
    END SCREEN CARDS / INFO CARDS (Creator-placed in last 20s)
 ═══════════════════════════════════════════════════════════ */
 html.iyt-no-endscreen-cards .ytp-ce-element,
-html.iyt-no-endscreen-cards [class*="ytp-ce-"],
 html.iyt-no-endscreen-cards .ytp-ce-video,
 html.iyt-no-endscreen-cards .ytp-ce-playlist,
 html.iyt-no-endscreen-cards .ytp-ce-channel,
@@ -235,6 +234,46 @@ html.iyt-no-endscreen-cards .iv-branding {
   visibility: hidden !important;
 }
 
+/* Prevent video and player from blurring when end screen is active (fixes Chromium backdrop-filter compositor bug) */
+video.html5-main-video,
+video {
+  backdrop-filter: blur(0px) !important;
+  -webkit-backdrop-filter: blur(0px) !important;
+}
+
+html.iyt-no-endscreen-cards video,
+html.iyt-no-endscreen-cards video.html5-main-video,
+html.iyt-no-endscreen-cards .html5-main-video,
+html.iyt-no-endscreen-cards #movie_player video,
+html.iyt-no-endscreen-cards .html5-video-player video,
+html.iyt-no-endscreen-cards #movie_player,
+html.iyt-no-endscreen-cards .html5-video-player,
+html.iyt-no-endscreen-wall video,
+html.iyt-no-endscreen-wall video.html5-main-video,
+html.iyt-no-endscreen-wall .html5-main-video,
+html.iyt-no-endscreen-wall #movie_player,
+html.iyt-no-endscreen-wall .html5-video-player {
+  filter: none !important;
+  backdrop-filter: blur(0px) !important;
+  -webkit-backdrop-filter: blur(0px) !important;
+}
+
+/* Prevent endscreen player overlays from applying background dimming or backdrop blur over the video */
+html.iyt-no-endscreen-cards .ytp-player-content,
+html.iyt-no-endscreen-cards .ytp-iv-player-content,
+html.iyt-no-endscreen-cards .ytp-endscreen-content,
+html.iyt-no-endscreen-cards .html5-endscreen,
+html.iyt-no-endscreen-cards .ytp-ce-expanding-overlay-background,
+html.iyt-no-endscreen-wall .ytp-player-content,
+html.iyt-no-endscreen-wall .ytp-iv-player-content,
+html.iyt-no-endscreen-wall .ytp-endscreen-content,
+html.iyt-no-endscreen-wall .html5-endscreen {
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: transparent !important;
+}
+
 /* ═══════════════════════════════════════════════════════════
    COMMENTS
 ═══════════════════════════════════════════════════════════ */
@@ -256,9 +295,104 @@ html.iyt-no-profile-photos ytd-comment-renderer #author-thumbnail {
 
 /* ═══════════════════════════════════════════════════════════
    MIX / RADIO PLAYLISTS
+   Suppresses endless automated "Mix" and "Radio" station
+   cards and shelves across Home, Search, Watch sidebar, and mobile.
 ═══════════════════════════════════════════════════════════ */
+/* 1. Dedicated Radio/Mix Elements (Classic & Grid) */
 html.iyt-no-mix-playlists ytd-radio-renderer,
-html.iyt-no-mix-playlists ytd-compact-radio-renderer {
+html.iyt-no-mix-playlists ytd-compact-radio-renderer,
+html.iyt-no-mix-playlists ytd-grid-radio-renderer,
+html.iyt-no-mix-playlists ytm-radio-renderer,
+html.iyt-no-mix-playlists ytm-compact-radio-renderer,
+
+/* 2. Home Feed Grid Items */
+html.iyt-no-mix-playlists ytd-rich-item-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-rich-item-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-rich-item-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-rich-item-renderer:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists ytd-rich-item-renderer:has(ytd-radio-renderer),
+html.iyt-no-mix-playlists ytd-rich-item-renderer:has(ytd-compact-radio-renderer),
+
+/* 3. Watch Next / Related Recommendations Sidebar */
+html.iyt-no-mix-playlists ytd-compact-video-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-compact-video-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-compact-video-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-compact-video-renderer:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists ytd-compact-playlist-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-compact-playlist-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-compact-playlist-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-compact-playlist-renderer:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists #related yt-lockup-view-model:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists #related yt-lockup-view-model:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists #related yt-lockup-view-model:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists #related yt-lockup-view-model:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists ytd-watch-next-secondary-results-renderer yt-lockup-view-model:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-watch-next-secondary-results-renderer yt-lockup-view-model:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-watch-next-secondary-results-renderer yt-lockup-view-model:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-watch-next-secondary-results-renderer yt-lockup-view-model:has(a[href*="start_radio=1" i]),
+
+/* 4. Search Results Cards */
+html.iyt-no-mix-playlists ytd-video-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-video-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-video-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-video-renderer:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists ytd-playlist-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-playlist-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-playlist-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-playlist-renderer:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists ytd-search yt-lockup-view-model:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-search yt-lockup-view-model:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-search yt-lockup-view-model:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-search yt-lockup-view-model:has(a[href*="start_radio=1" i]),
+
+/* 5. Modern Lockup View Models (Global) */
+html.iyt-no-mix-playlists yt-lockup-view-model:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists yt-lockup-view-model:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists yt-lockup-view-model:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists yt-lockup-view-model:has(a[href*="start_radio=1" i]),
+
+/* 6. Mix Shelves & Sections */
+html.iyt-no-mix-playlists ytd-rich-section-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-rich-section-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-rich-section-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-rich-section-renderer:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists ytd-rich-shelf-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-rich-shelf-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-rich-shelf-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-rich-shelf-renderer:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists ytd-shelf-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-shelf-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-shelf-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-shelf-renderer:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists grid-shelf-view-model:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists grid-shelf-view-model:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists grid-shelf-view-model:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists grid-shelf-view-model:has(a[href*="start_radio=1" i]),
+
+/* 7. Channel / Topic Grid Playlists & Videos */
+html.iyt-no-mix-playlists ytd-grid-video-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-grid-video-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-grid-video-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-grid-video-renderer:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists ytd-grid-playlist-renderer:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists ytd-grid-playlist-renderer:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists ytd-grid-playlist-renderer:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists ytd-grid-playlist-renderer:has(a[href*="start_radio=1" i]),
+
+/* 8. End Screens & Videowalls */
+html.iyt-no-mix-playlists .ytp-videowall-still[data-is-mix="true"],
+html.iyt-no-mix-playlists .ytp-videowall-still:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists .ytp-videowall-still:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists .ytp-videowall-still:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists .ytp-videowall-still:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists .ytp-ce-element:has(a[href*="list=RD"]),
+html.iyt-no-mix-playlists .ytp-ce-element:has(a[href*="start_radio=1"]),
+html.iyt-no-mix-playlists .ytp-ce-element:has(a[href*="list=rd" i]),
+html.iyt-no-mix-playlists .ytp-ce-element:has(a[href*="start_radio=1" i]),
+html.iyt-no-mix-playlists .ytp-ce-covering-image[href*="list=RD"],
+html.iyt-no-mix-playlists .ytp-ce-covering-image[href*="start_radio=1"],
+html.iyt-no-mix-playlists .ytp-ce-covering-image[href*="list=rd" i],
+html.iyt-no-mix-playlists .ytp-ce-covering-image[href*="start_radio=1" i] {
   display: none !important;
 }
 
@@ -291,10 +425,12 @@ html.iyt-no-video-desc ytd-text-inline-expander {
 /* ═══════════════════════════════════════════════════════════
    TOP HEADER
 ═══════════════════════════════════════════════════════════ */
-html.iyt-no-top-header #masthead-container {
+/* Keep search bar accessible on the home page if the home feed is blocked,
+   preventing an unusable 100% blank screen. */
+html.iyt-no-top-header:not([data-iyt-is-home="true"].iyt-no-home-feed) #masthead-container {
   display: none !important;
 }
-html.iyt-no-top-header #page-manager {
+html.iyt-no-top-header:not([data-iyt-is-home="true"].iyt-no-home-feed) #page-manager {
   margin-top: 0 !important;
 }
 
@@ -473,6 +609,25 @@ html.iyt-no-annotations .ytp-iv-video-content {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   DISABLE HOVER PREVIEWS
+   Prevents inline video playback & moving previews on hover
+═══════════════════════════════════════════════════════════ */
+html.iyt-no-hover-previews ytd-moving-thumbnail-renderer,
+html.iyt-no-hover-previews ytd-video-preview,
+html.iyt-no-hover-previews ytd-inline-preview-renderer,
+html.iyt-no-hover-previews #video-preview,
+html.iyt-no-hover-previews #preview[active],
+html.iyt-no-hover-previews yt-animated-image,
+html.iyt-no-hover-previews #mouseover-overlay,
+html.iyt-no-hover-previews #hover-overlays,
+html.iyt-no-hover-previews yt-thumbnail-hover-overlay-view-model,
+html.iyt-no-hover-previews ytm-inline-preview-renderer,
+html.iyt-no-hover-previews .ytp-inline-preview-ui {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
    HIDE THUMBNAILS — replace with neutral placeholder
 ═══════════════════════════════════════════════════════════ */
 /* Hide all thumbnail images */
@@ -555,6 +710,10 @@ ytd-grid-video-renderer[data-iyt-filtered="true"],
 ytd-channel-renderer[data-iyt-filtered="true"],
 ytd-playlist-renderer[data-iyt-filtered="true"],
 ytd-radio-renderer[data-iyt-filtered="true"],
+ytd-compact-radio-renderer[data-iyt-filtered="true"],
+ytd-grid-radio-renderer[data-iyt-filtered="true"],
+ytm-radio-renderer[data-iyt-filtered="true"],
+ytm-compact-radio-renderer[data-iyt-filtered="true"],
 yt-lockup-view-model[data-iyt-filtered="true"],
 [data-iyt-filtered="true"] {
   display: none !important;

@@ -3,10 +3,18 @@
     "message": "Απόκρυψη αρχικής καρτέλας καναλιού",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Πώς σας φαίνεται το Intentional YT;" },
-  "review_prompt_description": { "message": "Μοιραστείτε την εμπειρία σας με μια κριτική." },
-  "review_prompt_action": { "message": "Γράψτε μια κριτική" },
-  "review_prompt_dismiss": { "message": "Κλείσιμο" },
+  "review_prompt_title": {
+    "message": "Πώς σας φαίνεται το Intentional YT;"
+  },
+  "review_prompt_description": {
+    "message": "Μοιραστείτε την εμπειρία σας με μια κριτική."
+  },
+  "review_prompt_action": {
+    "message": "Γράψτε μια κριτική"
+  },
+  "review_prompt_dismiss": {
+    "message": "Κλείσιμο"
+  },
   "extensionName": {
     "message": "Intentional YT - Αποκλεισμός περισπασμών & Ημερήσιο όριο YouTube",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "?? ????????? ??? ?????????????, ???? ???? ? ??????? YouTube ??? ????? ???????????. ???????? ???? ?? YouTube. ?? ?? ???????? ??????????, ??????? ??? ???????? ??? ????????? ??? YouTube."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "Απενεργοποίηση προεπισκοπήσεων κατά την κατάδειξη",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "Ανακατεύθυνση αρχικής σελίδας",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "Όταν η αρχική ροή είναι κρυφή, ανακατευθύνει αυτόματα το youtube.com/ στον προορισμό που έχετε επιλέξει.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "Κανένα (Παραμονή στην αρχική)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "Συνδρομές",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "Παρακολούθηση αργότερα",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "Ιστορικό",
+    "description": "Option to redirect to watch history"
   }
 }

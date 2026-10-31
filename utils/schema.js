@@ -32,14 +32,22 @@ globalThis.IYT_validate = function (input, portable = false) {
             if (!['full','strict'].includes(schedule.mode)) fail(`${name}.mode`);
           }
         } else if (v.some(x => typeof x !== 'string' || !x.trim() || x.length > 200)) fail(name);
+        else if (key === 'channelBlocklist' || key === 'keywordBlocklist') {
+          result[key] = [...new Set(v.map(x => x.trim()))];
+          continue;
+        }
       } else if (object(d)) {
         result[key] = visit(v, d, name); continue;
       } else if (typeof d === 'boolean') {
         if (typeof v !== 'boolean') fail(name);
       } else if (typeof d === 'number') {
         if (!Number.isFinite(v) || v < 0) fail(name);
-        if (name !== 'stats.todayWatchSeconds' && (!Number.isInteger(v) || v < 1 || v > 1440)) fail(name);
-        if (name === 'stats.todayWatchSeconds' && v > 8640000) fail(name);
+        if (name === 'dailyLimit.resetHour') {
+          if (!Number.isInteger(v) || v < 0 || v > 23) fail(name);
+        } else {
+          if (name !== 'stats.todayWatchSeconds' && (!Number.isInteger(v) || v < 1 || v > 1440)) fail(name);
+          if (name === 'stats.todayWatchSeconds' && v > 8640000) fail(name);
+        }
       } else if (typeof v !== 'string' || v.length > 100) fail(name);
       result[key] = v;
     }
@@ -47,6 +55,7 @@ globalThis.IYT_validate = function (input, portable = false) {
   };
   const result = visit(input, defaults);
   if (!['auto','light','dark'].includes(result.themeMode)) fail('themeMode');
+  if (!['none','subscriptions','watchLater','history'].includes(result.homeRedirect)) fail('homeRedirect');
   if (!['auto','id','cs','de','el','en','es','fr','it','nl','pl','pt_BR','ro','sv','vi','tr','ru','uk','he','ar','hi','bn','th','ja','zh_CN','zh_TW','ko'].includes(result.userLanguage)) fail('userLanguage');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(result.stats.lastStatsReset)) fail('stats.lastStatsReset');
   if (portable) {

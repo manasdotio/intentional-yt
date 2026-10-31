@@ -23,7 +23,12 @@ const IYT_Timer = (() => {
   const _batchPrefix = crypto.randomUUID();
   let _batchSequence = 0;
   function _pendingSeconds() { return [..._pendingBatches.values()].filter(b => b.day === _day).reduce((n,b) => n + b.seconds, 0); }
-  function _validRoute() { return location.pathname === '/watch' || /^\/(shorts|live|embed)\//.test(location.pathname); }
+  function _hasActiveMiniplayer() {
+    return Boolean(document.querySelector?.('ytd-miniplayer[active] video, ytm-miniplayer[active] video, ytm-miniplayer video'));
+  }
+  function _validRoute() {
+    return location.pathname === '/watch' || /^\/(shorts|live|embed)\//.test(location.pathname) || _hasActiveMiniplayer();
+  }
   function _enforcing() { return IYT_Policy.active(_settings) && _video?.isConnected && _validRoute(); }
 
   let _settings = null;
@@ -58,7 +63,8 @@ const IYT_Timer = (() => {
   }
 
   function _findActiveVideo() {
-    return document.querySelector('ytd-reel-video-renderer[is-active] video, ytm-reel-video-renderer[is-active] video')
+    return document.querySelector('ytd-miniplayer[active] video, ytm-miniplayer[active] video, ytm-miniplayer video')
+      || document.querySelector('ytd-reel-video-renderer[is-active] video, ytm-reel-video-renderer[is-active] video')
       || document.querySelector('video.html5-main-video')
       || document.querySelector('#movie_player video')
       || document.querySelector('.html5-video-player video')
@@ -74,6 +80,17 @@ const IYT_Timer = (() => {
     }
     if (p.startsWith('/shorts/')) {
       return p.split('/shorts/')[1]?.split(/[?#/]/)[0] || window.location.href;
+    }
+    const miniplayerLink = document.querySelector?.('ytd-miniplayer[active] a[href*="watch?v="], ytm-miniplayer a[href*="watch?v="]');
+    if (miniplayerLink) {
+      try {
+        const url = new URL(miniplayerLink.href, window.location.origin);
+        const v = url.searchParams.get('v');
+        if (v) return v;
+      } catch {}
+    }
+    if (_hasActiveMiniplayer() && _attachedId) {
+      return _attachedId;
     }
     return window.location.pathname + window.location.search;
   }
@@ -269,12 +286,44 @@ const IYT_Timer = (() => {
     startTimer(6000);
   }
 
+  function _exitPictureInPicture() {
+    if (typeof document !== 'undefined' && typeof document.exitPictureInPicture === 'function' && document.pictureInPictureElement) {
+      try {
+        document.exitPictureInPicture().catch(() => {});
+      } catch {}
+    }
+  }
+
+  function _blockMediaSession() {
+    if (typeof navigator !== 'undefined' && 'mediaSession' in navigator && typeof navigator.mediaSession?.setActionHandler === 'function') {
+      try {
+        navigator.mediaSession.setActionHandler('play', () => {
+          if (_video && !_video.paused) _video.pause();
+        });
+        navigator.mediaSession.playbackState = 'paused';
+      } catch {}
+    }
+  }
+
+  function _restoreMediaSession() {
+    if (typeof navigator !== 'undefined' && 'mediaSession' in navigator && typeof navigator.mediaSession?.setActionHandler === 'function') {
+      try {
+        navigator.mediaSession.setActionHandler('play', null);
+      } catch {}
+    }
+  }
+
   // ─── Daily Limit Overlay ───────────────────────────────────────────────────
   function _showLimitOverlay() {
     if (!_enforcing()) return;
     if (_limitOverlayActive && document.getElementById('iyt-limit-overlay')) return;
 
-    let playerEl = document.querySelector('#movie_player')
+    _exitPictureInPicture();
+    _blockMediaSession();
+
+    let playerEl = document.querySelector?.('ytd-miniplayer[active] #player-container')
+      || document.querySelector?.('ytd-miniplayer[active]')
+      || document.querySelector('#movie_player')
       || document.querySelector('.html5-video-player')
       || document.querySelector('ytd-player')
       || (_video ? _video.closest('.html5-video-player') : null)
@@ -333,8 +382,7 @@ const IYT_Timer = (() => {
       finishBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         _allowedVideoId = _getVideoId();
-        overlay.remove();
-        _limitOverlayActive = false;
+        _removeLimitOverlay();
         if (_video?.isConnected && _video.paused) {
           _video.play().catch(() => {});
         }
@@ -379,14 +427,14 @@ const IYT_Timer = (() => {
       catch (error) { overrideBtn.textContent = error.message; return; }
       if (_settings?.stats) _settings.stats.limitDismissedToday = true;
       _allowedVideoId = null;
-      overlay.remove();
-      _limitOverlayActive = false;
+      _removeLimitOverlay();
     });
   }
 
   function _removeLimitOverlay() {
     document.getElementById('iyt-limit-overlay')?.remove();
     _limitOverlayActive = false;
+    _restoreMediaSession();
   }
 
   // ─── Write accumulated seconds to storage ─────────────────────────────────
@@ -402,6 +450,7 @@ const IYT_Timer = (() => {
         _pendingBatches.delete(id);
         _settings = settings;
         _baseWatchSeconds = settings.stats.todayWatchSeconds;
+        _day = StorageManager.getTodayString(settings?.dailyLimit?.resetHour);
         if (_isLimitExceeded()) { _video?.pause(); _showLimitOverlay(); }
       } catch (error) {
         if (/Extension context invalidated/i.test(error?.message || '')) {
@@ -431,6 +480,11 @@ const IYT_Timer = (() => {
   }
 
   function _tick() {
+    if (!_validRoute()) {
+      detach(false);
+      return;
+    }
+
     // If video element became detached, try to re-find
     if (!_video || !_video.isConnected) {
       const newVideo = _findActiveVideo();
@@ -450,7 +504,7 @@ const IYT_Timer = (() => {
     }
 
     _accrue();
-    const today = StorageManager.getTodayString();
+    const today = StorageManager.getTodayString(_settings?.dailyLimit?.resetHour);
     if (today !== _day) {
       _flushToStorage(_batchAccumulator);
       _batchAccumulator = 0;
@@ -503,11 +557,15 @@ const IYT_Timer = (() => {
       _allowedVideoId = null;
     }
 
-    if (_isLimitExceeded()) {
+    if ((_limitOverlayActive || _isLimitExceeded()) && _allowedVideoId !== _getVideoId()) {
       if (_video && !_video.paused) {
         _video.pause();
       }
-      _showLimitOverlay();
+      _exitPictureInPicture();
+      _blockMediaSession();
+      if (!_limitOverlayActive) {
+        _showLimitOverlay();
+      }
       return;
     }
 
@@ -592,6 +650,7 @@ const IYT_Timer = (() => {
     _attachedId = id;
     _settings = settings;
     _baseWatchSeconds = settings.stats.todayWatchSeconds;
+    _day = StorageManager.getTodayString(settings?.dailyLimit?.resetHour);
     for (const [event, handler] of Object.entries(_videoEvents)) video.addEventListener(event, handler);
     _listenersAttached = true;
     if (_isLimitExceeded()) { video.pause(); _showLimitOverlay(); }
@@ -599,7 +658,7 @@ const IYT_Timer = (() => {
   }
   function _onSeeking() { _onPause(); }
   function _onSeeked() { if (_video && !_video.paused && _video.readyState >= 3) _onPlay(); }
-  const _videoEvents = { playing: _onPlay, timeupdate: _onTimeUpdate, pause: _onPause, ended: _onEnded, waiting: _onPause, seeking: _onSeeking, seeked: _onSeeked, ratechange: _onSeeking };
+  const _videoEvents = { play: _onPlay, playing: _onPlay, timeupdate: _onTimeUpdate, pause: _onPause, ended: _onEnded, waiting: _onPause, seeking: _onSeeking, seeked: _onSeeked, ratechange: _onSeeking };
   let _listenersAttached = false;
   function detach(cancel = true) {
     if (cancel) ++_attachGeneration;
@@ -666,6 +725,21 @@ const IYT_Timer = (() => {
     else _removeLimitOverlay();
     if (!IYT_Policy.active(settings) || (document.getElementById('iyt-toast')?.getAttribute('data-limit-warning') === 'true' && !IYT_Policy.limitWarning(settings))) document.getElementById('iyt-toast')?.remove();
     } catch (error) { handleTimerError(error); }
+  });
+
+  document.addEventListener('yt-miniplayer-state-changed', () => {
+    if (_hasActiveMiniplayer()) {
+      attach().catch(handleTimerError);
+    } else if (!_validRoute()) {
+      detach(false);
+    }
+  });
+
+  document.addEventListener('enterpictureinpicture', () => {
+    if (_limitOverlayActive && _allowedVideoId !== _getVideoId()) {
+      _exitPictureInPicture();
+      if (_video && !_video.paused) _video.pause();
+    }
   });
 
   // Listen for preview messages from extension popup

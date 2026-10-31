@@ -148,13 +148,13 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 
 #### 4. Hide "More from YouTube" (`blockMoreFromYouTube`)
 - **CSS Class**: `iyt-no-more-yt`
-- **Target Surfaces**: `ytd-guide-section-renderer:has(#guide-section-title[title*="More from YouTube"])`, YouTube Studio, Kids, TV, and Premium promotional menu links.
+- **Target Surfaces**: Language-agnostic endpoint selectors: `ytd-guide-entry-renderer:has(a[href^="/premium"])`, `/musicpremium`, `https://www.youtube.com/premium`, `https://music.youtube.com/`, `https://tv.youtube.com/`, and `https://www.youtubekids.com/`.
 - **Behavior**: Eliminates upsell and cross-promotion clutter from the left sidebar.
 
 #### 5. Hide Top Masthead / Header (`blockTopHeader`)
 - **CSS Class**: `iyt-no-top-header`
-- **Target Surfaces**: `ytd-masthead#masthead`, `#background.ytd-masthead`, `#container.ytd-masthead`.
-- **Behavior**: Hides the top navigation bar completely for an immersive, zero-distraction full-screen reading and viewing space.
+- **Target Surfaces**: `html.iyt-no-top-header:not([data-iyt-is-home="true"].iyt-no-home-feed) #masthead-container`, `#page-manager`.
+- **Behavior**: Hides the top navigation bar completely for an immersive, zero-distraction viewing space, while automatically preserving the search bar on the homepage if the feed is blocked to prevent an unusable 100% blank screen.
 
 #### 6. Hide Notification Bell (`blockNotificationBell`)
 - **CSS Class**: `iyt-no-notif-bell`
@@ -169,10 +169,11 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 - **CSS Class**: `iyt-no-shorts`
 - **Target Surfaces**:
   - Homepage: `ytd-rich-shelf-renderer[is-shorts]`, `ytd-reel-shelf-renderer`, `ytd-rich-section-renderer:has(ytd-reel-shelf-renderer)`.
-  - Navigation Sidebar: `ytd-guide-entry-renderer:has(a[title="Shorts"])`, `ytd-mini-guide-entry-renderer[aria-label="Shorts"]`.
-  - Search Results: `ytd-reel-shelf-renderer`, `ytd-video-renderer[is-shorts]`.
-  - Channel Pages: `tp-yt-paper-tab:has(.tab-title[title="Shorts"])`, `yt-tab-shape[tab-title="Shorts"]`.
-  - Watch Pages: `ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer`.
+  - Navigation Sidebar: Language-agnostic endpoint selectors: `ytd-guide-entry-renderer:has(a[href*="/shorts"])`, `ytd-mini-guide-entry-renderer:has(a[href*="/shorts"])`, `yt-guide-entry-view-model:has(a[href*="/shorts"])`.
+  - Search Results: `ytd-reel-shelf-renderer`, `ytd-video-renderer:has(a[href*="/shorts/"])`, `yt-lockup-view-model:has(a[href*="/shorts/"])`.
+  - Channel Pages: `tp-yt-paper-tab:has(a[href*="/shorts"])`, `yt-tab-shape:has(a[href*="/shorts"])`.
+  - Watch Pages: `ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer`, `reel-shelf-view-model`.
+  - Universal Lockup Components: `ytd-shorts-lockup-view-model`, `yt-shorts-lockup-view-model`, `ytm-shorts-lockup-view-model`.
 - **Behavior**: Comprehensive multi-surface elimination of short-form algorithmic video loops across the entire platform.
 
 ---
@@ -181,13 +182,11 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 
 #### 8. Clean Search Results (`blockIrrelevantSearchResults`)
 - **CSS Class**: `iyt-no-irrelevant-search`
-- **Target Surfaces**:
-  - `ytd-shelf-renderer:has(#title-text:has-text("People also watched"))`
-  - `ytd-shelf-renderer:has(#title-text:has-text("For you"))`
-  - `ytd-shelf-renderer:has(#title-text:has-text("Previously watched"))`
-  - `ytd-shelf-renderer:has(#title-text:has-text("Related to your search"))`
-  - `ytd-horizontal-card-list-renderer`
-- **Behavior**: Filters out algorithmic recommendations inserted into search results, leaving only direct search keyword matches.
+- **Target Surfaces**: Native structural CSS (language-agnostic):
+  - `ytd-search ytd-shelf-renderer`
+  - `ytd-search ytd-horizontal-card-list-renderer`
+  - `ytd-search grid-shelf-view-model`
+- **Behavior**: Filters out algorithmic recommendation shelves ("People also watched", "For you", "Previously watched") inserted into search results via structural CSS, leaving only direct keyword video matches across all UI languages.
 
 ---
 
@@ -200,7 +199,7 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 
 #### 10. Suppress Mix / Radio Playlists (`blockMixPlaylists`)
 - **CSS Class**: `iyt-no-mix-playlists`
-- **Target Surfaces**: `ytd-radio-renderer`, `ytd-compact-radio-renderer`, mix cards in search and recommendations.
+- **Target Surfaces**: `ytd-radio-renderer`, `ytd-compact-radio-renderer`, `ytd-grid-radio-renderer`, `ytd-rich-item-renderer`, `ytd-compact-video-renderer`, `yt-lockup-view-model`, mix shelves, search results, recommendations, and end screens.
 - **Behavior**: Hides infinite automated radio and mix playlists.
 
 #### 11. Hide Playlist Drawer (`blockPlaylist`)

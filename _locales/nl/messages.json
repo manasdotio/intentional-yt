@@ -3,10 +3,18 @@
     "message": "Home-tabblad van kanalen verbergen",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Hoe bevalt Intentional YT?" },
-  "review_prompt_description": { "message": "Deel je ervaring in een beoordeling." },
-  "review_prompt_action": { "message": "Beoordeling schrijven" },
-  "review_prompt_dismiss": { "message": "Sluiten" },
+  "review_prompt_title": {
+    "message": "Hoe bevalt Intentional YT?"
+  },
+  "review_prompt_description": {
+    "message": "Deel je ervaring in een beoordeling."
+  },
+  "review_prompt_action": {
+    "message": "Beoordeling schrijven"
+  },
+  "review_prompt_dismiss": {
+    "message": "Sluiten"
+  },
   "extensionName": {
     "message": "Intentional YT - YouTube Afleidingsblokkering & Dagelijkse Tijdslimiet",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "Je instellingen zijn opgeslagen, maar dit YouTube-tabblad is niet verbonden. Laad YouTube opnieuw. Blijft het probleem bestaan, controleer dan de toegang van de extensie tot YouTube."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "Voorvertoningen bij aanwijzen uitschakelen",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "Startpagina omleiden",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "Wanneer de startpaginafeed is verborgen, leidt youtube.com/ automatisch om naar je gekozen bestemming.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "Geen (Blijf op startpagina)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "Abonnementen",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "Later bekijken",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "Geschiedenis",
+    "description": "Option to redirect to watch history"
   }
 }

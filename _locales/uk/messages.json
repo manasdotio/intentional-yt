@@ -3,10 +3,18 @@
     "message": "Приховати вкладку «Головна» каналу",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Як вам Intentional YT?" },
-  "review_prompt_description": { "message": "Поділіться враженнями у відгуку." },
-  "review_prompt_action": { "message": "Залишити відгук" },
-  "review_prompt_dismiss": { "message": "Закрити" },
+  "review_prompt_title": {
+    "message": "Як вам Intentional YT?"
+  },
+  "review_prompt_description": {
+    "message": "Поділіться враженнями у відгуку."
+  },
+  "review_prompt_action": {
+    "message": "Залишити відгук"
+  },
+  "review_prompt_dismiss": {
+    "message": "Закрити"
+  },
   "extensionName": {
     "message": "Intentional YT - Блокування відволікань і денний ліміт YouTube",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "???????????? ?????????, ??? ?? ??????? YouTube ?? ?????????? ?? ??????????. ?????????????? YouTube. ???? ???????? ?? ??????, ????????? ?????? ?????????? ?? YouTube."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "Вимкнути попередній перегляд при наведенні",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "Перенаправлення з головної",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "Коли головну стрічку приховано, автоматично перенаправляти youtube.com/ до вибраного розділу.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "Немає (Залишатися на головній)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "Підписки",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "Переглянути пізніше",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "Історія",
+    "description": "Option to redirect to watch history"
   }
 }

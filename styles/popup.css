@@ -1896,6 +1896,7 @@ body.ext-off .lang-row {
   color: var(--ink-primary);
   font: inherit;
   font-size: 13px;
+  cursor: pointer;
 }
 .home-feed-choice select:disabled { opacity: 0.6; }
 

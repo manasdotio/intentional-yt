@@ -3,10 +3,18 @@
     "message": "隱藏頻道首頁分頁",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Intentional YT 用起來如何？" },
-  "review_prompt_description": { "message": "撰寫評論，分享你的使用體驗。" },
-  "review_prompt_action": { "message": "撰寫評論" },
-  "review_prompt_dismiss": { "message": "關閉" },
+  "review_prompt_title": {
+    "message": "Intentional YT 用起來如何？"
+  },
+  "review_prompt_description": {
+    "message": "撰寫評論，分享你的使用體驗。"
+  },
+  "review_prompt_action": {
+    "message": "撰寫評論"
+  },
+  "review_prompt_dismiss": {
+    "message": "關閉"
+  },
   "extensionName": {
     "message": "Intentional YT - YouTube 防沉迷與每日時間限制",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "???????? YouTube ????????????????? YouTube?????????????????? YouTube ??????"
+  },
+  "toggle_disable_hover_previews": {
+    "message": "停用懸停預覽",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "首頁重新導向",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "隱藏首頁動態時，自動將 youtube.com/ 重新導向至所選目的地。",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "無（停留在首頁）",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "訂閱內容",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "稍後觀看",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "觀看紀錄",
+    "description": "Option to redirect to watch history"
   }
 }

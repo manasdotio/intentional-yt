@@ -3,10 +3,18 @@
     "message": "Ascunde fila Acasă a canalului",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Cum vi se pare Intentional YT?" },
-  "review_prompt_description": { "message": "Împărtășiți experiența printr-o recenzie." },
-  "review_prompt_action": { "message": "Scrieți o recenzie" },
-  "review_prompt_dismiss": { "message": "Închide" },
+  "review_prompt_title": {
+    "message": "Cum vi se pare Intentional YT?"
+  },
+  "review_prompt_description": {
+    "message": "Împărtășiți experiența printr-o recenzie."
+  },
+  "review_prompt_action": {
+    "message": "Scrieți o recenzie"
+  },
+  "review_prompt_dismiss": {
+    "message": "Închide"
+  },
   "extensionName": {
     "message": "Intentional YT - Blocare distrageri și limită zilnică pe YouTube",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "Set?rile sunt salvate, dar aceast? fil? YouTube nu este conectat?. Re?ncarc? YouTube. Dac? problema persist?, verific? accesul extensiei la YouTube."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "Dezactivează previzualizările la trecerea cursorului",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "Redirecționare pagină principală",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "Când feedul principal este ascuns, redirecționează automat youtube.com/ către destinația aleasă.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "Niciuna (Rămâi pe pagina principală)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "Abonamente",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "Vizionează mai târziu",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "Istoric",
+    "description": "Option to redirect to watch history"
   }
 }

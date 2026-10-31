@@ -3,10 +3,18 @@
     "message": "Ẩn thẻ Trang chủ của kênh",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Bạn thấy Intentional YT thế nào?" },
-  "review_prompt_description": { "message": "Chia sẻ trải nghiệm của bạn bằng một bài đánh giá." },
-  "review_prompt_action": { "message": "Viết đánh giá" },
-  "review_prompt_dismiss": { "message": "Đóng" },
+  "review_prompt_title": {
+    "message": "Bạn thấy Intentional YT thế nào?"
+  },
+  "review_prompt_description": {
+    "message": "Chia sẻ trải nghiệm của bạn bằng một bài đánh giá."
+  },
+  "review_prompt_action": {
+    "message": "Viết đánh giá"
+  },
+  "review_prompt_dismiss": {
+    "message": "Đóng"
+  },
   "extensionName": {
     "message": "Intentional YT - Chặn xao nhãng & Giới hạn thời gian YouTube hàng ngày",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "C?i ??t ?? ???c l?u nh?ng th? YouTube n?y ch?a k?t n?i v?i ti?n ?ch. H?y t?i l?i YouTube. N?u v?n g?p s? c?, h?y ki?m tra quy?n truy c?p YouTube c?a ti?n ?ch."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "Tắt xem trước khi di chuột",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "Chuyển hướng trang chủ",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "Khi nguồn cấp dữ liệu trang chủ bị ẩn, tự động chuyển hướng youtube.com/ đến đích bạn đã chọn.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "Không có (Ở lại trang chủ)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "Kênh đăng ký",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "Xem sau",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "Nhật ký xem",
+    "description": "Option to redirect to watch history"
   }
 }

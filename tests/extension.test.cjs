@@ -278,7 +278,7 @@ test('existing full and legacy partial settings keep their previous behavior', a
   existing.blockHomeFeed = false;
   existing.blockComments = true;
   existing.enableQuickBlock = false;
-  existing.dailyLimit = { enabled: true, limitMinutes: 45, warningEnabled: false };
+  existing.dailyLimit = { enabled: true, limitMinutes: 45, warningEnabled: false, resetHour: 4 };
   const upgraded = store({ settings: existing });
   assert.deepEqual(clone(await upgraded.manager.getSettings()), clone(existing));
   const partial = store({ settings: { blockHomeFeed: false, blockComments: true } });
@@ -425,7 +425,7 @@ test('date reconciliation migrates legacy stats and never unconditionally resets
 
 test('invalid imports are rejected atomically with field-specific errors', async () => {
   const env=store();await env.manager.getSettings();const before=JSON.stringify(env.state);
-  for (const input of [{scheduledBlocking:{schedules:'bad'}},{channelBlocklist:[42]},{dailyLimit:{limitMinutes:-1}},{blockComments:'yes'},{unknown:true},{scheduledBlocking:{schedules:[{id:'"<input>',label:'x',enabled:true,days:[1],startTime:'09:00',endTime:'17:00',mode:'full'}]}}]) {
+  for (const input of [{scheduledBlocking:{schedules:'bad'}},{channelBlocklist:[42]},{dailyLimit:{limitMinutes:-1}},{dailyLimit:{resetHour:-1}},{dailyLimit:{resetHour:24}},{blockComments:'yes'},{unknown:true},{scheduledBlocking:{schedules:[{id:'"<input>',label:'x',enabled:true,days:[1],startTime:'09:00',endTime:'17:00',mode:'full'}]}}]) {
     assert.throws(()=>env.manager.importSettings(input),/Invalid setting/);
   }
   assert.equal(JSON.stringify(env.state),before);
@@ -437,6 +437,15 @@ test('portable backups remove PIN, deadlines, snooze and usage', () => {
   const result=env.validate(s,true);assert.equal(result.focusLock.pin,null);assert.equal(result.focusLock.enabled,false);assert.equal(result.snoozeUntil,null);assert.equal(result.stats.todayWatchSeconds,0);
 });
 
+test('import validation deduplicates and trims channel and keyword blocklists', () => {
+  const env=store(), s=env.manager.getDefaultSettings();
+  s.channelBlocklist = ['  @creator  ', '@creator', '@other'];
+  s.keywordBlocklist = ['podcast', '  podcast  ', 'gaming'];
+  const result = env.validate(s, true);
+  assert.equal(JSON.stringify(result.channelBlocklist), JSON.stringify(['@creator', '@other']));
+  assert.equal(JSON.stringify(result.keywordBlocklist), JSON.stringify(['podcast', 'gaming']));
+});
+
 test('Focus Lock rejects every audited weakening path centrally', async () => {
   const env=store(),m=env.manager;
   const schedule={id:'work',label:'Work',enabled:true,days:[1],startTime:'09:00',endTime:'17:00',mode:'full'};
@@ -444,6 +453,7 @@ test('Focus Lock rejects every audited weakening path centrally', async () => {
   await locked(env);
   const commands=[
     {op:'nested',parentKey:'dailyLimit',childKey:'limitMinutes',value:60},
+    {op:'nested',parentKey:'dailyLimit',childKey:'resetHour',value:0},
     {op:'nested',parentKey:'stats',childKey:'limitDismissedToday',value:true},
     {op:'nested',parentKey:'focusLock',childKey:'cooldownMinutes',value:1},
     {op:'resetStats'}, {op:'reset'}, {op:'import',settings:{}},
@@ -912,4 +922,448 @@ test('channel matches are exact and do not inherit page ownership', () => {
   assert.equal(context.matchesChannel({names:['ScienceDaily'],handles:[]},['Science'],null),false);
   assert.equal(context.matchesChannel({names:['Science'],handles:[]},['Science'],null),true);
   assert.equal(context.matchesChannel({names:['Other'],handles:[]},['Science'],{name:'Science'}),false);
+});
+
+
+test('mix playlist blocking suppresses radio cards, shelves, lockups and dynamic feeds via zero-flash CSS', () => {
+  const css = source('styles/blocker.css');
+  const js = source('content/blocker.js');
+
+  // Verify CSS contains comprehensive high-specificity rules for iyt-no-mix-playlists
+  const mixSection = css.slice(css.indexOf('MIX / RADIO PLAYLISTS'), css.indexOf('MERCH / TICKETS / OFFERS'));
+  assert.ok(mixSection.includes('display: none !important;'));
+
+  // Dedicated radio elements
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytd-radio-renderer'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytd-compact-radio-renderer'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytd-grid-radio-renderer'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytm-radio-renderer'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytm-compact-radio-renderer'));
+
+  // Feed items & lockups with list=RD or start_radio=1
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytd-rich-item-renderer:has(a[href*="list=RD"])'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytd-rich-item-renderer:has(a[href*="start_radio=1"])'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytd-compact-video-renderer:has(a[href*="list=RD"])'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists yt-lockup-view-model:has(a[href*="list=RD"])'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytd-video-renderer:has(a[href*="list=RD"])'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytd-playlist-renderer:has(a[href*="list=RD"])'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists ytd-rich-section-renderer:has(a[href*="list=RD"])'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists .ytp-videowall-still[data-is-mix="true"]'));
+  assert.ok(mixSection.includes('html.iyt-no-mix-playlists .ytp-ce-element:has(a[href*="list=RD"])'));
+
+  // Blocker.js card container registration
+  assert.ok(js.includes("'ytd-compact-radio-renderer'"));
+  assert.ok(js.includes("'ytd-grid-radio-renderer'"));
+});
+
+test('end screen card blocking suppresses recommendation cards without blurring video player', () => {
+  const css = source('styles/blocker.css');
+
+  // Verify CSS contains targeted selectors for iyt-no-endscreen-cards without dangerous generic wildcards
+  assert.ok(!css.includes('html.iyt-no-endscreen-cards [class*="ytp-ce-"]'));
+  assert.ok(css.includes('html.iyt-no-endscreen-cards .ytp-ce-element'));
+  assert.ok(css.includes('html.iyt-no-endscreen-cards .ytp-ce-video'));
+  assert.ok(css.includes('html.iyt-no-endscreen-cards .ytp-ce-playlist'));
+
+  // Verify blur prevention and backdrop-filter reset rules are present
+  assert.ok(css.includes('backdrop-filter: blur(0px) !important;'));
+  assert.ok(css.includes('html.iyt-no-endscreen-cards video'));
+  assert.ok(css.includes('html.iyt-no-endscreen-cards .ytp-player-content'));
+});
+
+
+test('multi-creator collab cards extract all anchor hrefs matching /@ and /channel/ across metadata and avatars and filter correctly', () => {
+  const s = source('content/blocker.js');
+  const code = s.slice(s.indexOf('function cleanChannelText'), s.indexOf('function getCurrentPageChannelInfo')) +
+    s.slice(s.indexOf('function matchesChannel'), s.indexOf('function matchesKeyword'));
+  const context = vm.createContext({ decodeURIComponent });
+  vm.runInContext(code, context);
+
+  // 1. Multi-creator collab card with avatar links, metadata byline links, and a video title link
+  const avatarLink1 = {
+    getAttribute: attr => attr === 'href' ? '/@CreatorA' : (attr === 'title' ? 'Creator A' : null),
+    textContent: '',
+    closest: sel => sel.includes('#avatar-link')
+  };
+  const avatarLink2 = {
+    getAttribute: attr => attr === 'href' ? '/channel/UCCollaborator2' : (attr === 'aria-label' ? "Go to Creator B's channel" : null),
+    textContent: '',
+    closest: sel => sel.includes('#avatar-link')
+  };
+  const bylineTextContainer = {
+    getAttribute: () => null,
+    textContent: 'Creator A and Creator B',
+    closest: () => null
+  };
+  const bylineLink1 = {
+    getAttribute: attr => attr === 'href' ? 'https://www.youtube.com/@CreatorA' : null,
+    textContent: 'Creator A',
+    closest: sel => sel.includes('#channel-name')
+  };
+  const bylineLink2 = {
+    getAttribute: attr => attr === 'href' ? '/@CreatorB' : null,
+    textContent: 'Creator B',
+    closest: sel => sel.includes('#channel-name')
+  };
+  const videoTitleLink = {
+    getAttribute: attr => attr === 'href' ? '/watch?v=12345' : (attr === 'title' ? 'Mega Collab Video' : null),
+    textContent: 'Mega Collab Video',
+    closest: () => null
+  };
+
+  const card = {
+    nodeType: 1,
+    querySelectorAll: selector => {
+      if (selector.includes('media-item-byline')) {
+        return [bylineTextContainer, bylineLink1, bylineLink2];
+      }
+      return [avatarLink1, avatarLink2, bylineLink1, bylineLink2, videoTitleLink];
+    }
+  };
+
+  const info = context.getCardChannelInfo(card);
+
+  // Assert all handles and channel IDs are extracted across metadata and avatar links
+  assert.ok(info.handles.includes('@creatora'), 'Must include @creatora');
+  assert.ok(info.handles.includes('creatora'), 'Must include creatora');
+  assert.ok(info.handles.includes('@creatorb'), 'Must include @creatorb');
+  assert.ok(info.handles.includes('creatorb'), 'Must include creatorb');
+  assert.ok(info.ids.includes('uccollaborator2'), 'Must include uccollaborator2');
+
+  // Assert display names are captured without leaking video titles
+  assert.ok(info.names.includes('Creator A and Creator B'));
+  assert.ok(info.names.includes('Creator A'));
+  assert.ok(info.names.includes('Creator B'));
+  assert.ok(!info.names.includes('Mega Collab Video'), 'Video title must not leak into channel names');
+
+  // Assert matchesChannel blocks when any creator is in channelBlocklist
+  assert.equal(context.matchesChannel(info, ['@creatorb'], null), true, 'Block by collaborator handle');
+  assert.equal(context.matchesChannel(info, ['creatora'], null), true, 'Block by uploader handle without @');
+  assert.equal(context.matchesChannel(info, ['UCCollaborator2'], null), true, 'Block by collaborator channel ID');
+  assert.equal(context.matchesChannel(info, ['/channel/UCCollaborator2'], null), true, 'Block by collaborator channel URL');
+  assert.equal(context.matchesChannel(info, ['Creator B'], null), true, 'Block by collaborator display name');
+  assert.equal(context.matchesChannel(info, ['@othercreator'], null), false, 'Unrelated channel must not match');
+
+  // 2. Collab popover card where visible text string is "Creator A and 1 other"
+  const popoverCard = {
+    nodeType: 1,
+    querySelectorAll: selector => {
+      if (selector.includes('media-item-byline')) {
+        return [{ getAttribute: () => null, textContent: 'Creator A and 1 other', closest: () => null }];
+      }
+      return [
+        { getAttribute: attr => attr === 'href' ? '/@CreatorA' : null, textContent: 'Creator A', closest: sel => sel.includes('#byline') },
+        { getAttribute: attr => attr === 'href' ? '/@HiddenCollab' : null, textContent: '', closest: sel => sel.includes('ytd-collaborations-badge-renderer') }
+      ];
+    }
+  };
+
+  const popoverInfo = context.getCardChannelInfo(popoverCard);
+  assert.ok(popoverInfo.handles.includes('@hiddencollab'), 'Collab popover link handle must be extracted');
+  assert.equal(context.matchesChannel(popoverInfo, ['@hiddencollab'], null), true, 'Popover collaborator must trigger block');
+});
+
+
+test('daily reset hour shifts activity day boundary so late-night sessions belong to previous day quota', () => {
+  const getToday = store().manager.getTodayString;
+
+  // With 4:00 AM reset (Night Owl default):
+  const lateNight1145PM = new Date(2026, 9, 31, 23, 45, 0).getTime();
+  const pastMidnight130AM = new Date(2026, 10, 1, 1, 30, 0).getTime();
+  const earlyMorning359AM = new Date(2026, 10, 1, 3, 59, 59).getTime();
+  const resetMorning400AM = new Date(2026, 10, 1, 4, 0, 0).getTime();
+  const morning800AM = new Date(2026, 10, 1, 8, 0, 0).getTime();
+
+  assert.equal(getToday(4, lateNight1145PM), '2026-10-31', '11:45 PM is Oct 31');
+  assert.equal(getToday(4, pastMidnight130AM), '2026-10-31', '1:30 AM is still Oct 31 quota (no midnight refill)');
+  assert.equal(getToday(4, earlyMorning359AM), '2026-10-31', '3:59:59 AM is still Oct 31 quota');
+  assert.equal(getToday(4, resetMorning400AM), '2026-11-01', '4:00:00 AM flips to Nov 01 fresh budget');
+  assert.equal(getToday(4, morning800AM), '2026-11-01', '8:00 AM is Nov 01');
+
+  // With 0:00 (Midnight reset):
+  assert.equal(getToday(0, lateNight1145PM), '2026-10-31', 'Midnight mode: 11:45 PM is Oct 31');
+  assert.equal(getToday(0, pastMidnight130AM), '2026-11-01', 'Midnight mode: 1:30 AM is Nov 01');
+
+  // Background alarm next-reset calculation:
+  const bg = source('background/background.js');
+  const context = vm.createContext({});
+  vm.runInContext(bg.slice(bg.indexOf('function getNextResetTime'), bg.indexOf('function scheduleDeadlines')), context);
+  const getNextReset = context.getNextResetTime;
+
+  // At 11:45 PM on Oct 31, next 4:00 AM is tomorrow morning (Nov 1 4:00 AM)
+  const nextFromNight = getNextReset(4, new Date(2026, 9, 31, 23, 45, 0));
+  assert.equal(nextFromNight, new Date(2026, 10, 1, 4, 0, 0).getTime());
+
+  // At 1:30 AM on Nov 1, next 4:00 AM is same day morning (Nov 1 4:00 AM)
+  const nextFromEarlyMorning = getNextReset(4, new Date(2026, 10, 1, 1, 30, 0));
+  assert.equal(nextFromEarlyMorning, new Date(2026, 10, 1, 4, 0, 0).getTime());
+
+  // At 4:00:01 AM on Nov 1, next 4:00 AM is next morning (Nov 2 4:00 AM)
+  const nextFromPastReset = getNextReset(4, new Date(2026, 10, 1, 4, 0, 1));
+  assert.equal(nextFromPastReset, new Date(2026, 10, 2, 4, 0, 0).getTime());
+
+  // At 11:45 PM on Oct 31 in midnight mode (resetHour = 0), next reset is midnight Nov 1
+  const nextMidnight = getNextReset(0, new Date(2026, 9, 31, 23, 45, 0));
+  assert.equal(nextMidnight, new Date(2026, 10, 1, 0, 0, 0).getTime());
+});
+
+
+test('miniplayer keeps timer attached and accumulating time when browsing away from /watch', async () => {
+  const env = store();
+  let settings = env.manager.getDefaultSettings();
+  let now = 0, timerId = 0;
+  const intervals = new Map(), nodes = new Map();
+
+  function element() {
+    return {
+      children: [], style: {}, classList: { add() {}, remove() {} }, listeners: {},
+      setAttribute() {}, getAttribute() { return null; }, querySelector() { return null; }, closest() { return null; },
+      appendChild(child) { this.children.push(child); child.parentElement = this; if (child.id) nodes.set(child.id, child); },
+      addEventListener(name, fn) { (this.listeners[name] ||= new Set()).add(fn); },
+      removeEventListener(name, fn) { this.listeners[name]?.delete(fn); },
+      remove() { if (this.id) nodes.delete(this.id); },
+      emit(name) { for (const fn of this.listeners[name] || []) fn({ stopPropagation() {} }); }
+    };
+  }
+
+  const player = element(), video = Object.assign(element(), {
+    isConnected: true, paused: false, seeking: false, readyState: 4, currentTime: 0, duration: 120, playbackRate: 1, ended: false, muted: false, volume: 0.7
+  });
+  video.closest = () => player;
+  video.pause = () => { if (!video.paused) { video.paused = true; video.emit('pause'); } };
+  video.play = async () => { video.paused = false; video.emit('play'); video.emit('playing'); };
+
+  let miniplayerActive = true;
+  const doc = {
+    body: element(), addEventListener() {}, getElementById: id => nodes.get(id), createElement: element,
+    querySelector: selector => {
+      if (selector === '#movie_player') return player;
+      if (selector.includes('ytd-miniplayer[active] video')) return miniplayerActive ? video : null;
+      if (selector.includes('video') && !selector.includes('.ad')) return video;
+      return null;
+    }
+  };
+
+  const location = { pathname: '/', search: '', href: 'https://www.youtube.com/' };
+  const context = vm.createContext({
+    document: doc, location, window: { location, addEventListener() {} }, navigator: {}, console, crypto: crypto.webcrypto, URLSearchParams,
+    IYT_Policy: env.policy, I18N: { async setLanguage() {}, getMessage: (k, s, f) => f, getDirection: () => 'ltr' },
+    StorageManager: { getTodayString: () => env.manager.getTodayString(), getSettings: async () => clone(settings), recordWatch: async seconds => { settings.stats.todayWatchSeconds += seconds; return clone(settings); }, updateNestedSetting: async () => {} },
+    performance: { now: () => now }, getComputedStyle: () => ({ position: 'relative' }), requestAnimationFrame: fn => fn(),
+    setInterval: fn => { const id = ++timerId; intervals.set(id, fn); return id; }, clearInterval: id => intervals.delete(id),
+    setTimeout: fn => { const id = ++timerId; return id; }, clearTimeout() {},
+    browser: { storage: { onChanged: { addListener() {} } }, runtime: { onMessage: { addListener() {} } } }
+  });
+
+  vm.runInContext(source('content/timerToast.js'), context);
+  const timer = context.window.__iytTimer;
+
+  // Even though pathname is '/', active miniplayer allows attachment
+  await timer.attach();
+  now += 15000; video.currentTime += 15;
+  for (const fn of [...intervals.values()]) fn();
+  await Promise.resolve(); await Promise.resolve();
+
+  video.pause();
+  assert.equal(settings.stats.todayWatchSeconds, 15, 'Miniplayer video on home page accurately accumulated 15 seconds');
+
+  // When miniplayer closes, next tick cleanly detaches
+  miniplayerActive = false;
+  video.paused = false;
+  video.emit('play');
+  now += 1000;
+  for (const fn of [...intervals.values()]) fn();
+  assert.equal(intervals.size, 0, 'Closing miniplayer on non-watch page cleanly detached playback timer');
+});
+
+test('limit overlay exits picture-in-picture, hijacks mediaSession play, and forces immediate pause on media keys', async () => {
+  const env = store();
+  let settings = Object.assign(env.manager.getDefaultSettings(), { dailyLimit: { enabled: true, limitMinutes: 1 } });
+  let now = 0, timerId = 0, inPip = false;
+  const intervals = new Map(), nodes = new Map(), docListeners = {};
+
+  function element() {
+    return {
+      children: [], style: {}, classList: { add() {}, remove() {} }, listeners: {},
+      setAttribute() {}, getAttribute() { return null; }, querySelector() { return null; }, closest() { return null; },
+      appendChild(child) { this.children.push(child); child.parentElement = this; if (child.id) nodes.set(child.id, child); },
+      addEventListener(name, fn) { (this.listeners[name] ||= new Set()).add(fn); },
+      removeEventListener(name, fn) { this.listeners[name]?.delete(fn); },
+      remove() { if (this.id) nodes.delete(this.id); },
+      emit(name) { for (const fn of this.listeners[name] || []) fn({ stopPropagation() {} }); }
+    };
+  }
+
+  const player = element(), video = Object.assign(element(), {
+    isConnected: true, paused: false, seeking: false, readyState: 4, currentTime: 0, duration: 120, playbackRate: 1, ended: false, muted: false, volume: 0.7
+  });
+  video.closest = () => player;
+  video.pause = () => { if (!video.paused) { video.paused = true; video.emit('pause'); } };
+  video.play = async () => { video.paused = false; video.emit('play'); video.emit('playing'); };
+
+  const doc = {
+    body: element(),
+    addEventListener(name, fn) { (docListeners[name] ||= new Set()).add(fn); },
+    removeEventListener(name, fn) { docListeners[name]?.delete(fn); },
+    getElementById: id => nodes.get(id), createElement: element,
+    querySelector: selector => selector === '#movie_player' ? player : selector.includes('video') ? video : null,
+    get pictureInPictureElement() { return inPip ? video : null; },
+    exitPictureInPicture: async () => { inPip = false; },
+    emit(name) { for (const fn of docListeners[name] || []) fn({ stopPropagation() {} }); }
+  };
+
+  const mediaSession = {
+    handlers: {}, playbackState: 'none',
+    setActionHandler(action, handler) { this.handlers[action] = handler; }
+  };
+
+  const location = { pathname: '/watch', search: '?v=test', href: 'https://www.youtube.com/watch?v=test' };
+  const context = vm.createContext({
+    document: doc, location, window: { location, addEventListener() {} }, navigator: { mediaSession }, console, crypto: crypto.webcrypto, URLSearchParams,
+    IYT_Policy: env.policy, I18N: { async setLanguage() {}, getMessage: (k, s, f) => f, getDirection: () => 'ltr' },
+    StorageManager: { getTodayString: () => env.manager.getTodayString(), getSettings: async () => clone(settings), recordWatch: async seconds => { settings.stats.todayWatchSeconds += seconds; return clone(settings); }, updateNestedSetting: async () => {} },
+    performance: { now: () => now }, getComputedStyle: () => ({ position: 'relative' }), requestAnimationFrame: fn => fn(),
+    setInterval: fn => { const id = ++timerId; intervals.set(id, fn); return id; }, clearInterval: id => intervals.delete(id),
+    setTimeout: fn => { const id = ++timerId; return id; }, clearTimeout() {},
+    browser: { storage: { onChanged: { addListener() {} } }, runtime: { onMessage: { addListener() {} } } }
+  });
+
+  vm.runInContext(source('content/timerToast.js'), context);
+  const timer = context.window.__iytTimer;
+
+  // Set 55 seconds elapsed, attach and watch 6s to hit 1-minute daily limit
+  settings.stats.todayWatchSeconds = 55;
+  await timer.attach();
+  inPip = true;
+  assert.equal(doc.pictureInPictureElement, video, 'PiP was active before limit triggered');
+
+  now += 6000; video.currentTime += 6;
+  for (const fn of [...intervals.values()]) fn();
+  await Promise.resolve(); await Promise.resolve();
+
+  // 1. Overlay mounted and PiP automatically exited
+  assert.ok(nodes.has('iyt-limit-overlay'), 'Limit overlay is mounted');
+  assert.equal(doc.pictureInPictureElement, null, 'Picture-in-picture was forced to exit');
+
+  // 2. MediaSession play action hijacked and set to paused
+  assert.equal(mediaSession.playbackState, 'paused', 'MediaSession playback state set to paused');
+  assert.equal(typeof mediaSession.handlers['play'], 'function', 'MediaSession play handler hijacked');
+
+  // 3. Hardware media keys pressing Play are trapped and pause video
+  video.paused = false;
+  mediaSession.handlers['play']();
+  assert.equal(video.paused, true, 'Hardware media key play handler immediately paused playback');
+
+  // 4. Video play event while limit overlay is active immediately pauses
+  video.paused = false;
+  video.emit('play');
+  assert.equal(video.paused, true, 'Video play event listener immediately paused playback while limit overlay is active');
+
+  // 5. Subsequent attempts to re-enter PiP while overlay is active are trapped
+  inPip = true;
+  doc.emit('enterpictureinpicture');
+  assert.equal(doc.pictureInPictureElement, null, 'enterpictureinpicture listener forced immediate exit');
+
+  // 6. Finishing the video clears mediaSession hijacking
+  const overlay = nodes.get('iyt-limit-overlay');
+  const finishBtn = overlay.children[3].children[0];
+  finishBtn.emit('click');
+  assert.equal(mediaSession.handlers['play'], null, 'MediaSession handler restored after finish video selected');
+});
+
+test('disableHoverPreviews suppresses video previews via zero-flash CSS and prevents preview playback', () => {
+  const css = source('styles/blocker.css');
+  assert.ok(css.includes('html.iyt-no-hover-previews ytd-video-preview'), 'CSS contains high-specificity iyt-no-hover-previews selector');
+  assert.ok(css.includes('display: none !important'), 'CSS contains display: none !important');
+  assert.ok(css.includes('pointer-events: none !important'), 'CSS contains pointer-events: none !important');
+
+  const env = store();
+  assert.equal(env.manager.getDefaultSettings().disableHoverPreviews, false, 'disableHoverPreviews defaults to false');
+  assert.equal(env.manager.getInitialSettings().disableHoverPreviews, false, 'disableHoverPreviews is false on fresh install');
+
+  // Blocker CLASS_MAP check
+  const blockerSource = source('content/blocker.js');
+  const context = vm.createContext({
+    browser: { storage: { onChanged: { addListener() {} } }, runtime: { onMessage: { addListener() {} } } },
+    document: { documentElement: { toggleAttribute() {}, setAttribute() {}, removeAttribute() {}, classList: { toggle() {} } }, addEventListener() {} },
+    window: { location: { pathname: '/' } },
+    IYT_Policy: env.policy
+  });
+  vm.runInContext(blockerSource.slice(0, blockerSource.indexOf('const html =')), context);
+  assert.equal(vm.runInContext('CLASS_MAP', context).disableHoverPreviews, 'iyt-no-hover-previews');
+});
+
+test('custom homeRedirect navigates / to Subscriptions, Watch Later, or History when home feed is blocked', async () => {
+  const env = store();
+  const defaults = env.manager.getDefaultSettings();
+  assert.equal(defaults.homeRedirect, 'none', 'defaults to none');
+
+  const valid = env.validate({ ...defaults, homeRedirect: 'subscriptions' });
+  assert.equal(valid.homeRedirect, 'subscriptions');
+
+  assert.throws(() => {
+    env.validate({ ...defaults, homeRedirect: 'invalid_destination' });
+  }, /Invalid setting: homeRedirect/);
+
+  for (const { pathname, search, blockHomeFeed, homeRedirect, snoozeUntil, expectedRedirect, desc } of [
+    { pathname: '/', search: '', blockHomeFeed: true, homeRedirect: 'subscriptions', expectedRedirect: '/feed/subscriptions', desc: 'redirects / to subscriptions when blockHomeFeed is true' },
+    { pathname: '/', search: '', blockHomeFeed: true, homeRedirect: 'watchLater', expectedRedirect: '/playlist?list=WL', desc: 'redirects / to watchLater when blockHomeFeed is true' },
+    { pathname: '/', search: '', blockHomeFeed: true, homeRedirect: 'history', expectedRedirect: '/feed/history', desc: 'redirects / to history when blockHomeFeed is true' },
+    { pathname: '/', search: '', blockHomeFeed: true, homeRedirect: 'none', expectedRedirect: null, desc: 'does not redirect when homeRedirect is none' },
+    { pathname: '/', search: '', blockHomeFeed: false, homeRedirect: 'subscriptions', expectedRedirect: null, desc: 'does not redirect when blockHomeFeed is false' },
+    { pathname: '/feed/subscriptions', search: '', blockHomeFeed: true, homeRedirect: 'subscriptions', expectedRedirect: null, desc: 'does not redirect when already on destination' },
+    { pathname: '/', search: '', blockHomeFeed: true, homeRedirect: 'subscriptions', snoozeUntil: Date.now() + 60000, expectedRedirect: null, desc: 'does not redirect when snoozed' }
+  ]) {
+    let replacedWith = null;
+    const location = { pathname, search, replace(url) { replacedWith = url; } };
+    const events = [];
+    const context = vm.createContext({
+      location,
+      document: { readyState: 'complete', addEventListener: (_, fn) => events.push(fn), querySelector: () => null },
+      window: { addEventListener: (_, fn) => events.push(fn), __iytBlocker: { applyAllSettings: async () => {} }, __iytTimer: { detach() {}, attach: async () => {} } },
+      StorageManager: {
+        getSettings: async () => ({
+          extensionEnabled: true,
+          blockHomeFeed,
+          homeRedirect,
+          snoozeUntil: snoozeUntil || null
+        })
+      },
+      IYT_Policy: env.policy,
+      setTimeout: () => 1,
+      clearTimeout() {},
+      console
+    });
+
+    vm.runInContext(source('content/youtubeObserver.js'), context);
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(replacedWith, expectedRedirect, desc);
+  }
+
+  // SPA navigation via yt-navigate-start
+  let spaReplaced = null;
+  const spaEvents = {};
+  const spaContext = vm.createContext({
+    location: { pathname: '/feed/subscriptions', search: '', replace(url) { spaReplaced = url; } },
+    document: { readyState: 'complete', addEventListener: (name, fn) => { spaEvents[name] = fn; }, querySelector: () => null },
+    window: { addEventListener: () => {}, __iytBlocker: { applyAllSettings: async () => {} }, __iytTimer: { detach() {}, attach: async () => {} } },
+    StorageManager: {
+      getSettings: async () => ({
+        extensionEnabled: true,
+        blockHomeFeed: true,
+        homeRedirect: 'watchLater'
+      })
+    },
+    IYT_Policy: env.policy,
+    setTimeout: () => 1,
+    clearTimeout() {},
+    console
+  });
+  vm.runInContext(source('content/youtubeObserver.js'), spaContext);
+  await new Promise(resolve => setImmediate(resolve));
+
+  spaContext.location.pathname = '/';
+  spaEvents['yt-navigate-start']({ detail: { url: '/' } });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(spaReplaced, '/playlist?list=WL', 'SPA navigation to / triggers redirect to watchLater');
 });

@@ -3,10 +3,18 @@
     "message": "Startseite des Kanals ausblenden",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Wie gefällt dir Intentional YT?" },
-  "review_prompt_description": { "message": "Teile deine Erfahrungen in einer Bewertung." },
-  "review_prompt_action": { "message": "Bewertung schreiben" },
-  "review_prompt_dismiss": { "message": "Schließen" },
+  "review_prompt_title": {
+    "message": "Wie gefällt dir Intentional YT?"
+  },
+  "review_prompt_description": {
+    "message": "Teile deine Erfahrungen in einer Bewertung."
+  },
+  "review_prompt_action": {
+    "message": "Bewertung schreiben"
+  },
+  "review_prompt_dismiss": {
+    "message": "Schließen"
+  },
   "extensionName": {
     "message": "Intentional YT - YouTube Ablenkungs-Blocker & Tägliches Zeitlimit",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "Deine Einstellungen sind gespeichert, aber dieser YouTube-Tab ist nicht verbunden. Lade YouTube neu. Falls das Problem bleibt, pr?fe den Zugriff der Erweiterung auf YouTube."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "Hover-Vorschauen deaktivieren",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "Startseiten-Weiterleitung",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "Wenn der Startseiten-Feed ausgeblendet ist, leitet youtube.com/ automatisch zu Ihrem gewählten Ziel weiter.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "Keine (Auf Startseite bleiben)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "Abos",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "Später ansehen",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "Verlauf",
+    "description": "Option to redirect to watch history"
   }
 }

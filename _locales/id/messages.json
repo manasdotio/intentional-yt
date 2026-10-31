@@ -3,10 +3,18 @@
     "message": "Sembunyikan tab Beranda channel",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Bagaimana pengalaman Anda dengan Intentional YT?" },
-  "review_prompt_description": { "message": "Bagikan pengalaman Anda melalui ulasan." },
-  "review_prompt_action": { "message": "Tulis ulasan" },
-  "review_prompt_dismiss": { "message": "Tutup" },
+  "review_prompt_title": {
+    "message": "Bagaimana pengalaman Anda dengan Intentional YT?"
+  },
+  "review_prompt_description": {
+    "message": "Bagikan pengalaman Anda melalui ulasan."
+  },
+  "review_prompt_action": {
+    "message": "Tulis ulasan"
+  },
+  "review_prompt_dismiss": {
+    "message": "Tutup"
+  },
   "extensionName": {
     "message": "Intentional YT - Pemblokir Gangguan & Batas Waktu Harian YouTube",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "Setelan Anda tersimpan, tetapi tab YouTube ini belum terhubung. Muat ulang YouTube. Jika masalah berlanjut, periksa izin akses ekstensi ke YouTube."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "Nonaktifkan pratinjau saat kursor diarahkan",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "Pengalihan beranda",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "Saat feed beranda disembunyikan, alihkan youtube.com/ secara otomatis ke tujuan pilihan Anda.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "Tidak ada (Tetap di beranda)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "Subscriptions",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "Tonton Nanti",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "Histori",
+    "description": "Option to redirect to watch history"
   }
 }

@@ -25,9 +25,37 @@
     if (!_stopped) handleRouteChange(force).catch(reportError);
   }
 
+  function hasActiveMiniplayer() {
+    return Boolean(document.querySelector?.('ytd-miniplayer[active] video, ytm-miniplayer[active] video, ytm-miniplayer video'));
+  }
+
   function isVideoPage() {
     const p = location.pathname;
-    return p === '/watch' || p.startsWith('/shorts') || p.startsWith('/live') || p.startsWith('/embed');
+    return p === '/watch' || p.startsWith('/shorts') || p.startsWith('/live') || p.startsWith('/embed') || hasActiveMiniplayer();
+  }
+
+  const HOME_REDIRECTS = {
+    subscriptions: '/feed/subscriptions',
+    watchLater: '/playlist?list=WL',
+    history: '/feed/history'
+  };
+
+  async function checkHomeRedirect() {
+    const p = location.pathname;
+    if (p !== '/' && p !== '') return false;
+    try {
+      const settings = window.__iytBlocker?.getSettings
+        ? window.__iytBlocker.getSettings()
+        : (typeof StorageManager !== 'undefined' ? await StorageManager.getSettings() : null);
+      if (!settings || !settings.blockHomeFeed) return false;
+      if (typeof IYT_Policy !== 'undefined' && !IYT_Policy.active(settings)) return false;
+      const target = HOME_REDIRECTS[settings.homeRedirect];
+      if (target && (location.pathname + location.search) !== target) {
+        location.replace(target);
+        return true;
+      }
+    } catch {}
+    return false;
   }
 
   function waitFor(getter, cb, tries, ms) {
@@ -43,6 +71,7 @@
     if (path === _lastPath && !force) return;
     _lastPath = path;
     const generation = ++_generation;
+    if (await checkHomeRedirect()) return;
     if (!isVideoPage()) window.__iytTimer?.detach();
 
     if (window.__iytBlocker) {
@@ -71,9 +100,16 @@
     _routeTimer = setTimeout(() => runRouteChange(force), 100);
   }
 
+  document.addEventListener('yt-navigate-start', (e) => {
+    const url = e && e.detail && e.detail.url;
+    if (typeof url === 'string' && (url === '/' || url === '' || url.startsWith('/?'))) {
+      checkHomeRedirect();
+    }
+  });
   document.addEventListener('yt-navigate-finish', () => schedule(true));
   document.addEventListener('yt-page-data-updated', () => schedule(true));
   document.addEventListener('yt-player-updated', () => schedule(true));
+  document.addEventListener('yt-miniplayer-state-changed', () => schedule(true));
   window.addEventListener('popstate', () => schedule(true));
 
   if (document.readyState === 'loading') {

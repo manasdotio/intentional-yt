@@ -73,7 +73,7 @@ globalThis.IYT_Policy = {
     if ((next.snoozeUntil || 0) > (old.snoozeUntil || 0)) return true;
     for (const key of ['channelBlocklist','keywordBlocklist']) if (old[key].some(x => !next[key].includes(x))) return true;
     for (const key of ['dailyLimit','softReminder','scheduledBlocking']) if (old[key].enabled && !next[key].enabled) return true;
-    if (old.dailyLimit.enabled && next.dailyLimit.limitMinutes > old.dailyLimit.limitMinutes) return true;
+    if (old.dailyLimit.enabled && (next.dailyLimit.limitMinutes > old.dailyLimit.limitMinutes || old.dailyLimit.resetHour !== next.dailyLimit.resetHour)) return true;
     if (old.softReminder.enabled && next.softReminder.intervalMinutes > old.softReminder.intervalMinutes) return true;
     if (!old.stats.limitDismissedToday && next.stats.limitDismissedToday) return true;
     if (!next.focusLock.enabled || next.focusLock.pin !== old.focusLock.pin || next.focusLock.cooldownMinutes < old.focusLock.cooldownMinutes) return true;

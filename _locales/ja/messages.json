@@ -3,10 +3,18 @@
     "message": "チャンネルのホームタブを非表示",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Intentional YT の使い心地はいかがですか？" },
-  "review_prompt_description": { "message": "レビューで使用感をお聞かせください。" },
-  "review_prompt_action": { "message": "レビューを書く" },
-  "review_prompt_dismiss": { "message": "閉じる" },
+  "review_prompt_title": {
+    "message": "Intentional YT の使い心地はいかがですか？"
+  },
+  "review_prompt_description": {
+    "message": "レビューで使用感をお聞かせください。"
+  },
+  "review_prompt_action": {
+    "message": "レビューを書く"
+  },
+  "review_prompt_dismiss": {
+    "message": "閉じる"
+  },
   "extensionName": {
     "message": "Intentional YT - YouTubeの誘惑ブロック＆毎日の利用制限",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "???????????????YouTube??????????????????YouTube???????????????????????????YouTube??????????????????"
+  },
+  "toggle_disable_hover_previews": {
+    "message": "ホバープレビューを無効化",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "ホームページのリダイレクト",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "ホームフィードが非表示のとき、youtube.com/ を選択した移動先に自動的にリダイレクトします。",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "なし（ホームにとどまる）",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "登録チャンネル",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "後で見る",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "履歴",
+    "description": "Option to redirect to watch history"
   }
 }

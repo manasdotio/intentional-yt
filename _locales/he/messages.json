@@ -3,10 +3,18 @@
     "message": "הסתרת כרטיסיית הבית של הערוץ",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "איך Intentional YT עובד בשבילך?" },
-  "review_prompt_description": { "message": "אפשר לשתף את החוויה שלך בביקורת." },
-  "review_prompt_action": { "message": "כתיבת ביקורת" },
-  "review_prompt_dismiss": { "message": "סגירה" },
+  "review_prompt_title": {
+    "message": "איך Intentional YT עובד בשבילך?"
+  },
+  "review_prompt_description": {
+    "message": "אפשר לשתף את החוויה שלך בביקורת."
+  },
+  "review_prompt_action": {
+    "message": "כתיבת ביקורת"
+  },
+  "review_prompt_dismiss": {
+    "message": "סגירה"
+  },
   "extensionName": {
     "message": "Intentional YT - חוסם הסחות דעת ומגבלת זמן ב-YouTube",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "??????? ??? ?????, ??? ?????? YouTube ??? ???? ?????? ?????. ?? ????? ?? YouTube ????. ?? ????? ?????, ?? ????? ?? ????? ????? ?? ????? ?-YouTube."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "השבתת תצוגה מקדימה בריחוף",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "הפניה מחדש של דף הבית",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "כאשר פיד הבית מוסתר, הפנה אוטומטית את youtube.com/ ליעד שבחרת.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "ללא (הישאר בדף הבית)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "מינויים",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "צפייה בהמשך",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "היסטוריה",
+    "description": "Option to redirect to watch history"
   }
 }

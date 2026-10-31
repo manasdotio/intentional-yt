@@ -18,12 +18,22 @@ async function loadLocaleCatalog(lang) {
   localeCatalogs.set(lang, catalog);
   return catalog;
 }
+function getNextResetTime(resetHour = 4, now = new Date()) {
+  const h = (Number.isFinite(resetHour) && resetHour >= 0 && resetHour <= 23) ? resetHour : 4;
+  const target = new Date(now);
+  target.setHours(h, 0, 0, 0);
+  if (target.getTime() <= now.getTime()) {
+    target.setDate(target.getDate() + 1);
+  }
+  return target.getTime();
+}
 function scheduleDeadlines(currentSettings) {
   alarmQueue = alarmQueue.catch(() => {}).then(async () => {
     const settings = currentSettings || await StorageManager.execute({ op: 'reconcile' });
     const now = new Date();
-    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime();
-    if ((await browser.alarms.get(RESET))?.scheduledTime !== midnight) await browser.alarms.create(RESET, { when: midnight });
+    const resetHour = settings.dailyLimit?.resetHour ?? 4;
+    const nextReset = getNextResetTime(resetHour, now);
+    if ((await browser.alarms.get(RESET))?.scheduledTime !== nextReset) await browser.alarms.create(RESET, { when: nextReset });
     const deadlines = [settings.snoozeUntil, settings.focusSessionUntil, settings.focusLock.pendingUnlock?.unlocksAt].filter(t => t > Date.now());
     const next = Math.min(...deadlines);
     if (deadlines.length) {

@@ -3,10 +3,18 @@
     "message": "Ukryj kartę Główna kanału",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Jak sprawdza się Intentional YT?" },
-  "review_prompt_description": { "message": "Podziel się swoimi doświadczeniami w opinii." },
-  "review_prompt_action": { "message": "Napisz opinię" },
-  "review_prompt_dismiss": { "message": "Zamknij" },
+  "review_prompt_title": {
+    "message": "Jak sprawdza się Intentional YT?"
+  },
+  "review_prompt_description": {
+    "message": "Podziel się swoimi doświadczeniami w opinii."
+  },
+  "review_prompt_action": {
+    "message": "Napisz opinię"
+  },
+  "review_prompt_dismiss": {
+    "message": "Zamknij"
+  },
   "extensionName": {
     "message": "Intentional YT - Blokada rozpraszaczy i dzienny limit na YouTube",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "Ustawienia s? zapisane, ale ta karta YouTube nie jest po??czona z rozszerzeniem. Od?wie? YouTube. Je?li problem nadal wyst?puje, sprawd? dost?p rozszerzenia do YouTube."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "Wyłącz podgląd po najechaniu kursorem",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "Przekierowanie strony głównej",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "Gdy kanał strony głównej jest ukryty, automatycznie przekierowuje youtube.com/ do wybranego miejsca.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "Brak (Zostań na głównej)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "Subskrypcje",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "Do obejrzenia",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "Historia",
+    "description": "Option to redirect to watch history"
   }
 }

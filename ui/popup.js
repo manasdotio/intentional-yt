@@ -78,7 +78,7 @@ const TOGGLES = [
   'blockTopHeader', 'blockNotificationBell', 'blockIrrelevantSearchResults',
   'blockExploreAndTrending', 'blockMoreFromYouTube', 'blockShorts',
   'redirectShorts',
-  'blockSubscriptionsFeed', 'disableAutoplay', 'disableAnnotations',
+  'blockSubscriptionsFeed', 'disableAutoplay', 'disableAnnotations', 'disableHoverPreviews',
   'hideThumbnails', 'grayscaleMode',
   'enableQuickBlock',
 ];
@@ -112,6 +112,7 @@ const TOGGLE_LABELS = {
   blockSubscriptionsFeed: 'toggle_block_subscriptions',
   disableAutoplay: 'toggle_disable_autoplay',
   disableAnnotations: 'toggle_disable_annotations',
+  disableHoverPreviews: 'toggle_disable_hover_previews',
   hideThumbnails: 'toggle_hide_thumbnails',
   grayscaleMode: 'toggle_grayscale_mode',
   enableQuickBlock: 'filters_quick_block_title',
@@ -127,7 +128,8 @@ const SECTION_TOGGLES = {
     "blockSubscriptionsFeed",
     "blockExploreAndTrending",
     "blockIrrelevantSearchResults",
-    "blockMixPlaylists"
+    "blockMixPlaylists",
+    "disableHoverPreviews"
   ],
   "video": [
     "disableAutoplay",
@@ -183,6 +185,7 @@ const PRESET_DEFINITIONS = {
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
     disableAnnotations: true,
+    disableHoverPreviews: false,
     hideThumbnails: false,
     grayscaleMode: false
   },
@@ -213,6 +216,7 @@ const PRESET_DEFINITIONS = {
     blockSubscriptionsFeed: true,
     disableAutoplay: true,
     disableAnnotations: true,
+    disableHoverPreviews: true,
     hideThumbnails: true,
     grayscaleMode: false
   },
@@ -243,6 +247,7 @@ const PRESET_DEFINITIONS = {
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
     disableAnnotations: true,
+    disableHoverPreviews: false,
     hideThumbnails: false,
     grayscaleMode: false
   }
@@ -259,6 +264,7 @@ const $ = id => document.getElementById(id);
 
 function getSettingFriendlyName(settingKey) {
   if (settingKey === 'homeFeed') return t('home_feed_label');
+  if (settingKey === 'homeRedirect') return t('home_redirect_label') || 'Homepage Redirect';
   if (TOGGLE_LABELS[settingKey]) {
     return t(TOGGLE_LABELS[settingKey]) || settingKey;
   }
@@ -732,6 +738,7 @@ const SEARCH_ALIASES = {
   blockVideoDescription: 'description text summary details expandable video description hide description sub toggle',
   limitHomeFeed: 'limit home feed doomscroll anti-doomscroll scroll infinite',
   blockHomeFeed: 'home feed recommendations homepage algorithmic feed',
+  homeRedirect: 'homepage redirect subscriptions watch later history destination auto redirect',
   blockChannelHome: 'channel home homepage featured creator landing page',
   blockSubscriptionsFeed: 'subscriptions subs feed channels subscribed subscription',
   blockShorts: 'shorts reel reels tiktok vertical videos',
@@ -1577,7 +1584,10 @@ function renderBlockingControls() {
   for (const row of document.querySelectorAll('#setting-controls .row')) {
     const key = row.querySelector('input.chk')?.id.replace(/^toggle-/, '');
     row.dataset.active = String(active && (row.dataset.setting === 'homeFeed'
-      ? effective.blockHomeFeed || effective.limitHomeFeed : !!effective[key]));
+      ? effective.blockHomeFeed || effective.limitHomeFeed
+      : row.dataset.setting === 'homeRedirect'
+      ? effective.blockHomeFeed && effective.homeRedirect && effective.homeRedirect !== 'none'
+      : !!effective[key]));
   }
   renderHomeFeedControls();
   $('schedule-override').hidden = !schedules.length;
@@ -1604,6 +1614,15 @@ function renderHomeFeedControls() {
     const ids = [description, overridden ? 'schedule-override' : ''].filter(Boolean).join(' ');
     if (ids) select.setAttribute('aria-describedby', ids);
     else select.removeAttribute('aria-describedby');
+  }
+  const redirectSelect = $('select-homeRedirect');
+  if (redirectSelect) {
+    redirectSelect.value = _s.homeRedirect || 'none';
+    redirectSelect.disabled = overridden;
+  }
+  const redirectRow = $('row-homeRedirect');
+  if (redirectRow && !$('input-toggle-search')?.value?.trim()) {
+    redirectRow.style.display = _s.blockHomeFeed ? '' : 'none';
   }
 }
 
@@ -1675,6 +1694,11 @@ function renderAll(s) {
   } else {
     $('select-dailyLimitMinutes').value = String(dailyMin);
     $('daily-limit-custom-wrap').style.display = 'none';
+  }
+  const resetHour = s.dailyLimit?.resetHour ?? 4;
+  if ($('select-dailyLimitResetHour')) {
+    $('select-dailyLimitResetHour').value = String(resetHour);
+    $('select-dailyLimitResetHour').disabled = !s.dailyLimit?.enabled;
   }
 
   // Focus Lock
@@ -2002,6 +2026,19 @@ function bindAll() {
       } finally { renderHomeFeedControls(); }
     });
   }
+
+  const selectHomeRedirect = $('select-homeRedirect');
+  if (selectHomeRedirect) {
+    selectHomeRedirect.addEventListener('change', async (e) => {
+      const val = e.target.value;
+      if (!['none', 'subscriptions', 'watchLater', 'history'].includes(val)) return;
+      const updated = await StorageManager.updateSetting('homeRedirect', val);
+      if (updated) _s = updated;
+      else if (_s) _s.homeRedirect = val;
+      broadcastSettingsToTabs(_s);
+      renderAll(_s);
+    });
+  }
   $('btn-cancel-snooze')?.addEventListener('click', closeSnoozeModal);
   $('btn-resume-snooze')?.addEventListener('click', cancelSnooze);
   document.querySelectorAll('.snooze-opt-btn').forEach(btn => {
@@ -2240,6 +2277,30 @@ function bindAll() {
     e.target.value = val;
     await StorageManager.updateNestedSetting('dailyLimit', 'limitMinutes', val);
     await StorageManager.updateNestedSetting('stats', 'limitDismissedToday', false);
+  });
+
+  $('select-dailyLimitResetHour')?.addEventListener('change', async e => {
+    const val = parseInt(e.target.value, 10);
+    if (!isNaN(val) && val >= 0 && val <= 23) {
+      if (_s?.focusLock?.enabled && _s?.dailyLimit?.enabled) {
+        openFocusLockModal(
+          'dailyLimit.resetHour',
+          val,
+          async () => {
+            renderAll(await StorageManager.updateNestedSetting('dailyLimit', 'resetHour', val));
+          },
+          () => {
+            $('select-dailyLimitResetHour').value = String(_s?.dailyLimit?.resetHour ?? 4);
+          }
+        );
+        return;
+      }
+      try {
+        renderAll(await StorageManager.updateNestedSetting('dailyLimit', 'resetHour', val));
+      } catch (err) {
+        console.warn('Failed to update resetHour', err);
+      }
+    }
   });
 
   // Focus Lock toggle

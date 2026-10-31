@@ -3,10 +3,18 @@
     "message": "채널 홈 탭 숨기기",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Intentional YT 사용 경험은 어떠신가요?" },
-  "review_prompt_description": { "message": "리뷰로 경험을 공유해 주세요." },
-  "review_prompt_action": { "message": "리뷰 작성" },
-  "review_prompt_dismiss": { "message": "닫기" },
+  "review_prompt_title": {
+    "message": "Intentional YT 사용 경험은 어떠신가요?"
+  },
+  "review_prompt_description": {
+    "message": "리뷰로 경험을 공유해 주세요."
+  },
+  "review_prompt_action": {
+    "message": "리뷰 작성"
+  },
+  "review_prompt_dismiss": {
+    "message": "닫기"
+  },
   "extensionName": {
     "message": "Intentional YT - YouTube 집중 모드 & 일일 시청 제한",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "??? ?????? ? YouTube ?? ?? ????? ???? ?? ????. YouTube? ???????. ??? ???? ?? ????? YouTube ?? ??? ?????."
+  },
+  "toggle_disable_hover_previews": {
+    "message": "마우스 오버 미리보기 비활성화",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "홈페이지 리디렉션",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "홈 피드가 숨겨져 있을 때 youtube.com/ 을 선택한 위치로 자동 이동합니다.",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "없음 (홈 유지)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "구독",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "나중에 볼 동영상",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "시청 기록",
+    "description": "Option to redirect to watch history"
   }
 }

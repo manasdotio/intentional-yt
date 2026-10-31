@@ -3,10 +3,18 @@
     "message": "চ্যানেলের হোম ট্যাব লুকান",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Intentional YT কেমন লাগছে?" },
-  "review_prompt_description": { "message": "একটি রিভিউ লিখে আপনার অভিজ্ঞতা জানান।" },
-  "review_prompt_action": { "message": "রিভিউ লিখুন" },
-  "review_prompt_dismiss": { "message": "বন্ধ করুন" },
+  "review_prompt_title": {
+    "message": "Intentional YT কেমন লাগছে?"
+  },
+  "review_prompt_description": {
+    "message": "একটি রিভিউ লিখে আপনার অভিজ্ঞতা জানান।"
+  },
+  "review_prompt_action": {
+    "message": "রিভিউ লিখুন"
+  },
+  "review_prompt_dismiss": {
+    "message": "বন্ধ করুন"
+  },
   "extensionName": {
     "message": "Intentional YT - YouTube বিভ্রান্তি নিরোধক এবং দৈনিক সময়সীমা",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "????? ?????? ???????? ???, ?????? ?? YouTube ??????? ??????????? ????? ??????? ???? YouTube ???? ??? ????? ?????? ????? YouTube-? ??????????? ???????????? ??????? ?????"
+  },
+  "toggle_disable_hover_previews": {
+    "message": "হোভার প্রিভিউ নিষ্ক্রিয় করুন",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "হোমপেজ রিডাইরেক্ট",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "হোম ফিড লুকানো থাকলে, youtube.com/ কে আপনার পছন্দের গন্তব্যে স্বয়ংক্রিয়ভাবে রিডাইরেক্ট করুন।",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "কিছুই না (হোমে থাকুন)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "সাবস্ক্রিপশন",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "পরে দেখুন",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "ইতিহাস",
+    "description": "Option to redirect to watch history"
   }
 }

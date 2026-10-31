@@ -3,10 +3,18 @@
     "message": "चैनल का होम टैब छिपाएँ",
     "description": "Toggle to hide channel Home content while keeping the header and other tabs accessible"
   },
-  "review_prompt_title": { "message": "Intentional YT कैसा लग रहा है?" },
-  "review_prompt_description": { "message": "समीक्षा लिखकर अपना अनुभव साझा करें।" },
-  "review_prompt_action": { "message": "समीक्षा लिखें" },
-  "review_prompt_dismiss": { "message": "बंद करें" },
+  "review_prompt_title": {
+    "message": "Intentional YT कैसा लग रहा है?"
+  },
+  "review_prompt_description": {
+    "message": "समीक्षा लिखकर अपना अनुभव साझा करें।"
+  },
+  "review_prompt_action": {
+    "message": "समीक्षा लिखें"
+  },
+  "review_prompt_dismiss": {
+    "message": "बंद करें"
+  },
   "extensionName": {
     "message": "Intentional YT - YouTube ध्यान भटकाव रोधक और दैनिक समय सीमा",
     "description": "Official extension name in stores and browser management pages"
@@ -1397,5 +1405,33 @@
   },
   "youtube_reload_needed": {
     "message": "???? ???????? ??? ???, ????? ?? YouTube ??? ????????? ?? ????? ???? ??? YouTube ??? ?? ??? ????? ?????? ??? ??? ?? YouTube ?? ????????? ?? ?????? ???????"
+  },
+  "toggle_disable_hover_previews": {
+    "message": "होवर पूर्वावलोकन अक्षम करें",
+    "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
+  },
+  "home_redirect_label": {
+    "message": "होमपेज पुनर्निर्देशन",
+    "description": "Label for custom homepage redirect dropdown"
+  },
+  "home_redirect_description": {
+    "message": "जब होम फ़ीड छिपा हो, तो youtube.com/ को अपने चुने हुए गंतव्य पर स्वचालित रूप से पुनर्निर्देशित करें।",
+    "description": "Description for custom homepage redirect setting"
+  },
+  "home_redirect_none": {
+    "message": "कोई नहीं (होम पर रहें)",
+    "description": "Option to stay on empty home page"
+  },
+  "home_redirect_subscriptions": {
+    "message": "सदस्यताएं",
+    "description": "Option to redirect to subscriptions feed"
+  },
+  "home_redirect_watch_later": {
+    "message": "बाद में देखें",
+    "description": "Option to redirect to Watch Later playlist"
+  },
+  "home_redirect_history": {
+    "message": "इतिहास",
+    "description": "Option to redirect to watch history"
   }
 }
