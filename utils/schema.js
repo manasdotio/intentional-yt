@@ -11,6 +11,7 @@ globalThis.IYT_validate = function (input, portable = false) {
     const result = { ...template };
     for (const [key, v] of Object.entries(value)) {
       const name = path ? `${path}.${key}` : key;
+      if (key === 'syncEnabled') continue;
       if (!Object.hasOwn(template, key) || ['__proto__','constructor','prototype'].includes(key)) fail(name);
       const d = template[key];
       if (name === 'focusLock.pendingUnlock') { result[key] = null; continue; }

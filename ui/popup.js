@@ -399,7 +399,6 @@ function getSettingFriendlyName(settingKey) {
     return `${t('schedule_card_delete') || 'Delete'} ${sched?.label || 'Schedule'}`;
   }
   if (settingKey === 'resetStats' || settingKey === 'stats') return t('stats_button_reset') || 'Reset watch time';
-  if (settingKey === 'snooze' || settingKey === 'snoozeUntil') return t('action_snooze') || 'Snooze';
   if (settingKey === 'focusEnd' || settingKey === 'focusSessionUntil') return t('focus_session_end');
   if (settingKey.startsWith('schedule')) return t('toggle_scheduled_blocking') || 'Scheduled Blocking';
   if (settingKey === 'resetDefaults' || settingKey === 'reset') {
@@ -1230,88 +1229,6 @@ function renderPendingUnlockBanner() {
   }
 }
 
-/* ── Snooze / Temporary Pause Mechanics ───────────────── */
-
-let _snoozeCountdownInterval = null;
-
-function updateSnoozeBanner(s) {
-  const banner = $('snooze-banner');
-  if (!banner) return;
-  const isSnoozed = s && s.extensionEnabled !== false && !!(s.snoozeUntil && Date.now() < s.snoozeUntil);
-  if (!isSnoozed) {
-    banner.style.display = 'none';
-    if (_snoozeCountdownInterval) {
-      clearInterval(_snoozeCountdownInterval);
-      _snoozeCountdownInterval = null;
-    }
-    if (s && s.snoozeUntil && Date.now() >= s.snoozeUntil) {
-      cancelSnooze(true);
-    }
-    return;
-  }
-
-  banner.style.display = 'flex';
-  const renderRemaining = () => {
-    const remainingMs = Math.max(0, (s.snoozeUntil || 0) - Date.now());
-    if (remainingMs <= 0) {
-      banner.style.display = 'none';
-      if (_snoozeCountdownInterval) {
-        clearInterval(_snoozeCountdownInterval);
-        _snoozeCountdownInterval = null;
-      }
-      cancelSnooze();
-      return;
-    }
-    const totalSec = Math.ceil(remainingMs / 1000);
-    const mins = Math.floor(totalSec / 60);
-    const secs = totalSec % 60;
-    const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    const timerEl = $('snooze-banner-timer');
-    if (timerEl) {
-      timerEl.textContent = t('snooze_banner_remaining', [formatted], `${formatted} remaining`);
-    }
-  };
-
-  renderRemaining();
-  if (!_snoozeCountdownInterval) {
-    _snoozeCountdownInterval = setInterval(renderRemaining, 1000);
-  }
-}
-
-function openSnoozeModal() {
-  const modal = $('modal-snooze');
-  if (modal) modal.style.display = 'flex';
-}
-
-function closeSnoozeModal() {
-  const modal = $('modal-snooze');
-  if (modal) modal.style.display = 'none';
-}
-
-async function handleSnoozeSelection(minutes) {
-  closeSnoozeModal();
-  await executeSnooze(minutes);
-}
-
-async function executeSnooze(minutes) {
-  const updated = await StorageManager.snooze(minutes);
-  const snoozeUntil = updated.snoozeUntil;
-  if (_s) _s.snoozeUntil = snoozeUntil;
-  broadcastSettingsToTabs(_s);
-  renderAll(_s);
-  showToast(t('snooze_activated', [String(minutes)]) || `Protections paused for ${minutes} minutes`);
-}
-
-async function cancelSnooze(silent = false) {
-  await StorageManager.updateSetting('snoozeUntil', null);
-  if (_s) _s.snoozeUntil = null;
-  broadcastSettingsToTabs(_s);
-  renderAll(_s);
-  if (!silent) {
-    showToast(t('snooze_resumed') || 'Protections resumed');
-  }
-}
-
 /* ── Scheduled Blocking Form & Cards ─────────────────── */
 
 function formatScheduleDays(days) {
@@ -1682,7 +1599,6 @@ function renderProtectionStatus() {
   const mode = active.some(rule => rule.mode === 'full') ? 'full' : 'strict';
   let main = '';
   if (!_s.extensionEnabled) main = t('clear_status_off');
-  else if (_s.snoozeUntil > now) main = t('clear_status_snoozed', [time(_s.snoozeUntil)]);
   else if (active.length) {
     const rules = active.filter(rule => rule.mode === mode);
     const end = IYT_Policy.scheduleEnds(_s, mode);
@@ -1700,7 +1616,7 @@ function renderProtectionStatus() {
   $('protection-status').hidden = !main && !running && !$('protection-status-budget').textContent;
   renderBlockingControls();
   // This timer exists only for the lifetime of the popup.
-  const deadlines = [_s.focusSessionUntil, _s.snoozeUntil].filter(value => value > now);
+  const deadlines = [_s.focusSessionUntil].filter(value => value > now);
   if (_s.scheduledBlocking.enabled) deadlines.push(now + 60000 - now % 60000);
   if (deadlines.length) _statusTimeout = setTimeout(renderProtectionStatus, Math.min(...deadlines) - now + 30);
 }
@@ -1721,10 +1637,6 @@ function renderBlockingControls() {
   }
   renderHomeFeedControls();
   $('schedule-override').hidden = !schedules.length;
-  $('btn-snooze-label').textContent = t(!active ? 'action_resume_now' : 'action_snooze');
-  $('btn-snooze').dataset.resume = String(!active);
-  $('btn-snooze').title = $('btn-snooze-label').textContent;
-  $('btn-snooze').setAttribute('aria-label', $('btn-snooze-label').textContent);
   for (const input of document.querySelectorAll('#common-controls input.chk')) {
     input.disabled = schedules.length > 0;
     const ids = [input.closest('.row').querySelector('.setting-help-text')?.id,
@@ -1756,12 +1668,6 @@ function renderHomeFeedControls() {
   }
 }
 
-async function pauseOrResume() {
-  if (!_s.extensionEnabled) renderAll(await StorageManager.updateSetting('extensionEnabled', true));
-  else if (_s.snoozeUntil > Date.now()) await cancelSnooze();
-  else openSnoozeModal();
-}
-
 function renderAll(s) {
   if (_latestUsageStats) s = { ...s, stats: _latestUsageStats };
   _s = s;
@@ -1776,20 +1682,11 @@ function renderAll(s) {
   }
 
   const on = s.extensionEnabled !== false;
-  const isSnoozed = on && !!(s.snoozeUntil && Date.now() < s.snoozeUntil);
   document.body.classList.toggle('ext-off', !on);
-  document.body.classList.toggle('ext-snoozed', isSnoozed);
   const badge = $('ext-badge');
   if (badge) {
-    if (isSnoozed) {
-      badge.textContent = t('status_snoozed') || 'Snoozed';
-    } else {
-      badge.textContent = on ? (t('status_active') || 'Active') : (t('status_paused') || 'Paused');
-    }
+    badge.textContent = on ? (t('status_active') || 'Active') : (t('status_paused') || 'Paused');
   }
-  updateSnoozeBanner(s);
-  const syncEl = $('toggle-syncEnabled');
-  if (syncEl) syncEl.checked = Boolean(s.syncEnabled);
 
   const searchInput = $('input-toggle-search');
   if (searchInput?.value?.trim()) {
@@ -2299,45 +2196,6 @@ function bindAll() {
   });
   $('welcome-setup-form')?.addEventListener('submit', saveWelcomeSetup);
 
-  // Snooze Button, Modal & Banner actions
-  $('btn-snooze')?.addEventListener('click', pauseOrResume);
-  for (const select of document.querySelectorAll('[data-home-feed]')) {
-    select.addEventListener('change', async () => {
-      const mode = select.value;
-      if (!['show', 'limit', 'hide'].includes(mode)) return;
-      for (const control of document.querySelectorAll('[data-home-feed]')) control.disabled = true;
-      try {
-        renderAll(await StorageManager.updateSettings({
-          blockHomeFeed: mode === 'hide',
-          limitHomeFeed: mode === 'limit'
-        }));
-      } finally { renderHomeFeedControls(); }
-    });
-  }
-
-  const selectHomeRedirect = $('select-homeRedirect');
-  if (selectHomeRedirect) {
-    selectHomeRedirect.addEventListener('change', async (e) => {
-      const val = e.target.value;
-      if (!['none', 'subscriptions', 'watchLater', 'history'].includes(val)) return;
-      const updated = await StorageManager.updateSetting('homeRedirect', val);
-      if (updated) _s = updated;
-      else if (_s) _s.homeRedirect = val;
-      broadcastSettingsToTabs(_s);
-      renderAll(_s);
-    });
-  }
-  $('btn-cancel-snooze')?.addEventListener('click', closeSnoozeModal);
-  $('btn-resume-snooze')?.addEventListener('click', cancelSnooze);
-  document.querySelectorAll('.snooze-opt-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const mins = parseInt(btn.getAttribute('data-minutes'), 10) || 15;
-      handleSnoozeSelection(mins);
-    });
-  });
-  $('modal-snooze')?.addEventListener('click', (e) => {
-    if (e.target === $('modal-snooze')) closeSnoozeModal();
-  });
 
   // Quick Search Bar in Distractions Tab
   const searchInput = $('input-toggle-search');
@@ -2381,6 +2239,35 @@ function bindAll() {
   if (selectPreset) {
     selectPreset.addEventListener('change', (e) => {
       applyPreset(e.target.value);
+    });
+  }
+
+  // Home feed mode selector
+  for (const select of document.querySelectorAll('[data-home-feed]')) {
+    select.addEventListener('change', async () => {
+      const mode = select.value;
+      if (!['show', 'limit', 'hide'].includes(mode)) return;
+      for (const control of document.querySelectorAll('[data-home-feed]')) control.disabled = true;
+      try {
+        renderAll(await StorageManager.updateSettings({
+          blockHomeFeed: mode === 'hide',
+          limitHomeFeed: mode === 'limit'
+        }));
+      } finally { renderHomeFeedControls(); }
+    });
+  }
+
+  // Homepage redirect selector
+  const selectHomeRedirect = $('select-homeRedirect');
+  if (selectHomeRedirect) {
+    selectHomeRedirect.addEventListener('change', async (e) => {
+      const val = e.target.value;
+      if (!['none', 'subscriptions', 'watchLater', 'history'].includes(val)) return;
+      const updated = await StorageManager.updateSetting('homeRedirect', val);
+      if (updated) _s = updated;
+      else if (_s) _s.homeRedirect = val;
+      broadcastSettingsToTabs(_s);
+      renderAll(_s);
     });
   }
 
@@ -3026,16 +2913,6 @@ function bindAll() {
   });
 
     
-  // Cross-device sync toggle
-  $('toggle-syncEnabled')?.addEventListener('change', async (e) => {
-    try {
-      await StorageManager.updateSettings({ syncEnabled: e.target.checked });
-      showToast(e.target.checked ? 'Cross-device sync enabled' : 'Cross-device sync disabled');
-    } catch (err) {
-      showToast(err.message || 'Error updating sync');
-      if (_s) renderAll(_s);
-    }
-  });
 
   // 1-Click Shareable Preset
   $('btn-share-setup')?.addEventListener('click', async () => {
@@ -3056,60 +2933,130 @@ function bindAll() {
   const modalImport = $('import-preset-modal');
   const inputImport = $('input-import-preset');
   const previewImport = $('import-preset-preview');
+  const previewName = $('preset-preview-name');
+  const previewTags = $('preset-preview-tags');
   const errorImport = $('import-preset-error');
   const btnConfirmImport = $('btn-confirm-import-preset');
+  const btnPastePreset = $('btn-paste-preset');
 
-  $('btn-import-preset-link')?.addEventListener('click', () => {
+  function openImportPresetModal() {
     if (!modalImport) return;
     _importedPresetData = null;
     if (inputImport) inputImport.value = '';
-    if (previewImport) { previewImport.textContent = ''; previewImport.style.display = 'none'; }
-    if (errorImport) { errorImport.style.display = 'none'; }
-    if (btnConfirmImport) { btnConfirmImport.style.display = 'none'; }
+    if (previewImport) previewImport.style.display = 'none';
+    if (previewTags) previewTags.innerHTML = '';
+    if (errorImport) { errorImport.style.display = 'none'; errorImport.textContent = ''; }
+    if (btnConfirmImport) btnConfirmImport.disabled = true;
     modalImport.style.display = 'flex';
-    inputImport?.focus();
-  });
+    setTimeout(() => inputImport?.focus(), 50);
+  }
 
-  $('btn-close-import-preset-modal')?.addEventListener('click', () => {
+  function closeImportPresetModal() {
     if (modalImport) modalImport.style.display = 'none';
-  });
-  $('btn-cancel-import-preset')?.addEventListener('click', () => {
-    if (modalImport) modalImport.style.display = 'none';
-  });
+    _importedPresetData = null;
+  }
 
-  inputImport?.addEventListener('input', (e) => {
-    const val = e.target.value.trim();
-    if (!val) {
+  function renderPresetPreview(parsed) {
+    if (!parsed || !parsed.settings) return;
+    const s = parsed.settings;
+    if (previewName) previewName.textContent = parsed.name || 'Shared Setup';
+
+    const tags = [];
+    if (s.blockShorts) tags.push({ text: 'Hide Shorts' });
+    if (s.redirectShorts) tags.push({ text: 'Redirect Shorts' });
+    if (s.blockHomeFeed) tags.push({ text: 'Hide Home Feed' });
+    if (s.limitHomeFeed) tags.push({ text: 'Limit Home (15)' });
+    if (s.blockRecommended) tags.push({ text: 'Hide Suggestions' });
+    if (s.blockSidebar) tags.push({ text: 'Hide Sidebar' });
+    if (s.blockComments) tags.push({ text: 'Hide Comments' });
+    if (s.blockProfilePhotos) tags.push({ text: 'Hide Avatars' });
+    if (s.hideThumbnails) tags.push({ text: 'Hide Thumbnails' });
+    if (s.grayscaleMode) tags.push({ text: 'Grayscale' });
+    if (s.disableAutoplay) tags.push({ text: 'No Autoplay' });
+    if (s.blockExploreAndTrending) tags.push({ text: 'Hide Trending' });
+    if (s.blockNotificationBell) tags.push({ text: 'Hide Alerts' });
+    if (s.channelBlocklist?.length) tags.push({ text: `${s.channelBlocklist.length} Channels`, special: 'channel' });
+    if (s.keywordBlocklist?.length) tags.push({ text: `${s.keywordBlocklist.length} Keywords`, special: 'keyword' });
+
+    if (previewTags) {
+      previewTags.innerHTML = '';
+      if (tags.length === 0) {
+        const span = document.createElement('span');
+        span.className = 'preset-tag-chip';
+        span.textContent = 'Custom Preferences';
+        previewTags.appendChild(span);
+      } else {
+        tags.forEach(t => {
+          const span = document.createElement('span');
+          span.className = 'preset-tag-chip' + (t.special ? ` special-${t.special}` : '');
+          span.textContent = t.text;
+          previewTags.appendChild(span);
+        });
+      }
+    }
+  }
+
+  function handlePresetInputChange(val) {
+    const raw = (val || '').trim();
+    if (!raw) {
       _importedPresetData = null;
       if (previewImport) previewImport.style.display = 'none';
-      if (errorImport) errorImport.style.display = 'none';
-      if (btnConfirmImport) btnConfirmImport.style.display = 'none';
+      if (errorImport) { errorImport.style.display = 'none'; errorImport.textContent = ''; }
+      if (btnConfirmImport) btnConfirmImport.disabled = true;
       return;
     }
     try {
-      const parsed = StorageManager.decodeShareableSetup(val);
+      const parsed = StorageManager.decodeShareableSetup(raw);
       _importedPresetData = parsed;
-      if (errorImport) errorImport.style.display = 'none';
-      const items = [];
-      if (parsed.settings.blockShorts) items.push('Hide Shorts');
-      if (parsed.settings.blockHomeFeed) items.push('Hide Home Feed');
-      if (parsed.settings.blockRecommended) items.push('Hide Suggestions');
-      if (parsed.settings.blockComments) items.push('Hide Comments');
-      if (parsed.settings.channelBlocklist?.length) items.push(`${parsed.settings.channelBlocklist.length} channels`);
-      if (parsed.settings.keywordBlocklist?.length) items.push(`${parsed.settings.keywordBlocklist.length} keywords`);
-      if (previewImport) {
-        previewImport.textContent = `Setup "${parsed.name || 'Shared Setup'}": ${items.join(', ') || 'Custom settings'}.`;
-        previewImport.style.display = 'block';
-      }
-      if (btnConfirmImport) btnConfirmImport.style.display = 'inline-flex';
+      if (errorImport) { errorImport.style.display = 'none'; errorImport.textContent = ''; }
+      renderPresetPreview(parsed);
+      if (previewImport) previewImport.style.display = 'flex';
+      if (btnConfirmImport) btnConfirmImport.disabled = false;
     } catch (err) {
       _importedPresetData = null;
       if (previewImport) previewImport.style.display = 'none';
-      if (btnConfirmImport) btnConfirmImport.style.display = 'none';
+      if (btnConfirmImport) btnConfirmImport.disabled = true;
       if (errorImport) {
         errorImport.textContent = err.message || 'Invalid setup link or code';
         errorImport.style.display = 'block';
       }
+    }
+  }
+
+  $('btn-import-preset-link')?.addEventListener('click', openImportPresetModal);
+  $('btn-close-import-preset-modal')?.addEventListener('click', closeImportPresetModal);
+  $('btn-cancel-import-preset')?.addEventListener('click', closeImportPresetModal);
+
+  modalImport?.addEventListener('click', (e) => {
+    if (e.target === modalImport) closeImportPresetModal();
+  });
+
+  inputImport?.addEventListener('input', (e) => handlePresetInputChange(e.target.value));
+
+  inputImport?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && _importedPresetData && !btnConfirmImport?.disabled) {
+      e.preventDefault();
+      btnConfirmImport.click();
+    } else if (e.key === 'Escape') {
+      closeImportPresetModal();
+    }
+  });
+
+  btnPastePreset?.addEventListener('click', async () => {
+    try {
+      if (navigator?.clipboard?.readText) {
+        const text = await navigator.clipboard.readText();
+        if (inputImport && text) {
+          inputImport.value = text;
+          handlePresetInputChange(text);
+          inputImport.focus();
+        }
+      } else {
+        inputImport?.focus();
+      }
+    } catch (_) {
+      inputImport?.focus();
+      showToast('Press Ctrl+V or right-click to paste');
     }
   });
 
@@ -3117,7 +3064,7 @@ function bindAll() {
     if (!_importedPresetData || !inputImport) return;
     try {
       const result = await StorageManager.importShareableSetup(inputImport.value);
-      if (modalImport) modalImport.style.display = 'none';
+      closeImportPresetModal();
       showToast(`Setup "${result.name}" applied!`);
     } catch (err) {
       showToast(err.message || 'Failed to apply preset');
@@ -3177,7 +3124,7 @@ function bindAll() {
       if (e.target === overlay) {
         hidePinModals();
         hideConfirmResetModal();
-        closeSnoozeModal();
+        closeImportPresetModal();
       }
     });
   });
@@ -3187,7 +3134,6 @@ function bindAll() {
     if (e.key === 'Escape') {
       hidePinModals();
       hideConfirmResetModal();
-      closeSnoozeModal();
     }
   });
 

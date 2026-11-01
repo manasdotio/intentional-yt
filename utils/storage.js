@@ -65,7 +65,6 @@ class StorageManager {
       channelBlocklist: [],
       keywordBlocklist: [],
       enableQuickBlock: true,
-      syncEnabled: false,
 
       softReminder: { enabled: false, intervalMinutes: 30 },
       dailyLimit:   { enabled: false, limitMinutes: 60, warningEnabled: true, resetHour: 4 },
@@ -282,12 +281,6 @@ class StorageManager {
         if (JSON.stringify(preferences) !== JSON.stringify(stored.settings)) updates.settings = preferences;
         if (JSON.stringify(usage) !== JSON.stringify(stored.usage)) updates.usage = usage;
         if (Object.keys(updates).length) await browser.storage.local.set(updates);
-        if (preferences.syncEnabled && browser?.storage?.sync) {
-          try {
-            const syncPayload = StorageManager.extractShareableSettings(preferences);
-            browser.storage.sync.set({ iyt_sync_settings: syncPayload }).catch(() => {});
-          } catch (_) {}
-        }
         if (stored.presetUndo !== undefined) await browser.storage.local.remove('presetUndo');
         return settings;
       };

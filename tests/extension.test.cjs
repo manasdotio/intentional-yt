@@ -287,6 +287,10 @@ test('existing full and legacy partial settings keep their previous behavior', a
   assert.equal(migrated.blockComments, true);
   assert.equal(migrated.blockSidebar, true);
   assert.equal(migrated.blockLiveChat, true);
+  const legacyWithSync = store({ settings: { ...existing, syncEnabled: true } });
+  const migratedSync = await legacyWithSync.manager.getSettings();
+  assert.equal(migratedSync.blockHomeFeed, false);
+  assert.equal(migratedSync.syncEnabled, undefined);
 });
 
 test('focus sessions persist, expire, and leave saved preferences and schedules intact', async () => {

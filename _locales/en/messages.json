@@ -1113,7 +1113,7 @@
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
-    "message": "Pause blocking",
+    "message": "Pause",
     "description": "Button to temporarily pause protections"
   },
   "status_snoozed": {

@@ -357,9 +357,13 @@ function getCardDescriptions(card) {
 function getCardChannelInfo(card) {
   if (!card) return { names: [], handles: [], ids: [] };
 
-  const names = new Set();
-  const handles = new Set();
-  const ids = new Set();
+  const names = [];
+  const handles = [];
+  const ids = [];
+
+  function addUnique(arr, val) {
+    if (val && !arr.includes(val)) arr.push(val);
+  }
 
   // 1. Explicit Channel Name Containers (Classic & Modern Lit View-Models)
   const nameElements = card.querySelectorAll(
@@ -383,12 +387,12 @@ function getCardChannelInfo(card) {
     if (el.closest && el.closest('ytd-badge-supported-renderer, .badge-style-type-verified')) return;
 
     const text = cleanChannelText(el.textContent);
-    if (text) names.add(text);
+    if (text) addUnique(names, text);
 
     const titleAttr = el.getAttribute('title') || el.getAttribute('aria-label');
     if (titleAttr) {
       const cleanAttr = cleanChannelText(titleAttr);
-      if (cleanAttr) names.add(cleanAttr);
+      if (cleanAttr) addUnique(names, cleanAttr);
     }
   });
 
@@ -411,7 +415,7 @@ function getCardChannelInfo(card) {
     // Extract channel IDs: /channel/([^/?#]+)
     const channelIdMatch = href.match(/\/channel\/([^/?#]+)/i);
     if (channelIdMatch) {
-      ids.add(channelIdMatch[1].toLowerCase());
+      addUnique(ids, channelIdMatch[1].toLowerCase());
     }
 
     // Extract handles: /@([^/?#]+)
@@ -419,8 +423,8 @@ function getCardChannelInfo(card) {
     if (handleMatch) {
       try {
         const rawHandle = decodeURIComponent(handleMatch[1]).toLowerCase();
-        handles.add('@' + rawHandle);
-        handles.add(rawHandle);
+        addUnique(handles, '@' + rawHandle);
+        addUnique(handles, rawHandle);
       } catch {}
     }
 
@@ -429,8 +433,8 @@ function getCardChannelInfo(card) {
     if (customMatch) {
       try {
         const custom = decodeURIComponent(customMatch[1]).toLowerCase();
-        handles.add(custom);
-        names.add(custom);
+        addUnique(handles, custom);
+        addUnique(names, custom);
       } catch {}
     }
 
@@ -450,24 +454,20 @@ function getCardChannelInfo(card) {
         const cleanAttr = cleanChannelText(titleAttr);
         if (cleanAttr) {
           if (!cleanAttr.toLowerCase().startsWith('go to ')) {
-            names.add(cleanAttr);
+            addUnique(names, cleanAttr);
           } else {
             const stripped = cleanAttr.replace(/^go to\s+/i, '').replace(/'s channel$/i, '').trim();
-            if (stripped) names.add(stripped);
+            if (stripped) addUnique(names, stripped);
           }
         }
       }
 
       const text = cleanChannelText(a.textContent);
-      if (text) names.add(text);
+      if (text) addUnique(names, text);
     }
   });
 
-  return {
-    names: Array.from(names),
-    handles: Array.from(handles),
-    ids: Array.from(ids)
-  };
+  return { names, handles, ids };
 }
 
 function getCurrentPageChannelInfo() {
@@ -492,55 +492,80 @@ function getCurrentPageChannelInfo() {
 function matchesChannel(channelInfo, channelBlocklist, pageChannelInfo) {
   if (!channelBlocklist || channelBlocklist.length === 0) return false;
 
-  const candidateNames = new Set();
-  const candidateHandles = new Set();
+  if (!matchesChannel._cache) matchesChannel._cache = new WeakMap();
+  let indexed = matchesChannel._cache.get(channelBlocklist);
+  if (!indexed) {
+    const ids = new Set();
+    const handles = new Set();
+    const names = new Set();
 
-  if (channelInfo?.names) {
-    channelInfo.names.forEach(n => {
-      const cleaned = cleanChannelText(n);
-      if (cleaned) candidateNames.add(cleaned.toLowerCase());
-    });
+    for (let i = 0; i < channelBlocklist.length; i++) {
+      const blocked = channelBlocklist[i];
+      if (!blocked) continue;
+      const bLower = blocked.toLowerCase().trim();
+      if (!bLower) continue;
+
+      const bChannelId = bLower.includes('/channel/') ? bLower.split('/channel/')[1].split(/[/?#]/)[0] : bLower.replace(/^\/channel\//, '');
+      ids.add(bChannelId);
+
+      let bClean = bLower;
+      const bHandleUrl = bLower.match(/(?:\/|^)@([^/?#]+)/);
+      if (bHandleUrl) bClean = '@' + bHandleUrl[1];
+      const bHandle = bClean.startsWith('@') ? bClean : '@' + bClean;
+      const bNoAt = bClean.startsWith('@') ? bClean.slice(1) : bClean;
+
+      handles.add(bHandle);
+      handles.add(bLower);
+      handles.add(bNoAt);
+
+      names.add(bLower);
+      names.add(bNoAt);
+    }
+    indexed = { ids, handles, names };
+    matchesChannel._cache.set(channelBlocklist, indexed);
   }
+
+  // 1. Channel IDs
+  if (channelInfo?.ids) {
+    for (let i = 0; i < channelInfo.ids.length; i++) {
+      if (indexed.ids.has(channelInfo.ids[i])) return true;
+    }
+  }
+
+  let hasCandidates = false;
+
+  // 2. Handles
   if (channelInfo?.handles) {
-    channelInfo.handles.forEach(h => {
-      if (h) candidateHandles.add(h.toLowerCase());
-    });
+    for (let i = 0; i < channelInfo.handles.length; i++) {
+      const h = channelInfo.handles[i];
+      if (!h) continue;
+      hasCandidates = true;
+      const hLower = h.toLowerCase();
+      const hNoAt = hLower.startsWith('@') ? hLower.slice(1) : hLower;
+      if (indexed.handles.has(hLower) || indexed.handles.has(hNoAt)) return true;
+    }
   }
 
-  if (pageChannelInfo && candidateNames.size === 0 && candidateHandles.size === 0) {
-    if (pageChannelInfo.name) {
-      const cl = cleanChannelText(pageChannelInfo.name);
-      if (cl) candidateNames.add(cl.toLowerCase());
+  // 3. Names
+  if (channelInfo?.names) {
+    for (let i = 0; i < channelInfo.names.length; i++) {
+      const cleaned = cleanChannelText(channelInfo.names[i]);
+      if (!cleaned) continue;
+      hasCandidates = true;
+      if (indexed.names.has(cleaned.toLowerCase())) return true;
     }
+  }
+
+  // 4. Fallback to current page channel info if card has no candidate names/handles
+  if (!hasCandidates && pageChannelInfo) {
     if (pageChannelInfo.handle) {
-      candidateHandles.add(pageChannelInfo.handle.toLowerCase());
+      const ph = pageChannelInfo.handle.toLowerCase();
+      const phNoAt = ph.startsWith('@') ? ph.slice(1) : ph;
+      if (indexed.handles.has(ph) || indexed.handles.has(phNoAt)) return true;
     }
-  }
-
-  if (candidateNames.size === 0 && candidateHandles.size === 0 && !channelInfo?.ids?.length) return false;
-
-  for (const blocked of channelBlocklist) {
-    if (!blocked) continue;
-    const bLower = blocked.toLowerCase().trim();
-    if (!bLower) continue;
-
-    const bChannelId = bLower.includes('/channel/') ? bLower.split('/channel/')[1].split(/[/?#]/)[0] : bLower.replace(/^\/channel\//, "");
-    if (channelInfo?.ids?.includes(bChannelId)) return true;
-    let bClean = bLower;
-    const bHandleUrl = bLower.match(/(?:\/|^)@([^/?#]+)/);
-    if (bHandleUrl) bClean = '@' + bHandleUrl[1];
-    const bHandle = bClean.startsWith('@') ? bClean : '@' + bClean;
-    const bNoAt = bClean.startsWith('@') ? bClean.slice(1) : bClean;
-
-    // 1. Direct handle match
-    for (const h of candidateHandles) {
-      const hNoAt = h.startsWith('@') ? h.slice(1) : h;
-      if (h === bHandle || h === bLower || hNoAt === bNoAt) return true;
-    }
-
-    // 2. Direct name match
-    for (const name of candidateNames) {
-      if (name === bLower || name === bNoAt) return true;
+    if (pageChannelInfo.name) {
+      const pn = cleanChannelText(pageChannelInfo.name);
+      if (pn && indexed.names.has(pn.toLowerCase())) return true;
     }
   }
 
@@ -549,21 +574,34 @@ function matchesChannel(channelInfo, channelBlocklist, pageChannelInfo) {
 
 function matchesKeyword(title, keywordBlocklist) {
   if (!keywordBlocklist || keywordBlocklist.length === 0 || !title) return false;
-  const titleLower = title.toLowerCase();
 
-  for (const kw of keywordBlocklist) {
-    if (!kw) continue;
-    const kwLower = kw.toLowerCase().trim();
-    if (!kwLower) continue;
-
-    // For short keywords (<= 3 chars), use word boundaries to avoid false positives (e.g. "car" vs "Oscar")
-    if (kwLower.length <= 3) {
-      const escaped = kwLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`(?:^|[\\s.,!?:;"'()[\\]{}<>/\\\\#@\\-_])(${escaped})(?:$|[\\s.,!?:;"'()[\\]{}<>/\\\\#@\\-_])`, 'i');
-      if (regex.test(titleLower)) return true;
-    } else {
-      if (titleLower.includes(kwLower)) return true;
+  if (!matchesKeyword._cache) matchesKeyword._cache = new WeakMap();
+  let indexed = matchesKeyword._cache.get(keywordBlocklist);
+  if (!indexed) {
+    const shortRegexes = [];
+    const substrings = [];
+    for (let i = 0; i < keywordBlocklist.length; i++) {
+      const kw = keywordBlocklist[i];
+      if (!kw) continue;
+      const kwLower = kw.toLowerCase().trim();
+      if (!kwLower) continue;
+      if (kwLower.length <= 3) {
+        const escaped = kwLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        shortRegexes.push(new RegExp(`(?:^|[\\s.,!?:;"'()[\\]{}<>/\\\\#@\\-_])(${escaped})(?:$|[\\s.,!?:;"'()[\\]{}<>/\\\\#@\\-_])`, 'i'));
+      } else {
+        substrings.push(kwLower);
+      }
     }
+    indexed = { shortRegexes, substrings };
+    matchesKeyword._cache.set(keywordBlocklist, indexed);
+  }
+
+  const titleLower = title.toLowerCase();
+  for (let i = 0; i < indexed.substrings.length; i++) {
+    if (titleLower.includes(indexed.substrings[i])) return true;
+  }
+  for (let i = 0; i < indexed.shortRegexes.length; i++) {
+    if (indexed.shortRegexes[i].test(titleLower)) return true;
   }
   return false;
 }
@@ -1109,11 +1147,15 @@ function initDomObserver() {
         if (cards && target && getCardContainer(target)) addedElements.push(target);
         continue;
       }
-      if (mutation.type !== 'childList' || mutation.addedNodes.length === 0 || [...mutation.addedNodes].some(node => node.nodeType === 3)) {
+      let hasTextNode = false;
+      const added = mutation.addedNodes;
+      for (let k = 0; k < added.length; k++) {
+        if (added[k].nodeType === 3) { hasTextNode = true; break; }
+      }
+      if (added.length === 0 || hasTextNode) {
         const changed = mutation.target.nodeType === 1 ? mutation.target : mutation.target.parentElement;
         if (cards && changed && getCardContainer(changed)) addedElements.push(changed);
       }
-      const added = mutation.addedNodes;
       for (let j = 0; j < added.length; j++) {
         if (added[j].nodeType === 1) {
           if (added[j].matches('.iyt-quick-block-btn')) continue;

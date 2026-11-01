@@ -28,15 +28,11 @@
           <span>Advanced</span>
         </button>
       </div>
-      <button type="button" id="btn-snooze" class="hd-snooze-btn">
-        <svg class="pause-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
-        <svg class="resume-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m8 5 11 7-11 7z"/></svg>
-        <span id="btn-snooze-label" data-i18n="action_snooze">Pause blocking</span>
-      </button>
+      <div class="hd-divider" aria-hidden="true"></div>
       <button type="button" id="btn-open-options-page" class="hd-icon-btn" title="Open full-screen options in new tab ↗" aria-label="Open full-screen options">
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       </button>
-      <input type="checkbox" class="chk" id="toggle-extensionEnabled" />
+      <input type="checkbox" class="chk" id="toggle-extensionEnabled" title="Turn extension on or off" aria-label="Enable or disable Intentional YT" />
     </div>
   </div>
 
@@ -73,17 +69,6 @@
         <div id="schedule-override" hidden data-i18n="popup_override">This schedule overrides your saved controls.</div>
         <div id="protection-status-session"></div>
         <div id="protection-status-budget"></div>
-      </div>
-      <!-- Snooze Active Countdown Banner -->
-      <div id="snooze-banner" class="snooze-banner" style="display:none">
-        <div class="snooze-banner-content">
-          <svg class="snooze-banner-icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div class="snooze-banner-text">
-            <div class="snooze-banner-title" data-i18n="snooze_banner_title">Protections Snoozed</div>
-            <div id="snooze-banner-timer" class="snooze-banner-time">--:--</div>
-          </div>
-        </div>
-        <button type="button" id="btn-resume-snooze" class="snooze-banner-resume" data-i18n="action_resume_now">Resume Now</button>
       </div>
 
       <!-- Focus Lock Active Cooldown Banner (Persistent across tabs when unlock is pending) -->
@@ -915,30 +900,13 @@
                 </button>
                 <button type="button" id="btn-import-preset-link" class="btn-settings-pill" title="Import shared preset from link or code">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  <span>Import</span>
+                  <span>Import Link</span>
                 </button>
               </div>
             </div>
 
             <div class="settings-divider"></div>
 
-            <!-- Cross-Device Cloud Sync Row -->
-            <div class="settings-row">
-              <div class="settings-row-left">
-                <div class="settings-icon-box icon-box-violet">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                </div>
-                <div class="settings-row-meta">
-                  <span class="settings-row-label">Cross-Device Sync</span>
-                  <span class="settings-row-sub">Sync preferences across browsers via Chrome / Firefox account</span>
-                </div>
-              </div>
-              <div class="settings-row-actions">
-                <input type="checkbox" class="chk" id="toggle-syncEnabled" />
-              </div>
-            </div>
-
-            <div class="settings-divider"></div>
 
             <!-- Reset All Settings to Default Row -->
             <div class="settings-row">
@@ -1056,53 +1024,43 @@
     </div>
   </div>
 
-  <!-- Temporary Snooze Modal -->
-  <div id="modal-snooze" class="iyt-modal-overlay" style="display:none">
-    <div class="iyt-modal-card">
-      <div class="iyt-modal-header">
-        <span class="iyt-modal-title" data-i18n="snooze_modal_title">Pause Protections</span>
-      </div>
-      <div class="iyt-modal-body">
-        <p class="verify-prompt-text" data-i18n="snooze_modal_desc">
-          Protections will resume automatically when the timer ends.
-        </p>
-        <div class="snooze-options-grid">
-          <button type="button" class="snooze-opt-btn" data-minutes="15">
-            <span class="snooze-opt-time" data-i18n="snooze_duration_15">15 Minutes</span>
-            <span class="snooze-opt-desc" data-i18n="snooze_duration_15_desc">Quick break</span>
-          </button>
-          <button type="button" class="snooze-opt-btn" data-minutes="30">
-            <span class="snooze-opt-time" data-i18n="snooze_duration_30">30 Minutes</span>
-            <span class="snooze-opt-desc" data-i18n="snooze_duration_30_desc">Work session</span>
-          </button>
-          <button type="button" class="snooze-opt-btn" data-minutes="60">
-            <span class="snooze-opt-time" data-i18n="snooze_duration_60">1 Hour</span>
-            <span class="snooze-opt-desc" data-i18n="snooze_duration_60_desc">Extended session</span>
-          </button>
-        </div>
-      </div>
-      <div class="iyt-modal-footer">
-        <button type="button" id="btn-cancel-snooze" class="btn-secondary" data-i18n="focus_lock_btn_cancel">Cancel</button>
-      </div>
-    </div>
-  </div>
 
   
   <!-- Share / Import Preset Modal -->
-  <div id="import-preset-modal" class="iyt-modal-backdrop" style="display:none">
-    <div class="iyt-modal-card">
-      <div class="iyt-modal-header">
-        <span class="iyt-modal-title">Import Shared Setup</span>
-        <button type="button" class="iyt-modal-close" id="btn-close-import-preset-modal" aria-label="Close">&times;</button>
+  <div id="import-preset-modal" class="iyt-modal-overlay" style="display:none">
+    <div class="iyt-modal-card preset-modal-card">
+      <div class="iyt-modal-header preset-modal-header">
+        <div class="preset-modal-title-wrap">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span class="iyt-modal-title">Import Shared Setup</span>
+        </div>
+        <button type="button" class="preset-modal-close" id="btn-close-import-preset-modal" aria-label="Close" title="Close">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
       <div class="iyt-modal-body">
-        <p class="verify-prompt-text">Paste an intentionalyt.me/setup link or preset code below:</p>
-        <input type="text" id="input-import-preset" class="blocklist-text-input" placeholder="https://intentionalyt.me/setup#s=... or code" style="width:100%;margin-top:8px" autocomplete="off" spellcheck="false" />
-        <div id="import-preset-preview" style="display:none;margin-top:10px;padding:8px 10px;background:var(--surface-inset);border-radius:6px;font-size:12px;color:var(--ink-secondary);line-height:1.45"></div>
-        <div id="import-preset-error" class="form-error" style="display:none;margin-top:6px" role="alert">Invalid preset link or code</div>
+        <p class="verify-prompt-text">Paste a shared setup link or preset code to preview and apply:</p>
+        <div class="preset-input-group">
+          <input type="text" id="input-import-preset" class="preset-input-field" placeholder="https://intentionalyt.me/setup#s=... or code" autocomplete="off" spellcheck="false" />
+          <button type="button" id="btn-paste-preset" class="btn-paste-action" title="Paste from clipboard">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Paste</span>
+          </button>
+        </div>
+        <div id="import-preset-error" class="modal-error preset-error-banner" style="display:none" role="alert"></div>
+        <div id="import-preset-preview" class="preset-preview-box" style="display:none">
+          <div class="preset-preview-top">
+            <span class="preset-preview-status-pill">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Ready to apply</span>
+            </span>
+            <span id="preset-preview-name" class="preset-preview-name"></span>
+          </div>
+          <div id="preset-preview-tags" class="preset-preview-tags"></div>
+        </div>
       </div>
       <div class="iyt-modal-footer">
-        <button type="button" id="btn-confirm-import-preset" class="btn-primary" style="display:none">Apply Setup</button>
+        <button type="button" id="btn-confirm-import-preset" class="btn-primary" disabled>Apply Setup</button>
         <button type="button" id="btn-cancel-import-preset" class="btn-secondary">Cancel</button>
       </div>
     </div>

@@ -22,7 +22,13 @@ const IYT_Timer = (() => {
   const _pendingBatches = new Map();
   const _batchPrefix = crypto.randomUUID();
   let _batchSequence = 0;
-  function _pendingSeconds() { return [..._pendingBatches.values()].filter(b => b.day === _day).reduce((n,b) => n + b.seconds, 0); }
+  function _pendingSeconds() {
+    let total = 0;
+    for (const b of _pendingBatches.values()) {
+      if (b.day === _day) total += b.seconds;
+    }
+    return total;
+  }
   function _hasActiveMiniplayer() {
     return Boolean(document.querySelector?.('ytd-miniplayer[active] video, ytm-miniplayer[active] video, ytm-miniplayer video'));
   }

@@ -12,6 +12,7 @@ async function loadLocaleCatalog(lang) {
     throw new Error('Invalid locale');
   }
   if (localeCatalogs.has(lang)) return localeCatalogs.get(lang);
+  if (localeCatalogs.size >= 3) localeCatalogs.clear();
   const response = await fetch(browser.runtime.getURL(`_locales/${lang}/messages.json`));
   if (!response.ok) throw new Error('Locale catalog unavailable');
   const catalog = await response.json();
@@ -77,7 +78,6 @@ function setupContextMenus() {
   if (!browser?.contextMenus?.create) return;
   try {
     const menus = [
-      { id: 'iyt-snooze-15', title: '⏸ Snooze Intentional YT (15 mins)' },
       { id: 'iyt-toggle-grayscale', title: '🔇 Toggle Grayscale Mode' },
       { id: 'iyt-block-channel', title: '🚫 Block this channel' }
     ];
@@ -147,22 +147,6 @@ if (browser?.contextMenus?.onClicked) {
 }
 
 setupContextMenus();
-// Cross-device sync listener
-if (browser?.storage?.onChanged) {
-  browser.storage.onChanged.addListener(async (changes, area) => {
-    if (area === 'sync' && changes?.iyt_sync_settings?.newValue) {
-      try {
-        const local = await StorageManager.getSettings();
-        if (local.syncEnabled) {
-          const remote = changes.iyt_sync_settings.newValue;
-          await StorageManager.updateSettings(remote);
-        }
-      } catch (err) {
-        console.warn('[IYT Sync] Error applying remote sync settings:', err);
-      }
-    }
-  });
-}
 
 browser.runtime.onStartup.addListener(() => { reconcile().catch(console.error); });
 // Starts the seven-day wait on install, or on first run of this version for
