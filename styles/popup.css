@@ -520,34 +520,54 @@ body {
 #hd {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 18px;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
   background: var(--surface-header);
   border-bottom: 1px solid var(--rule-hairline);
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+.hd-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 .hd-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 5px;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
   flex-shrink: 0;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
 }
 
 .hd-name {
-  font-size: 14.5px;
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  color: var(--ink-primary);
-  flex: 1;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.hd-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .hd-snooze-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  min-height: 30px;
-  padding: 0 9px;
+  height: 26px;
+  padding: 0 8px;
   border-radius: 6px;
   background: var(--surface-inset);
   border: 1px solid var(--rule-hairline);
@@ -584,15 +604,17 @@ body.ext-snoozed .hd-snooze-btn {
 #ext-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 10.5px;
+  gap: 4px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  padding: 2.5px 8px;
-  border-radius: 12px;
+  padding: 2px 7px;
+  border-radius: 10px;
   background: var(--tint-emerald-subtle);
   color: var(--tint-emerald);
-  line-height: 1.3;
+  line-height: 1.2;
+  flex-shrink: 0;
+  user-select: none;
 }
 
 #ext-badge::before {
@@ -601,7 +623,7 @@ body.ext-snoozed .hd-snooze-btn {
   height: 5px;
   border-radius: 50%;
   background: var(--tint-emerald);
-  box-shadow: 0 0 5px rgba(52, 211, 153, 0.5);
+  box-shadow: 0 0 4px rgba(52, 211, 153, 0.5);
   display: inline-block;
   flex-shrink: 0;
 }
@@ -623,18 +645,19 @@ body.ext-snoozed #ext-badge {
 
 body.ext-snoozed #ext-badge::before {
   background: var(--tint-amber);
-  box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 4px rgba(245, 158, 11, 0.5);
 }
 
 /* Master toggle — same .chk sizing override as before */
 #toggle-extensionEnabled {
-  width: 38px;
-  height: 22px;
-  border-radius: 11px;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  flex-shrink: 0;
 }
 #toggle-extensionEnabled::after {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   top: 1px;
   left: 1px;
 }
@@ -651,7 +674,7 @@ body.ext-snoozed #ext-badge::before {
   border: 1px solid var(--rule-hairline);
   border-radius: 6px;
   padding: 2px;
-  gap: 2px;
+  gap: 1px;
   user-select: none;
   flex-shrink: 0;
 }
@@ -660,13 +683,13 @@ body.ext-snoozed #ext-badge::before {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  height: 24px;
-  padding: 0 8px;
+  height: 22px;
+  padding: 0 7px;
   border-radius: 4px;
   border: none;
   background: transparent;
   color: var(--ink-tertiary);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 550;
   font-family: inherit;
   cursor: pointer;
@@ -709,6 +732,59 @@ body.mode-simple .preset-dropdown-wrap {
 
 body.mode-simple .preset-dropdown {
   width: 100%;
+}
+
+/* In Simple mode, seamlessly blend common-controls and unnested sections into a single flat card */
+body.mode-simple .accordion-section {
+  margin: 0 12px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+body.mode-simple .accordion-section .sh-btn {
+  display: none !important;
+}
+
+body.mode-simple .accordion-body {
+  display: block !important;
+  grid-template-rows: none !important;
+  overflow: visible !important;
+  max-height: none !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent;
+}
+
+body.mode-simple .accordion-inner {
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+body.mode-simple #common-controls {
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid var(--rule-hairline);
+}
+
+body.mode-simple .accordion-section .rows {
+  background: var(--surface-elevated);
+  border-left: 1px solid var(--rule-hairline);
+  border-right: 1px solid var(--rule-hairline);
+}
+
+body.mode-simple #sec-interface .rows {
+  border-bottom: 1px solid var(--rule-hairline);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  margin-bottom: 12px;
+}
+
+body.mode-simple #sec-interface label:has(#toggle-hideThumbnails) {
+  border-bottom: none;
 }
 
 /* Simple Mode promo banner */
@@ -4209,9 +4285,17 @@ body.ext-off .watch-bar-center {
   html, body, #shell { width: min(540px, 100vw); }
 }
 
+@media (max-width: 480px) {
+  #hd { padding: 9px 12px; gap: 8px; }
+  .mode-pill-btn span { display: none; }
+  .mode-pill-btn { padding: 0 5px; }
+  #hd .hd-snooze-btn { width: 26px; height: 26px; padding: 0; justify-content: center; }
+  #btn-snooze-label { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+
 @media (max-width: 400px) {
   .mode-switch-pill { gap: 1px; padding: 1px; }
-  .mode-pill-btn { padding: 0 4px; font-size: 10px; height: 22px; }
+  .mode-pill-btn { padding: 0 4px; font-size: 10px; height: 20px; }
   .mode-pill-btn span { display: none; }
   .simple-mode-banner { flex-direction: column; align-items: stretch; gap: 8px; }
   .btn-blocklist-add { width: 34px; flex: 0 0 34px; padding: 0; }
@@ -4225,10 +4309,11 @@ body.ext-off .watch-bar-center {
   .watch-capsule-label { display: none; }
   #watch-bar .prog { width: 24px; }
   #hd { gap: 6px; padding-inline: 10px; }
-  #hd .hd-snooze-btn { width: 30px; padding: 0; justify-content: center; }
+  .hd-left { gap: 6px; }
+  .hd-right { gap: 4px; }
+  #hd .hd-snooze-btn { width: 26px; height: 26px; padding: 0; justify-content: center; }
   #btn-snooze-label { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  #ext-badge { max-width: 72px; overflow-wrap: anywhere; }
-  .hd-name { min-width: 0; font-size: 14px; }
+  #ext-badge { padding: 1.5px 5px; font-size: 9.5px; max-width: 60px; }
   .tab-btn { min-width: 0; padding-inline: 6px; }
   .row-text, .row-desc { overflow-wrap: anywhere; }
   .iyt-modal-card { max-width: calc(100vw - 24px); }
