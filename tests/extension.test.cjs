@@ -197,6 +197,18 @@ test('channel Home blocking defaults off, persists independently and respects Fo
   await assert.rejects(env.manager.updateSetting('blockChannelHome', false), { code: 'LOCKED' });
 });
 
+test('end screen blocking defaults on, persists independently and respects Focus Lock', async () => {
+  const env = store();
+  assert.equal(env.manager.getInitialSettings().blockEndScreens, false);
+  assert.equal(env.manager.getDefaultSettings().blockEndScreens, true);
+  await env.manager.updateSettings({ blockHomeFeed: true, blockEndScreens: true });
+  const saved = await store(env.state).manager.getSettings();
+  assert.equal(saved.blockEndScreens, true);
+  assert.equal(saved.blockHomeFeed, true);
+  await locked(env);
+  await assert.rejects(env.manager.updateSetting('blockEndScreens', false), { code: 'LOCKED' });
+});
+
 test('presets apply atomically without snapshots and preserve unrelated preferences', async () => {
   const env = store();
   await env.manager.updateSettings({ themeMode:'dark', dailyLimit:{enabled:true,limitMinutes:45} });
@@ -1370,4 +1382,42 @@ test('custom homeRedirect navigates / to Subscriptions, Watch Later, or History 
   spaEvents['yt-navigate-start']({ detail: { url: '/' } });
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(spaReplaced, '/playlist?list=WL', 'SPA navigation to / triggers redirect to watchLater');
+});
+
+test('allowlist and dim mode validation, policies and card evaluation', async () => {
+  const env = store();
+  const defaults = env.manager.getDefaultSettings();
+  assert.equal(defaults.filterMode, 'blocklist');
+  assert.equal(defaults.allowlistAction, 'dim');
+  assert.equal(JSON.stringify(defaults.channelAllowlist), JSON.stringify([]));
+  assert.equal(JSON.stringify(defaults.keywordAllowlist), JSON.stringify([]));
+
+  // Validation
+  defaults.channelAllowlist = [' @veritasium ', '@veritasium', '@3blue1brown'];
+  defaults.keywordAllowlist = [' calculus ', 'physics'];
+  defaults.filterMode = 'allowlist';
+  defaults.allowlistAction = 'dim';
+  const validated = env.validate(defaults);
+  assert.equal(JSON.stringify(validated.channelAllowlist), JSON.stringify(['@veritasium', '@3blue1brown']));
+  assert.equal(JSON.stringify(validated.keywordAllowlist), JSON.stringify(['calculus', 'physics']));
+  assert.equal(validated.filterMode, 'allowlist');
+  assert.equal(validated.allowlistAction, 'dim');
+
+  assert.throws(() => env.validate({ ...defaults, filterMode: 'invalid' }), /Invalid setting: filterMode/);
+  assert.throws(() => env.validate({ ...defaults, allowlistAction: 'invalid' }), /Invalid setting: allowlistAction/);
+
+  // Focus Lock weakening protection
+  const lockedState = {
+    ...defaults,
+    focusLock: { enabled: true, pin: 'a'.repeat(64), cooldownMinutes: 10, lockedSettings: [], pendingUnlock: null }
+  };
+  assert.equal(env.policy.weakens(lockedState, { ...lockedState, filterMode: 'blocklist' }, 'update'), true);
+  assert.equal(env.policy.weakens({ ...lockedState, allowlistAction: 'hide' }, { ...lockedState, allowlistAction: 'dim' }, 'update'), true);
+
+  // Blocker CSS rules
+  const css = source('styles/blocker.css');
+  assert.ok(css.includes('[data-iyt-dimmed="true"]'));
+  assert.ok(css.includes('opacity: 0.18 !important;'));
+  assert.ok(css.includes('filter: grayscale(100%) !important;'));
+  assert.ok(css.includes('.iyt-quick-allow-btn'));
 });

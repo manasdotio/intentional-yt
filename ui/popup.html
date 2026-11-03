@@ -21,11 +21,11 @@
       <div class="mode-switch-pill" role="radiogroup" aria-label="Mode">
         <button type="button" class="mode-pill-btn active" id="btn-mode-simple" data-mode="simple" aria-checked="true" role="radio" title="Simple mode: essential focus controls">
           <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          <span>Simple</span>
+          <span data-i18n="mode_simple">Simple</span>
         </button>
         <button type="button" class="mode-pill-btn" id="btn-mode-advanced" data-mode="advanced" aria-checked="false" role="radio" title="Advanced mode: all granular toggles and filters">
           <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          <span>Advanced</span>
+          <span data-i18n="mode_advanced">Advanced</span>
         </button>
       </div>
       <div class="hd-divider" aria-hidden="true"></div>
@@ -140,19 +140,17 @@
           </button>
         </div>
         <div class="preset-dropdown-wrap">
-          <svg class="preset-dropdown-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <select id="select-preset" class="preset-dropdown" aria-label="Focus Preset" aria-describedby="preset-tooltip-text" data-i18n-title="preset_desc_balanced" title="Balanced · Hides feeds and suggestions">
+          <svg class="preset-dropdown-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <select id="select-preset" class="preset-dropdown" aria-label="Load a preset" title="Apply a preset to quickly configure your blocking settings">
+            <option value="" disabled selected data-i18n="preset_placeholder">Load a preset…</option>
             <option value="balanced" data-i18n="preset_balanced">Balanced</option>
-            <option value="antiShorts">Anti-Shorts</option>
-
+            <option value="antiShorts" data-i18n="preset_anti_shorts">Anti-Shorts</option>
             <option value="zen" data-i18n="preset_zen">Deep Work (Zen)</option>
-
-            <option value="custom" data-i18n="preset_custom">Custom</option>
           </select>
           <svg class="preset-dropdown-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           <div class="preset-tooltip" id="preset-tooltip" role="tooltip">
             <span class="preset-tooltip-dot"></span>
-            <span id="preset-tooltip-text" data-i18n="preset_desc_balanced">Hides the home feed, Shorts, and suggestions. Keeps comments and subscriptions.</span>
+            <span id="preset-tooltip-text" data-i18n="preset_tooltip_static">Apply a preset to quickly configure your blocking settings. Your current settings stay until you pick one.</span>
           </div>
         </div>
         <div class="detailed-header advanced-only">
@@ -210,7 +208,7 @@
         </button>
         <div class="accordion-body" id="sec-feed-body">
           <div class="accordion-inner">
-            <div class="rows"><label class="row">
+            <div class="rows"><label class="row advanced-only">
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 <span class="row-text" data-i18n="toggle_block_channel_home">Hide channel Home tab</span>
                 <input type="checkbox" class="chk" id="toggle-blockChannelHome">
@@ -267,7 +265,7 @@
                 <input type="checkbox" class="chk" id="toggle-blockComments">
               </label><label class="row advanced-only">
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle><circle cx="12" cy="12" r="10"></circle></svg>
-                <span class="row-text" data-i18n="toggle_block_profile_photos">Hide commenter photos</span>
+                <span class="row-text" data-i18n="toggle_block_profile_photos">Hide profile photos</span>
                 <input type="checkbox" class="chk" id="toggle-blockProfilePhotos">
               </label><label class="row advanced-only">
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="8" y1="10" x2="16" y2="10"></line></svg>
@@ -280,31 +278,24 @@
               </label><div class="row advanced-only">
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                 <div class="row-text-group">
-                  <span class="setting-label"><label class="row-text" id="label-toggle-blockEndScreenVideowall" for="toggle-blockEndScreenVideowall" data-i18n="toggle_block_endscreen_videowall">Hide end screen recommendations</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockEndScreenVideowall" aria-describedby="help-toggle-blockEndScreenVideowall" data-help="help-toggle-blockEndScreenVideowall"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
-                  <span id="help-toggle-blockEndScreenVideowall" class="setting-help-text" hidden="" data-i18n="desc_block_endscreen_videowall">Hide recommended video grid and next video wall when playback ends</span>
+                  <span class="setting-label"><label class="row-text" id="label-toggle-blockEndScreens" for="toggle-blockEndScreens" data-i18n="toggle_block_endscreens">Hide end screen suggestions &amp; cards</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockEndScreens" aria-describedby="help-toggle-blockEndScreens" data-help="help-toggle-blockEndScreens"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
+                  <span id="help-toggle-blockEndScreens" class="setting-help-text" hidden="" data-i18n="desc_block_endscreens">Hides recommended video grids, creator cards, and overlay teasers at the end of videos</span>
                 </div>
-                <input type="checkbox" class="chk" id="toggle-blockEndScreenVideowall" aria-describedby="help-toggle-blockEndScreenVideowall">
-              </div><div class="row advanced-only">
-                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                <div class="row-text-group">
-                  <span class="setting-label"><label class="row-text" id="label-toggle-blockEndScreenCards" for="toggle-blockEndScreenCards" data-i18n="toggle_block_endscreen_cards">Hide end screen cards</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockEndScreenCards" aria-describedby="help-toggle-blockEndScreenCards" data-help="help-toggle-blockEndScreenCards"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
-                  <span id="help-toggle-blockEndScreenCards" class="setting-help-text" hidden="" data-i18n="desc_block_endscreen_cards">Hide creator-placed video, playlist, and subscribe cards in the last 20s</span>
-                </div>
-                <input type="checkbox" class="chk" id="toggle-blockEndScreenCards" aria-describedby="help-toggle-blockEndScreenCards">
+                <input type="checkbox" class="chk" id="toggle-blockEndScreens" aria-describedby="help-toggle-blockEndScreens">
               </div><label class="row advanced-only">
-                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                <span class="row-text" data-i18n="toggle_disable_annotations">Hide annotations</span>
-                <input type="checkbox" class="chk" id="toggle-disableAnnotations">
+                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span class="row-text" data-i18n="toggle_block_merch">Hide merch &amp; offers</span>
+                <input type="checkbox" class="chk" id="toggle-blockMerch">
               </label><details id="below-video-controls" class="setting-group advanced-only">
-                <summary data-i18n="below_video_label">Below the video</summary>
-              <div class="row">
-                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                <div class="row-text-group">
-                  <span class="setting-label"><label class="row-text" id="label-toggle-blockVideoInfo" for="toggle-blockVideoInfo" data-i18n="toggle_block_video_info">Hide video info panel</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockVideoInfo" aria-describedby="help-toggle-blockVideoInfo" data-help="help-toggle-blockVideoInfo"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
-                  <span id="help-toggle-blockVideoInfo" class="setting-help-text" hidden="" data-i18n="desc_block_video_info">Hides all information and actions under the video player</span>
+                <summary class="setting-group-summary"><span class="setting-group-title" data-i18n="group_below_video">Fine-tune video page details</span><svg class="setting-group-arrow" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
+                <div class="row">
+                  <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                  <div class="row-text-group">
+                    <span class="setting-label"><label class="row-text" id="label-toggle-blockVideoInfo" for="toggle-blockVideoInfo" data-i18n="toggle_block_video_info">Hide video info</label><button type="button" class="setting-help" aria-labelledby="label-toggle-blockVideoInfo" aria-describedby="help-toggle-blockVideoInfo" data-help="help-toggle-blockVideoInfo"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
+                    <span id="help-toggle-blockVideoInfo" class="setting-help-text" hidden="" data-i18n="desc_block_video_info">Hides all information and actions under the video player</span>
+                  </div>
+                  <input type="checkbox" class="chk" id="toggle-blockVideoInfo" aria-describedby="help-toggle-blockVideoInfo">
                 </div>
-                <input type="checkbox" class="chk" id="toggle-blockVideoInfo" aria-describedby="help-toggle-blockVideoInfo">
-              </div>
                 <div class="row">
                   <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
                   <div class="row-text-group">
@@ -327,11 +318,7 @@
                   </div>
                   <input type="checkbox" class="chk" id="toggle-blockVideoDescription">
                 </label>
-              </details><label class="row advanced-only">
-                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                <span class="row-text" data-i18n="toggle_block_merch">Hide merch &amp; offers</span>
-                <input type="checkbox" class="chk" id="toggle-blockMerch">
-              </label></div>
+              </details></div>
           </div>
         </div>
       </div>
@@ -381,13 +368,21 @@
 
       <div class="simple-mode-banner simple-only" id="simple-mode-banner">
         <div class="simple-banner-text">
-          <span class="simple-banner-title">Need granular controls?</span>
-          <span class="simple-banner-sub">14+ advanced toggles for player elements, end screens, and custom filters are in Advanced mode.</span>
+          <span class="simple-banner-title" data-i18n="simple_banner_title">Need granular controls?</span>
+          <span class="simple-banner-sub" data-i18n="simple_banner_desc">14+ advanced toggles for player elements, end screens, and custom filters are in Advanced mode.</span>
         </div>
         <button type="button" id="btn-switch-to-advanced" class="btn-switch-advanced" title="Switch to Advanced mode">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          <span>Advanced ⚙</span>
+          <span data-i18n="simple_banner_btn">Advanced ⚙</span>
         </button>
+      </div>
+
+      <div id="search-no-results" class="search-empty-state" style="display:none" role="status">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <span class="search-empty-title" data-i18n="search_no_results">No settings found</span>
+        <span class="search-empty-sub" data-i18n="search_no_results_sub">Try searching for Shorts, Comments, Feed, or Autoplay</span>
       </div>
 
       <div id="setting-search-shortcuts" class="setting-search-shortcuts advanced-only" hidden></div>
@@ -398,6 +393,33 @@
     <!-- ── TAB 2: BLOCKLISTS / FILTERS ────────────────────────── -->
     <div id="panel-blocklists" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-blocklists">
       <div class="blocklist-sections-wrap">
+        <!-- Filter Mode Selector (Blocklist vs Allowlist) -->
+        <div class="filter-mode-wrap">
+          <div class="filter-mode-toggle" role="radiogroup" aria-label="Filter Mode">
+            <button type="button" class="filter-mode-btn active" id="btn-mode-blocklist" data-mode="blocklist" role="radio" aria-checked="true">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+              <span data-i18n="filter_mode_blocklist">Blocklist</span>
+            </button>
+            <button type="button" class="filter-mode-btn" id="btn-mode-allowlist" data-mode="allowlist" role="radio" aria-checked="false">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span data-i18n="filter_mode_allowlist">Allowlist</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Allowlist Action Option (Dim vs Hide) -->
+        <div class="allowlist-action-card" id="allowlist-action-container" style="display:none">
+          <span class="allowlist-action-label" data-i18n="allowlist_action_title">Other videos action:</span>
+          <div class="allowlist-action-pills" role="radiogroup" aria-label="Unlisted videos action">
+            <button type="button" class="action-pill active" id="btn-action-dim" data-action="dim" role="radio" aria-checked="true">
+              <span data-i18n="allowlist_action_dim">✦ Dim</span>
+            </button>
+            <button type="button" class="action-pill" id="btn-action-hide" data-action="hide" role="radio" aria-checked="false">
+              <span data-i18n="allowlist_action_hide">Hide</span>
+            </button>
+          </div>
+        </div>
+
         <section class="blocklist-card" id="card-channel-blocklist" aria-labelledby="channel-filter-title">
           <div class="blocklist-card-header">
             <div class="blocklist-header-left">
@@ -709,6 +731,11 @@
               <span class="stats-hero-unit" data-i18n="stats_unit_watchtime">total watch time</span>
             </div>
             <div class="stats-hero-status" id="stats-panel-status">No daily limit configured</div>
+            <div class="stats-hero-progress-wrap" id="stats-hero-prog-wrap" style="display:none">
+              <div class="stats-hero-prog-bar">
+                <div class="stats-hero-prog-fill" id="stats-hero-prog-fill" style="width:0%"></div>
+              </div>
+            </div>
           </div>
 
           <div class="stats-hero-actions">
@@ -721,6 +748,18 @@
               <span data-i18n="stats_btn_reset_panel">Reset Today</span>
             </button>
           </div>
+        </div>
+
+        <!-- 7-Day Watch Time Trend Card -->
+        <div class="stats-trend-card" id="stats-trend-card">
+          <div class="stats-trend-header">
+            <div class="stats-trend-title-wrap">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span class="stats-trend-title" data-i18n="stats_trend_title">7-Day Activity</span>
+            </div>
+            <span class="stats-trend-badge" id="stats-trend-total">0m this week</span>
+          </div>
+          <div class="stats-trend-chart" id="stats-trend-chart"></div>
         </div>
 
         <div class="stats-info-callout">
@@ -764,7 +803,7 @@
 
         <!-- Section 1: General Preferences -->
         <div class="settings-group">
-          <div class="settings-group-title">General</div>
+          <div class="settings-group-title" data-i18n="settings_group_general">General</div>
           <div class="settings-card">
             <!-- Appearance / Theme Row -->
             <div class="settings-row">
@@ -839,14 +878,14 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </div>
                 <div class="settings-row-meta">
-                  <span class="settings-row-label">Setup Wizard</span>
-                  <span class="settings-row-sub">Goal-driven 30-second focus setup</span>
+                  <span class="settings-row-label" data-i18n="settings_setup_wizard_title">Setup Wizard</span>
+                  <span class="settings-row-sub" data-i18n="settings_setup_wizard_desc">Goal-driven 30-second focus setup</span>
                 </div>
               </div>
               <div class="settings-row-actions">
                 <button type="button" id="btn-open-welcome-wizard" class="btn-settings-pill" title="Launch onboarding wizard in a new tab">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                  <span>Launch ↗</span>
+                  <span data-i18n="settings_setup_wizard_btn">Launch ↗</span>
                 </button>
               </div>
             </div>
@@ -855,7 +894,7 @@
 
         <!-- Section 2: Data & Backup -->
         <div class="settings-group advanced-only">
-          <div class="settings-group-title">Data &amp; Backup</div>
+          <div class="settings-group-title" data-i18n="settings_group_data">Data &amp; Backup</div>
           <div class="settings-card">
             <!-- Backup & Restore Row -->
             <div class="settings-row">
@@ -889,18 +928,18 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                 </div>
                 <div class="settings-row-meta">
-                  <span class="settings-row-label">Share My Setup</span>
-                  <span class="settings-row-sub">Generate a 1-click link to share with students, teams, or friends</span>
+                  <span class="settings-row-label" data-i18n="settings_share_setup_title">Share My Setup</span>
+                  <span class="settings-row-sub" data-i18n="settings_share_setup_desc">Generate a 1-click link to share with students, teams, or friends</span>
                 </div>
               </div>
               <div class="settings-row-actions">
                 <button type="button" id="btn-share-setup" class="btn-settings-pill" title="Copy 1-click shareable link">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                  <span>Share Link</span>
+                  <span data-i18n="settings_share_btn">Share Link</span>
                 </button>
                 <button type="button" id="btn-import-preset-link" class="btn-settings-pill" title="Import shared preset from link or code">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  <span>Import Link</span>
+                  <span data-i18n="settings_import_btn">Import Link</span>
                 </button>
               </div>
             </div>
@@ -990,7 +1029,7 @@
       </div>
       <div class="iyt-modal-body">
         <div class="verify-target-wrap" id="verify-target-wrap" style="display:none">
-          <span class="verify-target-label">Unlocking:</span>
+          <span class="verify-target-label" data-i18n="verify_target_label">Unlocking:</span>
           <span id="verify-target-name" class="verify-target-badge"></span>
         </div>
         <p class="verify-prompt-text" data-i18n="focus_lock_verify_prompt">Enter your 4-digit PIN to begin the cooldown delay:</p>
@@ -1032,19 +1071,19 @@
       <div class="iyt-modal-header preset-modal-header">
         <div class="preset-modal-title-wrap">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span class="iyt-modal-title">Import Shared Setup</span>
+          <span class="iyt-modal-title" data-i18n="modal_import_setup_title">Import Shared Setup</span>
         </div>
         <button type="button" class="preset-modal-close" id="btn-close-import-preset-modal" aria-label="Close" title="Close">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
       <div class="iyt-modal-body">
-        <p class="verify-prompt-text">Paste a shared setup link or preset code to preview and apply:</p>
+        <p class="verify-prompt-text" data-i18n="modal_import_setup_desc">Paste a shared setup link or preset code to preview and apply:</p>
         <div class="preset-input-group">
           <input type="text" id="input-import-preset" class="preset-input-field" placeholder="https://intentionalyt.me/setup#s=... or code" autocomplete="off" spellcheck="false" />
           <button type="button" id="btn-paste-preset" class="btn-paste-action" title="Paste from clipboard">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span>Paste</span>
+            <span data-i18n="btn_paste_code">Paste</span>
           </button>
         </div>
         <div id="import-preset-error" class="modal-error preset-error-banner" style="display:none" role="alert"></div>
@@ -1052,7 +1091,7 @@
           <div class="preset-preview-top">
             <span class="preset-preview-status-pill">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Ready to apply</span>
+              <span data-i18n="preset_ready_apply">Ready to apply</span>
             </span>
             <span id="preset-preview-name" class="preset-preview-name"></span>
           </div>
@@ -1060,8 +1099,8 @@
         </div>
       </div>
       <div class="iyt-modal-footer">
-        <button type="button" id="btn-confirm-import-preset" class="btn-primary" disabled>Apply Setup</button>
-        <button type="button" id="btn-cancel-import-preset" class="btn-secondary">Cancel</button>
+        <button type="button" id="btn-confirm-import-preset" class="btn-primary" disabled data-i18n="btn_apply_setup">Apply Setup</button>
+        <button type="button" id="btn-cancel-import-preset" class="btn-secondary" data-i18n="btn_cancel">Cancel</button>
       </div>
     </div>
   </div>

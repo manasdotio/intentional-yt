@@ -1433,5 +1433,207 @@
   "home_redirect_history": {
     "message": "इतिहास",
     "description": "Option to redirect to watch history"
+  },
+  "toggle_block_endscreens": {
+    "message": "वीडियो समाप्ति सुझाव छुपाएं",
+    "description": "Toggle label to hide end screen video grids, creator cards and overlays"
+  },
+  "desc_block_endscreens": {
+    "message": "वीडियो समाप्त होने पर सुझाई गई वीडियो ग्रिड और अगली वीडियो वॉल को छुपाएं",
+    "description": "Description for consolidated end screens toggle"
+  },
+  "preset_placeholder": {
+    "message": "Load a preset…"
+  },
+  "preset_tooltip_static": {
+    "message": "Apply a preset to quickly configure your blocking settings. Your current settings stay until you pick one."
+  },
+  "filter_mode_blocklist": {
+    "message": "Blocklist",
+    "description": "Label for filter mode that blocks listed channels and keywords"
+  },
+  "filter_mode_allowlist": {
+    "message": "Allowlist",
+    "description": "Label for filter mode that allows only listed channels and keywords"
+  },
+  "allowlist_action_title": {
+    "message": "Other videos action:",
+    "description": "Label for choosing action on videos that are not in the allowlist"
+  },
+  "allowlist_action_dim": {
+    "message": "✦ Dim",
+    "description": "Option to dim and desaturate unlisted videos"
+  },
+  "allowlist_action_hide": {
+    "message": "Hide",
+    "description": "Option to completely hide unlisted videos"
+  },
+  "section_channel_allowlist": {
+    "message": "Channel Allowlist",
+    "description": "Title for channel allowlist section"
+  },
+  "section_keyword_allowlist": {
+    "message": "Keyword Allowlist",
+    "description": "Title for keyword allowlist section"
+  },
+  "placeholder_channel_allow_input": {
+    "message": "e.g. 3Blue1Brown, Veritasium...",
+    "description": "Placeholder for channel allowlist input"
+  },
+  "placeholder_keyword_allow_input": {
+    "message": "e.g. calculus, python, physics...",
+    "description": "Placeholder for keyword allowlist input"
+  },
+  "allowlist_channels_empty": {
+    "message": "No channels allowlisted",
+    "description": "Empty state text when no channels are in allowlist"
+  },
+  "allowlist_keywords_empty": {
+    "message": "No keywords allowlisted",
+    "description": "Empty state text when no keywords are in allowlist"
+  },
+  "filters_quick_allow_title": {
+    "message": "Show Allow buttons",
+    "description": "Toggle label for 1-click in-feed channel allow button"
+  },
+  "filters_quick_allow_desc": {
+    "message": "Show an Allow button beside channels on video cards.",
+    "description": "Toggle description for 1-click in-feed channel allow button"
+  },
+  "action_allow": {
+    "message": "Allow",
+    "description": "Button text for 1-click in-feed channel allow button"
+  },
+  "channel_allowed": {
+    "message": "Allowed $1",
+    "description": "Toast message after allowing a channel"
+  },
+  "toast_mode_blocklist": {
+    "message": "Switched to Blocklist mode",
+    "description": "Toast message when switching to blocklist mode"
+  },
+  "toast_mode_allowlist": {
+    "message": "Switched to Allowlist mode",
+    "description": "Toast message when switching to allowlist mode"
+  },
+  "toast_action_dim": {
+    "message": "Unlisted videos will be dimmed",
+    "description": "Toast message when setting allowlist action to dim"
+  },
+  "toast_action_hide": {
+    "message": "Unlisted videos will be hidden",
+    "description": "Toast message when setting allowlist action to hide"
+  },
+  "mode_simple": {
+    "message": "Simple",
+    "description": "Label for simple mode switch"
+  },
+  "mode_advanced": {
+    "message": "Advanced",
+    "description": "Label for advanced mode switch"
+  },
+  "preset_anti_shorts": {
+    "message": "Anti-Shorts",
+    "description": "Preset name for Anti-Shorts focus mode"
+  },
+  "simple_banner_title": {
+    "message": "Need granular controls?",
+    "description": "Title for banner suggesting advanced mode"
+  },
+  "simple_banner_desc": {
+    "message": "14+ advanced toggles for player elements, end screens, and custom filters are in Advanced mode.",
+    "description": "Description for banner suggesting advanced mode"
+  },
+  "simple_banner_btn": {
+    "message": "Advanced →",
+    "description": "Button to switch to advanced mode"
+  },
+  "settings_group_general": {
+    "message": "General",
+    "description": "General settings group header"
+  },
+  "settings_group_data": {
+    "message": "Data & Backup",
+    "description": "Data and backup settings group header"
+  },
+  "settings_setup_wizard_title": {
+    "message": "Setup Wizard",
+    "description": "Title for onboarding wizard launcher row"
+  },
+  "settings_setup_wizard_desc": {
+    "message": "Goal-driven 30-second focus setup",
+    "description": "Description for onboarding wizard launcher row"
+  },
+  "settings_setup_wizard_btn": {
+    "message": "Launch →",
+    "description": "Button to launch setup wizard"
+  },
+  "settings_share_setup_title": {
+    "message": "Share My Setup",
+    "description": "Title for share setup row"
+  },
+  "settings_share_setup_desc": {
+    "message": "Generate a 1-click link to share with students, teams, or friends",
+    "description": "Description for share setup row"
+  },
+  "settings_share_btn": {
+    "message": "Share Link",
+    "description": "Button to share setup link"
+  },
+  "settings_import_btn": {
+    "message": "Import Link",
+    "description": "Button to import setup link"
+  },
+  "focus_unlocking": {
+    "message": "Unlocking...",
+    "description": "Text shown when unlocking Focus Lock"
+  },
+  "verify_target_label": {
+    "message": "Unlocking:",
+    "description": "Label before setting name in verify dialog"
+  },
+  "modal_import_setup_title": {
+    "message": "Import Shared Setup",
+    "description": "Title for import preset modal dialog"
+  },
+  "modal_import_setup_desc": {
+    "message": "Paste a shared setup link or preset code to preview and apply:",
+    "description": "Description in import preset modal dialog"
+  },
+  "btn_paste_code": {
+    "message": "Paste",
+    "description": "Paste button label"
+  },
+  "preset_ready_apply": {
+    "message": "Ready to apply",
+    "description": "Pill indicating preset is ready to be applied"
+  },
+  "btn_apply_setup": {
+    "message": "Apply Setup",
+    "description": "Button to confirm and apply imported setup"
+  },
+  "btn_cancel": {
+    "message": "Cancel",
+    "description": "Generic cancel button label"
+  },
+  "status_focus_session": {
+    "message": "Focus",
+    "description": "Extension status badge during active focus session"
+  },
+  "status_scheduled": {
+    "message": "Scheduled",
+    "description": "Extension status badge during active schedule"
+  },
+  "status_limit_reached": {
+    "message": "Limit Reached",
+    "description": "Extension status badge when daily budget is exhausted"
+  },
+  "stats_trend_title": {
+    "message": "7-Day Activity",
+    "description": "Title for 7-day watch time trend card"
+  },
+  "stats_trend_today": {
+    "message": "Today",
+    "description": "Label for today in trend chart"
   }
 }

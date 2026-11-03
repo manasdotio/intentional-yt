@@ -36,8 +36,7 @@ class StorageManager {
       blockRecommended: true,
       blockLiveChat: true,
       blockPlaylist: false,
-      blockEndScreenVideowall: true,
-      blockEndScreenCards: true,
+      blockEndScreens: true,
       blockComments: false,
       blockProfilePhotos: false,
       blockMixPlaylists: true,
@@ -56,7 +55,6 @@ class StorageManager {
       homeRedirect: 'none',
       blockSubscriptionsFeed: false,
       disableAutoplay: true,
-      disableAnnotations: true,
       disableHoverPreviews: false,
 
       hideThumbnails: false,
@@ -64,6 +62,10 @@ class StorageManager {
 
       channelBlocklist: [],
       keywordBlocklist: [],
+      channelAllowlist: [],
+      keywordAllowlist: [],
+      filterMode: 'blocklist',
+      allowlistAction: 'dim',
       enableQuickBlock: true,
 
       softReminder: { enabled: false, intervalMinutes: 30 },
@@ -204,7 +206,7 @@ class StorageManager {
         if (command.parentKey === 'stats' && command.childKey !== 'limitDismissedToday') throw new Error('Invalid stats update');
         next[command.parentKey] = { ...next[command.parentKey], [command.childKey]: command.value }; break;
       case 'list':
-        if (!['channelBlocklist','keywordBlocklist'].includes(command.key) || typeof command.value !== 'string') throw new Error('Invalid list update');
+        if (!['channelBlocklist','keywordBlocklist','channelAllowlist','keywordAllowlist'].includes(command.key) || typeof command.value !== 'string') throw new Error('Invalid list update');
         next[command.key] = command.remove ? next[command.key].filter(x => x !== command.value) : [...new Set([...next[command.key], command.value])]; break;
       case 'resetStats': next.stats = this.getDefaultSettings().stats; break;
       case 'scheduleSave': {
@@ -330,8 +332,7 @@ class StorageManager {
       blockRecommended: Boolean(s.blockRecommended),
       blockLiveChat: Boolean(s.blockLiveChat),
       blockPlaylist: Boolean(s.blockPlaylist),
-      blockEndScreenVideowall: Boolean(s.blockEndScreenVideowall),
-      blockEndScreenCards: Boolean(s.blockEndScreenCards),
+      blockEndScreens: Boolean(s.blockEndScreens ?? s.blockEndScreenVideowall ?? s.blockEndScreenCards ?? s.disableAnnotations ?? true),
       blockComments: Boolean(s.blockComments),
       blockProfilePhotos: Boolean(s.blockProfilePhotos),
       blockMixPlaylists: Boolean(s.blockMixPlaylists),
@@ -349,12 +350,15 @@ class StorageManager {
       redirectShorts: Boolean(s.redirectShorts),
       blockSubscriptionsFeed: Boolean(s.blockSubscriptionsFeed),
       disableAutoplay: Boolean(s.disableAutoplay),
-      disableAnnotations: Boolean(s.disableAnnotations),
       disableHoverPreviews: Boolean(s.disableHoverPreviews),
       hideThumbnails: Boolean(s.hideThumbnails),
       grayscaleMode: Boolean(s.grayscaleMode),
+      filterMode: ['blocklist', 'allowlist'].includes(s.filterMode) ? s.filterMode : 'blocklist',
+      allowlistAction: ['dim', 'hide'].includes(s.allowlistAction) ? s.allowlistAction : 'dim',
       channelBlocklist: Array.isArray(s.channelBlocklist) ? [...s.channelBlocklist] : [],
-      keywordBlocklist: Array.isArray(s.keywordBlocklist) ? [...s.keywordBlocklist] : []
+      keywordBlocklist: Array.isArray(s.keywordBlocklist) ? [...s.keywordBlocklist] : [],
+      channelAllowlist: Array.isArray(s.channelAllowlist) ? [...s.channelAllowlist] : [],
+      keywordAllowlist: Array.isArray(s.keywordAllowlist) ? [...s.keywordAllowlist] : []
     };
   }
 

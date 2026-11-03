@@ -16,8 +16,7 @@ const CLASS_MAP = {
   blockRecommended:            'iyt-no-recommended',
   blockLiveChat:               'iyt-no-live-chat',
   blockPlaylist:               'iyt-no-playlist',
-  blockEndScreenVideowall:     'iyt-no-endscreen-wall',
-  blockEndScreenCards:         'iyt-no-endscreen-cards',
+  blockEndScreens:             'iyt-no-endscreens',
   blockComments:               'iyt-no-comments',
   blockProfilePhotos:          'iyt-no-profile-photos',
   blockMixPlaylists:           'iyt-no-mix-playlists',
@@ -33,7 +32,7 @@ const CLASS_MAP = {
   blockMoreFromYouTube:        'iyt-no-more-yt',
   blockShorts:                 'iyt-no-shorts',
   blockSubscriptionsFeed:      'iyt-no-subscriptions',
-  disableAnnotations:          'iyt-no-annotations',
+  disableAutoplay:             'iyt-no-autoplay',
   disableHoverPreviews:        'iyt-no-hover-previews',
   hideThumbnails:              'iyt-no-thumbnails',
   grayscaleMode:               'iyt-grayscale',
@@ -606,8 +605,30 @@ function matchesKeyword(title, keywordBlocklist) {
   return false;
 }
 
+function dimCard(card) {
+  if (!card || card.nodeType !== 1) return;
+  unhideCard(card);
+  card.setAttribute('data-iyt-dimmed', 'true');
+  const richItem = card.closest ? card.closest('ytd-rich-item-renderer') : null;
+  if (richItem && richItem !== card) {
+    richItem.setAttribute('data-iyt-dimmed', 'true');
+  }
+}
+
+function undimCard(card) {
+  if (!card || card.nodeType !== 1) return;
+  if (card.getAttribute('data-iyt-dimmed') === 'true') {
+    card.removeAttribute('data-iyt-dimmed');
+  }
+  const richItem = card.closest ? card.closest('ytd-rich-item-renderer') : null;
+  if (richItem && richItem !== card && richItem.getAttribute('data-iyt-dimmed') === 'true') {
+    richItem.removeAttribute('data-iyt-dimmed');
+  }
+}
+
 function hideCard(card) {
   if (!card || card.nodeType !== 1) return;
+  undimCard(card);
   card.setAttribute('data-iyt-filtered', 'true');
   card.style.setProperty('display', 'none', 'important');
 
@@ -729,6 +750,71 @@ function showQuickBlockToast(displayName, identifier, card) {
   }, 5000);
 }
 
+function showQuickAllowToast(displayName, identifier, card) {
+  document.getElementById('iyt-quick-block-toast')?.remove();
+  if (_quickBlockToastTimer) {
+    clearTimeout(_quickBlockToastTimer);
+    _quickBlockToastTimer = null;
+  }
+
+  const toast = document.createElement('div');
+  toast.id = 'iyt-quick-block-toast';
+  toast.setAttribute('role', 'status');
+  toast.className = 'iyt-quick-block-toast';
+  const dir = (typeof I18N !== 'undefined' && I18N.getDirection) ? I18N.getDirection() : 'ltr';
+  toast.setAttribute('dir', dir);
+
+  toast.innerHTML = `
+    <div class="iyt-qb-toast-content">
+      <span class="iyt-qb-toast-icon">✓</span>
+      <span class="iyt-qb-toast-text"></span>
+      <button type="button" class="iyt-qb-toast-undo"></button>
+    </div>
+    <button type="button" class="iyt-qb-toast-close">×</button>
+  `;
+
+  toast.querySelector('.iyt-qb-toast-text').textContent = I18N.getMessage('channel_allowed', [displayName], 'Allowed ' + displayName);
+  toast.querySelector('.iyt-qb-toast-close').setAttribute('aria-label', I18N.getMessage('toast_dismiss_aria', null, 'Dismiss'));
+  const undoBtn = toast.querySelector('.iyt-qb-toast-undo');
+  undoBtn.textContent = I18N.getMessage('action_undo', null, 'Undo');
+  undoBtn.hidden = !!_settings?.focusLock?.enabled;
+  undoBtn.addEventListener('click', async (e) => {
+    try {
+      e.stopPropagation();
+      if (_quickBlockToastTimer) {
+        clearTimeout(_quickBlockToastTimer);
+        _quickBlockToastTimer = null;
+      }
+      toast.remove();
+      if (_settings?.focusLock?.enabled) return;
+      if (_settings?.channelAllowlist) {
+        _settings.channelAllowlist = _settings.channelAllowlist.filter(x => x !== identifier);
+        _settings = IYT_Policy.effective(await StorageManager.changeList('channelAllowlist', identifier, true));
+        scanAllCards(document);
+      }
+    } catch (error) {
+      if (!/Extension context invalidated/i.test(error?.message || '')) console.warn('[IYT] Undo failed', error);
+    }
+  });
+
+  const closeBtn = toast.querySelector('.iyt-qb-toast-close');
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (_quickBlockToastTimer) {
+      clearTimeout(_quickBlockToastTimer);
+      _quickBlockToastTimer = null;
+    }
+    toast.remove();
+  });
+
+  document.body.appendChild(toast);
+
+  _quickBlockToastTimer = setTimeout(() => {
+    toast.classList.add('iyt-qb-toast-fadeout');
+    setTimeout(() => toast.remove(), 250);
+  }, 5000);
+}
+
 async function handleQuickBlockChannel(card, displayName, channelInfo) {
   const identifier = (channelInfo?.ids?.[0] || channelInfo?.handles?.[0] || displayName || channelInfo?.names?.[0] || '').trim().toLowerCase();
   if (!identifier) return;
@@ -743,8 +829,23 @@ async function handleQuickBlockChannel(card, displayName, channelInfo) {
   showQuickBlockToast(displayName, identifier, card);
 }
 
+async function handleQuickAllowChannel(card, displayName, channelInfo) {
+  const identifier = (channelInfo?.ids?.[0] || channelInfo?.handles?.[0] || displayName || channelInfo?.names?.[0] || '').trim().toLowerCase();
+  if (!identifier) return;
+
+  if (!_settings.channelAllowlist) _settings.channelAllowlist = [];
+  if (!_settings.channelAllowlist.includes(identifier)) {
+    _settings = IYT_Policy.effective(await StorageManager.changeList('channelAllowlist', identifier));
+  }
+
+  undimCard(card);
+  unhideCard(card);
+  scanAllCards(document);
+  showQuickAllowToast(displayName, identifier, card);
+}
+
 function removeAllQuickBlockButtons() {
-  document.querySelectorAll('.iyt-quick-block-btn').forEach(btn => btn.remove());
+  document.querySelectorAll('.iyt-quick-block-btn, .iyt-quick-allow-btn').forEach(btn => btn.remove());
 }
 
 function injectQuickBlockButton(card, channelInfo) {
@@ -753,12 +854,58 @@ function injectQuickBlockButton(card, channelInfo) {
 
   const info = channelInfo || getCardChannelInfo(card);
   const displayName = info.names[0] || info.handles[0];
-  if (!displayName) { card.querySelector('.iyt-quick-block-btn')?.remove(); return; }
+  if (!displayName) { card.querySelector('.iyt-quick-block-btn, .iyt-quick-allow-btn')?.remove(); return; }
+
+  const isAllowlist = _settings.filterMode === 'allowlist';
+  if (isAllowlist) {
+    if (matchesChannel(info, _settings.channelAllowlist || [])) {
+      card.querySelector('.iyt-quick-allow-btn, .iyt-quick-block-btn')?.remove();
+      return;
+    }
+    const identity = info.ids?.[0] || info.handles[0] || displayName;
+    const existingButton = card.querySelector('.iyt-quick-allow-btn');
+    if (existingButton?.dataset.channel === identity) return;
+    existingButton?.remove();
+    card.querySelector('.iyt-quick-block-btn')?.remove();
+
+    const targetContainer = findBylineAnchor(card);
+    if (!targetContainer) return;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'iyt-quick-allow-btn';
+    btn.dataset.channel = identity;
+    btn.title = `${I18N.getMessage('action_allow', null, 'Allow')} ${displayName}`;
+    btn.setAttribute('aria-label', btn.title);
+
+    const allowLabel = (typeof I18N !== 'undefined' && I18N.getMessage)
+      ? (I18N.getMessage('action_allow') || 'Allow')
+      : ((browser?.i18n?.getMessage && browser.i18n.getMessage('action_allow')) || 'Allow');
+
+    btn.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      <span class="iyt-qa-label"></span>
+    `;
+
+    btn.querySelector('.iyt-qa-label').textContent = allowLabel;
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      handleQuickAllowChannel(card, displayName, info).catch(console.warn);
+    });
+
+    targetContainer.appendChild(btn);
+    return;
+  }
 
   const identity = info.ids?.[0] || info.handles[0] || displayName;
   const existingButton = card.querySelector('.iyt-quick-block-btn');
   if (existingButton?.dataset.channel === identity) return;
   existingButton?.remove();
+  card.querySelector('.iyt-quick-allow-btn')?.remove();
   const targetContainer = findBylineAnchor(card);
   if (!targetContainer) return;
 
@@ -795,9 +942,44 @@ function injectQuickBlockButton(card, channelInfo) {
 function evaluateCard(card, channelBlocklist, keywordBlocklist, pageChannelInfo) {
   if (!card || card.nodeType !== 1) return;
 
+  const isAllowlist = _settings?.filterMode === 'allowlist';
   const channelInfo = getCardChannelInfo(card);
-  const isBlockedChannel = matchesChannel(channelInfo, channelBlocklist, null);
   const title = getCardTitle(card);
+
+  if (isAllowlist) {
+    const channelAllowlist = _settings?.channelAllowlist || [];
+    const keywordAllowlist = _settings?.keywordAllowlist || [];
+
+    if (channelAllowlist.length === 0 && keywordAllowlist.length === 0) {
+      unhideCard(card);
+      undimCard(card);
+      return;
+    }
+
+    const isAllowedChannel = matchesChannel(channelInfo, channelAllowlist, null);
+    const isAllowedKeyword = !isAllowedChannel && keywordAllowlist.length > 0 && (
+      matchesKeyword(title, keywordAllowlist)
+      || getCardDescriptions(card).some(description => matchesKeyword(description, keywordAllowlist))
+    );
+
+    if (isAllowedChannel || isAllowedKeyword) {
+      unhideCard(card);
+      undimCard(card);
+    } else {
+      if (_settings?.allowlistAction === 'hide') {
+        hideCard(card);
+      } else {
+        dimCard(card);
+      }
+    }
+
+    if (_settings?.enableQuickBlock !== false && isEffectiveActive(_settings)) {
+      injectQuickBlockButton(card, channelInfo);
+    }
+    return;
+  }
+
+  const isBlockedChannel = matchesChannel(channelInfo, channelBlocklist, null);
   const isBlockedKeyword = !isBlockedChannel && keywordBlocklist.length > 0 && (
     matchesKeyword(title, keywordBlocklist)
     || getCardDescriptions(card).some(description => matchesKeyword(description, keywordBlocklist))
@@ -807,6 +989,7 @@ function evaluateCard(card, channelBlocklist, keywordBlocklist, pageChannelInfo)
     hideCard(card);
   } else {
     unhideCard(card);
+    undimCard(card);
     if (_settings?.enableQuickBlock !== false && isEffectiveActive(_settings)) {
       injectQuickBlockButton(card, channelInfo);
     }
@@ -818,19 +1001,26 @@ function scanAllCards(root = document) {
     document.querySelectorAll('[data-iyt-filtered="true"]').forEach(el => {
       unhideCard(el);
     });
+    document.querySelectorAll('[data-iyt-dimmed="true"]').forEach(el => {
+      undimCard(el);
+    });
     removeAllQuickBlockButtons();
     return;
   }
 
-  const channelList = _settings?.channelBlocklist || [];
-  const keywordList = _settings?.keywordBlocklist || [];
+  const isAllowlist = _settings?.filterMode === 'allowlist';
+  const channelList = isAllowlist ? (_settings?.channelAllowlist || []) : (_settings?.channelBlocklist || []);
+  const keywordList = isAllowlist ? (_settings?.keywordAllowlist || []) : (_settings?.keywordBlocklist || []);
   const enableQuickBlock = _settings?.enableQuickBlock !== false;
 
   if (channelList.length === 0 && keywordList.length === 0) {
     document.querySelectorAll('[data-iyt-filtered="true"]').forEach(el => {
       unhideCard(el);
     });
-    if (!enableQuickBlock) {
+    document.querySelectorAll('[data-iyt-dimmed="true"]').forEach(el => {
+      undimCard(el);
+    });
+    if (!enableQuickBlock || isAllowlist) {
       removeAllQuickBlockButtons();
       return;
     }
@@ -1103,8 +1293,12 @@ applyAllSettings().catch(() => html.setAttribute("data-iyt-ready", "true"));
 let _domObserver = null;
 let _domObserverMode = '';
 function needsCardObservation() {
-  return isEffectiveActive(_settings) && (_settings.enableQuickBlock !== false ||
-    _settings.channelBlocklist?.length > 0 || _settings.keywordBlocklist?.length > 0);
+  if (!isEffectiveActive(_settings)) return false;
+  if (_settings.enableQuickBlock !== false) return true;
+  if (_settings.filterMode === 'allowlist') {
+    return (_settings.channelAllowlist?.length > 0 || _settings.keywordAllowlist?.length > 0);
+  }
+  return (_settings.channelBlocklist?.length > 0 || _settings.keywordBlocklist?.length > 0);
 }
 function configureDomObserver() {
   if (!_domObserver) return;

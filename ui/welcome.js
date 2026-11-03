@@ -25,8 +25,7 @@ const ARCHETYPE_CONFIGS = {
       blockRecommended: true,
       blockLiveChat: false,
       blockPlaylist: false,
-      blockEndScreenVideowall: true,
-      blockEndScreenCards: true,
+      blockEndScreens: true,
       blockComments: false,
       blockProfilePhotos: false,
       blockMixPlaylists: true,
@@ -44,7 +43,6 @@ const ARCHETYPE_CONFIGS = {
       redirectShorts: false,
       blockSubscriptionsFeed: false,
       disableAutoplay: true,
-      disableAnnotations: true,
       disableHoverPreviews: false,
       hideThumbnails: false,
       grayscaleMode: false
@@ -67,8 +65,7 @@ const ARCHETYPE_CONFIGS = {
       blockRecommended: false,
       blockLiveChat: false,
       blockPlaylist: false,
-      blockEndScreenVideowall: false,
-      blockEndScreenCards: false,
+      blockEndScreens: false,
       blockComments: false,
       blockProfilePhotos: false,
       blockMixPlaylists: false,
@@ -86,7 +83,6 @@ const ARCHETYPE_CONFIGS = {
       redirectShorts: true,
       blockSubscriptionsFeed: false,
       disableAutoplay: true,
-      disableAnnotations: false,
       disableHoverPreviews: false,
       hideThumbnails: false,
       grayscaleMode: false
@@ -109,8 +105,7 @@ const ARCHETYPE_CONFIGS = {
       blockRecommended: true,
       blockLiveChat: true,
       blockPlaylist: true,
-      blockEndScreenVideowall: true,
-      blockEndScreenCards: true,
+      blockEndScreens: true,
       blockComments: true,
       blockProfilePhotos: true,
       blockMixPlaylists: true,
@@ -128,7 +123,6 @@ const ARCHETYPE_CONFIGS = {
       redirectShorts: false,
       blockSubscriptionsFeed: true,
       disableAutoplay: true,
-      disableAnnotations: true,
       disableHoverPreviews: true,
       hideThumbnails: true,
       grayscaleMode: false
@@ -165,23 +159,43 @@ function updateSummaryUI() {
 
   const listEl = $('preview-items-list');
   if (listEl) {
-    listEl.innerHTML = '';
+    listEl.replaceChildren();
     for (const h of config.highlights) {
       const item = document.createElement('div');
       item.className = 'preview-item';
-      item.innerHTML = `<span class="preview-dot"></span><span>${h}</span>`;
+      const dot = document.createElement('span');
+      dot.className = 'preview-dot';
+      const label = document.createElement('span');
+      label.textContent = h;
+      item.appendChild(dot);
+      item.appendChild(label);
       listEl.appendChild(item);
     }
     if (_selectedDailyLimit > 0) {
       const limitItem = document.createElement('div');
       limitItem.className = 'preview-item';
-      limitItem.innerHTML = `<span class="preview-dot" style="background:#059669"></span><span><strong>${_selectedDailyLimit} min</strong> daily watch budget</span>`;
+      const dot = document.createElement('span');
+      dot.className = 'preview-dot';
+      dot.style.background = '#059669';
+      const text = document.createElement('span');
+      const bold = document.createElement('strong');
+      bold.textContent = `${_selectedDailyLimit} min`;
+      text.appendChild(bold);
+      text.appendChild(document.createTextNode(' daily watch budget'));
+      limitItem.appendChild(dot);
+      limitItem.appendChild(text);
       listEl.appendChild(limitItem);
     }
     if (_softReminder) {
       const reminderItem = document.createElement('div');
       reminderItem.className = 'preview-item';
-      reminderItem.innerHTML = `<span class="preview-dot" style="background:#059669"></span><span>30m break reminder active</span>`;
+      const dot = document.createElement('span');
+      dot.className = 'preview-dot';
+      dot.style.background = '#059669';
+      const text = document.createElement('span');
+      text.textContent = '30m break reminder active';
+      reminderItem.appendChild(dot);
+      reminderItem.appendChild(text);
       listEl.appendChild(reminderItem);
     }
   }

@@ -56,6 +56,7 @@ html[data-iyt-is-home="true"].iyt-no-home-feed ytd-continuation-item-renderer {
    HOME FEED LIMIT (Anti-Doomscroll)
    Limits home feed to 15 videos & stops infinite scroll
 ═══════════════════════════════════════════════════════════ */
+
 /* Channel Home content only; keep the channel header and tab navigation usable.
    URL state changes synchronously on navigation, including reused browse DOM. */
 html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-section-list-renderer,
@@ -156,6 +157,46 @@ html.iyt-no-playlist ytd-playlist-panel-renderer {
 /* ═══════════════════════════════════════════════════════════
    END SCREEN VIDEOWALL & RECOMMENDATIONS (After Video Ends)
 ═══════════════════════════════════════════════════════════ */
+html.iyt-no-endscreens .ytp-endscreen,
+html.iyt-no-endscreens .ytp-endscreen-content,
+html.iyt-no-endscreens .html5-endscreen,
+html.iyt-no-endscreens [class*="html5-endscreen"],
+html.iyt-no-endscreens [class*="ytp-endscreen"],
+html.iyt-no-endscreens .ytp-videowall,
+html.iyt-no-endscreens [class*="ytp-videowall"],
+html.iyt-no-endscreens .ytp-videowall-still,
+html.iyt-no-endscreens .ytp-videowall-still-image,
+html.iyt-no-endscreens .ytp-videowall-still-info,
+html.iyt-no-endscreens .ytp-videowall-still-info-title,
+html.iyt-no-endscreens .ytp-videowall-still-info-author,
+html.iyt-no-endscreens .ytp-videowall-still-roundattribution,
+html.iyt-no-endscreens .ytp-endscreen-paginate,
+html.iyt-no-endscreens .ytp-endscreen-paginate-button,
+html.iyt-no-endscreens .ytp-endscreen-previous,
+html.iyt-no-endscreens .ytp-endscreen-next,
+html.iyt-no-endscreens .ytp-fullscreen-grid,
+html.iyt-no-endscreens .ytp-fullscreen-grid-content,
+html.iyt-no-endscreens .ytp-modern-videowall,
+html.iyt-no-endscreens .ytp-show-tiles,
+html.iyt-no-endscreens ytd-endscreen-element-renderer,
+html.iyt-no-endscreens .ytp-autonav-endscreen,
+html.iyt-no-endscreens .ytp-autonav-endscreen-large-videowall,
+html.iyt-no-endscreens .ytp-autonav-endscreen-upnext-container,
+html.iyt-no-endscreens .ytp-autonav-endscreen-upnext-header,
+html.iyt-no-endscreens .ytp-autonav-endscreen-upnext-title,
+html.iyt-no-endscreens .ytp-autonav-endscreen-button-container,
+html.iyt-no-endscreens .ytp-autonav-endscreen-countdown-overlay,
+html.iyt-no-endscreens .ytp-upnext,
+html.iyt-no-endscreens .ytp-upnext-autoplay-icon,
+html.iyt-no-endscreens .ytp-upnext-content,
+html.iyt-no-endscreens .ytp-cued-thumbnail-overlay,
+html.iyt-no-endscreens .ytp-cued-thumbnail-overlay-image,
+html.iyt-no-endscreens .ytp-suggested-action,
+html.iyt-no-endscreens .html5-video-player.ytp-ended .ytp-ce-element,
+html.iyt-no-endscreens .html5-video-player.ytp-endscreen-shown .ytp-ce-element,
+html.iyt-no-endscreens .html5-video-player.ended-mode .ytp-ce-element,
+html.iyt-no-endscreens #movie_player.ytp-ended .ytp-ce-element,
+html.iyt-no-endscreens #movie_player.ended-mode .ytp-ce-element,
 html.iyt-no-endscreen-wall .ytp-endscreen,
 html.iyt-no-endscreen-wall .ytp-endscreen-content,
 html.iyt-no-endscreen-wall .html5-endscreen,
@@ -205,6 +246,29 @@ html.iyt-no-endscreen-wall #movie_player.ended-mode .ytp-ce-element {
 /* ═══════════════════════════════════════════════════════════
    END SCREEN CARDS / INFO CARDS (Creator-placed in last 20s)
 ═══════════════════════════════════════════════════════════ */
+html.iyt-no-endscreens .ytp-ce-element,
+html.iyt-no-endscreens .ytp-ce-video,
+html.iyt-no-endscreens .ytp-ce-playlist,
+html.iyt-no-endscreens .ytp-ce-channel,
+html.iyt-no-endscreens .ytp-ce-website,
+html.iyt-no-endscreens .ytp-ce-covering-overlay,
+html.iyt-no-endscreens .ytp-ce-covering-image,
+html.iyt-no-endscreens .ytp-ce-element-show,
+html.iyt-no-endscreens .ytp-ce-expanding-overlay,
+html.iyt-no-endscreens .ytp-ce-expanding-image,
+html.iyt-no-endscreens .ytp-ce-shadow,
+html.iyt-no-endscreens .ytp-ce-video-title,
+html.iyt-no-endscreens .ytp-ce-video-duration,
+html.iyt-no-endscreens .ytp-ce-channel-metadata,
+html.iyt-no-endscreens .ytp-ce-covering-shadow-top,
+html.iyt-no-endscreens .ytp-ce-element-shadow,
+html.iyt-no-endscreens .ytp-cards-teaser,
+html.iyt-no-endscreens .ytp-cards-button,
+html.iyt-no-endscreens .ytp-cards-teaser-box,
+html.iyt-no-endscreens .ytp-cards-teaser-text,
+html.iyt-no-endscreens .ytp-cards-teaser-icon,
+html.iyt-no-endscreens .ytp-info-panel-preview,
+html.iyt-no-endscreens .iv-branding,
 html.iyt-no-endscreen-cards .ytp-ce-element,
 html.iyt-no-endscreen-cards .ytp-ce-video,
 html.iyt-no-endscreen-cards .ytp-ce-playlist,
@@ -241,6 +305,13 @@ video {
   -webkit-backdrop-filter: blur(0px) !important;
 }
 
+html.iyt-no-endscreens video,
+html.iyt-no-endscreens video.html5-main-video,
+html.iyt-no-endscreens .html5-main-video,
+html.iyt-no-endscreens #movie_player video,
+html.iyt-no-endscreens .html5-video-player video,
+html.iyt-no-endscreens #movie_player,
+html.iyt-no-endscreens .html5-video-player,
 html.iyt-no-endscreen-cards video,
 html.iyt-no-endscreen-cards video.html5-main-video,
 html.iyt-no-endscreen-cards .html5-main-video,
@@ -259,6 +330,11 @@ html.iyt-no-endscreen-wall .html5-video-player {
 }
 
 /* Prevent endscreen player overlays from applying background dimming or backdrop blur over the video */
+html.iyt-no-endscreens .ytp-player-content,
+html.iyt-no-endscreens .ytp-iv-player-content,
+html.iyt-no-endscreens .ytp-endscreen-content,
+html.iyt-no-endscreens .html5-endscreen,
+html.iyt-no-endscreens .ytp-ce-expanding-overlay-background,
 html.iyt-no-endscreen-cards .ytp-player-content,
 html.iyt-no-endscreen-cards .ytp-iv-player-content,
 html.iyt-no-endscreen-cards .ytp-endscreen-content,
@@ -604,6 +680,7 @@ html.iyt-no-subscriptions ytd-browse[page-subtype="subscriptions"] #contents {
 /* ═══════════════════════════════════════════════════════════
    ANNOTATIONS (interactive overlays)
 ═══════════════════════════════════════════════════════════ */
+html.iyt-no-endscreens .ytp-iv-video-content,
 html.iyt-no-annotations .ytp-iv-video-content {
   display: none !important;
 }
@@ -720,6 +797,43 @@ yt-lockup-view-model[data-iyt-filtered="true"],
 }
 
 /* ═══════════════════════════════════════════════════════════
+   ALLOWLIST DIMMING MODE (Gentle desaturation & de-stimulation)
+═══════════════════════════════════════════════════════════ */
+ytd-rich-item-renderer[data-iyt-dimmed="true"],
+ytd-video-renderer[data-iyt-dimmed="true"],
+ytd-compact-video-renderer[data-iyt-dimmed="true"],
+ytd-grid-video-renderer[data-iyt-dimmed="true"],
+ytd-channel-renderer[data-iyt-dimmed="true"],
+ytd-playlist-renderer[data-iyt-dimmed="true"],
+ytd-radio-renderer[data-iyt-dimmed="true"],
+ytd-compact-radio-renderer[data-iyt-dimmed="true"],
+ytd-grid-radio-renderer[data-iyt-dimmed="true"],
+ytm-radio-renderer[data-iyt-dimmed="true"],
+ytm-compact-radio-renderer[data-iyt-dimmed="true"],
+yt-lockup-view-model[data-iyt-dimmed="true"],
+[data-iyt-dimmed="true"] {
+  opacity: 0.18 !important;
+  filter: grayscale(100%) !important;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+ytd-rich-item-renderer[data-iyt-dimmed="true"]:hover,
+ytd-rich-item-renderer[data-iyt-dimmed="true"]:focus-within,
+ytd-video-renderer[data-iyt-dimmed="true"]:hover,
+ytd-video-renderer[data-iyt-dimmed="true"]:focus-within,
+ytd-compact-video-renderer[data-iyt-dimmed="true"]:hover,
+ytd-compact-video-renderer[data-iyt-dimmed="true"]:focus-within,
+ytd-grid-video-renderer[data-iyt-dimmed="true"]:hover,
+ytd-grid-video-renderer[data-iyt-dimmed="true"]:focus-within,
+yt-lockup-view-model[data-iyt-dimmed="true"]:hover,
+yt-lockup-view-model[data-iyt-dimmed="true"]:focus-within,
+[data-iyt-dimmed="true"]:hover,
+[data-iyt-dimmed="true"]:focus-within {
+  opacity: 0.88 !important;
+  filter: grayscale(0%) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
    1-CLICK QUICK BLOCK BUTTON (in-feed channel block)
 ═══════════════════════════════════════════════════════════ */
 .iyt-quick-block-btn {
@@ -803,6 +917,87 @@ yt-lockup-view-model:hover .iyt-quick-block-btn {
 .iyt-quick-block-btn:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   1-CLICK QUICK ALLOW BUTTON (in-feed channel allow)
+═══════════════════════════════════════════════════════════ */
+.iyt-quick-allow-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 22px;
+  min-height: 22px;
+  padding: 0 8px 0 7px;
+  margin-left: 8px;
+  margin-right: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  background: #059669 !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 11px;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.2px;
+  user-select: none;
+  transition: opacity 0.16s ease, transform 0.12s ease, background 0.12s ease;
+  z-index: 100;
+  vertical-align: middle;
+}
+.iyt-quick-allow-btn svg {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  stroke: #ffffff !important;
+  stroke-width: 2.3;
+}
+.iyt-quick-allow-btn .iyt-qa-label {
+  display: inline-block;
+  pointer-events: none;
+  white-space: nowrap;
+  color: #ffffff !important;
+}
+
+.iyt-quick-allow-btn:focus-visible,
+ytd-rich-item-renderer:focus-within .iyt-quick-allow-btn,
+ytm-video-with-context-renderer:hover .iyt-quick-allow-btn,
+ytm-compact-video-renderer:hover .iyt-quick-allow-btn,
+ytd-rich-item-renderer:hover .iyt-quick-allow-btn,
+ytd-video-renderer:hover .iyt-quick-allow-btn,
+ytd-compact-video-renderer:hover .iyt-quick-allow-btn,
+ytd-grid-video-renderer:hover .iyt-quick-allow-btn,
+yt-lockup-view-model:hover .iyt-quick-allow-btn {
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+.iyt-quick-allow-btn:hover {
+  opacity: 1 !important;
+  transform: translateY(-1px) scale(1.04);
+  background: #047857 !important;
+  border-color: rgba(0, 0, 0, 0.25) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.45);
+}
+.iyt-quick-allow-btn:hover svg {
+  stroke: #ffffff !important;
+}
+.iyt-quick-allow-btn:active {
+  transform: scale(0.96);
+  background: #065f46 !important;
+}
+.iyt-quick-allow-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+@media (hover: none) {
+  .iyt-quick-allow-btn { opacity: 1; pointer-events: auto; }
 }
 @media (hover: none) {
   .iyt-quick-block-btn { opacity: 1; pointer-events: auto; }
@@ -905,7 +1100,7 @@ html.iyt-grayscale {
    INJECTED OVERLAY & TOAST THEME TOKENS
 ═══════════════════════════════════════════════════════════ */
 :root {
-  --iyt-overlay-bg: rgba(8, 9, 12, 0.98);
+  --iyt-overlay-bg: rgba(10, 12, 16, 0.86);
   --iyt-overlay-text: #f3f4f6;
   --iyt-overlay-title: #ffffff;
   --iyt-overlay-message: #94a3b8;
@@ -915,7 +1110,7 @@ html.iyt-grayscale {
   --iyt-overlay-btn-sec-hover-bg: rgba(255, 255, 255, 0.15);
   --iyt-overlay-btn-sec-hover-color: #ffffff;
 
-  --iyt-toast-bg: rgba(14, 16, 22, 0.95);
+  --iyt-toast-bg: rgba(14, 16, 22, 0.86);
   --iyt-toast-border: rgba(255, 255, 255, 0.10);
   --iyt-toast-text: #f3f4f6;
   --iyt-toast-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -926,7 +1121,7 @@ html.iyt-grayscale {
 
 @media (prefers-color-scheme: light) {
   :root {
-    --iyt-overlay-bg: rgba(246, 247, 249, 0.98);
+    --iyt-overlay-bg: rgba(246, 247, 249, 0.88);
     --iyt-overlay-text: #0f172a;
     --iyt-overlay-title: #0f172a;
     --iyt-overlay-message: #475569;
@@ -936,7 +1131,7 @@ html.iyt-grayscale {
     --iyt-overlay-btn-sec-hover-bg: rgba(15, 23, 42, 0.10);
     --iyt-overlay-btn-sec-hover-color: #0f172a;
 
-    --iyt-toast-bg: rgba(255, 255, 255, 0.94);
+    --iyt-toast-bg: rgba(255, 255, 255, 0.88);
     --iyt-toast-border: rgba(15, 23, 42, 0.10);
     --iyt-toast-text: #0f172a;
     --iyt-toast-shadow: 0 12px 36px rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -947,7 +1142,7 @@ html.iyt-grayscale {
 }
 
 html[dark] {
-  --iyt-overlay-bg: rgba(8, 9, 12, 0.98);
+  --iyt-overlay-bg: rgba(10, 12, 16, 0.86);
   --iyt-overlay-text: #f3f4f6;
   --iyt-overlay-title: #ffffff;
   --iyt-overlay-message: #94a3b8;
@@ -957,7 +1152,7 @@ html[dark] {
   --iyt-overlay-btn-sec-hover-bg: rgba(255, 255, 255, 0.15);
   --iyt-overlay-btn-sec-hover-color: #ffffff;
 
-  --iyt-toast-bg: rgba(14, 16, 22, 0.95);
+  --iyt-toast-bg: rgba(14, 16, 22, 0.86);
   --iyt-toast-border: rgba(255, 255, 255, 0.10);
   --iyt-toast-text: #f3f4f6;
   --iyt-toast-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -969,6 +1164,17 @@ html[dark] {
 /* ═══════════════════════════════════════════════════════════
    DAILY LIMIT OVERLAY (injected by timerToast.js)
 ═══════════════════════════════════════════════════════════ */
+@keyframes iyt-overlay-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .iy-limit-overlay {
   position: absolute !important;
   top: 0 !important;
@@ -977,6 +1183,8 @@ html[dark] {
   height: 100% !important;
   min-height: 260px !important;
   background: var(--iyt-overlay-bg) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
@@ -990,6 +1198,7 @@ html[dark] {
   padding: 24px !important;
   pointer-events: auto !important;
   user-select: none !important;
+  animation: iyt-overlay-fade-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
   transition: background 0.2s ease, color 0.2s ease !important;
 }
 
@@ -1043,6 +1252,12 @@ html[dark] {
 
 .iy-limit-button:hover {
   background: #1d4ed8 !important;
+}
+
+.iy-limit-button:focus-visible,
+.iy-limit-button-secondary:focus-visible {
+  outline: 2px solid #6366F1 !important;
+  outline-offset: 2px !important;
 }
 
 .iy-limit-button:active {
@@ -1479,3 +1694,27 @@ html.iyt-scheduled-full-block audio {
   }
 }
 
+
+
+/* ═══════════════════════════════════════════════════════════
+   CINEMATIC & AMBIENT MODE SUPPRESSION
+   Suppresses distracting ambient glow canvas during focus modes
+═══════════════════════════════════════════════════════════ */
+html.iyt-grayscale #cinematic-container,
+html.iyt-grayscale #cinematic-lighting,
+html.iyt-no-video-info #cinematic-container,
+html.iyt-no-video-info #cinematic-lighting {
+  display: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FROSTED GLASS BLUR & TRANSLUCENCY FOR OVERLAYS
+═══════════════════════════════════════════════════════════ */
+.iy-limit-overlay {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+.iyt-toast-container {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}

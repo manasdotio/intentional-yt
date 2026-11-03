@@ -71,14 +71,14 @@ function localizeDOM() {
 const TOGGLES = [
   'extensionEnabled',
   'blockHomeFeed', 'blockChannelHome', 'limitHomeFeed', 'blockSidebar', 'blockRecommended',
-  'blockLiveChat', 'blockPlaylist', 'blockEndScreenVideowall',
-  'blockEndScreenCards', 'blockComments', 'blockProfilePhotos',
-  'blockMixPlaylists', 'blockMerch', 'blockVideoInfo',
-  'blockVideoButtons', 'blockChannelInfo', 'blockVideoDescription',
+  'blockLiveChat', 'blockPlaylist', 'blockEndScreens',
+  'blockComments', 'blockProfilePhotos',
+  'blockMixPlaylists', 'blockMerch',
+  'blockVideoInfo', 'blockVideoButtons', 'blockChannelInfo', 'blockVideoDescription',
   'blockTopHeader', 'blockNotificationBell', 'blockIrrelevantSearchResults',
   'blockExploreAndTrending', 'blockMoreFromYouTube', 'blockShorts',
   'redirectShorts',
-  'blockSubscriptionsFeed', 'disableAutoplay', 'disableAnnotations', 'disableHoverPreviews',
+  'blockSubscriptionsFeed', 'disableAutoplay', 'disableHoverPreviews',
   'hideThumbnails', 'grayscaleMode',
   'enableQuickBlock',
 ];
@@ -92,8 +92,7 @@ const TOGGLE_LABELS = {
   blockRecommended: 'toggle_block_recommended',
   blockLiveChat: 'toggle_block_live_chat',
   blockPlaylist: 'toggle_block_playlist',
-  blockEndScreenVideowall: 'toggle_block_endscreen_videowall',
-  blockEndScreenCards: 'toggle_block_endscreen_cards',
+  blockEndScreens: 'toggle_block_endscreens',
   blockComments: 'toggle_block_comments',
   blockProfilePhotos: 'toggle_block_profile_photos',
   blockMixPlaylists: 'toggle_block_mix_playlists',
@@ -111,7 +110,6 @@ const TOGGLE_LABELS = {
   redirectShorts: 'toggle_redirect_shorts',
   blockSubscriptionsFeed: 'toggle_block_subscriptions',
   disableAutoplay: 'toggle_disable_autoplay',
-  disableAnnotations: 'toggle_disable_annotations',
   disableHoverPreviews: 'toggle_disable_hover_previews',
   hideThumbnails: 'toggle_hide_thumbnails',
   grayscaleMode: 'toggle_grayscale_mode',
@@ -138,14 +136,12 @@ const SECTION_TOGGLES = {
     "blockProfilePhotos",
     "blockLiveChat",
     "blockPlaylist",
-    "blockEndScreenVideowall",
-    "blockEndScreenCards",
-    "disableAnnotations",
+    "blockEndScreens",
+    "blockMerch",
     "blockVideoInfo",
     "blockVideoButtons",
     "blockChannelInfo",
-    "blockVideoDescription",
-    "blockMerch"
+    "blockVideoDescription"
   ],
   "interface": [
     "blockSidebar",
@@ -195,22 +191,15 @@ function getPresetDesc(name) {
 const PRESET_DEFINITIONS = {
   balanced: {
     blockHomeFeed: true,
-    blockChannelHome: false,
     limitHomeFeed: false,
     blockSidebar: false,
     blockRecommended: true,
     blockLiveChat: false,
     blockPlaylist: false,
-    blockEndScreenVideowall: true,
-    blockEndScreenCards: true,
+    blockEndScreens: true,
     blockComments: false,
-    blockProfilePhotos: false,
     blockMixPlaylists: true,
     blockMerch: true,
-    blockVideoInfo: false,
-    blockVideoButtons: false,
-    blockChannelInfo: false,
-    blockVideoDescription: false,
     blockTopHeader: false,
     blockNotificationBell: true,
     blockIrrelevantSearchResults: true,
@@ -220,29 +209,20 @@ const PRESET_DEFINITIONS = {
     redirectShorts: false,
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
-    disableAnnotations: true,
     disableHoverPreviews: false,
-    hideThumbnails: false,
-    grayscaleMode: false
+    hideThumbnails: false
   },
   antiShorts: {
     blockHomeFeed: false,
-    blockChannelHome: false,
     limitHomeFeed: true,
     blockSidebar: false,
     blockRecommended: false,
     blockLiveChat: false,
     blockPlaylist: false,
-    blockEndScreenVideowall: false,
-    blockEndScreenCards: false,
+    blockEndScreens: false,
     blockComments: false,
-    blockProfilePhotos: false,
     blockMixPlaylists: false,
     blockMerch: false,
-    blockVideoInfo: false,
-    blockVideoButtons: false,
-    blockChannelInfo: false,
-    blockVideoDescription: false,
     blockTopHeader: false,
     blockNotificationBell: false,
     blockIrrelevantSearchResults: false,
@@ -252,29 +232,20 @@ const PRESET_DEFINITIONS = {
     redirectShorts: true,
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
-    disableAnnotations: false,
     disableHoverPreviews: false,
-    hideThumbnails: false,
-    grayscaleMode: false
+    hideThumbnails: false
   },
   study: {
     blockHomeFeed: true,
-    blockChannelHome: false,
     limitHomeFeed: false,
     blockSidebar: false,
     blockRecommended: true,
     blockLiveChat: true,
     blockPlaylist: false,
-    blockEndScreenVideowall: true,
-    blockEndScreenCards: true,
+    blockEndScreens: true,
     blockComments: true,
-    blockProfilePhotos: true,
     blockMixPlaylists: true,
     blockMerch: true,
-    blockVideoInfo: false,
-    blockVideoButtons: false,
-    blockChannelInfo: false,
-    blockVideoDescription: false,
     blockTopHeader: false,
     blockNotificationBell: true,
     blockIrrelevantSearchResults: true,
@@ -284,29 +255,20 @@ const PRESET_DEFINITIONS = {
     redirectShorts: false,
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
-    disableAnnotations: true,
     disableHoverPreviews: false,
-    hideThumbnails: false,
-    grayscaleMode: false
+    hideThumbnails: false
   },
   zen: {
     blockHomeFeed: true,
-    blockChannelHome: true,
     limitHomeFeed: false,
     blockSidebar: true,
     blockRecommended: true,
     blockLiveChat: true,
     blockPlaylist: true,
-    blockEndScreenVideowall: true,
-    blockEndScreenCards: true,
+    blockEndScreens: true,
     blockComments: true,
-    blockProfilePhotos: true,
     blockMixPlaylists: true,
     blockMerch: true,
-    blockVideoInfo: false,
-    blockVideoButtons: false,
-    blockChannelInfo: false,
-    blockVideoDescription: false,
     blockTopHeader: false,
     blockNotificationBell: true,
     blockIrrelevantSearchResults: true,
@@ -316,29 +278,20 @@ const PRESET_DEFINITIONS = {
     redirectShorts: false,
     blockSubscriptionsFeed: true,
     disableAutoplay: true,
-    disableAnnotations: true,
     disableHoverPreviews: true,
-    hideThumbnails: true,
-    grayscaleMode: false
+    hideThumbnails: true
   },
   player: {
     blockHomeFeed: true,
-    blockChannelHome: false,
     limitHomeFeed: false,
     blockSidebar: false,
     blockRecommended: true,
     blockLiveChat: false,
     blockPlaylist: false,
-    blockEndScreenVideowall: true,
-    blockEndScreenCards: true,
+    blockEndScreens: true,
     blockComments: true,
-    blockProfilePhotos: true,
     blockMixPlaylists: true,
     blockMerch: true,
-    blockVideoInfo: false,
-    blockVideoButtons: false,
-    blockChannelInfo: false,
-    blockVideoDescription: false,
     blockTopHeader: false,
     blockNotificationBell: false,
     blockIrrelevantSearchResults: true,
@@ -348,10 +301,8 @@ const PRESET_DEFINITIONS = {
     redirectShorts: false,
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
-    disableAnnotations: true,
     disableHoverPreviews: false,
-    hideThumbnails: false,
-    grayscaleMode: false
+    hideThumbnails: false
   }
 };
 
@@ -444,11 +395,7 @@ function getSectionActiveCount(secName, s) {
   const toggleKeys = SECTION_TOGGLES[secName] || [];
   let count = 0;
   for (const key of toggleKeys) {
-    if (['blockVideoButtons', 'blockChannelInfo', 'blockVideoDescription'].includes(key)) {
-      if (!settings.blockVideoInfo && settings[key]) {
-        count++;
-      }
-    } else if (settings[key]) {
+    if (settings[key]) {
       count++;
     }
   }
@@ -468,8 +415,8 @@ function updateAccordionBadges(s) {
     const total = (SECTION_TOGGLES[sec] || []).length;
     const isCollapsed = secEl.classList.contains('collapsed');
 
-    if (isCollapsed) {
-      badgeEl.textContent = `${count}/${total}`;
+    if (count > 0) {
+      badgeEl.textContent = isCollapsed ? `${count}/${total}` : `${count} active`;
       badgeEl.style.display = 'inline-flex';
     } else {
       badgeEl.style.display = 'none';
@@ -689,32 +636,15 @@ function detectActivePreset(s) {
 }
 
 function updatePresetUI(s) {
-  const active = detectActivePreset(s);
-
-  // Update preset dropdown
+  // Option A: preset dropdown is a one-shot 'load' action, not a state mirror.
+  // We never sync selectPreset.value to current settings — the placeholder always
+  // shows, eliminating the dual-state confusion between the dropdown and the toggles.
   const selectPreset = $('select-preset');
-  if (selectPreset) {
-    selectPreset.value = active;
-    selectPreset.title = getPresetDesc(active);
+  if (selectPreset && selectPreset.value !== '') {
+    // Reset to placeholder after any external renderAll (e.g. storage sync)
+    selectPreset.value = '';
   }
-
-  // Update dropdown icon
-  const icon = document.querySelector('.preset-dropdown-icon');
-  if (icon) {
-    switch (active) {
-      case 'balanced': icon.innerHTML = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'; break;
-      case 'antiShorts': icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/><line x1="19" y1="5" x2="19" y2="19"/>'; break;
-      case 'study': icon.innerHTML = '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'; break;
-      case 'zen': icon.innerHTML = '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 0-20"/>'; break;
-      case 'player': icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>'; break;
-      case 'custom': icon.innerHTML = '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>'; break;
-    }
-  }
-
-  const tooltipText = $('preset-tooltip-text');
-  if (tooltipText) {
-    tooltipText.textContent = getPresetDesc(active);
-  }
+  // Icon and tooltip are static — they describe the action, not current state.
 }
 
 function getPresetRelaxedKeys(targetPreset) {
@@ -734,18 +664,16 @@ async function doApplyPreset(preset, presetName) {
   _s = updated;
   broadcastSettingsToTabs(updated);
   renderAll(updated);
+  // Reset dropdown to placeholder — it's a one-shot loader, not a state mirror
+  const selectPreset = $('select-preset');
+  if (selectPreset) selectPreset.value = '';
   const pLabel = getPresetLabel(presetName);
   showToast(t('preset_applied', [pLabel]) || `Switched to ${pLabel} mode`);
 }
 
 async function applyPreset(presetName) {
-  if (presetName === 'custom') {
-    const detailedHeader = $('sec-feed');
-    if (detailedHeader) {
-      detailedHeader.scrollIntoView({ behavior: 'smooth' });
-    }
-    return;
-  }
+  // '' is the placeholder option — nothing to do
+  if (!presetName) return;
 
   const targetPreset = PRESET_DEFINITIONS[presetName];
   if (!targetPreset) return;
@@ -835,25 +763,19 @@ async function dismissWelcomeCard() {
 /* ── In-Popup Toggle Quick Search ──────────────────────── */
 
 const SEARCH_ALIASES = {
-  blockVideoInfo: 'metadata details title header author panel video info',
-  blockVideoButtons: 'like dislike share clip download save action buttons video buttons',
-  blockChannelInfo: 'channel info owner creator author avatar subscribe subscriber count',
-  blockVideoDescription: 'description text summary details expandable video description hide description sub toggle',
   limitHomeFeed: 'limit home feed doomscroll anti-doomscroll scroll infinite',
   blockHomeFeed: 'home feed recommendations homepage algorithmic feed',
+  blockChannelHome: 'channel featured trailer tabs creator home page',
   homeRedirect: 'homepage redirect subscriptions watch later history destination auto redirect',
-  blockChannelHome: 'channel home homepage featured creator landing page',
   blockSubscriptionsFeed: 'subscriptions subs feed channels subscribed subscription',
   blockShorts: 'shorts reel reels tiktok vertical videos',
   redirectShorts: 'redirect shorts normal player standard view',
-  blockEndScreenVideowall: 'end screen videowall next watch grid recommendations',
-  blockEndScreenCards: 'end screen cards creator cards annotations',
+  blockEndScreens: 'end screen videowall next watch grid recommendations creator cards annotations popups notes',
   blockLiveChat: 'live chat stream chat replay',
   blockPlaylist: 'playlist panel playlist queue',
   disableAutoplay: 'disable autoplay next video auto play',
-  disableAnnotations: 'annotations cards popups notes',
   blockComments: 'comments replies discussion community',
-  blockProfilePhotos: 'profile photos avatars pictures',
+  blockProfilePhotos: 'profile photos avatars user pictures comments',
   blockSidebar: 'sidebar guide drawer navigation menu left panel',
   blockRecommended: 'recommended sidebar up next related suggestions related videos',
   blockExploreAndTrending: 'explore trending popular destination fire',
@@ -863,8 +785,12 @@ const SEARCH_ALIASES = {
   blockNotificationBell: 'notification bell bell alerts',
   blockMerch: 'merch offers shopping products merchandise',
   blockMixPlaylists: 'mix playlists mixes radio endless mix',
+  blockVideoInfo: 'video info title view count publish date metadata',
+  blockVideoButtons: 'like dislike share download clip save thanks buttons actions',
+  blockChannelInfo: 'channel name subscribe button subscriber count creator',
+  blockVideoDescription: 'description expander details show more text notes',
   hideThumbnails: 'thumbnails preview images blur picture',
-  grayscaleMode: 'grayscale black and white monochrome bw gray colour'
+  grayscaleMode: 'grayscale black and white b&w monochrome desaturate'
 };
 
 let _searchPrevCollapsed = null;
@@ -884,6 +810,7 @@ const SEARCH_DESTINATIONS = [
 
 function renderSearchShortcuts(queryTerms) {
   const container = $('setting-search-shortcuts');
+  if (!container) return 0;
   const focusedTarget = container.contains(document.activeElement) ? document.activeElement.dataset.target : null;
   container.replaceChildren();
   if (queryTerms.length) {
@@ -902,7 +829,8 @@ function renderSearchShortcuts(queryTerms) {
       location.textContent = tabLabel;
       button.append(name, location);
       button.addEventListener('click', async () => {
-        $('input-toggle-search').value = '';
+        const input = $('input-toggle-search');
+        if (input) input.value = '';
         filterToggles('');
         await switchTab(destination.tab);
         const target = destination.selector ? document.querySelector(destination.selector) : $(destination.target);
@@ -958,12 +886,17 @@ function filterToggles(query) {
     }
 
     const belowVideo = $('below-video-controls');
-    belowVideo.style.display = '';
-    if (_searchPrevBelowVideoOpen !== null) belowVideo.open = _searchPrevBelowVideoOpen;
+    if (belowVideo) {
+      belowVideo.style.display = '';
+      if (_searchPrevBelowVideoOpen !== null) belowVideo.open = _searchPrevBelowVideoOpen;
+    }
     _searchPrevBelowVideoOpen = null;
 
-    $('common-controls').style.display = '';
-    $('common-controls').querySelectorAll('.row').forEach(row => { row.style.display = ''; });
+    const common = $('common-controls');
+    if (common) {
+      common.style.display = '';
+      common.querySelectorAll('.row').forEach(row => { row.style.display = ''; });
+    }
     _searchPrevCollapsed = null;
     updateAccordionBadges(_s);
     return;
@@ -972,7 +905,8 @@ function filterToggles(query) {
   // Save previous collapsed state on first keystroke
   if (!_searchPrevCollapsed) {
     _searchPrevCollapsed = {};
-    _searchPrevBelowVideoOpen = $('below-video-controls').open;
+    const belowVideo = $('below-video-controls');
+    _searchPrevBelowVideoOpen = belowVideo ? belowVideo.open : false;
     for (const sec of ACCORDION_SECTIONS) {
       const secEl = $(`sec-${sec}`);
       if (secEl) {
@@ -1028,7 +962,6 @@ function filterToggles(query) {
   if (noResultsEl) noResultsEl.style.display = totalMatches === 0 ? 'flex' : 'none';
   if (detailedHeader) detailedHeader.style.display = categoryMatches === 0 ? 'none' : 'flex';
 }
-
 
 /* ── Simple vs Advanced Mode ─────────────────────────── */
 
@@ -1425,6 +1358,12 @@ function escapeHtml(str) {
 
 /* ── Channel & Keyword Blocklists Rendering & Actions ── */
 
+function getListSettingKey(type) {
+  const isAllow = _s?.filterMode === 'allowlist';
+  if (type === 'channel') return isAllow ? 'channelAllowlist' : 'channelBlocklist';
+  return isAllow ? 'keywordAllowlist' : 'keywordBlocklist';
+}
+
 function renderBlocklist(type, items) {
   const chipsList = $(`${type}-blocklist-chips`);
   const emptyState = $(`${type}-blocklist-empty`);
@@ -1432,7 +1371,9 @@ function renderBlocklist(type, items) {
   const clearBtn = $(`btn-clear-${type}s`);
   if (!chipsList || !emptyState) return;
 
-  const list = Array.isArray(items) ? items : [];
+  const currentKey = getListSettingKey(type);
+  const isAllow = _s?.filterMode === 'allowlist';
+  const list = Array.isArray(items) ? items : (_s?.[currentKey] || []);
 
   if (badge) {
     badge.textContent = String(list.length);
@@ -1477,14 +1418,14 @@ function renderBlocklist(type, items) {
 
     removeBtn.addEventListener('click', async (e) => {
       e.stopPropagation();
-      const settingKey = type === 'channel' ? 'channelBlocklist' : 'keywordBlocklist';
+      const settingKey = getListSettingKey(type);
       const currentList = Array.isArray(_s?.[settingKey]) ? _s[settingKey] : [];
       _s = await StorageManager.changeList(settingKey, item, true);
       const updatedList = _s[settingKey];
 
       broadcastSettingsToTabs(_s);
       renderBlocklist(type, updatedList);
-      showToast(t(`toast_${type}_removed`, [item]) || `Removed "${item}" from blocklist`);
+      showToast(t(`toast_${type}_removed`, [item]) || `Removed "${item}" from list`);
     });
 
     chip.appendChild(textSpan);
@@ -1538,7 +1479,8 @@ async function handleAddBlocklistEntry(type) {
     }
   }
 
-  const settingKey = type === 'channel' ? 'channelBlocklist' : 'keywordBlocklist';
+  const settingKey = getListSettingKey(type);
+  const isAllow = _s?.filterMode === 'allowlist';
   const currentList = Array.isArray(_s?.[settingKey]) ? [..._s[settingKey]] : [];
 
   if (currentList.includes(cleanVal)) {
@@ -1556,11 +1498,12 @@ async function handleAddBlocklistEntry(type) {
   input.value = '';
   broadcastSettingsToTabs(_s);
   renderBlocklist(type, currentList);
-  showToast(t(`toast_${type}_added`, [cleanVal]) || `Added "${cleanVal}" to blocklist`);
+  showToast(t(`toast_${type}_added`, [cleanVal]) || `Added "${cleanVal}" to list`);
 }
 
 async function handleClearBlocklist(type) {
-  const settingKey = type === 'channel' ? 'channelBlocklist' : 'keywordBlocklist';
+  const settingKey = getListSettingKey(type);
+  const isAllow = _s?.filterMode === 'allowlist';
   const currentList = Array.isArray(_s?.[settingKey]) ? _s[settingKey] : [];
   if (currentList.length === 0) return;
 
@@ -1569,7 +1512,73 @@ async function handleClearBlocklist(type) {
 
   broadcastSettingsToTabs(_s);
   renderBlocklist(type, []);
-  showToast(t(`toast_${type}_cleared`) || `Cleared all blocked ${type}s`);
+  showToast(t(`toast_${type}_cleared`) || `Cleared all ${type}s`);
+}
+
+function renderFilterMode() {
+  const isAllow = _s?.filterMode === 'allowlist';
+  const action = _s?.allowlistAction || 'dim';
+
+  const btnBlock = $('btn-mode-blocklist');
+  const btnAllow = $('btn-mode-allowlist');
+  if (btnBlock && btnAllow) {
+    btnBlock.classList.toggle('active', !isAllow);
+    btnBlock.setAttribute('aria-checked', !isAllow ? 'true' : 'false');
+    btnAllow.classList.toggle('active', isAllow);
+    btnAllow.setAttribute('aria-checked', isAllow ? 'true' : 'false');
+  }
+
+  const actionContainer = $('allowlist-action-container');
+  if (actionContainer) {
+    actionContainer.style.display = isAllow ? 'flex' : 'none';
+  }
+  const btnDim = $('btn-action-dim');
+  const btnHide = $('btn-action-hide');
+  if (btnDim && btnHide) {
+    btnDim.classList.toggle('active', action === 'dim');
+    btnDim.setAttribute('aria-checked', action === 'dim' ? 'true' : 'false');
+    btnHide.classList.toggle('active', action === 'hide');
+    btnHide.setAttribute('aria-checked', action === 'hide' ? 'true' : 'false');
+  }
+
+  const channelTitle = $('channel-filter-title');
+  if (channelTitle) {
+    channelTitle.textContent = isAllow ? (t('section_channel_allowlist') || 'Channel Allowlist') : (t('section_channel_blocklist') || 'Channel Blocklist');
+  }
+  const keywordTitle = $('keyword-filter-title');
+  if (keywordTitle) {
+    keywordTitle.textContent = isAllow ? (t('section_keyword_allowlist') || 'Keyword Allowlist') : (t('section_keyword_blocklist') || 'Keyword Blocklist');
+  }
+
+  const channelInput = $('input-channel-blocklist');
+  if (channelInput) {
+    channelInput.placeholder = isAllow ? (t('placeholder_channel_allow_input') || 'e.g. 3Blue1Brown, Veritasium...') : (t('placeholder_channel_input') || 'Channel name or @handle...');
+  }
+  const keywordInput = $('input-keyword-blocklist');
+  if (keywordInput) {
+    keywordInput.placeholder = isAllow ? (t('placeholder_keyword_allow_input') || 'e.g. calculus, python, physics...') : (t('placeholder_keyword_input') || 'e.g. podcast, spoiler, react...');
+  }
+
+  const channelEmpty = $('channel-blocklist-empty');
+  if (channelEmpty) {
+    channelEmpty.textContent = isAllow ? (t('allowlist_channels_empty') || 'No channels allowlisted') : (t('blocklist_channels_empty') || 'No channels added');
+  }
+  const keywordEmpty = $('keyword-blocklist-empty');
+  if (keywordEmpty) {
+    keywordEmpty.textContent = isAllow ? (t('allowlist_keywords_empty') || 'No keywords allowlisted') : (t('blocklist_keywords_empty') || 'No keywords added');
+  }
+
+  const quickBlockLabel = $('quick-block-label');
+  if (quickBlockLabel) {
+    quickBlockLabel.textContent = isAllow ? (t('filters_quick_allow_title') || 'Show Allow buttons') : (t('filters_quick_block_title') || 'Show Block buttons');
+  }
+  const quickBlockDesc = $('help-quick-block');
+  if (quickBlockDesc) {
+    quickBlockDesc.textContent = isAllow ? (t('filters_quick_allow_desc') || 'Show an Allow button beside channels on video cards.') : (t('filters_quick_block_desc') || 'Show a Block button beside channels on video cards.');
+  }
+
+  renderBlocklist('channel', _s?.[getListSettingKey('channel')] || []);
+  renderBlocklist('keyword', _s?.[getListSettingKey('keyword')] || []);
 }
 
 /* ── Master Render ───────────────────────────────────── */
@@ -1685,7 +1694,24 @@ function renderAll(s) {
   document.body.classList.toggle('ext-off', !on);
   const badge = $('ext-badge');
   if (badge) {
-    badge.textContent = on ? (t('status_active') || 'Active') : (t('status_paused') || 'Paused');
+    badge.classList.remove('badge-active', 'badge-focus', 'badge-scheduled', 'badge-limit', 'badge-off');
+    if (!on) {
+      badge.classList.add('badge-off');
+      badge.textContent = t('status_off') || t('status_paused') || 'Off';
+    } else if (IYT_Policy.focusSessionActive(s)) {
+      badge.classList.add('badge-focus');
+      const remainingMins = Math.max(1, Math.ceil((s.focusSessionUntil - Date.now()) / 60000));
+      badge.textContent = `${t('status_focus_session') || 'Focus'} (${remainingMins}m)`;
+    } else if (IYT_Policy.schedules(s)?.length > 0) {
+      badge.classList.add('badge-scheduled');
+      badge.textContent = t('status_scheduled') || 'Scheduled';
+    } else if (s.dailyLimit?.enabled && (s.stats?.todayWatchSeconds >= s.dailyLimit.limitMinutes * 60)) {
+      badge.classList.add('badge-limit');
+      badge.textContent = t('status_limit_reached') || 'Limit Reached';
+    } else {
+      badge.classList.add('badge-active');
+      badge.textContent = t('status_active') || 'Active';
+    }
   }
 
   const searchInput = $('input-toggle-search');
@@ -1740,9 +1766,8 @@ function renderAll(s) {
   $('toggle-scheduledBlockingEnabled').checked = !!s.scheduledBlocking?.enabled;
   renderSchedulesList(s);
 
-  // Channel & Keyword Blocklists
-  renderBlocklist('channel', s.channelBlocklist || []);
-  renderBlocklist('keyword', s.keywordBlocklist || []);
+  // Filter Mode, Allowlist & Blocklists
+  renderFilterMode();
 
   // Relocated Language selector
   const langSel = $('select-userLanguage');
@@ -1773,6 +1798,88 @@ function renderAll(s) {
   updateFocusCardBadges(s);
 }
 
+async function renderStatsTrend(todaySecs) {
+  const chartEl = $('stats-trend-chart');
+  if (!chartEl) return;
+
+  let history = {};
+  try {
+    const stored = await browser.storage.local.get('watchHistory');
+    if (stored?.watchHistory && typeof stored.watchHistory === 'object') {
+      history = { ...stored.watchHistory };
+    }
+  } catch (_) {}
+
+  const todayStr = StorageManager.getTodayString();
+  const todayMins = Math.round((todaySecs || 0) / 60);
+  history[todayStr] = todayMins;
+
+  // Prune history to last 14 days
+  const keys = Object.keys(history).sort();
+  if (keys.length > 14) {
+    const keep = keys.slice(-14);
+    const pruned = {};
+    for (const k of keep) pruned[k] = history[k];
+    history = pruned;
+  }
+  browser.storage.local.set({ watchHistory: history }).catch(() => {});
+
+  // Generate last 7 days ending today
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const daysData = [];
+  let weekTotalMins = 0;
+
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const key = `${yyyy}-${mm}-${dd}`;
+    const mins = history[key] || 0;
+    weekTotalMins += mins;
+    daysData.push({
+      dateStr: key,
+      dayName: dayNames[d.getDay()],
+      mins,
+      isToday: i === 0
+    });
+  }
+
+  const maxMins = Math.max(30, ...daysData.map(d => d.mins));
+  const totalEl = $('stats-trend-total');
+  if (totalEl) {
+    totalEl.textContent = weekTotalMins >= 60
+      ? `${(weekTotalMins / 60).toFixed(1)}h this week`
+      : `${weekTotalMins}m this week`;
+  }
+
+  chartEl.replaceChildren();
+  for (const item of daysData) {
+    const col = document.createElement('div');
+    col.className = `stats-trend-col${item.isToday ? ' is-today' : ''}`;
+    col.title = `${item.dateStr}: ${item.mins} min`;
+
+    const track = document.createElement('div');
+    track.className = 'stats-trend-bar-track';
+
+    const fill = document.createElement('div');
+    fill.className = 'stats-trend-bar-fill';
+    const heightPct = item.mins > 0 ? Math.max(8, Math.round((item.mins / maxMins) * 100)) : 4;
+    fill.style.height = `${heightPct}%`;
+
+    track.appendChild(fill);
+
+    const dayLabel = document.createElement('span');
+    dayLabel.className = 'stats-trend-day';
+    dayLabel.textContent = item.isToday ? (t('stats_trend_today') || 'Today') : item.dayName[0];
+
+    col.appendChild(track);
+    col.appendChild(dayLabel);
+    chartEl.appendChild(col);
+  }
+}
+
 function renderStats(s) {
   const secs = s.stats?.todayWatchSeconds || 0;
   const timeFormatted = fmtTime(secs);
@@ -1787,6 +1894,8 @@ function renderStats(s) {
   const progWrap = $('watch-prog-wrap');
   const progEl = $('prog-fill');
   const limitLabelEl = $('stats-limit-label');
+  const heroProgWrap = $('stats-hero-prog-wrap');
+  const heroProgFill = $('stats-hero-prog-fill');
 
   if (s.dailyLimit?.enabled) {
     const limitMin = s.dailyLimit.limitMinutes || 60;
@@ -1797,6 +1906,12 @@ function renderStats(s) {
       progEl.style.width = `${pct}%`;
       progEl.classList.toggle('prog-warning', pct >= 80 && pct < 100);
       progEl.classList.toggle('prog-danger', pct >= 100);
+    }
+    if (heroProgWrap) heroProgWrap.style.display = 'block';
+    if (heroProgFill) {
+      heroProgFill.style.width = `${pct}%`;
+      heroProgFill.classList.toggle('prog-warning', pct >= 80 && pct < 100);
+      heroProgFill.classList.toggle('prog-danger', pct >= 100);
     }
     if (limitLabelEl) {
       limitLabelEl.textContent = t('stats_limit_progress', [String(pct), String(limitMin)]) || `${pct}% of ${limitMin}m`;
@@ -1814,6 +1929,7 @@ function renderStats(s) {
       progEl.style.width = '0%';
       progEl.classList.remove('prog-warning', 'prog-danger');
     }
+    if (heroProgWrap) heroProgWrap.style.display = 'none';
     if (limitLabelEl) {
       limitLabelEl.textContent = t('stats_no_limit') || 'No Limit';
       limitLabelEl.classList.add('limit-unrestricted');
@@ -1824,6 +1940,8 @@ function renderStats(s) {
       panelStatusEl.classList.remove('status-warning');
     }
   }
+
+  renderStatsTrend(secs).catch(() => {});
 }
 
 const YOUTUBE_CONTENT_URLS = ['*://www.youtube.com/*', '*://m.youtube.com/*'];
@@ -2031,12 +2149,10 @@ const SETTING_DIAGRAMS = {
 };
 
 function getDiagramSVG(helpId) {
-  if (helpId === 'help-toggle-blockEndScreenVideowall') return SETTING_DIAGRAMS.endscreen;
-  if (helpId === 'help-toggle-blockEndScreenCards') return SETTING_DIAGRAMS.endscreenCards;
+  if (helpId === 'help-toggle-blockEndScreens' || helpId === 'help-toggle-blockEndScreenVideowall' || helpId === 'help-toggle-blockEndScreenCards') return SETTING_DIAGRAMS.endscreen;
   if (helpId === 'help-toggle-blockSidebar') return SETTING_DIAGRAMS.sidebar;
   if (helpId === 'help-toggle-blockShorts' || helpId === 'help-toggle-redirectShorts') return SETTING_DIAGRAMS.shorts;
   if (helpId === 'home-feed-description' || helpId === 'home-redirect-description') return SETTING_DIAGRAMS.home;
-  if (helpId === 'help-toggle-blockVideoInfo' || helpId === 'help-toggle-blockVideoButtons') return SETTING_DIAGRAMS.playerDetails;
   if (helpId === 'help-filter-channel' || helpId === 'help-quick-block' || helpId === 'help-filter-keyword') return SETTING_DIAGRAMS.channel;
   if (helpId === 'help-toggle-dailyLimit' || helpId === 'help-focus-session' || helpId === 'help-toggle-softReminder') return SETTING_DIAGRAMS.focus;
   if (helpId === 'help-toggle-focusLockEnabled') return SETTING_DIAGRAMS.lock;
@@ -2064,11 +2180,19 @@ function bindSettingHelp() {
     const text = helpEl ? helpEl.textContent : '';
     const diagram = getDiagramSVG(helpId);
 
+    tooltip.replaceChildren();
     if (diagram) {
-      tooltip.innerHTML = `<div class="tooltip-diagram-wrap">${diagram}</div><div class="tooltip-text-content">${escapeHTML(text)}</div>`;
-    } else {
-      tooltip.innerHTML = `<div class="tooltip-text-content">${escapeHTML(text)}</div>`;
+      const wrap = document.createElement('div');
+      wrap.className = 'tooltip-diagram-wrap';
+      const doc = new DOMParser().parseFromString(diagram, 'image/svg+xml');
+      const svgEl = doc.documentElement;
+      if (svgEl) wrap.appendChild(svgEl);
+      tooltip.appendChild(wrap);
     }
+    const content = document.createElement('div');
+    content.className = 'tooltip-text-content';
+    content.textContent = text;
+    tooltip.appendChild(content);
 
     tooltip.hidden = false;
     const rect = button.getBoundingClientRect();
@@ -2210,7 +2334,7 @@ function bindAll() {
       if (e.key === 'ArrowDown' && searchInput.value.trim()) {
         const firstBlockControl = [...$('setting-controls').querySelectorAll('.row input.chk, .row select')]
           .find(control => !control.disabled && control.getClientRects().length > 0);
-        const firstResult = firstBlockControl || $('setting-search-shortcuts').querySelector('button');
+        const firstResult = firstBlockControl || $('setting-search-shortcuts')?.querySelector('button');
         if (firstResult) {
           e.preventDefault();
           firstResult.focus();
@@ -2969,9 +3093,8 @@ function bindAll() {
     if (s.blockRecommended) tags.push({ text: 'Hide Suggestions' });
     if (s.blockSidebar) tags.push({ text: 'Hide Sidebar' });
     if (s.blockComments) tags.push({ text: 'Hide Comments' });
-    if (s.blockProfilePhotos) tags.push({ text: 'Hide Avatars' });
+    if (s.blockEndScreens) tags.push({ text: 'Clean End Screen' });
     if (s.hideThumbnails) tags.push({ text: 'Hide Thumbnails' });
-    if (s.grayscaleMode) tags.push({ text: 'Grayscale' });
     if (s.disableAutoplay) tags.push({ text: 'No Autoplay' });
     if (s.blockExploreAndTrending) tags.push({ text: 'Hide Trending' });
     if (s.blockNotificationBell) tags.push({ text: 'Hide Alerts' });
@@ -3118,6 +3241,55 @@ function bindAll() {
   $('btn-clear-channels')?.addEventListener('click', () => handleClearBlocklist('channel'));
   $('btn-clear-keywords')?.addEventListener('click', () => handleClearBlocklist('keyword'));
 
+  // Filter Mode & Allowlist Action selectors
+  $('btn-mode-blocklist')?.addEventListener('click', async () => {
+    if (_s?.filterMode === 'blocklist') return;
+    try {
+      _s = await StorageManager.updateSetting('filterMode', 'blocklist');
+      broadcastSettingsToTabs(_s);
+      renderFilterMode();
+      showToast(t('toast_mode_blocklist') || 'Switched to Blocklist mode');
+    } catch (err) {
+      if (err?.code === 'LOCKED') showToast(err.message);
+    }
+  });
+
+  $('btn-mode-allowlist')?.addEventListener('click', async () => {
+    if (_s?.filterMode === 'allowlist') return;
+    try {
+      _s = await StorageManager.updateSetting('filterMode', 'allowlist');
+      broadcastSettingsToTabs(_s);
+      renderFilterMode();
+      showToast(t('toast_mode_allowlist') || 'Switched to Allowlist mode');
+    } catch (err) {
+      if (err?.code === 'LOCKED') showToast(err.message);
+    }
+  });
+
+  $('btn-action-dim')?.addEventListener('click', async () => {
+    if (_s?.allowlistAction === 'dim') return;
+    try {
+      _s = await StorageManager.updateSetting('allowlistAction', 'dim');
+      broadcastSettingsToTabs(_s);
+      renderFilterMode();
+      showToast(t('toast_action_dim') || 'Unlisted videos will be dimmed');
+    } catch (err) {
+      if (err?.code === 'LOCKED') showToast(err.message);
+    }
+  });
+
+  $('btn-action-hide')?.addEventListener('click', async () => {
+    if (_s?.allowlistAction === 'hide') return;
+    try {
+      _s = await StorageManager.updateSetting('allowlistAction', 'hide');
+      broadcastSettingsToTabs(_s);
+      renderFilterMode();
+      showToast(t('toast_action_hide') || 'Unlisted videos will be hidden');
+    } catch (err) {
+      if (err?.code === 'LOCKED') showToast(err.message);
+    }
+  });
+
   // Backdrop click dismisses any active modal overlay
   document.querySelectorAll('.iyt-modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', e => {
@@ -3129,11 +3301,18 @@ function bindAll() {
     });
   });
 
-  // Global Escape key dismisses modals
+  // Global Escape key dismisses modals, '/' focuses search
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       hidePinModals();
       hideConfirmResetModal();
+      closeImportPresetModal();
+    } else if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+      e.preventDefault();
+      switchTab('block');
+      const search = $('input-toggle-search');
+      search?.focus();
+      search?.select();
     }
   });
 

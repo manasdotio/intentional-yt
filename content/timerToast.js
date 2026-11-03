@@ -49,6 +49,8 @@ const IYT_Timer = (() => {
   let _warningPending = false;
   let _warnedBudget = null;
   let _warningRetryAt = 0;
+  let _overlayTrapHandler = null;
+  let _prevFocusedEl = null;
 
   async function _maybeWarnBeforeLimit() {
     if (_warningPending || document.hidden || !_enforcing() || _video.paused || !_settings || Date.now() < _warningRetryAt) return;
@@ -344,12 +346,20 @@ const IYT_Timer = (() => {
       playerEl.style.position = 'relative';
     }
 
+    _prevFocusedEl = document.activeElement;
+    if (_overlayTrapHandler) {
+      if (typeof window !== 'undefined' && typeof window.removeEventListener === 'function') {
+        window.removeEventListener('keydown', _overlayTrapHandler, true);
+      }
+      _overlayTrapHandler = null;
+    }
     document.getElementById('iyt-limit-overlay')?.remove();
 
     const overlay = document.createElement('div');
     overlay.id = 'iyt-limit-overlay';
     overlay.className = 'iy-limit-overlay';
     overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
     overlay.setAttribute('aria-label', _t('overlay_limit_title', null, 'Daily Limit Reached'));
     const dir = (typeof I18N !== 'undefined' && I18N.getDirection) ? I18N.getDirection() : 'ltr';
     overlay.setAttribute('dir', dir);
@@ -372,9 +382,10 @@ const IYT_Timer = (() => {
     btnGroup.className = 'iy-limit-btn-group';
 
     const canFinish = _canOfferFinishVideo();
+    let finishBtn = null;
 
     if (canFinish) {
-      const finishBtn = document.createElement('button');
+      finishBtn = document.createElement('button');
       finishBtn.className = 'iy-limit-button';
       let label = _t('overlay_button_finish_video', null, 'Finish this video');
       if (_video && Number.isFinite(_video.duration) && _video.duration > 0) {
@@ -415,6 +426,54 @@ const IYT_Timer = (() => {
     playerEl.appendChild(overlay);
     _limitOverlayActive = true;
 
+    // Focus primary action
+    const primaryBtn = canFinish && finishBtn ? finishBtn : stopBtn;
+    try { primaryBtn?.focus(); } catch (_) {}
+
+    // Trap keyboard navigation & handle Escape key
+    _overlayTrapHandler = (e) => {
+      if (!_limitOverlayActive || !document.getElementById('iyt-limit-overlay')) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (canFinish && finishBtn) {
+          finishBtn.click();
+        } else if (!_settings?.focusLock?.enabled && overrideBtn) {
+          overrideBtn.click();
+        } else {
+          stopBtn?.focus();
+        }
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const focusable = Array.from(overlay.querySelectorAll('button:not([disabled])'));
+        if (focusable.length <= 1) {
+          e.preventDefault();
+          focusable[0]?.focus();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first || !overlay.contains(document.activeElement)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last || !overlay.contains(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    };
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('keydown', _overlayTrapHandler, true);
+    }
+
     // Prevent clicks from penetrating through overlay to player
     overlay.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -438,9 +497,21 @@ const IYT_Timer = (() => {
   }
 
   function _removeLimitOverlay() {
+    if (_overlayTrapHandler) {
+      if (typeof window !== 'undefined' && typeof window.removeEventListener === 'function') {
+        window.removeEventListener('keydown', _overlayTrapHandler, true);
+      }
+      _overlayTrapHandler = null;
+    }
     document.getElementById('iyt-limit-overlay')?.remove();
     _limitOverlayActive = false;
     _restoreMediaSession();
+    try {
+      if (_prevFocusedEl && typeof _prevFocusedEl.focus === 'function' && _prevFocusedEl.isConnected) {
+        _prevFocusedEl.focus();
+        _prevFocusedEl = null;
+      }
+    } catch (_) {}
   }
 
   // ─── Write accumulated seconds to storage ─────────────────────────────────

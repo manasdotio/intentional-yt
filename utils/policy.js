@@ -25,7 +25,7 @@ globalThis.IYT_Policy = {
       for (const key of Object.keys(result)) {
         if (/^(block|disable)/.test(key) && typeof result[key] === 'boolean') result[key] = true;
       }
-      result.hideThumbnails = result.grayscaleMode = result.redirectShorts = true;
+      result.hideThumbnails = result.redirectShorts = true;
       result.limitHomeFeed = false;
     }
     return result;
@@ -66,10 +66,12 @@ globalThis.IYT_Policy = {
     if (['reset', 'import', 'resetStats'].includes(op)) return true;
     if (old.focusSessionUntil > Date.now() && (next.focusSessionUntil || 0) < old.focusSessionUntil) return true;
     for (const key of Object.keys(old)) {
-      if ((/^(block|disable)/.test(key) || ['extensionEnabled','redirectShorts','hideThumbnails','grayscaleMode'].includes(key)) && old[key] === true && next[key] === false) return true;
+      if ((/^(block|disable)/.test(key) || ['extensionEnabled','redirectShorts','hideThumbnails'].includes(key)) && old[key] === true && next[key] === false) return true;
     }
     if (old.limitHomeFeed && !next.limitHomeFeed && !next.blockHomeFeed) return true;
     if (next.limitHomeFeed && old.blockHomeFeed) return true;
+    if (old.filterMode === 'allowlist' && next.filterMode !== 'allowlist') return true;
+    if (old.allowlistAction === 'hide' && next.allowlistAction === 'dim') return true;
     if ((next.snoozeUntil || 0) > (old.snoozeUntil || 0)) return true;
     for (const key of ['channelBlocklist','keywordBlocklist']) if (old[key].some(x => !next[key].includes(x))) return true;
     for (const key of ['dailyLimit','softReminder','scheduledBlocking']) if (old[key].enabled && !next[key].enabled) return true;

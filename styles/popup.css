@@ -2462,6 +2462,91 @@ body.ext-off .lang-row {
 /* ============================================================
    BLOCKLISTS / FILTERS TAB (CHANNEL & KEYWORD BLOCKLISTS)
    ============================================================ */
+.filter-mode-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--surface-inset);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--rule-hairline);
+}
+.filter-mode-toggle {
+  display: flex;
+  flex: 1;
+  gap: 3px;
+}
+.filter-mode-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--ink-secondary);
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all 120ms var(--ease-out-gentle);
+  user-select: none;
+}
+.filter-mode-btn:hover {
+  color: var(--ink-primary);
+}
+.filter-mode-btn.active {
+  background: var(--surface-elevated);
+  color: var(--ink-primary);
+  font-weight: 650;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.allowlist-action-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 8px;
+}
+.allowlist-action-label {
+  font-size: 11.5px;
+  font-weight: 550;
+  color: var(--ink-secondary);
+}
+.allowlist-action-pills {
+  display: inline-flex;
+  background: var(--surface-inset);
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid var(--rule-hairline);
+  gap: 2px;
+}
+.action-pill {
+  padding: 3px 8px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  color: var(--ink-secondary);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all 120ms ease;
+  user-select: none;
+}
+.action-pill:hover {
+  color: var(--ink-primary);
+}
+.action-pill.active {
+  background: var(--surface-elevated);
+  color: var(--accent);
+  font-weight: 650;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
 .blocklist-sections-wrap {
   display: flex;
   flex-direction: column;
@@ -4462,4 +4547,175 @@ body.is-options-page #btn-open-options-page {
 
 .hd-icon-btn:active {
   transform: scale(0.95);
+}
+
+
+/* ── Search Empty State ────────────────────────────── */
+.search-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 36px 16px;
+  text-align: center;
+  color: var(--ink-tertiary);
+}
+.search-empty-state svg {
+  color: var(--ink-ghost);
+  opacity: 0.6;
+}
+.search-empty-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+.search-empty-sub {
+  font-size: 11.5px;
+  color: var(--ink-secondary);
+  max-width: 260px;
+  line-height: 1.4;
+}
+
+/* ── Dynamic Header Status Badge Variants ──────────── */
+#ext-badge.badge-focus {
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+#ext-badge.badge-focus::before {
+  background: var(--accent);
+  box-shadow: 0 0 5px var(--accent);
+}
+#ext-badge.badge-scheduled {
+  background: rgba(245, 158, 11, 0.12);
+  color: #D97706;
+}
+#ext-badge.badge-scheduled::before {
+  background: #D97706;
+  box-shadow: 0 0 5px rgba(217, 119, 6, 0.5);
+}
+#ext-badge.badge-limit {
+  background: var(--danger-subtle);
+  color: var(--danger);
+}
+#ext-badge.badge-limit::before {
+  background: var(--danger);
+  box-shadow: 0 0 5px var(--danger);
+}
+#ext-badge.badge-off {
+  background: var(--surface-inset);
+  color: var(--ink-tertiary);
+}
+#ext-badge.badge-off::before {
+  background: var(--ink-ghost);
+  box-shadow: none;
+}
+
+/* ── Stats Hero Card Progress Bar ─────────────────── */
+.stats-hero-progress-wrap {
+  width: 100%;
+  margin-top: 8px;
+}
+.stats-hero-prog-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--prog-track);
+  overflow: hidden;
+  position: relative;
+}
+.stats-hero-prog-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+}
+.stats-hero-prog-fill.prog-warning {
+  background: #F59E0B;
+}
+.stats-hero-prog-fill.prog-danger {
+  background: var(--danger);
+}
+
+/* ── 7-Day Watch Time Trend Card ───────────────────── */
+.stats-trend-card {
+  margin: 12px 14px 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--rule-hairline);
+}
+.stats-trend-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.stats-trend-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+.stats-trend-title-wrap svg {
+  color: var(--accent);
+}
+.stats-trend-badge {
+  font-size: 11px;
+  font-weight: 550;
+  color: var(--ink-secondary);
+}
+.stats-trend-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  height: 80px;
+  padding-top: 6px;
+}
+.stats-trend-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.stats-trend-bar-track {
+  width: 100%;
+  max-width: 24px;
+  height: 52px;
+  background: var(--surface-inset);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  position: relative;
+}
+.stats-trend-bar-fill {
+  width: 100%;
+  background: var(--ink-ghost);
+  opacity: 0.35;
+  border-radius: 4px;
+  min-height: 2px;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, opacity 0.2s ease;
+}
+.stats-trend-col:hover .stats-trend-bar-fill {
+  opacity: 0.7;
+}
+.stats-trend-col.is-today .stats-trend-bar-fill {
+  background: var(--accent);
+  opacity: 0.95;
+}
+.stats-trend-day {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink-ghost);
+}
+.stats-trend-col.is-today .stats-trend-day {
+  color: var(--accent);
 }

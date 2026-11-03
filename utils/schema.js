@@ -11,7 +11,12 @@ globalThis.IYT_validate = function (input, portable = false) {
     const result = { ...template };
     for (const [key, v] of Object.entries(value)) {
       const name = path ? `${path}.${key}` : key;
-      if (key === 'syncEnabled') continue;
+      if (['syncEnabled', 'blockEndScreenVideowall', 'blockEndScreenCards', 'disableAnnotations'].includes(key)) {
+        if (['blockEndScreenVideowall', 'blockEndScreenCards', 'disableAnnotations'].includes(key) && result.blockEndScreens === undefined) {
+          result.blockEndScreens = Boolean(v);
+        }
+        continue;
+      }
       if (!Object.hasOwn(template, key) || ['__proto__','constructor','prototype'].includes(key)) fail(name);
       const d = template[key];
       if (name === 'focusLock.pendingUnlock') { result[key] = null; continue; }
@@ -33,7 +38,7 @@ globalThis.IYT_validate = function (input, portable = false) {
             if (!['full','strict'].includes(schedule.mode)) fail(`${name}.mode`);
           }
         } else if (v.some(x => typeof x !== 'string' || !x.trim() || x.length > 200)) fail(name);
-        else if (key === 'channelBlocklist' || key === 'keywordBlocklist') {
+        else if (['channelBlocklist', 'keywordBlocklist', 'channelAllowlist', 'keywordAllowlist'].includes(key)) {
           result[key] = [...new Set(v.map(x => x.trim()))];
           continue;
         }
@@ -57,6 +62,8 @@ globalThis.IYT_validate = function (input, portable = false) {
   const result = visit(input, defaults);
   if (!['auto','light','dark'].includes(result.themeMode)) fail('themeMode');
   if (!['none','subscriptions','watchLater','history'].includes(result.homeRedirect)) fail('homeRedirect');
+  if (!['blocklist','allowlist'].includes(result.filterMode)) fail('filterMode');
+  if (!['dim','hide'].includes(result.allowlistAction)) fail('allowlistAction');
   if (!['auto','id','cs','de','el','en','es','fr','it','nl','pl','pt_BR','ro','sv','vi','tr','ru','uk','he','ar','hi','bn','th','ja','zh_CN','zh_TW','ko'].includes(result.userLanguage)) fail('userLanguage');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(result.stats.lastStatsReset)) fail('stats.lastStatsReset');
   if (portable) {
