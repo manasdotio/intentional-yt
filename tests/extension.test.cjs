@@ -1421,3 +1421,37 @@ test('allowlist and dim mode validation, policies and card evaluation', async ()
   assert.ok(css.includes('filter: grayscale(100%) !important;'));
   assert.ok(css.includes('.iyt-quick-allow-btn'));
 });
+
+test('card channel info caches extraction and avoids querying arbitrary non-channel a[href]', () => {
+  const s = source('content/blocker.js');
+  const code = s.slice(s.indexOf('function cleanChannelText'), s.indexOf('function getCurrentPageChannelInfo'));
+  const context = vm.createContext({ decodeURIComponent, WeakMap });
+  vm.runInContext(code, context);
+
+  let querySelectorAllCalls = 0;
+  const channelLink = {
+    getAttribute: attr => attr === 'href' ? '/@TestChannel' : (attr === 'title' ? 'Test Channel' : null),
+    textContent: 'Test Channel',
+    closest: () => false
+  };
+
+  const card = {
+    nodeType: 1,
+    querySelectorAll: selector => {
+      querySelectorAllCalls++;
+      assert.ok(!selector.includes('a[href]'), 'Must not query generic a[href]');
+      if (selector.includes('media-item-byline')) return [channelLink];
+      return [channelLink];
+    }
+  };
+
+  const firstResult = context.getCardChannelInfo(card);
+  assert.ok(firstResult.handles.includes('@testchannel'));
+  const initialCallCount = querySelectorAllCalls;
+  assert.ok(initialCallCount > 0);
+
+  // Subsequent call must return from cache without re-running querySelectorAll
+  const secondResult = context.getCardChannelInfo(card);
+  assert.equal(secondResult, firstResult);
+  assert.equal(querySelectorAllCalls, initialCallCount, 'Cache hit must not call querySelectorAll again');
+});

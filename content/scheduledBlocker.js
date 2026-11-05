@@ -208,6 +208,8 @@ var browser = globalThis.browser || globalThis.chrome;
     if (overlay) { IYT_Dialog.close(overlay); overlay.remove(); }
   }
 
+  let _lastActiveScheduleSignature = '';
+
   async function evaluateSchedules() {
     if (_contextInvalidated) return;
     const generation = ++_evaluation;
@@ -223,7 +225,11 @@ var browser = globalThis.browser || globalThis.chrome;
         const endTime = end ? end.toLocaleString(settings.userLanguage === 'auto' ? undefined : settings.userLanguage.replace('_','-'), { weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '';
         showFullBlockOverlay({ ...full, endTime, language: settings.userLanguage });
       } else hideFullBlockOverlay();
-      await window.__iytBlocker?.applyAllSettings();
+      const currentSignature = JSON.stringify(active);
+      if (currentSignature !== _lastActiveScheduleSignature) {
+        _lastActiveScheduleSignature = currentSignature;
+        await window.__iytBlocker?.applyAllSettings();
+      }
     } catch (error) {
       if (/Extension context invalidated/i.test(error?.message || '')) {
         // Reloading the extension leaves old content scripts in open tabs.

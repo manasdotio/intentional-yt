@@ -353,8 +353,15 @@ function getCardDescriptions(card) {
   return descriptions;
 }
 
+const _cardChannelCache = new WeakMap();
+
 function getCardChannelInfo(card) {
   if (!card) return { names: [], handles: [], ids: [] };
+
+  const cached = _cardChannelCache.get(card);
+  if (cached && (cached.names.length > 0 || cached.handles.length > 0 || cached.ids.length > 0)) {
+    return cached;
+  }
 
   const names = [];
   const handles = [];
@@ -403,8 +410,7 @@ function getCardChannelInfo(card) {
     'yt-channel-avatar-stack-view-model a, yt-decorated-avatar-view-model a, yt-avatar-shape a, ' +
     '#channel-name a, ytd-channel-name a, #byline a, #byline-container a, ' +
     'yt-content-metadata-view-model a, yt-lockup-metadata-view-model a, .yt-lockup-metadata-view-model-wiz__byline a, ' +
-    'ytd-collaborations-badge-renderer a, yt-collaborations-badge-view-model a, .yt-collaborations-badge-view-model a, ' +
-    'a[href]'
+    'ytd-collaborations-badge-renderer a, yt-collaborations-badge-view-model a, .yt-collaborations-badge-view-model a'
   );
 
   links.forEach(a => {
@@ -466,7 +472,11 @@ function getCardChannelInfo(card) {
     }
   });
 
-  return { names, handles, ids };
+  const result = { names, handles, ids };
+  if (names.length > 0 || handles.length > 0 || ids.length > 0) {
+    _cardChannelCache.set(card, result);
+  }
+  return result;
 }
 
 function getCurrentPageChannelInfo() {
@@ -1198,6 +1208,8 @@ _classObserver.observe(html, { attributes: true, attributeFilter: ['class'] });
 let _autonavObserver = null;
 let _observedAutonavBtn = null;
 
+let _lastAutonavToggleTime = 0;
+
 function applyAutoplay(settings) {
   settings = IYT_Policy.effective(settings);
   if (!isEffectiveActive(settings) || !settings.disableAutoplay) {
@@ -1211,14 +1223,18 @@ function applyAutoplay(settings) {
   document.querySelectorAll('video[autoplay]').forEach(v => v.removeAttribute('autoplay'));
   const btn = document.querySelector('.ytp-autonav-toggle-button');
   if (btn) {
-    if (btn.getAttribute('aria-checked') === 'true') {
+    const now = Date.now();
+    if (btn.getAttribute('aria-checked') === 'true' && now - _lastAutonavToggleTime > 500) {
+      _lastAutonavToggleTime = now;
       btn.click();
     }
     if (_observedAutonavBtn !== btn) {
       if (_autonavObserver) _autonavObserver.disconnect();
       _observedAutonavBtn = btn;
       _autonavObserver = new MutationObserver(() => {
-        if (isEffectiveActive(_settings) && _settings.disableAutoplay && btn.getAttribute('aria-checked') === 'true') {
+        const t = Date.now();
+        if (isEffectiveActive(_settings) && _settings.disableAutoplay && btn.getAttribute('aria-checked') === 'true' && t - _lastAutonavToggleTime > 500) {
+          _lastAutonavToggleTime = t;
           btn.click();
         }
       });
@@ -1334,7 +1350,7 @@ function initDomObserver() {
     for (let i = 0; i < mutations.length; i++) {
       const mutation = mutations[i];
       const target = mutation.target.nodeType === 1 ? mutation.target : mutation.target.parentElement;
-      if (target?.closest('.iyt-quick-block-btn')) continue;
+      if (target?.closest('.iyt-quick-block-btn, .iyt-quick-allow-btn')) continue;
       // Player clocks, captions and live chat update continuously. Only card
       // metadata changes can affect channel/keyword filtering.
       if (mutation.type !== 'childList') {
@@ -1352,7 +1368,7 @@ function initDomObserver() {
       }
       for (let j = 0; j < added.length; j++) {
         if (added[j].nodeType === 1) {
-          if (added[j].matches('.iyt-quick-block-btn')) continue;
+          if (added[j].matches('.iyt-quick-block-btn, .iyt-quick-allow-btn, .iyt-qb-label, .iyt-qa-label') || added[j].closest?.('.iyt-quick-block-btn, .iyt-quick-allow-btn')) continue;
           addedElements.push(added[j]);
           structureChanged = true;
         }
@@ -1408,7 +1424,6 @@ window.addEventListener('resize', () => {
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
     checkSnoozeExpiry();
-    scheduleFullFilterScan(80);
   }
 });
 window.addEventListener('focus', () => {
