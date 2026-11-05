@@ -27,6 +27,7 @@ Developer: manasdotio
 
 - [Product, interactive demo, features, and FAQ](${SITE_URL}/): Browser extension with local settings and no account required.
 - [Privacy policy](${SITE_URL}/privacy): Extension settings, blocklists, and playback counters are stored locally.
+- [Support on Ko-fi](${APP_CONFIG.kofiUrl}): Tip or sponsor the developer.
 - [Feedback and support](${APP_CONFIG.feedbackFormUrl}): Report bugs and suggest features.
 
 The extension controls YouTube in a supported desktop browser. It does not control the native YouTube phone app. Focus Lock adds friction to settings changes; it does not prevent disabling or uninstalling the extension. YouTube layout changes can affect blocking rules.

@@ -1635,5 +1635,9 @@
   "stats_trend_today": {
     "message": "Today",
     "description": "Label for today in trend chart"
+  },
+  "setting_support_kofi": {
+    "message": "在 Ko-fi 上贊助",
+    "description": "Button linking to Ko-fi donation page"
   }
 }

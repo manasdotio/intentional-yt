@@ -500,6 +500,54 @@ body {
 .popup-feedback-link:hover { color: var(--accent); }
 .popup-feedback-link svg { flex-shrink: 0; }
 
+.watch-bar-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  margin-inline-start: auto;
+}
+
+.popup-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  color: var(--ink-secondary);
+  font-size: 11px;
+  text-decoration: none;
+  transition: color var(--duration-snap) var(--ease-out-gentle);
+}
+
+.popup-footer-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.popup-footer-link svg {
+  flex-shrink: 0;
+}
+
+.popup-footer-link .kofi-cup-icon-sm {
+  width: 15px;
+  height: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.popup-footer-link:hover {
+  color: #FF5E5B;
+}
+
+.watch-bar-divider {
+  color: var(--ink-ghost);
+  font-size: 11px;
+  user-select: none;
+}
+
 /* ── Global focus ring ───────────────────────────────────── */
 :focus { outline: none; }
 :focus-visible {
@@ -3459,6 +3507,64 @@ body.ext-off .lang-row {
 
 .btn-about-action.pill-highlight:hover .about-action-arrow {
   stroke: #D97706;
+}
+
+/* Highlighted "Support on Ko-fi" Pill (#E3D6C6 & #202020 Coffee Theme) */
+.btn-about-action.pill-kofi {
+  background: #E3D6C6;
+  border-color: rgba(32, 32, 32, 0.2);
+  color: #202020;
+  font-weight: 650;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+}
+
+.btn-about-action.pill-kofi .kofi-cup-icon {
+  width: 19px;
+  height: 15px;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.2));
+}
+
+.btn-about-action.pill-kofi .about-action-arrow {
+  stroke: rgba(32, 32, 32, 0.6);
+}
+
+.btn-about-action.pill-kofi:hover {
+  background: #d8c8b5;
+  border-color: #202020;
+  color: #111111;
+  box-shadow: 0 2px 6px rgba(32, 32, 32, 0.12);
+}
+
+.btn-about-action.pill-kofi:hover .about-action-arrow {
+  stroke: #111111;
+}
+
+:root[data-theme="dark"] .btn-about-action.pill-kofi,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .btn-about-action.pill-kofi {
+    background: #202020;
+    border-color: rgba(227, 214, 198, 0.25);
+    color: #E3D6C6;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  :root:not([data-theme="light"]) .btn-about-action.pill-kofi .about-action-arrow {
+    stroke: rgba(227, 214, 198, 0.65);
+  }
+
+  :root:not([data-theme="light"]) .btn-about-action.pill-kofi:hover {
+    background: #2c2c2c;
+    border-color: #E3D6C6;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+
+  :root:not([data-theme="light"]) .btn-about-action.pill-kofi:hover .about-action-arrow {
+    stroke: #E3D6C6;
+  }
 }
 
 /* ============================================================

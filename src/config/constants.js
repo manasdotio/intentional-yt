@@ -15,6 +15,7 @@ export const APP_CONFIG = {
   chromeZipFilename: 'intentional-yt-v2.6.0.zip',
   liveWebsiteUrl: 'https://www.intentionalyt.me/',
   feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7',
+  kofiUrl: 'https://ko-fi.com/manasio',
   uninstallUrl: 'https://www.intentionalyt.me/uninstall',
   uninstallFeedbackFormUrl: 'https://forms.gle/f3gpgv98ZrgfZPYdA',
   uninstallFeedbackConfig: {
@@ -33,6 +34,7 @@ export const FIREFOX_AMO_URL = APP_CONFIG.firefoxAddonUrl
 export const CHROME_ZIP_URL = APP_CONFIG.chromeZipUrl
 export const CHROME_ZIP_FILENAME = APP_CONFIG.chromeZipFilename
 export const FEEDBACK_FORM_URL = APP_CONFIG.feedbackFormUrl
+export const KOFI_URL = APP_CONFIG.kofiUrl
 export const UNINSTALL_URL = APP_CONFIG.uninstallUrl
 export const UNINSTALL_FEEDBACK_FORM_URL = APP_CONFIG.uninstallFeedbackFormUrl
 export const UNINSTALL_FEEDBACK_CONFIG = APP_CONFIG.uninstallFeedbackConfig
