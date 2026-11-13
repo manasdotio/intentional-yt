@@ -1791,8 +1791,8 @@ html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #col
   box-sizing: border-box !important;
   width: 100% !important;
   max-width: 100% !important;
-  padding-left: clamp(16px, 2.5vw, 48px) !important;
-  padding-right: clamp(16px, 2.5vw, 48px) !important;
+  padding-left: clamp(12px, 1.8vw, 24px) !important;
+  padding-right: clamp(12px, 1.8vw, 24px) !important;
   padding-top: clamp(8px, 1.5vh, 20px) !important;
   margin-left: 0 !important;
   margin-right: auto !important;
@@ -1811,7 +1811,7 @@ html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #pri
   box-sizing: border-box !important;
   width: 100% !important;
   min-width: 0 !important;
-  max-width: min(100%, calc((100vh - var(--ytd-toolbar-height, 56px) - 140px) * 16 / 9), 1720px) !important;
+  max-width: min(100%, calc((100vh - var(--ytd-toolbar-height, 56px) - 36px) * 16 / 9), 1880px) !important;
   padding-right: 0 !important;
   margin-left: 0 !important;
   margin-right: auto !important;
@@ -1822,7 +1822,7 @@ html.iyt-no-recommended.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fu
 html.iyt-no-recommended.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fullscreen]) #primary-inner,
 html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fullscreen]) #primary,
 html.iyt-full-window-player.iyt-no-top-header ytd-watch-grid:not([theater]):not([fullscreen]) #primary-inner {
-  max-width: min(100%, calc((100vh - 140px) * 16 / 9), 1720px) !important;
+  max-width: min(100%, calc((100vh - 36px) * 16 / 9), 1880px) !important;
 }
 
 /* 4. Fluid player container scaling with crisp 16:9 ratio and rounded corners */
