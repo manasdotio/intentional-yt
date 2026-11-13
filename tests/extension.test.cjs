@@ -1539,6 +1539,8 @@ test('fullWindowPlayer Cinema / Theater Mode stretches player edge-to-edge via z
   assert.ok(css.includes('#player-theater-container'), 'CSS targets theater container');
   assert.ok(css.includes('calc(100vh - var(--ytd-toolbar-height, 56px)) !important'), 'CSS calculates height with top header');
   assert.ok(css.includes('html.iyt-full-window-player.iyt-no-top-header'), 'CSS handles top header blocked state');
+  assert.ok(css.includes('padding-left: clamp(16px, 2.5vw, 36px) !important'), 'CSS keeps left padding for player');
+  assert.ok(css.includes('padding-right: clamp(16px, 2.5vw, 36px) !important'), 'CSS keeps right padding for player');
   assert.ok(css.includes('object-fit: contain !important'), 'CSS preserves video aspect ratio');
 
   const env = store();
