@@ -36,6 +36,7 @@ const CLASS_MAP = {
   disableHoverPreviews:        'iyt-no-hover-previews',
   fullWindowPlayer:            'iyt-full-window-player',
   hideThumbnails:              'iyt-no-thumbnails',
+  neutralThumbnails:           'iyt-neutral-thumbnails',
   grayscaleMode:               'iyt-grayscale',
 };
 
@@ -1074,6 +1075,7 @@ function scanAllCards(root = document) {
       undimCard(el);
     });
     removeAllQuickBlockButtons();
+    restoreOriginalThumbnails(document);
     return;
   }
 
@@ -1091,6 +1093,9 @@ function scanAllCards(root = document) {
     });
     if (!enableQuickBlock || isAllowlist) {
       removeAllQuickBlockButtons();
+      if (isEffectiveActive(_settings) && _settings?.neutralThumbnails) {
+        replaceThumbnailsWithNeutralFrames(root);
+      }
       return;
     }
   }
@@ -1109,6 +1114,9 @@ function scanAllCards(root = document) {
     if (!card || evaluated.has(card)) continue;
     evaluated.add(card);
     evaluateCard(card, channelList, keywordList, pageChannelInfo);
+  }
+  if (isEffectiveActive(_settings) && _settings?.neutralThumbnails) {
+    replaceThumbnailsWithNeutralFrames(root);
   }
 }
 
@@ -1249,6 +1257,11 @@ function applyAllClasses(settings) {
     if (active && settings.fullWindowPlayer) {
       ensureTheaterMode();
     }
+    if (active && settings.neutralThumbnails) {
+      replaceThumbnailsWithNeutralFrames(document);
+    } else {
+      restoreOriginalThumbnails(document);
+    }
   } finally {
     _isApplyingClasses = false;
   }
@@ -1269,6 +1282,108 @@ function ensureTheaterMode() {
   }
   if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function' && typeof Event === 'function') {
     try { window.dispatchEvent(new Event('resize')); } catch (_) {}
+  }
+}
+
+const YOUTUBE_THUMB_URL_REGEX = /(?:i\d*\.ytimg\.com|img\.youtube\.com)\/(?:vi|vi_webp)\/([a-zA-Z0-9_-]{11})\/(?!hq2\.jpg)[^?#]+/;
+const THUMBNAIL_IMG_SELECTORS = [
+  'ytd-thumbnail img',
+  'yt-thumbnail-view-model img',
+  '#thumbnail img',
+  'a#thumbnail img',
+  'a.yt-lockup-view-model__content-image img',
+  '.yt-core-image--fill-parent-height',
+  'ytd-playlist-thumbnail img'
+].join(', ');
+
+function swapImageToNeutralFrame(img) {
+  if (!img || img.nodeType !== 1) return;
+  if (img.closest?.('#avatar, #channel-header, yt-avatar-shape, ytd-channel-avatar-editor, ytd-comment-renderer #author-thumbnail')) return;
+
+  const currentSrc = img.getAttribute('src') || img.src || '';
+  const currentSrcset = img.getAttribute('srcset') || '';
+
+  let videoId = null;
+  const srcMatch = (currentSrc + ' ' + currentSrcset).match(YOUTUBE_THUMB_URL_REGEX);
+  if (srcMatch) {
+    videoId = srcMatch[1];
+  } else if (!currentSrc.includes('/hq2.jpg')) {
+    const link = img.closest?.('a[href*="watch?v="], a[href*="/shorts/"]')
+      || img.closest?.(CARD_CONTAINER_SELECTORS)?.querySelector('a[href*="watch?v="], a[href*="/shorts/"]');
+    if (link && link.href) {
+      const vMatch = link.href.match(/[?&]v=([a-zA-Z0-9_-]{11})/) || link.href.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);
+      if (vMatch) videoId = vMatch[1];
+    }
+  }
+
+  if (!videoId) return;
+
+  const targetUrl = `https://i.ytimg.com/vi/${videoId}/hq2.jpg`;
+  if (currentSrc === targetUrl && !currentSrcset) return;
+  if (img.dataset.iytNeutralFailed === videoId) return;
+
+  if (img.dataset.iytVideoId !== videoId) {
+    if (currentSrc && !currentSrc.includes('/hq2.jpg')) {
+      img.dataset.iytOrigSrc = currentSrc;
+    }
+    if (currentSrcset) {
+      img.dataset.iytOrigSrcset = currentSrcset;
+    }
+  }
+
+  img.dataset.iytNeutral = 'true';
+  img.dataset.iytVideoId = videoId;
+  if (img.hasAttribute('srcset')) {
+    img.removeAttribute('srcset');
+  }
+  img.srcset = '';
+  img.src = targetUrl;
+
+  const onNeutralError = () => {
+    img.removeEventListener('error', onNeutralError);
+    if (img.dataset.iytVideoId === videoId) {
+      img.dataset.iytNeutralFailed = videoId;
+      if (img.dataset.iytOrigSrc) {
+        img.src = img.dataset.iytOrigSrc;
+      }
+      if (img.dataset.iytOrigSrcset) {
+        img.setAttribute('srcset', img.dataset.iytOrigSrcset);
+      }
+    }
+  };
+  img.addEventListener('error', onNeutralError, { once: true });
+}
+
+function replaceThumbnailsWithNeutralFrames(root = document) {
+  if (!isEffectiveActive(_settings) || !_settings.neutralThumbnails) return;
+  if (root && root.nodeType === 1 && (root.tagName === 'IMG' || (root.matches && root.matches(THUMBNAIL_IMG_SELECTORS)))) {
+    swapImageToNeutralFrame(root);
+    return;
+  }
+  const target = (root && root.querySelectorAll) ? root : document;
+  const images = target.querySelectorAll(THUMBNAIL_IMG_SELECTORS);
+  for (let i = 0; i < images.length; i++) {
+    swapImageToNeutralFrame(images[i]);
+  }
+}
+
+function restoreOriginalThumbnails(root = document) {
+  const target = (root && root.querySelectorAll) ? root : document;
+  const images = target.querySelectorAll('img[data-iyt-neutral="true"]');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    if (img.dataset.iytOrigSrc) {
+      img.src = img.dataset.iytOrigSrc;
+    }
+    if (img.dataset.iytOrigSrcset) {
+      img.setAttribute('srcset', img.dataset.iytOrigSrcset);
+      img.srcset = img.dataset.iytOrigSrcset;
+    }
+    delete img.dataset.iytNeutral;
+    delete img.dataset.iytVideoId;
+    delete img.dataset.iytOrigSrc;
+    delete img.dataset.iytOrigSrcset;
+    delete img.dataset.iytNeutralFailed;
   }
 }
 
@@ -1390,6 +1505,7 @@ let _domObserver = null;
 let _domObserverMode = '';
 function needsCardObservation() {
   if (!isEffectiveActive(_settings)) return false;
+  if (_settings.neutralThumbnails) return true;
   if (_settings.enableQuickBlock !== false) return true;
   if (_settings.filterMode === 'allowlist') {
     return (_settings.channelAllowlist?.length > 0 || _settings.keywordAllowlist?.length > 0);
@@ -1412,7 +1528,13 @@ function configureDomObserver() {
   }
   if (mode === 'off') return;
   const options = { childList: true, subtree: true };
-  if (cards) Object.assign(options, { characterData: true, attributes: true, attributeFilter: ['href', 'title', 'aria-label', 'hidden', 'aria-hidden'] });
+  if (cards) {
+    const attrFilters = ['href', 'title', 'aria-label', 'hidden', 'aria-hidden'];
+    if (_settings?.neutralThumbnails) {
+      attrFilters.push('src', 'srcset');
+    }
+    Object.assign(options, { characterData: true, attributes: true, attributeFilter: attrFilters });
+  }
   _domObserver.observe(document.body || document.documentElement, options);
 }
 
@@ -1440,6 +1562,16 @@ function initDomObserver() {
       // Player clocks, captions and live chat update continuously. Only card
       // metadata changes can affect channel/keyword filtering.
       if (mutation.type !== 'childList') {
+        if (mutation.attributeName === 'src' || mutation.attributeName === 'srcset') {
+          if (target && target.tagName === 'IMG' && _settings?.neutralThumbnails) {
+            const src = target.getAttribute('src') || target.src || '';
+            const srcset = target.getAttribute('srcset') || '';
+            if (!src.includes('/hq2.jpg') || srcset) {
+              addedElements.push(target);
+            }
+          }
+          continue;
+        }
         if (cards && target && getCardContainer(target)) addedElements.push(target);
         continue;
       }
@@ -1463,6 +1595,11 @@ function initDomObserver() {
     if (addedElements.length > 0) {
       if (structureChanged && _settings.limitHomeFeed) scheduleHomeFeedLimit();
       if (cards) scheduleFilterScanForNodes(addedElements);
+      if (isEffectiveActive(_settings) && _settings?.neutralThumbnails) {
+        for (let i = 0; i < addedElements.length; i++) {
+          replaceThumbnailsWithNeutralFrames(addedElements[i]);
+        }
+      }
       if (structureChanged) scheduleAutoplay();
     }
   });

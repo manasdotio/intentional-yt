@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "কোনো বিভ্রান্তি ছাড়াই ভিডিও প্লেয়ারটিকে পুরো উইন্ডো জুড়ে প্রসারিত করুন",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "নিরপেক্ষ থাম্বনেইল",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "ক্লিকবেট থাম্বনেইলকে ভিডিওর একটি নিরপেক্ষ ফ্রেম দিয়ে প্রতিস্থাপন করে",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

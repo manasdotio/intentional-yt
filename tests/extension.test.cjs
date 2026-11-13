@@ -1567,3 +1567,61 @@ test('fullWindowPlayer Cinema / Theater Mode stretches player edge-to-edge via z
   assert.ok(popupSource.includes("toggle_full_window_player"), 'popup binds i18n label');
   assert.ok(popupSource.includes("fullWindowPlayer: true"), 'player preset enables fullWindowPlayer');
 });
+
+test('neutralThumbnails replaces custom thumbnails with clean auto-generated hq2.jpg mid-video frame', async () => {
+  const css = source('styles/blocker.css');
+  assert.ok(css.includes('html.iyt-neutral-thumbnails ytd-thumbnail img'), 'CSS applies to thumbnail images');
+  assert.ok(css.includes('object-fit: cover !important'), 'CSS sets object-fit: cover on thumbnail images');
+  assert.ok(css.includes('html.iyt-neutral-thumbnails ytd-moving-thumbnail-renderer'), 'CSS suppresses moving hover previews');
+
+  const env = store();
+  assert.equal(env.manager.getDefaultSettings().neutralThumbnails, false, 'neutralThumbnails defaults to false');
+  assert.equal(env.manager.getInitialSettings().neutralThumbnails, false, 'neutralThumbnails is false on fresh install');
+
+  const valid = env.validate({ ...env.manager.getDefaultSettings(), neutralThumbnails: true });
+  assert.equal(valid.neutralThumbnails, true, 'validates neutralThumbnails boolean');
+
+  // Blocker CLASS_MAP check
+  const blockerSource = source('content/blocker.js');
+  const context = vm.createContext({
+    document: { documentElement: { classList: { add() {}, remove() {}, contains() { return false; }, toggle() {} }, setAttribute() {}, removeAttribute() {}, toggleAttribute() {} } },
+    window: { location: { pathname: '/' }, addEventListener() {} },
+    globalThis: {}
+  });
+  vm.runInContext(blockerSource.slice(0, blockerSource.indexOf('const html = document.documentElement;')), context);
+  assert.equal(vm.runInContext('CLASS_MAP', context).neutralThumbnails, 'iyt-neutral-thumbnails');
+
+  // Regex and swap logic verification
+  const regexMatch = blockerSource.match(/const YOUTUBE_THUMB_URL_REGEX = (\/.*?\/);/);
+  assert.ok(regexMatch, 'blocker defines YOUTUBE_THUMB_URL_REGEX');
+  const regex = new RegExp(regexMatch[1].slice(1, regexMatch[1].lastIndexOf('/')));
+
+  // Test various thumbnail URL formats
+  assert.equal('https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg'.match(regex)?.[1], 'dQw4w9WgXcQ');
+  assert.equal('https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg'.match(regex)?.[1], 'dQw4w9WgXcQ');
+  assert.equal('https://i.ytimg.com/vi/dQw4w9WgXcQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg=='.match(regex)?.[1], 'dQw4w9WgXcQ');
+  assert.equal('https://i.ytimg.com/vi_webp/dQw4w9WgXcQ/hq720.webp'.match(regex)?.[1], 'dQw4w9WgXcQ');
+  assert.equal('https://i3.ytimg.com/vi/dQw4w9WgXcQ/sddefault.jpg'.match(regex)?.[1], 'dQw4w9WgXcQ');
+  assert.equal('https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg'.match(regex)?.[1], 'dQw4w9WgXcQ');
+  // hq2.jpg must not match (already neutral frame)
+  assert.equal('https://i.ytimg.com/vi/dQw4w9WgXcQ/hq2.jpg'.match(regex)?.[1], undefined);
+
+  // Popup & UI check
+  const popupSource = source('ui/popup.js');
+  assert.ok(popupSource.includes("'neutralThumbnails'"), 'popup includes neutralThumbnails toggle');
+  assert.ok(popupSource.includes("toggle_neutral_thumbnails"), 'popup binds i18n label');
+  assert.ok(popupSource.includes("neutralThumbnails: true"), 'study preset enables neutralThumbnails');
+
+  const popupHtml = source('ui/popup.html');
+  assert.ok(popupHtml.includes('id="toggle-neutralThumbnails"'), 'popup.html contains toggle-neutralThumbnails checkbox');
+
+  const optionsHtml = source('ui/options.html');
+  assert.ok(optionsHtml.includes('id="toggle-neutralThumbnails"'), 'options.html contains toggle-neutralThumbnails checkbox');
+
+  // Verify all 26 locale files have toggle_neutral_thumbnails and desc_neutral_thumbnails
+  for (const lang of fs.readdirSync(path.join(root, '_locales'))) {
+    const catalog = JSON.parse(source(`_locales/${lang}/messages.json`));
+    assert.ok(catalog.toggle_neutral_thumbnails?.message, `${lang} missing toggle_neutral_thumbnails`);
+    assert.ok(catalog.desc_neutral_thumbnails?.message, `${lang} missing desc_neutral_thumbnails`);
+  }
+});

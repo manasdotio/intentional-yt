@@ -1645,5 +1645,13 @@
   "desc_full_window_player": {
     "message": "Expands the video player to fill the entire window without distractions",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Neutral thumbnails",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Replaces clickbait custom thumbnails with a neutral, auto-generated frame from the video",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

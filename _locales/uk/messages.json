@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Розтягує відеоплеєр на все вікно без зайвих відволікань",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Нейтральні обкладинки",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Замінює клікбейтні обкладинки нейтральним кадром, автоматично взятим із відео",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

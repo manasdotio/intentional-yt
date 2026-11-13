@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Vergrößert den Videoplayer auf das gesamte Fenster ohne Ablenkungen",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Neutrale Miniaturbilder",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Ersetzt Clickbait-Miniaturbilder durch ein neutrales, automatisch erzeugtes Standbild aus dem Video",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

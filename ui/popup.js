@@ -79,7 +79,7 @@ const TOGGLES = [
   'blockExploreAndTrending', 'blockMoreFromYouTube', 'blockShorts',
   'redirectShorts',
   'blockSubscriptionsFeed', 'disableAutoplay', 'disableHoverPreviews', 'fullWindowPlayer',
-  'hideThumbnails', 'grayscaleMode',
+  'hideThumbnails', 'neutralThumbnails', 'grayscaleMode',
   'enableQuickBlock',
 ];
 
@@ -113,6 +113,7 @@ const TOGGLE_LABELS = {
   disableHoverPreviews: 'toggle_disable_hover_previews',
   fullWindowPlayer: 'toggle_full_window_player',
   hideThumbnails: 'toggle_hide_thumbnails',
+  neutralThumbnails: 'toggle_neutral_thumbnails',
   grayscaleMode: 'toggle_grayscale_mode',
   enableQuickBlock: 'filters_quick_block_title',
   softReminder: 'toggle_soft_reminder',
@@ -151,6 +152,7 @@ const SECTION_TOGGLES = {
     "blockNotificationBell",
     "blockMoreFromYouTube",
     "hideThumbnails",
+    "neutralThumbnails",
     "grayscaleMode"
   ]
 };
@@ -213,7 +215,8 @@ const PRESET_DEFINITIONS = {
     disableAutoplay: true,
     disableHoverPreviews: false,
     fullWindowPlayer: false,
-    hideThumbnails: false
+    hideThumbnails: false,
+    neutralThumbnails: false
   },
   antiShorts: {
     blockHomeFeed: false,
@@ -237,7 +240,8 @@ const PRESET_DEFINITIONS = {
     disableAutoplay: true,
     disableHoverPreviews: false,
     fullWindowPlayer: false,
-    hideThumbnails: false
+    hideThumbnails: false,
+    neutralThumbnails: false
   },
   study: {
     blockHomeFeed: true,
@@ -261,7 +265,8 @@ const PRESET_DEFINITIONS = {
     disableAutoplay: true,
     disableHoverPreviews: false,
     fullWindowPlayer: false,
-    hideThumbnails: false
+    hideThumbnails: false,
+    neutralThumbnails: true
   },
   zen: {
     blockHomeFeed: true,
@@ -285,7 +290,8 @@ const PRESET_DEFINITIONS = {
     disableAutoplay: true,
     disableHoverPreviews: true,
     fullWindowPlayer: false,
-    hideThumbnails: true
+    hideThumbnails: true,
+    neutralThumbnails: false
   },
   player: {
     blockHomeFeed: true,
@@ -309,7 +315,8 @@ const PRESET_DEFINITIONS = {
     disableAutoplay: true,
     disableHoverPreviews: false,
     fullWindowPlayer: true,
-    hideThumbnails: false
+    hideThumbnails: false,
+    neutralThumbnails: false
   }
 };
 
@@ -798,6 +805,7 @@ const SEARCH_ALIASES = {
   blockChannelInfo: 'channel name subscribe button subscriber count creator',
   blockVideoDescription: 'description expander details show more text notes',
   hideThumbnails: 'thumbnails preview images blur picture',
+  neutralThumbnails: 'neutral thumbnails frame middle static clean clickbait anti-clickbait declickbait hq2',
   grayscaleMode: 'grayscale black and white b&w monochrome desaturate'
 };
 
@@ -3113,6 +3121,7 @@ function bindAll() {
     if (s.blockEndScreens) tags.push({ text: 'Clean End Screen' });
     if (s.fullWindowPlayer) tags.push({ text: 'Full-Window Player' });
     if (s.hideThumbnails) tags.push({ text: 'Hide Thumbnails' });
+    if (s.neutralThumbnails) tags.push({ text: 'Neutral Thumbnails' });
     if (s.disableAutoplay) tags.push({ text: 'No Autoplay' });
     if (s.blockExploreAndTrending) tags.push({ text: 'Hide Trending' });
     if (s.blockNotificationBell) tags.push({ text: 'Hide Alerts' });

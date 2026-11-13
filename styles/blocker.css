@@ -787,6 +787,38 @@ html.iyt-no-thumbnails ytd-thumbnail-overlay-progress-bar-renderer {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   NEUTRAL FRAME THUMBNAILS — auto-generated mid-video frame
+   ═══════════════════════════════════════════════════════════ */
+/* Fit 4:3 hq2.jpg frames to 16:9 thumbnail containers */
+html.iyt-neutral-thumbnails ytd-thumbnail img,
+html.iyt-neutral-thumbnails ytd-playlist-thumbnail img,
+html.iyt-neutral-thumbnails ytd-hero-playlist-thumbnail-renderer img,
+html.iyt-neutral-thumbnails yt-thumbnail-view-model img,
+html.iyt-neutral-thumbnails yt-image-view-model img,
+html.iyt-neutral-thumbnails #thumbnail img,
+html.iyt-neutral-thumbnails a#thumbnail img,
+html.iyt-neutral-thumbnails #thumbnail .yt-core-image,
+html.iyt-neutral-thumbnails ytd-thumbnail .yt-core-image,
+html.iyt-neutral-thumbnails yt-thumbnail-view-model .yt-core-image,
+html.iyt-neutral-thumbnails .yt-thumbnail-view-model__image,
+html.iyt-neutral-thumbnails a.yt-lockup-view-model__content-image img,
+html.iyt-neutral-thumbnails .ytp-cued-thumbnail-overlay-image {
+  object-fit: cover !important;
+}
+
+/* Suppress video hover previews and animated preview clips so neutral frame stays visible */
+html.iyt-neutral-thumbnails ytd-moving-thumbnail-renderer,
+html.iyt-neutral-thumbnails ytd-video-preview,
+html.iyt-neutral-thumbnails yt-animated-image,
+html.iyt-neutral-thumbnails #mouseover-overlay,
+html.iyt-neutral-thumbnails #hover-overlays,
+html.iyt-neutral-thumbnails yt-thumbnail-hover-overlay-view-model,
+html.iyt-neutral-thumbnails .ytp-inline-preview-ui {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
    CUSTOM CHANNEL & KEYWORD FILTERS
    Client-side text matching rules
 ═══════════════════════════════════════════════════════════ */

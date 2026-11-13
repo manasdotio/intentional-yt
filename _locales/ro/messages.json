@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Extinde playerul video pe întreaga fereastră fără distrageri",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Miniaturi neutre",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Înlocuiește miniaturile clickbait cu un cadru neutru generat automat din videoclip",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

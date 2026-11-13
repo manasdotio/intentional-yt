@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "מרחיב את נגן הווידאו למלוא החלון ללא הסחות דעת",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "תמונות ממוזערות ניטרליות",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "מחליף תמונות קליקבייט בפריים ניטרלי שנוצר אוטומטית מתוך הסרטון",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

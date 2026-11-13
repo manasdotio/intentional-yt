@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Video oynatıcıyı dikkat dağıtıcı öğeler olmadan tüm pencereye genişletir",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Nötr küçük resimler",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Tıklama tuzağı küçük resimleri videodan otomatik alınan nötr bir kareyle değiştirir",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Επεκτείνει το πρόγραμμα αναπαραγωγής βίντεο σε ολόκληρο το παράθυρο χωρίς περισπασμούς",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Ουδέτερες μικρογραφίες",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Αντικαθιστά τις παραπλανητικές μικρογραφίες με ένα ουδέτερο καρέ από το βίντεο",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

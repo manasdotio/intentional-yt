@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "将视频播放器扩展至整个窗口，去除边距与干扰",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "中立视频缩略图",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "将博人眼球的诱导缩略图替换为视频中自动生成的真实静态画面",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

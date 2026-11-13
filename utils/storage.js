@@ -59,6 +59,7 @@ class StorageManager {
       fullWindowPlayer: false,
 
       hideThumbnails: false,
+      neutralThumbnails: false,
       grayscaleMode: false,
 
       channelBlocklist: [],
@@ -242,7 +243,7 @@ class StorageManager {
 
   static _presetKey(key) {
     return Object.hasOwn(this.getDefaultSettings(), key) &&
-      (/^(block|disable)/.test(key) || ['limitHomeFeed','redirectShorts','hideThumbnails','grayscaleMode','fullWindowPlayer'].includes(key));
+      (/^(block|disable)/.test(key) || ['limitHomeFeed','redirectShorts','hideThumbnails','neutralThumbnails','grayscaleMode','fullWindowPlayer'].includes(key));
   }
 
   static execute(command) {
@@ -354,6 +355,7 @@ class StorageManager {
       disableHoverPreviews: Boolean(s.disableHoverPreviews),
       fullWindowPlayer: Boolean(s.fullWindowPlayer),
       hideThumbnails: Boolean(s.hideThumbnails),
+      neutralThumbnails: Boolean(s.neutralThumbnails),
       grayscaleMode: Boolean(s.grayscaleMode),
       filterMode: ['blocklist', 'allowlist'].includes(s.filterMode) ? s.filterMode : 'blocklist',
       allowlistAction: ['dim', 'hide'].includes(s.allowlistAction) ? s.allowlistAction : 'dim',

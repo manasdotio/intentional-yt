@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "ขยายโปรแกรมเล่นวิดีโอให้เต็มหน้าต่างโดยไม่มีสิ่งรบกวน",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "ภาพขนาดย่อแบบเป็นกลาง",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "แทนที่ภาพขนาดย่อล่อคลิกด้วยเฟรมที่เป็นกลางซึ่งสร้างขึ้นจากวิดีโอโดยอัตโนมัติ",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

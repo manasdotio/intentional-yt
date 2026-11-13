@@ -78,6 +78,8 @@ export default function SetupShare() {
     { label: 'Hide Search Clutter & Irrelevant Shelves', active: s.blockIrrelevantSearchResults },
     { label: 'Disable Video Autoplay', active: s.disableAutoplay },
     { label: 'Full-Window Theater Mode', active: s.fullWindowPlayer },
+    { label: 'Hide Video Thumbnails', active: s.hideThumbnails },
+    { label: 'Neutral Video Thumbnails (Anti-Clickbait)', active: s.neutralThumbnails },
     { label: 'Desaturate to Grayscale', active: s.grayscaleMode }
   ].filter(r => r.active)
 

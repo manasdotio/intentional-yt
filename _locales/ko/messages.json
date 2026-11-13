@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "방해 요소 없이 동영상 플레이어를 창 전체 크기로 확장합니다",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "중립 썸네일",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "어그로성 썸네일을 동영상에서 자동 생성된 중립 프레임으로 교체합니다",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Растягивает видеоплеер на всё окно браузера без отвлекающих элементов",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Нейтральные превью",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Заменяет кликбейтные превью нейтральным кадром, взятым прямо из видео",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

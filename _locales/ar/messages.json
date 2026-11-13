@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "توسيع مشغل الفيديو ليملأ النافذة بالكامل دون أي مشتتات",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "صور مصغرة محايدة",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "استبدال الصور المصغرة المضللة بإطار محايد تم إنشاؤه تلقائيًا من الفيديو",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

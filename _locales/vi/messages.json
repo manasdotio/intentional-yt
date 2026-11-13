@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Mở rộng trình phát video tràn toàn bộ cửa sổ không gây phân tâm",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Hình thu nhỏ trung tính",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Thay thế hình thu nhỏ câu view bằng khung hình trung tính tự động trích xuất từ video",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

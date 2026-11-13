@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Rozszerza odtwarzacz wideo na całe okno bez elementów rozpraszających",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Neutralne miniatury",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Zastępuje clickbaitowe miniatury neutralną klatką wygenerowaną z filmu",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

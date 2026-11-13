@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "余白をなくし、動画プレーヤーをウィンドウ全体に拡大表示します",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "ニュートラルサムネイル",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "釣りサムネイルを動画から自動生成されたニュートラルなフレームに置き換えます",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

@@ -46,6 +46,7 @@ const ARCHETYPE_CONFIGS = {
       disableHoverPreviews: false,
       fullWindowPlayer: false,
       hideThumbnails: false,
+      neutralThumbnails: false,
       grayscaleMode: false
     },
     highlights: [
@@ -87,6 +88,7 @@ const ARCHETYPE_CONFIGS = {
       disableHoverPreviews: false,
       fullWindowPlayer: false,
       hideThumbnails: false,
+      neutralThumbnails: false,
       grayscaleMode: false
     },
     highlights: [
@@ -128,6 +130,7 @@ const ARCHETYPE_CONFIGS = {
       disableHoverPreviews: true,
       fullWindowPlayer: false,
       hideThumbnails: true,
+      neutralThumbnails: false,
       grayscaleMode: false
     },
     highlights: [

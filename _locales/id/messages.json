@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Memperluas pemutar video hingga memenuhi seluruh jendela tanpa gangguan",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Gambar mini netral",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Mengganti gambar mini umpan klik dengan bingkai netral yang dibuat otomatis dari video",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "Agrandit le lecteur pour remplir toute la fenêtre sans distractions",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "Miniatures neutres",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "Remplace les miniatures piège à clics par une capture neutre générée automatiquement de la vidéo",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }

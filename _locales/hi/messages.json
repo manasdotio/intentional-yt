@@ -1647,5 +1647,13 @@
   "desc_full_window_player": {
     "message": "बिना किसी भटकाव के वीडियो प्लेयर को पूरी विंडो में फैलाएं",
     "description": "Description of full-window theater player mode"
+  },
+  "toggle_neutral_thumbnails": {
+    "message": "तटस्थ थंबनेल",
+    "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
+  },
+  "desc_neutral_thumbnails": {
+    "message": "क्लिकबेट थंबनेल को वीडियो के एक तटस्थ, स्वतः उत्पन्न फ्रेम से बदलता है",
+    "description": "Description of neutral video frame thumbnail feature"
   }
 }
