@@ -1534,7 +1534,8 @@ test('channel Home navigation updates blocking attributes synchronously without 
 
 test('fullWindowPlayer Cinema / Theater Mode stretches player edge-to-edge via zero-flash CSS', async () => {
   const css = source('styles/blocker.css');
-  assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([fullscreen])'), 'CSS includes flexy theater mode rule');
+  assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy[theater]:not([fullscreen])'), 'CSS includes flexy theater mode rule scoped to [theater]');
+  assert.ok(!css.includes('ytd-watch-flexy:not([theater]):not([fullscreen]) #player'), 'Standard non-theater mode is never forced into 100vh');
   assert.ok(css.includes('--ytd-watch-flexy-max-player-width: 100vw !important'), 'CSS sets 100vw player width');
   assert.ok(css.includes('#player-theater-container'), 'CSS targets theater container');
   assert.ok(css.includes('calc(100vh - var(--ytd-toolbar-height, 56px)) !important'), 'CSS calculates height with top header');
@@ -1566,6 +1567,10 @@ test('fullWindowPlayer Cinema / Theater Mode stretches player edge-to-edge via z
   assert.ok(popupSource.includes("'fullWindowPlayer'"), 'popup includes fullWindowPlayer toggle');
   assert.ok(popupSource.includes("toggle_full_window_player"), 'popup binds i18n label');
   assert.ok(popupSource.includes("fullWindowPlayer: true"), 'player preset enables fullWindowPlayer');
+
+  // Verify blocker respects manual 'T' toggles and doesn't force attributes directly
+  assert.ok(blockerSource.includes('_lastAutoTheaterVideoId'), 'blocker tracks auto-theater video ID');
+  assert.ok(!blockerSource.includes("flexy.setAttribute('theater', '')"), 'blocker avoids corrupting Polymer theater attribute directly');
 });
 
 test('neutralThumbnails replaces custom thumbnails with clean auto-generated hq2.jpg mid-video frame', async () => {
