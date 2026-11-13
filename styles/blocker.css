@@ -1851,13 +1851,23 @@ html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #movie_player video
   object-fit: contain !important;
 }
 
-/* 6. Clean center alignment for metadata below full-window player with matching horizontal padding */
+/* 6. Clean left alignment for title, description, and metadata below full-window player */
 html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #columns,
 html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #columns {
   box-sizing: border-box !important;
-  max-width: 1280px;
-  margin-left: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
   margin-right: auto !important;
   padding-left: clamp(16px, 2.5vw, 36px) !important;
   padding-right: clamp(16px, 2.5vw, 36px) !important;
+}
+
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #primary,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #primary-inner,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #primary,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #primary-inner {
+  max-width: 1280px !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
 }
