@@ -1783,7 +1783,7 @@ html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #sec
   padding: 0 !important;
 }
 
-/* 2. Expand columns container with balanced breathing padding */
+/* 2. Expand columns container with balanced breathing padding and center alignment */
 html.iyt-no-recommended ytd-watch-flexy:not([theater]):not([fullscreen]) #columns,
 html.iyt-no-recommended ytd-watch-grid:not([theater]):not([fullscreen]) #columns,
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #columns,
@@ -1791,15 +1791,15 @@ html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #col
   box-sizing: border-box !important;
   width: 100% !important;
   max-width: 100% !important;
-  padding-left: clamp(12px, 1.8vw, 24px) !important;
-  padding-right: clamp(12px, 1.8vw, 24px) !important;
+  padding-left: clamp(16px, 2.5vw, 48px) !important;
+  padding-right: clamp(16px, 2.5vw, 48px) !important;
   padding-top: clamp(8px, 1.5vh, 20px) !important;
-  margin-left: 0 !important;
+  margin-left: auto !important;
   margin-right: auto !important;
-  justify-content: flex-start !important;
+  justify-content: center !important;
 }
 
-/* 3. Expand primary column into recommendations space meaningfully */
+/* 3. Expand primary column into recommendations space meaningfully (centered) */
 html.iyt-no-recommended ytd-watch-flexy:not([theater]):not([fullscreen]) #primary,
 html.iyt-no-recommended ytd-watch-flexy:not([theater]):not([fullscreen]) #primary-inner,
 html.iyt-no-recommended ytd-watch-grid:not([theater]):not([fullscreen]) #primary,
@@ -1813,9 +1813,9 @@ html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #pri
   min-width: 0 !important;
   max-width: min(100%, calc((100vh - var(--ytd-toolbar-height, 56px) - 36px) * 16 / 9), 1880px) !important;
   padding-right: 0 !important;
-  margin-left: 0 !important;
+  margin-left: auto !important;
   margin-right: auto !important;
-  flex: 1 1 auto !important;
+  flex: 0 1 auto !important;
 }
 
 html.iyt-no-recommended.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fullscreen]) #primary,
@@ -1868,7 +1868,7 @@ html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #be
 html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #below {
   width: 100% !important;
   max-width: 100% !important;
-  margin-left: 0 !important;
+  margin-left: auto !important;
   margin-right: auto !important;
   text-align: left !important;
 }
@@ -1879,8 +1879,9 @@ html.iyt-no-recommended ytd-watch-flexy[theater]:not([fullscreen]) #columns {
   box-sizing: border-box !important;
   width: 100% !important;
   max-width: 100% !important;
-  margin-left: 0 !important;
+  margin-left: auto !important;
   margin-right: auto !important;
+  justify-content: center !important;
   padding-left: clamp(16px, 2.5vw, 48px) !important;
   padding-right: clamp(16px, 2.5vw, 48px) !important;
 }
@@ -1890,7 +1891,7 @@ html.iyt-full-window-player ytd-watch-flexy[theater]:not([fullscreen]) #primary-
 html.iyt-no-recommended ytd-watch-flexy[theater]:not([fullscreen]) #primary,
 html.iyt-no-recommended ytd-watch-flexy[theater]:not([fullscreen]) #primary-inner {
   max-width: 1280px !important;
-  margin-left: 0 !important;
+  margin-left: auto !important;
   margin-right: auto !important;
   text-align: left !important;
 }

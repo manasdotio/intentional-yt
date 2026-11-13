@@ -1540,7 +1540,8 @@ test('fullWindowPlayer & no-recommended meaningfully expand player into empty si
   assert.ok(css.includes('calc((100vh - var(--ytd-toolbar-height, 56px) - 36px) * 16 / 9)'), 'CSS calculates primary max-width based on 16:9 viewport fit');
   assert.ok(css.includes('aspect-ratio: 16 / 9 !important'), 'CSS preserves 16:9 player container ratio');
   assert.ok(css.includes('border-radius: 12px !important'), 'CSS keeps signature 12px YouTube rounded corners');
-  assert.ok(css.includes('padding-left: clamp(12px, 1.8vw, 24px) !important'), 'CSS keeps balanced breathing padding');
+  assert.ok(css.includes('padding-left: clamp(16px, 2.5vw, 48px) !important'), 'CSS keeps balanced breathing padding');
+  assert.ok(css.includes('justify-content: center !important'), 'CSS centers player column horizontally');
   assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #below'), 'CSS aligns title and description metadata below player');
 
   const env = store();
