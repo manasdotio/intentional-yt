@@ -1639,12 +1639,12 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Full-window theater mode",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Expanded video player",
+    "description": "Toggle label for expanded centered video player"
   },
   "desc_full_window_player": {
-    "message": "Expands the video player to fill the entire window without distractions",
-    "description": "Description of full-window theater player mode"
+    "message": "Expands and centers the video player into available space without forcing theater mode",
+    "description": "Description of expanded centered video player"
   },
   "toggle_neutral_thumbnails": {
     "message": "Neutral thumbnails",

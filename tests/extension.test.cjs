@@ -1532,10 +1532,10 @@ test('channel Home navigation updates blocking attributes synchronously without 
   assert.equal(attrs.has('data-iyt-is-channel-home'), false);
 });
 
-test('fullWindowPlayer & no-recommended meaningfully expand player into empty sidebar space via zero-flash CSS', async () => {
+test('fullWindowPlayer toggle expands and centers player into empty sidebar space via zero-flash CSS', async () => {
   const css = source('styles/blocker.css');
-  assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #primary'), 'CSS expands primary column in standard view');
-  assert.ok(css.includes('html.iyt-no-recommended ytd-watch-flexy:not([theater]):not([fullscreen]) #primary'), 'CSS expands primary column when recommendations hidden');
+  assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #primary'), 'CSS expands primary column in standard view when toggle active');
+  assert.ok(!css.includes('html.iyt-no-recommended ytd-watch-flexy:not([theater]):not([fullscreen]) #primary'), 'CSS strictly ties expansion to toggle so disabling toggle restores standard width');
   assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #secondary'), 'CSS collapses secondary recommendations column');
   assert.ok(css.includes('calc((100vh - var(--ytd-toolbar-height, 56px) - 36px) * 16 / 9)'), 'CSS calculates primary max-width based on 16:9 viewport fit');
   assert.ok(css.includes('aspect-ratio: 16 / 9 !important'), 'CSS preserves 16:9 player container ratio');
