@@ -1732,7 +1732,8 @@ html.iyt-no-video-info #cinematic-lighting {
 /* ═══════════════════════════════════════════════════════════
    FULL-WINDOW THEATER / CINEMA MODE
    Stretches watch player edge-to-edge (100vw x calc(100vh - 56px) or 100vh)
-   with comfortable left and right breathing padding
+   with balanced top, bottom, left, and right breathing padding
+   and modern YouTube-style 12px rounded corners
 ═══════════════════════════════════════════════════════════ */
 /* 1. Flexy CSS custom properties */
 html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) {
@@ -1740,13 +1741,14 @@ html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) {
   --ytd-watch-flexy-player-width: 100vw !important;
   --ytd-watch-flexy-player-height: calc(100vh - var(--ytd-toolbar-height, 56px)) !important;
   --ytd-watch-flexy-space-below-player: 0px !important;
+  --ytd-watch-flexy-player-border-radius: 12px !important;
 }
 
 html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([fullscreen]) {
   --ytd-watch-flexy-player-height: 100vh !important;
 }
 
-/* 2. Stretch theater & full-bleed player containers with left/right padding */
+/* 2. Stretch theater & full-bleed player containers with all-around padding */
 html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #player-theater-container,
 html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #player-wide-container,
 html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #full-bleed-container,
@@ -1756,8 +1758,7 @@ html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #full-bleed-contain
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
-  padding-left: clamp(16px, 2.5vw, 36px) !important;
-  padding-right: clamp(16px, 2.5vw, 36px) !important;
+  padding: clamp(12px, 2vh, 24px) clamp(16px, 2.5vw, 36px) !important;
   background-color: transparent !important;
   height: calc(100vh - var(--ytd-toolbar-height, 56px)) !important;
   max-height: calc(100vh - var(--ytd-toolbar-height, 56px)) !important;
@@ -1782,13 +1783,12 @@ html.iyt-full-window-player.iyt-no-top-header ytd-watch-grid:not([fullscreen]) #
   min-height: 100vh !important;
 }
 
-/* 4. Non-theater fallback: stretch standard player container with padding */
+/* 4. Non-theater fallback: stretch standard player container with all-around padding */
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player {
   box-sizing: border-box !important;
   width: 100% !important;
   max-width: 100% !important;
-  padding-left: clamp(16px, 2.5vw, 36px) !important;
-  padding-right: clamp(16px, 2.5vw, 36px) !important;
+  padding: clamp(12px, 2vh, 24px) clamp(16px, 2.5vw, 36px) !important;
 }
 
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container,
@@ -1809,13 +1809,31 @@ html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([theater]):not
   max-height: 100vh !important;
 }
 
-/* 5. Inner player and HTML5 video scaling */
+/* 5. Inner player and HTML5 video scaling with signature 12px rounded corners */
 html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #movie_player,
 html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #movie_player {
   width: 100% !important;
   height: 100% !important;
   max-width: 100% !important;
   max-height: 100% !important;
+}
+
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #player-theater-container #player-container-inner,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #player-theater-container #ytd-player,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #full-bleed-container #player-container-inner,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #full-bleed-container #ytd-player,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #movie_player,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #movie_player .html5-video-container,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #movie_player video.html5-main-video,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #player-theater-container #player-container-inner,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #player-theater-container #ytd-player,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #full-bleed-container #player-container-inner,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #full-bleed-container #ytd-player,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #movie_player,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #movie_player .html5-video-container,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #movie_player video.html5-main-video {
+  border-radius: 12px !important;
+  overflow: hidden !important;
 }
 
 html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #movie_player .html5-video-container,
@@ -1833,7 +1851,7 @@ html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #movie_player video
   object-fit: contain !important;
 }
 
-/* 6. Clean center alignment for metadata below full-window player with matching padding */
+/* 6. Clean center alignment for metadata below full-window player with matching horizontal padding */
 html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #columns,
 html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #columns {
   box-sizing: border-box !important;
