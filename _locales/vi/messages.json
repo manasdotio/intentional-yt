@@ -1639,5 +1639,13 @@
   "setting_support_kofi": {
     "message": "Ủng hộ trên Ko-fi",
     "description": "Button linking to Ko-fi donation page"
+  },
+  "toggle_full_window_player": {
+    "message": "Chế độ rạp chiếu phim toàn cửa sổ",
+    "description": "Toggle label for cinema or full-window theater mode player"
+  },
+  "desc_full_window_player": {
+    "message": "Mở rộng trình phát video tràn toàn bộ cửa sổ không gây phân tâm",
+    "description": "Description of full-window theater player mode"
   }
 }

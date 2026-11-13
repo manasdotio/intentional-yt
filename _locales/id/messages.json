@@ -1639,5 +1639,13 @@
   "setting_support_kofi": {
     "message": "Dukung di Ko-fi",
     "description": "Button linking to Ko-fi donation page"
+  },
+  "toggle_full_window_player": {
+    "message": "Mode bioskop jendela penuh",
+    "description": "Toggle label for cinema or full-window theater mode player"
+  },
+  "desc_full_window_player": {
+    "message": "Memperluas pemutar video hingga memenuhi seluruh jendela tanpa gangguan",
+    "description": "Description of full-window theater player mode"
   }
 }

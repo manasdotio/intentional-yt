@@ -44,6 +44,7 @@ const ARCHETYPE_CONFIGS = {
       blockSubscriptionsFeed: false,
       disableAutoplay: true,
       disableHoverPreviews: false,
+      fullWindowPlayer: false,
       hideThumbnails: false,
       grayscaleMode: false
     },
@@ -84,6 +85,7 @@ const ARCHETYPE_CONFIGS = {
       blockSubscriptionsFeed: false,
       disableAutoplay: true,
       disableHoverPreviews: false,
+      fullWindowPlayer: false,
       hideThumbnails: false,
       grayscaleMode: false
     },
@@ -124,6 +126,7 @@ const ARCHETYPE_CONFIGS = {
       blockSubscriptionsFeed: true,
       disableAutoplay: true,
       disableHoverPreviews: true,
+      fullWindowPlayer: false,
       hideThumbnails: true,
       grayscaleMode: false
     },

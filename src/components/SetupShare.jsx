@@ -77,6 +77,7 @@ export default function SetupShare() {
     { label: 'Hide Explore & Trending Feeds', active: s.blockExploreAndTrending },
     { label: 'Hide Search Clutter & Irrelevant Shelves', active: s.blockIrrelevantSearchResults },
     { label: 'Disable Video Autoplay', active: s.disableAutoplay },
+    { label: 'Full-Window Theater Mode', active: s.fullWindowPlayer },
     { label: 'Desaturate to Grayscale', active: s.grayscaleMode }
   ].filter(r => r.active)
 

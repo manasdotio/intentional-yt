@@ -192,7 +192,12 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 
 ### 4.4. Watch Page & Playback Control
 
-#### 9. Hide Recommended Sidebar (`blockSidebar` & `blockRecommended`)
+#### 9. Cinema / Full-Window Theater Mode (`fullWindowPlayer`)
+- **CSS Class**: `iyt-full-window-player`
+- **Target Surfaces**: `ytd-watch-flexy:not([fullscreen])`, `#player-theater-container`, `#full-bleed-container`, `#player-wide-container`, `#player-full-bleed-container`, `ytd-watch-grid:not([fullscreen])`, `#movie_player`, `video.html5-main-video`.
+- **Behavior**: Stretches the video player edge-to-edge to `100vw` and `calc(100vh - 56px)` (or `100vh` when `blockTopHeader` is enabled), providing an immersive classroom/cinema player without wasted side margins. Preserves video aspect ratio via `object-fit: contain` and smoothly auto-engages theater mode upon navigation.
+
+#### 10. Hide Recommended Sidebar (`blockSidebar` & `blockRecommended`)
 - **CSS Classes**: `iyt-no-sidebar`, `iyt-no-recommended`
 - **Target Surfaces**: `#secondary.ytd-watch-flexy`, `ytd-watch-next-secondary-results-renderer`, `#related`.
 - **Behavior**: Strips the "Up next" infinite scroll column on video pages and re-centers the video player for deep focus.

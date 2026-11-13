@@ -1639,5 +1639,13 @@
   "setting_support_kofi": {
     "message": "תמיכה ב-Ko-fi",
     "description": "Button linking to Ko-fi donation page"
+  },
+  "toggle_full_window_player": {
+    "message": "מצב קולנוע בחלון מלא",
+    "description": "Toggle label for cinema or full-window theater mode player"
+  },
+  "desc_full_window_player": {
+    "message": "מרחיב את נגן הווידאו למלוא החלון ללא הסחות דעת",
+    "description": "Description of full-window theater player mode"
   }
 }

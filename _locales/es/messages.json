@@ -1639,5 +1639,13 @@
   "setting_support_kofi": {
     "message": "Apoyar en Ko-fi",
     "description": "Button linking to Ko-fi donation page"
+  },
+  "toggle_full_window_player": {
+    "message": "Modo cine / teatro en ventana completa",
+    "description": "Toggle label for cinema or full-window theater mode player"
+  },
+  "desc_full_window_player": {
+    "message": "Expande el reproductor para llenar toda la ventana sin distracciones",
+    "description": "Description of full-window theater player mode"
   }
 }

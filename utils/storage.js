@@ -56,6 +56,7 @@ class StorageManager {
       blockSubscriptionsFeed: false,
       disableAutoplay: true,
       disableHoverPreviews: false,
+      fullWindowPlayer: false,
 
       hideThumbnails: false,
       grayscaleMode: false,
@@ -241,7 +242,7 @@ class StorageManager {
 
   static _presetKey(key) {
     return Object.hasOwn(this.getDefaultSettings(), key) &&
-      (/^(block|disable)/.test(key) || ['limitHomeFeed','redirectShorts','hideThumbnails','grayscaleMode'].includes(key));
+      (/^(block|disable)/.test(key) || ['limitHomeFeed','redirectShorts','hideThumbnails','grayscaleMode','fullWindowPlayer'].includes(key));
   }
 
   static execute(command) {
@@ -351,6 +352,7 @@ class StorageManager {
       blockSubscriptionsFeed: Boolean(s.blockSubscriptionsFeed),
       disableAutoplay: Boolean(s.disableAutoplay),
       disableHoverPreviews: Boolean(s.disableHoverPreviews),
+      fullWindowPlayer: Boolean(s.fullWindowPlayer),
       hideThumbnails: Boolean(s.hideThumbnails),
       grayscaleMode: Boolean(s.grayscaleMode),
       filterMode: ['blocklist', 'allowlist'].includes(s.filterMode) ? s.filterMode : 'blocklist',

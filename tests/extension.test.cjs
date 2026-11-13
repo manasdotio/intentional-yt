@@ -1531,3 +1531,36 @@ test('channel Home navigation updates blocking attributes synchronously without 
   assert.equal(attrs.has('data-iyt-is-channel'), false);
   assert.equal(attrs.has('data-iyt-is-channel-home'), false);
 });
+
+test('fullWindowPlayer Cinema / Theater Mode stretches player edge-to-edge via zero-flash CSS', async () => {
+  const css = source('styles/blocker.css');
+  assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([fullscreen])'), 'CSS includes flexy theater mode rule');
+  assert.ok(css.includes('--ytd-watch-flexy-max-player-width: 100vw !important'), 'CSS sets 100vw player width');
+  assert.ok(css.includes('#player-theater-container'), 'CSS targets theater container');
+  assert.ok(css.includes('calc(100vh - var(--ytd-toolbar-height, 56px)) !important'), 'CSS calculates height with top header');
+  assert.ok(css.includes('html.iyt-full-window-player.iyt-no-top-header'), 'CSS handles top header blocked state');
+  assert.ok(css.includes('object-fit: contain !important'), 'CSS preserves video aspect ratio');
+
+  const env = store();
+  assert.equal(env.manager.getDefaultSettings().fullWindowPlayer, false, 'fullWindowPlayer defaults to false');
+  assert.equal(env.manager.getInitialSettings().fullWindowPlayer, false, 'fullWindowPlayer is false on fresh install');
+
+  const valid = env.validate({ ...env.manager.getDefaultSettings(), fullWindowPlayer: true });
+  assert.equal(valid.fullWindowPlayer, true, 'validates fullWindowPlayer boolean');
+
+  // Blocker CLASS_MAP check
+  const blockerSource = source('content/blocker.js');
+  const context = vm.createContext({
+    document: { documentElement: { classList: { add() {}, remove() {}, contains() { return false; }, toggle() {} }, setAttribute() {}, removeAttribute() {}, toggleAttribute() {} } },
+    window: { location: { pathname: '/watch' }, addEventListener() {} },
+    globalThis: {}
+  });
+  vm.runInContext(blockerSource.slice(0, blockerSource.indexOf('const html = document.documentElement;')), context);
+  assert.equal(vm.runInContext('CLASS_MAP', context).fullWindowPlayer, 'iyt-full-window-player');
+
+  // Presets check: player preset includes fullWindowPlayer
+  const popupSource = source('ui/popup.js');
+  assert.ok(popupSource.includes("'fullWindowPlayer'"), 'popup includes fullWindowPlayer toggle');
+  assert.ok(popupSource.includes("toggle_full_window_player"), 'popup binds i18n label');
+  assert.ok(popupSource.includes("fullWindowPlayer: true"), 'player preset enables fullWindowPlayer');
+});

@@ -1639,5 +1639,13 @@
   "setting_support_kofi": {
     "message": "Susține pe Ko-fi",
     "description": "Button linking to Ko-fi donation page"
+  },
+  "toggle_full_window_player": {
+    "message": "Mod cinema pe întreaga fereastră",
+    "description": "Toggle label for cinema or full-window theater mode player"
+  },
+  "desc_full_window_player": {
+    "message": "Extinde playerul video pe întreaga fereastră fără distrageri",
+    "description": "Description of full-window theater player mode"
   }
 }

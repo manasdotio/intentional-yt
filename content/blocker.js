@@ -34,6 +34,7 @@ const CLASS_MAP = {
   blockSubscriptionsFeed:      'iyt-no-subscriptions',
   disableAutoplay:             'iyt-no-autoplay',
   disableHoverPreviews:        'iyt-no-hover-previews',
+  fullWindowPlayer:            'iyt-full-window-player',
   hideThumbnails:              'iyt-no-thumbnails',
   grayscaleMode:               'iyt-grayscale',
 };
@@ -1245,8 +1246,29 @@ function applyAllClasses(settings) {
       scheduleFullFilterScan();
     }
     configureDomObserver();
+    if (active && settings.fullWindowPlayer) {
+      ensureTheaterMode();
+    }
   } finally {
     _isApplyingClasses = false;
+  }
+}
+
+function ensureTheaterMode() {
+  if (!_settings || !_settings.fullWindowPlayer || !isEffectiveActive(_settings)) return;
+  const p = (typeof window !== 'undefined' && window.location?.pathname) || '';
+  if (!p.startsWith('/watch')) return;
+  const flexy = typeof document !== 'undefined' && document.querySelector ? document.querySelector('ytd-watch-flexy') : null;
+  if (flexy && !flexy.hasAttribute('theater') && !flexy.hasAttribute('fullscreen')) {
+    const sizeBtn = document.querySelector('button.ytp-size-button');
+    if (sizeBtn && typeof sizeBtn.click === 'function') {
+      sizeBtn.click();
+    } else if (typeof flexy.setAttribute === 'function') {
+      flexy.setAttribute('theater', '');
+    }
+  }
+  if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function' && typeof Event === 'function') {
+    try { window.dispatchEvent(new Event('resize')); } catch (_) {}
   }
 }
 
@@ -1466,6 +1488,7 @@ document.addEventListener('yt-navigate-finish', (e) => {
   if (!isHomePage()) _feedNudges = new WeakMap();
   const url = extractPathFromNavEvent(e);
   updateHomePageState(url);
+  ensureTheaterMode();
   checkSnoozeExpiry();
   scheduleHomeFeedLimit();
   scheduleFullFilterScan(80);
@@ -1474,6 +1497,7 @@ document.addEventListener('yt-navigate-finish', (e) => {
 document.addEventListener('yt-page-data-updated', (e) => {
   const url = extractPathFromNavEvent(e);
   updateHomePageState(url);
+  ensureTheaterMode();
   checkSnoozeExpiry();
   scheduleHomeFeedLimit();
   scheduleFullFilterScan(80);

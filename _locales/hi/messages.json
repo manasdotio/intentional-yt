@@ -1639,5 +1639,13 @@
   "setting_support_kofi": {
     "message": "Ko-fi पर समर्थन करें",
     "description": "Button linking to Ko-fi donation page"
+  },
+  "toggle_full_window_player": {
+    "message": "फुल-विंडो सिनेमा मोड",
+    "description": "Toggle label for cinema or full-window theater mode player"
+  },
+  "desc_full_window_player": {
+    "message": "बिना किसी भटकाव के वीडियो प्लेयर को पूरी विंडो में फैलाएं",
+    "description": "Description of full-window theater player mode"
   }
 }

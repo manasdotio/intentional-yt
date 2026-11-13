@@ -1639,5 +1639,13 @@
   "setting_support_kofi": {
     "message": "Ko-fiで応援",
     "description": "Button linking to Ko-fi donation page"
+  },
+  "toggle_full_window_player": {
+    "message": "フルウィンドウシアターモード",
+    "description": "Toggle label for cinema or full-window theater mode player"
+  },
+  "desc_full_window_player": {
+    "message": "余白をなくし、動画プレーヤーをウィンドウ全体に拡大表示します",
+    "description": "Description of full-window theater player mode"
   }
 }

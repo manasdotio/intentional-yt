@@ -1728,3 +1728,101 @@ html.iyt-no-video-info #cinematic-lighting {
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   FULL-WINDOW THEATER / CINEMA MODE
+   Stretches watch player edge-to-edge (100vw x calc(100vh - 56px) or 100vh)
+═══════════════════════════════════════════════════════════ */
+/* 1. Flexy CSS custom properties */
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) {
+  --ytd-watch-flexy-max-player-width: 100vw !important;
+  --ytd-watch-flexy-player-width: 100vw !important;
+  --ytd-watch-flexy-player-height: calc(100vh - var(--ytd-toolbar-height, 56px)) !important;
+  --ytd-watch-flexy-space-below-player: 0px !important;
+}
+
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([fullscreen]) {
+  --ytd-watch-flexy-player-height: 100vh !important;
+}
+
+/* 2. Stretch theater & full-bleed player containers to 100vw x calc(100vh - 56px) */
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #player-theater-container,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #player-wide-container,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #full-bleed-container,
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #player-full-bleed-container,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #player-theater-container,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #full-bleed-container,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #player-full-bleed-container {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-width: 100vw !important;
+  height: calc(100vh - var(--ytd-toolbar-height, 56px)) !important;
+  max-height: calc(100vh - var(--ytd-toolbar-height, 56px)) !important;
+  min-height: calc(100vh - var(--ytd-toolbar-height, 56px)) !important;
+}
+
+/* 3. When top header is hidden, expand to complete 100vh window */
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([fullscreen]) #player-theater-container,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([fullscreen]) #player-wide-container,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([fullscreen]) #full-bleed-container,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([fullscreen]) #player-full-bleed-container,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-grid:not([fullscreen]) #player-theater-container,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-grid:not([fullscreen]) #full-bleed-container,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-grid:not([fullscreen]) #player-full-bleed-container {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  min-height: 100vh !important;
+}
+
+/* 4. Non-theater fallback: stretch standard player container */
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container,
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container-outer,
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #ytd-player,
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player {
+  width: 100% !important;
+  max-width: 100vw !important;
+  height: calc(100vh - var(--ytd-toolbar-height, 56px)) !important;
+  max-height: calc(100vh - var(--ytd-toolbar-height, 56px)) !important;
+}
+
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container-outer,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fullscreen]) #ytd-player,
+html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fullscreen]) #player {
+  height: 100vh !important;
+  max-height: 100vh !important;
+}
+
+/* 5. Inner player and HTML5 video scaling */
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #movie_player,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #movie_player {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #movie_player .html5-video-container,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #movie_player .html5-video-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #movie_player video.html5-main-video,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #movie_player video.html5-main-video {
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  object-fit: contain !important;
+}
+
+/* 6. Clean center alignment for metadata below full-window player */
+html.iyt-full-window-player ytd-watch-flexy:not([fullscreen]) #columns,
+html.iyt-full-window-player ytd-watch-grid:not([fullscreen]) #columns {
+  max-width: 1280px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

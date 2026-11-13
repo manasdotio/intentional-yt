@@ -1639,5 +1639,13 @@
   "setting_support_kofi": {
     "message": "Stöd på Ko-fi",
     "description": "Button linking to Ko-fi donation page"
+  },
+  "toggle_full_window_player": {
+    "message": "Biografläge i helfönster",
+    "description": "Toggle label for cinema or full-window theater mode player"
+  },
+  "desc_full_window_player": {
+    "message": "Expanderar videospelaren till hela fönstret utan distraktioner",
+    "description": "Description of full-window theater player mode"
   }
 }

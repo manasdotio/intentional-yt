@@ -1639,5 +1639,13 @@
   "setting_support_kofi": {
     "message": "在 Ko-fi 上支持",
     "description": "Button linking to Ko-fi donation page"
+  },
+  "toggle_full_window_player": {
+    "message": "全窗口影院模式",
+    "description": "Toggle label for cinema or full-window theater mode player"
+  },
+  "desc_full_window_player": {
+    "message": "将视频播放器扩展至整个窗口，去除边距与干扰",
+    "description": "Description of full-window theater player mode"
   }
 }

@@ -78,7 +78,7 @@ const TOGGLES = [
   'blockTopHeader', 'blockNotificationBell', 'blockIrrelevantSearchResults',
   'blockExploreAndTrending', 'blockMoreFromYouTube', 'blockShorts',
   'redirectShorts',
-  'blockSubscriptionsFeed', 'disableAutoplay', 'disableHoverPreviews',
+  'blockSubscriptionsFeed', 'disableAutoplay', 'disableHoverPreviews', 'fullWindowPlayer',
   'hideThumbnails', 'grayscaleMode',
   'enableQuickBlock',
 ];
@@ -111,6 +111,7 @@ const TOGGLE_LABELS = {
   blockSubscriptionsFeed: 'toggle_block_subscriptions',
   disableAutoplay: 'toggle_disable_autoplay',
   disableHoverPreviews: 'toggle_disable_hover_previews',
+  fullWindowPlayer: 'toggle_full_window_player',
   hideThumbnails: 'toggle_hide_thumbnails',
   grayscaleMode: 'toggle_grayscale_mode',
   enableQuickBlock: 'filters_quick_block_title',
@@ -132,6 +133,7 @@ const SECTION_TOGGLES = {
   "video": [
     "disableAutoplay",
     "redirectShorts",
+    "fullWindowPlayer",
     "blockComments",
     "blockProfilePhotos",
     "blockLiveChat",
@@ -210,6 +212,7 @@ const PRESET_DEFINITIONS = {
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
     disableHoverPreviews: false,
+    fullWindowPlayer: false,
     hideThumbnails: false
   },
   antiShorts: {
@@ -233,6 +236,7 @@ const PRESET_DEFINITIONS = {
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
     disableHoverPreviews: false,
+    fullWindowPlayer: false,
     hideThumbnails: false
   },
   study: {
@@ -256,6 +260,7 @@ const PRESET_DEFINITIONS = {
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
     disableHoverPreviews: false,
+    fullWindowPlayer: false,
     hideThumbnails: false
   },
   zen: {
@@ -279,6 +284,7 @@ const PRESET_DEFINITIONS = {
     blockSubscriptionsFeed: true,
     disableAutoplay: true,
     disableHoverPreviews: true,
+    fullWindowPlayer: false,
     hideThumbnails: true
   },
   player: {
@@ -302,6 +308,7 @@ const PRESET_DEFINITIONS = {
     blockSubscriptionsFeed: false,
     disableAutoplay: true,
     disableHoverPreviews: false,
+    fullWindowPlayer: true,
     hideThumbnails: false
   }
 };
@@ -770,6 +777,7 @@ const SEARCH_ALIASES = {
   blockSubscriptionsFeed: 'subscriptions subs feed channels subscribed subscription',
   blockShorts: 'shorts reel reels tiktok vertical videos',
   redirectShorts: 'redirect shorts normal player standard view',
+  fullWindowPlayer: 'cinema theater full window player wide borderless classroom expand size screen',
   blockEndScreens: 'end screen videowall next watch grid recommendations creator cards annotations popups notes',
   blockLiveChat: 'live chat stream chat replay',
   blockPlaylist: 'playlist panel playlist queue',
@@ -2031,6 +2039,14 @@ function escapeHTML(str) {
 }
 
 const SETTING_DIAGRAMS = {
+  cinema: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
+    <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
+    <rect x="10" y="8" width="16" height="3" rx="1.5" fill="var(--ink-ghost)"/>
+    <rect x="10" y="18" width="180" height="58" rx="3" fill="var(--surface-inset)" stroke="var(--accent)" stroke-width="1.2"/>
+    <polygon points="96 42 108 48 96 54" fill="var(--accent)"/>
+    <path d="M16 24h6m-6 0v6m168-6h-6m6 0v6m0 40h-6m6 0v-6m-168 6h6m-6 0v-6" stroke="var(--accent)" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>`,
   endscreen: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="4" y="4" width="192" height="77" rx="5" fill="var(--surface-elevated)" stroke="var(--rule-strong)" stroke-width="1.2"/>
     <line x1="4" y1="14" x2="196" y2="14" stroke="var(--rule-hairline)" stroke-width="1"/>
@@ -2149,6 +2165,7 @@ const SETTING_DIAGRAMS = {
 };
 
 function getDiagramSVG(helpId) {
+  if (helpId === 'help-toggle-fullWindowPlayer') return SETTING_DIAGRAMS.cinema;
   if (helpId === 'help-toggle-blockEndScreens' || helpId === 'help-toggle-blockEndScreenVideowall' || helpId === 'help-toggle-blockEndScreenCards') return SETTING_DIAGRAMS.endscreen;
   if (helpId === 'help-toggle-blockSidebar') return SETTING_DIAGRAMS.sidebar;
   if (helpId === 'help-toggle-blockShorts' || helpId === 'help-toggle-redirectShorts') return SETTING_DIAGRAMS.shorts;
@@ -3094,6 +3111,7 @@ function bindAll() {
     if (s.blockSidebar) tags.push({ text: 'Hide Sidebar' });
     if (s.blockComments) tags.push({ text: 'Hide Comments' });
     if (s.blockEndScreens) tags.push({ text: 'Clean End Screen' });
+    if (s.fullWindowPlayer) tags.push({ text: 'Full-Window Player' });
     if (s.hideThumbnails) tags.push({ text: 'Hide Thumbnails' });
     if (s.disableAutoplay) tags.push({ text: 'No Autoplay' });
     if (s.blockExploreAndTrending) tags.push({ text: 'Hide Trending' });

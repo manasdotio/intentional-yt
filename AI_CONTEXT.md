@@ -73,6 +73,7 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
 - `blockIrrelevantSearchResults`: Filters out algorithmic injection rows (*"People also watched"*, *"For you"*, *"Previously watched"*, *"Related to your search"*, and *"Latest from channel"*).
 
 ### 4. Watch Page & Player Controls
+- `fullWindowPlayer`: Cinema / Full-Window Theater Mode that stretches the player edge-to-edge (100vw x calc(100vh - 56px), or 100vh if top header is hidden) for an immersive, distraction-free classroom player.
 - `blockSidebar` & `blockRecommended`: Removes the "Up next" recommendation column and centers the video player.
 - `blockMixPlaylists`: Hides endless automated "Mix" and "Radio" station playlists.
 - `blockPlaylist`: Collapses playlist side panels during active viewing.
