@@ -1254,9 +1254,6 @@ function applyAllClasses(settings) {
       scheduleFullFilterScan();
     }
     configureDomObserver();
-    if (active && settings.fullWindowPlayer) {
-      ensureTheaterMode();
-    }
     if (active && settings.neutralThumbnails) {
       replaceThumbnailsWithNeutralFrames(document);
     } else {
@@ -1264,54 +1261,6 @@ function applyAllClasses(settings) {
     }
   } finally {
     _isApplyingClasses = false;
-  }
-}
-
-let _lastAutoTheaterVideoId = null;
-let _theaterRetryTimer = null;
-
-function ensureTheaterMode() {
-  if (!_settings || !_settings.fullWindowPlayer || !isEffectiveActive(_settings)) return;
-  const p = (typeof window !== 'undefined' && window.location?.pathname) || '';
-  if (!p.startsWith('/watch')) {
-    _lastAutoTheaterVideoId = null;
-    clearTimeout(_theaterRetryTimer);
-    return;
-  }
-
-  const currentHref = (typeof window !== 'undefined' && window.location?.href) || '';
-  const match = currentHref.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
-  const currentVideoId = match ? match[1] : null;
-
-  // Once theater mode has been activated on this video, respect user's manual toggles (e.g. pressing 'T')
-  if (currentVideoId && _lastAutoTheaterVideoId === currentVideoId) return;
-
-  const flexy = typeof document !== 'undefined' && document.querySelector ? document.querySelector('ytd-watch-flexy') : null;
-  if (!flexy || flexy.hasAttribute('fullscreen')) return;
-
-  if (flexy.hasAttribute('theater')) {
-    if (currentVideoId) _lastAutoTheaterVideoId = currentVideoId;
-    return;
-  }
-
-  const sizeBtn = document.querySelector('button.ytp-size-button');
-  if (sizeBtn && typeof sizeBtn.click === 'function') {
-    if (currentVideoId) _lastAutoTheaterVideoId = currentVideoId;
-    sizeBtn.click();
-  } else {
-    clearTimeout(_theaterRetryTimer);
-    _theaterRetryTimer = setTimeout(() => {
-      const delayedFlexy = document.querySelector('ytd-watch-flexy');
-      if (!delayedFlexy || delayedFlexy.hasAttribute('theater') || delayedFlexy.hasAttribute('fullscreen')) {
-        if (currentVideoId) _lastAutoTheaterVideoId = currentVideoId;
-        return;
-      }
-      const delayedBtn = document.querySelector('button.ytp-size-button');
-      if (delayedBtn && typeof delayedBtn.click === 'function') {
-        if (currentVideoId) _lastAutoTheaterVideoId = currentVideoId;
-        delayedBtn.click();
-      }
-    }, 400);
   }
 }
 
@@ -1655,7 +1604,6 @@ document.addEventListener('yt-navigate-finish', (e) => {
   if (!isHomePage()) _feedNudges = new WeakMap();
   const url = extractPathFromNavEvent(e);
   updateHomePageState(url);
-  ensureTheaterMode();
   checkSnoozeExpiry();
   scheduleHomeFeedLimit();
   scheduleFullFilterScan(80);
@@ -1664,7 +1612,6 @@ document.addEventListener('yt-navigate-finish', (e) => {
 document.addEventListener('yt-page-data-updated', (e) => {
   const url = extractPathFromNavEvent(e);
   updateHomePageState(url);
-  ensureTheaterMode();
   checkSnoozeExpiry();
   scheduleHomeFeedLimit();
   scheduleFullFilterScan(80);

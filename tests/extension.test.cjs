@@ -1532,18 +1532,16 @@ test('channel Home navigation updates blocking attributes synchronously without 
   assert.equal(attrs.has('data-iyt-is-channel-home'), false);
 });
 
-test('fullWindowPlayer Cinema / Theater Mode stretches player edge-to-edge via zero-flash CSS', async () => {
+test('fullWindowPlayer & no-recommended meaningfully expand player into empty sidebar space via zero-flash CSS', async () => {
   const css = source('styles/blocker.css');
-  assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy[theater]:not([fullscreen])'), 'CSS includes flexy theater mode rule scoped to [theater]');
-  assert.ok(!css.includes('ytd-watch-flexy:not([theater]):not([fullscreen]) #player'), 'Standard non-theater mode is never forced into 100vh');
-  assert.ok(css.includes('--ytd-watch-flexy-max-player-width: 100vw !important'), 'CSS sets 100vw player width');
-  assert.ok(css.includes('#player-theater-container'), 'CSS targets theater container');
-  assert.ok(css.includes('calc(100vh - var(--ytd-toolbar-height, 56px)) !important'), 'CSS calculates height with top header');
-  assert.ok(css.includes('html.iyt-full-window-player.iyt-no-top-header'), 'CSS handles top header blocked state');
-  assert.ok(css.includes('padding: clamp(12px, 2vh, 24px) clamp(16px, 2.5vw, 36px) !important'), 'CSS keeps top, bottom, left and right breathing padding');
+  assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #primary'), 'CSS expands primary column in standard view');
+  assert.ok(css.includes('html.iyt-no-recommended ytd-watch-flexy:not([theater]):not([fullscreen]) #primary'), 'CSS expands primary column when recommendations hidden');
+  assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #secondary'), 'CSS collapses secondary recommendations column');
+  assert.ok(css.includes('calc((100vh - var(--ytd-toolbar-height, 56px) - 140px) * 16 / 9)'), 'CSS calculates primary max-width based on 16:9 viewport fit');
+  assert.ok(css.includes('aspect-ratio: 16 / 9 !important'), 'CSS preserves 16:9 player container ratio');
   assert.ok(css.includes('border-radius: 12px !important'), 'CSS keeps signature 12px YouTube rounded corners');
-  assert.ok(css.includes('--ytd-watch-flexy-player-border-radius: 12px !important'), 'CSS sets flexy border radius');
-  assert.ok(css.includes('object-fit: contain !important'), 'CSS preserves video aspect ratio');
+  assert.ok(css.includes('padding-left: clamp(16px, 2.5vw, 48px) !important'), 'CSS keeps balanced breathing padding');
+  assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #below'), 'CSS aligns title and description metadata below player');
 
   const env = store();
   assert.equal(env.manager.getDefaultSettings().fullWindowPlayer, false, 'fullWindowPlayer defaults to false');
@@ -1568,9 +1566,9 @@ test('fullWindowPlayer Cinema / Theater Mode stretches player edge-to-edge via z
   assert.ok(popupSource.includes("toggle_full_window_player"), 'popup binds i18n label');
   assert.ok(popupSource.includes("fullWindowPlayer: true"), 'player preset enables fullWindowPlayer');
 
-  // Verify blocker respects manual 'T' toggles and doesn't force attributes directly
-  assert.ok(blockerSource.includes('_lastAutoTheaterVideoId'), 'blocker tracks auto-theater video ID');
-  assert.ok(!blockerSource.includes("flexy.setAttribute('theater', '')"), 'blocker avoids corrupting Polymer theater attribute directly');
+  // Verify blocker does not hijack theater mode or fight native 'T' shortcut
+  assert.ok(!blockerSource.includes('ensureTheaterMode'), 'blocker does not synthetically force theater mode');
+  assert.ok(!blockerSource.includes("button.ytp-size-button"), 'blocker does not synthetically click theater mode buttons');
 });
 
 test('neutralThumbnails replaces custom thumbnails with clean auto-generated hq2.jpg mid-video frame', async () => {
