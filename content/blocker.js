@@ -43,16 +43,23 @@ let _settings = null;
 let _snoozeTimer = null;
 let _snoozeInterval = null;
 
-function isHomePage() {
-  const p = window.location.pathname;
+function normalizePathname(target) {
+  if (typeof target !== 'string' || !target) return (typeof window !== 'undefined' && window.location?.pathname) || '';
+  const clean = target.replace(/^[a-zA-Z]+:\/\/[^/]+/, '').split('?')[0].split('#')[0];
+  return clean.startsWith('/') ? clean : '/' + clean;
+}
+
+function isHomePage(target) {
+  const p = target ? normalizePathname(target) : ((typeof window !== 'undefined' && window.location?.pathname) || '');
   return p === '/' || p === '';
 }
 
-function updateHomePageState() {
-  const channel = window.location.pathname.match(/^\/(?:@[^/]+|(?:channel|c|user)\/[^/]+)(?:\/(.*))?$/);
+function updateHomePageState(targetPath) {
+  const currentPath = normalizePathname(targetPath);
+  const channel = currentPath.match(/^\/(?:@[^/]+|(?:channel|c|user)\/[^/]+)(?:\/(.*))?$/);
   html.toggleAttribute('data-iyt-is-channel', !!channel);
   html.toggleAttribute('data-iyt-is-channel-home', !!channel && (!channel[1] || /^featured\/?$/.test(channel[1])));
-  if (isHomePage()) {
+  if (isHomePage(currentPath)) {
     html.setAttribute('data-iyt-is-home', 'true');
   } else {
     html.removeAttribute('data-iyt-is-home');
@@ -153,12 +160,56 @@ function checkShortsRedirect(settings) {
   }
 }
 
-// Intercept in-page SPA navigation to shorts
-document.addEventListener('yt-navigate-start', (e) => {
-  updateHomePageState();
+function extractPathFromNavEvent(e) {
+  if (!e) return null;
+  const detail = e.detail;
+  if (typeof detail === 'string') return detail;
+  if (typeof detail?.url === 'string') return detail.url;
+  const webUrl = detail?.endpoint?.commandMetadata?.webCommandMetadata?.url;
+  if (typeof webUrl === 'string') return webUrl;
+  const canonUrl = detail?.endpoint?.browseEndpoint?.canonicalBaseUrl;
+  if (typeof canonUrl === 'string') return canonUrl;
+  const navUrl = detail?.navigationEndpoint?.commandMetadata?.webCommandMetadata?.url;
+  if (typeof navUrl === 'string') return navUrl;
+  return null;
+}
+
+function findAnchorInEvent(event) {
+  if (typeof event.composedPath === 'function') {
+    const path = event.composedPath();
+    for (let i = 0; i < path.length; i++) {
+      const el = path[i];
+      if (el && el.nodeType === 1 && el.tagName === 'A' && el.hasAttribute('href')) {
+        return el;
+      }
+    }
+  }
+  return event.target?.closest?.('a[href]') || null;
+}
+
+// Intercept link clicks to switch channel/home blocker state before DOM render
+document.addEventListener('click', (event) => {
+  if (event.defaultPrevented || event.button !== 0) return;
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const anchor = findAnchorInEvent(event);
+  if (!anchor || anchor.hasAttribute('download')) return;
+  const target = anchor.getAttribute('target');
+  if (target && target !== '_self') return;
+  const href = anchor.getAttribute('href');
+  if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+  if (/^[a-zA-Z]+:\/\//.test(href)) {
+    const origin = (typeof window !== 'undefined' && window.location?.origin) || 'https://www.youtube.com';
+    if (!href.startsWith(origin)) return;
+  }
+  updateHomePageState(href);
+}, true);
+
+// Intercept in-page SPA navigation start (both shorts redirect and instant home/channel state)
+function handleNavStart(e) {
+  const url = extractPathFromNavEvent(e);
+  updateHomePageState(url);
   checkSnoozeExpiry();
   if (!isEffectiveActive(_settings) || !_settings.redirectShorts) return;
-  const url = e && e.detail && e.detail.url;
   if (typeof url === 'string') {
     if (url === '/shorts' || url === '/shorts/' || url.startsWith('/shorts?')) {
       window.location.replace('/');
@@ -169,7 +220,14 @@ document.addEventListener('yt-navigate-start', (e) => {
       window.location.replace('/watch?v=' + encodeURIComponent(match[1]));
     }
   }
-});
+}
+
+document.addEventListener('yt-navigate-start', handleNavStart, true);
+if (typeof window !== 'undefined' && window.addEventListener) {
+  window.addEventListener('yt-navigate-start', handleNavStart, true);
+  window.addEventListener('yt-page-type-changed', handleNavStart, true);
+}
+document.addEventListener('yt-page-type-changed', handleNavStart, true);
 
 // Shorts visibility is controlled by CSS so reused cards update immediately.
 
@@ -1342,8 +1400,14 @@ function initDomObserver() {
     document.addEventListener('DOMContentLoaded', initDomObserver, { once: true });
     return;
   }
+  let _lastObservedPath = (typeof window !== 'undefined' && window.location?.pathname) || '';
   _domObserver = new MutationObserver((mutations) => {
     if (!isEffectiveActive(_settings)) return;
+    const currentPath = (typeof window !== 'undefined' && window.location?.pathname) || '';
+    if (_lastObservedPath !== currentPath) {
+      _lastObservedPath = currentPath;
+      if (typeof updateHomePageState === 'function') updateHomePageState();
+    }
     const cards = needsCardObservation();
     const addedElements = [];
     let structureChanged = false;
@@ -1398,16 +1462,18 @@ window.addEventListener('load', () => {
   scanAllCards(document);
 });
 
-document.addEventListener('yt-navigate-finish', () => {
+document.addEventListener('yt-navigate-finish', (e) => {
   if (!isHomePage()) _feedNudges = new WeakMap();
-  updateHomePageState();
+  const url = extractPathFromNavEvent(e);
+  updateHomePageState(url);
   checkSnoozeExpiry();
   scheduleHomeFeedLimit();
   scheduleFullFilterScan(80);
   scheduleFullFilterScan(1000);
 });
-document.addEventListener('yt-page-data-updated', () => {
-  updateHomePageState();
+document.addEventListener('yt-page-data-updated', (e) => {
+  const url = extractPathFromNavEvent(e);
+  updateHomePageState(url);
   checkSnoozeExpiry();
   scheduleHomeFeedLimit();
   scheduleFullFilterScan(80);

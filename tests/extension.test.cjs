@@ -1455,3 +1455,79 @@ test('card channel info caches extraction and avoids querying arbitrary non-chan
   assert.equal(secondResult, firstResult);
   assert.equal(querySelectorAllCalls, initialCallCount, 'Cache hit must not call querySelectorAll again');
 });
+
+test('channel Home navigation updates blocking attributes synchronously without 1-2s flash of videos', () => {
+  const blockerSrc = source('content/blocker.js');
+  const css = source('styles/blocker.css');
+
+  // 1. Verify CSS rules cover all channel home surfaces including shelves and section renderers
+  assert.ok(css.includes('html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-section-list-renderer'));
+  assert.ok(css.includes('html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-rich-grid-renderer'));
+  assert.ok(css.includes('html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-channel-video-player-renderer'));
+  assert.ok(css.includes('html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-item-section-renderer'));
+  assert.ok(css.includes('html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-shelf-renderer'));
+  assert.ok(css.includes('html[data-iyt-is-channel-home].iyt-no-channel-home ytd-browse ytd-rich-section-renderer'));
+
+  // Verify home feed remains blocked during channel navigation without :not([data-iyt-is-channel]) unblocking it
+  assert.ok(css.includes('html.iyt-no-home-feed ytd-browse[page-subtype="home"] ytd-rich-grid-renderer'));
+  assert.ok(!css.includes('html:not([data-iyt-is-channel]).iyt-no-home-feed ytd-browse[page-subtype="home"]'));
+
+  // 2. Verify JS updates data-iyt-is-channel-home synchronously on target path
+  const attrs = new Map();
+  const html = {
+    toggleAttribute(name, force) {
+      if (force) attrs.set(name, true);
+      else attrs.delete(name);
+      return !!force;
+    },
+    setAttribute(name, val) { attrs.set(name, val); },
+    removeAttribute(name) { attrs.delete(name); },
+    hasAttribute(name) { return attrs.has(name); }
+  };
+
+  const context = vm.createContext({
+    html,
+    window: { location: { pathname: '/', origin: 'https://www.youtube.com' } },
+    document: {
+      documentElement: html,
+      querySelectorAll: () => []
+    },
+    isEffectiveActive: () => true,
+    _settings: { blockChannelHome: true, extensionEnabled: true },
+    pauseBlockedChannelVideos() {}
+  });
+
+  const code = blockerSrc.slice(
+    blockerSrc.indexOf('function normalizePathname'),
+    blockerSrc.indexOf('// CSS hides channel Home content')
+  );
+  vm.runInContext(code, context);
+
+  // Initial state on homepage
+  context.updateHomePageState('/');
+  assert.equal(attrs.get('data-iyt-is-home'), 'true');
+  assert.equal(attrs.has('data-iyt-is-channel'), false);
+  assert.equal(attrs.has('data-iyt-is-channel-home'), false);
+
+  // SPA navigation begins to channel Home: https://www.youtube.com/@ruriohama
+  // Must synchronously set channel-home attributes BEFORE DOM renders
+  context.updateHomePageState('https://www.youtube.com/@ruriohama');
+  assert.equal(attrs.has('data-iyt-is-home'), false, 'data-iyt-is-home removed');
+  assert.equal(attrs.has('data-iyt-is-channel'), true, 'data-iyt-is-channel set');
+  assert.equal(attrs.has('data-iyt-is-channel-home'), true, 'data-iyt-is-channel-home set instantly for zero flash');
+
+  // Navigation to channel subtab (/videos) must release channel-home blocking so user can see videos
+  context.updateHomePageState('/@ruriohama/videos');
+  assert.equal(attrs.has('data-iyt-is-channel'), true);
+  assert.equal(attrs.has('data-iyt-is-channel-home'), false, 'channel-home released on videos tab');
+
+  // Navigation back to channel Home (/featured or root handle) re-engages zero-flash blocking
+  context.updateHomePageState('/@ruriohama/featured');
+  assert.equal(attrs.has('data-iyt-is-channel-home'), true, 'channel-home re-engaged for featured tab');
+
+  // Navigation back to YouTube Home sets home and clears channel
+  context.updateHomePageState('/');
+  assert.equal(attrs.get('data-iyt-is-home'), 'true');
+  assert.equal(attrs.has('data-iyt-is-channel'), false);
+  assert.equal(attrs.has('data-iyt-is-channel-home'), false);
+});
