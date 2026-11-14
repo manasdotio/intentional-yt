@@ -1404,7 +1404,7 @@
     "message": "Nasconde anche i link alle iscrizioni e alle playlist salvate."
   },
   "youtube_reload_needed": {
-    "message": "Le impostazioni sono salvate, ma questa scheda di YouTube non ? collegata. Ricarica YouTube. Se il problema persiste, controlla l'accesso dell'estensione a YouTube."
+    "message": "Ricarica la pagina per applicare le modifiche."
   },
   "toggle_disable_hover_previews": {
     "message": "Disattiva anteprime al passaggio del mouse",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Modalità cinema a finestra intera",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Espandi lettore nello spazio vuoto",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Espande il lettore per riempire l'intera finestra senza distrazioni",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Sostituisce le miniature clickbait con un fotogramma neutro estratto dal video",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Ricarica pagina"
+  },
+  "toggle_screenshot_button": {
+    "message": "Pulsante screenshot video"
+  },
+  "desc_screenshot_button": {
+    "message": "Aggiunge un pulsante al lettore per catturare il fotogramma corrente"
+  },
+  "screenshot_button_title": {
+    "message": "Cattura schermata (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Screenshot salvato"
+  },
+  "btn_screenshot": {
+    "message": "Screenshot"
   }
 }

@@ -61,9 +61,6 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
 - `limitHomeFeed`: Caps homepage recommendations to the first 15 videos, halts infinite scroll pagination, and displays the mindful caught-up banner (`✦ You're all caught up • Feed limit active`). Mutually exclusive with `blockHomeFeed`.
 - `blockSubscriptionsFeed`: Suppresses subscription feed grid when intentional search-only browsing is desired.
 - `blockExploreAndTrending`: Removes trending hubs, gaming, movies, and promotional sidebar menus.
-- `blockMoreFromYouTube`: Removes YouTube Premium, Studio, Kids, TV, and Music cross-promotions.
-- `blockTopHeader`: Completely hides top header bar for an ultra-clean, minimal reading/viewing environment.
-- `blockNotificationBell`: Eliminates unread notification badges and alert popups.
 
 ### 2. Deep Shorts Suppression & Redirection
 - `blockShorts`: Multi-surface suppression across homepage shelves, sidebar tabs, search results, channel tabs, and watch-page recommendations.
@@ -88,7 +85,6 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
 - `blockChannelInfo`: Hides channel avatar, name, and subscriber count badges.
 - `blockVideoDescription`: Suppresses the expandable video description box.
 - `blockComments`: Completely removes the comment section.
-- `blockProfilePhotos`: Replaces user comment avatars with blank circles to reduce visual stimulation while keeping discussion text readable.
 - `blockLiveChat`: Disables live chat drawers and replay streams.
 - `blockMerch`: Suppresses product carousels, store shelves, and shopping tags.
 

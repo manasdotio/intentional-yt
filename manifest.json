@@ -52,6 +52,7 @@
         "content/blocker.js",
         "content/scheduledBlocker.js",
         "content/timerToast.js",
+        "content/screenshot.js",
         "content/youtubeObserver.js"
       ],
       "css": [

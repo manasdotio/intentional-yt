@@ -18,18 +18,14 @@ const CLASS_MAP = {
   blockPlaylist:               'iyt-no-playlist',
   blockEndScreens:             'iyt-no-endscreens',
   blockComments:               'iyt-no-comments',
-  blockProfilePhotos:          'iyt-no-profile-photos',
   blockMixPlaylists:           'iyt-no-mix-playlists',
   blockMerch:                  'iyt-no-merch',
   blockVideoInfo:              'iyt-no-video-info',
   blockVideoButtons:           'iyt-no-video-buttons',
   blockChannelInfo:            'iyt-no-channel-info',
   blockVideoDescription:       'iyt-no-video-desc',
-  blockTopHeader:              'iyt-no-top-header',
-  blockNotificationBell:       'iyt-no-notif-bell',
   blockIrrelevantSearchResults:'iyt-no-irrelevant-search',
   blockExploreAndTrending:     'iyt-no-explore',
-  blockMoreFromYouTube:        'iyt-no-more-yt',
   blockShorts:                 'iyt-no-shorts',
   blockSubscriptionsFeed:      'iyt-no-subscriptions',
   disableAutoplay:             'iyt-no-autoplay',
@@ -113,7 +109,7 @@ function onSnoozeExpired() {
   }
   StorageManager.updateSetting('snoozeUntil', null).catch(() => {});
   applyAllSettings().catch(error => {
-    if (!/Extension context invalidated/i.test(error?.message || '')) console.warn('[IYT] Snooze update failed', error);
+    if (!/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) console.warn('[IYT] Snooze update failed', error);
   });
 }
 
@@ -798,7 +794,7 @@ function showQuickBlockToast(displayName, identifier, card) {
       scanAllCards(document);
     }
     } catch (error) {
-      if (!/Extension context invalidated/i.test(error?.message || '')) console.warn('[IYT] Undo failed', error);
+      if (!/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) console.warn('[IYT] Undo failed', error);
     }
   });
 
@@ -863,7 +859,7 @@ function showQuickAllowToast(displayName, identifier, card) {
         scanAllCards(document);
       }
     } catch (error) {
-      if (!/Extension context invalidated/i.test(error?.message || '')) console.warn('[IYT] Undo failed', error);
+      if (!/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) console.warn('[IYT] Undo failed', error);
     }
   });
 
@@ -1213,13 +1209,20 @@ let _lastAppliedPreferences = '';
 
 function applyAllClasses(settings) {
   settings = IYT_Policy.effective(settings);
+  _settings = settings;
+  if (_isApplyingClasses) return;
   _isApplyingClasses = true;
   try {
     const active = isEffectiveActive(settings);
     html.classList.toggle('iyt-scheduled-full-block', IYT_Policy.schedules(settings).some(s => s.mode === 'full'));
     updateHomePageState();
+    const prevFullWindow = html.classList.contains('iyt-full-window-player');
     for (const [key, cls] of Object.entries(CLASS_MAP)) {
       if (key === 'blockHomeFeed' && settings.limitHomeFeed) {
+        html.classList.remove(cls);
+        continue;
+      }
+      if (key === 'fullWindowPlayer' && !settings.blockRecommended) {
         html.classList.remove(cls);
         continue;
       }
@@ -1228,6 +1231,25 @@ function applyAllClasses(settings) {
       } else {
         html.classList.remove(cls);
       }
+    }
+    const currentFullWindow = html.classList.contains('iyt-full-window-player');
+    if (prevFullWindow !== currentFullWindow) {
+      // Trigger YouTube's internal player resize engine immediately and after layout settles
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new Event('resize'));
+        const moviePlayer = document.getElementById('movie_player');
+        if (moviePlayer) {
+          moviePlayer.dispatchEvent(new Event('resize', { bubbles: true }));
+        }
+        setTimeout(() => {
+          window.dispatchEvent(new Event('resize'));
+          moviePlayer?.dispatchEvent(new Event('resize', { bubbles: true }));
+        }, 50);
+        setTimeout(() => {
+          window.dispatchEvent(new Event('resize'));
+          moviePlayer?.dispatchEvent(new Event('resize', { bubbles: true }));
+        }, 200);
+      });
     }
     // Conflict resolution: limitHomeFeed vs blockHomeFeed
     // If limitHomeFeed is active, prioritize limiting over completely hiding the feed
@@ -1271,13 +1293,16 @@ const THUMBNAIL_IMG_SELECTORS = [
   '#thumbnail img',
   'a#thumbnail img',
   'a.yt-lockup-view-model__content-image img',
+  'yt-image img',
+  'yt-img-shadow img',
+  'img.yt-core-image',
   '.yt-core-image--fill-parent-height',
   'ytd-playlist-thumbnail img'
 ].join(', ');
 
 function swapImageToNeutralFrame(img) {
   if (!img || img.nodeType !== 1) return;
-  if (img.closest?.('#avatar, #channel-header, yt-avatar-shape, ytd-channel-avatar-editor, ytd-comment-renderer #author-thumbnail')) return;
+  if (img.closest?.('#avatar, #channel-header, yt-avatar-shape, ytd-channel-avatar-editor, ytd-comment-renderer #author-thumbnail, .ytd-channel-avatar-renderer')) return;
 
   const currentSrc = img.getAttribute('src') || img.src || '';
   const currentSrcset = img.getAttribute('srcset') || '';
@@ -1287,10 +1312,13 @@ function swapImageToNeutralFrame(img) {
   if (srcMatch) {
     videoId = srcMatch[1];
   } else if (!currentSrc.includes('/hq2.jpg')) {
-    const link = img.closest?.('a[href*="watch?v="], a[href*="/shorts/"]')
-      || img.closest?.(CARD_CONTAINER_SELECTORS)?.querySelector('a[href*="watch?v="], a[href*="/shorts/"]');
-    if (link && link.href) {
-      const vMatch = link.href.match(/[?&]v=([a-zA-Z0-9_-]{11})/) || link.href.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);
+    const card = img.closest?.('a[href*="watch?v="], a[href*="/shorts/"], a[href*="/live/"]')
+      || img.closest?.(CARD_CONTAINER_SELECTORS)
+      || img.closest?.('ytd-thumbnail, yt-thumbnail-view-model, yt-lockup-view-model, ytd-rich-grid-media, #content');
+    const link = card?.tagName === 'A' ? card : card?.querySelector?.('a[href*="watch?v="], a[href*="/shorts/"], a[href*="/live/"], a[href*="watch"]');
+    if (link) {
+      const href = link.getAttribute('href') || link.href || '';
+      const vMatch = href.match(/[?&]v=([a-zA-Z0-9_-]{11})/) || href.match(/\/(?:shorts|live)\/([a-zA-Z0-9_-]{11})/);
       if (vMatch) videoId = vMatch[1];
     }
   }
@@ -1317,6 +1345,12 @@ function swapImageToNeutralFrame(img) {
   }
   img.srcset = '';
   img.src = targetUrl;
+  img.setAttribute('src', targetUrl);
+
+  const parent = img.parentElement;
+  if (parent && parent.tagName === 'PICTURE') {
+    parent.querySelectorAll('source').forEach(s => { s.srcset = ''; s.removeAttribute('srcset'); });
+  }
 
   const onNeutralError = () => {
     img.removeEventListener('error', onNeutralError);
@@ -1324,9 +1358,11 @@ function swapImageToNeutralFrame(img) {
       img.dataset.iytNeutralFailed = videoId;
       if (img.dataset.iytOrigSrc) {
         img.src = img.dataset.iytOrigSrc;
+        img.setAttribute('src', img.dataset.iytOrigSrc);
       }
       if (img.dataset.iytOrigSrcset) {
         img.setAttribute('srcset', img.dataset.iytOrigSrcset);
+        img.srcset = img.dataset.iytOrigSrcset;
       }
     }
   };
@@ -1334,7 +1370,8 @@ function swapImageToNeutralFrame(img) {
 }
 
 function replaceThumbnailsWithNeutralFrames(root = document) {
-  if (!isEffectiveActive(_settings) || !_settings.neutralThumbnails) return;
+  const settings = _settings;
+  if (!isEffectiveActive(settings) || !settings?.neutralThumbnails) return;
   if (root && root.nodeType === 1 && (root.tagName === 'IMG' || (root.matches && root.matches(THUMBNAIL_IMG_SELECTORS)))) {
     swapImageToNeutralFrame(root);
     return;
@@ -1347,12 +1384,31 @@ function replaceThumbnailsWithNeutralFrames(root = document) {
 }
 
 function restoreOriginalThumbnails(root = document) {
+  if (root && root.nodeType === 1 && root.tagName === 'IMG') {
+    if (root.dataset.iytNeutral === 'true') {
+      if (root.dataset.iytOrigSrc) {
+        root.src = root.dataset.iytOrigSrc;
+        root.setAttribute('src', root.dataset.iytOrigSrc);
+      }
+      if (root.dataset.iytOrigSrcset) {
+        root.setAttribute('srcset', root.dataset.iytOrigSrcset);
+        root.srcset = root.dataset.iytOrigSrcset;
+      }
+      delete root.dataset.iytNeutral;
+      delete root.dataset.iytVideoId;
+      delete root.dataset.iytOrigSrc;
+      delete root.dataset.iytOrigSrcset;
+      delete root.dataset.iytNeutralFailed;
+    }
+    return;
+  }
   const target = (root && root.querySelectorAll) ? root : document;
   const images = target.querySelectorAll('img[data-iyt-neutral="true"]');
   for (let i = 0; i < images.length; i++) {
     const img = images[i];
     if (img.dataset.iytOrigSrc) {
       img.src = img.dataset.iytOrigSrc;
+      img.setAttribute('src', img.dataset.iytOrigSrc);
     }
     if (img.dataset.iytOrigSrcset) {
       img.setAttribute('srcset', img.dataset.iytOrigSrcset);
@@ -1371,6 +1427,7 @@ const _classObserver = new MutationObserver(() => {
   if (_isApplyingClasses || !_settings || !isEffectiveActive(_settings)) return;
   for (const [key, cls] of Object.entries(CLASS_MAP)) {
     if (key === 'blockHomeFeed' && _settings.limitHomeFeed) continue;
+    if (key === 'fullWindowPlayer' && !_settings.blockRecommended) continue;
     if (_settings[key] && !html.classList.contains(cls)) {
       applyAllClasses(_settings);
       break;
@@ -1456,7 +1513,10 @@ browser.storage.onChanged.addListener((changes) => {
 if (browser && browser.runtime && browser.runtime.onMessage) {
   browser.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
     if (msg?.type === 'IYT_GET_CURRENT_CHANNEL') {
-      const el = document.querySelector('ytd-channel-name yt-formatted-string, #channel-name yt-formatted-string, ytd-video-owner-renderer ytd-channel-name a, #owner #channel-name a');
+      const el = document.querySelector(
+        'ytd-watch-metadata #owner ytd-channel-name a, ytd-channel-name yt-formatted-string, #channel-name yt-formatted-string, ' +
+        'ytd-video-owner-renderer ytd-channel-name a, #owner #channel-name a, #owner a[href*="/@"], #owner a[href*="/channel/"]'
+      );
       sendResponse({ channel: el?.textContent?.trim() || null });
       return;
     }
@@ -1495,7 +1555,8 @@ function configureDomObserver() {
   if (!_domObserver) return;
   const cards = needsCardObservation();
   const structure = isEffectiveActive(_settings) && (_settings.limitHomeFeed || _settings.disableAutoplay);
-  const mode = cards ? 'cards' : structure ? 'structure' : 'off';
+  const neutral = Boolean(isEffectiveActive(_settings) && _settings?.neutralThumbnails);
+  const mode = cards ? `cards:${neutral}` : structure ? 'structure' : 'off';
   if (mode === _domObserverMode) return;
   _domObserverMode = mode;
   _domObserver.disconnect();
@@ -1509,7 +1570,7 @@ function configureDomObserver() {
   const options = { childList: true, subtree: true };
   if (cards) {
     const attrFilters = ['href', 'title', 'aria-label', 'hidden', 'aria-hidden'];
-    if (_settings?.neutralThumbnails) {
+    if (neutral) {
       attrFilters.push('src', 'srcset');
     }
     Object.assign(options, { characterData: true, attributes: true, attributeFilter: attrFilters });
@@ -1542,11 +1603,14 @@ function initDomObserver() {
       // metadata changes can affect channel/keyword filtering.
       if (mutation.type !== 'childList') {
         if (mutation.attributeName === 'src' || mutation.attributeName === 'srcset') {
-          if (target && target.tagName === 'IMG' && _settings?.neutralThumbnails) {
-            const src = target.getAttribute('src') || target.src || '';
-            const srcset = target.getAttribute('srcset') || '';
-            if (!src.includes('/hq2.jpg') || srcset) {
-              addedElements.push(target);
+          if (_settings?.neutralThumbnails) {
+            const img = target?.tagName === 'IMG' ? target : (target?.querySelector?.('img') || target?.parentElement?.querySelector?.('img'));
+            if (img) {
+              const src = img.getAttribute('src') || img.src || '';
+              const srcset = img.getAttribute('srcset') || '';
+              if (!src.includes('/hq2.jpg') || srcset) {
+                addedElements.push(img);
+              }
             }
           }
           continue;

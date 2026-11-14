@@ -1404,7 +1404,7 @@
     "message": "সাবস্ক্রিপশন ও সংরক্ষিত প্লেলিস্টের লিংকও লুকায়।"
   },
   "youtube_reload_needed": {
-    "message": "????? ?????? ???????? ???, ?????? ?? YouTube ??????? ??????????? ????? ??????? ???? YouTube ???? ??? ????? ?????? ????? YouTube-? ??????????? ???????????? ??????? ?????"
+    "message": "সেটিংস প্রয়োগ করতে পৃষ্ঠাটি পুনরায় লোড করুন।"
   },
   "toggle_disable_hover_previews": {
     "message": "হোভার প্রিভিউ নিষ্ক্রিয় করুন",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "ফুল-উইন্ডো সিনেমা মোড",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "প্লেয়ারকে খালি জায়গায় প্রসারিত করুন",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "কোনো বিভ্রান্তি ছাড়াই ভিডিও প্লেয়ারটিকে পুরো উইন্ডো জুড়ে প্রসারিত করুন",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "ক্লিকবেট থাম্বনেইলকে ভিডিওর একটি নিরপেক্ষ ফ্রেম দিয়ে প্রতিস্থাপন করে",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "পৃষ্ঠা পুনরায় লোড করুন"
+  },
+  "toggle_screenshot_button": {
+    "message": "ভিডিও স্ক্রিনশট বোতাম"
+  },
+  "desc_screenshot_button": {
+    "message": "বর্তমান ফ্রেম ক্যাপচার করতে প্লেয়ারে একটি স্ক্রিনশট বোতাম যোগ করে"
+  },
+  "screenshot_button_title": {
+    "message": "স্ক্রিনশট নিন (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "স্ক্রিনশট সংরক্ষিত হয়েছে"
+  },
+  "btn_screenshot": {
+    "message": "স্ক্রিনশট"
   }
 }

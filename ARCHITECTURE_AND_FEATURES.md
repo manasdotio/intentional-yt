@@ -87,18 +87,14 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
     "blockEndScreenVideowall": true,
     "blockEndScreenCards": true,
     "blockComments": false,
-    "blockProfilePhotos": false,
     "blockMixPlaylists": true,
     "blockMerch": true,
     "blockVideoInfo": false,
     "blockVideoButtons": false,
     "blockChannelInfo": false,
     "blockVideoDescription": false,
-    "blockTopHeader": false,
-    "blockNotificationBell": true,
     "blockIrrelevantSearchResults": true,
     "blockExploreAndTrending": true,
-    "blockMoreFromYouTube": true,
     "blockShorts": true,
     "blockSubscriptionsFeed": false,
     "disableAutoplay": true,
@@ -146,21 +142,6 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 - **Target Surfaces**: Sidebar guide entry points for Trending, Explore, Gaming, Movies, and News (`ytd-guide-entry-renderer` with explore/trending endpoints).
 - **Behavior**: Removes viral/trending distraction sections from navigation menus.
 
-#### 4. Hide "More from YouTube" (`blockMoreFromYouTube`)
-- **CSS Class**: `iyt-no-more-yt`
-- **Target Surfaces**: Language-agnostic endpoint selectors: `ytd-guide-entry-renderer:has(a[href^="/premium"])`, `/musicpremium`, `https://www.youtube.com/premium`, `https://music.youtube.com/`, `https://tv.youtube.com/`, and `https://www.youtubekids.com/`.
-- **Behavior**: Eliminates upsell and cross-promotion clutter from the left sidebar.
-
-#### 5. Hide Top Masthead / Header (`blockTopHeader`)
-- **CSS Class**: `iyt-no-top-header`
-- **Target Surfaces**: `html.iyt-no-top-header:not([data-iyt-is-home="true"].iyt-no-home-feed) #masthead-container`, `#page-manager`.
-- **Behavior**: Hides the top navigation bar completely for an immersive, zero-distraction viewing space, while automatically preserving the search bar on the homepage if the feed is blocked to prevent an unusable 100% blank screen.
-
-#### 6. Hide Notification Bell (`blockNotificationBell`)
-- **CSS Class**: `iyt-no-notif-bell`
-- **Target Surfaces**: `ytd-notification-topbar-button-renderer`, notification counters, unread badge indicators.
-- **Behavior**: Removes notification alerts and red badge numbers to reduce FOMO and check-in impulses.
-
 ---
 
 ### 4.2. Shorts Suppression Engine
@@ -195,7 +176,7 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 #### 9. Cinema / Full-Window Theater Mode (`fullWindowPlayer`)
 - **CSS Class**: `iyt-full-window-player`
 - **Target Surfaces**: `ytd-watch-flexy:not([fullscreen])`, `#player-theater-container`, `#full-bleed-container`, `#player-wide-container`, `#player-full-bleed-container`, `ytd-watch-grid:not([fullscreen])`, `#movie_player`, `video.html5-main-video`.
-- **Behavior**: Stretches the video player edge-to-edge to `100vw` and `calc(100vh - 56px)` (or `100vh` when `blockTopHeader` is enabled), providing an immersive classroom/cinema player without wasted side margins. Preserves video aspect ratio via `object-fit: contain` and smoothly auto-engages theater mode upon navigation.
+- **Behavior**: Stretches the video player edge-to-edge to `100vw` and `calc(100vh - 56px)`, providing an immersive classroom/cinema player without wasted side margins. Preserves video aspect ratio via `object-fit: contain` and smoothly auto-engages theater mode upon navigation.
 
 #### 10. Hide Recommended Sidebar (`blockSidebar` & `blockRecommended`)
 - **CSS Classes**: `iyt-no-sidebar`, `iyt-no-recommended`
@@ -259,11 +240,6 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 - **CSS Class**: `iyt-no-comments`
 - **Target Surfaces**: `ytd-comments#comments`, `#comments.ytd-watch-flexy`.
 - **Behavior**: Completely removes the comments section to eliminate debate rabbit holes and opinion noise.
-
-#### 21. Mask Profile Photos (`blockProfilePhotos`)
-- **CSS Class**: `iyt-no-profile-photos`
-- **Target Surfaces**: `#author-thumbnail.ytd-comment-view-model yt-img-shadow`, `#author-thumbnail yt-image`.
-- **Behavior**: Masks colorful user avatar photos with blank neutral circles, allowing text discussion reading without visual clutter.
 
 #### 22. Hide Live Chat (`blockLiveChat`)
 - **CSS Class**: `iyt-no-live-chat`
@@ -330,24 +306,20 @@ Intentional YT is built with a zero-overhead, CSS-first philosophy. Instead of h
 | 4 | **Universal Shorts Suppression** | `blockShorts` | `iyt-no-shorts` | `true` |
 | 5 | **Clean Search Algorithmic Shelves** | `blockIrrelevantSearchResults` | `iyt-no-irrelevant-search` | `true` |
 | 6 | **Hide Explore & Trending** | `blockExploreAndTrending` | `iyt-no-explore` | `true` |
-| 7 | **Hide More From YouTube** | `blockMoreFromYouTube` | `iyt-no-more-yt` | `true` |
-| 8 | **Hide Notification Bell** | `blockNotificationBell` | `iyt-no-notif-bell` | `true` |
-| 9 | **Hide End Screen Videowalls** | `blockEndScreenVideowall` | `iyt-no-endscreen-wall` | `true` |
+| 7 | **Hide End Screen Videowalls** | `blockEndScreenVideowall` | `iyt-no-endscreen-wall` | `true` |
 | 10 | **Hide End Screen Cards** | `blockEndScreenCards` | `iyt-no-endscreen-cards` | `true` |
 | 11 | **Hide Mix / Radio Playlists** | `blockMixPlaylists` | `iyt-no-mix-playlists` | `true` |
 | 12 | **Hide Merch & Shopping Shelves** | `blockMerch` | `iyt-no-merch` | `true` |
 | 13 | **Disable Autoplay** | `disableAutoplay` | *(Programmatic Player Action)* | `true` |
 | 14 | **Disable Annotations & Overlays** | `disableAnnotations` | `iyt-no-annotations` | `true` |
-| 15 | **Hide Comments Section** | `blockComments` | `iyt-no-comments` | `false` |
-| 16 | **Mask User Profile Avatars** | `blockProfilePhotos` | `iyt-no-profile-photos` | `false` |
-| 17 | **Hide Live Chat** | `blockLiveChat` | `iyt-no-live-chat` | `true` |
+| 13 | **Hide Comments Section** | `blockComments` | `iyt-no-comments` | `false` |
+| 14 | **Hide Live Chat** | `blockLiveChat` | `iyt-no-live-chat` | `true` |
 | 18 | **Hide Playlist Drawers** | `blockPlaylist` | `iyt-no-playlist` | `false` |
 | 19 | **Hide Video Info & Title** | `blockVideoInfo` | `iyt-no-video-info` | `false` |
 | 20 | **Hide Action / Like Buttons** | `blockVideoButtons` | `iyt-no-video-buttons` | `false` |
 | 21 | **Hide Channel Info & Subs** | `blockChannelInfo` | `iyt-no-channel-info` | `false` |
-| 22 | **Hide Video Description** | `blockVideoDescription` | `iyt-no-video-desc` | `false` |
-| 23 | **Hide Top Header Bar** | `blockTopHeader` | `iyt-no-top-header` | `false` |
-| 24 | **Hide Subscriptions Grid** | `blockSubscriptionsFeed` | `iyt-no-subscriptions` | `false` |
+| 20 | **Hide Video Description** | `blockVideoDescription` | `iyt-no-video-desc` | `false` |
+| 21 | **Hide Subscriptions Grid** | `blockSubscriptionsFeed` | `iyt-no-subscriptions` | `false` |
 | 25 | **Clickbait Thumbnail Masking** | `hideThumbnails` | `iyt-no-thumbnails` | `false` |
 | 26 | **Site-Wide Grayscale Filter** | `grayscaleMode` | `iyt-grayscale` | `false` |
 | 27 | **Soft Interval Break Toast** | `softReminder.enabled` | *(timerToast)* | `false` |

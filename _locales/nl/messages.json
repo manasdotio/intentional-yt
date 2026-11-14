@@ -1404,7 +1404,7 @@
     "message": "Verbergt ook links naar abonnementen en opgeslagen afspeellijsten."
   },
   "youtube_reload_needed": {
-    "message": "Je instellingen zijn opgeslagen, maar dit YouTube-tabblad is niet verbonden. Laad YouTube opnieuw. Blijft het probleem bestaan, controleer dan de toegang van de extensie tot YouTube."
+    "message": "Laad de pagina opnieuw om je instellingen toe te passen."
   },
   "toggle_disable_hover_previews": {
     "message": "Voorvertoningen bij aanwijzen uitschakelen",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Venstervullende bioscoopmodus",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Speler uitbreiden naar lege ruimte",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Vergroot de videospeler over het gehele venster zonder afleiding",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Vervangt clickbait-miniaturen door een neutraal, automatisch gegenereerd beeld uit de video",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Pagina opnieuw laden"
+  },
+  "toggle_screenshot_button": {
+    "message": "Knop voor videoscreenshot"
+  },
+  "desc_screenshot_button": {
+    "message": "Voegt een screenshotknop toe aan de speler om het huidige beeld vast te leggen"
+  },
+  "screenshot_button_title": {
+    "message": "Screenshot maken (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Screenshot opgeslagen"
+  },
+  "btn_screenshot": {
+    "message": "Screenshot"
   }
 }

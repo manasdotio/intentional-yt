@@ -1404,7 +1404,7 @@
     "message": "同時隱藏訂閱內容和已儲存播放清單的連結。"
   },
   "youtube_reload_needed": {
-    "message": "???????? YouTube ????????????????? YouTube?????????????????? YouTube ??????"
+    "message": "請重新載入頁面以套用設定。"
   },
   "toggle_disable_hover_previews": {
     "message": "停用懸停預覽",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "全視窗劇院模式",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "將播放器擴展到空白區域",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "將影片播放器擴展至整個視窗，消除邊距與干擾",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "將博眼球的誘餌縮圖替換為影片中自動產生的真實靜態畫面",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "重新載入頁面"
+  },
+  "toggle_screenshot_button": {
+    "message": "影片截圖按鈕"
+  },
+  "desc_screenshot_button": {
+    "message": "在播放器中新增截圖按鈕以擷取當前畫面"
+  },
+  "screenshot_button_title": {
+    "message": "截圖 (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "截圖已儲存"
+  },
+  "btn_screenshot": {
+    "message": "截圖"
   }
 }

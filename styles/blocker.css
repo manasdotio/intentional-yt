@@ -22,8 +22,7 @@ html.iyt-no-home-feed ytm-browse[tab-identifier="FEwhat_to_watch"],
 html.iyt-no-comments ytm-comment-section-renderer,
 html.iyt-no-comments ytm-comments-entry-point-header-renderer,
 html.iyt-no-recommended ytm-watch-next-secondary-results-renderer,
-html.iyt-no-subscriptions ytm-browse[tab-identifier="FEsubscriptions"],
-html.iyt-no-notif-bell ytm-notification-topbar-button-renderer {
+html.iyt-no-subscriptions ytm-browse[tab-identifier="FEsubscriptions"] {
   display: none !important;
 }
 /**
@@ -371,13 +370,6 @@ html.iyt-no-comments ytd-engagement-panel-section-list-renderer[target-id*="comm
   display: none !important;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PROFILE PHOTOS (in comments)
-═══════════════════════════════════════════════════════════ */
-html.iyt-no-profile-photos #author-thumbnail,
-html.iyt-no-profile-photos ytd-comment-renderer #author-thumbnail {
-  display: none !important;
-}
 
 /* ═══════════════════════════════════════════════════════════
    MIX / RADIO PLAYLISTS
@@ -508,25 +500,6 @@ html.iyt-no-video-desc ytd-text-inline-expander {
   display: none !important;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   TOP HEADER
-═══════════════════════════════════════════════════════════ */
-/* Keep search bar accessible on the home page if the home feed is blocked,
-   preventing an unusable 100% blank screen. */
-html.iyt-no-top-header:not([data-iyt-is-home="true"].iyt-no-home-feed) #masthead-container {
-  display: none !important;
-}
-html.iyt-no-top-header:not([data-iyt-is-home="true"].iyt-no-home-feed) #page-manager {
-  margin-top: 0 !important;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   NOTIFICATION BELL
-═══════════════════════════════════════════════════════════ */
-html.iyt-no-notif-bell #notification-preference-button,
-html.iyt-no-notif-bell ytd-notification-topbar-button-renderer {
-  display: none !important;
-}
 
 /* ═══════════════════════════════════════════════════════════
    IRRELEVANT SEARCH RESULTS (shelf rows in search)
@@ -549,18 +522,6 @@ html.iyt-no-explore ytd-mini-guide-entry-renderer:has(a[href*="/feed/explore"]) 
   display: none !important;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MORE FROM YOUTUBE (last guide section)
-═══════════════════════════════════════════════════════════ */
-/* Sidebar sections can move. Hide product links, never an arbitrary section. */
-html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="/premium"]),
-html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="/musicpremium"]),
-html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="https://www.youtube.com/premium"]),
-html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="https://music.youtube.com/"]),
-html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="https://tv.youtube.com/"]),
-html.iyt-no-more-yt ytd-guide-entry-renderer:has(a[href^="https://www.youtubekids.com/"]) {
-  display: none !important;
-}
 
 /* ═══════════════════════════════════════════════════════════
    SHORTS — Complete site-wide purge
@@ -745,7 +706,7 @@ html.iyt-no-thumbnails .ytp-inline-preview-ui {
   display: none !important;
   pointer-events: none !important;
 }
-/* Placeholder container */
+/* Placeholder container — locked to standard 16:9 aspect ratio */
 html.iyt-no-thumbnails ytd-thumbnail,
 html.iyt-no-thumbnails ytd-playlist-thumbnail,
 html.iyt-no-thumbnails yt-thumbnail-view-model,
@@ -757,6 +718,42 @@ html.iyt-no-thumbnails .ytp-cued-thumbnail-overlay {
   border-radius: 12px !important;
   position: relative !important;
   overflow: hidden !important;
+  aspect-ratio: 16 / 9 !important;
+}
+/* Keep inner anchor stretched to the 16:9 placeholder without extra descent gaps */
+html.iyt-no-thumbnails ytd-thumbnail a#thumbnail,
+html.iyt-no-thumbnails ytd-thumbnail #thumbnail {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+/* Prevent search result and list video cards from stretching thumbnail placeholders vertically */
+html.iyt-no-thumbnails ytd-video-renderer #dismissible,
+html.iyt-no-thumbnails ytd-compact-video-renderer #dismissible,
+html.iyt-no-thumbnails ytd-playlist-renderer #content,
+html.iyt-no-thumbnails .yt-lockup-view-model-wiz--horizontal {
+  align-items: flex-start !important;
+}
+html.iyt-no-thumbnails ytd-video-renderer ytd-thumbnail,
+html.iyt-no-thumbnails ytd-compact-video-renderer ytd-thumbnail,
+html.iyt-no-thumbnails ytd-playlist-renderer ytd-playlist-thumbnail,
+html.iyt-no-thumbnails .yt-lockup-view-model-wiz--horizontal .yt-lockup-view-model-wiz__content-image,
+html.iyt-no-thumbnails .yt-lockup-view-model-wiz--horizontal a.yt-lockup-view-model__content-image,
+html.iyt-no-thumbnails .yt-lockup-view-model-wiz--horizontal yt-thumbnail-view-model {
+  aspect-ratio: 16 / 9 !important;
+  align-self: flex-start !important;
+  height: auto !important;
+  max-height: 100% !important;
+  max-width: 360px !important;
+}
+/* Preserve 9:16 vertical ratio for Shorts placeholders when present */
+html.iyt-no-thumbnails ytd-reel-item-renderer ytd-thumbnail,
+html.iyt-no-thumbnails ytd-reel-item-renderer #thumbnail,
+html.iyt-no-thumbnails ytd-rich-item-renderer[is-shorts] ytd-thumbnail,
+html.iyt-no-thumbnails ytd-rich-item-renderer[is-shorts] #thumbnail,
+html.iyt-no-thumbnails yt-thumbnail-view-model[aspect-ratio="9:16"],
+html.iyt-no-thumbnails .yt-lockup-view-model-wiz--vertical-reel {
+  aspect-ratio: 9 / 16 !important;
 }
 /* Subtle play icon pseudo-element */
 html.iyt-no-thumbnails ytd-thumbnail::after,
@@ -1740,12 +1737,26 @@ html.iyt-scheduled-full-block audio {
 
 /* ═══════════════════════════════════════════════════════════
    CINEMATIC & AMBIENT MODE SUPPRESSION
-   Suppresses distracting ambient glow canvas during focus modes
+   Suppresses distracting ambient glow canvas to preserve clean,
+   high-contrast empty space with sharp rounded corners
 ═══════════════════════════════════════════════════════════ */
-html.iyt-grayscale #cinematic-container,
+html.iyt-full-window-player #cinematics,
+html.iyt-full-window-player #cinematics-container,
+html.iyt-full-window-player #cinematic-lighting,
+html.iyt-full-window-player ytd-cinematics,
+html.iyt-full-window-player #cinematics canvas,
+html.iyt-no-recommended #cinematics,
+html.iyt-no-recommended #cinematics-container,
+html.iyt-no-recommended #cinematic-lighting,
+html.iyt-no-recommended ytd-cinematics,
+html.iyt-grayscale #cinematics,
+html.iyt-grayscale #cinematics-container,
 html.iyt-grayscale #cinematic-lighting,
-html.iyt-no-video-info #cinematic-container,
-html.iyt-no-video-info #cinematic-lighting {
+html.iyt-grayscale ytd-cinematics,
+html.iyt-no-video-info #cinematics,
+html.iyt-no-video-info #cinematics-container,
+html.iyt-no-video-info #cinematic-lighting,
+html.iyt-no-video-info ytd-cinematics {
   display: none !important;
 }
 
@@ -1770,7 +1781,8 @@ html.iyt-no-video-info #cinematic-lighting {
 ═══════════════════════════════════════════════════════════ */
 /* 1. Collapse empty recommendations sidebar in standard view */
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #secondary,
-html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #secondary {
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #secondary,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #secondary {
   display: none !important;
   width: 0 !important;
   min-width: 0 !important;
@@ -1782,7 +1794,8 @@ html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #sec
 
 /* 2. Expand columns container with balanced breathing padding and center alignment */
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #columns,
-html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #columns {
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #columns,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #columns {
   box-sizing: border-box !important;
   width: 100% !important;
   max-width: 100% !important;
@@ -1798,7 +1811,9 @@ html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #col
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #primary,
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #primary-inner,
 html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #primary,
-html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #primary-inner {
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #primary-inner,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #primary,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #primary-inner {
   box-sizing: border-box !important;
   width: 100% !important;
   min-width: 0 !important;
@@ -1809,41 +1824,104 @@ html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #pri
   flex: 0 1 auto !important;
 }
 
-html.iyt-full-window-player.iyt-no-top-header ytd-watch-flexy:not([theater]):not([fullscreen]) #primary,
-html.iyt-full-window-player.iyt-no-top-header ytd-watch-grid:not([theater]):not([fullscreen]) #primary-inner {
-  max-width: min(100%, calc((100vh - 36px) * 16 / 9), 1880px) !important;
-}
 
 /* 4. Fluid player container scaling with crisp 16:9 ratio and rounded corners */
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]),
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]),
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) {
+  --ytd-watch-flexy-player-border-radius: 12px !important;
+}
+
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player,
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container-outer,
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container,
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #ytd-player,
-html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #movie_player {
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #movie_player,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #player,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #player-container-outer,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #player-container,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #ytd-player,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #movie_player,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #player,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #player-container-outer,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #player-container,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #ytd-player,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #movie_player {
   width: 100% !important;
   max-width: 100% !important;
 }
 
-html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player {
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #player,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #player {
   min-height: 0 !important;
   height: auto !important;
 }
 
-html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container-inner {
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #player-container-inner {
   aspect-ratio: 16 / 9 !important;
   padding-top: 0 !important;
   height: auto !important;
 }
 
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #player-container,
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #ytd-player,
-html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #movie_player {
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #movie_player,
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) .html5-video-player,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #player-container,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #ytd-player,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #movie_player,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) .html5-video-player,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #player-container-inner,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #player-container,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #ytd-player,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #movie_player,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) .html5-video-player {
+  height: 100% !important;
+  max-height: 100% !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  background-color: #000000 !important;
+}
+
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) .html5-video-container,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) .html5-video-container,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) .html5-video-container {
+  width: 100% !important;
+  height: 100% !important;
   border-radius: 12px !important;
   overflow: hidden !important;
 }
 
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) video.html5-main-video,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) video.html5-main-video,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) video.html5-main-video {
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  object-fit: contain !important;
+  border-radius: 12px !important;
+}
+
+html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) .ytp-chrome-bottom,
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) .ytp-chrome-bottom,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) .ytp-chrome-bottom {
+  width: calc(100% - 24px) !important;
+  left: 12px !important;
+}
+
 /* 5. Left-aligned title, description, actions, and comments below the player */
 html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #below,
-html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #below {
+html.iyt-full-window-player ytd-watch-grid:not([theater]):not([fullscreen]) #below,
+html.iyt-full-window-player ytd-page-manager > :not(ytd-browse):not(ytd-search):not([theater]):not([fullscreen]) #below {
   width: 100% !important;
   max-width: 100% !important;
   margin-left: auto !important;
@@ -1869,4 +1947,95 @@ html.iyt-full-window-player ytd-watch-flexy[theater]:not([fullscreen]) #primary-
   margin-left: auto !important;
   margin-right: auto !important;
   text-align: left !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VIDEO SCREENSHOT BUTTON & FEEDBACK
+═══════════════════════════════════════════════════════════ */
+.ytp-button.iyt-screenshot-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: top !important;
+  position: relative !important;
+  width: 46px !important;
+  min-width: 36px !important;
+  height: 100% !important;
+  cursor: pointer !important;
+  color: #ffffff !important;
+  opacity: 0.9 !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  transition: opacity 0.1s cubic-bezier(0, 0, 0.2, 1), transform 0.1s ease;
+}
+
+.ytp-button.iyt-screenshot-btn:hover {
+  opacity: 1 !important;
+}
+
+.ytp-button.iyt-screenshot-btn:active {
+  transform: scale(0.92);
+}
+
+.ytp-button.iyt-screenshot-btn svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  fill: none !important;
+  stroke: #ffffff !important;
+  pointer-events: none !important;
+}
+
+.ytp-button.iyt-screenshot-btn.iyt-captured svg,
+.ytp-button.iyt-screenshot-btn.iyt-captured svg path,
+.ytp-button.iyt-screenshot-btn.iyt-captured svg circle,
+.ytp-button.iyt-screenshot-btn.iyt-captured svg polyline {
+  stroke: #22c55e !important;
+}
+
+.iyt-screenshot-flash {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 99999;
+  border-radius: inherit;
+  animation: iyt-shutter-flash 350ms cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes iyt-shutter-flash {
+  0% { opacity: 0.55; }
+  100% { opacity: 0; }
+}
+
+.iyt-screenshot-toast {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.9);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  z-index: 99999;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  animation: iyt-toast-enter 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes iyt-toast-enter {
+  0% { opacity: 0; transform: translate(-50%, -10px) scale(0.96); }
+  15% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  80% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -8px) scale(0.98); }
 }

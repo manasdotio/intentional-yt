@@ -1404,7 +1404,7 @@
     "message": "登録チャンネルと保存済み再生リストへのリンクも非表示になります。"
   },
   "youtube_reload_needed": {
-    "message": "???????????????YouTube??????????????????YouTube???????????????????????????YouTube??????????????????"
+    "message": "設定を適用するにはページを再読み込みしてください。"
   },
   "toggle_disable_hover_previews": {
     "message": "ホバープレビューを無効化",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "フルウィンドウシアターモード",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "空きスペースにプレーヤーを拡大",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "余白をなくし、動画プレーヤーをウィンドウ全体に拡大表示します",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "釣りサムネイルを動画から自動生成されたニュートラルなフレームに置き換えます",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "ページを再読み込み"
+  },
+  "toggle_screenshot_button": {
+    "message": "動画スクリーンショットボタン"
+  },
+  "desc_screenshot_button": {
+    "message": "プレーヤーに現在のフレームをキャプチャするボタンを追加します"
+  },
+  "screenshot_button_title": {
+    "message": "スクリーンショットを撮影 (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "スクリーンショットを保存しました"
+  },
+  "btn_screenshot": {
+    "message": "スクリーンショット"
   }
 }

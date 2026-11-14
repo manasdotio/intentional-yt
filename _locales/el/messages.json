@@ -1404,7 +1404,7 @@
     "message": "Κρύβει επίσης συνδέσμους προς εγγραφές και αποθηκευμένες λίστες αναπαραγωγής."
   },
   "youtube_reload_needed": {
-    "message": "?? ????????? ??? ?????????????, ???? ???? ? ??????? YouTube ??? ????? ???????????. ???????? ???? ?? YouTube. ?? ?? ???????? ??????????, ??????? ??? ???????? ??? ????????? ??? YouTube."
+    "message": "Επαναφορτώστε τη σελίδα για να εφαρμόσετε τις ρυθμίσεις σας."
   },
   "toggle_disable_hover_previews": {
     "message": "Απενεργοποίηση προεπισκοπήσεων κατά την κατάδειξη",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Λειτουργία κινηματογράφου πλήρους παραθύρου",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Επέκταση προγράμματος αναπαραγωγής στον κενό χώρο",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Επεκτείνει το πρόγραμμα αναπαραγωγής βίντεο σε ολόκληρο το παράθυρο χωρίς περισπασμούς",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Αντικαθιστά τις παραπλανητικές μικρογραφίες με ένα ουδέτερο καρέ από το βίντεο",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Επαναφόρτωση σελίδας"
+  },
+  "toggle_screenshot_button": {
+    "message": "Κουμπί στιγμιότυπου βίντεο"
+  },
+  "desc_screenshot_button": {
+    "message": "Προσθέτει ένα κουμπί στο πρόγραμμα αναπαραγωγής για τη λήψη του τρέχοντος καρέ"
+  },
+  "screenshot_button_title": {
+    "message": "Λήψη στιγμιότυπου (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Το στιγμιότυπο αποθηκεύτηκε"
+  },
+  "btn_screenshot": {
+    "message": "Στιγμιότυπο"
   }
 }

@@ -332,7 +332,7 @@ test('timed focus preserves learning tools and honors explicitly selected restri
   await env.manager.updateSettings({ blockShorts: true, blockRecommended: true, blockComments: true });
   const started = await env.manager.startFocusSession(25);
   assert.deepEqual(clone(env.policy.effective(started)), clone(started));
-  for (const key of ['blockSidebar','blockPlaylist','blockTopHeader','blockVideoDescription','blockVideoButtons','blockLiveChat','blockSubscriptionsFeed','hideThumbnails','grayscaleMode']) {
+  for (const key of ['blockSidebar','blockPlaylist','blockMixPlaylists','blockVideoDescription','blockVideoButtons','blockLiveChat','blockSubscriptionsFeed','hideThumbnails','grayscaleMode']) {
     assert.equal(env.policy.effective(started)[key], false, key);
   }
   const ended = await env.manager.endFocusSession();
@@ -1492,7 +1492,7 @@ test('channel Home navigation updates blocking attributes synchronously without 
       documentElement: html,
       querySelectorAll: () => []
     },
-    isEffectiveActive: () => true,
+    isEffectiveActive: s => Boolean(s),
     _settings: { blockChannelHome: true, extensionEnabled: true },
     pauseBlockedChannelVideos() {}
   });
@@ -1543,6 +1543,9 @@ test('fullWindowPlayer toggle expands and centers player into empty sidebar spac
   assert.ok(css.includes('padding-left: clamp(16px, 2.5vw, 48px) !important'), 'CSS keeps balanced breathing padding');
   assert.ok(css.includes('justify-content: center !important'), 'CSS centers player column horizontally');
   assert.ok(css.includes('html.iyt-full-window-player ytd-watch-flexy:not([theater]):not([fullscreen]) #below'), 'CSS aligns title and description metadata below player');
+  assert.ok(css.includes('video.html5-main-video'), 'CSS forces HTML5 video element scaling');
+  assert.ok(css.includes('object-fit: contain !important'), 'CSS scales video with object-fit: contain');
+  assert.ok(css.includes('.html5-video-container'), 'CSS scales video container');
 
   const env = store();
   assert.equal(env.manager.getDefaultSettings().fullWindowPlayer, false, 'fullWindowPlayer defaults to false');
@@ -1566,6 +1569,10 @@ test('fullWindowPlayer toggle expands and centers player into empty sidebar spac
   assert.ok(popupSource.includes("'fullWindowPlayer'"), 'popup includes fullWindowPlayer toggle');
   assert.ok(popupSource.includes("toggle_full_window_player"), 'popup binds i18n label');
   assert.ok(popupSource.includes("fullWindowPlayer: true"), 'player preset enables fullWindowPlayer');
+
+  // Verify blocker only applies fullWindowPlayer class if blockRecommended is also true
+  assert.ok(blockerSource.includes("key === 'fullWindowPlayer' && !settings.blockRecommended"), 'blocker skips fullWindowPlayer when blockRecommended is false');
+  assert.ok(blockerSource.includes("key === 'fullWindowPlayer' && !_settings.blockRecommended"), 'observer skips fullWindowPlayer when blockRecommended is false');
 
   // Verify blocker does not hijack theater mode or fight native 'T' shortcut
   assert.ok(!blockerSource.includes('ensureTheaterMode'), 'blocker does not synthetically force theater mode');
@@ -1610,6 +1617,11 @@ test('neutralThumbnails replaces custom thumbnails with clean auto-generated hq2
   // hq2.jpg must not match (already neutral frame)
   assert.equal('https://i.ytimg.com/vi/dQw4w9WgXcQ/hq2.jpg'.match(regex)?.[1], undefined);
 
+  // Verify dynamic toggle without reload: replace & restore calls in applyAllClasses
+  assert.ok(blockerSource.includes('replaceThumbnailsWithNeutralFrames(document)'), 'dynamic swap on toggle on');
+  assert.ok(blockerSource.includes('restoreOriginalThumbnails(document)'), 'dynamic restore on toggle off');
+  assert.ok(blockerSource.includes('cards:${neutral}'), 'observer reconfigures attributeFilter for src and srcset when neutralThumbnails changes');
+
   // Popup & UI check
   const popupSource = source('ui/popup.js');
   assert.ok(popupSource.includes("'neutralThumbnails'"), 'popup includes neutralThumbnails toggle');
@@ -1628,4 +1640,102 @@ test('neutralThumbnails replaces custom thumbnails with clean auto-generated hq2
     assert.ok(catalog.toggle_neutral_thumbnails?.message, `${lang} missing toggle_neutral_thumbnails`);
     assert.ok(catalog.desc_neutral_thumbnails?.message, `${lang} missing desc_neutral_thumbnails`);
   }
+});
+
+test('screenshotButton adds player capture button, keyboard shortcut and formats clean PNG downloads without toggle overhead', async () => {
+  const css = source('styles/blocker.css');
+  assert.ok(css.includes('.ytp-button.iyt-screenshot-btn'), 'CSS styles screenshot button');
+  assert.ok(css.includes('.iyt-screenshot-flash'), 'CSS defines shutter flash animation');
+  assert.ok(css.includes('.iyt-screenshot-toast'), 'CSS defines saved toast feedback');
+  assert.ok(!css.includes('.iyt-action-screenshot-btn'), 'CSS removes redundant action bar button below video title');
+
+  // Verify no toggle overhead in storage or popup
+  const env = store();
+  assert.equal(env.manager.getDefaultSettings().screenshotButton, undefined, 'screenshotButton is not in settings schema');
+  const popupHtml = source('ui/popup.html');
+  assert.ok(!popupHtml.includes('id="toggle-screenshotButton"'), 'popup.html has no screenshotButton toggle');
+  const optionsHtml = source('ui/options.html');
+  assert.ok(!optionsHtml.includes('id="toggle-screenshotButton"'), 'options.html has no screenshotButton toggle');
+  const popupSource = source('ui/popup.js');
+  assert.ok(!popupSource.includes("'screenshotButton'"), 'popup.js has no screenshotButton toggle');
+
+  // Verify screenshot content script functions
+  const screenshotSource = source('content/screenshot.js');
+  assert.ok(!screenshotSource.includes('function injectActionScreenshotButton'), 'no duplicate action bar button injection');
+  const context = vm.createContext({
+    setTimeout,
+    clearTimeout,
+    setInterval,
+    clearInterval,
+    console,
+    Math,
+    String,
+    URL,
+    MutationObserver: class { observe() {} disconnect() {} },
+    document: {
+      location: { pathname: '/watch' },
+      readyState: 'complete',
+      addEventListener() {},
+      querySelector() { return null; },
+      getElementById() { return null; },
+      createElement(tag) { return { tagName: tag, style: {}, classList: { add() {}, remove() {} }, appendChild() {}, setAttribute() {} }; }
+    },
+    location: { pathname: '/watch', search: '' },
+    window: {
+      location: { pathname: '/watch', search: '' },
+      addEventListener() {}
+    },
+    globalThis: {}
+  });
+  context.globalThis.window = context.window;
+  vm.runInContext(screenshotSource, context);
+
+  const api = context.window.__iytScreenshot;
+  assert.ok(api, '__iytScreenshot exposed on window');
+  assert.equal(typeof api.takeScreenshot, 'function');
+  assert.equal(typeof api.formatTimestamp, 'function');
+  assert.equal(typeof api.getVideoTitle, 'function');
+
+  // Test timestamp formatter
+  assert.equal(api.formatTimestamp(0), '0m00s');
+  assert.equal(api.formatTimestamp(45), '0m45s');
+  assert.equal(api.formatTimestamp(75), '1m15s');
+  assert.equal(api.formatTimestamp(3665), '1h01m05s');
+
+  // Verify manifest includes content/screenshot.js
+  const manifest = JSON.parse(source('manifest.json'));
+  assert.ok(manifest.content_scripts[0].js.includes('content/screenshot.js'), 'manifest registers content/screenshot.js');
+
+  // Verify all 26 locale files have screenshot button UI strings
+  for (const lang of fs.readdirSync(path.join(root, '_locales'))) {
+    const catalog = JSON.parse(source(`_locales/${lang}/messages.json`));
+    assert.ok(catalog.screenshot_button_title?.message, `${lang} missing screenshot_button_title`);
+    assert.ok(catalog.screenshot_toast_saved?.message, `${lang} missing screenshot_toast_saved`);
+  }
+});
+
+test('hideThumbnails enforces 16:9 aspect ratio and prevents search cards from stretching thumbnail placeholders vertically', async () => {
+  const css = source('styles/blocker.css');
+  assert.ok(css.includes('html.iyt-no-thumbnails ytd-thumbnail,'), 'CSS targets ytd-thumbnail placeholder');
+  assert.ok(css.includes('aspect-ratio: 16 / 9 !important'), 'CSS locks placeholders to 16:9 ratio');
+  assert.ok(css.includes('html.iyt-no-thumbnails ytd-video-renderer #dismissible'), 'CSS targets search row flex container');
+  assert.ok(css.includes('align-items: flex-start !important'), 'CSS prevents search rows from stretching flex items');
+  assert.ok(css.includes('html.iyt-no-thumbnails ytd-video-renderer ytd-thumbnail'), 'CSS targets search video renderer thumbnails');
+  assert.ok(css.includes('align-self: flex-start !important'), 'CSS sets align-self: flex-start on search thumbnails');
+  assert.ok(css.includes('html.iyt-no-thumbnails .yt-lockup-view-model-wiz--horizontal'), 'CSS targets modern horizontal lockup views');
+  assert.ok(css.includes('aspect-ratio: 9 / 16 !important'), 'CSS preserves vertical 9:16 ratio for Shorts');
+
+  const env = store();
+  assert.equal(env.manager.getDefaultSettings().hideThumbnails, false, 'hideThumbnails defaults to false');
+  const valid = env.validate({ ...env.manager.getDefaultSettings(), hideThumbnails: true });
+  assert.equal(valid.hideThumbnails, true, 'validates hideThumbnails boolean');
+
+  const blockerSource = source('content/blocker.js');
+  const context = vm.createContext({
+    document: { documentElement: { classList: { add() {}, remove() {}, contains() { return false; }, toggle() {} }, setAttribute() {}, removeAttribute() {}, toggleAttribute() {} } },
+    window: { location: { pathname: '/' }, addEventListener() {} },
+    globalThis: {}
+  });
+  vm.runInContext(blockerSource.slice(0, blockerSource.indexOf('const html = document.documentElement;')), context);
+  assert.equal(vm.runInContext('CLASS_MAP', context).hideThumbnails, 'iyt-no-thumbnails');
 });

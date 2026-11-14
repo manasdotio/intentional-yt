@@ -86,7 +86,11 @@
       <!-- Scrollable Tab Content Container -->
       <div id="scroll">
       <div id="youtube-connection-notice" class="youtube-connection-notice" role="status" aria-live="polite" hidden>
-        <span data-i18n="youtube_reload_needed">Your settings are saved, but this YouTube tab isn't connected. Reload YouTube. If this continues, check the extension's access to YouTube.</span>
+        <div class="youtube-connection-notice-content">
+          <svg class="youtube-connection-notice-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+          <span class="youtube-connection-notice-text" data-i18n="youtube_reload_needed">Please reload the page to apply your settings.</span>
+        </div>
+        <button type="button" id="btn-reload-youtube" class="youtube-connection-notice-btn" data-i18n="btn_reload_page">Reload Page</button>
       </div>
       <section class="welcome-card" id="review-card" style="display:none" aria-labelledby="review-title">
         <div class="welcome-text-wrap">
@@ -189,11 +193,19 @@
             <option value="history" data-i18n="home_redirect_history">History</option>
           </select>
         </div>
-        <label class="row">
+        <label class="row" id="row-blockRecommended">
           <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
           <span class="row-text" data-i18n="toggle_block_recommended">Hide suggested videos beside the player</span>
           <input type="checkbox" class="chk" id="toggle-blockRecommended" />
         </label>
+        <div class="row sub-row" id="row-fullWindowPlayer" data-setting="fullWindowPlayer" style="display:none">
+          <svg class="row-icon sub-row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          <div class="row-text-group">
+            <span class="setting-label"><label class="row-text" id="label-toggle-fullWindowPlayer" for="toggle-fullWindowPlayer"><span data-i18n="toggle_full_window_player">Expand player into empty space</span><span class="badge-new">NEW</span></label><button type="button" class="setting-help" aria-labelledby="label-toggle-fullWindowPlayer" aria-describedby="help-toggle-fullWindowPlayer" data-help="help-toggle-fullWindowPlayer"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
+            <span id="help-toggle-fullWindowPlayer" class="setting-help-text" hidden="" data-i18n="desc_full_window_player">Expands and centers the video player into available space without forcing theater mode</span>
+          </div>
+          <input type="checkbox" class="chk" id="toggle-fullWindowPlayer" aria-describedby="help-toggle-fullWindowPlayer">
+        </div>
       </div>
 
       <!-- Settings grouped by where they appear on YouTube. -->
@@ -259,21 +271,10 @@
                   <span id="help-toggle-redirectShorts" class="setting-help-text" hidden="" data-i18n="desc_redirect_shorts">Plays Shorts in standard watch view with playback controls</span>
                 </div>
                 <input type="checkbox" class="chk" id="toggle-redirectShorts" aria-describedby="help-toggle-redirectShorts">
-              </div><div class="row">
-                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-                <div class="row-text-group">
-                  <span class="setting-label"><label class="row-text" id="label-toggle-fullWindowPlayer" for="toggle-fullWindowPlayer"><span data-i18n="toggle_full_window_player">Full-window theater mode</span><span class="badge-new">NEW</span></label><button type="button" class="setting-help" aria-labelledby="label-toggle-fullWindowPlayer" aria-describedby="help-toggle-fullWindowPlayer" data-help="help-toggle-fullWindowPlayer"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle></svg></button></span>
-                  <span id="help-toggle-fullWindowPlayer" class="setting-help-text" hidden="" data-i18n="desc_full_window_player">Expands the video player to fill the entire window without distractions</span>
-                </div>
-                <input type="checkbox" class="chk" id="toggle-fullWindowPlayer" aria-describedby="help-toggle-fullWindowPlayer">
               </div><label class="row">
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                 <span class="row-text" data-i18n="toggle_block_comments">Hide comments</span>
                 <input type="checkbox" class="chk" id="toggle-blockComments">
-              </label><label class="row advanced-only">
-                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle><circle cx="12" cy="12" r="10"></circle></svg>
-                <span class="row-text" data-i18n="toggle_block_profile_photos">Hide profile photos</span>
-                <input type="checkbox" class="chk" id="toggle-blockProfilePhotos">
               </label><label class="row advanced-only">
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="8" y1="10" x2="16" y2="10"></line></svg>
                 <span class="row-text" data-i18n="toggle_block_live_chat">Hide live chat</span>
@@ -348,19 +349,7 @@
                   <span id="help-toggle-blockSidebar" class="setting-help-text" hidden="" data-i18n="desc_sidebar_navigation">Also hides links to subscriptions and saved playlists.</span>
                 </div>
                 <input type="checkbox" class="chk" id="toggle-blockSidebar" aria-describedby="help-toggle-blockSidebar">
-              </div><label class="row advanced-only">
-                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
-                <span class="row-text" data-i18n="toggle_block_top_header">Hide search and account bar</span>
-                <input type="checkbox" class="chk" id="toggle-blockTopHeader">
-              </label><label class="row">
-                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                <span class="row-text" data-i18n="toggle_block_notification_bell">Hide notification bell</span>
-                <input type="checkbox" class="chk" id="toggle-blockNotificationBell">
-              </label><label class="row advanced-only">
-                <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                <span class="row-text" data-i18n="toggle_block_more_from_youtube">Hide "More from YouTube"</span>
-                <input type="checkbox" class="chk" id="toggle-blockMoreFromYouTube">
-              </label><label class="row">
+              </div><label class="row">
                 <svg class="row-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                 <span class="row-text" data-i18n="toggle_hide_thumbnails">Hide thumbnails</span>
                 <input type="checkbox" class="chk" id="toggle-hideThumbnails">

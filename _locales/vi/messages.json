@@ -1404,7 +1404,7 @@
     "message": "Cũng ẩn liên kết đến kênh đã đăng ký và danh sách phát đã lưu."
   },
   "youtube_reload_needed": {
-    "message": "C?i ??t ?? ???c l?u nh?ng th? YouTube n?y ch?a k?t n?i v?i ti?n ?ch. H?y t?i l?i YouTube. N?u v?n g?p s? c?, h?y ki?m tra quy?n truy c?p YouTube c?a ti?n ?ch."
+    "message": "Vui lòng tải lại trang để áp dụng cài đặt."
   },
   "toggle_disable_hover_previews": {
     "message": "Tắt xem trước khi di chuột",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Chế độ rạp chiếu phim toàn cửa sổ",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Mở rộng trình phát vào khoảng trống",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Mở rộng trình phát video tràn toàn bộ cửa sổ không gây phân tâm",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Thay thế hình thu nhỏ câu view bằng khung hình trung tính tự động trích xuất từ video",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Tải lại trang"
+  },
+  "toggle_screenshot_button": {
+    "message": "Nút chụp ảnh màn hình video"
+  },
+  "desc_screenshot_button": {
+    "message": "Thêm nút vào trình phát để chụp khung hình hiện tại"
+  },
+  "screenshot_button_title": {
+    "message": "Chụp ảnh màn hình (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Đã lưu ảnh chụp màn hình"
+  },
+  "btn_screenshot": {
+    "message": "Chụp màn hình"
   }
 }

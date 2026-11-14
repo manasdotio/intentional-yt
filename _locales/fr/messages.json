@@ -1404,7 +1404,7 @@
     "message": "Masque aussi les liens vers les abonnements et les playlists enregistrées."
   },
   "youtube_reload_needed": {
-    "message": "Vos r?glages sont enregistr?s, mais cet onglet YouTube n'est pas connect?. Rechargez YouTube. Si le probl?me persiste, v?rifiez les autorisations de l'extension pour YouTube."
+    "message": "Veuillez recharger la page pour appliquer vos paramètres."
   },
   "toggle_disable_hover_previews": {
     "message": "Désactiver les aperçus au survol",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Mode cinéma / plein écran fenêtré",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Agrandir le lecteur dans l'espace vide",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Agrandit le lecteur pour remplir toute la fenêtre sans distractions",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Remplace les miniatures piège à clics par une capture neutre générée automatiquement de la vidéo",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Recharger la page"
+  },
+  "toggle_screenshot_button": {
+    "message": "Bouton de capture d'écran vidéo"
+  },
+  "desc_screenshot_button": {
+    "message": "Ajoute un bouton de capture au lecteur pour enregistrer l'image actuelle"
+  },
+  "screenshot_button_title": {
+    "message": "Prendre une capture (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Capture enregistrée"
+  },
+  "btn_screenshot": {
+    "message": "Capture d'écran"
   }
 }

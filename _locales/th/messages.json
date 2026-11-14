@@ -1404,7 +1404,7 @@
     "message": "ซ่อนลิงก์ไปยังช่องที่ติดตามและเพลย์ลิสต์ที่บันทึกไว้ด้วย"
   },
   "youtube_reload_needed": {
-    "message": "???????????????????? ??????? YouTube ???????????????????????????????? ???? YouTube ???? ????????????? ??????????????????????????????????????? YouTube"
+    "message": "โปรดโหลดหน้านี้ใหม่เพื่อนำการตั้งค่าไปใช้"
   },
   "toggle_disable_hover_previews": {
     "message": "ปิดใช้งานการแสดงตัวอย่างเมื่อวางเมาส์เหนือ",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "โหมดโรงภาพยนตร์เต็มหน้าต่าง",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "ขยายโปรแกรมเล่นลงในพื้นที่ว่าง",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "ขยายโปรแกรมเล่นวิดีโอให้เต็มหน้าต่างโดยไม่มีสิ่งรบกวน",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "แทนที่ภาพขนาดย่อล่อคลิกด้วยเฟรมที่เป็นกลางซึ่งสร้างขึ้นจากวิดีโอโดยอัตโนมัติ",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "โหลดหน้าใหม่"
+  },
+  "toggle_screenshot_button": {
+    "message": "ปุ่มจับภาพหน้าจอวิดีโอ"
+  },
+  "desc_screenshot_button": {
+    "message": "เพิ่มปุ่มลงในโปรแกรมเล่นเพื่อจับภาพเฟรมปัจจุบัน"
+  },
+  "screenshot_button_title": {
+    "message": "จับภาพหน้าจอ (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "บันทึกภาพหน้าจอแล้ว"
+  },
+  "btn_screenshot": {
+    "message": "จับภาพหน้าจอ"
   }
 }

@@ -530,7 +530,7 @@ const IYT_Timer = (() => {
         _day = StorageManager.getTodayString(settings?.dailyLimit?.resetHour);
         if (_isLimitExceeded()) { _video?.pause(); _showLimitOverlay(); }
       } catch (error) {
-        if (/Extension context invalidated/i.test(error?.message || '')) {
+        if (/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) {
           handleTimerError(error);
           return;
         }
@@ -774,7 +774,7 @@ const IYT_Timer = (() => {
 
   // Keep _settings in sync when popup or another tab changes settings
   function handleTimerError(error) {
-    if (/Extension context invalidated/i.test(error?.message || '')) {
+    if (/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) {
       _contextInvalidated = true;
       _pendingBatches.clear();
       detach();

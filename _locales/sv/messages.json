@@ -1404,7 +1404,7 @@
     "message": "Döljer även länkar till prenumerationer och sparade spellistor."
   },
   "youtube_reload_needed": {
-    "message": "Dina inst?llningar ?r sparade, men den h?r YouTube-fliken ?r inte ansluten. Ladda om YouTube. Om problemet kvarst?r, kontrollera till?ggets ?tkomst till YouTube."
+    "message": "Ladda om sidan för att tillämpa dina inställningar."
   },
   "toggle_disable_hover_previews": {
     "message": "Inaktivera förhandsvisningar vid hovring",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Biografläge i helfönster",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Utöka spelaren till tomt utrymme",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Expanderar videospelaren till hela fönstret utan distraktioner",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Ersätter clickbait-miniatyrer med en neutral, automatisk bildruta ur videon",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Ladda om sidan"
+  },
+  "toggle_screenshot_button": {
+    "message": "Skärmdumpsknapp för video"
+  },
+  "desc_screenshot_button": {
+    "message": "Lägger till en knapp i spelaren för att fånga den aktuella bildrutan"
+  },
+  "screenshot_button_title": {
+    "message": "Ta skärmdump (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Skärmdump sparad"
+  },
+  "btn_screenshot": {
+    "message": "Skärmdump"
   }
 }

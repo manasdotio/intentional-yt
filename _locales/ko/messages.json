@@ -1404,7 +1404,7 @@
     "message": "구독 및 저장된 재생목록 링크도 숨깁니다."
   },
   "youtube_reload_needed": {
-    "message": "??? ?????? ? YouTube ?? ?? ????? ???? ?? ????. YouTube? ???????. ??? ???? ?? ????? YouTube ?? ??? ?????."
+    "message": "설정을 적용하려면 페이지를 새로고침하세요."
   },
   "toggle_disable_hover_previews": {
     "message": "마우스 오버 미리보기 비활성화",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "전체 창 시네마 / 영화관 모드",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "빈 공간으로 플레이어 확장",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "방해 요소 없이 동영상 플레이어를 창 전체 크기로 확장합니다",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "어그로성 썸네일을 동영상에서 자동 생성된 중립 프레임으로 교체합니다",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "페이지 새로고침"
+  },
+  "toggle_screenshot_button": {
+    "message": "동영상 스크린샷 버튼"
+  },
+  "desc_screenshot_button": {
+    "message": "현재 프레임을 캡처하는 스크린샷 버튼을 플레이어에 추가합니다"
+  },
+  "screenshot_button_title": {
+    "message": "스크린샷 찍기 (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "스크린샷 저장됨"
+  },
+  "btn_screenshot": {
+    "message": "스크린샷"
   }
 }

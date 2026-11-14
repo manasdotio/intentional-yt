@@ -1404,7 +1404,7 @@
     "message": "Skryje také odkazy na odběry a uložené seznamy videí."
   },
   "youtube_reload_needed": {
-    "message": "Nastaven? je ulo?en?, ale tato karta YouTube nen? p?ipojena k roz???en?. Znovu na?t?te YouTube. Pokud probl?m p?etrv?v?, zkontrolujte p??stup roz???en? k YouTube."
+    "message": "Znovu načtěte stránku, aby se projevilo nastavení."
   },
   "toggle_disable_hover_previews": {
     "message": "Zakázat náhledy při najetí myší",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Kino mód na celé okno",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Rozšířit přehrávač do prázdného prostoru",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Rozšíří přehrávač videa na celé okno bez rušivých prvků",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Nahradí clickbaitové miniatury neutrálním automatickým snímkem z videa",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Znovu načíst"
+  },
+  "toggle_screenshot_button": {
+    "message": "Tlačítko snímku videa"
+  },
+  "desc_screenshot_button": {
+    "message": "Přidá do přehrávače tlačítko pro zachycení aktuálního snímku"
+  },
+  "screenshot_button_title": {
+    "message": "Pořídit snímek (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Snímek uložen"
+  },
+  "btn_screenshot": {
+    "message": "Snímek obrazovky"
   }
 }

@@ -1261,13 +1261,59 @@ body.ext-off .lang-row {
    ============================================================ */
 .youtube-connection-notice {
   margin: 10px 12px;
-  padding: 10px 12px;
+  padding: 8px 12px;
   border: 1px solid var(--accent-border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--accent-subtle);
   color: var(--ink-primary);
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.youtube-connection-notice[hidden] {
+  display: none !important;
+}
+.youtube-connection-notice-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+.youtube-connection-notice-icon {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.youtube-connection-notice-text {
+  font-weight: 500;
+  color: var(--ink-primary);
+}
+.youtube-connection-notice-btn {
+  background: var(--accent);
+  border: none;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: opacity var(--duration-snap) var(--ease-out-gentle), transform var(--duration-snap) var(--ease-out-gentle);
+}
+.youtube-connection-notice-btn:hover {
+  opacity: 0.9;
+}
+.youtube-connection-notice-btn:active {
+  transform: scale(0.97);
+}
+.youtube-connection-notice-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .setting-search-shortcuts:not([hidden]) {
   display: grid;
@@ -2036,6 +2082,27 @@ body.ext-off .lang-row {
   }
   .common-controls .home-feed-choice .row-text-group { grid-column: 1; grid-row: 1; }
   .common-controls .home-feed-choice select { grid-column: 2; grid-row: 1; }
+}
+
+/* Sub-option / nested toggle row */
+.sub-row {
+  padding-left: 36px !important;
+  background: var(--surface-inset);
+  border-top: 1px solid var(--rule-hairline);
+  min-height: 44px;
+}
+.sub-row .row-icon {
+  width: 15px;
+  height: 15px;
+  opacity: 0.75;
+}
+.sub-row .row-text {
+  font-size: 13px;
+  color: var(--ink-secondary);
+}
+.sub-row:hover .row-text,
+.sub-row:has(.chk:checked) .row-text {
+  color: var(--ink-primary);
 }
 
 

@@ -1404,7 +1404,7 @@
     "message": "También oculta los enlaces a suscripciones y listas guardadas."
   },
   "youtube_reload_needed": {
-    "message": "Tu configuraci?n est? guardada, pero esta pesta?a de YouTube no est? conectada. Recarga YouTube. Si el problema contin?a, comprueba el acceso de la extensi?n a YouTube."
+    "message": "Recarga la página para aplicar la configuración."
   },
   "toggle_disable_hover_previews": {
     "message": "Desactivar vistas previas al pasar el cursor",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Modo cine / teatro en ventana completa",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Expandir reproductor en el espacio vacío",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Expande el reproductor para llenar toda la ventana sin distracciones",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Reemplaza las miniaturas de clickbait por un fotograma neutral generado automáticamente del video",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Recargar página"
+  },
+  "toggle_screenshot_button": {
+    "message": "Botón de captura de pantalla del video"
+  },
+  "desc_screenshot_button": {
+    "message": "Añade un botón de captura al reproductor para capturar el fotograma actual"
+  },
+  "screenshot_button_title": {
+    "message": "Tomar captura (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Captura guardada"
+  },
+  "btn_screenshot": {
+    "message": "Captura de pantalla"
   }
 }

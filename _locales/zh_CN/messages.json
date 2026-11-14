@@ -1404,7 +1404,7 @@
     "message": "同时隐藏订阅内容和已保存播放列表的链接。"
   },
   "youtube_reload_needed": {
-    "message": "???????? YouTube ?????????????????? YouTube?????????????????? YouTube ??????"
+    "message": "请刷新页面以应用设置。"
   },
   "toggle_disable_hover_previews": {
     "message": "停用悬停预览",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "全窗口影院模式",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "将播放器扩展到空白区域",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "将视频播放器扩展至整个窗口，去除边距与干扰",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "将博人眼球的诱导缩略图替换为视频中自动生成的真实静态画面",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "刷新页面"
+  },
+  "toggle_screenshot_button": {
+    "message": "视频截图按钮"
+  },
+  "desc_screenshot_button": {
+    "message": "在播放器中添加截图按钮以捕获当前画面"
+  },
+  "screenshot_button_title": {
+    "message": "截图 (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "截图已保存"
+  },
+  "btn_screenshot": {
+    "message": "截图"
   }
 }

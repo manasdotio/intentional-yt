@@ -72,11 +72,11 @@ const TOGGLES = [
   'extensionEnabled',
   'blockHomeFeed', 'blockChannelHome', 'limitHomeFeed', 'blockSidebar', 'blockRecommended',
   'blockLiveChat', 'blockPlaylist', 'blockEndScreens',
-  'blockComments', 'blockProfilePhotos',
+  'blockComments',
   'blockMixPlaylists', 'blockMerch',
   'blockVideoInfo', 'blockVideoButtons', 'blockChannelInfo', 'blockVideoDescription',
-  'blockTopHeader', 'blockNotificationBell', 'blockIrrelevantSearchResults',
-  'blockExploreAndTrending', 'blockMoreFromYouTube', 'blockShorts',
+  'blockIrrelevantSearchResults',
+  'blockExploreAndTrending', 'blockShorts',
   'redirectShorts',
   'blockSubscriptionsFeed', 'disableAutoplay', 'disableHoverPreviews', 'fullWindowPlayer',
   'hideThumbnails', 'neutralThumbnails', 'grayscaleMode',
@@ -94,18 +94,14 @@ const TOGGLE_LABELS = {
   blockPlaylist: 'toggle_block_playlist',
   blockEndScreens: 'toggle_block_endscreens',
   blockComments: 'toggle_block_comments',
-  blockProfilePhotos: 'toggle_block_profile_photos',
   blockMixPlaylists: 'toggle_block_mix_playlists',
   blockMerch: 'toggle_block_merch',
   blockVideoInfo: 'toggle_block_video_info',
   blockVideoButtons: 'toggle_block_video_buttons',
   blockChannelInfo: 'toggle_block_channel_info',
   blockVideoDescription: 'toggle_block_video_description',
-  blockTopHeader: 'toggle_block_top_header',
-  blockNotificationBell: 'toggle_block_notification_bell',
   blockIrrelevantSearchResults: 'toggle_block_irrelevant_search',
   blockExploreAndTrending: 'toggle_block_explore_trending',
-  blockMoreFromYouTube: 'toggle_block_more_from_youtube',
   blockShorts: 'toggle_block_shorts',
   redirectShorts: 'toggle_redirect_shorts',
   blockSubscriptionsFeed: 'toggle_block_subscriptions',
@@ -134,9 +130,7 @@ const SECTION_TOGGLES = {
   "video": [
     "disableAutoplay",
     "redirectShorts",
-    "fullWindowPlayer",
     "blockComments",
-    "blockProfilePhotos",
     "blockLiveChat",
     "blockPlaylist",
     "blockEndScreens",
@@ -148,9 +142,6 @@ const SECTION_TOGGLES = {
   ],
   "interface": [
     "blockSidebar",
-    "blockTopHeader",
-    "blockNotificationBell",
-    "blockMoreFromYouTube",
     "hideThumbnails",
     "neutralThumbnails",
     "grayscaleMode"
@@ -204,11 +195,8 @@ const PRESET_DEFINITIONS = {
     blockComments: false,
     blockMixPlaylists: true,
     blockMerch: true,
-    blockTopHeader: false,
-    blockNotificationBell: true,
     blockIrrelevantSearchResults: true,
     blockExploreAndTrending: true,
-    blockMoreFromYouTube: true,
     blockShorts: true,
     redirectShorts: false,
     blockSubscriptionsFeed: false,
@@ -229,11 +217,8 @@ const PRESET_DEFINITIONS = {
     blockComments: false,
     blockMixPlaylists: false,
     blockMerch: false,
-    blockTopHeader: false,
-    blockNotificationBell: false,
     blockIrrelevantSearchResults: false,
     blockExploreAndTrending: false,
-    blockMoreFromYouTube: false,
     blockShorts: true,
     redirectShorts: true,
     blockSubscriptionsFeed: false,
@@ -254,11 +239,8 @@ const PRESET_DEFINITIONS = {
     blockComments: true,
     blockMixPlaylists: true,
     blockMerch: true,
-    blockTopHeader: false,
-    blockNotificationBell: true,
     blockIrrelevantSearchResults: true,
     blockExploreAndTrending: true,
-    blockMoreFromYouTube: true,
     blockShorts: true,
     redirectShorts: false,
     blockSubscriptionsFeed: false,
@@ -279,11 +261,8 @@ const PRESET_DEFINITIONS = {
     blockComments: true,
     blockMixPlaylists: true,
     blockMerch: true,
-    blockTopHeader: false,
-    blockNotificationBell: true,
     blockIrrelevantSearchResults: true,
     blockExploreAndTrending: true,
-    blockMoreFromYouTube: true,
     blockShorts: true,
     redirectShorts: false,
     blockSubscriptionsFeed: true,
@@ -304,11 +283,8 @@ const PRESET_DEFINITIONS = {
     blockComments: true,
     blockMixPlaylists: true,
     blockMerch: true,
-    blockTopHeader: false,
-    blockNotificationBell: false,
     blockIrrelevantSearchResults: true,
     blockExploreAndTrending: true,
-    blockMoreFromYouTube: true,
     blockShorts: true,
     redirectShorts: false,
     blockSubscriptionsFeed: false,
@@ -790,14 +766,10 @@ const SEARCH_ALIASES = {
   blockPlaylist: 'playlist panel playlist queue',
   disableAutoplay: 'disable autoplay next video auto play',
   blockComments: 'comments replies discussion community',
-  blockProfilePhotos: 'profile photos avatars user pictures comments',
   blockSidebar: 'sidebar guide drawer navigation menu left panel',
   blockRecommended: 'recommended sidebar up next related suggestions related videos',
   blockExploreAndTrending: 'explore trending popular destination fire',
-  blockMoreFromYouTube: 'more from youtube premium movies music gaming',
   blockIrrelevantSearchResults: 'search shelves for you people also watched searches related',
-  blockTopHeader: 'top header masthead search bar top bar',
-  blockNotificationBell: 'notification bell bell alerts',
   blockMerch: 'merch offers shopping products merchandise',
   blockMixPlaylists: 'mix playlists mixes radio endless mix',
   blockVideoInfo: 'video info title view count publish date metadata',
@@ -914,6 +886,7 @@ function filterToggles(query) {
       common.querySelectorAll('.row').forEach(row => { row.style.display = ''; });
     }
     _searchPrevCollapsed = null;
+    renderSubRows();
     updateAccordionBadges(_s);
     return;
   }
@@ -1687,9 +1660,19 @@ function renderHomeFeedControls() {
     redirectSelect.value = _s.homeRedirect || 'none';
     redirectSelect.disabled = overridden;
   }
+  renderSubRows();
+}
+
+function renderSubRows() {
+  if (!_s) return;
+  const isSearching = !!$('input-toggle-search')?.value?.trim();
   const redirectRow = $('row-homeRedirect');
-  if (redirectRow && !$('input-toggle-search')?.value?.trim()) {
+  if (redirectRow && !isSearching) {
     redirectRow.style.display = _s.blockHomeFeed ? '' : 'none';
+  }
+  const fullPlayerRow = $('row-fullWindowPlayer');
+  if (fullPlayerRow && !isSearching) {
+    fullPlayerRow.style.display = _s.blockRecommended ? '' : 'none';
   }
 }
 
@@ -1697,6 +1680,7 @@ function renderAll(s) {
   if (_latestUsageStats) s = { ...s, stats: _latestUsageStats };
   _s = s;
   renderProtectionStatus();
+  renderSubRows();
   $('toggle-limitWarning').checked = s.dailyLimit.warningEnabled !== false;
   $('toggle-limitWarning').disabled = !s.dailyLimit.enabled;
 
@@ -2324,6 +2308,19 @@ function bindAll() {
         if (cardName) toggleFocusCard(cardName);
       }
     });
+  });
+
+  // YouTube reload needed button
+  $('btn-reload-youtube')?.addEventListener('click', async () => {
+    try {
+      const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+      if (tab?.id && isSupportedYouTubeTab(tab)) {
+        if (typeof browser.tabs.reload === 'function') {
+          browser.tabs.reload(tab.id);
+        }
+        window.close();
+      }
+    } catch (_) {}
   });
 
   // Pending Unlock banner cancel
@@ -3124,7 +3121,6 @@ function bindAll() {
     if (s.neutralThumbnails) tags.push({ text: 'Neutral Thumbnails' });
     if (s.disableAutoplay) tags.push({ text: 'No Autoplay' });
     if (s.blockExploreAndTrending) tags.push({ text: 'Hide Trending' });
-    if (s.blockNotificationBell) tags.push({ text: 'Hide Alerts' });
     if (s.channelBlocklist?.length) tags.push({ text: `${s.channelBlocklist.length} Channels`, special: 'channel' });
     if (s.keywordBlocklist?.length) tags.push({ text: `${s.keywordBlocklist.length} Keywords`, special: 'keyword' });
 

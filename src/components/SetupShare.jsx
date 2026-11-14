@@ -72,7 +72,6 @@ export default function SetupShare() {
     { label: 'Hide Suggested Videos Beside Player', active: s.blockRecommended },
     { label: 'Hide Left Sidebar', active: s.blockSidebar },
     { label: 'Hide Comments & Discussion', active: s.blockComments },
-    { label: 'Hide Commenter Avatars', active: s.blockProfilePhotos },
     { label: 'Hide End Screen Suggestions & Cards', active: s.blockEndScreens || s.blockEndScreenVideowall || s.blockEndScreenCards },
     { label: 'Hide Explore & Trending Feeds', active: s.blockExploreAndTrending },
     { label: 'Hide Search Clutter & Irrelevant Shelves', active: s.blockIrrelevantSearchResults },

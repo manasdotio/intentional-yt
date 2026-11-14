@@ -1404,7 +1404,7 @@
     "message": "सब्सक्रिप्शन और सहेजी गई प्लेलिस्ट के लिंक भी छिपाता है।"
   },
   "youtube_reload_needed": {
-    "message": "???? ???????? ??? ???, ????? ?? YouTube ??? ????????? ?? ????? ???? ??? YouTube ??? ?? ??? ????? ?????? ??? ??? ?? YouTube ?? ????????? ?? ?????? ???????"
+    "message": "सेटिंग्स लागू करने के लिए कृपया पेज को रीलोड करें।"
   },
   "toggle_disable_hover_previews": {
     "message": "होवर पूर्वावलोकन अक्षम करें",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "फुल-विंडो सिनेमा मोड",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "प्लेयर को खाली जगह में बड़ा करें",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "बिना किसी भटकाव के वीडियो प्लेयर को पूरी विंडो में फैलाएं",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "क्लिकबेट थंबनेल को वीडियो के एक तटस्थ, स्वतः उत्पन्न फ्रेम से बदलता है",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "पेज रीलोड करें"
+  },
+  "toggle_screenshot_button": {
+    "message": "वीडियो स्क्रीनशॉट बटन"
+  },
+  "desc_screenshot_button": {
+    "message": "वर्तमान फ्रेम को कैप्चर करने के लिए प्लेयर में एक स्क्रीनशॉट बटन जोड़ता है"
+  },
+  "screenshot_button_title": {
+    "message": "स्क्रीनशॉट लें (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "स्क्रीनशॉट सहेजा गया"
+  },
+  "btn_screenshot": {
+    "message": "स्क्रीनशॉट"
   }
 }

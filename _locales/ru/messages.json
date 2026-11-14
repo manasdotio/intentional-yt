@@ -1404,7 +1404,7 @@
     "message": "Также скрывает ссылки на подписки и сохранённые плейлисты."
   },
   "youtube_reload_needed": {
-    "message": "????????? ?????????, ?? ??? ??????? YouTube ?? ?????????? ? ??????????. ????????????? YouTube. ???? ???????? ????????, ????????? ?????? ?????????? ? YouTube."
+    "message": "Перезагрузите страницу, чтобы применить настройки."
   },
   "toggle_disable_hover_previews": {
     "message": "Отключить превью при наведении",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Режим кинотеатра на всё окно",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Расширить плеер на свободное место",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Растягивает видеоплеер на всё окно браузера без отвлекающих элементов",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Заменяет кликбейтные превью нейтральным кадром, взятым прямо из видео",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Перезагрузить"
+  },
+  "toggle_screenshot_button": {
+    "message": "Кнопка скриншота видео"
+  },
+  "desc_screenshot_button": {
+    "message": "Добавляет кнопку в плеер для захвата текущего кадра"
+  },
+  "screenshot_button_title": {
+    "message": "Сделать скриншот (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Скриншот сохранён"
+  },
+  "btn_screenshot": {
+    "message": "Скриншот"
   }
 }

@@ -1404,7 +1404,7 @@
     "message": "Blendet auch Links zu Abos und gespeicherten Playlists aus."
   },
   "youtube_reload_needed": {
-    "message": "Deine Einstellungen sind gespeichert, aber dieser YouTube-Tab ist nicht verbunden. Lade YouTube neu. Falls das Problem bleibt, pr?fe den Zugriff der Erweiterung auf YouTube."
+    "message": "Bitte lade die Seite neu, um die Einstellungen anzuwenden."
   },
   "toggle_disable_hover_previews": {
     "message": "Hover-Vorschauen deaktivieren",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Vollfenster-Kinomodus",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Player im leeren Bereich vergrößern",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Vergrößert den Videoplayer auf das gesamte Fenster ohne Ablenkungen",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Ersetzt Clickbait-Miniaturbilder durch ein neutrales, automatisch erzeugtes Standbild aus dem Video",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Seite neu laden"
+  },
+  "toggle_screenshot_button": {
+    "message": "Video-Screenshot-Schaltfläche"
+  },
+  "desc_screenshot_button": {
+    "message": "Fügt dem Player eine Schaltfläche hinzu, um das aktuelle Einzelbild zu erfassen"
+  },
+  "screenshot_button_title": {
+    "message": "Screenshot aufnehmen (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Screenshot gespeichert"
+  },
+  "btn_screenshot": {
+    "message": "Screenshot"
   }
 }

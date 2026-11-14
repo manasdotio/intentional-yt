@@ -62,9 +62,6 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 - **Limit Home Feed / Anti-Doomscroll (`limitHomeFeed`)**: Caps homepage recommendations to the first 15 videos (first screen) and hard-stops infinite scroll with an intentional caught-up banner (`✦ You're all caught up • Feed limit active`). Ideal when you want a quick check without falling into an algorithmic rabbit hole.
 - **Hide Subscriptions Feed (`blockSubscriptionsFeed`)**: Suppresses the subscription grid when you want to look up specific topics without inbox-style pressure.
 - **Hide Explore & Trending (`blockExploreAndTrending`)**: Cleans out trending hubs, gaming, movies, and promotional navigation sections.
-- **Hide "More from YouTube" (`blockMoreFromYouTube`)**: Removes YouTube Premium, Studio, Kids, TV, and Music cross-promotions from the sidebar.
-- **Hide Top Masthead / Header (`blockTopHeader`)**: Completely hides the top navigation bar for an ultra-clean, full-focus reading/viewing environment.
-- **Hide Notification Bell (`blockNotificationBell`)**: Eliminates red unread notification badges and alert popups.
 
 ### ⚡ Deep Shorts Suppression
 - **Hide Shorts (`blockShorts`)**: Hides Shorts on supported layouts, including:
@@ -97,7 +94,6 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 - **Hide Channel Info (`blockChannelInfo`)**: Hides channel avatar, channel name, and subscriber count badges.
 - **Hide Video Description (`blockVideoDescription`)**: Suppresses the expandable video description panel and show-more details.
 - **Hide Comments Section (`blockComments`)**: Completely removes the entire comments thread.
-- **Mask Profile Avatars (`blockProfilePhotos`)**: Replaces user comment avatars with blank circles to reduce visual stimulation while keeping discussion readable.
 - **Hide Live Chat (`blockLiveChat`)**: Disables live streaming chat drawers and replay streams.
 - **Hide Merch & Shopping (`blockMerch`)**: Suppresses product carousels, store shelves, and shopping tags.
 
@@ -139,8 +135,6 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 | **Hide Shorts** | `blockShorts` | `iyt-no-shorts` | `true` |
 | **Clean Search Algorithmic Shelves** | `blockIrrelevantSearchResults` | `iyt-no-irrelevant-search` | `true` |
 | **Hide Explore & Trending** | `blockExploreAndTrending` | `iyt-no-explore` | `true` |
-| **Hide More From YouTube** | `blockMoreFromYouTube` | `iyt-no-more-yt` | `true` |
-| **Hide Notification Bell** | `blockNotificationBell` | `iyt-no-notif-bell` | `true` |
 | **Hide End Screen Videowall** | `blockEndScreenVideowall` | `iyt-no-endscreen-wall` | `true` |
 | **Hide End Screen Cards** | `blockEndScreenCards` | `iyt-no-endscreen-cards` | `true` |
 | **Hide Mix / Radio Playlists** | `blockMixPlaylists` | `iyt-no-mix-playlists` | `true` |
@@ -148,14 +142,12 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 | **Disable Autoplay** | `disableAutoplay` | *(player script action)* | `true` |
 | **Disable Annotations** | `disableAnnotations` | `iyt-no-annotations` | `true` |
 | **Hide Comments** | `blockComments` | `iyt-no-comments` | `false` |
-| **Hide Profile Avatars** | `blockProfilePhotos` | `iyt-no-profile-photos` | `false` |
 | **Hide Live Chat** | `blockLiveChat` | `iyt-no-live-chat` | `true` |
 | **Hide Playlist Panel** | `blockPlaylist` | `iyt-no-playlist` | `false` |
 | **Hide Video Info (Title/Views)** | `blockVideoInfo` | `iyt-no-video-info` | `false` |
 | **Hide Like/Share Buttons** | `blockVideoButtons` | `iyt-no-video-buttons` | `false` |
 | **Hide Channel Info & Subs** | `blockChannelInfo` | `iyt-no-channel-info` | `false` |
 | **Hide Video Description** | `blockVideoDescription` | `iyt-no-video-desc` | `false` |
-| **Hide Top Header** | `blockTopHeader` | `iyt-no-top-header` | `false` |
 | **Hide Subscriptions Feed** | `blockSubscriptionsFeed` | `iyt-no-subscriptions` | `false` |
 | **Neutralize Thumbnails** | `hideThumbnails` | `iyt-no-thumbnails` | `false` |
 | **Site-Wide Grayscale** | `grayscaleMode` | `iyt-grayscale` | `false` |

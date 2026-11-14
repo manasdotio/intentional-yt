@@ -1404,7 +1404,7 @@
     "message": "يخفي أيضًا روابط الاشتراكات وقوائم التشغيل المحفوظة."
   },
   "youtube_reload_needed": {
-    "message": "?? ??? ????????? ??? ????? ????? YouTube ??? ??? ????? ????????. ??? ????? YouTube. ??? ?????? ???????? ???? ?? ??? ???? ??????? ??? YouTube."
+    "message": "يرجى إعادة تحميل الصفحة لتطبيق إعداداتك."
   },
   "toggle_disable_hover_previews": {
     "message": "تعطيل المعاينة عند التمرير",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "وضع السينما بملء النافذة",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "توسيع المشغل في المساحة الفارغة",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "توسيع مشغل الفيديو ليملأ النافذة بالكامل دون أي مشتتات",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "استبدال الصور المصغرة المضللة بإطار محايد تم إنشاؤه تلقائيًا من الفيديو",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "إعادة تحميل الصفحة"
+  },
+  "toggle_screenshot_button": {
+    "message": "زر لقطة شاشة الفيديو"
+  },
+  "desc_screenshot_button": {
+    "message": "يضيف زراً إلى المشغل لالتقاط الإطار الحالي"
+  },
+  "screenshot_button_title": {
+    "message": "التقاط لقطة شاشة (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "تم حفظ لقطة الشاشة"
+  },
+  "btn_screenshot": {
+    "message": "لقطة شاشة"
   }
 }

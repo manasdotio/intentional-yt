@@ -1404,7 +1404,7 @@
     "message": "Aboneliklere ve kayıtlı oynatma listelerine giden bağlantıları da gizler."
   },
   "youtube_reload_needed": {
-    "message": "Ayarlar?n?z kaydedildi ancak bu YouTube sekmesi ba?l? de?il. YouTube'u yeniden y?kleyin. Sorun devam ederse uzant?n?n YouTube eri?imini kontrol edin."
+    "message": "Ayarlarınızı uygulamak için lütfen sayfayı yenileyin."
   },
   "toggle_disable_hover_previews": {
     "message": "Üzerine gelindiğinde önizlemeyi devre dışı bırak",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Tam pencere sinema modu",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Oynatıcıyı boş alana genişlet",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Video oynatıcıyı dikkat dağıtıcı öğeler olmadan tüm pencereye genişletir",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Tıklama tuzağı küçük resimleri videodan otomatik alınan nötr bir kareyle değiştirir",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Sayfayı Yenile"
+  },
+  "toggle_screenshot_button": {
+    "message": "Video ekran görüntüsü düğmesi"
+  },
+  "desc_screenshot_button": {
+    "message": "Mevcut kareyi yakalamak için oynatıcıya bir ekran görüntüsü düğmesi ekler"
+  },
+  "screenshot_button_title": {
+    "message": "Ekran görüntüsü al (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Ekran görüntüsü kaydedildi"
+  },
+  "btn_screenshot": {
+    "message": "Ekran Görüntüsü"
   }
 }

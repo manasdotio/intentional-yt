@@ -231,7 +231,7 @@ var browser = globalThis.browser || globalThis.chrome;
         await window.__iytBlocker?.applyAllSettings();
       }
     } catch (error) {
-      if (/Extension context invalidated/i.test(error?.message || '')) {
+      if (/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) {
         // Reloading the extension leaves old content scripts in open tabs.
         // They cannot reconnect; stop retries until the page is refreshed.
         _contextInvalidated = true;

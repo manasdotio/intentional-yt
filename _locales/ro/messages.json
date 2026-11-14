@@ -1404,7 +1404,7 @@
     "message": "Ascunde și linkurile către abonamente și playlisturi salvate."
   },
   "youtube_reload_needed": {
-    "message": "Set?rile sunt salvate, dar aceast? fil? YouTube nu este conectat?. Re?ncarc? YouTube. Dac? problema persist?, verific? accesul extensiei la YouTube."
+    "message": "Reîncarcă pagina pentru a aplica setările."
   },
   "toggle_disable_hover_previews": {
     "message": "Dezactivează previzualizările la trecerea cursorului",
@@ -1641,8 +1641,8 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Mod cinema pe întreaga fereastră",
-    "description": "Toggle label for cinema or full-window theater mode player"
+    "message": "Extinde playerul în spațiul liber",
+    "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
     "message": "Extinde playerul video pe întreaga fereastră fără distrageri",
@@ -1655,5 +1655,23 @@
   "desc_neutral_thumbnails": {
     "message": "Înlocuiește miniaturile clickbait cu un cadru neutru generat automat din videoclip",
     "description": "Description of neutral video frame thumbnail feature"
+  },
+  "btn_reload_page": {
+    "message": "Reîncarcă pagina"
+  },
+  "toggle_screenshot_button": {
+    "message": "Buton captură ecran video"
+  },
+  "desc_screenshot_button": {
+    "message": "Adaugă un buton în player pentru a captura cadrul curent"
+  },
+  "screenshot_button_title": {
+    "message": "Fă o captură de ecran (S)"
+  },
+  "screenshot_toast_saved": {
+    "message": "Captură salvată"
+  },
+  "btn_screenshot": {
+    "message": "Captură de ecran"
   }
 }
