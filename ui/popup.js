@@ -120,30 +120,29 @@ const TOGGLE_LABELS = {
 
 const SECTION_TOGGLES = {
   "feed": [
-    "blockChannelHome",
     "blockSubscriptionsFeed",
     "blockExploreAndTrending",
+    "blockChannelHome",
     "blockIrrelevantSearchResults",
     "blockMixPlaylists",
     "disableHoverPreviews"
   ],
   "video": [
     "disableAutoplay",
-    "redirectShorts",
     "blockComments",
-    "blockLiveChat",
-    "blockPlaylist",
     "blockEndScreens",
+    "blockLiveChat",
     "blockMerch",
+    "blockPlaylist",
     "blockVideoInfo",
     "blockVideoButtons",
     "blockChannelInfo",
     "blockVideoDescription"
   ],
   "interface": [
-    "blockSidebar",
     "hideThumbnails",
     "neutralThumbnails",
+    "blockSidebar",
     "grayscaleMode"
   ]
 };
@@ -758,7 +757,7 @@ const SEARCH_ALIASES = {
   blockChannelHome: 'channel featured trailer tabs creator home page',
   homeRedirect: 'homepage redirect subscriptions watch later history destination auto redirect',
   blockSubscriptionsFeed: 'subscriptions subs feed channels subscribed subscription',
-  blockShorts: 'shorts reel reels tiktok vertical videos',
+  blockShorts: 'shorts reel reels tiktok vertical videos supported feeds',
   redirectShorts: 'redirect shorts normal player standard view',
   fullWindowPlayer: 'cinema theater full window player wide borderless classroom expand size screen',
   blockEndScreens: 'end screen videowall next watch grid recommendations creator cards annotations popups notes',
@@ -783,6 +782,7 @@ const SEARCH_ALIASES = {
 
 let _searchPrevCollapsed = null;
 let _searchPrevBelowVideoOpen = null;
+let _focusTickerInterval = null;
 
 // Reuse the translated control labels so search follows the selected language.
 const SEARCH_DESTINATIONS = [
@@ -793,7 +793,7 @@ const SEARCH_DESTINATIONS = [
   { tab: 'focus', target: 'toggle-softReminder', label: 'toggle_soft_reminder', aliases: 'break reminder reminders time interval' },
   { tab: 'focus', target: 'toggle-focusLockEnabled', label: 'toggle_focus_lock', aliases: 'focus lock pin password cooldown unlock protect settings' },
   { tab: 'focus', target: 'toggle-scheduledBlockingEnabled', label: 'toggle_scheduled_blocking', aliases: 'schedule scheduled blocking hours days strict' },
-  { tab: 'focus', target: 'btn-end-focus-session', label: 'focus_session_title', aliases: 'focus session study 25 45 60 minutes', selector: '[data-focus-minutes="25"]' }
+  { tab: 'focus', target: 'btn-end-focus-session', label: 'focus_session_title', aliases: 'focus session study 15 25 45 60 minutes custom', selector: '[data-focus-minutes="25"]' }
 ];
 
 function renderSearchShortcuts(queryTerms) {
@@ -1588,6 +1588,35 @@ function renderBudgetStatus() {
   }
   setStatusText('protection-status-budget', message);
 }
+function updateFocusTimer() {
+  if (!_s?.focusSessionUntil) {
+    if (_focusTickerInterval) {
+      clearInterval(_focusTickerInterval);
+      _focusTickerInterval = null;
+    }
+    return;
+  }
+  const now = Date.now();
+  if (_s.focusSessionUntil <= now) {
+    if (_focusTickerInterval) {
+      clearInterval(_focusTickerInterval);
+      _focusTickerInterval = null;
+    }
+    renderAll(_s);
+    return;
+  }
+  const badge = $('ext-badge');
+  if (badge && IYT_Policy.focusSessionActive(_s, now)) {
+    const remainingMins = Math.max(1, Math.ceil((_s.focusSessionUntil - now) / 60000));
+    badge.textContent = `${t('status_focus_session') || 'Focus'} (${remainingMins}m)`;
+  }
+  const activeCountdown = $('focus-active-countdown');
+  if (activeCountdown && $('focus-active-pill') && !$('focus-active-pill').hidden) {
+    const remainingMins = Math.max(1, Math.ceil((_s.focusSessionUntil - now) / 60000));
+    activeCountdown.textContent = `${t('status_focus_session') || 'Focus'} (${remainingMins}m remaining)`;
+  }
+}
+
 function renderProtectionStatus() {
   if (!_s) return;
   clearTimeout(_statusTimeout);
@@ -1610,6 +1639,33 @@ function renderProtectionStatus() {
     ? t(IYT_Policy.focusSessionActive(_s) ? 'clear_status_session' : 'clear_status_session_paused', [time(_s.focusSessionUntil)]) : '');
   document.querySelectorAll('[data-focus-minutes]').forEach(button => { button.disabled = running; });
   $('btn-end-focus-session').hidden = !running;
+
+  const customInput = $('input-focus-custom');
+  const customStartBtn = $('btn-focus-custom-start');
+  const customRow = $('focus-custom-row');
+  const activePill = $('focus-active-pill');
+  const activeCountdown = $('focus-active-countdown');
+
+  if (customInput) customInput.disabled = running;
+  if (customStartBtn) customStartBtn.disabled = running;
+  if (customRow) customRow.hidden = running;
+  if (activePill) {
+    activePill.hidden = !running;
+    if (running && activeCountdown) {
+      const remainingMins = Math.max(1, Math.ceil((_s.focusSessionUntil - now) / 60000));
+      activeCountdown.textContent = `${t('status_focus_session') || 'Focus'} (${remainingMins}m remaining)`;
+    }
+  }
+
+  if (running) {
+    if (!_focusTickerInterval) {
+      _focusTickerInterval = setInterval(updateFocusTimer, 1000);
+    }
+  } else if (_focusTickerInterval) {
+    clearInterval(_focusTickerInterval);
+    _focusTickerInterval = null;
+  }
+
   renderBudgetStatus();
   $('protection-status').hidden = !main && !running && !$('protection-status-budget').textContent;
   renderBlockingControls();
@@ -2263,6 +2319,35 @@ function bindAll() {
     try { renderAll(await StorageManager.endFocusSession()); }
     catch (error) { showToast(error.message); }
   });
+  const customInput = $('input-focus-custom');
+  const customStartBtn = $('btn-focus-custom-start');
+  if (customStartBtn && customInput) {
+    const startCustom = async () => {
+      const mins = parseInt(customInput.value, 10);
+      if (!mins || mins < 1 || mins > 1440) {
+        showToast('Please enter a duration between 1 and 1440 minutes');
+        customInput.focus();
+        return;
+      }
+      customStartBtn.disabled = true;
+      try {
+        renderAll(await StorageManager.startFocusSession(mins));
+        customInput.value = '';
+      } catch (error) {
+        showToast(error.message);
+        renderProtectionStatus();
+      } finally {
+        customStartBtn.disabled = false;
+      }
+    };
+    customStartBtn.addEventListener('click', startCustom);
+    customInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        startCustom();
+      }
+    });
+  }
   $('toggle-limitWarning').addEventListener('change', async event => {
     try { renderAll(await StorageManager.updateNestedSetting('dailyLimit', 'warningEnabled', event.target.checked)); }
     catch (error) { showToast(error.message); renderAll(_s); }

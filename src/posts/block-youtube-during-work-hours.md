@@ -5,7 +5,7 @@ date: "2026-10-28"
 modified: "2026-10-28"
 author: "Manas"
 description: "Schedule YouTube blocking for work or study. Choose the days and hours, then block the site or turn on all protections in Chrome, Firefox, or Edge."
-image: "/screenshots/intentional_yt_marquee_1400x560.png"
+image: "/screenshots/scheduled-blocking-setup.webp"
 ---
 
 # How to schedule YouTube blocking for work or study

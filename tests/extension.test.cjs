@@ -324,7 +324,11 @@ test('focus sessions persist, expire, and leave saved preferences and schedules 
   const expired = await restarted.manager.getSettings();
   assert.equal(expired.focusSessionUntil, null);
   assert.equal(restarted.policy.effective(expired).blockComments, false);
-  await assert.rejects(restarted.manager.startFocusSession(26), /Invalid focus duration/);
+  await assert.rejects(restarted.manager.startFocusSession(0), /Invalid focus duration/);
+  await assert.rejects(restarted.manager.startFocusSession(1441), /Invalid focus duration/);
+  const custom = await restarted.manager.startFocusSession(26);
+  assert.equal(restarted.policy.focusSessionActive(custom), true);
+  await restarted.manager.endFocusSession();
 });
 
 test('timed focus preserves learning tools and honors explicitly selected restrictions', async () => {
@@ -1642,14 +1646,11 @@ test('neutralThumbnails replaces custom thumbnails with clean auto-generated hq2
   }
 });
 
-test('screenshotButton adds player capture button, keyboard shortcut and formats clean PNG downloads without toggle overhead', async () => {
+test('distraction-free focus core keeps clean manifest and avoids arbitrary player tools', async () => {
   const css = source('styles/blocker.css');
-  assert.ok(css.includes('.ytp-button.iyt-screenshot-btn'), 'CSS styles screenshot button');
-  assert.ok(css.includes('.iyt-screenshot-flash'), 'CSS defines shutter flash animation');
-  assert.ok(css.includes('.iyt-screenshot-toast'), 'CSS defines saved toast feedback');
-  assert.ok(!css.includes('.iyt-action-screenshot-btn'), 'CSS removes redundant action bar button below video title');
+  assert.ok(!css.includes('.ytp-button.iyt-screenshot-btn'), 'CSS does not include player screenshot button');
 
-  // Verify no toggle overhead in storage or popup
+  // Verify no screenshot overhead in storage or popup
   const env = store();
   assert.equal(env.manager.getDefaultSettings().screenshotButton, undefined, 'screenshotButton is not in settings schema');
   const popupHtml = source('ui/popup.html');
@@ -1659,59 +1660,10 @@ test('screenshotButton adds player capture button, keyboard shortcut and formats
   const popupSource = source('ui/popup.js');
   assert.ok(!popupSource.includes("'screenshotButton'"), 'popup.js has no screenshotButton toggle');
 
-  // Verify screenshot content script functions
-  const screenshotSource = source('content/screenshot.js');
-  assert.ok(!screenshotSource.includes('function injectActionScreenshotButton'), 'no duplicate action bar button injection');
-  const context = vm.createContext({
-    setTimeout,
-    clearTimeout,
-    setInterval,
-    clearInterval,
-    console,
-    Math,
-    String,
-    URL,
-    MutationObserver: class { observe() {} disconnect() {} },
-    document: {
-      location: { pathname: '/watch' },
-      readyState: 'complete',
-      addEventListener() {},
-      querySelector() { return null; },
-      getElementById() { return null; },
-      createElement(tag) { return { tagName: tag, style: {}, classList: { add() {}, remove() {} }, appendChild() {}, setAttribute() {} }; }
-    },
-    location: { pathname: '/watch', search: '' },
-    window: {
-      location: { pathname: '/watch', search: '' },
-      addEventListener() {}
-    },
-    globalThis: {}
-  });
-  context.globalThis.window = context.window;
-  vm.runInContext(screenshotSource, context);
-
-  const api = context.window.__iytScreenshot;
-  assert.ok(api, '__iytScreenshot exposed on window');
-  assert.equal(typeof api.takeScreenshot, 'function');
-  assert.equal(typeof api.formatTimestamp, 'function');
-  assert.equal(typeof api.getVideoTitle, 'function');
-
-  // Test timestamp formatter
-  assert.equal(api.formatTimestamp(0), '0m00s');
-  assert.equal(api.formatTimestamp(45), '0m45s');
-  assert.equal(api.formatTimestamp(75), '1m15s');
-  assert.equal(api.formatTimestamp(3665), '1h01m05s');
-
-  // Verify manifest includes content/screenshot.js
+  // Verify manifest does not inject content/screenshot.js
   const manifest = JSON.parse(source('manifest.json'));
-  assert.ok(manifest.content_scripts[0].js.includes('content/screenshot.js'), 'manifest registers content/screenshot.js');
-
-  // Verify all 26 locale files have screenshot button UI strings
-  for (const lang of fs.readdirSync(path.join(root, '_locales'))) {
-    const catalog = JSON.parse(source(`_locales/${lang}/messages.json`));
-    assert.ok(catalog.screenshot_button_title?.message, `${lang} missing screenshot_button_title`);
-    assert.ok(catalog.screenshot_toast_saved?.message, `${lang} missing screenshot_toast_saved`);
-  }
+  assert.ok(!manifest.content_scripts[0].js.includes('content/screenshot.js'), 'manifest does not register content/screenshot.js');
+  assert.equal(fs.existsSync(path.join(root, 'content', 'screenshot.js')), false, 'screenshot.js is removed from codebase');
 });
 
 test('hideThumbnails enforces 16:9 aspect ratio and prevents search cards from stretching thumbnail placeholders vertically', async () => {

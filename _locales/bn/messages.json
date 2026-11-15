@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "স্ক্রিনশট"
+  },
+  "group_below_video": {
+    "message": "ভিডিও পৃষ্ঠার বিবরণ সূক্ষ্মভাবে সমন্বয় করুন",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

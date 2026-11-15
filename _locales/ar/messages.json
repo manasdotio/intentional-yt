@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "لقطة شاشة"
+  },
+  "group_below_video": {
+    "message": "ضبط تفاصيل صفحة الفيديو بدقة",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

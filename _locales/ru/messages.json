@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "Скриншот"
+  },
+  "group_below_video": {
+    "message": "Точная настройка элементов страницы видео",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

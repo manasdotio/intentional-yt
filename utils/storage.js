@@ -219,7 +219,7 @@ class StorageManager {
         if (!Number.isInteger(command.minutes) || command.minutes < 1 || command.minutes > 1440) throw new Error('Invalid snooze duration');
         next.snoozeUntil = Date.now() + command.minutes * 60000; break;
       case 'focusStart':
-        if (![25, 45, 60].includes(command.minutes)) throw new Error('Invalid focus duration');
+        if (!Number.isInteger(command.minutes) || command.minutes < 1 || command.minutes > 1440) throw new Error('Invalid focus duration');
         if (current.focusSessionUntil > Date.now()) throw new Error('A focus session is already running');
         next.focusSessionUntil = Date.now() + command.minutes * 60000;
         next.extensionEnabled = true;

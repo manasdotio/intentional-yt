@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "截图"
+  },
+  "group_below_video": {
+    "message": "微调视频页面详细设置",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

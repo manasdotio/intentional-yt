@@ -4,7 +4,7 @@ slug: "limit-youtube-home-feed-to-15-videos"
 date: "2026-10-31"
 author: "Manas"
 description: "Stop YouTube's infinite scroll without hiding your homepage completely. Cap recommendations to 15 videos with Intentional YT's anti-doomscroll setting."
-image: "/screenshots/intentional_yt_marquee_1400x560.png"
+image: "/screenshots/product-filters.webp"
 ---
 
 # How to limit the YouTube home feed to 15 videos (stop infinite scroll)
@@ -57,6 +57,7 @@ On ultra-wide monitors where YouTube only requests 4 or 8 cards initially, the e
 
 A few complementary settings help keep recommendations under control:
 - Add unwanted creators to your [Channel Blocklist](/blog/block-youtube-channels-from-search-results) under **Filters** if they still show up in your 15 recommendations.
+- Calculate your annual rabbit-hole hours with our free [YouTube screen time calculator](/tools/screen-time-calculator).
 - Add specific topics or tropes to your [Keyword Blocklist](/blog/hide-youtube-videos-by-keyword) to filter them out by title.
 - Set a [daily YouTube watch limit](/blog/set-youtube-daily-time-limit) if you want playback to pause after 30 or 45 minutes of total viewing.
 - To clean up remaining shelves, check the [guide to hiding Shorts and recommendations](/blog/hide-youtube-shorts-and-recommendations).

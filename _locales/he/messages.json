@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "צילום מסך"
+  },
+  "group_below_video": {
+    "message": "כוונון פרטי דף הסרטון",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

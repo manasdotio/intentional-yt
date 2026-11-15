@@ -10,18 +10,25 @@ export const SOCIAL_IMAGE = {
   alt: 'Intentional YT browser extension for distraction-free YouTube'
 }
 
-export function pageMetadata({ title, description, path = '/' }) {
+export function pageMetadata({ title, description, path = '/', image = null }) {
   const url = new URL(path, SITE_URL).href
   const socialTitle = `${title} — Intentional YT`
+  const selectedImage = image ? {
+    url: typeof image === 'string' ? image : image.url,
+    width: image.width || 1200,
+    height: image.height || 630,
+    alt: image.alt || title
+  } : SOCIAL_IMAGE
+
   return {
     title, description, alternates: { canonical: url },
     openGraph: {
       type: 'website', locale: 'en_US', siteName: 'Intentional YT',
-      url, title: socialTitle, description, images: [SOCIAL_IMAGE]
+      url, title: socialTitle, description, images: [selectedImage]
     },
     twitter: {
       card: 'summary_large_image', title: socialTitle, description,
-      images: [SOCIAL_IMAGE.url]
+      images: [selectedImage.url]
     }
   }
 }

@@ -64,9 +64,9 @@ export default function Navbar() {
         <div className="nav-links">
           <Link href="/#demo" className="nav-link">Demo</Link>
           <Link href="/#features" className="nav-link">Features</Link>
-          <Link href="/#setup" className="nav-link">Setup</Link>
-          <Link href="/#faq" className="nav-link">FAQ</Link>
+          <Link href="/tools" className="nav-link">Free Tools</Link>
           <Link href="/blog" className="nav-link">Blog</Link>
+          <Link href="/#faq" className="nav-link">FAQ</Link>
         </div>
 
         <div className="nav-actions">
@@ -156,6 +156,14 @@ export default function Navbar() {
               >
                 <span className="mobile-nav-icon">💬</span>
                 <span className="mobile-nav-text">Frequently Asked Questions</span>
+              </Link>
+              <Link 
+                href="/tools" 
+                className="mobile-nav-link"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="mobile-nav-icon">🛠️</span>
+                <span className="mobile-nav-text">Free Blocklists &amp; Tools</span>
               </Link>
               <Link 
                 href="/blog" 

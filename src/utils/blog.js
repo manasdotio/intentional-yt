@@ -17,7 +17,9 @@ marked.use({
       const escape = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       const dimensions = ['/screenshots/focus-lock-cooldown.webp', '/screenshots/scheduled-blocking-setup.webp'].includes(href)
         ? ' width="1280" height="800"'
-        : ['/screenshots/channel-keyword-filters.webp', '/screenshots/product-overview.webp', '/screenshots/product-limits.webp', '/screenshots/product-schedule.webp', '/screenshots/product-lock.webp'].includes(href) ? ' width="1080" height="1060"' : ''
+        : ['/screenshots/og-enhancer-plus-unhook.png', '/screenshots/og-neutral-thumbnails-declickbait.png', '/screenshots/og-open-source-privacy-extensions.png', '/screenshots/og-block-search-channels.png', '/screenshots/og-block-channels-guest.png', '/screenshots/og-intentional-yt-vs-unhook-vs-untrap.png'].includes(href)
+          ? ' width="1200" height="630"'
+          : ['/screenshots/channel-keyword-filters.webp', '/screenshots/product-overview.webp', '/screenshots/product-limits.webp', '/screenshots/product-schedule.webp', '/screenshots/product-lock.webp'].includes(href) ? ' width="1080" height="1060"' : ''
       const captionHtml = title ? `<figcaption class="blog-caption">${escape(title)}</figcaption>` : ''
       return `<figure class="blog-figure"><img src="${escape(href)}" alt="${escape(text)}"${dimensions} loading="lazy" decoding="async" class="blog-post-img" />${captionHtml}</figure>`
     },

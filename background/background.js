@@ -78,7 +78,6 @@ function setupContextMenus() {
   if (!browser?.contextMenus?.create) return;
   try {
     const menus = [
-      { id: 'iyt-toggle-grayscale', title: '🔇 Toggle Grayscale Mode' },
       { id: 'iyt-block-channel', title: '🚫 Block this channel' }
     ];
     browser.contextMenus.removeAll(() => {
@@ -104,9 +103,6 @@ if (browser?.contextMenus?.onClicked) {
       if (info.menuItemId === 'iyt-snooze-15') {
         const settings = await StorageManager.execute({ op: 'snooze', minutes: 15 });
         await scheduleDeadlines(settings);
-      } else if (info.menuItemId === 'iyt-toggle-grayscale') {
-        const current = await StorageManager.getSettings();
-        await StorageManager.updateSettings({ grayscaleMode: !current.grayscaleMode });
       } else if (info.menuItemId === 'iyt-block-channel') {
         let channel = null;
         if (info.linkUrl) {

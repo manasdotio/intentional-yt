@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "截圖"
+  },
+  "group_below_video": {
+    "message": "微調影片頁面詳細設定",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

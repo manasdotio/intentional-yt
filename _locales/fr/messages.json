@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "Capture d'écran"
+  },
+  "group_below_video": {
+    "message": "Ajuster les détails de la page vidéo",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

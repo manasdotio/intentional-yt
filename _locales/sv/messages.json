@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "Skärmdump"
+  },
+  "group_below_video": {
+    "message": "Finjustera videons sidinformation",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

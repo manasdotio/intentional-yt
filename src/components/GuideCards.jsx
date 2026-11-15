@@ -2,14 +2,17 @@ import Link from 'next/link'
 import ProductArt from './ProductArt'
 
 function topic(slug) {
-  if (slug.includes('lock')) return ['compare', 'FOCUS LOCK']
+  if (slug.includes('focus-lock') || slug.includes('password-lock')) return ['compare', 'FOCUS LOCK']
   if (slug.includes('without-signing-in')) return ['filters', 'GUEST BLOCKING']
   if (slug.includes('channels')) return ['filters', 'CHANNEL FILTERS']
   if (slug.includes('keyword')) return ['filters', 'KEYWORD FILTERS']
+  if (slug.includes('thumbnail')) return ['filters', 'DECLICKBAIT']
   if (slug.includes('home-feed') || slug.includes('doomscroll')) return ['feed', 'ANTI-DOOMSCROLL']
   if (slug.includes('studying')) return ['feed', 'STUDY SETUP']
   if (slug.includes('work-hours')) return ['feed', 'SCHEDULED BLOCKING']
   if (slug.includes('time-limit')) return ['time', 'DAILY LIMITS']
+  if (slug.includes('open-source') || slug.includes('tracking')) return ['compare', 'OPEN SOURCE & PRIVACY']
+  if (slug.includes('enhancer')) return ['compare', 'EXTENSION STACK']
   if (slug.includes('-vs-')) return ['compare', 'COMPARISON']
   return ['feed', 'SHORTS & RECOMMENDATIONS']
 }
@@ -17,8 +20,35 @@ export default function GuideCards({ posts }) {
   return <div className="visual-guide-grid">{posts.map(post => {
     const [kind, label] = topic(post.slug)
     return <article className="visual-guide-card" key={post.slug}>
-      <Link className="guide-cover-link" href={'/blog/' + post.slug} aria-label={post.title}><ProductArt kind={kind} /></Link>
-      <div className="guide-card-copy"><span className="visual-eyebrow">{label}</span><h3><Link href={'/blog/' + post.slug}>{post.title}</Link></h3><div className="guide-card-footer"><span>{post.readTime}</span><Link href={'/blog/' + post.slug}>Read guide <span aria-hidden="true">↗</span></Link></div></div>
+      <Link className="guide-cover-link" href={'/blog/' + post.slug} aria-label={post.title}>
+        {post.image ? (
+          <img
+            src={post.image}
+            alt={post.title}
+            width="1200"
+            height="630"
+            loading="lazy"
+            style={{
+              width: '100%',
+              height: '195px',
+              objectFit: 'cover',
+              display: 'block',
+              transition: 'transform 0.3s ease'
+            }}
+            className="guide-card-cover-img"
+          />
+        ) : (
+          <ProductArt kind={kind} />
+        )}
+      </Link>
+      <div className="guide-card-copy">
+        <span className="visual-eyebrow">{label}</span>
+        <h3><Link href={'/blog/' + post.slug}>{post.title}</Link></h3>
+        <div className="guide-card-footer">
+          <span>{post.readTime}</span>
+          <Link href={'/blog/' + post.slug}>Read guide <span aria-hidden="true">↗</span></Link>
+        </div>
+      </div>
     </article>
   })}</div>
 }

@@ -33,6 +33,7 @@ export default function Footer() {
           <ul className="footer-nav-list">
             <li><Link href="/#demo" className="footer-nav-link">Interactive Demo</Link></li>
             <li><Link href="/#features" className="footer-nav-link">Core Features</Link></li>
+            <li><Link href="/tools" className="footer-nav-link">Free Curated Blocklists</Link></li>
             <li><Link href="/blog/intentional-yt-vs-unhook-vs-untrap" className="footer-nav-link">Compare extensions</Link></li>
             <li><Link href="/#setup" className="footer-nav-link">How to set it up</Link></li>
             <li><Link href="/#faq" className="footer-nav-link">FAQ</Link></li>

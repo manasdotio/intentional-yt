@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "Tangkapan Layar"
+  },
+  "group_below_video": {
+    "message": "Sesuaikan detail halaman video",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

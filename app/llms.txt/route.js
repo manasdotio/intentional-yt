@@ -26,6 +26,11 @@ Developer: manasdotio
 ## Product and pricing
 
 - [Product, interactive demo, features, and FAQ](${SITE_URL}/): Browser extension with local settings and no account required.
+- [Curated YouTube Blocklists and Focus Tools](${SITE_URL}/tools): 1-click importable channel blocklists, clickbait keyword filters, study allowlists, and focus calculator.
+- [YouTube Drama and Brainrot Channel Blocklist](${SITE_URL}/tools/youtube-drama-blocklist): 80+ curated drama, reaction, and ragebait channels to purge from search and recommendations.
+- [YouTube Clickbait and Ragebait Keyword Filter List](${SITE_URL}/tools/youtube-clickbait-keywords): 60+ psychological trigger words to filter sensationalist titles.
+- [Study-Only YouTube Allowlist](${SITE_URL}/tools/study-allowlist): 90+ verified computer science, mathematics, and university lecture channels.
+- [YouTube Screen Time and Wasted Hours Calculator](${SITE_URL}/tools/screen-time-calculator): Interactive audit of annual rabbit-hole hours and recovery potential.
 - [Privacy policy](${SITE_URL}/privacy): Extension settings, blocklists, and playback counters are stored locally.
 - [Support on Ko-fi](${APP_CONFIG.kofiUrl}): Tip or sponsor the developer.
 - [Feedback and support](${APP_CONFIG.feedbackFormUrl}): Report bugs and suggest features.

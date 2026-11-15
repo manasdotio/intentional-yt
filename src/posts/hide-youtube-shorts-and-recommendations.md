@@ -5,7 +5,7 @@ date: "2026-09-28"
 modified: "2026-10-24"
 author: "Manas"
 description: "Hide YouTube's home feed, Shorts, and suggested videos on desktop. Set up Intentional YT for Chrome, Firefox, or Edge while keeping search and subscriptions."
-image: "/screenshots/intentional_yt_marquee_1400x560.png"
+image: "/screenshots/hero-extension-dark.webp"
 ---
 
 # How to hide YouTube Shorts and recommendations on desktop

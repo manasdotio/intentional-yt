@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "Chụp màn hình"
+  },
+  "group_below_video": {
+    "message": "Tinh chỉnh chi tiết trang video",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

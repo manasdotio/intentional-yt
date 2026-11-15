@@ -4,7 +4,7 @@ slug: "password-lock-youtube-blocker-focus-lock"
 date: "2026-10-31"
 author: "Manas"
 description: "Stop turning off your YouTube blocker when willpower dips. Learn how to lock your extension settings with a PIN and cooldown delay."
-image: "/screenshots/intentional_yt_marquee_1400x560.png"
+image: "/screenshots/focus-lock-cooldown.webp"
 ---
 
 # How to password-lock your YouTube blocker extension (Focus Lock guide)

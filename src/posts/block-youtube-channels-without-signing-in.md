@@ -4,7 +4,7 @@ slug: "block-youtube-channels-without-signing-in"
 date: "2026-10-31"
 author: "Manas"
 description: "Block YouTube channels without a Google account. Learn how local blocklists work in Guest Mode, logged-out browsing, and Incognito on Chrome, Firefox, and Edge."
-image: "/screenshots/intentional_yt_marquee_1400x560.png"
+image: "/screenshots/og-block-channels-guest.png"
 ---
 
 # How to block YouTube channels on guest mode / without signing in

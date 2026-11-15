@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "Snímek obrazovky"
+  },
+  "group_below_video": {
+    "message": "Doladit podrobnosti stránky videa",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

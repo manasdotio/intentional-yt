@@ -5,7 +5,7 @@ date: "2026-09-28"
 modified: "2026-10-24"
 author: "Manas"
 description: "Set a daily watch budget with a free YouTube time limit extension for Chrome, Firefox, and Edge. Learn how playback tracking and Focus Lock work."
-image: "/screenshots/intentional_yt_marquee_1400x560.png"
+image: "/screenshots/product-limits.webp"
 ---
 
 # How to set a daily YouTube watch limit

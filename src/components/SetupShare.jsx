@@ -84,9 +84,14 @@ export default function SetupShare() {
 
   return (
     <article className="setup-share-page" style={{ maxWidth: '840px', margin: '0 auto', padding: '40px 16px 80px' }}>
-      <Link href="/" className="btn btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-        ← Back to Home
-      </Link>
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
+        <Link href="/" className="btn btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          ← Back to Home
+        </Link>
+        <Link href="/tools" className="btn btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          Browse Curated Packs →
+        </Link>
+      </div>
 
       <div className="section-head" style={{ textAlign: 'left', margin: '28px 0 24px' }}>
         <h1 className="section-title">Shared Focus Setup</h1>

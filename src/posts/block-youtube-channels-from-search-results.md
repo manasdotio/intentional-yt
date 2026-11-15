@@ -5,7 +5,7 @@ date: "2026-10-07"
 modified: "2026-10-28"
 author: "Manas"
 description: "Learn how to block YouTube channels from search results on Chrome, Firefox, or Edge, find the right channel handle, and fix results that still appear."
-image: "/screenshots/intentional_yt_marquee_1400x560.png"
+image: "/screenshots/og-block-search-channels.png"
 ---
 
 # How to block YouTube channels from search results
@@ -58,7 +58,7 @@ The same blocklist applies to supported video cards in search results, your home
 
 You can still open a direct link to a video. The extension hides results in your browser; it doesn't delete videos or change your YouTube account's recommendations. It also doesn't affect the phone app, and each browser profile keeps its own list. This is a personal browsing tool, not parental control software.
 
-If you'd rather hide recommendations altogether, the [Shorts and recommendations guide](/blog/hide-youtube-shorts-and-recommendations) walks through those controls.
+If you would rather not type channel names manually, you can also browse our [free YouTube drama and brainrot channel blocklist](/tools/youtube-drama-blocklist) or explore the [Tools Library](/tools) for clickbait creators and cable news packs. If you'd rather hide recommendations altogether, the [Shorts and recommendations guide](/blog/hide-youtube-shorts-and-recommendations) walks through those controls.
 
 ## Still seeing a blocked channel?
 

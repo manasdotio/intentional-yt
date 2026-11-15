@@ -19,6 +19,12 @@ export default function sitemap() {
       url: SITE_URL + '/blog/' + post.slug,
       ...(post.modified || post.date ? { lastModified: post.modified || post.date } : {})
     })),
+    { url: SITE_URL + '/tools' },
+    { url: SITE_URL + '/tools/youtube-drama-blocklist' },
+    { url: SITE_URL + '/tools/youtube-clickbait-keywords' },
+    { url: SITE_URL + '/tools/study-allowlist' },
+    { url: SITE_URL + '/tools/screen-time-calculator' },
+    { url: SITE_URL + '/setup' },
     { url: SITE_URL + '/privacy' }
   ]
 }

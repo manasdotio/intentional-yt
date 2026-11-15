@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "Ekran Görüntüsü"
+  },
+  "group_below_video": {
+    "message": "Video sayfası ayrıntılarına ince ayar yapın",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }

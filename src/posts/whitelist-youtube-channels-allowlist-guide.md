@@ -4,7 +4,7 @@ slug: "whitelist-youtube-channels-allowlist-guide"
 date: "2026-11-05"
 author: "Manas"
 description: "How to allow only specific YouTube channels on desktop and block the rest. A practical guide to channel allowlists, dim mode, and PIN-locking your setup."
-image: "/screenshots/intentional_yt_marquee_1400x560.png"
+image: "/screenshots/product-lock.webp"
 ---
 
 # How to whitelist YouTube channels and block everything else
@@ -119,6 +119,7 @@ If Focus Lock is not active, click **Snooze** in the extension popup to pause fi
 
 ### Related guides
 
+* [Browse the 90+ channel Study Allowlist](/tools/study-allowlist) and [Focus Toolkit](/tools)
 * [How to block YouTube channels from search results](/blog/block-youtube-channels-from-search-results)
 * [How to block YouTube channels without signing in](/blog/block-youtube-channels-without-signing-in)
 * [How to use YouTube for studying without distractions](/blog/use-youtube-for-studying-without-distractions)

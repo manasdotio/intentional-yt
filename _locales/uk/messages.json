@@ -1673,5 +1673,9 @@
   },
   "btn_screenshot": {
     "message": "Скріншот"
+  },
+  "group_below_video": {
+    "message": "Точне налаштування елементів сторінки відео",
+    "description": "Collapsible group header for granular below-video elements"
   }
 }
