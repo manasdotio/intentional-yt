@@ -52,9 +52,7 @@ async function main() {
   fs.writeFileSync(path.join(root, 'public/favicon.svg'), faviconSource);
   fs.writeFileSync(path.join(root, 'public/favicon-96.png'), faviconImages.find(image => image.size === 96).data);
   const favicon = createIco(faviconImages);
-  for (const filename of ['favicon.ico', 'public/favicon.ico']) {
-    fs.writeFileSync(path.join(root, filename), favicon);
-  }
+  fs.writeFileSync(path.join(root, 'public/favicon.ico'), favicon);
   console.log('Generated app icons and full-bleed SVG, PNG, and 16/32/48/96px ICO favicons.');
 }
 

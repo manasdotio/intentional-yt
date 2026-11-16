@@ -105,12 +105,7 @@ async function run() {
 
   console.log('Successfully generated OG image at:', outputPath);
 
-  // Also copy to root screenshots/ for repo consistency
-  const rootScreenshots = path.join(__dirname, '..', 'screenshots');
-  if (fs.existsSync(rootScreenshots)) {
-    fs.copyFileSync(outputPath, path.join(rootScreenshots, 'og-intentional-yt-vs-unhook-vs-untrap.png'));
-    console.log('Copied to screenshots/og-intentional-yt-vs-unhook-vs-untrap.png');
-  }
+
 }
 
 run().catch(console.error);

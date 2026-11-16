@@ -17,7 +17,7 @@ This repository houses two distinct, decoupled products:
 intentional-yt/
 ├── manifest.json            # MV3 manifest for Chrome & Firefox
 ├── content/                 # YouTube content scripts (blocker.js)
-├── background/              # MV3 background worker & alarms (service-worker.js)
+├── background/              # MV3 background worker & alarms (background.js)
 ├── styles/                  # Extension CSS (blocker.css, popup.css)
 ├── ui/                      # Extension popup UI (popup.html)
 ├── utils/                   # Shared extension utilities (storage.js, etc.)

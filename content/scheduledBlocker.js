@@ -85,14 +85,6 @@ var browser = globalThis.browser || globalThis.chrome;
     return fallback !== undefined ? fallback : null;
   }
 
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
   function showFullBlockOverlay(sched) {
     const signature = JSON.stringify(sched);
     const existing = document.getElementById("iyt-scheduled-block-screen");
@@ -184,8 +176,11 @@ var browser = globalThis.browser || globalThis.chrome;
       closeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         // Invalidated APIs can throw before returning a promise.
-        Promise.resolve().then(() => browser.runtime.sendMessage({ type: 'IYT_CLOSE_TAB' }))
-          .catch(() => window.location.replace('about:blank'));
+        Promise.resolve().then(() => {
+          const runtime = globalThis.browser?.runtime || globalThis.chrome?.runtime || (typeof browser !== 'undefined' ? browser?.runtime : null);
+          if (runtime?.sendMessage) return runtime.sendMessage({ type: 'IYT_CLOSE_TAB' });
+          window.location.replace('about:blank');
+        }).catch(() => window.location.replace('about:blank'));
       });
     }
 
@@ -202,41 +197,86 @@ var browser = globalThis.browser || globalThis.chrome;
   }
 
   function hideFullBlockOverlay() {
-    stopMediaLock();
-    html.classList.remove('iyt-scheduled-full-block');
-    const overlay = document.getElementById('iyt-scheduled-block-screen');
-    if (overlay) { IYT_Dialog.close(overlay); overlay.remove(); }
+    try {
+      stopMediaLock();
+      html?.classList?.remove('iyt-scheduled-full-block');
+      const overlay = document.getElementById('iyt-scheduled-block-screen');
+      if (overlay) {
+        try {
+          if (typeof IYT_Dialog !== 'undefined' && IYT_Dialog?.close) {
+            IYT_Dialog.close(overlay);
+          }
+        } catch (_) {}
+        overlay.remove();
+      }
+    } catch (_) {}
   }
 
   let _lastActiveScheduleSignature = '';
+  let _lastAppliedLanguage = 'auto';
+
+  function isContextInvalidated(error) {
+    if (_contextInvalidated) return true;
+    if (error) {
+      if (error.code === 'CONTEXT_INVALIDATED') return true;
+      const str = String(error?.stack || error?.message || error || '');
+      if (/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(str)) return true;
+      if (error instanceof TypeError || error?.name === 'TypeError') return true;
+    }
+    try {
+      const runtime = globalThis.browser?.runtime || globalThis.chrome?.runtime || (typeof browser !== 'undefined' ? browser?.runtime : null);
+      if (runtime && !runtime.id) return true;
+    } catch (_) {
+      return true;
+    }
+    return false;
+  }
 
   async function evaluateSchedules() {
     if (_contextInvalidated) return;
     const generation = ++_evaluation;
     try {
       const settings = await StorageManager.getSettings();
-      if (generation !== _evaluation) return;
-      await I18N.setLanguage(settings.userLanguage || 'auto');
+      if (generation !== _evaluation || !settings) return;
+      const targetLang = settings.userLanguage || 'auto';
+      if (targetLang !== _lastAppliedLanguage) {
+        _lastAppliedLanguage = targetLang;
+        try {
+          if (typeof I18N !== 'undefined' && I18N?.setLanguage) {
+            await I18N.setLanguage(targetLang);
+          }
+        } catch (_) {}
+      }
       if (generation !== _evaluation) return;
       const active = IYT_Policy.schedules(settings);
       const full = active.find(rule => rule.mode === 'full');
       if (full) {
-        const end = IYT_Policy.fullBlockEnds(settings);
-        const endTime = end ? end.toLocaleString(settings.userLanguage === 'auto' ? undefined : settings.userLanguage.replace('_','-'), { weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '';
-        showFullBlockOverlay({ ...full, endTime, language: settings.userLanguage });
-      } else hideFullBlockOverlay();
+        try {
+          const end = IYT_Policy.fullBlockEnds(settings);
+          const endTime = end ? end.toLocaleString(settings.userLanguage === 'auto' ? undefined : settings.userLanguage.replace('_','-'), { weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+          showFullBlockOverlay({ ...full, endTime, language: settings.userLanguage });
+        } catch (_) {}
+      } else {
+        try {
+          hideFullBlockOverlay();
+        } catch (_) {}
+      }
       const currentSignature = JSON.stringify(active);
       if (currentSignature !== _lastActiveScheduleSignature) {
         _lastActiveScheduleSignature = currentSignature;
-        await window.__iytBlocker?.applyAllSettings();
+        try {
+          await window.__iytBlocker?.applyAllSettings(settings);
+        } catch (_) {}
       }
     } catch (error) {
-      if (/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) {
+      const errStr = String(error?.stack || error?.message || error || '');
+      if (isContextInvalidated(error) || /sendMessage|Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(errStr) || (error instanceof TypeError) || error?.name === 'TypeError') {
         // Reloading the extension leaves old content scripts in open tabs.
         // They cannot reconnect; stop retries until the page is refreshed.
         _contextInvalidated = true;
         ++_evaluation;
         clearTimeout(_intervalHandle);
+        _intervalHandle = null;
         stopMediaLock();
       } else console.warn('[IYT] Schedule evaluation failed', error);
     }
@@ -247,7 +287,10 @@ var browser = globalThis.browser || globalThis.chrome;
       }
     }
   }
-  browser.storage.onChanged.addListener(changes => { if (changes.settings) evaluateSchedules(); });
+  try {
+    const storage = globalThis.browser?.storage || globalThis.chrome?.storage || (typeof browser !== 'undefined' ? browser?.storage : null);
+    storage?.onChanged?.addListener(changes => { if (changes.settings) evaluateSchedules(); });
+  } catch (_) {}
   document.addEventListener('yt-navigate-finish', evaluateSchedules);
   window.addEventListener('popstate', evaluateSchedules);
   window.addEventListener('focus', evaluateSchedules);

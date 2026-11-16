@@ -30,7 +30,7 @@
 </p>
 
 <p align="center">
-  <img src="screenshots/1.png" alt="Intentional YT Preview" width="800" style="border-radius: 8px;" />
+  <img src="public/screenshots/1.png" alt="Intentional YT Preview" width="800" style="border-radius: 8px;" />
 </p>
 
 </div>
@@ -164,27 +164,27 @@ Modern YouTube is engineered around hyper-optimized recommendation algorithms de
 
 <p align="center">
   <strong>A Cleaner Homepage (Before & After)</strong><br />
-  <img src="screenshots/2.png" alt="Clean Homepage Before and After" width="750" style="border-radius: 8px;" />
+  <img src="public/screenshots/2.png" alt="Clean Homepage Before and After" width="750" style="border-radius: 8px;" />
 </p>
 
 <p align="center">
   <strong>Distraction-Free Video Playback</strong><br />
-  <img src="screenshots/3.png" alt="Distraction-Free Watching" width="750" style="border-radius: 8px;" />
+  <img src="public/screenshots/3.png" alt="Distraction-Free Watching" width="750" style="border-radius: 8px;" />
 </p>
 
 <p align="center">
   <strong>Clean Search Results</strong><br />
-  <img src="screenshots/4.png" alt="Clean Search Results" width="750" style="border-radius: 8px;" />
+  <img src="public/screenshots/4.png" alt="Clean Search Results" width="750" style="border-radius: 8px;" />
 </p>
 
 <p align="center">
   <strong>20+ Granular Focus Controls</strong><br />
-  <img src="screenshots/5.png" alt="Extension Popup Controls" width="750" style="border-radius: 8px;" />
+  <img src="public/screenshots/5.png" alt="Extension Popup Controls" width="750" style="border-radius: 8px;" />
 </p>
 
 <p align="center">
   <strong>Mindful Watch Time Tracking & Limits</strong><br />
-  <img src="screenshots/6.png" alt="Watch Time Tracking and Limits" width="750" style="border-radius: 8px;" />
+  <img src="public/screenshots/6.png" alt="Watch Time Tracking and Limits" width="750" style="border-radius: 8px;" />
 </p>
 
 </details>

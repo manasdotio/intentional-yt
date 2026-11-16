@@ -109,7 +109,7 @@ function onSnoozeExpired() {
   }
   StorageManager.updateSetting('snoozeUntil', null).catch(() => {});
   applyAllSettings().catch(error => {
-    if (!/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) console.warn('[IYT] Snooze update failed', error);
+    if (!/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(error?.stack || error?.message || error || '')) && error?.code !== 'CONTEXT_INVALIDATED' && !(error instanceof TypeError && /undefined|null|sendMessage/i.test(String(error?.stack || error)))) console.warn('[IYT] Snooze update failed', error);
   });
 }
 
@@ -744,12 +744,6 @@ function findBylineAnchor(card) {
 
 let _quickBlockToastTimer = null;
 
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str || '';
-  return div.innerHTML;
-}
-
 function showQuickBlockToast(displayName, identifier, card) {
   document.getElementById('iyt-quick-block-toast')?.remove();
   if (_quickBlockToastTimer) {
@@ -794,7 +788,7 @@ function showQuickBlockToast(displayName, identifier, card) {
       scanAllCards(document);
     }
     } catch (error) {
-      if (!/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) console.warn('[IYT] Undo failed', error);
+      if (!/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(error?.stack || error?.message || error || '')) && error?.code !== 'CONTEXT_INVALIDATED' && !(error instanceof TypeError && /undefined|null|sendMessage/i.test(String(error?.stack || error)))) console.warn('[IYT] Undo failed', error);
     }
   });
 
@@ -859,7 +853,7 @@ function showQuickAllowToast(displayName, identifier, card) {
         scanAllCards(document);
       }
     } catch (error) {
-      if (!/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) console.warn('[IYT] Undo failed', error);
+      if (!/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(error?.stack || error?.message || error || '')) && error?.code !== 'CONTEXT_INVALIDATED' && !(error instanceof TypeError && /undefined|null|sendMessage/i.test(String(error?.stack || error)))) console.warn('[IYT] Undo failed', error);
     }
   });
 
@@ -1485,10 +1479,23 @@ function scheduleAutoplay() {
 }
 
 let _settingsGeneration = 0;
-async function applyAllSettings() {
+async function applyAllSettings(prefetchedSettings) {
+  const runtime = globalThis.browser?.runtime || globalThis.chrome?.runtime || (typeof browser !== 'undefined' ? browser?.runtime : null);
+  if (!prefetchedSettings && (!runtime || !runtime.sendMessage)) return;
   const generation = ++_settingsGeneration;
-  const saved = await StorageManager.getSettings();
-  if (generation !== _settingsGeneration) return;
+  let saved = prefetchedSettings;
+  if (!saved) {
+    try {
+      saved = await StorageManager.getSettings();
+    } catch (e) {
+      if (/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(e?.stack || e?.message || e || '')) || e?.code === 'CONTEXT_INVALIDATED' || (e instanceof TypeError)) {
+        return;
+      }
+      console.warn('[IYT] applyAllSettings failed', e);
+      return;
+    }
+  }
+  if (generation !== _settingsGeneration || !saved) return;
   _settings = IYT_Policy.effective(saved);
   scheduleSnoozeWakeup(_settings);
   checkShortsRedirect(_settings);

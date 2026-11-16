@@ -178,10 +178,6 @@ function getPresetLabel(name) {
   return t(`preset_${name}`) || PRESET_METADATA[name]?.label || name;
 }
 
-function getPresetDesc(name) {
-  return t(`preset_desc_${name}`) || PRESET_METADATA[name]?.desc || '';
-}
-
 const PRESET_DEFINITIONS = {
   balanced: {
     blockHomeFeed: true,
@@ -1337,14 +1333,6 @@ function closeScheduleForm() {
   $('schedule-edit-id').value = '';
 }
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
 /* ── Channel & Keyword Blocklists Rendering & Actions ── */
 
 function getListSettingKey(type) {
@@ -1928,7 +1916,7 @@ async function renderStatsTrend(todaySecs) {
 
     const dayLabel = document.createElement('span');
     dayLabel.className = 'stats-trend-day';
-    dayLabel.textContent = item.isToday ? (t('stats_trend_today') || 'Today') : item.dayName[0];
+    dayLabel.textContent = item.isToday ? (t('stats_trend_today') || 'Today') : item.dayName;
 
     col.appendChild(track);
     col.appendChild(dayLabel);
@@ -1975,7 +1963,9 @@ function renderStats(s) {
       limitLabelEl.title = `${limitMin} minute daily limit`;
     }
     if (panelStatusEl) {
-      panelStatusEl.textContent = `${pct}% of ${limitMin} min limit used today`;
+      panelStatusEl.textContent = secs === 0
+        ? `0% used · Clean slate today (${limitMin}m limit)`
+        : `${pct}% of ${limitMin} min limit used today`;
       panelStatusEl.classList.toggle('status-warning', pct >= 80);
     }
   } else {
@@ -1992,7 +1982,9 @@ function renderStats(s) {
       limitLabelEl.title = 'Click to set a daily limit';
     }
     if (panelStatusEl) {
-      panelStatusEl.textContent = 'No daily limit active (unrestricted)';
+      panelStatusEl.textContent = secs === 0
+        ? 'Mindful day · 0m watched so far'
+        : 'No daily limit active (unrestricted)';
       panelStatusEl.classList.remove('status-warning');
     }
   }
@@ -2074,17 +2066,6 @@ async function broadcastSettingsToTabs(settings) {
 }
 
 /* ── Event Bindings ──────────────────────────────────── */
-
-
-function escapeHTML(str) {
-  return String(str || '').replace(/[&<>'"]/g, tag => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    "'": '&#39;',
-    '"': '&quot;'
-  }[tag] || tag));
-}
 
 const SETTING_DIAGRAMS = {
   cinema: `<svg viewBox="0 0 200 85" width="200" height="85" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -598,6 +598,25 @@ test('schedule evaluation stops retrying after extension context invalidation', 
   assert.equal(timers,0);
 });
 
+test('schedule evaluation handles TypeError reading sendMessage without logging warnings or retrying', async () => {
+  let reads=0, timers=0;
+  const handlers=[];
+  const context=vm.createContext({
+    console:{warn(){assert.fail('sendMessage TypeError in orphaned content script should stop quietly');}},
+    document:{documentElement:{},readyState:'complete',addEventListener:(_,fn)=>handlers.push(fn)},
+    window:{addEventListener:(_,fn)=>handlers.push(fn)},
+    browser:{storage:{onChanged:{addListener:fn=>handlers.push(()=>fn({settings:{}}))}}},
+    MutationObserver:class {disconnect(){}},
+    StorageManager:{getSettings:async()=>{reads++;throw new TypeError("Cannot read properties of undefined (reading 'sendMessage')");}},
+    clearTimeout(){},setTimeout(){timers++;}
+  });
+  vm.runInContext(source('content/scheduledBlocker.js'),context);
+  await new Promise(resolve=>setImmediate(resolve));
+  for(const handler of handlers) await handler();
+  assert.equal(reads,1);
+  assert.equal(timers,0);
+});
+
 test('every release archive has fonts, all selectable languages and correct backgrounds', () => {
   const archives={}, fakeFs=Object.create(fs);
   fakeFs.writeFileSync=(file,data)=>archives[file]=data;
@@ -923,6 +942,33 @@ test('invalidated locale messaging stops further requests for both sync and asyn
     assert.equal(requests,1);
     assert.equal(context.I18N.getMessage('missing',null,'Fallback'),'Fallback');
   }
+});
+
+test('StorageManager._request rejects with CONTEXT_INVALIDATED when runtime.sendMessage is missing', async () => {
+  const context = vm.createContext({ console, browser: {} });
+  vm.runInContext(source('utils/storage.js'), context);
+  await assert.rejects(
+    () => context.StorageManager.getSettings(),
+    err => err.code === 'CONTEXT_INVALIDATED' && /Extension context invalidated/i.test(err.message)
+  );
+});
+
+test('missing runtime sendMessage is treated as context invalidation without console warnings', async () => {
+  const context = vm.createContext({
+    console: { warn() { assert.fail('TypeError on missing sendMessage should stop quietly'); } },
+    browser: { storage: { onChanged: { addListener: () => {} } } },
+    MutationObserver: class { disconnect() {} },
+    StorageManager: {
+      getSettings: async () => {
+        throw new TypeError("Cannot read properties of undefined (reading 'sendMessage')");
+      }
+    },
+    document: { documentElement: {}, readyState: 'complete', addEventListener: () => {} },
+    window: { addEventListener: () => {} },
+    clearTimeout() {}, setTimeout() {}
+  });
+  vm.runInContext(source('content/scheduledBlocker.js'), context);
+  await new Promise(resolve => setImmediate(resolve));
 });
 
 test('popup invalidation recovery tells the user to reopen without retrying storage', () => {

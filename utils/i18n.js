@@ -60,15 +60,21 @@ const I18N = (() => {
     if (_catalogCache.has(lang)) {
       return _catalogCache.get(lang);
     }
+    const runtime = globalThis.browser?.runtime || globalThis.chrome?.runtime || (typeof browser !== 'undefined' ? browser?.runtime : null);
+    if (!runtime?.sendMessage) {
+      _contextInvalidated = true;
+      return null;
+    }
     try {
-      const res = await browser.runtime.sendMessage({ type: 'IYT_LOCALE', lang });
+      const res = await runtime.sendMessage({ type: 'IYT_LOCALE', lang });
       if (res?.ok && res.catalog) {
         const json = res.catalog;
         _catalogCache.set(lang, json);
         return json;
       }
     } catch (err) {
-      if (/Extension context invalidated/i.test(err?.message || '')) {
+      const errStr = String(err?.stack || err?.message || err || '');
+      if (/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(errStr) || err?.code === 'CONTEXT_INVALIDATED' || (err instanceof TypeError) || err?.name === 'TypeError') {
         _contextInvalidated = true;
         return null;
       }
@@ -82,22 +88,30 @@ const I18N = (() => {
    * If explicit code, loads that catalog and ensures English fallback catalog is ready.
    */
   async function setLanguage(lang) {
-    const generation = ++_languageGeneration;
-    _currentLang = (lang && typeof lang === 'string') ? lang : 'auto';
-    if (_currentLang === 'auto') {
-      _messageCatalog = null;
-      if (!_fallbackCatalog) _fallbackCatalog = await fetchCatalog('en');
-      return;
+    if (_contextInvalidated) return;
+    try {
+      const generation = ++_languageGeneration;
+      _currentLang = (lang && typeof lang === 'string') ? lang : 'auto';
+      if (_currentLang === 'auto') {
+        _messageCatalog = null;
+        if (!_fallbackCatalog) _fallbackCatalog = await fetchCatalog('en');
+        return;
+      }
+
+      const [cat, enCat] = await Promise.all([
+        fetchCatalog(_currentLang),
+        _fallbackCatalog ? Promise.resolve(_fallbackCatalog) : fetchCatalog('en')
+      ]);
+
+      if (generation !== _languageGeneration) return;
+      _messageCatalog = cat;
+      if (enCat) _fallbackCatalog = enCat;
+    } catch (err) {
+      const errStr = String(err?.stack || err?.message || err || '');
+      if (/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(errStr) || err?.code === 'CONTEXT_INVALIDATED' || (err instanceof TypeError) || err?.name === 'TypeError') {
+        _contextInvalidated = true;
+      }
     }
-
-    const [cat, enCat] = await Promise.all([
-      fetchCatalog(_currentLang),
-      _fallbackCatalog ? Promise.resolve(_fallbackCatalog) : fetchCatalog('en')
-    ]);
-
-    if (generation !== _languageGeneration) return;
-    _messageCatalog = cat;
-    if (enCat) _fallbackCatalog = enCat;
   }
 
   /**

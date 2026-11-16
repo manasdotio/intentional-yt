@@ -145,7 +145,23 @@ class StorageManager {
   }
   static async _request(command) {
     if (this._background) return this.execute(command);
-    const response = await browser.runtime.sendMessage({ type: 'IYT_STORAGE', command });
+    const runtime = globalThis.browser?.runtime || globalThis.chrome?.runtime || (typeof browser !== 'undefined' ? browser?.runtime : null);
+    if (!runtime?.sendMessage) {
+      const error = new Error('Extension context invalidated. Reload the page.');
+      error.code = 'CONTEXT_INVALIDATED';
+      throw error;
+    }
+    let response;
+    try {
+      response = await runtime.sendMessage({ type: 'IYT_STORAGE', command });
+    } catch (e) {
+      if (/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(e?.stack || e?.message || e || ''))) {
+        const error = new Error('Extension context invalidated. Reload the page.');
+        error.code = 'CONTEXT_INVALIDATED';
+        throw error;
+      }
+      throw e;
+    }
     if (!response?.ok) {
       if (response?.code === 'LOCKED' && this.onProtectedChange) return this.onProtectedChange(command);
       const error = new Error(response?.error || 'Extension background unavailable. Reload the page.');

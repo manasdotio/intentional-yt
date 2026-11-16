@@ -100,10 +100,7 @@ function setupContextMenus() {
 if (browser?.contextMenus?.onClicked) {
   browser.contextMenus.onClicked.addListener(async (info, tab) => {
     try {
-      if (info.menuItemId === 'iyt-snooze-15') {
-        const settings = await StorageManager.execute({ op: 'snooze', minutes: 15 });
-        await scheduleDeadlines(settings);
-      } else if (info.menuItemId === 'iyt-block-channel') {
+      if (info.menuItemId === 'iyt-block-channel') {
         let channel = null;
         if (info.linkUrl) {
           try {

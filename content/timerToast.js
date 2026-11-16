@@ -530,7 +530,7 @@ const IYT_Timer = (() => {
         _day = StorageManager.getTodayString(settings?.dailyLimit?.resetHour);
         if (_isLimitExceeded()) { _video?.pause(); _showLimitOverlay(); }
       } catch (error) {
-        if (/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) {
+        if (/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(error?.stack || error?.message || error || '')) || error?.code === 'CONTEXT_INVALIDATED' || (error instanceof TypeError)) {
           handleTimerError(error);
           return;
         }
@@ -774,7 +774,8 @@ const IYT_Timer = (() => {
 
   // Keep _settings in sync when popup or another tab changes settings
   function handleTimerError(error) {
-    if (/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) {
+    const runtime = globalThis.browser?.runtime || globalThis.chrome?.runtime || (typeof browser !== 'undefined' ? browser?.runtime : null);
+    if (!runtime || !runtime.id || !runtime.sendMessage || /Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(error?.stack || error?.message || error || '')) || error?.code === 'CONTEXT_INVALIDATED' || (error instanceof TypeError)) {
       _contextInvalidated = true;
       _pendingBatches.clear();
       detach();

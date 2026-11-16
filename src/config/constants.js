@@ -11,8 +11,6 @@ export const APP_CONFIG = {
   chromeWebStoreUrl: 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg',
   edgeAddonUrl: 'https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb',
   firefoxAddonUrl: 'https://addons.mozilla.org/en-US/firefox/addon/intentional-yt/',
-  chromeZipUrl: '/intentional-yt.zip',
-  chromeZipFilename: 'intentional-yt-v2.6.0.zip',
   liveWebsiteUrl: 'https://www.intentionalyt.me/',
   feedbackFormUrl: 'https://forms.gle/EFixUed5F5bmVvFX7',
   kofiUrl: 'https://ko-fi.com/manasio',
@@ -26,15 +24,4 @@ export const APP_CONFIG = {
   }
 }
 
-export const APP_VERSION = APP_CONFIG.version
-export const APP_VERSION_SHORT = APP_CONFIG.versionShort
-export const CHROME_WEBSTORE_URL = APP_CONFIG.chromeWebStoreUrl
-export const EDGE_ADDON_URL = APP_CONFIG.edgeAddonUrl
-export const FIREFOX_AMO_URL = APP_CONFIG.firefoxAddonUrl
-export const CHROME_ZIP_URL = APP_CONFIG.chromeZipUrl
-export const CHROME_ZIP_FILENAME = APP_CONFIG.chromeZipFilename
-export const FEEDBACK_FORM_URL = APP_CONFIG.feedbackFormUrl
-export const KOFI_URL = APP_CONFIG.kofiUrl
-export const UNINSTALL_URL = APP_CONFIG.uninstallUrl
-export const UNINSTALL_FEEDBACK_FORM_URL = APP_CONFIG.uninstallFeedbackFormUrl
 export const UNINSTALL_FEEDBACK_CONFIG = APP_CONFIG.uninstallFeedbackConfig

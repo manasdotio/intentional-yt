@@ -11,7 +11,8 @@
   let _stopped = false;
 
   function reportError(error) {
-    if (/Extension context invalidated|Receiving end does not exist|Could not establish connection/i.test(error?.message || '')) {
+    const runtime = globalThis.browser?.runtime || globalThis.chrome?.runtime || (typeof browser !== 'undefined' ? browser?.runtime : null);
+    if (!runtime || !runtime.id || !runtime.sendMessage || /Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(error?.stack || error?.message || error || '')) || error?.code === 'CONTEXT_INVALIDATED' || (error instanceof TypeError)) {
       _stopped = true;
       ++_generation;
       clearTimeout(_routeTimer);
@@ -82,14 +83,12 @@
 
     if (generation !== _generation || path !== location.pathname + location.search) return;
     if (isVideoPage()) {
-      window.__iytScreenshot?.update?.();
       if (window.__iytTimer) {
         await window.__iytTimer.attach();
       } else {
         waitFor(() => window.__iytTimer, t => t.attach(), 30, 100);
       }
     } else {
-      window.__iytScreenshot?.removeScreenshotButton?.();
       if (window.__iytTimer) {
         window.__iytTimer.detach();
       }

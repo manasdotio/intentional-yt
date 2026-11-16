@@ -15,7 +15,6 @@
     <div class="hd-left">
       <img src="../icons/icon.png" alt="Intentional YT" title="Intentional YT" class="hd-icon" />
       <span class="hd-name" data-i18n="header_title">Intentional YT</span>
-      <span id="ext-badge" data-i18n="status_active">Active</span>
     </div>
     <div class="hd-right">
       <div class="mode-switch-pill" role="radiogroup" aria-label="Mode">
@@ -462,14 +461,14 @@
             <button type="button" class="btn-secondary" data-focus-minutes="25" data-i18n="time_option_minutes" data-i18n-arg="25">25 min</button>
             <button type="button" class="btn-secondary" data-focus-minutes="45" data-i18n="time_option_minutes" data-i18n-arg="45">45 min</button>
             <button type="button" class="btn-secondary" data-focus-minutes="60" data-i18n="time_option_minutes" data-i18n-arg="60">60 min</button>
-            <button type="button" class="btn-secondary" id="btn-end-focus-session" hidden data-i18n="focus_session_end">End session</button>
-          </div>
-          <div class="focus-custom-row" id="focus-custom-row">
-            <div class="focus-custom-field">
-              <input type="number" id="input-focus-custom" min="1" max="1440" placeholder="Custom" aria-label="Custom focus duration in minutes">
-              <span class="focus-custom-unit" data-i18n="time_unit_min">min</span>
+            <div class="focus-custom-row" id="focus-custom-row">
+              <div class="focus-custom-field">
+                <input type="number" id="input-focus-custom" min="1" max="1440" placeholder="Custom" aria-label="Custom focus duration in minutes">
+                <span class="focus-custom-unit" data-i18n="time_unit_min">min</span>
+              </div>
+              <button type="button" class="btn-secondary" id="btn-focus-custom-start">Start</button>
             </div>
-            <button type="button" class="btn-secondary" id="btn-focus-custom-start">Start</button>
+            <button type="button" class="btn-secondary" id="btn-end-focus-session" hidden data-i18n="focus_session_end">End session</button>
           </div>
           <div class="focus-active-pill" id="focus-active-pill" hidden>
             <div class="focus-active-pulse"></div>
@@ -771,36 +770,6 @@
     <!-- ── TAB 5: SETTINGS ─────────────────────────────────────── -->
     <div id="panel-settings" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-settings">
       <div class="settings-wrap">
-        <!-- Top: About & Community Support (Immediate Rate & Feedback) -->
-        <div class="settings-about-card">
-          <div class="settings-about-brand">
-            <img src="../icons/icon.png" alt="" class="settings-about-icon" />
-            <div class="settings-about-info">
-              <div class="settings-about-title-row">
-                <span class="settings-about-title">Intentional YT</span>
-                <span class="settings-about-ver">v2.6.0</span>
-              </div>
-              <div class="settings-about-privacy">
-                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span data-i18n="footer_local_privacy">100% Local · Zero Telemetry</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="settings-about-actions">
-            <a id="link-rate-store" href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-highlight" title="Leave a review on Web Store">
-              <svg class="about-action-star" viewBox="0 0 24 24" width="12" height="12" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span id="label-rate-store" data-i18n="setting_rate_store">Rate on Web Store</span>
-              <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-            <a id="link-support-kofi" href="https://ko-fi.com/manasio" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-kofi" title="Support on Ko-fi">
-              <img src="../icons/kofi-cup.png" alt="" class="kofi-cup-icon" width="19" height="15" />
-              <span id="label-support-kofi" data-i18n="setting_support_kofi">Support on Ko-fi</span>
-              <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-          </div>
-        </div>
-
         <!-- Section 1: General Preferences -->
         <div class="settings-group">
           <div class="settings-group-title" data-i18n="settings_group_general">General</div>
@@ -965,6 +934,36 @@
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Section 3: About & Community Support -->
+        <div class="settings-about-card">
+          <div class="settings-about-brand">
+            <img src="../icons/icon.png" alt="" class="settings-about-icon" />
+            <div class="settings-about-info">
+              <div class="settings-about-title-row">
+                <span class="settings-about-title">Intentional YT</span>
+                <span class="settings-about-ver">v2.6.0</span>
+              </div>
+              <div class="settings-about-privacy">
+                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span data-i18n="footer_local_privacy">100% Local · Zero Telemetry</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-about-actions">
+            <a id="link-rate-store" href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-highlight" title="Leave a review on Web Store">
+              <svg class="about-action-star" viewBox="0 0 24 24" width="12" height="12" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span id="label-rate-store" data-i18n="setting_rate_store">Rate on Web Store</span>
+              <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <a id="link-support-kofi" href="https://ko-fi.com/manasio" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-kofi" title="Support on Ko-fi">
+              <img src="../icons/kofi-cup.png" alt="" class="kofi-cup-icon" width="19" height="15" />
+              <span id="label-support-kofi" data-i18n="setting_support_kofi">Support on Ko-fi</span>
+              <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
           </div>
         </div>
 
