@@ -718,6 +718,104 @@ body {
   flex-shrink: 0;
 }
 
+/* ── Shield Pill ──────────────────────────────────────────── */
+.hd-shield-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px 2px 5px;
+  border-radius: 20px;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.22);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  cursor: default;
+  user-select: none;
+  flex-shrink: 0;
+  transition:
+    background var(--duration-snap) var(--ease-out-gentle),
+    border-color var(--duration-snap) var(--ease-out-gentle),
+    color var(--duration-snap) var(--ease-out-gentle),
+    box-shadow var(--duration-snap) var(--ease-out-gentle),
+    opacity var(--duration-snap) var(--ease-out-gentle);
+  box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+}
+
+/* Alive state: glow when count > 0 and extension is on */
+.hd-shield-pill.shield-alive {
+  background: rgba(99, 102, 241, 0.13);
+  border-color: rgba(99, 102, 241, 0.30);
+  box-shadow: 0 0 0 2.5px rgba(99, 102, 241, 0.10);
+  animation: shieldGlow 3s ease-in-out infinite;
+}
+
+/* Dead/off state */
+.hd-shield-pill.shield-off {
+  background: rgba(100, 116, 139, 0.08);
+  border-color: rgba(100, 116, 139, 0.16);
+  color: var(--ink-ghost);
+  box-shadow: none;
+  animation: none;
+}
+
+/* Zero-protections-but-on state: amber nudge */
+.hd-shield-pill.shield-zero {
+  background: rgba(245, 158, 11, 0.09);
+  border-color: rgba(245, 158, 11, 0.22);
+  color: var(--tint-amber);
+  box-shadow: none;
+  animation: none;
+}
+
+@keyframes shieldGlow {
+  0%, 100% { box-shadow: 0 0 0 2.5px rgba(99, 102, 241, 0.10); }
+  50%       { box-shadow: 0 0 0 3.5px rgba(99, 102, 241, 0.18); }
+}
+
+.hd-shield-icon {
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.hd-shield-count {
+  font-variant-numeric: tabular-nums;
+  min-width: 8px;
+  text-align: center;
+  transition: opacity 100ms var(--ease-out-gentle);
+}
+
+/* Count pop animation on change */
+@keyframes shieldCountPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.hd-shield-pill.count-pop .hd-shield-count {
+  animation: shieldCountPop 220ms var(--ease-spring) forwards;
+}
+
+/* Dark-mode tweak */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hd-shield-pill.shield-alive {
+    background: rgba(129, 140, 248, 0.14);
+    border-color: rgba(129, 140, 248, 0.30);
+    box-shadow: 0 0 0 2.5px rgba(129, 140, 248, 0.12);
+  }
+  @keyframes shieldGlow {
+    0%, 100% { box-shadow: 0 0 0 2.5px rgba(129, 140, 248, 0.12); }
+    50%       { box-shadow: 0 0 0 3.5px rgba(129, 140, 248, 0.22); }
+  }
+}
+[data-theme="dark"] .hd-shield-pill.shield-alive {
+  background: rgba(129, 140, 248, 0.14);
+  border-color: rgba(129, 140, 248, 0.30);
+  box-shadow: 0 0 0 2.5px rgba(129, 140, 248, 0.12);
+}
+
 .hd-divider {
   width: 1px;
   height: 14px;
@@ -1747,11 +1845,10 @@ body.ext-off .lang-row {
   margin: 0 12px 10px 12px;
   background: var(--surface-elevated);
   border: 1px solid var(--rule-hairline);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-  transition: border-color var(--duration-snap) var(--ease-out-gentle),
-              box-shadow var(--duration-snap) var(--ease-out-gentle);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: box-shadow var(--duration-snap) var(--ease-out-gentle);
 }
 
 .accordion-section:last-of-type {
@@ -1759,8 +1856,8 @@ body.ext-off .lang-row {
 }
 
 .accordion-section:not(.collapsed) {
-  border-color: var(--rule-strong);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  border-color: var(--rule-hairline);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Accordion Header Button — Inset sticky docked category tracker */
@@ -2022,11 +2119,22 @@ body.ext-off .lang-row {
 .row-text {
   flex: 1;
   font-size: 13.5px;
-  font-weight: 500;
+  font-weight: 550;
   color: var(--ink-primary);
   line-height: 1.35;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
   word-break: break-word;
+}
+
+/* Secondary inline explanation (Apple / Linear style) */
+.row-subtext {
+  display: block;
+  font-size: 11px;
+  font-weight: 450;
+  color: var(--ink-tertiary);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  margin-top: 1.5px;
 }
 
 /* Setting explanations live behind the adjacent info button. */
@@ -2280,15 +2388,29 @@ body.ext-off .lang-row {
   width: 32px;
   height: 18px;
   border-radius: 9px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .sub-row .chk::after {
   width: 14px;
   height: 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+}
+
+.sub-row .chk:active::after {
+  width: 17px;
+}
+
+.sub-row .chk:checked {
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(99, 102, 241, 0.2);
 }
 
 .sub-row .chk:checked::after {
   transform: translateX(14px);
+}
+
+.sub-row .chk:checked:active::after {
+  transform: translateX(11px);
 }
 
 .sub-row:hover .row-text,
@@ -2298,9 +2420,8 @@ body.ext-off .lang-row {
 
 
 /* ============================================================
-   TOGGLE SWITCH (native checkbox, restyled)
-   Warm graphite track → instrument brass when on.
-   Enlarged to 38px x 22px for effortless tapping & clear state.
+   TOGGLE SWITCH (Tactile Precision Micro-Switch)
+   Hardware-inspired depth: Inset tactile track + elevated porcelain knob
    ============================================================ */
 .chk {
   -webkit-appearance: none;
@@ -2310,12 +2431,14 @@ body.ext-off .lang-row {
   border-radius: 11px;
   background: var(--toggle-off);
   border: 1px solid var(--toggle-border);
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.14);
   cursor: pointer;
   flex-shrink: 0;
   position: relative;
   transition:
-    background-color var(--duration-snap) var(--ease-out-gentle),
-    border-color var(--duration-snap) var(--ease-out-gentle);
+    background-color 220ms var(--ease-out-gentle),
+    border-color 220ms var(--ease-out-gentle),
+    box-shadow 220ms var(--ease-out-gentle);
   outline: none;
 }
 
@@ -2329,26 +2452,49 @@ body.ext-off .lang-row {
   top: 1px;
   left: 1px;
   transition:
-    transform 260ms var(--ease-spring),
-    width 140ms var(--ease-out-gentle);
-  box-shadow: var(--toggle-shadow);
+    transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    width 160ms var(--ease-out-gentle),
+    box-shadow 200ms var(--ease-out-gentle);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18),
+    0 2px 4px rgba(0, 0, 0, 0.12);
 }
 
 .chk:active::after {
-  width: 21px;
+  width: 22px;
 }
 
 .chk:checked {
   background: var(--toggle-on);
   border-color: var(--toggle-on);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(99, 102, 241, 0.28);
 }
 
 .chk:checked::after {
   transform: translateX(16px);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.22),
+    0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 .chk:checked:active::after {
-  transform: translateX(13px);
+  transform: translateX(12px);
+  width: 22px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .chk {
+    box-shadow: inset 0 1.5px 3.5px rgba(0, 0, 0, 0.55);
+  }
+  :root:not([data-theme="light"]) .sub-row .chk {
+    box-shadow: inset 0 1px 2.5px rgba(0, 0, 0, 0.55);
+  }
+}
+[data-theme="dark"] .chk {
+  box-shadow: inset 0 1.5px 3.5px rgba(0, 0, 0, 0.55);
+}
+[data-theme="dark"] .sub-row .chk {
+  box-shadow: inset 0 1px 2.5px rgba(0, 0, 0, 0.55);
 }
 
 /* ============================================================
@@ -3695,20 +3841,22 @@ body.ext-off .lang-row {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .btn-about-action {
-  flex: 1;
+  flex: 1 1 calc(33.333% - 8px);
+  min-width: 105px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 10px;
-  border-radius: 7px;
-  border: 1px solid var(--rule-strong);
+  padding: 8px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--rule-hairline);
   background: var(--surface-inset);
   color: var(--ink-secondary);
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 600;
   text-decoration: none;
   transition: all var(--duration-snap) var(--ease-out-gentle);
@@ -4476,7 +4624,7 @@ body.ext-off .lang-row {
 }
 
 /* ============================================================
-   PERSISTENT FOOTER: watch time, limit status, and feedback
+   PERSISTENT FOOTER: Precision Watch Time & Limit Status Gauge
    ============================================================ */
 #watch-bar {
   background: var(--surface-header);
@@ -4484,11 +4632,11 @@ body.ext-off .lang-row {
   height: 42px;
   min-height: 42px;
   max-height: 42px;
-  padding: 0 14px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   user-select: none;
   position: relative;
   z-index: 10;
@@ -4539,25 +4687,24 @@ body.ext-off .lang-row {
 
 /* ── Progress Track & Limit Information ────────────────────── */
 .watch-bar-center {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 #watch-bar .prog {
-  height: 4px;
-  flex: 1;
-  max-width: 130px;
-  width: 70px;
-  min-width: 16px;
+  height: 5px;
+  width: 90px;
+  max-width: 140px;
+  min-width: 30px;
   background: var(--surface-inset);
   border-radius: 3px;
   overflow: hidden;
   margin: 0;
-  border: 1px solid var(--rule-hairline);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 #prog-fill {

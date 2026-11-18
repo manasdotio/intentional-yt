@@ -1657,6 +1657,7 @@ function renderProtectionStatus() {
   renderBudgetStatus();
   $('protection-status').hidden = !main && !running && !$('protection-status-budget').textContent;
   renderBlockingControls();
+  renderShieldPill();
   // This timer exists only for the lifetime of the popup.
   const deadlines = [_s.focusSessionUntil].filter(value => value > now);
   if (_s.scheduledBlocking.enabled) deadlines.push(now + 60000 - now % 60000);
@@ -1681,10 +1682,78 @@ function renderBlockingControls() {
   $('schedule-override').hidden = !schedules.length;
   for (const input of document.querySelectorAll('#common-controls input.chk')) {
     input.disabled = schedules.length > 0;
-    const ids = [input.closest('.row').querySelector('.setting-help-text')?.id,
+    const ids = [input.closest('.row').querySelector('.setting-help-text, .row-subtext')?.id,
       schedules.length ? 'schedule-override' : ''].filter(Boolean).join(' ');
     if (ids) input.setAttribute('aria-describedby', ids);
     else input.removeAttribute('aria-describedby');
+  }
+  renderShieldPill();
+}
+
+// ── Shield Pill ───────────────────────────────────────────
+// The keys that count as "a protection" for the pill counter.
+const _SHIELD_BOOL_KEYS = [
+  'blockShorts', 'redirectShorts',
+  'blockHomeFeed', 'limitHomeFeed',
+  'blockRecommended', 'fullWindowPlayer',
+  'blockSubscriptionsFeed', 'blockExploreAndTrending', 'blockChannelHome',
+  'blockIrrelevantSearchResults', 'blockMixPlaylists', 'disableHoverPreviews',
+  'disableAutoplay', 'blockComments', 'blockEndScreens',
+  'blockLiveChat', 'blockMerch', 'blockPlaylist',
+  'blockVideoInfo', 'blockVideoButtons', 'blockChannelInfo', 'blockVideoDescription',
+  'hideThumbnails', 'neutralThumbnails', 'blockSidebar', 'grayscaleMode',
+];
+
+let _shieldLastCount = -1;
+
+function renderShieldPill() {
+  if (!_s) return;
+  const pill = $('hd-shield-pill');
+  const countEl = $('hd-shield-count');
+  if (!pill || !countEl) return;
+
+  const extOn = _s.extensionEnabled !== false;
+  pill.hidden = false;
+
+  if (!extOn) {
+    // Extension is off — show pill in muted off state
+    pill.classList.remove('shield-alive', 'shield-zero', 'count-pop');
+    pill.classList.add('shield-off');
+    countEl.textContent = '0';
+    _shieldLastCount = 0;
+    return;
+  }
+
+  const eff = IYT_Policy.effective(_s);
+  let count = 0;
+  for (const key of _SHIELD_BOOL_KEYS) {
+    if (eff[key] === true) count++;
+  }
+  // Also count feature-level extras
+  if (_s.dailyLimit?.enabled) count++;
+  if (_s.softReminder?.enabled) count++;
+  if (_s.focusLock?.enabled && _s.focusLock?.pin) count++;
+  if (_s.scheduledBlocking?.enabled && _s.scheduledBlocking?.schedules?.some(r => r.enabled)) count++;
+  if (_s.filterMode === 'allowlist') count++;
+  if ((_s.channelBlocklist?.length || 0) > 0 || (_s.keywordBlocklist?.length || 0) > 0) count++;
+
+  pill.classList.remove('shield-off');
+  if (count > 0) {
+    pill.classList.remove('shield-zero');
+    pill.classList.add('shield-alive');
+  } else {
+    pill.classList.remove('shield-alive');
+    pill.classList.add('shield-zero');
+  }
+
+  if (count !== _shieldLastCount) {
+    countEl.textContent = count;
+    // Trigger the pop animation
+    pill.classList.remove('count-pop');
+    // Force reflow so removing then re-adding the class triggers the animation
+    void pill.offsetWidth;
+    pill.classList.add('count-pop');
+    _shieldLastCount = count;
   }
 }
 
@@ -1840,6 +1909,9 @@ function renderAll(s) {
 
   // Focus Cards Badges
   updateFocusCardBadges(s);
+
+  // Shield pill
+  renderShieldPill();
 }
 
 async function renderStatsTrend(todaySecs) {
