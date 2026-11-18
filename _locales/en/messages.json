@@ -56,7 +56,7 @@
     "description": "Toggle label to hide YouTube subscriptions feed"
   },
   "toggle_block_recommended": {
-    "message": "Hide suggested videos beside the player",
+    "message": "Hide Suggested Videos",
     "description": "Toggle label to hide recommended video sidebar on watch page"
   },
   "toggle_block_shorts": {
@@ -430,6 +430,10 @@
   "tab_settings": {
     "message": "Settings",
     "description": "Label for the Settings tab in popup navigation"
+  },
+  "tab_about": {
+    "message": "About",
+    "description": "Label for the About tab in popup navigation"
   },
   "action_collapse_all": {
     "message": "Collapse All",
@@ -1105,11 +1109,11 @@
     "description": "Panel header subtitle for Settings tab"
   },
   "toggle_redirect_shorts": {
-    "message": "Redirect Shorts to normal player",
+    "message": "Play in Regular Player",
     "description": "Label for toggle to play Shorts in standard watch player"
   },
   "desc_redirect_shorts": {
-    "message": "Plays Shorts in standard watch view with playback controls",
+    "message": "Watch Shorts with normal video controls",
     "description": "Description for redirect shorts toggle"
   },
   "action_snooze": {
@@ -1409,11 +1413,11 @@
     "description": "Toggle label to prevent video previews playing when hovering over thumbnails"
   },
   "home_redirect_label": {
-    "message": "Homepage redirect",
+    "message": "Redirect Homepage",
     "description": "Label for custom homepage redirect dropdown"
   },
   "home_redirect_description": {
-    "message": "When the home feed is hidden, automatically redirect youtube.com/ to your chosen destination.",
+    "message": "When home feed is hidden",
     "description": "Description for custom homepage redirect setting"
   },
   "home_redirect_none": {
@@ -1433,11 +1437,11 @@
     "description": "Option to redirect to watch history"
   },
   "toggle_block_endscreens": {
-    "message": "Hide end screen suggestions & cards",
+    "message": "Hide End Screens",
     "description": "Toggle label to hide end screen video grids, creator cards and overlays"
   },
   "desc_block_endscreens": {
-    "message": "Hides recommended video grids, creator cards, and overlay teasers at the end of videos",
+    "message": "Hides video grids and creator cards at the end",
     "description": "Description for consolidated end screens toggle"
   },
   "preset_placeholder": {
@@ -1639,11 +1643,11 @@
     "description": "Button linking to Ko-fi donation page"
   },
   "toggle_full_window_player": {
-    "message": "Expand player into empty space",
+    "message": "Expand Video Player",
     "description": "Toggle label for expanding the video player into available space"
   },
   "desc_full_window_player": {
-    "message": "Expands and centers the video player into available space without forcing theater mode",
+    "message": "Centers player to fill empty space",
     "description": "Description of expanded centered video player"
   },
   "toggle_neutral_thumbnails": {
@@ -1651,7 +1655,7 @@
     "description": "Toggle label for neutral video frame thumbnail (anti-clickbait)"
   },
   "desc_neutral_thumbnails": {
-    "message": "Replaces clickbait custom thumbnails with a neutral, auto-generated frame from the video",
+    "message": "Replaces clickbait with a video frame",
     "description": "Description of neutral video frame thumbnail feature"
   },
   "btn_reload_page": {

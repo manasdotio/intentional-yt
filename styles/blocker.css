@@ -1222,15 +1222,15 @@ html[dark] {
   height: 100% !important;
   min-height: 260px !important;
   background: var(--iyt-overlay-bg) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   z-index: 99999 !important;
   color: var(--iyt-overlay-text) !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", 'Segoe UI', Roboto, sans-serif !important;
   gap: 12px !important;
   border-radius: inherit !important;
   box-sizing: border-box !important;
@@ -1276,11 +1276,11 @@ html[dark] {
 }
 
 .iy-limit-button {
-  background: #2563eb !important;
+  background: #007AFF !important;
   color: #fff !important;
   border: none !important;
-  padding: 10px 20px !important;
-  border-radius: 8px !important;
+  padding: 10px 24px !important;
+  border-radius: 9999px !important;
   font-family: inherit !important;
   font-weight: 600 !important;
   font-size: 13.5px !important;
@@ -1290,25 +1290,25 @@ html[dark] {
 }
 
 .iy-limit-button:hover {
-  background: #1d4ed8 !important;
+  background: #0062CC !important;
 }
 
 .iy-limit-button:focus-visible,
 .iy-limit-button-secondary:focus-visible {
-  outline: 2px solid #6366F1 !important;
+  outline: 2px solid #007AFF !important;
   outline-offset: 2px !important;
 }
 
 .iy-limit-button:active {
-  transform: scale(0.98) !important;
+  transform: scale(0.97) !important;
 }
 
 .iy-limit-button-secondary {
   background: var(--iyt-overlay-btn-sec-bg) !important;
   color: var(--iyt-overlay-btn-sec-color) !important;
-  border: 1px solid var(--iyt-overlay-btn-sec-border) !important;
-  padding: 9px 18px !important;
-  border-radius: 8px !important;
+  border: 0.5px solid var(--iyt-overlay-btn-sec-border) !important;
+  padding: 10px 20px !important;
+  border-radius: 9999px !important;
   font-family: inherit !important;
   font-weight: 500 !important;
   font-size: 13px !important;
@@ -1323,7 +1323,7 @@ html[dark] {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SOFT REMINDER TOAST (injected by timerToast.js)
+   SOFT REMINDER TOAST (Apple Dynamic Island Capsule)
 ═══════════════════════════════════════════════════════════ */
 .iyt-toast-container {
   position: fixed;
@@ -1331,12 +1331,12 @@ html[dark] {
   right: 24px;
   z-index: 2147483647;
   background: var(--iyt-toast-bg);
-  border: 1px solid var(--iyt-toast-border);
-  border-radius: 14px;
-  padding: 13px 15px 12px;
-  box-shadow: var(--iyt-toast-shadow);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  border: 0.5px solid var(--iyt-toast-border);
+  border-radius: 20px;
+  padding: 14px 18px 13px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.40), 0 2px 6px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   color: var(--iyt-toast-text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
   font-size: 13px;
@@ -1441,8 +1441,8 @@ html[dark] {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 6px 12px;
-  border-radius: 7px;
+  padding: 6px 14px;
+  border-radius: 9999px;
   font-size: 12px;
   font-weight: 600;
   font-family: inherit;
@@ -1453,18 +1453,22 @@ html[dark] {
   line-height: 1.25;
 }
 
+.iyt-toast-btn:active {
+  transform: scale(0.96);
+}
+
 .iyt-toast-btn-pause {
-  background: #6366F1;
+  background: #007AFF;
   color: #ffffff;
   flex: 1;
 }
 
 .iyt-toast-btn-pause:hover {
-  background: #4F46E5;
+  background: #0062CC;
 }
 
 .iyt-toast-btn-pause.is-paused {
-  background: #10B981 !important;
+  background: #34C759 !important;
 }
 
 .iyt-toast-btn-dismiss {

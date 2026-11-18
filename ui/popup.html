@@ -63,6 +63,10 @@
         <svg class="tab-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         <span data-i18n="tab_settings">Settings</span>
       </button>
+      <button type="button" class="tab-btn" role="tab" id="tab-btn-about" aria-selected="false" aria-controls="panel-about" data-tab="about" data-i18n-title="tab_about">
+        <svg class="tab-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span data-i18n="tab_about">About</span>
+      </button>
     </nav>
 
     <!-- Main Content Panel (Right Side) -->
@@ -120,7 +124,7 @@
           <form id="welcome-setup-form" class="welcome-setup-form">
             <label class="welcome-choice"><input type="checkbox" id="setup-hide-shorts" /><span data-i18n="toggle_block_shorts">Hide Shorts</span></label>
             <label class="welcome-choice"><input type="checkbox" id="setup-hide-home" /><span data-i18n="toggle_block_home_feed">Hide home feed</span></label>
-            <label class="welcome-choice"><input type="checkbox" id="setup-hide-recommended" /><span data-i18n="toggle_block_recommended">Hide suggested videos beside the player</span></label>
+            <label class="welcome-choice"><input type="checkbox" id="setup-hide-recommended" /><span data-i18n="toggle_block_recommended">Hide Suggested Videos</span></label>
             <label class="welcome-limit" for="setup-daily-limit"><span data-i18n="setup_daily_limit">Daily watch limit</span><select id="setup-daily-limit">
               <option value="0" data-i18n="setup_no_limit">No daily limit</option>
               <option value="30" data-i18n="time_option_minutes" data-i18n-arg="30">30 min</option>
@@ -170,24 +174,32 @@
 
       <div id="common-controls" class="common-controls">
         <label class="row" id="row-blockShorts">
+          <div class="row-badge badge-red" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          </div>
           <span class="row-text" data-i18n="toggle_block_shorts">Hide Shorts</span>
           <input type="checkbox" class="chk" id="toggle-blockShorts" />
         </label>
         <label class="row sub-row" id="row-redirectShorts" data-setting="redirectShorts">
           <div class="row-text-group">
-            <span class="row-text" data-i18n="toggle_redirect_shorts">Redirect Shorts to normal player</span>
-            <span class="row-subtext" data-i18n="desc_redirect_shorts">Opens Shorts in regular desktop video player</span>
+            <span class="row-text" data-i18n="toggle_redirect_shorts">Play in Regular Player</span>
+            <span class="row-subtext" data-i18n="desc_redirect_shorts">Watch Shorts with normal video controls</span>
           </div>
           <input type="checkbox" class="chk" id="toggle-redirectShorts">
         </label>
         <div class="row home-feed-choice" data-setting="homeFeed">
-          <label class="row-text" id="label-select-homeFeed" for="select-homeFeed" data-i18n="home_feed_label">Home page videos</label>
+          <div class="home-feed-left" style="display:flex;align-items:center;gap:12px;min-width:0;flex:1;">
+            <div class="row-badge badge-blue" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </div>
+            <label class="row-text" id="label-select-homeFeed" for="select-homeFeed" data-i18n="home_feed_label">Home page videos</label>
+          </div>
           <select id="select-homeFeed" data-home-feed><option value="show" data-i18n="home_feed_show">Show all</option><option value="limit" data-i18n="home_feed_limit">Show only the first 15</option><option value="hide" data-i18n="home_feed_hide">Hide all</option></select>
         </div>
         <div class="row home-feed-choice sub-row" id="row-homeRedirect" data-setting="homeRedirect" style="display:none">
           <div class="row-text-group">
-            <label class="row-text" id="label-select-homeRedirect" for="select-homeRedirect" data-i18n="home_redirect_label">Homepage redirect</label>
-            <span id="home-redirect-description" class="row-subtext" data-i18n="home_redirect_description">When home feed is hidden, redirect youtube.com/ to this page</span>
+            <label class="row-text" id="label-select-homeRedirect" for="select-homeRedirect" data-i18n="home_redirect_label">Redirect Homepage</label>
+            <span id="home-redirect-description" class="row-subtext" data-i18n="home_redirect_description">When home feed is hidden</span>
           </div>
           <select id="select-homeRedirect" aria-describedby="home-redirect-description">
             <option value="none" data-i18n="home_redirect_none">None (Stay on home)</option>
@@ -197,13 +209,16 @@
           </select>
         </div>
         <label class="row" id="row-blockRecommended">
-          <span class="row-text" data-i18n="toggle_block_recommended">Hide suggested videos beside the player</span>
+          <div class="row-badge badge-indigo" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </div>
+          <span class="row-text" data-i18n="toggle_block_recommended">Hide Suggested Videos</span>
           <input type="checkbox" class="chk" id="toggle-blockRecommended" />
         </label>
         <div class="row sub-row" id="row-fullWindowPlayer" data-setting="fullWindowPlayer" style="display:none">
           <div class="row-text-group">
-            <label class="row-text" id="label-toggle-fullWindowPlayer" for="toggle-fullWindowPlayer" data-i18n="toggle_full_window_player">Expand player into empty space</label>
-            <span id="help-toggle-fullWindowPlayer" class="row-subtext" data-i18n="desc_full_window_player">Expands and centers the video player into available space without forcing theater mode</span>
+            <label class="row-text" id="label-toggle-fullWindowPlayer" for="toggle-fullWindowPlayer" data-i18n="toggle_full_window_player">Expand Video Player</label>
+            <span id="help-toggle-fullWindowPlayer" class="row-subtext" data-i18n="desc_full_window_player">Centers player to fill empty space</span>
           </div>
           <input type="checkbox" class="chk" id="toggle-fullWindowPlayer" aria-describedby="help-toggle-fullWindowPlayer">
         </div>
@@ -263,8 +278,8 @@
                 <input type="checkbox" class="chk" id="toggle-blockComments">
               </label><div class="row advanced-only">
                 <div class="row-text-group">
-                  <label class="row-text" id="label-toggle-blockEndScreens" for="toggle-blockEndScreens" data-i18n="toggle_block_endscreens">Hide end screen suggestions &amp; cards</label>
-                  <span id="help-toggle-blockEndScreens" class="row-subtext" data-i18n="desc_block_endscreens">Hides recommended video grids, creator cards, and overlay teasers at the end of videos</span>
+                  <label class="row-text" id="label-toggle-blockEndScreens" for="toggle-blockEndScreens" data-i18n="toggle_block_endscreens">Hide End Screens</label>
+                  <span id="help-toggle-blockEndScreens" class="row-subtext" data-i18n="desc_block_endscreens">Hides video grids and creator cards at the end</span>
                 </div>
                 <input type="checkbox" class="chk" id="toggle-blockEndScreens" aria-describedby="help-toggle-blockEndScreens">
               </div><label class="row advanced-only">
@@ -320,7 +335,7 @@
               </label><div class="row">
                 <div class="row-text-group">
                   <label class="row-text" id="label-toggle-neutralThumbnails" for="toggle-neutralThumbnails" data-i18n="toggle_neutral_thumbnails">Neutral thumbnails</label>
-                  <span id="help-toggle-neutralThumbnails" class="row-subtext" data-i18n="desc_neutral_thumbnails">Replaces clickbait custom thumbnails with a neutral, auto-generated frame from the video</span>
+                  <span id="help-toggle-neutralThumbnails" class="row-subtext" data-i18n="desc_neutral_thumbnails">Replaces clickbait with a video frame</span>
                 </div>
                 <input type="checkbox" class="chk" id="toggle-neutralThumbnails" aria-describedby="help-toggle-neutralThumbnails">
               </div><label class="row">
@@ -755,6 +770,24 @@
         <div class="settings-group">
           <div class="settings-group-title" data-i18n="settings_group_general">General</div>
           <div class="settings-card">
+            <!-- About Intentional YT Navigation Row -->
+            <div class="settings-row settings-nav-row" id="row-open-about" role="button" tabindex="0" title="View extension info, version, and support">
+              <div class="settings-row-left">
+                <div class="settings-icon-box icon-box-blue">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </div>
+                <div class="settings-row-meta">
+                  <span class="settings-row-label">About Intentional YT</span>
+                  <span class="settings-row-sub">v2.7.0 · 100% Local · Support &amp; Links</span>
+                </div>
+              </div>
+              <div class="settings-nav-chevron">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+
+            <div class="settings-divider"></div>
+
             <!-- Appearance / Theme Row -->
             <div class="settings-row">
               <div class="settings-row-left">
@@ -918,43 +951,147 @@
           </div>
         </div>
 
-        <!-- Section 3: About & Community Support -->
-        <div class="settings-about-card">
-          <div class="settings-about-brand">
-            <img src="../icons/icon.png" alt="" class="settings-about-icon" />
-            <div class="settings-about-info">
-              <div class="settings-about-title-row">
-                <span class="settings-about-title">Intentional YT</span>
-                <span class="settings-about-ver">v2.6.0</span>
+      </div><!-- /.settings-wrap -->
+    </div><!-- /#panel-settings -->
+
+    <!-- ── TAB 6: ABOUT ────────────────────────────────────────── -->
+    <div id="panel-about" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-about">
+      <div class="about-wrap">
+        
+        <!-- Hero Header (Apple About Style) -->
+        <div class="about-hero">
+          <div class="about-icon-squircle">
+            <img src="../icons/icon.png" alt="Intentional YT logo" class="about-app-icon" />
+          </div>
+          <h1 class="about-app-name">Intentional YT</h1>
+          <div class="about-version-badge">
+            <span>v2.7.0</span>
+            <span class="about-version-dot">·</span>
+            <span class="about-privacy-pill">
+              <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span data-i18n="footer_local_privacy">100% Local</span>
+            </span>
+          </div>
+          <p class="about-app-tagline">Reclaim your focus on YouTube. Calm, intentional, distraction-free.</p>
+        </div>
+
+        <!-- Section 1: Community & Support (Apple Inset Grouped Card) -->
+        <div class="about-section-card">
+          <div class="about-section-header">Community &amp; Support</div>
+          
+          <!-- Row: Rate on Web Store -->
+          <a id="link-rate-store" href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews" target="_blank" rel="noopener noreferrer" class="about-row-link" title="Leave a review on Web Store">
+            <div class="about-row-left">
+              <span class="row-badge badge-amber">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </span>
+              <div class="about-row-meta">
+                <span id="label-rate-store" class="about-row-title" data-i18n="setting_rate_store">Rate on Web Store</span>
+                <span class="about-row-sub">Help others discover mindful, distraction-free YouTube</span>
               </div>
-              <div class="settings-about-privacy">
-                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span data-i18n="footer_local_privacy">100% Local · Zero Telemetry</span>
+            </div>
+            <svg class="about-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <div class="about-divider"></div>
+
+          <!-- Row: Support on Ko-fi -->
+          <a id="link-support-kofi" href="https://ko-fi.com/manasio" target="_blank" rel="noopener noreferrer" class="about-row-link" title="Support on Ko-fi">
+            <div class="about-row-left">
+              <span class="row-badge badge-coral">
+                <img src="../icons/kofi-cup.png" alt="" class="kofi-cup-icon" width="16" height="13" />
+              </span>
+              <div class="about-row-meta">
+                <span id="label-support-kofi" class="about-row-title" data-i18n="setting_support_kofi">Support on Ko-fi</span>
+                <span class="about-row-sub">Support independent solo development</span>
               </div>
+            </div>
+            <svg class="about-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <div class="about-divider"></div>
+
+          <!-- Row: Feedback & Ideas -->
+          <a id="link-feedback" href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" class="about-row-link" title="Submit feedback and feature ideas">
+            <div class="about-row-left">
+              <span class="row-badge badge-blue">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </span>
+              <div class="about-row-meta">
+                <span id="label-feedback" class="about-row-title" data-i18n="footer_feedback_link">Feedback &amp; Ideas</span>
+                <span class="about-row-sub">Report issues, suggest features, or say hi</span>
+              </div>
+            </div>
+            <svg class="about-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+
+        <!-- Section 2: Privacy & Architecture -->
+        <div class="about-section-card">
+          <div class="about-section-header">Privacy &amp; Architecture</div>
+          
+          <div class="about-info-row">
+            <span class="row-badge badge-green">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <div class="about-row-meta">
+              <span class="about-row-title">100% Local · Zero Telemetry</span>
+              <span class="about-row-sub">No analytics, no remote tracking, no account required. All data stays in your browser.</span>
             </div>
           </div>
 
-          <div class="settings-about-actions">
-            <a id="link-rate-store" href="https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg/reviews" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-highlight" title="Leave a review on Web Store">
-              <svg class="about-action-star" viewBox="0 0 24 24" width="12" height="12" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span id="label-rate-store" data-i18n="setting_rate_store">Rate on Web Store</span>
-              <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-            <a id="link-support-kofi" href="https://ko-fi.com/manasio" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-kofi" title="Support on Ko-fi">
-              <img src="../icons/kofi-cup.png" alt="" class="kofi-cup-icon" width="19" height="15" />
-              <span id="label-support-kofi" data-i18n="setting_support_kofi">Support on Ko-fi</span>
-              <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-            <a id="link-feedback" href="https://forms.gle/EFixUed5F5bmVvFX7" target="_blank" rel="noopener noreferrer" class="btn-about-action pill-feedback" title="Submit feedback and feature ideas">
-              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-              <span id="label-feedback" data-i18n="footer_feedback_link">Feedback &amp; Ideas</span>
-              <svg class="about-action-arrow" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
+          <div class="about-divider"></div>
+
+          <div class="about-info-row">
+            <span class="row-badge badge-purple">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </span>
+            <div class="about-row-meta">
+              <span class="about-row-title">Zero npm Dependencies</span>
+              <span class="about-row-sub">Pure Vanilla JS &amp; CSS. Instant execution with zero bloat.</span>
+            </div>
           </div>
         </div>
 
-      </div><!-- /.settings-wrap -->
-    </div><!-- /#panel-settings -->
+        <!-- Section 3: Resources & Links -->
+        <div class="about-section-card">
+          <div class="about-section-header">Resources</div>
+
+          <a href="https://github.com/manasdotio/intentional-yt" target="_blank" rel="noopener noreferrer" class="about-row-link" title="View Source on GitHub">
+            <div class="about-row-left">
+              <span class="row-badge badge-slate">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </span>
+              <div class="about-row-meta">
+                <span class="about-row-title">Source Code (GitHub)</span>
+                <span class="about-row-sub">Source-available for review &amp; learning</span>
+              </div>
+            </div>
+            <svg class="about-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <div class="about-divider"></div>
+
+          <a href="https://intentionalyt.com/privacy" target="_blank" rel="noopener noreferrer" class="about-row-link" title="View Privacy Policy">
+            <div class="about-row-left">
+              <span class="row-badge badge-slate">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <div class="about-row-meta">
+                <span class="about-row-title">Privacy Policy</span>
+                <span class="about-row-sub">Plain English, zero personal data</span>
+              </div>
+            </div>
+            <svg class="about-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+
+        <div class="about-footer-note">
+          Designed for intentional living · Made with care
+        </div>
+
+      </div><!-- /.about-wrap -->
+    </div><!-- /#panel-about -->
 
   </div><!-- /#scroll -->
     </main><!-- /#content-area -->

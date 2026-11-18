@@ -5,8 +5,8 @@
 export const APP_CONFIG = {
   name: 'Intentional YT - Block YouTube Shorts, Recommendations & Set Time Limits',
   shortName: 'Intentional YT',
-  version: '2.6.0',
-  versionShort: 'v2.6.0',
+  version: '2.7.0',
+  versionShort: 'v2.7.0',
   description: 'Intentional YT is a free browser extension for Chrome, Firefox, and Edge that hides YouTube Shorts, home-feed recommendations, and suggested videos. Set a daily watch-time limit while keeping search and subscriptions available.',
   chromeWebStoreUrl: 'https://chromewebstore.google.com/detail/intentional-yt/plhapakjiekkfhpjmhmjaplnbckpndbg',
   edgeAddonUrl: 'https://microsoftedge.microsoft.com/addons/detail/intentional-yt-youtube-/jjgijacfockomgkhljkhalhapnloonbb',

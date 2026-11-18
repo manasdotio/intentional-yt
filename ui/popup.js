@@ -3025,6 +3025,20 @@ function bindAll() {
     });
   }
 
+  // Settings tab: click "About Intentional YT" row -> navigate to About tab
+  const rowOpenAbout = $('row-open-about');
+  if (rowOpenAbout) {
+    rowOpenAbout.addEventListener('click', () => {
+      switchTab('about');
+    });
+    rowOpenAbout.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        switchTab('about');
+      }
+    });
+  }
+
   // Smart Store Review link detection (Firefox AMO vs Edge Add-ons vs Chrome Web Store)
   const linkRateStore = $('link-rate-store');
   const labelRateStore = $('label-rate-store');
