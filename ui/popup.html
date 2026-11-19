@@ -772,9 +772,11 @@
             <div class="stats-hero-badge">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               <span data-i18n="stats_dashboard_title">Today's YouTube Playback</span>
+              <button type="button" class="setting-help setting-help-mini" aria-label="About watch time tracking" aria-describedby="help-stats-playback" data-help="help-stats-playback"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button>
             </div>
             <span class="stats-live-indicator">Live</span>
           </div>
+          <div id="help-stats-playback" class="setting-help-text" hidden>Tracks active video playback across all open YouTube tabs. Excludes paused time and buffering. Resets daily at your configured reset hour (default midnight).</div>
 
           <div class="stats-hero-body">
             <div class="stats-metric-row">
@@ -810,9 +812,11 @@
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
               </div>
               <span class="stats-kpi-label">Streak</span>
+              <button type="button" class="setting-help setting-help-mini" aria-label="About Focus Streak" aria-describedby="help-stats-streak" data-help="help-stats-streak"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button>
             </div>
             <div class="stats-kpi-val" id="stats-streak-current">0d</div>
             <div class="stats-kpi-sub" id="stats-streak-best">Best: 0d</div>
+            <div id="help-stats-streak" class="setting-help-text" hidden>Consecutive days where your YouTube watch time stayed under your daily limit (or under 30 minutes if no limit is configured).</div>
           </div>
 
           <!-- KPI 2: Daily Average -->
@@ -822,9 +826,11 @@
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
               </div>
               <span class="stats-kpi-label">Daily Avg</span>
+              <button type="button" class="setting-help setting-help-mini" aria-label="About Daily Average" aria-describedby="help-stats-avg" data-help="help-stats-avg"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button>
             </div>
             <div class="stats-kpi-val" id="stats-daily-avg">0m</div>
             <div class="stats-kpi-sub">Past 7 days</div>
+            <div id="help-stats-avg" class="setting-help-text" hidden>Average daily watch time calculated over your last 7 calendar days.</div>
           </div>
 
           <!-- KPI 3: Focus Score (Pro) -->
@@ -835,10 +841,12 @@
               </div>
               <span class="stats-kpi-label">Focus</span>
               <span class="badge-pro-micro">PRO</span>
+              <button type="button" class="setting-help setting-help-mini" aria-label="About Focus Score" aria-describedby="help-stats-focus" data-help="help-stats-focus"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button>
             </div>
             <div class="stats-kpi-val" id="stats-kpi-focus-score">--%</div>
             <div class="stats-kpi-sub" id="stats-kpi-focus-sub">Intentional Ratio</div>
             <span id="stats-protections-active" style="display:none">0 / 26</span>
+            <div id="help-stats-focus" class="setting-help-text" hidden>Intentional Focus Score (0–100%) measures the percentage of your watch time spent on Study channels vs Leisure channels: Study / (Study + Leisure). Tag channels below to calculate your score.</div>
           </div>
         </div>
 
@@ -848,6 +856,7 @@
             <div class="stats-activity-title-wrap">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               <span class="stats-activity-title">Activity Trends</span>
+              <button type="button" class="setting-help setting-help-mini" aria-label="About Activity Trends" aria-describedby="help-stats-activity" data-help="help-stats-activity"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button>
             </div>
             <div class="stats-chart-segmented" role="tablist">
               <button type="button" class="chart-tab-btn is-active" id="btn-chart-tab-days" role="tab" aria-selected="true">7 Days</button>
@@ -857,6 +866,7 @@
               </button>
             </div>
           </div>
+          <div id="help-stats-activity" class="setting-help-text" hidden>Switch between your 7-day watch history and a 24-hour vulnerability heatmap. Peak Hours highlights when you are most prone to doomscrolling so you can schedule quiet hours.</div>
 
           <!-- View 1: 7-Day Activity -->
           <div class="stats-chart-view" id="stats-view-days">
@@ -905,9 +915,11 @@
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
               <span class="stats-channels-title">Channels &amp; Focus Ratio</span>
               <span class="badge-pro-micro">PRO</span>
+              <button type="button" class="setting-help setting-help-mini" aria-label="About Channel Tagging" aria-describedby="help-stats-channels" data-help="help-stats-channels"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button>
             </div>
             <span class="stats-channels-badge">Last 7 days</span>
           </div>
+          <div id="help-stats-channels" class="setting-help-text" hidden>Your top watched channels from the last 7 days. Tag creators as Study (productive) or Leisure (entertainment) to balance your intentional ratio.</div>
 
           <!-- Integrated Focus Ratio Meter (animates when tags are clicked directly below!) -->
           <div class="stats-fs-meter-box" id="stats-fs-meter-box">

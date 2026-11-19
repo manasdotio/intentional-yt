@@ -2902,7 +2902,8 @@ function bindSettingHelp() {
     button.addEventListener('pointerleave', leave);
     button.addEventListener('focus', () => show(button));
     button.addEventListener('blur', hide);
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (trigger === button && pinned) hide();
       else { show(button); pinned = true; }
     });

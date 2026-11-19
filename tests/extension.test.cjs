@@ -1901,6 +1901,12 @@ test('stats dashboard layout has 3-section hierarchy and segmented switcher', ()
     // 4. Footer actions
     assert.ok(html.includes('id="btn-export-csv"'), `${name} has btn-export-csv`);
     assert.ok(html.includes('id="btn-export-json"'), `${name} has btn-export-json`);
+
+    // 5. Help info hover buttons in stats dashboard
+    for (const helpId of ['help-stats-playback', 'help-stats-streak', 'help-stats-avg', 'help-stats-focus', 'help-stats-activity', 'help-stats-channels']) {
+      assert.ok(html.includes(`data-help="${helpId}"`), `${name} has info button for ${helpId}`);
+      assert.ok(html.includes(`id="${helpId}"`), `${name} has help text container for ${helpId}`);
+    }
   }
 
   // Verify popup.js binds segmented control handlers and updates KPI focus score

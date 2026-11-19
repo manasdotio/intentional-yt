@@ -2316,6 +2316,26 @@ body.ext-off .lang-row {
   background: var(--accent-subtle);
 }
 .setting-help:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.setting-help-mini {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.65;
+  transition: opacity var(--duration-snap) var(--ease-out-gentle), color var(--duration-snap) var(--ease-out-gentle), background var(--duration-snap) var(--ease-out-gentle);
+}
+.setting-help-mini svg {
+  width: 11px;
+  height: 11px;
+  stroke: currentColor;
+}
+.setting-help-mini:hover,
+.setting-help-mini:focus-visible {
+  opacity: 1;
+}
+.stats-kpi-top .setting-help-mini {
+  margin-left: auto;
+}
 .setting-help-text[hidden],
 #setting-help-tooltip[hidden] { display: none; }
 #setting-help-tooltip {
