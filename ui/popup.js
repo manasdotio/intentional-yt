@@ -2000,7 +2000,11 @@ async function renderStatsTrend(todaySecs) {
  * Renders the Focus Streak card and Top Channels card using IYT_Analytics data.
  * Falls back gracefully if analytics module is unavailable.
  */
-async function renderStatsAnalytics(todaySecs) {
+async function renderStatsAnalytics(todaySecs, settings) {
+  // Focus threshold: use the user's daily limit, fallback to 30 min
+  const FOCUS_THRESHOLD_MIN = (settings?.dailyLimit?.enabled && settings?.dailyLimit?.limitMinutes > 0)
+    ? settings.dailyLimit.limitMinutes
+    : 30;
   // Sync today's total into analytics history
   const todayStr = StorageManager.getTodayString();
   try {
@@ -2016,7 +2020,6 @@ async function renderStatsAnalytics(todaySecs) {
     }
 
     // ── Focus Streak ───────────────────────────────────────────────────────
-    const FOCUS_THRESHOLD_MIN = 30;
     let streak = 0;
     let longest = analyticsData.streaks?.longestStreak || 0;
     for (let i = 0; i < 30; i++) {
@@ -2038,6 +2041,10 @@ async function renderStatsAnalytics(todaySecs) {
     if (streakEl) streakEl.textContent = streak;
     const bestEl = $('stats-streak-best');
     if (bestEl) bestEl.textContent = `${longest} day${longest !== 1 ? 's' : ''}`;
+
+    // Update hint text to reflect the actual threshold being used
+    const hintEl = $('stats-streak-hint');
+    if (hintEl) hintEl.textContent = `Days with under ${FOCUS_THRESHOLD_MIN} min of watch time count as focus days.`;
 
     // Colour the streak number: 0 = neutral, 1-6 = good, 7+ = great
     const streakCard = $('stats-streak-card');
@@ -2195,7 +2202,7 @@ function renderStats(s) {
   }
 
   renderStatsTrend(secs).catch(() => {});
-  renderStatsAnalytics(secs).catch(() => {});
+  renderStatsAnalytics(secs, s).catch(() => {});
 }
 
 const YOUTUBE_CONTENT_URLS = ['*://www.youtube.com/*', '*://m.youtube.com/*'];

@@ -90,10 +90,17 @@ const IYT_Analytics = (() => {
    * Recompute and persist focus streaks based on the current daily history.
    * Should be called once per day (e.g. at midnight reset or on popup open).
    *
-   * A day counts as a "focus day" when total watch was < FOCUS_DAY_THRESHOLD_MIN,
+   * A day counts as a "focus day" when total watch was < focusThresholdMin,
    * OR when no watch was recorded at all (zero watch = great focus day).
+   *
+   * @param {number} resetHour        - Daily reset hour (default 4).
+   * @param {number} focusThresholdMin - Min threshold in minutes; use user's
+   *                                    daily limit if set, else 30.
    */
-  async function updateStreaks(resetHour = 4) {
+  async function updateStreaks(resetHour = 4, focusThresholdMin = 30) {
+    const threshold = (Number.isFinite(focusThresholdMin) && focusThresholdMin > 0)
+      ? focusThresholdMin
+      : 30;
     const data = await _read();
     if (!data.streaks) data.streaks = { focusStreak: 0, lastFocusDay: '', longestStreak: 0 };
 
@@ -111,7 +118,7 @@ const IYT_Analytics = (() => {
       const dateKey = `${yyyy}-${mm}-${dd}`;
       const dayData = data.dailyHistory[dateKey];
       const totalMin = ((dayData?.totalSeconds || 0) / 60);
-      const isFocusDay = !dayData || totalMin < FOCUS_DAY_THRESHOLD_MIN;
+      const isFocusDay = !dayData || totalMin < threshold;
       if (isFocusDay) {
         streak++;
         if (streak > longest) longest = streak;
