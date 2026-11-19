@@ -32,6 +32,7 @@
       "utils/policy.js",
       "utils/schema.js",
       "utils/analytics.js",
+      "utils/licensing.js",
       "background/background.js"
     ]
   },
@@ -51,6 +52,7 @@
         "utils/dialog.js",
         "utils/i18n.js",
         "utils/analytics.js",
+        "utils/licensing.js",
         "content/blocker.js",
         "content/scheduledBlocker.js",
         "content/timerToast.js",

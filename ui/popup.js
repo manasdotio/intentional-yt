@@ -1912,6 +1912,128 @@ function renderAll(s) {
 
   // Shield pill
   renderShieldPill();
+
+  // Pro licensing state
+  renderProState().catch(() => {});
+}
+
+async function renderProState() {
+  if (typeof IYT_Licensing === 'undefined') return;
+  try {
+    const lic = await IYT_Licensing.getLicense();
+    const isPro = Boolean(lic.isPro);
+
+    // 1. Header Pro Pill
+    const headerPill = $('btn-header-pro');
+    const headerText = $('hd-pro-text');
+    if (headerPill) {
+      headerPill.classList.toggle('is-pro', isPro);
+      headerPill.title = isPro ? 'Intentional YT Lifetime Pro Active' : 'Unlock Lifetime Pro Features';
+      if (headerText) headerText.textContent = isPro ? 'PRO' : 'PRO ★';
+    }
+
+    // 2. Settings Membership Row
+    const settingsBadge = $('settings-pro-badge');
+    const settingsSub = $('settings-pro-sub');
+    if (settingsBadge) {
+      settingsBadge.classList.toggle('is-pro', isPro);
+      settingsBadge.textContent = isPro ? 'Pro Active' : 'Free';
+    }
+    if (settingsSub) {
+      settingsSub.textContent = isPro
+        ? 'Lifetime License Active · 100% Local Privacy'
+        : 'Unlock Study Mode, Profiles & Analytics';
+    }
+
+    // 3. Pro Modal State
+    const activeBanner = $('pro-active-banner');
+    const maskedKeyEl = $('pro-active-masked-key');
+    const entryWrap = $('pro-license-entry-wrap');
+    const deactivateBtn = $('btn-deactivate-license');
+
+    if (activeBanner) activeBanner.style.display = isPro ? 'flex' : 'none';
+    if (entryWrap) entryWrap.style.display = isPro ? 'none' : 'flex';
+    if (deactivateBtn) deactivateBtn.style.display = isPro ? 'inline-block' : 'none';
+
+    if (isPro && maskedKeyEl && lic.licenseKey) {
+      const cleanKey = lic.licenseKey;
+      const last4 = cleanKey.length >= 4 ? cleanKey.slice(-4) : cleanKey;
+      maskedKeyEl.textContent = `Key: ••••-••••-${last4}`;
+    }
+  } catch (_) {}
+}
+
+function openProModal() {
+  const modal = $('modal-pro-license');
+  if (!modal) return;
+  renderProState();
+  const errorEl = $('pro-license-error');
+  const successEl = $('pro-license-success');
+  if (errorEl) errorEl.style.display = 'none';
+  if (successEl) successEl.style.display = 'none';
+  const input = $('input-license-key');
+  if (input) input.value = '';
+  modal.style.display = 'flex';
+  setTimeout(() => input?.focus(), 50);
+}
+
+function closeProModal() {
+  const modal = $('modal-pro-license');
+  if (modal) modal.style.display = 'none';
+}
+
+async function handleActivateLicense() {
+  const input = $('input-license-key');
+  const errorEl = $('pro-license-error');
+  const successEl = $('pro-license-success');
+  const btn = $('btn-activate-license');
+  if (!input) return;
+
+  const key = input.value.trim();
+  if (errorEl) errorEl.style.display = 'none';
+  if (successEl) successEl.style.display = 'none';
+
+  if (!key) {
+    if (errorEl) {
+      errorEl.textContent = 'Please enter your license key.';
+      errorEl.style.display = 'block';
+    }
+    input.focus();
+    return;
+  }
+
+  if (btn) btn.disabled = true;
+  try {
+    const result = await IYT_Licensing.activate(key);
+    if (successEl) {
+      successEl.textContent = result.devMode
+        ? 'Test Pro license activated! 🎉'
+        : 'Lifetime Pro activated successfully! 🎉';
+      successEl.style.display = 'block';
+    }
+    showToast('Lifetime Pro Activated! 🎉');
+    await renderProState();
+    setTimeout(() => {
+      closeProModal();
+    }, 1200);
+  } catch (err) {
+    if (errorEl) {
+      errorEl.textContent = err.message || 'Invalid license key.';
+      errorEl.style.display = 'block';
+    }
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
+async function handleDeactivateLicense() {
+  try {
+    await IYT_Licensing.deactivate();
+    showToast('License deactivated');
+    await renderProState();
+  } catch (err) {
+    showToast(err.message || 'Failed to deactivate license');
+  }
 }
 
 function fmtTrendMins(mins) {
@@ -3616,6 +3738,27 @@ function bindAll() {
     showToast(t('stats_reset_toast') || 'Daily watch time reset');
   });
 
+  // Pro License Modal triggers & actions
+  $('btn-header-pro')?.addEventListener('click', openProModal);
+  $('row-open-pro-modal')?.addEventListener('click', openProModal);
+  $('btn-close-pro-modal')?.addEventListener('click', closeProModal);
+  $('btn-dismiss-pro-modal')?.addEventListener('click', closeProModal);
+  $('btn-activate-license')?.addEventListener('click', handleActivateLicense);
+  $('btn-deactivate-license')?.addEventListener('click', handleDeactivateLicense);
+  $('input-license-key')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleActivateLicense();
+    } else if (e.key === 'Escape') {
+      closeProModal();
+    }
+  });
+
+  const modalPro = $('modal-pro-license');
+  modalPro?.addEventListener('click', (e) => {
+    if (e.target === modalPro) closeProModal();
+  });
+
   // Channel & Keyword Blocklist Form Actions
   $('btn-add-channel')?.addEventListener('click', () => handleAddBlocklistEntry('channel'));
   $('input-channel-blocklist')?.addEventListener('input', e => {
@@ -3718,6 +3861,9 @@ function bindAll() {
 
   // Live update when settings write while popup is open
   browser.storage.onChanged.addListener(async changes => {
+    if (changes.proLicense) {
+      renderProState().catch(() => {});
+    }
     if (changes.usage?.newValue) _latestUsageStats = changes.usage.newValue.stats;
     if (changes.usage?.newValue && !changes.settings) {
       if (_s) { _s.stats = changes.usage.newValue.stats; renderStats(_s); renderProtectionStatus(); }
