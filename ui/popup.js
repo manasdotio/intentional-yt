@@ -2356,6 +2356,8 @@ async function renderStatsAnalytics(todaySecs, settings) {
       const fsBreakdownEl = $('stats-fs-breakdown');
       const barStudyEl = $('stats-fs-bar-study');
       const barLeisureEl = $('stats-fs-bar-leisure');
+      const kpiScoreEl = $('stats-kpi-focus-score');
+      const kpiSubEl = $('stats-kpi-focus-sub');
 
       if (fsScoreEl) {
         if (fsData.score !== null) {
@@ -2368,6 +2370,8 @@ async function renderStatsAnalytics(todaySecs, settings) {
           }
           if (barStudyEl) barStudyEl.style.width = `${fsData.score}%`;
           if (barLeisureEl) barLeisureEl.style.width = `${100 - fsData.score}%`;
+          if (kpiScoreEl) kpiScoreEl.textContent = `${fsData.score}%`;
+          if (kpiSubEl) kpiSubEl.textContent = fsData.score >= 70 ? 'High Focus ✦' : (fsData.score >= 40 ? 'Balanced Ratio' : 'High Distraction');
         } else {
           fsScoreEl.textContent = '--%';
           if (fsStatusEl) fsStatusEl.textContent = 'Tag channels below';
@@ -2377,6 +2381,8 @@ async function renderStatsAnalytics(todaySecs, settings) {
           }
           if (barStudyEl) barStudyEl.style.width = '0%';
           if (barLeisureEl) barLeisureEl.style.width = '0%';
+          if (kpiScoreEl) kpiScoreEl.textContent = '--%';
+          if (kpiSubEl) kpiSubEl.textContent = 'Intentional Ratio';
         }
       }
     } catch (_) {}
@@ -3619,6 +3625,46 @@ function bindAll() {
     } catch (_) {
       showToast('Failed to export JSON');
     }
+  });
+
+  // Chart Segmented Switcher (7 Days vs Peak Hours PRO)
+  $('btn-chart-tab-days')?.addEventListener('click', () => {
+    $('btn-chart-tab-days')?.classList.add('is-active');
+    $('btn-chart-tab-days')?.setAttribute('aria-selected', 'true');
+    $('btn-chart-tab-hours')?.classList.remove('is-active');
+    $('btn-chart-tab-hours')?.setAttribute('aria-selected', 'false');
+
+    const viewDays = $('stats-view-days');
+    const viewHours = $('stats-view-hours');
+    if (viewDays) viewDays.style.display = 'block';
+    if (viewHours) viewHours.style.display = 'none';
+  });
+
+  $('btn-chart-tab-hours')?.addEventListener('click', async () => {
+    const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+    if (!isPro) {
+      openProModal();
+      return;
+    }
+    $('btn-chart-tab-hours')?.classList.add('is-active');
+    $('btn-chart-tab-hours')?.setAttribute('aria-selected', 'true');
+    $('btn-chart-tab-days')?.classList.remove('is-active');
+    $('btn-chart-tab-days')?.setAttribute('aria-selected', 'false');
+
+    const viewDays = $('stats-view-days');
+    const viewHours = $('stats-view-hours');
+    if (viewDays) viewDays.style.display = 'none';
+    if (viewHours) viewHours.style.display = 'block';
+  });
+
+  // KPI Focus Score card click -> scroll to Focus Meter or open Pro Modal if not pro
+  $('kpi-focus-card')?.addEventListener('click', async () => {
+    const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+    if (!isPro) {
+      openProModal();
+      return;
+    }
+    $('stats-channels-card')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 
   // Watch bar capsule click -> navigate to Stats tab

@@ -1873,3 +1873,40 @@ test('pro schedule profiles satisfy schema validation and policy evaluation', ()
   assert.equal(activeNight.length, 1, '1 active schedule during night');
   assert.equal(activeNight[0].mode, 'full');
 });
+
+test('stats dashboard layout has 3-section hierarchy and segmented switcher', () => {
+  const popupHtml = source('ui/popup.html');
+  const optionsHtml = source('ui/options.html');
+  const popupJs = source('ui/popup.js');
+
+  for (const [name, html] of [['popup.html', popupHtml], ['options.html', optionsHtml]]) {
+    // 1. KPI grid includes streak, daily avg, and focus score
+    assert.ok(html.includes('id="kpi-streak-card"'), `${name} has kpi-streak-card`);
+    assert.ok(html.includes('id="kpi-avg-card"'), `${name} has kpi-avg-card`);
+    assert.ok(html.includes('id="kpi-focus-card"'), `${name} has kpi-focus-card`);
+    assert.ok(html.includes('id="stats-kpi-focus-score"'), `${name} has stats-kpi-focus-score`);
+
+    // 2. Unified Activity card with segmented switcher
+    assert.ok(html.includes('id="stats-activity-card"'), `${name} has stats-activity-card`);
+    assert.ok(html.includes('id="btn-chart-tab-days"'), `${name} has btn-chart-tab-days`);
+    assert.ok(html.includes('id="btn-chart-tab-hours"'), `${name} has btn-chart-tab-hours`);
+    assert.ok(html.includes('id="stats-view-days"'), `${name} has stats-view-days`);
+    assert.ok(html.includes('id="stats-view-hours"'), `${name} has stats-view-hours`);
+
+    // 3. Channels card with integrated focus meter
+    assert.ok(html.includes('id="stats-channels-card"'), `${name} has stats-channels-card`);
+    assert.ok(html.includes('id="stats-fs-meter-box"'), `${name} has stats-fs-meter-box`);
+    assert.ok(html.includes('id="stats-channels-list"'), `${name} has stats-channels-list`);
+
+    // 4. Footer actions
+    assert.ok(html.includes('id="btn-export-csv"'), `${name} has btn-export-csv`);
+    assert.ok(html.includes('id="btn-export-json"'), `${name} has btn-export-json`);
+  }
+
+  // Verify popup.js binds segmented control handlers and updates KPI focus score
+  assert.ok(popupJs.includes('btn-chart-tab-days'), 'popup.js handles btn-chart-tab-days');
+  assert.ok(popupJs.includes('btn-chart-tab-hours'), 'popup.js handles btn-chart-tab-hours');
+  assert.ok(popupJs.includes('kpi-focus-card'), 'popup.js handles kpi-focus-card click');
+  assert.ok(popupJs.includes('stats-kpi-focus-score'), 'popup.js updates stats-kpi-focus-score');
+});
+

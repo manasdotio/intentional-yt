@@ -6288,8 +6288,8 @@ body.is-options-page .tab-pro-text {
   border-color: #059669;
 }
 
-/* ── Focus Score Card (Pro) ─────────────────────────────────────────── */
-.stats-focus-score-card {
+/* ── Stats Activity Card with Segmented Switcher ─────────────────────── */
+.stats-activity-card {
   background: var(--surface-elevated);
   border: 0.5px solid var(--rule-hairline);
   border-radius: 14px;
@@ -6298,51 +6298,88 @@ body.is-options-page .tab-pro-text {
   margin-bottom: 10px;
 }
 
-.stats-fs-header {
+.stats-activity-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-.stats-fs-title-wrap {
+.stats-activity-title-wrap {
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-.stats-fs-icon-wrap {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  background: rgba(0, 122, 255, 0.12);
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stats-fs-title {
   font-size: 12px;
   font-weight: 700;
   color: var(--ink-primary);
   letter-spacing: -0.01em;
 }
 
-.stats-fs-body {
+.stats-chart-segmented {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface-inset);
+  padding: 2px;
+  border-radius: 8px;
+  gap: 2px;
+}
+
+.chart-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--ink-tertiary);
+  cursor: pointer;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+}
+
+.chart-tab-btn:hover {
+  color: var(--ink-primary);
+}
+
+.chart-tab-btn.is-active {
+  background: var(--surface-elevated);
+  color: var(--ink-primary);
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.stats-view-meta {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.stats-view-sub {
+  font-size: 10.5px;
+  color: var(--ink-tertiary);
+}
+
+/* ── Integrated Intentional Focus Meter Box (Inside Channels Card) ───── */
+.stats-fs-meter-box {
+  background: var(--surface-inset);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
 }
 
 .stats-fs-gauge-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  margin-bottom: 6px;
 }
 
 .stats-fs-score-val {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--ink-primary);
@@ -6363,7 +6400,7 @@ body.is-options-page .tab-pro-text {
 }
 
 .stats-fs-breakdown {
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--ink-tertiary);
 }
 
@@ -6371,7 +6408,7 @@ body.is-options-page .tab-pro-text {
   display: flex;
   height: 6px;
   border-radius: 9999px;
-  background: var(--surface-inset);
+  background: var(--surface-elevated);
   overflow: hidden;
   gap: 2px;
 }
@@ -6386,6 +6423,56 @@ body.is-options-page .tab-pro-text {
   background: #EF4444;
   transition: width 0.3s ease;
   border-radius: 9999px;
+}
+
+/* ── Minimalist Stats Footer ─────────────────────────────────────────── */
+.stats-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 2px 2px;
+  margin-top: 4px;
+}
+
+.stats-footer-privacy {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 550;
+  color: var(--ink-tertiary);
+}
+
+.stats-footer-privacy svg {
+  color: #10B981;
+}
+
+.stats-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-footer-export {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 6px;
+  border: 1px solid var(--rule-hairline);
+  background: var(--surface-inset);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+}
+
+.btn-footer-export:hover {
+  background: var(--surface-elevated);
+  color: var(--ink-primary);
+  border-color: var(--ink-ghost);
+}
+
+.btn-footer-ghost {
+  color: var(--ink-tertiary);
 }
 
 /* ── Channel Tagging (Study / Leisure) ───────────────────────────────── */
