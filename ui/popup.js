@@ -1914,15 +1914,32 @@ function renderAll(s) {
   renderShieldPill();
 }
 
+function fmtTrendMins(mins) {
+  if (!mins || mins <= 0) return '0m';
+  if (mins < 60) return `${mins}m`;
+  const h = (mins / 60).toFixed(1);
+  return h.endsWith('.0') ? `${Math.round(mins / 60)}h` : `${h}h`;
+}
+
 async function renderStatsTrend(todaySecs, focusThresholdMin = 30) {
   const chartEl = $('stats-trend-chart');
   if (!chartEl) return { weekTotalMins: 0, weekDailyAvgMins: 0 };
 
   let history = {};
   try {
-    const stored = await browser.storage.local.get('watchHistory');
+    const stored = await browser.storage.local.get(['watchHistory', 'analytics']);
     if (stored?.watchHistory && typeof stored.watchHistory === 'object') {
       history = { ...stored.watchHistory };
+    }
+    // Merge per-day watch totals from analytics engine if present
+    const dailyHist = stored?.analytics?.dailyHistory;
+    if (dailyHist && typeof dailyHist === 'object') {
+      for (const [dateKey, dayObj] of Object.entries(dailyHist)) {
+        const recordedMins = Math.round((dayObj?.totalSeconds || 0) / 60);
+        if (recordedMins > (history[dateKey] || 0)) {
+          history[dateKey] = recordedMins;
+        }
+      }
     }
   } catch (_) {}
 
@@ -1979,37 +1996,64 @@ async function renderStatsTrend(todaySecs, focusThresholdMin = 30) {
   }
 
   const insightEl = $('stats-trend-insight-text');
+  let defaultInsightText = '';
   if (insightEl) {
     if (weekTotalMins === 0) {
-      insightEl.textContent = 'Clean slate this week · 0 min playback recorded';
+      defaultInsightText = 'Clean slate this week · 0 min playback recorded';
     } else {
       const peakFormatted = peakDay.mins >= 60 ? `${(peakDay.mins / 60).toFixed(1)}h` : `${peakDay.mins}m`;
-      insightEl.textContent = `${focusDaysCount} of 7 focus days on target · Peak: ${peakDay.dayName} (${peakFormatted})`;
+      defaultInsightText = `${focusDaysCount} of 7 focus days on target · Peak: ${peakDay.dayName} (${peakFormatted})`;
     }
+    insightEl.textContent = defaultInsightText;
   }
 
   chartEl.replaceChildren();
   for (const item of daysData) {
     const col = document.createElement('div');
     col.className = `stats-trend-col${item.isToday ? ' is-today' : ''}`;
-    col.title = `${item.dateStr}: ${item.mins} min`;
+    const exactFormatted = fmtTrendMins(item.mins);
+    col.title = `${item.dayName}, ${item.dateStr}: ${item.mins} min watch time`;
 
+    // 1. Exact watch time label above the bar
+    const valLabel = document.createElement('span');
+    valLabel.className = `stats-trend-val${item.mins === 0 ? ' is-zero' : ''}`;
+    valLabel.textContent = exactFormatted;
+
+    // 2. Bar track and fill
     const track = document.createElement('div');
     track.className = 'stats-trend-bar-track';
 
     const fill = document.createElement('div');
     fill.className = 'stats-trend-bar-fill';
-    const heightPct = item.mins > 0 ? Math.max(8, Math.round((item.mins / maxMins) * 100)) : 4;
+    const heightPct = item.mins > 0 ? Math.max(8, Math.round((item.mins / maxMins) * 100)) : 0;
     fill.style.height = `${heightPct}%`;
 
     track.appendChild(fill);
 
+    // 3. Day label below the bar
     const dayLabel = document.createElement('span');
     dayLabel.className = 'stats-trend-day';
     dayLabel.textContent = item.isToday ? (t('stats_trend_today') || 'Today') : item.dayName;
 
+    col.appendChild(valLabel);
     col.appendChild(track);
     col.appendChild(dayLabel);
+
+    // Interactive tooltip/insight on hover
+    col.addEventListener('mouseenter', () => {
+      if (insightEl) {
+        const fullTimeStr = item.mins >= 60
+          ? `${Math.floor(item.mins / 60)}h ${item.mins % 60}m`
+          : `${item.mins} min`;
+        insightEl.textContent = `${item.dayName} (${item.dateStr}): ${fullTimeStr} watched`;
+      }
+    });
+    col.addEventListener('mouseleave', () => {
+      if (insightEl && defaultInsightText) {
+        insightEl.textContent = defaultInsightText;
+      }
+    });
+
     chartEl.appendChild(col);
   }
 
