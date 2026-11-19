@@ -1923,16 +1923,25 @@ async function renderProState() {
     const lic = await IYT_Licensing.getLicense();
     const isPro = Boolean(lic.isPro);
 
-    // 1. Header Pro Pill
+    // 1. Header Pro Pill (Mini badge)
     const headerPill = $('btn-header-pro');
     const headerText = $('hd-pro-text');
     if (headerPill) {
       headerPill.classList.toggle('is-pro', isPro);
       headerPill.title = isPro ? 'Intentional YT Lifetime Pro Active' : 'Unlock Lifetime Pro Features';
-      if (headerText) headerText.textContent = isPro ? 'PRO' : 'PRO ★';
+      if (headerText) headerText.textContent = 'PRO';
     }
 
-    // 2. Settings Membership Row
+    // 2. Sidebar Pro Button
+    const sidebarBtn = $('btn-sidebar-pro');
+    const sidebarText = $('sidebar-pro-text');
+    if (sidebarBtn) {
+      sidebarBtn.classList.toggle('is-pro', isPro);
+      sidebarBtn.title = isPro ? 'Intentional YT Lifetime Pro Active' : 'Unlock Lifetime Pro Features';
+      if (sidebarText) sidebarText.textContent = isPro ? 'Pro Active' : 'Get Pro';
+    }
+
+    // 3. Settings Membership Row
     const settingsBadge = $('settings-pro-badge');
     const settingsSub = $('settings-pro-sub');
     if (settingsBadge) {
@@ -3740,6 +3749,7 @@ function bindAll() {
 
   // Pro License Modal triggers & actions
   $('btn-header-pro')?.addEventListener('click', openProModal);
+  $('btn-sidebar-pro')?.addEventListener('click', openProModal);
   $('row-open-pro-modal')?.addEventListener('click', openProModal);
   $('btn-close-pro-modal')?.addEventListener('click', closeProModal);
   $('btn-dismiss-pro-modal')?.addEventListener('click', closeProModal);

@@ -701,7 +701,7 @@ body {
 .hd-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
   flex-shrink: 1;
 }
@@ -730,23 +730,10 @@ body {
   flex-shrink: 0;
 }
 
-/* ── Shield Pill ──────────────────────────────────────────── */
+/* ── Shield Pill (Relocated to Stats tab KPI overview) ──── */
 .hd-shield-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 2px 6px 2px 5px;
-  border-radius: 20px;
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.22);
-  color: var(--accent);
-  font-size: 10px;
-  font-weight: 650;
-  line-height: 1;
-  letter-spacing: -0.01em;
-  cursor: default;
-  user-select: none;
-  flex-shrink: 0;
+  display: none !important;
+}
   transition:
     background var(--duration-snap) var(--ease-out-gentle),
     border-color var(--duration-snap) var(--ease-out-gentle),
@@ -879,9 +866,10 @@ body {
 .mode-pill-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  width: 25px;
   height: 22px;
-  padding: 0 9px;
+  padding: 0;
   border-radius: 9999px;
   border: none;
   background: transparent;
@@ -892,6 +880,10 @@ body {
   cursor: pointer;
   transition: all 140ms var(--ease-spring);
   user-select: none;
+}
+
+.mode-pill-btn span {
+  display: none;
 }
 
 .mode-pill-btn svg {
@@ -5202,6 +5194,16 @@ body.is-options-page #btn-open-options-page {
   display: none !important;
 }
 
+body.is-options-page .mode-pill-btn {
+  width: auto;
+  padding: 0 9px;
+  gap: 4px;
+}
+
+body.is-options-page .mode-pill-btn span {
+  display: inline;
+}
+
 .hd-icon-btn {
   display: inline-flex;
   align-items: center;
@@ -5682,28 +5684,39 @@ body.is-options-page #btn-open-options-page {
    PRO LICENSING UI — Header Pill, Settings Badge & Activation Modal
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Header Pro Pill */
+/* Header Pro Pill (Micro Badge) */
 .hd-pro-pill {
   display: inline-flex;
   align-items: center;
-  gap: 3.5px;
-  font-size: 10px;
+  gap: 3px;
+  font-size: 9px;
   font-weight: 750;
-  letter-spacing: 0.05em;
-  padding: 3px 8px;
+  letter-spacing: 0.04em;
+  padding: 1.5px 6px;
+  height: 18px;
+  box-sizing: border-box;
   border-radius: 9999px;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(234, 88, 12, 0.18));
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(234, 88, 12, 0.16));
   color: #D97706;
-  border: 1px solid rgba(245, 158, 11, 0.35);
+  border: 1px solid rgba(245, 158, 11, 0.32);
   cursor: pointer;
   transition: all 0.15s ease;
   line-height: 1;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.hd-pro-pill svg {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
 }
 
 .hd-pro-pill:hover {
-  transform: scale(1.05);
+  transform: translateY(-0.5px);
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(234, 88, 12, 0.26));
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.20);
 }
 
 .hd-pro-pill:active {
@@ -5714,7 +5727,109 @@ body.is-options-page #btn-open-options-page {
   background: linear-gradient(135deg, #F59E0B, #EA580C);
   color: #FFFFFF;
   border-color: transparent;
-  box-shadow: 0 1px 4px rgba(234, 88, 12, 0.35);
+  box-shadow: 0 1px 3px rgba(234, 88, 12, 0.35);
+}
+
+[data-theme="dark"] .hd-pro-pill:not(.is-pro),
+:root:not([data-theme="light"]) .hd-pro-pill:not(.is-pro) {
+  background: rgba(245, 158, 11, 0.16);
+  border-color: rgba(245, 158, 11, 0.38);
+  color: #FBBF24;
+}
+
+/* ── Sidebar Pro Entry (Bottom of #tab-bar) ──────────────── */
+.tab-bar-footer {
+  margin-top: auto;
+  padding: 6px 7px 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tab-pro-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  padding: 7px 4px 6px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.10), rgba(234, 88, 12, 0.13));
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  color: #D97706;
+  cursor: pointer;
+  transition: all 0.15s var(--ease-out-gentle);
+  user-select: none;
+  text-align: center;
+}
+
+.tab-pro-btn:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(234, 88, 12, 0.22));
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
+  transform: translateY(-0.5px);
+}
+
+.tab-pro-btn:active {
+  transform: scale(0.97);
+}
+
+.tab-pro-btn .tab-pro-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+.tab-pro-text {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+/* Activated Pro State */
+.tab-pro-btn.is-pro {
+  background: rgba(16, 185, 129, 0.10);
+  border-color: rgba(16, 185, 129, 0.28);
+  color: #059669;
+}
+
+.tab-pro-btn.is-pro:hover {
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.15);
+}
+
+/* Dark mode */
+[data-theme="dark"] .tab-pro-btn:not(.is-pro),
+:root:not([data-theme="light"]) .tab-pro-btn:not(.is-pro) {
+  background: rgba(245, 158, 11, 0.14);
+  border-color: rgba(245, 158, 11, 0.32);
+  color: #FBBF24;
+}
+
+[data-theme="dark"] .tab-pro-btn.is-pro,
+:root:not([data-theme="light"]) .tab-pro-btn.is-pro {
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.32);
+  color: #34D399;
+}
+
+/* Options page variation (expanded sidebar) */
+body.is-options-page .tab-bar-footer {
+  padding: 8px 8px 6px;
+}
+
+body.is-options-page .tab-pro-btn {
+  flex-direction: row;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+}
+
+body.is-options-page .tab-pro-text {
+  font-size: 12px;
 }
 
 /* Settings Row Pro Status Badge */
