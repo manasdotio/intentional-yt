@@ -626,6 +626,57 @@
               <input type="checkbox" class="chk" id="toggle-scheduledBlockingEnabled" aria-describedby="help-toggle-scheduledBlockingEnabled" />
             </div>
 
+            <!-- Schedule Profiles (Pro) -->
+            <div class="schedule-profiles-wrap" id="schedule-profiles-wrap">
+              <div class="schedule-profiles-header">
+                <div class="schedule-profiles-title-box">
+                  <span class="schedule-profiles-title">Schedule Profiles</span>
+                  <span class="badge-pro-micro">PRO</span>
+                </div>
+                <span class="schedule-profiles-sub">1-Click presets for work, quiet hours &amp; sleep</span>
+              </div>
+              <div class="schedule-profiles-grid">
+                <!-- Profile 1: Deep Work -->
+                <div class="schedule-profile-card" data-profile="work" id="profile-card-work">
+                  <div class="profile-card-top">
+                    <span class="profile-card-icon">💼</span>
+                    <span class="profile-card-badge">Mon–Fri 9a–5p</span>
+                  </div>
+                  <div class="profile-card-info">
+                    <strong class="profile-card-name">Deep Work</strong>
+                    <span class="profile-card-desc">Strict protections during work</span>
+                  </div>
+                  <button type="button" class="btn-profile-toggle" data-profile="work" id="btn-profile-work">Enable</button>
+                </div>
+
+                <!-- Profile 2: Evening Wind-Down -->
+                <div class="schedule-profile-card" data-profile="evening" id="profile-card-evening">
+                  <div class="profile-card-top">
+                    <span class="profile-card-icon">🌅</span>
+                    <span class="profile-card-badge">Daily 7p–10p</span>
+                  </div>
+                  <div class="profile-card-info">
+                    <strong class="profile-card-name">Evening Wind-Down</strong>
+                    <span class="profile-card-desc">Quiet hours before bedtime</span>
+                  </div>
+                  <button type="button" class="btn-profile-toggle" data-profile="evening" id="btn-profile-evening">Enable</button>
+                </div>
+
+                <!-- Profile 3: Night Lockdown -->
+                <div class="schedule-profile-card" data-profile="night" id="profile-card-night">
+                  <div class="profile-card-top">
+                    <span class="profile-card-icon">🌙</span>
+                    <span class="profile-card-badge">Daily 11p–7a</span>
+                  </div>
+                  <div class="profile-card-info">
+                    <strong class="profile-card-name">Night Lockdown</strong>
+                    <span class="profile-card-desc">Full blackout to protect sleep</span>
+                  </div>
+                  <button type="button" class="btn-profile-toggle" data-profile="night" id="btn-profile-night">Enable</button>
+                </div>
+              </div>
+            </div>
+
             <div class="schedules-container" id="schedules-container">
               <div class="schedules-header">
                 <button type="button" id="btn-add-schedule" class="btn-primary-small">
@@ -789,6 +840,33 @@
           </div>
         </div>
 
+        <!-- 2.5 Focus Score & Intentional Ratio Card (Pro) -->
+        <div class="stats-focus-score-card" id="stats-focus-score-card">
+          <div class="stats-fs-header">
+            <div class="stats-fs-title-wrap">
+              <div class="stats-fs-icon-wrap">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <span class="stats-fs-title">Intentional Focus Score</span>
+            </div>
+            <span class="badge-pro-micro">PRO</span>
+          </div>
+
+          <div class="stats-fs-body">
+            <div class="stats-fs-gauge-row">
+              <div class="stats-fs-score-val" id="stats-fs-score">--%</div>
+              <div class="stats-fs-meta">
+                <div class="stats-fs-status" id="stats-fs-status">Tag channels below</div>
+                <div class="stats-fs-breakdown" id="stats-fs-breakdown">0m Study · 0m Leisure</div>
+              </div>
+            </div>
+            <div class="stats-fs-bar-track">
+              <div class="stats-fs-bar-study" id="stats-fs-bar-study" style="width: 0%"></div>
+              <div class="stats-fs-bar-leisure" id="stats-fs-bar-leisure" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
         <!-- 3. 7-Day Watch Time Trend Card -->
         <div class="stats-trend-card" id="stats-trend-card">
           <div class="stats-trend-header">
@@ -804,12 +882,46 @@
           </div>
         </div>
 
+        <!-- 3.5 Peak Usage Hours Heatmap (Pro) -->
+        <div class="stats-heatmap-card" id="stats-heatmap-card">
+          <div class="stats-heatmap-header">
+            <div class="stats-heatmap-title-wrap">
+              <div class="stats-heatmap-icon-wrap">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              </div>
+              <span class="stats-heatmap-title">Peak Usage Hours</span>
+            </div>
+            <span class="badge-pro-micro">PRO</span>
+          </div>
+
+          <div class="stats-heatmap-chart" id="stats-heatmap-chart">
+            <!-- 24 hourly micro-bars injected by popup.js -->
+          </div>
+          <div class="stats-heatmap-axis">
+            <span>12a</span>
+            <span>6a</span>
+            <span>12p</span>
+            <span>6p</span>
+            <span>11p</span>
+          </div>
+
+          <div class="stats-heatmap-callout" id="stats-heatmap-callout">
+            <div class="stats-heatmap-callout-text">
+              <span class="stats-heatmap-callout-icon">⚡</span>
+              <span id="stats-heatmap-insight">Peak watch window: 11:00 PM – 1:00 AM</span>
+            </div>
+            <button type="button" class="btn-heatmap-schedule" id="btn-heatmap-schedule" title="Create a focus block for this window">
+              <span>Set Schedule</span>
+            </button>
+          </div>
+        </div>
+
         <!-- 4. Top Channels Card -->
         <div class="stats-channels-card" id="stats-channels-card">
           <div class="stats-channels-header">
             <div class="stats-channels-title-wrap">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
-              <span class="stats-channels-title">Top Channels</span>
+              <span class="stats-channels-title">Top Channels &amp; Classification</span>
             </div>
             <span class="stats-channels-badge">Last 7 days</span>
           </div>
@@ -819,6 +931,24 @@
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
               <span>Watch videos to see your top channel distribution here.</span>
             </div>
+          </div>
+        </div>
+
+        <!-- 5. Export Watch Data (Pro) -->
+        <div class="stats-export-card">
+          <div class="stats-export-label">
+            <span>Export Analytics</span>
+            <span class="badge-pro-micro">PRO</span>
+          </div>
+          <div class="stats-export-actions">
+            <button type="button" id="btn-export-csv" class="btn-export-action">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download CSV</span>
+            </button>
+            <button type="button" id="btn-export-json" class="btn-export-action btn-export-ghost">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>JSON</span>
+            </button>
           </div>
         </div>
 

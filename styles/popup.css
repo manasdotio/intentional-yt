@@ -6128,3 +6128,489 @@ body.is-options-page .tab-pro-text {
 .btn-danger-ghost:hover {
   background: rgba(239, 68, 68, 0.10);
 }
+
+/* ── Pro Micro Badge ─────────────────────────────────────────────────── */
+.badge-pro-micro {
+  display: inline-flex;
+  align-items: center;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 1.5px 5px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(234, 88, 12, 0.20));
+  border: 1px solid rgba(245, 158, 11, 0.40);
+  color: #D97706;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .badge-pro-micro,
+:root:not([data-theme="light"]) .badge-pro-micro {
+  color: #FBBF24;
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.15);
+}
+
+/* ── Schedule Profiles (Pro) ─────────────────────────────────────────── */
+.schedule-profiles-wrap {
+  margin: 10px 0 14px;
+  padding: 10px 12px;
+  background: var(--surface-inset);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 12px;
+}
+
+.schedule-profiles-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.schedule-profiles-title-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.schedule-profiles-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink-primary);
+  letter-spacing: -0.01em;
+}
+
+.schedule-profiles-sub {
+  font-size: 10px;
+  color: var(--ink-tertiary);
+}
+
+.schedule-profiles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.schedule-profile-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--surface-elevated);
+  border: 1px solid var(--rule-hairline);
+  border-radius: 10px;
+  padding: 8px 7px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: transform var(--duration-snap) var(--ease-out-gentle), border-color var(--duration-snap) var(--ease-out-gentle);
+}
+
+.schedule-profile-card:hover {
+  border-color: var(--rule-section);
+  transform: translateY(-0.5px);
+}
+
+.profile-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.profile-card-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.profile-card-badge {
+  font-size: 8px;
+  font-weight: 600;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--surface-inset);
+  color: var(--ink-secondary);
+}
+
+.profile-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-bottom: 7px;
+}
+
+.profile-card-name {
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--ink-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-card-desc {
+  font-size: 9.5px;
+  color: var(--ink-tertiary);
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 24px;
+}
+
+.btn-profile-toggle {
+  width: 100%;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 10.5px;
+  font-weight: 650;
+  border: 1px solid var(--rule-hairline);
+  background: var(--surface-inset);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+  text-align: center;
+}
+
+.btn-profile-toggle:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.btn-profile-toggle.is-active {
+  background: #10B981;
+  color: #FFFFFF;
+  border-color: #10B981;
+}
+
+.btn-profile-toggle.is-active:hover {
+  background: #059669;
+  border-color: #059669;
+}
+
+/* ── Focus Score Card (Pro) ─────────────────────────────────────────── */
+.stats-focus-score-card {
+  background: var(--surface-elevated);
+  border: 0.5px solid var(--rule-hairline);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  margin-bottom: 10px;
+}
+
+.stats-fs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.stats-fs-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stats-fs-icon-wrap {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(0, 122, 255, 0.12);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats-fs-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-primary);
+  letter-spacing: -0.01em;
+}
+
+.stats-fs-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stats-fs-gauge-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.stats-fs-score-val {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink-primary);
+  line-height: 1;
+}
+
+.stats-fs-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.stats-fs-status {
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--ink-primary);
+}
+
+.stats-fs-breakdown {
+  font-size: 10.5px;
+  color: var(--ink-tertiary);
+}
+
+.stats-fs-bar-track {
+  display: flex;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--surface-inset);
+  overflow: hidden;
+  gap: 2px;
+}
+
+.stats-fs-bar-study {
+  background: #10B981;
+  transition: width 0.3s ease;
+  border-radius: 9999px;
+}
+
+.stats-fs-bar-leisure {
+  background: #EF4444;
+  transition: width 0.3s ease;
+  border-radius: 9999px;
+}
+
+/* ── Channel Tagging (Study / Leisure) ───────────────────────────────── */
+.stats-channel-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stats-ch-tags {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 6px;
+}
+
+.btn-ch-tag {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--rule-hairline);
+  background: var(--surface-inset);
+  color: var(--ink-tertiary);
+  cursor: pointer;
+  line-height: 1.2;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+}
+
+.btn-ch-tag:hover {
+  color: var(--ink-primary);
+  border-color: var(--ink-ghost);
+}
+
+.btn-ch-tag.tag-study.is-active {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #059669;
+  font-weight: 700;
+}
+
+.btn-ch-tag.tag-leisure.is-active {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #DC2626;
+  font-weight: 700;
+}
+
+/* ── Peak Usage Heatmap (Pro) ────────────────────────────────────────── */
+.stats-heatmap-card {
+  background: var(--surface-elevated);
+  border: 0.5px solid var(--rule-hairline);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  margin-bottom: 10px;
+}
+
+.stats-heatmap-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.stats-heatmap-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stats-heatmap-icon-wrap {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(245, 158, 11, 0.14);
+  color: #D97706;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats-heatmap-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-primary);
+  letter-spacing: -0.01em;
+}
+
+.stats-heatmap-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 44px;
+  padding: 4px 2px;
+  border-bottom: 1px solid var(--rule-hairline);
+}
+
+.heatmap-bar-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  cursor: pointer;
+}
+
+.heatmap-bar {
+  width: 100%;
+  border-radius: 2px 2px 0 0;
+  background: rgba(0, 122, 255, 0.35);
+  min-height: 2px;
+  transition: height 0.25s ease, background 0.15s ease;
+}
+
+.heatmap-bar-col:hover .heatmap-bar {
+  background: var(--accent);
+}
+
+.heatmap-bar.is-peak {
+  background: linear-gradient(180deg, #F59E0B, #EA580C);
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.3);
+}
+
+.stats-heatmap-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--ink-ghost);
+  padding: 3px 2px 8px;
+}
+
+.stats-heatmap-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: var(--surface-inset);
+  font-size: 11px;
+}
+
+.stats-heatmap-callout-text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink-secondary);
+  font-weight: 550;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stats-heatmap-callout-icon {
+  font-size: 12px;
+  color: #F59E0B;
+}
+
+.btn-heatmap-schedule {
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 650;
+  border-radius: 6px;
+  border: 1px solid var(--rule-hairline);
+  background: var(--surface-elevated);
+  color: var(--accent);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+}
+
+.btn-heatmap-schedule:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+/* ── Export Watch Data (Pro) ─────────────────────────────────────────── */
+.stats-export-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--surface-elevated);
+  border: 0.5px solid var(--rule-hairline);
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.stats-export-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 650;
+  color: var(--ink-primary);
+}
+
+.stats-export-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-export-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--rule-hairline);
+  background: var(--surface-inset);
+  color: var(--ink-primary);
+  cursor: pointer;
+  transition: all var(--duration-snap) var(--ease-out-gentle);
+}
+
+.btn-export-action:hover {
+  background: var(--surface-elevated);
+  border-color: var(--ink-ghost);
+}
+
+.btn-export-ghost {
+  color: var(--ink-secondary);
+}

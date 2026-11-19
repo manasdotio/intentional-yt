@@ -573,9 +573,9 @@ const IYT_Timer = (() => {
         _baseWatchSeconds = settings.stats.todayWatchSeconds;
         _day = StorageManager.getTodayString(settings?.dailyLimit?.resetHour);
         if (_isLimitExceeded()) { _video?.pause(); _showLimitOverlay(); }
-        // Record per-channel analytics (best-effort, non-blocking)
+        // Record per-channel analytics with hour bucket (best-effort, non-blocking)
         if (typeof IYT_Analytics !== 'undefined' && batch.channelId && batch.channelId !== 'unknown') {
-          IYT_Analytics.recordChannelWatch(seconds, batch.channelId, batch.channelName, batch.day).catch(() => {});
+          IYT_Analytics.recordChannelWatch(seconds, batch.channelId, batch.channelName, batch.day, new Date().getHours()).catch(() => {});
         }
       } catch (error) {
         if (/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(error?.stack || error?.message || error || '')) || error?.code === 'CONTEXT_INVALIDATED' || (error instanceof TypeError)) {

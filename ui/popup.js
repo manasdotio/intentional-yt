@@ -1171,6 +1171,7 @@ function formatScheduleDays(days) {
 }
 
 function renderSchedulesList(s) {
+  renderScheduleProfiles(s);
   const container = $('schedules-list');
   if (!container) return;
   container.innerHTML = '';
@@ -1276,6 +1277,93 @@ function renderSchedulesList(s) {
 
     container.appendChild(card);
   });
+}
+
+const SCHEDULE_PROFILES = {
+  work: {
+    id: 'profile_deep_work',
+    label: '💼 Deep Work',
+    days: [1, 2, 3, 4, 5],
+    startTime: '09:00',
+    endTime: '17:00',
+    mode: 'strict'
+  },
+  evening: {
+    id: 'profile_evening',
+    label: '🌅 Evening Wind-Down',
+    days: [0, 1, 2, 3, 4, 5, 6],
+    startTime: '19:00',
+    endTime: '22:00',
+    mode: 'strict'
+  },
+  night: {
+    id: 'profile_night',
+    label: '🌙 Night Lockdown',
+    days: [0, 1, 2, 3, 4, 5, 6],
+    startTime: '23:00',
+    endTime: '07:00',
+    mode: 'full'
+  }
+};
+
+function renderScheduleProfiles(s) {
+  const schedules = s?.scheduledBlocking?.schedules || [];
+  const schedEnabled = Boolean(s?.scheduledBlocking?.enabled);
+
+  ['work', 'evening', 'night'].forEach(key => {
+    const btn = $(`btn-profile-${key}`);
+    const card = $(`profile-card-${key}`);
+    const prof = SCHEDULE_PROFILES[key];
+    if (!btn || !prof) return;
+
+    const existing = schedules.find(x => x.id === prof.id || x.label === prof.label);
+    const isActive = schedEnabled && existing && existing.enabled;
+
+    btn.textContent = isActive ? 'Active' : 'Enable';
+    btn.classList.toggle('is-active', Boolean(isActive));
+    if (card) card.classList.toggle('is-active', Boolean(isActive));
+  });
+}
+
+async function toggleScheduleProfile(profileKey) {
+  const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+  if (!isPro) {
+    openProModal();
+    return;
+  }
+
+  const prof = SCHEDULE_PROFILES[profileKey];
+  if (!prof) return;
+
+  const current = await StorageManager.getSettings();
+  const schedBlocking = current.scheduledBlocking ? { ...current.scheduledBlocking } : { enabled: false, schedules: [] };
+  const schedules = Array.isArray(schedBlocking.schedules) ? [...schedBlocking.schedules] : [];
+
+  const existingIdx = schedules.findIndex(x => x.id === prof.id || x.label === prof.label);
+
+  if (existingIdx >= 0) {
+    const existing = schedules[existingIdx];
+    existing.enabled = !existing.enabled;
+    if (existing.enabled) schedBlocking.enabled = true;
+    showToast(existing.enabled ? `${prof.label} enabled! ✦` : `${prof.label} paused`);
+  } else {
+    schedules.push({
+      id: prof.id,
+      label: prof.label,
+      days: [...prof.days],
+      startTime: prof.startTime,
+      endTime: prof.endTime,
+      mode: prof.mode,
+      enabled: true
+    });
+    schedBlocking.enabled = true;
+    showToast(`${prof.label} profile activated! ✦`);
+  }
+
+  schedBlocking.schedules = schedules;
+  _s = await StorageManager.updateSettings({ scheduledBlocking: schedBlocking });
+  renderScheduleCards(_s);
+  renderSchedulesList(_s);
 }
 
 async function updateSingleScheduleEnabled(id, enabled) {
@@ -2260,6 +2348,79 @@ async function renderStatsAnalytics(todaySecs, settings) {
     const bestEl = $('stats-streak-best');
     if (bestEl) bestEl.textContent = `Best: ${longest}d`;
 
+    // ── Focus Score & Intentional Ratio ────────────────────────────────────
+    try {
+      const fsData = await IYT_Analytics.getFocusScore(1);
+      const fsScoreEl = $('stats-fs-score');
+      const fsStatusEl = $('stats-fs-status');
+      const fsBreakdownEl = $('stats-fs-breakdown');
+      const barStudyEl = $('stats-fs-bar-study');
+      const barLeisureEl = $('stats-fs-bar-leisure');
+
+      if (fsScoreEl) {
+        if (fsData.score !== null) {
+          fsScoreEl.textContent = `${fsData.score}%`;
+          if (fsStatusEl) {
+            fsStatusEl.textContent = fsData.score >= 70 ? 'Intentional Focus ✦' : (fsData.score >= 40 ? 'Balanced' : 'High Distraction');
+          }
+          if (fsBreakdownEl) {
+            fsBreakdownEl.textContent = `${fmtTrendMins(fsData.studyMinutes)} Study · ${fmtTrendMins(fsData.leisureMinutes)} Leisure`;
+          }
+          if (barStudyEl) barStudyEl.style.width = `${fsData.score}%`;
+          if (barLeisureEl) barLeisureEl.style.width = `${100 - fsData.score}%`;
+        } else {
+          fsScoreEl.textContent = '--%';
+          if (fsStatusEl) fsStatusEl.textContent = 'Tag channels below';
+          if (fsBreakdownEl) {
+            const totalM = Math.round((todaySecs || 0) / 60);
+            fsBreakdownEl.textContent = `${fmtTrendMins(totalM)} unclassified`;
+          }
+          if (barStudyEl) barStudyEl.style.width = '0%';
+          if (barLeisureEl) barLeisureEl.style.width = '0%';
+        }
+      }
+    } catch (_) {}
+
+    // ── 24-Hour Peak Usage Heatmap ─────────────────────────────────────────
+    try {
+      const hourlyData = await IYT_Analytics.getHourlyDistribution(7);
+      const heatmapChart = $('stats-heatmap-chart');
+      const heatmapInsight = $('stats-heatmap-insight');
+      const btnHeatmapSchedule = $('btn-heatmap-schedule');
+
+      if (heatmapChart && hourlyData?.hours) {
+        heatmapChart.innerHTML = '';
+        const maxMins = Math.max(1, ...hourlyData.hours.map(h => h.minutes));
+        hourlyData.hours.forEach(item => {
+          const col = document.createElement('div');
+          col.className = 'heatmap-bar-col';
+          col.title = `${item.label}: ${item.minutes}m watched`;
+
+          const bar = document.createElement('div');
+          bar.className = `heatmap-bar ${item.isPeak ? 'is-peak' : ''}`;
+          const pctHeight = Math.max(6, Math.round((item.minutes / maxMins) * 100));
+          bar.style.height = `${item.minutes > 0 ? pctHeight : 6}%`;
+          if (item.minutes === 0) bar.style.opacity = '0.25';
+
+          col.appendChild(bar);
+          heatmapChart.appendChild(col);
+        });
+      }
+
+      if (heatmapInsight && hourlyData?.peakWindow) {
+        if (hourlyData.peakWindow.hasData) {
+          heatmapInsight.textContent = `Peak watch window: ${hourlyData.peakWindow.label} (${hourlyData.peakWindow.totalMinutes}m avg)`;
+        } else {
+          heatmapInsight.textContent = 'Peak watch window: 11:00 PM – 1:00 AM (Typical)';
+        }
+      }
+
+      if (btnHeatmapSchedule && hourlyData?.peakWindow) {
+        btnHeatmapSchedule.dataset.start = hourlyData.peakWindow.startStr;
+        btnHeatmapSchedule.dataset.end = hourlyData.peakWindow.endStr;
+      }
+    } catch (_) {}
+
     // ── Top Channels (last 7 days) ─────────────────────────────────────────
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - 6);
@@ -2277,11 +2438,12 @@ async function renderStatsAnalytics(todaySecs, settings) {
 
     const topChannels = Object.entries(totals)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 3)
+      .slice(0, 5)
       .map(([id, seconds]) => ({
         id,
         name: analyticsData.channels?.[id]?.name || id,
         seconds,
+        tag: analyticsData.channels?.[id]?.tag || 'unassigned',
         pct: grandTotal > 0 ? Math.round((seconds / grandTotal) * 100) : 0,
         mins: Math.round(seconds / 60)
       }));
@@ -2294,7 +2456,7 @@ async function renderStatsAnalytics(todaySecs, settings) {
         if (emptyEl) emptyEl.style.display = 'flex';
       } else {
         if (emptyEl) emptyEl.style.display = 'none';
-        const palette = ['#D97706', '#007AFF', '#AF52DE'];
+        const palette = ['#D97706', '#007AFF', '#AF52DE', '#10B981', '#6366F1'];
         topChannels.forEach((ch, i) => {
           const row = document.createElement('div');
           row.className = 'stats-channel-row';
@@ -2309,16 +2471,59 @@ async function renderStatsAnalytics(todaySecs, settings) {
           const nameRow = document.createElement('div');
           nameRow.className = 'stats-channel-name-row';
 
+          const nameWrap = document.createElement('div');
+          nameWrap.style.display = 'inline-flex';
+          nameWrap.style.alignItems = 'center';
+          nameWrap.style.gap = '6px';
+          nameWrap.style.overflow = 'hidden';
+
           const name = document.createElement('span');
           name.className = 'stats-channel-name';
           name.textContent = ch.name;
           name.title = ch.name;
+          nameWrap.appendChild(name);
+
+          // Tag Selector (Study vs Leisure)
+          const tagWrap = document.createElement('div');
+          tagWrap.className = 'stats-ch-tags';
+
+          const studyBtn = document.createElement('button');
+          studyBtn.type = 'button';
+          studyBtn.className = `btn-ch-tag tag-study ${ch.tag === 'study' ? 'is-active' : ''}`;
+          studyBtn.title = 'Mark as Study / Productive';
+          studyBtn.textContent = 'Study';
+          studyBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+            if (!isPro) { openProModal(); return; }
+            const newTag = ch.tag === 'study' ? 'unassigned' : 'study';
+            await IYT_Analytics.setChannelTag(ch.id, newTag);
+            renderStatsAnalytics(todaySecs, settings);
+          });
+
+          const leisureBtn = document.createElement('button');
+          leisureBtn.type = 'button';
+          leisureBtn.className = `btn-ch-tag tag-leisure ${ch.tag === 'leisure' ? 'is-active' : ''}`;
+          leisureBtn.title = 'Mark as Leisure / Distraction';
+          leisureBtn.textContent = 'Leisure';
+          leisureBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+            if (!isPro) { openProModal(); return; }
+            const newTag = ch.tag === 'leisure' ? 'unassigned' : 'leisure';
+            await IYT_Analytics.setChannelTag(ch.id, newTag);
+            renderStatsAnalytics(todaySecs, settings);
+          });
+
+          tagWrap.appendChild(studyBtn);
+          tagWrap.appendChild(leisureBtn);
+          nameWrap.appendChild(tagWrap);
 
           const pct = document.createElement('span');
           pct.className = 'stats-channel-pct';
           pct.textContent = `${ch.pct}%`;
 
-          nameRow.appendChild(name);
+          nameRow.appendChild(nameWrap);
           nameRow.appendChild(pct);
 
           const bar = document.createElement('div');
@@ -3339,6 +3544,81 @@ function bindAll() {
 
     closeScheduleForm();
     renderSchedulesList(_s);
+  });
+
+  // Schedule Profiles 1-Click Toggles (Pro)
+  $('btn-profile-work')?.addEventListener('click', () => toggleScheduleProfile('work'));
+  $('btn-profile-evening')?.addEventListener('click', () => toggleScheduleProfile('evening'));
+  $('btn-profile-night')?.addEventListener('click', () => toggleScheduleProfile('night'));
+
+  // Peak Hours Heatmap CTA (Pro)
+  $('btn-heatmap-schedule')?.addEventListener('click', async () => {
+    const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+    if (!isPro) {
+      openProModal();
+      return;
+    }
+    const btn = $('btn-heatmap-schedule');
+    const start = btn?.dataset.start || '23:00';
+    const end = btn?.dataset.end || '07:00';
+
+    switchTab('focus');
+    const schedCard = $('card-focus-schedule');
+    if (schedCard && !schedCard.classList.contains('is-expanded')) {
+      schedCard.querySelector('.focus-card-header')?.click();
+    }
+    openScheduleForm();
+    const labelInput = $('schedule-input-label');
+    const startInput = $('schedule-input-start');
+    const endInput = $('schedule-input-end');
+    if (labelInput) labelInput.value = '🌙 Peak Hour Focus';
+    if (startInput) startInput.value = start;
+    if (endInput) endInput.value = end;
+
+    const formWrap = $('schedule-form-wrap');
+    if (formWrap) {
+      formWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    showToast('Pre-filled schedule for your peak watch window! ⚡');
+  });
+
+  // Watch Analytics Export (CSV & JSON) (Pro)
+  $('btn-export-csv')?.addEventListener('click', async () => {
+    const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+    if (!isPro) { openProModal(); return; }
+    try {
+      const csv = await IYT_Analytics.exportWatchData('csv');
+      const todayStr = StorageManager.getTodayString();
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `intentional-yt-analytics-${todayStr}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Downloaded watch analytics (CSV) 📊');
+    } catch (_) {
+      showToast('Failed to export CSV');
+    }
+  });
+
+  $('btn-export-json')?.addEventListener('click', async () => {
+    const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+    if (!isPro) { openProModal(); return; }
+    try {
+      const json = await IYT_Analytics.exportWatchData('json');
+      const todayStr = StorageManager.getTodayString();
+      const blob = new Blob([json], { type: 'application/json;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `intentional-yt-analytics-${todayStr}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Downloaded watch analytics (JSON) 📊');
+    } catch (_) {
+      showToast('Failed to export JSON');
+    }
   });
 
   // Watch bar capsule click -> navigate to Stats tab

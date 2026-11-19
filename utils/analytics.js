@@ -47,8 +47,9 @@ const IYT_Analytics = (() => {
    * @param {string}  channelId  - YouTube channel ID (e.g. "UCxxxxxxx") or handle.
    * @param {string}  channelName - Display name of the channel.
    * @param {string}  dateStr    - ISO date "YYYY-MM-DD" of the watch day.
+   * @param {number}  [hour]     - Optional hour of day (0-23). Defaults to current hour.
    */
-  async function recordChannelWatch(seconds, channelId, channelName, dateStr) {
+  async function recordChannelWatch(seconds, channelId, channelName, dateStr, hour = null) {
     if (!Number.isFinite(seconds) || seconds <= 0) return;
     if (typeof dateStr !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return;
 
@@ -57,10 +58,11 @@ const IYT_Analytics = (() => {
     const data = await _read();
 
     // ── Channel lifetime totals ─────────────────────────────────────────────
-    if (!data.channels[id]) data.channels[id] = { name, seconds: 0, lastSeen: dateStr };
+    if (!data.channels[id]) data.channels[id] = { name, seconds: 0, lastSeen: dateStr, tag: 'unassigned' };
     data.channels[id].seconds += seconds;
     data.channels[id].lastSeen = dateStr;
     if (name && name !== 'Unknown') data.channels[id].name = name;
+    if (!data.channels[id].tag) data.channels[id].tag = 'unassigned';
 
     // Prune oldest channels if limit exceeded (keep top MAX_CHANNELS by seconds)
     const channelEntries = Object.entries(data.channels);
@@ -70,10 +72,15 @@ const IYT_Analytics = (() => {
     }
 
     // ── Daily history ───────────────────────────────────────────────────────
-    if (!data.dailyHistory[dateStr]) data.dailyHistory[dateStr] = { totalSeconds: 0, channels: {} };
+    if (!data.dailyHistory[dateStr]) data.dailyHistory[dateStr] = { totalSeconds: 0, channels: {}, hours: {} };
+    if (!data.dailyHistory[dateStr].hours) data.dailyHistory[dateStr].hours = {};
     data.dailyHistory[dateStr].totalSeconds += seconds;
     if (!data.dailyHistory[dateStr].channels[id]) data.dailyHistory[dateStr].channels[id] = 0;
     data.dailyHistory[dateStr].channels[id] += seconds;
+
+    // Track hourly bucket
+    const h = (Number.isInteger(hour) && hour >= 0 && hour <= 23) ? hour : new Date().getHours();
+    data.dailyHistory[dateStr].hours[h] = (data.dailyHistory[dateStr].hours[h] || 0) + seconds;
 
     // Prune old history
     const histKeys = Object.keys(data.dailyHistory).sort();
@@ -136,9 +143,9 @@ const IYT_Analytics = (() => {
 
   /**
    * Get the top N channels by total seconds over the last `days` days.
-   * Returns [{ id, name, seconds, pct }] sorted descending.
+   * Returns [{ id, name, seconds, tag, pct }] sorted descending.
    */
-  async function getTopChannels(days = 7, topN = 3) {
+  async function getTopChannels(days = 7, topN = 5) {
     const data = await _read();
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - (days - 1));
@@ -162,10 +169,180 @@ const IYT_Analytics = (() => {
         id,
         name: data.channels[id]?.name || id,
         seconds,
+        tag: data.channels[id]?.tag || 'unassigned',
         pct: grandTotal > 0 ? Math.round((seconds / grandTotal) * 100) : 0
       }));
 
     return { channels: sorted, grandTotalSeconds: grandTotal };
+  }
+
+  /**
+   * Assign a tag ('study' | 'leisure' | 'unassigned') to a channel.
+   */
+  async function setChannelTag(channelId, tag) {
+    const id = sanitiseChannelId(channelId);
+    const validTags = ['study', 'leisure', 'unassigned'];
+    const safeTag = validTags.includes(tag) ? tag : 'unassigned';
+    const data = await _read();
+    if (!data.channels[id]) {
+      data.channels[id] = { name: id, seconds: 0, lastSeen: '', tag: safeTag };
+    } else {
+      data.channels[id].tag = safeTag;
+    }
+    await _write(data);
+    return { id, tag: safeTag };
+  }
+
+  /**
+   * Compute Intentional Focus Score (0-100%) and watch breakdown.
+   * Compares study watch seconds vs leisure watch seconds.
+   * Returns { score, studySeconds, leisureSeconds, unassignedSeconds, totalSeconds, studyMinutes, leisureMinutes, totalMinutes }.
+   */
+  async function getFocusScore(days = 1, targetDateStr = null) {
+    const data = await _read();
+    let studySeconds = 0;
+    let leisureSeconds = 0;
+    let unassignedSeconds = 0;
+
+    let dateKeys = [];
+    if (days === 1) {
+      const today = targetDateStr || new Date().toISOString().slice(0, 10);
+      dateKeys = [today];
+    } else {
+      const cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - (days - 1));
+      const cutoffStr = `${cutoff.getFullYear()}-${String(cutoff.getMonth() + 1).padStart(2, '0')}-${String(cutoff.getDate()).padStart(2, '0')}`;
+      dateKeys = Object.keys(data.dailyHistory).filter(d => d >= cutoffStr);
+    }
+
+    for (const dKey of dateKeys) {
+      const dayData = data.dailyHistory[dKey];
+      if (!dayData || !dayData.channels) continue;
+      for (const [chId, secs] of Object.entries(dayData.channels)) {
+        const tag = data.channels[chId]?.tag || 'unassigned';
+        if (tag === 'study') {
+          studySeconds += secs;
+        } else if (tag === 'leisure') {
+          leisureSeconds += secs;
+        } else {
+          unassignedSeconds += secs;
+        }
+      }
+    }
+
+    const taggedTotal = studySeconds + leisureSeconds;
+    const score = taggedTotal > 0 ? Math.round((studySeconds / taggedTotal) * 100) : null;
+    const totalSeconds = studySeconds + leisureSeconds + unassignedSeconds;
+
+    return {
+      score,
+      studySeconds,
+      leisureSeconds,
+      unassignedSeconds,
+      totalSeconds,
+      studyMinutes: Math.round(studySeconds / 60),
+      leisureMinutes: Math.round(leisureSeconds / 60),
+      totalMinutes: Math.round(totalSeconds / 60)
+    };
+  }
+
+  /**
+   * Get 24-hour distribution of watch time over the last `days` days.
+   * Identifies peak doomscroll / vulnerability window.
+   */
+  async function getHourlyDistribution(days = 7) {
+    const data = await _read();
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - (days - 1));
+    const cutoffStr = `${cutoff.getFullYear()}-${String(cutoff.getMonth() + 1).padStart(2, '0')}-${String(cutoff.getDate()).padStart(2, '0')}`;
+
+    const hourlyTotals = new Array(24).fill(0);
+    for (const [dKey, dayData] of Object.entries(data.dailyHistory)) {
+      if (dKey < cutoffStr || !dayData.hours) continue;
+      for (const [hStr, secs] of Object.entries(dayData.hours)) {
+        const h = parseInt(hStr, 10);
+        if (Number.isInteger(h) && h >= 0 && h < 24) {
+          hourlyTotals[h] += secs;
+        }
+      }
+    }
+
+    // Find peak 2-hour window
+    let maxSecs = 0;
+    let peakStart = 23; // default late night
+    for (let h = 0; h < 24; h++) {
+      const windowSecs = hourlyTotals[h] + hourlyTotals[(h + 1) % 24];
+      if (windowSecs > maxSecs) {
+        maxSecs = windowSecs;
+        peakStart = h;
+      }
+    }
+    const peakEnd = (peakStart + 2) % 24;
+
+    const fmtHour = (h) => {
+      if (h === 0) return '12 AM';
+      if (h === 12) return '12 PM';
+      return h < 12 ? `${h} AM` : `${h - 12} PM`;
+    };
+
+    const hours = hourlyTotals.map((secs, h) => ({
+      hour: h,
+      label: fmtHour(h),
+      seconds: secs,
+      minutes: Math.round(secs / 60),
+      isPeak: maxSecs > 0 && (h === peakStart || h === (peakStart + 1) % 24)
+    }));
+
+    return {
+      hours,
+      peakWindow: {
+        startHour: peakStart,
+        endHour: peakEnd,
+        startStr: String(peakStart).padStart(2, '0') + ':00',
+        endStr: String(peakEnd).padStart(2, '0') + ':00',
+        label: `${fmtHour(peakStart)} – ${fmtHour(peakEnd)}`,
+        totalMinutes: Math.round(maxSecs / 60),
+        hasData: maxSecs > 0
+      }
+    };
+  }
+
+  /**
+   * Export watch data to CSV or JSON format.
+   */
+  async function exportWatchData(format = 'csv') {
+    const data = await _read();
+    if (format === 'json') {
+      return JSON.stringify(data, null, 2);
+    }
+
+    const rows = ['Date,Total_Minutes,Study_Minutes,Leisure_Minutes,Unassigned_Minutes,Focus_Score_Pct'];
+    const sortedDays = Object.keys(data.dailyHistory).sort();
+    for (const dKey of sortedDays) {
+      const day = data.dailyHistory[dKey];
+      let studySec = 0;
+      let leisureSec = 0;
+      let unassignedSec = 0;
+      for (const [chId, secs] of Object.entries(day.channels || {})) {
+        const tag = data.channels[chId]?.tag || 'unassigned';
+        if (tag === 'study') studySec += secs;
+        else if (tag === 'leisure') leisureSec += secs;
+        else unassignedSec += secs;
+      }
+      const tagged = studySec + leisureSec;
+      const score = tagged > 0 ? Math.round((studySec / tagged) * 100) : '';
+      rows.push(`${dKey},${Math.round((day.totalSeconds || 0)/60)},${Math.round(studySec/60)},${Math.round(leisureSec/60)},${Math.round(unassignedSec/60)},${score}`);
+    }
+
+    rows.push('');
+    rows.push('Channel_ID,Channel_Name,Tag,Total_Minutes,Last_Seen');
+    const sortedChannels = Object.entries(data.channels).sort((a, b) => b[1].seconds - a[1].seconds);
+    for (const [id, ch] of sortedChannels) {
+      const name = (ch.name || 'Unknown').replace(/"/g, '""');
+      rows.push(`"${id}","${name}",${ch.tag || 'unassigned'},${Math.round((ch.seconds || 0)/60)},${ch.lastSeen || ''}`);
+    }
+
+    return rows.join('\n');
   }
 
   /**
@@ -233,6 +410,10 @@ const IYT_Analytics = (() => {
 
   return {
     recordChannelWatch,
+    setChannelTag,
+    getFocusScore,
+    getHourlyDistribution,
+    exportWatchData,
     updateStreaks,
     getTopChannels,
     getDailyHistory,

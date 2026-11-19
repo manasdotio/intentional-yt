@@ -1737,3 +1737,139 @@ test('hideThumbnails enforces 16:9 aspect ratio and prevents search cards from s
   vm.runInContext(blockerSource.slice(0, blockerSource.indexOf('const html = document.documentElement;')), context);
   assert.equal(vm.runInContext('CLASS_MAP', context).hideThumbnails, 'iyt-no-thumbnails');
 });
+
+test('pro analytics computes intentional focus score, channel tagging, hourly heatmap and export', async () => {
+  const analyticsSource = source('utils/analytics.js');
+  const mockStorage = { store: {} };
+  const mockBrowser = {
+    storage: {
+      local: {
+        get: async (key) => ({ [key]: mockStorage.store[key] }),
+        set: async (obj) => { Object.assign(mockStorage.store, obj); },
+        remove: async (key) => { delete mockStorage.store[key]; }
+      }
+    }
+  };
+
+  const context = vm.createContext({
+    browser: mockBrowser,
+    Date
+  });
+  context.globalThis = context;
+
+  vm.runInContext(analyticsSource, context);
+  const analytics = context.IYT_Analytics;
+  assert.ok(analytics, 'IYT_Analytics loaded');
+
+  const testDay = '2026-11-19';
+
+  // 1. Record channel watch with specific hours
+  await analytics.recordChannelWatch(1800, 'UC_study_1', 'Khan Academy', testDay, 10); // 30m at 10 AM
+  await analytics.recordChannelWatch(1200, 'UC_study_1', 'Khan Academy', testDay, 11); // 20m at 11 AM
+  await analytics.recordChannelWatch(600, 'UC_leisure_1', 'Gaming Highlights', testDay, 23); // 10m at 11 PM
+  await analytics.recordChannelWatch(600, 'UC_leisure_1', 'Gaming Highlights', testDay, 0); // 10m at 12 AM
+
+  // 2. Initial focus score without tags -> null score
+  let fs = await analytics.getFocusScore(1, testDay);
+  assert.equal(fs.score, null, 'score is null before channels are tagged');
+  assert.equal(fs.totalMinutes, 70, 'total minutes is 70m');
+
+  // 3. Tag channels
+  await analytics.setChannelTag('UC_study_1', 'study');
+  await analytics.setChannelTag('UC_leisure_1', 'leisure');
+
+  // 4. Focus score with tags -> 50m study / 70m total tagged = 71%
+  fs = await analytics.getFocusScore(1, testDay);
+  assert.equal(fs.studyMinutes, 50, 'study minutes 50m');
+  assert.equal(fs.leisureMinutes, 20, 'leisure minutes 20m');
+  assert.equal(fs.score, 71, 'intentional focus score is 71%');
+
+  // 5. Hourly distribution & peak window
+  const hourly = await analytics.getHourlyDistribution(7);
+  assert.equal(hourly.hours.length, 24, '24 hours in distribution');
+  assert.equal(hourly.hours[10].minutes, 30, '10 AM has 30m');
+  assert.equal(hourly.hours[11].minutes, 20, '11 AM has 20m');
+  assert.equal(hourly.hours[23].minutes, 10, '11 PM has 10m');
+  assert.equal(hourly.peakWindow.startHour, 10, 'peak window starts at 10 AM');
+
+  // 6. Top channels with tags
+  const top = await analytics.getTopChannels(7, 5);
+  assert.equal(top.channels.length, 2, '2 top channels returned');
+  assert.equal(top.channels[0].name, 'Khan Academy');
+  assert.equal(top.channels[0].tag, 'study');
+  assert.equal(top.channels[1].name, 'Gaming Highlights');
+  assert.equal(top.channels[1].tag, 'leisure');
+
+  // 7. Data export
+  const csv = await analytics.exportWatchData('csv');
+  assert.ok(csv.includes('Date,Total_Minutes,Study_Minutes,Leisure_Minutes'), 'CSV header present');
+  assert.ok(csv.includes('Khan Academy'), 'Channel included in CSV export');
+  assert.ok(csv.includes('71'), 'Focus score in CSV export');
+
+  const jsonStr = await analytics.exportWatchData('json');
+  const parsed = JSON.parse(jsonStr);
+  assert.ok(parsed.dailyHistory[testDay], 'JSON export has daily history');
+  assert.ok(parsed.channels.UC_study_1, 'JSON export has channels');
+});
+
+test('pro schedule profiles satisfy schema validation and policy evaluation', () => {
+  const env = store();
+  const profiles = [
+    {
+      id: 'profile_deep_work',
+      label: '💼 Deep Work',
+      days: [1, 2, 3, 4, 5],
+      startTime: '09:00',
+      endTime: '17:00',
+      mode: 'strict',
+      enabled: true
+    },
+    {
+      id: 'profile_evening',
+      label: '🌅 Evening Wind-Down',
+      days: [0, 1, 2, 3, 4, 5, 6],
+      startTime: '19:00',
+      endTime: '22:00',
+      mode: 'strict',
+      enabled: true
+    },
+    {
+      id: 'profile_night',
+      label: '🌙 Night Lockdown',
+      days: [0, 1, 2, 3, 4, 5, 6],
+      startTime: '23:00',
+      endTime: '07:00',
+      mode: 'full',
+      enabled: true
+    }
+  ];
+
+  // Verify all pass IYT_validate
+  const current = env.manager.getDefaultSettings();
+  const next = {
+    ...current,
+    scheduledBlocking: {
+      enabled: true,
+      schedules: profiles
+    }
+  };
+
+  const valid = env.validate(next);
+  assert.equal(valid.scheduledBlocking.schedules.length, 3, 'validates 3 schedule profiles');
+
+  // Verify policy evaluation
+  // Monday 10:00 AM -> Deep Work active (strict)
+  const mondayWork = new Date(2026, 10, 16, 10, 0); // Monday Nov 16 2026 10:00
+  const activeWork = env.policy.schedules(valid, mondayWork);
+  assert.equal(activeWork.length, 1, '1 active schedule during work hours');
+  assert.equal(activeWork[0].id, 'profile_deep_work');
+  const effWork = env.policy.effective(valid, mondayWork);
+  assert.equal(effWork.blockHomeFeed, true, 'strict mode enforces home feed block');
+  assert.equal(effWork.blockShorts, true, 'strict mode enforces shorts block');
+
+  // Night 01:00 AM -> Night Lockdown active (full)
+  const nightTime = new Date(2026, 10, 17, 1, 0); // Tuesday Nov 17 2026 01:00
+  const activeNight = env.policy.schedules(valid, nightTime);
+  assert.equal(activeNight.length, 1, '1 active schedule during night');
+  assert.equal(activeNight[0].mode, 'full');
+});
