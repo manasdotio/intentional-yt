@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "ضبط تفاصيل صفحة الفيديو بدقة",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "حول",
+    "description": "Label for the About tab in popup navigation"
   }
 }

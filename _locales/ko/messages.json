@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "동영상 페이지 세부정보 미세 조정",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "정보",
+    "description": "Label for the About tab in popup navigation"
   }
 }

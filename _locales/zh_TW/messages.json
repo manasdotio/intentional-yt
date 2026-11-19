@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "微調影片頁面詳細設定",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "關於",
+    "description": "Label for the About tab in popup navigation"
   }
 }

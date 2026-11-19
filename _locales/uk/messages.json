@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "Точне налаштування елементів сторінки відео",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "Про розширення",
+    "description": "Label for the About tab in popup navigation"
   }
 }

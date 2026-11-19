@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "Sesuaikan detail halaman video",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "Tentang",
+    "description": "Label for the About tab in popup navigation"
   }
 }

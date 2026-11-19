@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "Details van videopagina nauwkeurig afstemmen",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "Over",
+    "description": "Label for the About tab in popup navigation"
   }
 }

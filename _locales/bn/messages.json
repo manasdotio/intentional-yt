@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "ভিডিও পৃষ্ঠার বিবরণ সূক্ষ্মভাবে সমন্বয় করুন",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "সম্পর্কে",
+    "description": "Label for the About tab in popup navigation"
   }
 }

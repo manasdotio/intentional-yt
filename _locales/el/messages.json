@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "Ρύθμιση λεπτομερειών σελίδας βίντεο",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "Σχετικά",
+    "description": "Label for the About tab in popup navigation"
   }
 }

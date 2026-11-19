@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "Details der Videoseite anpassen",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "Über",
+    "description": "Label for the About tab in popup navigation"
   }
 }

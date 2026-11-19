@@ -1677,5 +1677,9 @@
   "group_below_video": {
     "message": "वीडियो पेज विवरण को फाइन-ट्यून करें",
     "description": "Collapsible group header for granular below-video elements"
+  },
+  "tab_about": {
+    "message": "के बारे में",
+    "description": "Label for the About tab in popup navigation"
   }
 }
