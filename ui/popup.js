@@ -2862,8 +2862,10 @@ function bindSettingHelp() {
     trigger = button;
     const helpId = button.dataset.help;
     const helpEl = $(helpId);
-    const text = helpEl ? helpEl.textContent : '';
+    const text = helpEl ? helpEl.textContent.trim() : '';
     const diagram = getDiagramSVG(helpId);
+
+    if (!text && !diagram) return;
 
     tooltip.replaceChildren();
     if (diagram) {
@@ -2899,7 +2901,9 @@ function bindSettingHelp() {
     button.addEventListener('pointerenter', event => {
       if (event.pointerType !== 'touch') show(button);
     });
+    button.addEventListener('mouseenter', () => show(button));
     button.addEventListener('pointerleave', leave);
+    button.addEventListener('mouseleave', leave);
     button.addEventListener('focus', () => show(button));
     button.addEventListener('blur', hide);
     button.addEventListener('click', (e) => {
