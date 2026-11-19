@@ -724,10 +724,11 @@
     <!-- ── TAB 4: STATS ────────────────────────────────────────── -->
     <div id="panel-stats" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-stats">
       <div class="stats-dashboard">
+        <!-- 1. Hero Card: Today's Watch Time & Real-time Limit -->
         <div class="stats-hero-card">
           <div class="stats-hero-header">
             <div class="stats-hero-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               <span data-i18n="stats_dashboard_title">Today's YouTube Playback</span>
             </div>
             <span class="stats-live-indicator">Live</span>
@@ -758,7 +759,46 @@
           </div>
         </div>
 
-        <!-- 7-Day Watch Time Trend Card -->
+        <!-- 2. Quick KPI Grid: 3-Column Metrics (Streak, Daily Avg, Protections) -->
+        <div class="stats-kpi-grid">
+          <!-- KPI 1: Focus Streak -->
+          <div class="stats-kpi-card" id="kpi-streak-card">
+            <div class="stats-kpi-top">
+              <div class="stats-kpi-icon-wrap icon-amber">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <span class="stats-kpi-label">Streak</span>
+            </div>
+            <div class="stats-kpi-val" id="stats-streak-current">0d</div>
+            <div class="stats-kpi-sub" id="stats-streak-best">Best: 0d</div>
+          </div>
+
+          <!-- KPI 2: Daily Average -->
+          <div class="stats-kpi-card" id="kpi-avg-card">
+            <div class="stats-kpi-top">
+              <div class="stats-kpi-icon-wrap icon-blue">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <span class="stats-kpi-label">Daily Avg</span>
+            </div>
+            <div class="stats-kpi-val" id="stats-daily-avg">0m</div>
+            <div class="stats-kpi-sub">Past 7 days</div>
+          </div>
+
+          <!-- KPI 3: Active Protections -->
+          <div class="stats-kpi-card" id="kpi-shields-card">
+            <div class="stats-kpi-top">
+              <div class="stats-kpi-icon-wrap icon-green">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span class="stats-kpi-label">Shields</span>
+            </div>
+            <div class="stats-kpi-val" id="stats-protections-active">0 / 26</div>
+            <div class="stats-kpi-sub">Active blockers</div>
+          </div>
+        </div>
+
+        <!-- 3. 7-Day Watch Time Trend Card -->
         <div class="stats-trend-card" id="stats-trend-card">
           <div class="stats-trend-header">
             <div class="stats-trend-title-wrap">
@@ -768,12 +808,33 @@
             <span class="stats-trend-badge" id="stats-trend-total">0m this week</span>
           </div>
           <div class="stats-trend-chart" id="stats-trend-chart"></div>
+          <div class="stats-trend-insight" id="stats-trend-insight">
+            <span id="stats-trend-insight-text">Comparing your last 7 days of YouTube playback</span>
+          </div>
+        </div>
+
+        <!-- 4. Top Channels Card -->
+        <div class="stats-channels-card" id="stats-channels-card">
+          <div class="stats-channels-header">
+            <div class="stats-channels-title-wrap">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+              <span class="stats-channels-title">Top Channels</span>
+            </div>
+            <span class="stats-channels-badge">Last 7 days</span>
+          </div>
+          <div class="stats-channels-list" id="stats-channels-list">
+            <!-- Injected by popup.js -->
+            <div class="stats-channels-empty" id="stats-channels-empty">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Watch videos to see your top channel distribution here.</span>
+            </div>
+          </div>
         </div>
 
         <div class="stats-info-callout">
-          <svg class="stats-callout-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <svg class="stats-callout-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <div class="stats-callout-text" data-i18n="stats_callout_info">
-            Adds playback across tabs, including background tabs. Simultaneous videos count separately, even with protections off or snoozed. Resets at midnight.
+            100% on-device analytics. Watch time and channels are tracked locally in your browser and never leave your machine.
           </div>
         </div>
       </div>
@@ -1264,6 +1325,7 @@
   <script src="../utils/schema.js"></script>
   <script src="../utils/dialog.js"></script>
 <script src="../utils/i18n.js"></script>
+<script src="../utils/analytics.js"></script>
 <script src="popup.js"></script>
   <div id="setting-help-tooltip" role="tooltip" hidden></div>
 </body>

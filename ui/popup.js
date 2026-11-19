@@ -1914,9 +1914,9 @@ function renderAll(s) {
   renderShieldPill();
 }
 
-async function renderStatsTrend(todaySecs) {
+async function renderStatsTrend(todaySecs, focusThresholdMin = 30) {
   const chartEl = $('stats-trend-chart');
-  if (!chartEl) return;
+  if (!chartEl) return { weekTotalMins: 0, weekDailyAvgMins: 0 };
 
   let history = {};
   try {
@@ -1944,6 +1944,8 @@ async function renderStatsTrend(todaySecs) {
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const daysData = [];
   let weekTotalMins = 0;
+  let peakDay = { dayName: 'Today', mins: 0 };
+  let focusDaysCount = 0;
 
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
@@ -1954,6 +1956,12 @@ async function renderStatsTrend(todaySecs) {
     const key = `${yyyy}-${mm}-${dd}`;
     const mins = history[key] || 0;
     weekTotalMins += mins;
+    if (mins >= peakDay.mins) {
+      peakDay = { dayName: i === 0 ? 'Today' : dayNames[d.getDay()], mins };
+    }
+    if (mins < focusThresholdMin) {
+      focusDaysCount++;
+    }
     daysData.push({
       dateStr: key,
       dayName: dayNames[d.getDay()],
@@ -1968,6 +1976,16 @@ async function renderStatsTrend(todaySecs) {
     totalEl.textContent = weekTotalMins >= 60
       ? `${(weekTotalMins / 60).toFixed(1)}h this week`
       : `${weekTotalMins}m this week`;
+  }
+
+  const insightEl = $('stats-trend-insight-text');
+  if (insightEl) {
+    if (weekTotalMins === 0) {
+      insightEl.textContent = 'Clean slate this week · 0 min playback recorded';
+    } else {
+      const peakFormatted = peakDay.mins >= 60 ? `${(peakDay.mins / 60).toFixed(1)}h` : `${peakDay.mins}m`;
+      insightEl.textContent = `${focusDaysCount} of 7 focus days on target · Peak: ${peakDay.dayName} (${peakFormatted})`;
+    }
   }
 
   chartEl.replaceChildren();
@@ -1994,10 +2012,13 @@ async function renderStatsTrend(todaySecs) {
     col.appendChild(dayLabel);
     chartEl.appendChild(col);
   }
+
+  const weekDailyAvgMins = Math.round(weekTotalMins / 7);
+  return { weekTotalMins, weekDailyAvgMins };
 }
 
 /**
- * Renders the Focus Streak card and Top Channels card using IYT_Analytics data.
+ * Renders the 3-KPI Overview Grid, Top Channels, and Focus Streak using analytics data.
  * Falls back gracefully if analytics module is unavailable.
  */
 async function renderStatsAnalytics(todaySecs, settings) {
@@ -2005,13 +2026,35 @@ async function renderStatsAnalytics(todaySecs, settings) {
   const FOCUS_THRESHOLD_MIN = (settings?.dailyLimit?.enabled && settings?.dailyLimit?.limitMinutes > 0)
     ? settings.dailyLimit.limitMinutes
     : 30;
-  // Sync today's total into analytics history
+
+  // 1. Render the 7-day trend chart and get week metrics
+  let trendData = { weekTotalMins: 0, weekDailyAvgMins: 0 };
+  try {
+    trendData = await renderStatsTrend(todaySecs, FOCUS_THRESHOLD_MIN);
+  } catch (_) {}
+
+  // 2. Active Protections KPI
+  try {
+    const eff = IYT_Policy.effective(settings);
+    const activeCount = _SHIELD_BOOL_KEYS.filter(k => eff[k]).length;
+    const shieldsEl = $('stats-protections-active');
+    if (shieldsEl) shieldsEl.textContent = `${activeCount} / 26`;
+  } catch (_) {}
+
+  // 3. Daily Average KPI
+  const avgEl = $('stats-daily-avg');
+  if (avgEl) {
+    const avgM = trendData.weekDailyAvgMins || 0;
+    avgEl.textContent = avgM >= 60 ? `${(avgM / 60).toFixed(1)}h` : `${avgM}m`;
+  }
+
+  // 4. Focus Streak & Top Channels from local analytics store
   const todayStr = StorageManager.getTodayString();
   try {
     const analyticsStored = await browser.storage.local.get('analytics');
     const analyticsData = analyticsStored?.analytics || { channels: {}, dailyHistory: {}, streaks: { focusStreak: 0, longestStreak: 0 } };
 
-    // ── Sync today total from stats engine into analytics ──────────────────
+    // Sync today total from stats engine into analytics
     if (!analyticsData.dailyHistory[todayStr]) {
       analyticsData.dailyHistory[todayStr] = { totalSeconds: 0, channels: {} };
     }
@@ -2038,20 +2081,9 @@ async function renderStatsAnalytics(todaySecs, settings) {
     analyticsData.streaks = { ...analyticsData.streaks, focusStreak: streak, longestStreak: longest };
 
     const streakEl = $('stats-streak-current');
-    if (streakEl) streakEl.textContent = streak;
+    if (streakEl) streakEl.textContent = `${streak}d`;
     const bestEl = $('stats-streak-best');
-    if (bestEl) bestEl.textContent = `${longest} day${longest !== 1 ? 's' : ''}`;
-
-    // Update hint text to reflect the actual threshold being used
-    const hintEl = $('stats-streak-hint');
-    if (hintEl) hintEl.textContent = `Days with under ${FOCUS_THRESHOLD_MIN} min of watch time count as focus days.`;
-
-    // Colour the streak number: 0 = neutral, 1-6 = good, 7+ = great
-    const streakCard = $('stats-streak-card');
-    if (streakCard) {
-      streakCard.classList.toggle('streak-active', streak >= 1);
-      streakCard.classList.toggle('streak-great', streak >= 7);
-    }
+    if (bestEl) bestEl.textContent = `Best: ${longest}d`;
 
     // ── Top Channels (last 7 days) ─────────────────────────────────────────
     const cutoff = new Date();
@@ -2082,28 +2114,37 @@ async function renderStatsAnalytics(todaySecs, settings) {
     const listEl = $('stats-channels-list');
     const emptyEl = $('stats-channels-empty');
     if (listEl) {
-      // Clear previous channel rows (not the empty placeholder)
       listEl.querySelectorAll('.stats-channel-row').forEach(el => el.remove());
       if (topChannels.length === 0) {
-        if (emptyEl) emptyEl.style.display = 'block';
+        if (emptyEl) emptyEl.style.display = 'flex';
       } else {
         if (emptyEl) emptyEl.style.display = 'none';
-        const palette = ['var(--accent-blue, #3b82f6)', 'var(--accent-indigo, #6366f1)', 'var(--accent-violet, #8b5cf6)'];
+        const palette = ['#D97706', '#007AFF', '#AF52DE'];
         topChannels.forEach((ch, i) => {
           const row = document.createElement('div');
           row.className = 'stats-channel-row';
 
           const rank = document.createElement('span');
-          rank.className = 'stats-channel-rank';
+          rank.className = `stats-channel-rank rank-${i + 1}`;
           rank.textContent = `#${i + 1}`;
 
           const info = document.createElement('div');
           info.className = 'stats-channel-info';
 
+          const nameRow = document.createElement('div');
+          nameRow.className = 'stats-channel-name-row';
+
           const name = document.createElement('span');
           name.className = 'stats-channel-name';
           name.textContent = ch.name;
           name.title = ch.name;
+
+          const pct = document.createElement('span');
+          pct.className = 'stats-channel-pct';
+          pct.textContent = `${ch.pct}%`;
+
+          nameRow.appendChild(name);
+          nameRow.appendChild(pct);
 
           const bar = document.createElement('div');
           bar.className = 'stats-channel-bar-wrap';
@@ -2113,7 +2154,7 @@ async function renderStatsAnalytics(todaySecs, settings) {
           fill.style.background = palette[i] || palette[0];
           bar.appendChild(fill);
 
-          info.appendChild(name);
+          info.appendChild(nameRow);
           info.appendChild(bar);
 
           const time = document.createElement('span');
@@ -2201,7 +2242,6 @@ function renderStats(s) {
     }
   }
 
-  renderStatsTrend(secs).catch(() => {});
   renderStatsAnalytics(secs, s).catch(() => {});
 }
 
