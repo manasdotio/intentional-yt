@@ -753,6 +753,42 @@
           <div class="stats-trend-chart" id="stats-trend-chart"></div>
         </div>
 
+        <!-- Focus Streak Card -->
+        <div class="stats-streak-card" id="stats-streak-card">
+          <div class="stats-streak-header">
+            <div class="stats-streak-title-wrap">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <span class="stats-streak-title">Focus Streak</span>
+            </div>
+          </div>
+          <div class="stats-streak-body">
+            <div class="stats-streak-metric">
+              <span class="stats-streak-num" id="stats-streak-current">0</span>
+              <span class="stats-streak-unit">day streak</span>
+            </div>
+            <div class="stats-streak-metric stats-streak-secondary">
+              <span class="stats-streak-label">Best</span>
+              <span class="stats-streak-best" id="stats-streak-best">0 days</span>
+            </div>
+          </div>
+          <p class="stats-streak-hint">Days with under 30 min of watch time count as focus days.</p>
+        </div>
+
+        <!-- Top Channels Card -->
+        <div class="stats-channels-card" id="stats-channels-card">
+          <div class="stats-channels-header">
+            <div class="stats-channels-title-wrap">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+              <span class="stats-channels-title">Top Channels</span>
+            </div>
+            <span class="stats-channels-badge">Last 7 days</span>
+          </div>
+          <div class="stats-channels-list" id="stats-channels-list">
+            <!-- Injected by popup.js -->
+            <div class="stats-channels-empty" id="stats-channels-empty">Watch some videos to see your top channels here.</div>
+          </div>
+        </div>
+
         <div class="stats-info-callout">
           <svg class="stats-callout-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
           <div class="stats-callout-text" data-i18n="stats_callout_info">

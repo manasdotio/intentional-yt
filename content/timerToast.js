@@ -22,6 +22,49 @@ const IYT_Timer = (() => {
   const _pendingBatches = new Map();
   const _batchPrefix = crypto.randomUUID();
   let _batchSequence = 0;
+
+  // ─── Channel info scraping ─────────────────────────────────────────────────
+  function _getChannelInfo() {
+    // Try the most reliable selectors first (desktop, then mobile)
+    try {
+      // Desktop watch page – ytd-video-owner-renderer
+      const ownerEl = document.querySelector('ytd-video-owner-renderer #channel-name yt-formatted-string, ytd-video-owner-renderer #owner-name a');
+      if (ownerEl?.textContent?.trim()) {
+        const name = ownerEl.textContent.trim();
+        const href = ownerEl.closest('a')?.href || ownerEl.href || '';
+        const id = _extractChannelId(href) || name;
+        return { id, name };
+      }
+      // Desktop – above-the-fold simplified row
+      const metaOwner = document.querySelector('#owner #channel-name a, ytd-channel-name a');
+      if (metaOwner?.textContent?.trim()) {
+        const name = metaOwner.textContent.trim();
+        const id = _extractChannelId(metaOwner.href) || name;
+        return { id, name };
+      }
+      // Mobile
+      const mobileOwner = document.querySelector('.slim-owner-icon-and-title .slim-owner-channel-name');
+      if (mobileOwner?.textContent?.trim()) {
+        const name = mobileOwner.textContent.trim();
+        return { id: name, name };
+      }
+    } catch (_) {}
+    return { id: 'unknown', name: 'Unknown' };
+  }
+
+  function _extractChannelId(href) {
+    if (!href) return null;
+    try {
+      const url = new URL(href, 'https://www.youtube.com');
+      // /channel/UCxxxx
+      const m = url.pathname.match(/\/channel\/(UC[a-zA-Z0-9_-]{10,})/);
+      if (m) return m[1];
+      // /@handle or /c/handle or /user/handle
+      const m2 = url.pathname.match(/\/@([^/]+)|\/c\/([^/]+)|\/user\/([^/]+)/);
+      if (m2) return '@' + (m2[1] || m2[2] || m2[3]);
+    } catch (_) {}
+    return null;
+  }
   function _pendingSeconds() {
     let total = 0;
     for (const b of _pendingBatches.values()) {
@@ -518,7 +561,8 @@ const IYT_Timer = (() => {
   function _flushToStorage(seconds) {
     if (_contextInvalidated || seconds <= 0) return Promise.resolve();
     const id = _batchPrefix + ':' + (++_batchSequence);
-    const batch = { seconds, day: _day };
+    const channelInfo = _getChannelInfo();
+    const batch = { seconds, day: _day, channelId: channelInfo.id, channelName: channelInfo.name };
     _pendingBatches.set(id, batch);
     async function send(attempt = 0) {
       if (_contextInvalidated) return;
@@ -529,6 +573,10 @@ const IYT_Timer = (() => {
         _baseWatchSeconds = settings.stats.todayWatchSeconds;
         _day = StorageManager.getTodayString(settings?.dailyLimit?.resetHour);
         if (_isLimitExceeded()) { _video?.pause(); _showLimitOverlay(); }
+        // Record per-channel analytics (best-effort, non-blocking)
+        if (typeof IYT_Analytics !== 'undefined' && batch.channelId && batch.channelId !== 'unknown') {
+          IYT_Analytics.recordChannelWatch(seconds, batch.channelId, batch.channelName, batch.day).catch(() => {});
+        }
       } catch (error) {
         if (/Extension context invalidated|Receiving end does not exist|Could not establish connection|sendMessage/i.test(String(error?.stack || error?.message || error || '')) || error?.code === 'CONTEXT_INVALIDATED' || (error instanceof TypeError)) {
           handleTimerError(error);

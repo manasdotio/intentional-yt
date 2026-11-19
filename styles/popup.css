@@ -5403,3 +5403,251 @@ body.is-options-page #btn-open-options-page {
   color: var(--accent);
   font-weight: 700;
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRO ANALYTICS — Focus Streak Card
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.stats-streak-card {
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 10px;
+  padding: 12px 14px 10px;
+  margin-top: 10px;
+}
+
+.stats-streak-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.stats-streak-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stats-streak-title-wrap svg {
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.stats-streak-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-secondary, #6b7280);
+}
+
+.stats-streak-body {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.stats-streak-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.stats-streak-num {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary, #111827);
+  transition: color 0.2s;
+}
+
+.stats-streak-unit {
+  font-size: 11px;
+  color: var(--text-secondary, #6b7280);
+  font-weight: 500;
+}
+
+.stats-streak-secondary {
+  border-left: 1px solid var(--border, #e5e7eb);
+  padding-left: 16px;
+}
+
+.stats-streak-label {
+  font-size: 10px;
+  color: var(--text-secondary, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 2px;
+}
+
+.stats-streak-best {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #111827);
+}
+
+.stats-streak-hint {
+  font-size: 10px;
+  color: var(--text-secondary, #6b7280);
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+/* Active streak: highlight the number */
+.stats-streak-card.streak-active .stats-streak-num {
+  color: #22c55e;
+}
+
+.stats-streak-card.streak-great .stats-streak-num {
+  color: #f59e0b;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRO ANALYTICS — Top Channels Card
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.stats-channels-card {
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 10px;
+  padding: 12px 14px 10px;
+  margin-top: 10px;
+}
+
+.stats-channels-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.stats-channels-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stats-channels-title-wrap svg {
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.stats-channels-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-secondary, #6b7280);
+}
+
+.stats-channels-badge {
+  font-size: 10px;
+  color: var(--text-secondary, #6b7280);
+  background: var(--surface-raised, rgba(0,0,0,0.04));
+  border-radius: 100px;
+  padding: 2px 7px;
+  font-weight: 500;
+}
+
+.stats-channels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stats-channels-empty {
+  font-size: 11px;
+  color: var(--text-secondary, #6b7280);
+  text-align: center;
+  padding: 8px 0 4px;
+  line-height: 1.5;
+}
+
+.stats-channel-row {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.stats-channel-rank {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-secondary, #9ca3af);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.stats-channel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.stats-channel-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary, #111827);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stats-channel-bar-wrap {
+  height: 4px;
+  background: var(--surface-raised, rgba(0,0,0,0.06));
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.stats-channel-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+  min-width: 4px;
+}
+
+.stats-channel-time {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary, #6b7280);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── Dark mode overrides ──────────────────────────────────────────────────── */
+[data-theme="dark"] .stats-streak-card,
+[data-theme="dark"] .stats-channels-card {
+  background: var(--surface, #1f2937);
+  border-color: var(--border, #374151);
+}
+
+[data-theme="dark"] .stats-streak-num,
+[data-theme="dark"] .stats-streak-best,
+[data-theme="dark"] .stats-channel-name {
+  color: var(--text-primary, #f9fafb);
+}
+
+[data-theme="dark"] .stats-streak-hint,
+[data-theme="dark"] .stats-streak-title,
+[data-theme="dark"] .stats-streak-unit,
+[data-theme="dark"] .stats-streak-label,
+[data-theme="dark"] .stats-channels-title,
+[data-theme="dark"] .stats-channels-badge,
+[data-theme="dark"] .stats-channel-rank,
+[data-theme="dark"] .stats-channel-time,
+[data-theme="dark"] .stats-channels-empty {
+  color: var(--text-secondary, #9ca3af);
+}
+
+[data-theme="dark"] .stats-channel-bar-wrap,
+[data-theme="dark"] .stats-channels-badge {
+  background: rgba(255,255,255,0.07);
+}
+
+[data-theme="dark"] .stats-streak-secondary {
+  border-left-color: var(--border, #374151);
+}

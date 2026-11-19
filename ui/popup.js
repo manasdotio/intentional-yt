@@ -1996,6 +1996,139 @@ async function renderStatsTrend(todaySecs) {
   }
 }
 
+/**
+ * Renders the Focus Streak card and Top Channels card using IYT_Analytics data.
+ * Falls back gracefully if analytics module is unavailable.
+ */
+async function renderStatsAnalytics(todaySecs) {
+  // Sync today's total into analytics history
+  const todayStr = StorageManager.getTodayString();
+  try {
+    const analyticsStored = await browser.storage.local.get('analytics');
+    const analyticsData = analyticsStored?.analytics || { channels: {}, dailyHistory: {}, streaks: { focusStreak: 0, longestStreak: 0 } };
+
+    // ── Sync today total from stats engine into analytics ──────────────────
+    if (!analyticsData.dailyHistory[todayStr]) {
+      analyticsData.dailyHistory[todayStr] = { totalSeconds: 0, channels: {} };
+    }
+    if (analyticsData.dailyHistory[todayStr].totalSeconds < (todaySecs || 0)) {
+      analyticsData.dailyHistory[todayStr].totalSeconds = todaySecs || 0;
+    }
+
+    // ── Focus Streak ───────────────────────────────────────────────────────
+    const FOCUS_THRESHOLD_MIN = 30;
+    let streak = 0;
+    let longest = analyticsData.streaks?.longestStreak || 0;
+    for (let i = 0; i < 30; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      const dayTotal = (analyticsData.dailyHistory[key]?.totalSeconds || 0) / 60;
+      const isFocusDay = !analyticsData.dailyHistory[key] || dayTotal < FOCUS_THRESHOLD_MIN;
+      if (isFocusDay) {
+        streak++;
+        if (streak > longest) longest = streak;
+      } else {
+        break;
+      }
+    }
+    analyticsData.streaks = { ...analyticsData.streaks, focusStreak: streak, longestStreak: longest };
+
+    const streakEl = $('stats-streak-current');
+    if (streakEl) streakEl.textContent = streak;
+    const bestEl = $('stats-streak-best');
+    if (bestEl) bestEl.textContent = `${longest} day${longest !== 1 ? 's' : ''}`;
+
+    // Colour the streak number: 0 = neutral, 1-6 = good, 7+ = great
+    const streakCard = $('stats-streak-card');
+    if (streakCard) {
+      streakCard.classList.toggle('streak-active', streak >= 1);
+      streakCard.classList.toggle('streak-great', streak >= 7);
+    }
+
+    // ── Top Channels (last 7 days) ─────────────────────────────────────────
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 6);
+    const cutoffStr = `${cutoff.getFullYear()}-${String(cutoff.getMonth() + 1).padStart(2, '0')}-${String(cutoff.getDate()).padStart(2, '0')}`;
+
+    const totals = {};
+    let grandTotal = 0;
+    for (const [dateStr, dayData] of Object.entries(analyticsData.dailyHistory || {})) {
+      if (dateStr < cutoffStr) continue;
+      for (const [chId, secs] of Object.entries(dayData.channels || {})) {
+        totals[chId] = (totals[chId] || 0) + secs;
+        grandTotal += secs;
+      }
+    }
+
+    const topChannels = Object.entries(totals)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([id, seconds]) => ({
+        id,
+        name: analyticsData.channels?.[id]?.name || id,
+        seconds,
+        pct: grandTotal > 0 ? Math.round((seconds / grandTotal) * 100) : 0,
+        mins: Math.round(seconds / 60)
+      }));
+
+    const listEl = $('stats-channels-list');
+    const emptyEl = $('stats-channels-empty');
+    if (listEl) {
+      // Clear previous channel rows (not the empty placeholder)
+      listEl.querySelectorAll('.stats-channel-row').forEach(el => el.remove());
+      if (topChannels.length === 0) {
+        if (emptyEl) emptyEl.style.display = 'block';
+      } else {
+        if (emptyEl) emptyEl.style.display = 'none';
+        const palette = ['var(--accent-blue, #3b82f6)', 'var(--accent-indigo, #6366f1)', 'var(--accent-violet, #8b5cf6)'];
+        topChannels.forEach((ch, i) => {
+          const row = document.createElement('div');
+          row.className = 'stats-channel-row';
+
+          const rank = document.createElement('span');
+          rank.className = 'stats-channel-rank';
+          rank.textContent = `#${i + 1}`;
+
+          const info = document.createElement('div');
+          info.className = 'stats-channel-info';
+
+          const name = document.createElement('span');
+          name.className = 'stats-channel-name';
+          name.textContent = ch.name;
+          name.title = ch.name;
+
+          const bar = document.createElement('div');
+          bar.className = 'stats-channel-bar-wrap';
+          const fill = document.createElement('div');
+          fill.className = 'stats-channel-bar-fill';
+          fill.style.width = `${ch.pct}%`;
+          fill.style.background = palette[i] || palette[0];
+          bar.appendChild(fill);
+
+          info.appendChild(name);
+          info.appendChild(bar);
+
+          const time = document.createElement('span');
+          time.className = 'stats-channel-time';
+          time.textContent = ch.mins >= 60 ? `${(ch.mins / 60).toFixed(1)}h` : `${ch.mins}m`;
+
+          row.appendChild(rank);
+          row.appendChild(info);
+          row.appendChild(time);
+          listEl.appendChild(row);
+        });
+      }
+    }
+
+    // Persist updated analytics (streak + synced today total)
+    browser.storage.local.set({ analytics: analyticsData }).catch(() => {});
+
+  } catch (_) {
+    // Analytics rendering is non-critical — fail silently
+  }
+}
+
 function renderStats(s) {
   const secs = s.stats?.todayWatchSeconds || 0;
   const timeFormatted = fmtTime(secs);
@@ -2062,6 +2195,7 @@ function renderStats(s) {
   }
 
   renderStatsTrend(secs).catch(() => {});
+  renderStatsAnalytics(secs).catch(() => {});
 }
 
 const YOUTUBE_CONTENT_URLS = ['*://www.youtube.com/*', '*://m.youtube.com/*'];

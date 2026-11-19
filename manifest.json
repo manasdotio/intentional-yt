@@ -31,6 +31,7 @@
       "utils/storage.js",
       "utils/policy.js",
       "utils/schema.js",
+      "utils/analytics.js",
       "background/background.js"
     ]
   },
@@ -49,6 +50,7 @@
         "utils/schema.js",
         "utils/dialog.js",
         "utils/i18n.js",
+        "utils/analytics.js",
         "content/blocker.js",
         "content/scheduledBlocker.js",
         "content/timerToast.js",
