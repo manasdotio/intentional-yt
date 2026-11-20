@@ -4107,7 +4107,9 @@ body.ext-off .about-wrap {
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  padding: 16px;
+  padding: 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   animation: overlay-enter var(--duration-enter) var(--ease-out-gentle) both;
 }
 
@@ -4125,6 +4127,7 @@ body.ext-off .about-wrap {
 .iyt-modal-card {
   width: 100%;
   max-width: 320px;
+  max-height: calc(100% - 20px);
   background: var(--surface-elevated);
   border: 0.5px solid var(--rule-hairline);
   border-radius: 20px;
@@ -5610,28 +5613,37 @@ body.is-options-page .tab-pro-text {
 /* Pro Modal Dialog Card */
 .pro-modal-card {
   max-width: 440px;
+  width: 100%;
+  max-height: calc(100% - 16px);
+  padding: 0;
+  gap: 0;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
 }
 
 .pro-modal-header {
-  padding: 16px 20px 14px;
+  padding: 10px 16px 9px;
   border-bottom: 0.5px solid var(--rule-hairline);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 
 .pro-modal-title-wrap {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .pro-modal-badge-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
   background: linear-gradient(135deg, #F59E0B, #EA580C);
   color: #FFFFFF;
   display: flex;
@@ -5642,23 +5654,52 @@ body.is-options-page .tab-pro-text {
 }
 
 .pro-modal-main-title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--ink-primary);
   line-height: 1.2;
 }
 
 .pro-modal-subtitle {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--ink-secondary);
   margin-top: 1px;
 }
 
 .pro-modal-body {
-  padding: 16px 20px;
+  padding: 10px 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+  overscroll-behavior: contain;
+}
+
+.pro-modal-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.pro-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pro-modal-body::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+.pro-modal-footer {
+  padding: 8px 16px 10px;
+  border-top: 0.5px solid var(--rule-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 /* Pro Active Card */
@@ -5666,15 +5707,15 @@ body.is-options-page .tab-pro-text {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 10px 12px;
   border-radius: 12px;
   background: rgba(16, 185, 129, 0.10);
   border: 1px solid rgba(16, 185, 129, 0.30);
 }
 
 .pro-active-icon {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: #10B981;
   color: #FFFFFF;
@@ -5685,7 +5726,7 @@ body.is-options-page .tab-pro-text {
 }
 
 .pro-active-title {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
   color: #065F46;
 }
@@ -5695,7 +5736,7 @@ body.is-options-page .tab-pro-text {
 }
 
 .pro-active-key {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--ink-secondary);
   font-family: monospace;
   margin-top: 2px;
@@ -5705,22 +5746,22 @@ body.is-options-page .tab-pro-text {
 .pro-features-grid {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
 }
 
 .pro-feature-item {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 10px;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 9px;
   background: var(--surface-inset);
 }
 
 .pro-feat-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5752,25 +5793,32 @@ body.is-options-page .tab-pro-text {
   display: flex;
   flex-direction: column;
   gap: 1px;
+  min-width: 0;
 }
 
 .pro-feat-text strong {
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 650;
   color: var(--ink-primary);
 }
 
 .pro-feat-text span {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--ink-secondary);
-  line-height: 1.35;
+  line-height: 1.3;
+}
+
+.pro-modal-body .video-session-copy {
+  margin-block: 2px;
+  font-size: 10px;
+  line-height: 1.3;
 }
 
 /* License Purchase & Activation */
 .pro-license-entry-wrap {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .pro-cta-row {
@@ -5779,18 +5827,18 @@ body.is-options-page .tab-pro-text {
 
 .pro-buy-btn {
   width: 100%;
-  padding: 10px 16px;
-  font-size: 13.5px;
+  padding: 7px 12px;
+  font-size: 12.5px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   text-decoration: none;
   background: linear-gradient(135deg, #F59E0B, #EA580C);
   border: none;
   box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
-  border-radius: 12px;
+  border-radius: 10px;
   color: #FFFFFF;
   cursor: pointer;
   transition: transform 0.15s ease, opacity 0.15s ease;
@@ -5804,8 +5852,8 @@ body.is-options-page .tab-pro-text {
 .pro-divider-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 2px 0;
+  gap: 8px;
+  margin: 0;
 }
 
 .pro-divider-line {
@@ -5815,7 +5863,7 @@ body.is-options-page .tab-pro-text {
 }
 
 .pro-divider-text {
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--ink-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -5824,26 +5872,27 @@ body.is-options-page .tab-pro-text {
 
 .pro-key-input-row {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .pro-key-input {
   flex: 1;
-  padding: 8px 12px;
-  font-size: 12px;
-  border-radius: 9px;
+  min-width: 0;
+  padding: 6px 10px;
+  font-size: 11px;
+  border-radius: 8px;
 }
 
 .pro-activate-btn {
-  padding: 8px 16px;
-  font-size: 12px;
+  padding: 6px 12px;
+  font-size: 11px;
   font-weight: 600;
-  border-radius: 9px;
+  border-radius: 8px;
   flex-shrink: 0;
 }
 
 .pro-dev-hint {
-  font-size: 10.5px;
+  font-size: 9.5px;
   color: var(--ink-tertiary);
   text-align: center;
 }
