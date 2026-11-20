@@ -14,7 +14,7 @@ const root = path.resolve(__dirname, '..');
       '<html><body><ytd-rich-grid-renderer><div id="contents"><ytd-rich-item-renderer></ytd-rich-item-renderer></div></ytd-rich-grid-renderer></body></html>' }));
     await page.goto('https://fixture.test/');
     await page.evaluate(() => {
-      globalThis.browser = { i18n: { getMessage: () => '' }, storage: { onChanged: { addListener() {} } }, runtime: { onMessage: { addListener() {} } } };
+      globalThis.browser = { i18n: { getMessage: () => '' }, storage: { onChanged: { addListener() {} } }, runtime: { onMessage: { addListener() {} }, sendMessage() {} } };
       window.resizeCount = 0;
       window.addEventListener('resize', () => resizeCount++);
     });
@@ -53,9 +53,9 @@ const root = path.resolve(__dirname, '..');
 
     for (const [patch, mode] of [
       [{ limitHomeFeed: false, disableAutoplay: false }, 'off'],
-      [{ keywordBlocklist: ['blocked'] }, 'cards'],
+      [{ keywordBlocklist: ['blocked'] }, 'cards:false'],
       [{ extensionEnabled: false }, 'off'],
-      [{ extensionEnabled: true }, 'cards'],
+      [{ extensionEnabled: true }, 'cards:false'],
       [{ keywordBlocklist: [], disableAutoplay: true }, 'structure']
     ]) {
       await page.evaluate(async patch => { Object.assign(testSettings, patch); await window.__iytBlocker.applyAllSettings(); }, patch);

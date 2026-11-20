@@ -82,8 +82,6 @@
     {
       "resources": [
         "icons/*",
-        "icons/icon-128.png",
-        "icons/icon.svg",
         "styles/blocker.css",
         "_locales/*/*.json"
       ],

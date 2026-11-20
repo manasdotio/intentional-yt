@@ -1183,21 +1183,6 @@ body.mode-simple #sec-interface .row:has(#toggle-blockSidebar) {
   transition: background-color 300ms ease, border-color 300ms ease;
 }
 
-@keyframes banner-pulse {
-  0%, 100% {
-    background: var(--accent-subtle);
-    border-color: var(--accent-border);
-  }
-  50% {
-    background: rgba(0, 122, 255, 0.20);
-    border-color: var(--accent);
-  }
-}
-
-.banner-pulse {
-  animation: banner-pulse 500ms ease 2 !important;
-}
-
 @keyframes banner-enter {
   from {
     opacity: 0;
@@ -1347,34 +1332,9 @@ body.ext-off #panel-settings,
 body.ext-off #panel-about,
 body.ext-off #common-controls,
 body.ext-off .settings-wrap,
-body.ext-off .about-wrap,
-body.ext-off .lang-row {
+body.ext-off .about-wrap {
   pointer-events: auto;
   opacity: 1;
-}
-
-/* ============================================================
-   PANEL HEADERS (Consistent purpose indicators across tabs)
-   ============================================================ */
-.panel-header {
-  padding: 14px 18px 12px;
-  background: var(--surface-header);
-  border-bottom: 1px solid var(--rule-hairline);
-  user-select: none;
-}
-
-.panel-title {
-  font-size: 13.5px;
-  font-weight: 650;
-  color: var(--ink-primary);
-  letter-spacing: -0.015em;
-}
-
-.panel-subtitle {
-  font-size: 12px;
-  color: var(--ink-secondary);
-  margin-top: 3px;
-  line-height: 1.4;
 }
 
 /* ============================================================
@@ -1450,7 +1410,6 @@ body.ext-off .lang-row {
 #review-card .btn-primary { padding: 8px 11px; font-size: 11px; min-height: 32px; text-decoration: none; }
 #review-card :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .welcome-setup-form :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.blocklist-example { padding: 4px 8px; border-radius: 5px; background: var(--surface-inset); color: var(--ink-secondary); font-size: 11px; }
 
 .welcome-dismiss-btn {
   background: transparent;
@@ -1741,18 +1700,6 @@ body.ext-off .lang-row {
   text-align: center;
   padding: 28px 18px;
   gap: 6px;
-}
-
-.search-empty-bubble {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--surface-inset);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ink-tertiary);
-  margin-bottom: 2px;
 }
 
 .search-empty-title {
@@ -2243,10 +2190,6 @@ body.ext-off .lang-row {
 .row:hover .row-icon,
 .row:has(.chk:checked) .row-icon {
   stroke: var(--accent);
-}
-
-.row-icon.row-icon-danger {
-  stroke: var(--danger) !important;
 }
 
 /* Primary toggle label */
@@ -2758,54 +2701,6 @@ body.ext-off .lang-row {
 .btn-time-preview svg {
   stroke: currentColor;
   flex-shrink: 0;
-}
-
-/* ============================================================
-   LANGUAGE & THEME ROWS (Settings tab)
-   ============================================================ */
-.lang-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 11px 18px;
-  min-height: 48px;
-  gap: 14px;
-  border-bottom: 1px solid var(--rule-section);
-}
-
-.lang-row-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  min-width: 0;
-}
-
-.lang-sel {
-  background: var(--input-bg);
-  color: var(--ink-primary);
-  border: 1px solid var(--input-border);
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 13px;
-  font-weight: 500;
-  font-family: inherit;
-  outline: none;
-  cursor: pointer;
-  max-width: 195px;
-  transition:
-    border-color var(--duration-snap),
-    box-shadow var(--duration-snap);
-}
-
-.lang-sel:focus-visible {
-  box-shadow: var(--input-focus-ring);
-  border-color: var(--accent);
-}
-
-.lang-sel option {
-  background: var(--input-option-bg);
-  color: var(--ink-primary);
 }
 
 /* ============================================================
@@ -3431,13 +3326,6 @@ body.ext-off .lang-row {
   gap: 6px;
 }
 
-.schedules-empty-text {
-  font-size: 12.5px;
-  color: var(--ink-tertiary);
-  text-align: center;
-  padding: 14px 0;
-}
-
 .schedules-empty-card {
   display: flex;
   align-items: center;
@@ -3580,84 +3468,6 @@ body.ext-off .lang-row {
   outline-offset: 2px;
   border-radius: 2px;
 }
-
-/* ============================================================
-   STATS TAB
-   The #stats-time, #stats-limit-label, .prog, and
-   #prog-fill elements now live in #watch-bar (persistent, always
-   visible). Their CSS is defined in the PERSISTENT WATCH-TIME BAR
-   section at the bottom of this file.
-
-   The Stats tab panel (#panel-stats) shows a brief hint.
-   ============================================================ */
-
-/* #stats is no longer in the DOM — elements moved to #watch-bar */
-.stats-header {
-  /* retained stub — no longer rendered */
-  display: none;
-}
-
-.stats-row {
-  /* retained stub — no longer rendered */
-  display: none;
-}
-
-.stats-meta {
-  /* retained stub — no longer rendered */
-  display: none;
-}
-
-/* Old .prog (80% centered) — now in watch-bar section as full width */
-
-
-/* ── Tooltip (info icon next to "Today") ─────────────────── */
-.iyt-tooltip-wrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.iyt-info-icon {
-  font-size: 11px;
-  color: var(--ink-ghost);
-  cursor: default;
-  line-height: 1;
-  user-select: none;
-  transition: color var(--duration-snap);
-}
-
-.iyt-tooltip-wrap:hover .iyt-info-icon { color: var(--ink-tertiary); }
-
-.iyt-tooltip-text {
-  display: none;
-  position: absolute;
-  bottom: calc(100% + 7px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 222px;
-  background: var(--tooltip-bg);
-  color: var(--tooltip-ink);
-  font-size: 10.5px;
-  line-height: 1.5;
-  padding: 8px 11px;
-  border-radius: 5px;
-  pointer-events: none;
-  white-space: normal;
-  z-index: 200;
-  box-shadow: var(--tooltip-shadow);
-}
-
-.iyt-tooltip-text::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-top-color: var(--tooltip-bg);
-}
-
-.iyt-tooltip-wrap:hover .iyt-tooltip-text { display: block; }
 
 /* ============================================================
    SETTINGS TAB: MODERN ELEVATED CARD SECTIONS
@@ -4272,47 +4082,6 @@ body.ext-off .lang-row {
   stroke: var(--danger) !important;
 }
 
-/* Danger outline: restrained, not alarming */
-.btn-danger-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  width: 100%;
-  background: transparent;
-  border: 1px solid var(--danger-border);
-  color: var(--danger);
-  border-radius: 9999px;
-  padding: 8px 16px;
-  font-size: 12.5px;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition:
-    background-color var(--duration-snap),
-    border-color var(--duration-snap),
-    transform var(--duration-snap);
-}
-
-.btn-danger-outline svg {
-  stroke: var(--danger);
-  flex-shrink: 0;
-}
-
-.btn-danger-outline:hover {
-  background: var(--danger-subtle);
-  border-color: var(--danger);
-}
-
-.btn-danger-outline:active {
-  transform: scale(0.98);
-}
-
-.btn-danger-outline:focus-visible {
-  outline: 2px solid var(--danger);
-  outline-offset: 2px;
-}
-
 /* ============================================================
    MODAL OVERLAYS (PIN setup & verification)
    A frosted pane, not a generic dark fade.
@@ -4682,18 +4451,6 @@ body.ext-off .lang-row {
   border-radius: 4px;
   padding: 2px 7px;
   line-height: 1.4;
-}
-
-.preset-tag-chip.special-channel {
-  color: var(--danger);
-  border-color: rgba(239, 68, 68, 0.25);
-  background: rgba(239, 68, 68, 0.06);
-}
-
-.preset-tag-chip.special-keyword {
-  color: var(--accent);
-  border-color: var(--accent-border);
-  background: var(--accent-subtle);
 }
 
 .btn-primary:disabled {
@@ -5340,40 +5097,7 @@ body.is-options-page .mode-pill-btn span {
   background: var(--danger);
 }
 
-/* ── 7-Day Watch Time Trend Card (Apple Screen Time Chart) ── */
-.stats-trend-card {
-  margin: 0;
-  padding: 14px 16px;
-  border-radius: 16px;
-  background: var(--surface-elevated);
-  border: 0.5px solid var(--rule-hairline);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-}
-.stats-trend-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-.stats-trend-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--ink-primary);
-}
-.stats-trend-title-wrap svg {
-  color: var(--accent);
-}
-.stats-trend-badge {
-  font-size: 11px;
-  font-weight: 550;
-  color: var(--ink-secondary);
-  background: var(--surface-inset);
-  padding: 3px 8px;
-  border-radius: 9999px;
-}
+/* ── 7-Day Watch Time Trend Chart ── */
 .stats-trend-chart {
   display: flex;
   align-items: flex-end;
@@ -6545,46 +6269,6 @@ body.is-options-page .tab-pro-text {
 }
 
 /* ── Peak Usage Heatmap (Pro) ────────────────────────────────────────── */
-.stats-heatmap-card {
-  background: var(--surface-elevated);
-  border: 0.5px solid var(--rule-hairline);
-  border-radius: 14px;
-  padding: 12px 14px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-  margin-bottom: 10px;
-}
-
-.stats-heatmap-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.stats-heatmap-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.stats-heatmap-icon-wrap {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  background: rgba(245, 158, 11, 0.14);
-  color: #D97706;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stats-heatmap-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink-primary);
-  letter-spacing: -0.01em;
-}
-
 .stats-heatmap-chart {
   display: flex;
   align-items: flex-end;
@@ -6672,55 +6356,4 @@ body.is-options-page .tab-pro-text {
   background: var(--accent);
   color: #FFFFFF;
   border-color: var(--accent);
-}
-
-/* ── Export Watch Data (Pro) ─────────────────────────────────────────── */
-.stats-export-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  background: var(--surface-elevated);
-  border: 0.5px solid var(--rule-hairline);
-  border-radius: 12px;
-  margin-bottom: 10px;
-}
-
-.stats-export-label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  font-weight: 650;
-  color: var(--ink-primary);
-}
-
-.stats-export-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.btn-export-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 10.5px;
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: 1px solid var(--rule-hairline);
-  background: var(--surface-inset);
-  color: var(--ink-primary);
-  cursor: pointer;
-  transition: all var(--duration-snap) var(--ease-out-gentle);
-}
-
-.btn-export-action:hover {
-  background: var(--surface-elevated);
-  border-color: var(--ink-ghost);
-}
-
-.btn-export-ghost {
-  color: var(--ink-secondary);
 }

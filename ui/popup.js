@@ -3133,7 +3133,6 @@ function bindAll() {
     if (!el) continue;
     el.addEventListener('change', async () => {
       const targetVal = el.checked;
-      const prevVal = !targetVal;
 
       // Turning protections OFF is intercepted if Focus Lock is active
       if (!targetVal && isFocusLockActive()) {

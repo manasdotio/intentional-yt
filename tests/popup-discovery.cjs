@@ -29,6 +29,7 @@ fs.writeFileSync(path.join(extension, 'manifest.json'), JSON.stringify(manifest)
     await popup.goto('chrome-extension://' + worker.url().split('/')[2] + '/ui/popup.html');
     await popup.waitForFunction(() => document.getElementById('toggle-extensionEnabled')?.checked);
     await popup.locator('#btn-dismiss-welcome').click();
+    await popup.locator('#btn-mode-advanced').click();
     const before = await popup.evaluate(() => StorageManager.getSettings());
     const destinations = [
       ['daily limit', 'toggle-dailyLimit'], ['block channel', 'input-channel-blocklist'],

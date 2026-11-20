@@ -104,10 +104,10 @@ const IYT_Analytics = (() => {
    * @param {number} focusThresholdMin - Min threshold in minutes; use user's
    *                                    daily limit if set, else 30.
    */
-  async function updateStreaks(resetHour = 4, focusThresholdMin = 30) {
+  async function updateStreaks(resetHour = 4, focusThresholdMin = FOCUS_DAY_THRESHOLD_MIN) {
     const threshold = (Number.isFinite(focusThresholdMin) && focusThresholdMin > 0)
       ? focusThresholdMin
-      : 30;
+      : FOCUS_DAY_THRESHOLD_MIN;
     const data = await _read();
     if (!data.streaks) data.streaks = { focusStreak: 0, lastFocusDay: '', longestStreak: 0 };
 

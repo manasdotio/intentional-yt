@@ -9,6 +9,7 @@
     "start": "next start",
     "package": "node scripts/package.cjs --unpacked",
     "audit:seo": "node scripts/audit-seo.mjs",
+    "test": "node --test tests/extension.test.cjs",
     "test:extension": "node --test tests/extension.test.cjs"
   },
   "engines": {
