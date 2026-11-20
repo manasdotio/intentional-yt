@@ -107,6 +107,59 @@ fs.writeFileSync(path.join(extension, 'manifest.json'), JSON.stringify(manifest)
     await popup.locator('#tab-btn-block').click();
     console.log('PASS invalid channel links never save; correction, valid channel links and duplicate handling work');
 
+    // Discoverable for free users; the start control opens the paid-feature explanation.
+    const videoBaseline=await popup.evaluate(() => StorageManager.getSettings());
+    await popup.locator('#tab-btn-focus').click();
+    await popup.evaluate(() => {
+      const card=document.getElementById('btn-video-session-start').closest('.focus-section-card');
+      card.classList.remove('collapsed');card.querySelector('.focus-card-header')?.setAttribute('aria-expanded','true');
+    });
+    await popup.locator('#btn-video-session-start').press('Enter');
+    await popup.locator('#modal-pro-license').waitFor({state:'visible'});
+    await popup.locator('#input-license-key').press('Escape');
+    await popup.locator('#modal-pro-license').waitFor({state:'hidden'});
+    assert.deepEqual(await popup.evaluate(() => StorageManager.getSettings()),videoBaseline,'free discovery never changes protections');
+    for (const [reason,patch] of [
+      ['off',{extensionEnabled:false}], ['snooze',{snoozeUntil:Date.now()+60000}],
+      ['budget',{dailyLimit:{enabled:true,limitMinutes:1},stats:{...videoBaseline.stats,todayWatchSeconds:60}}],
+      ['schedule',{scheduledBlocking:{enabled:true,schedules:[{id:'test',label:'Test',enabled:true,days:[new Date().getDay()],startTime:'00:00',endTime:'00:00',mode:'full'}]}}]
+    ]) {
+      await popup.evaluate(({baseline,patch})=>renderAll({...baseline,...patch}),{baseline:videoBaseline,patch});
+      assert.equal(await popup.locator('#video-session-status').textContent(),await popup.evaluate(reason=>videoSessionReason(reason),reason));
+    }
+    await popup.evaluate(baseline=>{
+      window.videoTestQuery=browser.tabs.query;window.videoTestSend=browser.tabs.sendMessage;
+      browser.tabs.query=async()=>[{id:999,url:'https://www.youtube.com/watch?v=abcdefghijk',status:'complete'}];
+      browser.tabs.sendMessage=async(_id,msg)=>msg.type==='IYT_VIDEO_INFO'?{eligible:true,videoId:'abcdefghijk',title:'Test lesson'}:null;
+      renderAll(baseline);
+    },videoBaseline);
+    await popup.evaluate(()=>refreshVideoInfo());
+    assert.equal(await popup.locator('#video-session-title').textContent(),'Test lesson');
+    assert.equal(await popup.locator('#video-session-status').textContent(),await popup.evaluate(()=>t('video_session_ready')));
+    const startedAt=Date.now();
+    const displayedSession={token:'display-only',ownerEpoch:'display-only',phase:'watching',videoId:'abcdefghijk',title:'Test lesson',ownerTabId:999,startedAt,sessionDeadline:startedAt+86400000,completedAt:null,breakUntil:null};
+    await popup.evaluate(({baseline,session})=>renderAll({...baseline,videoSession:session}),{baseline:videoBaseline,session:displayedSession});
+    assert.equal(await popup.locator('#btn-video-session-start').isVisible(),false);
+    assert.equal(await popup.locator('#btn-video-session-finish').isVisible(),true);
+    assert.equal(await popup.locator('[data-focus-minutes="25"]').isDisabled(),true);
+    displayedSession.phase='break';displayedSession.completedAt=startedAt;displayedSession.breakUntil=startedAt+300000;
+    await popup.evaluate(({baseline,session})=>renderAll({...baseline,videoSession:session}),{baseline:videoBaseline,session:displayedSession});
+    assert.equal(await popup.locator('#btn-video-session-finish').isVisible(),false,'no finish/skip button during break');
+    await popup.evaluate(baseline=>{browser.tabs.query=videoTestQuery;browser.tabs.sendMessage=videoTestSend;renderAll(baseline);},videoBaseline);
+    await popup.locator('#tab-btn-stats').click();
+    assert.equal(await popup.locator('[data-i18n="stats_learning_share"]').first().textContent(),'Learning share');
+    assert.equal(await popup.locator('[data-i18n="stats_busiest_hours"]').textContent(),'Busiest viewing hours');
+    assert.equal(await popup.locator('#btn-heatmap-schedule').isDisabled(),true,'no invented window without data');
+    const options=await context.newPage();
+    await options.goto('chrome-extension://'+worker.url().split('/')[2]+'/ui/options.html');
+    await options.waitForFunction(()=>typeof _s!=='undefined' && _s);
+    assert.equal(await options.locator('#video-session-description').textContent(),await popup.locator('#video-session-description').textContent(),'popup/options explanation matches');
+    await options.evaluate(()=>refreshVideoInfo());
+    assert.equal(await options.locator('#video-session-status').textContent(),await options.evaluate(()=>videoSessionReason('options')));
+    await options.close();
+    await popup.locator('#tab-btn-block').click();
+    console.log('PASS one-video free discovery, unavailable reasons, session/break presentation, truthful labels and options parity');
+
     await context.route('https://www.youtube.com/**', route => route.fulfill({
       contentType: 'text/html', body: '<html><body><ytd-app><h1>Test lesson</h1></ytd-app></body></html>'
     }));
@@ -150,6 +203,13 @@ fs.writeFileSync(path.join(extension, 'manifest.json'), JSON.stringify(manifest)
       assert.equal(await popup.locator('#channel-input-error').isVisible(), true);
       assert.equal(await popup.locator('#channel-input-error').textContent(), await popup.evaluate(() => t('channel_input_invalid')));
       assert.equal(await popup.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+      await popup.locator('#tab-btn-focus').click();
+      await popup.evaluate(()=>{
+        const card=document.getElementById('btn-video-session-start').closest('.focus-section-card');
+        card.classList.remove('collapsed');card.querySelector('.focus-card-header')?.setAttribute('aria-expanded','true');
+      });
+      assert.equal(await popup.locator('#btn-video-session-start').isVisible(),true);
+      assert.equal(await popup.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'one-video card fits 320px in both directions/themes');
       await popup.locator('#tab-btn-block').click();
     }
     assert.deepEqual(errors, []);

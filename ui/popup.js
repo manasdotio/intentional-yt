@@ -1650,6 +1650,141 @@ function renderFilterMode() {
 
 let _statusTimeout = null;
 let _latestUsageStats = null;
+let _videoInfo = null;
+let _videoInfoGeneration = 0;
+let _videoSessionBusy = false;
+
+function videoSessionReason(reason) {
+  const normalized = String(reason || '').replace(/([a-z])([A-Z])/g, '$1_$2').replace(/-/g, '_').toLowerCase();
+  const aliases = {
+    'extension_off': 'off',
+    'disabled': 'off',
+    'snoozed': 'snooze',
+    'scheduled': 'schedule',
+    'full_block': 'schedule',
+    'daily_limit': 'budget',
+    'limit_reached': 'budget',
+    'active': 'active_session',
+    'session_active': 'active_session',
+    'active_session': 'active_session',
+    'commitment': 'active_session',
+    'not_video': 'nonvideo',
+    'not_watch_page': 'nonvideo',
+    'not_ready': 'loading',
+    'no_receiver': 'no_receiver'
+  };
+  const key = aliases[normalized] || normalized;
+  return t(`video_session_reason_${key}`, null, t('video_session_reason_unavailable'));
+}
+
+function localVideoSessionReason(now = Date.now()) {
+  if (IYT_Policy.videoSessionPhase(_s, now) || _s.focusSessionUntil > now) return 'active_session';
+  if (_s.extensionEnabled === false) return 'off';
+  if (_s.snoozeUntil > now) return 'snooze';
+  if (IYT_Policy.schedules(_s, new Date(now)).some(rule => rule.mode === 'full')) return 'schedule';
+  if (_s.dailyLimit?.enabled && (_s.stats?.limitDismissedToday ||
+      (_s.stats?.todayWatchSeconds || 0) >= _s.dailyLimit.limitMinutes * 60)) return 'budget';
+  return null;
+}
+
+function renderVideoSession(now = Date.now()) {
+  const phase = IYT_Policy.videoSessionPhase(_s, now);
+  const session = _s.videoSession;
+  const start = $('btn-video-session-start');
+  const finish = $('btn-video-session-finish');
+  const title = $('video-session-title');
+  const status = $('video-session-status');
+  if (!start || !finish || !title || !status) return;
+  start.hidden = !!phase;
+  start.disabled = _videoSessionBusy;
+  finish.hidden = phase !== 'watching';
+  finish.disabled = _videoSessionBusy;
+  title.textContent = phase ? session.title : (_videoInfo?.title || '');
+  title.hidden = !title.textContent;
+  if (phase === 'watching') {
+    status.textContent = t('video_session_watching');
+  } else if (phase === 'break') {
+    const until = session.breakUntil || session.sessionDeadline + 5 * 60000;
+    status.textContent = t('video_session_break', [String(Math.max(1, Math.ceil((until - now) / 60000)))]);
+  } else {
+    const reason = localVideoSessionReason(now) || _videoInfo?.reason;
+    status.textContent = reason ? videoSessionReason(reason) : (_videoInfo?.eligible ? t('video_session_ready') : t('video_session_checking'));
+  }
+  if (phase) {
+    const badge = $('ext-badge');
+    badge?.classList.remove('badge-active', 'badge-scheduled', 'badge-limit', 'badge-off');
+    badge?.classList.add('badge-focus');
+    if (badge) badge.textContent = t(phase === 'break' ? 'video_session_badge_break' : 'video_session_badge_watching');
+  }
+}
+
+async function sendVideoMessage(tabId, type) {
+  let timeout;
+  try {
+    return await Promise.race([
+      browser.tabs.sendMessage(tabId, { type }),
+      new Promise(resolve => { timeout = setTimeout(() => resolve(null), 1500); })
+    ]);
+  } catch (_) { return null; }
+  finally { clearTimeout(timeout); }
+}
+
+async function refreshVideoInfo() {
+  const generation = ++_videoInfoGeneration;
+  let info = { eligible: false, reason: 'no_receiver' };
+  try {
+    const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+    if (!isSupportedYouTubeTab(tab) || !Number.isInteger(tab.id)) {
+      info.reason = location.pathname.endsWith('/options.html') ? 'options' : 'nonvideo';
+    } else if (tab.status === 'loading') {
+      info.reason = 'loading';
+    } else {
+      const response = await sendVideoMessage(tab.id, 'IYT_VIDEO_INFO');
+      if (response) info = { ...response, tabId: tab.id };
+    }
+  } catch (_) { /* A missing active tab is not an eligible video. */ }
+  if (generation !== _videoInfoGeneration) return null;
+  _videoInfo = info;
+  if (_s) renderVideoSession();
+  return info;
+}
+
+async function startVideoSession() {
+  if (_videoSessionBusy) return;
+  _videoSessionBusy = true;
+  renderVideoSession();
+  try {
+    const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+    if (!isPro) { openProModal(); return; }
+    const info = await refreshVideoInfo();
+    const reason = localVideoSessionReason() || info?.reason;
+    if (!info?.eligible || reason) { showToast(videoSessionReason(reason || 'unavailable')); return; }
+    const response = await sendVideoMessage(info.tabId, 'IYT_VIDEO_START');
+    if (response?.ok && response.settings) renderAll(response.settings);
+    else if (response?.code === 'PRO_REQUIRED') openProModal();
+    else showToast(videoSessionReason(response?.code || (response ? 'unavailable' : 'no_receiver')));
+  } catch (_) { showToast(videoSessionReason('unavailable')); }
+  finally { _videoSessionBusy = false; renderVideoSession(); }
+}
+
+let _videoNoticeShown = false;
+async function showVideoSessionNotice(value) {
+  if (value !== 'pending-change-cancelled' || _videoNoticeShown) return;
+  _videoNoticeShown = true;
+  showToast(t('video_session_notice_cancelled'), 8000);
+  try { await browser.storage.local.remove('videoSessionNotice'); }
+  catch (_) { /* The notice is still shown only once during this popup lifetime. */ }
+}
+
+async function finishVideoSession() {
+  if (_videoSessionBusy || IYT_Policy.videoSessionPhase(_s) !== 'watching') return;
+  const token = _s.videoSession.token;
+  _videoSessionBusy = true;
+  renderVideoSession();
+  try { renderAll(await StorageManager.finishVideoNow(token)); }
+  catch (_) { showToast(videoSessionReason('unavailable')); }
+  finally { _videoSessionBusy = false; renderVideoSession(); }
+}
 function setStatusText(id, text) {
   const node = $(id);
   if (node.textContent !== text) node.textContent = text;
@@ -1710,10 +1845,15 @@ function renderProtectionStatus() {
   }
   else if (IYT_Policy.focusSessionActive(_s)) main = '';
   setStatusText('protection-status-main', main);
+  const videoPhase = IYT_Policy.videoSessionPhase(_s, now);
+  const videoDeadline = videoPhase === 'break'
+    ? (_s.videoSession.breakUntil || _s.videoSession.sessionDeadline + 5 * 60000)
+    : _s.videoSession?.sessionDeadline;
   const running = _s.focusSessionUntil > now;
-  setStatusText('protection-status-session', running
-    ? t(IYT_Policy.focusSessionActive(_s) ? 'clear_status_session' : 'clear_status_session_paused', [time(_s.focusSessionUntil)]) : '');
-  document.querySelectorAll('[data-focus-minutes]').forEach(button => { button.disabled = running; });
+  const videoStatus = videoPhase ? t(videoPhase === 'break' ? 'video_session_status_break' : 'video_session_status_watching', [time(videoDeadline)]) : '';
+  setStatusText('protection-status-session', videoStatus || (running
+    ? t(IYT_Policy.focusSessionActive(_s) ? 'clear_status_session' : 'clear_status_session_paused', [time(_s.focusSessionUntil)]) : ''));
+  document.querySelectorAll('[data-focus-minutes]').forEach(button => { button.disabled = running || !!videoPhase; });
   $('btn-end-focus-session').hidden = !running;
 
   const customInput = $('input-focus-custom');
@@ -1722,8 +1862,8 @@ function renderProtectionStatus() {
   const activePill = $('focus-active-pill');
   const activeCountdown = $('focus-active-countdown');
 
-  if (customInput) customInput.disabled = running;
-  if (customStartBtn) customStartBtn.disabled = running;
+  if (customInput) customInput.disabled = running || !!videoPhase;
+  if (customStartBtn) customStartBtn.disabled = running || !!videoPhase;
   if (customRow) customRow.hidden = running;
   if (activePill) {
     activePill.hidden = !running;
@@ -1743,13 +1883,14 @@ function renderProtectionStatus() {
   }
 
   renderBudgetStatus();
-  $('protection-status').hidden = !main && !running && !$('protection-status-budget').textContent;
+  $('protection-status').hidden = !main && !running && !videoPhase && !$('protection-status-budget').textContent;
   renderBlockingControls();
   renderShieldPill();
-  // This timer exists only for the lifetime of the popup.
-  const deadlines = [_s.focusSessionUntil].filter(value => value > now);
+  renderVideoSession(now);
+  // Reuse the popup's deadline refresh; video commitments add no polling interval.
+  const deadlines = [_s.focusSessionUntil, videoDeadline].filter(value => value > now);
   if (_s.scheduledBlocking.enabled) deadlines.push(now + 60000 - now % 60000);
-  if (deadlines.length) _statusTimeout = setTimeout(renderProtectionStatus, Math.min(...deadlines) - now + 30);
+  if (deadlines.length) _statusTimeout = setTimeout(() => renderAll(_s), Math.min(...deadlines) - now + 30);
 }
 
 function renderBlockingControls() {
@@ -1899,6 +2040,9 @@ function renderAll(s) {
     if (!on) {
       badge.classList.add('badge-off');
       badge.textContent = t('status_off') || t('status_paused') || 'Off';
+    } else if (IYT_Policy.videoSessionPhase(s)) {
+      badge.classList.add('badge-focus');
+      badge.textContent = t(IYT_Policy.videoSessionPhase(s) === 'break' ? 'video_session_badge_break' : 'video_session_badge_watching');
     } else if (IYT_Policy.focusSessionActive(s)) {
       badge.classList.add('badge-focus');
       const remainingMins = Math.max(1, Math.ceil((s.focusSessionUntil - Date.now()) / 60000));
@@ -2038,8 +2182,8 @@ async function renderProState() {
     }
     if (settingsSub) {
       settingsSub.textContent = isPro
-        ? 'Lifetime License Active · 100% Local Privacy'
-        : 'Unlock Study Mode, Profiles & Analytics';
+        ? t('membership_pro_description')
+        : t('membership_free_description');
     }
 
     // 3. Pro Modal State
@@ -2348,7 +2492,7 @@ async function renderStatsAnalytics(todaySecs, settings) {
     const bestEl = $('stats-streak-best');
     if (bestEl) bestEl.textContent = `Best: ${longest}d`;
 
-    // ── Focus Score & Intentional Ratio ────────────────────────────────────
+    // ── Learning share: Study / (Study + Leisure), tagged watch time only ──
     try {
       const fsData = await IYT_Analytics.getFocusScore(1);
       const fsScoreEl = $('stats-fs-score');
@@ -2360,34 +2504,23 @@ async function renderStatsAnalytics(todaySecs, settings) {
       const kpiSubEl = $('stats-kpi-focus-sub');
 
       if (fsScoreEl) {
-        if (fsData.score !== null) {
-          fsScoreEl.textContent = `${fsData.score}%`;
-          if (fsStatusEl) {
-            fsStatusEl.textContent = fsData.score >= 70 ? 'Intentional Focus ✦' : (fsData.score >= 40 ? 'Balanced' : 'High Distraction');
-          }
-          if (fsBreakdownEl) {
-            fsBreakdownEl.textContent = `${fmtTrendMins(fsData.studyMinutes)} Study · ${fmtTrendMins(fsData.leisureMinutes)} Leisure`;
-          }
-          if (barStudyEl) barStudyEl.style.width = `${fsData.score}%`;
-          if (barLeisureEl) barLeisureEl.style.width = `${100 - fsData.score}%`;
-          if (kpiScoreEl) kpiScoreEl.textContent = `${fsData.score}%`;
-          if (kpiSubEl) kpiSubEl.textContent = fsData.score >= 70 ? 'High Focus ✦' : (fsData.score >= 40 ? 'Balanced Ratio' : 'High Distraction');
-        } else {
-          fsScoreEl.textContent = '--%';
-          if (fsStatusEl) fsStatusEl.textContent = 'Tag channels below';
-          if (fsBreakdownEl) {
-            const totalM = Math.round((todaySecs || 0) / 60);
-            fsBreakdownEl.textContent = `${fmtTrendMins(totalM)} unclassified`;
-          }
-          if (barStudyEl) barStudyEl.style.width = '0%';
-          if (barLeisureEl) barLeisureEl.style.width = '0%';
-          if (kpiScoreEl) kpiScoreEl.textContent = '--%';
-          if (kpiSubEl) kpiSubEl.textContent = 'Intentional Ratio';
-        }
+        const taggedSeconds = fsData.studySeconds + fsData.leisureSeconds;
+        const share = taggedSeconds > 0 ? Math.round(fsData.studySeconds / taggedSeconds * 100) : null;
+        const value = share === null ? '--%' : `${share}%`;
+        fsScoreEl.textContent = value;
+        if (kpiScoreEl) kpiScoreEl.textContent = value;
+        if (fsStatusEl) fsStatusEl.textContent = t(share === null ? 'stats_learning_empty' : 'stats_learning_denominator');
+        if (kpiSubEl) kpiSubEl.textContent = t('stats_learning_denominator');
+        if (fsBreakdownEl) fsBreakdownEl.textContent = t('stats_learning_breakdown', [
+          fmtTrendMins(fsData.studyMinutes), fmtTrendMins(fsData.leisureMinutes),
+          fmtTrendMins(Math.round((fsData.unassignedSeconds || 0) / 60))
+        ]);
+        if (barStudyEl) barStudyEl.style.width = `${share || 0}%`;
+        if (barLeisureEl) barLeisureEl.style.width = `${share === null ? 0 : 100 - share}%`;
       }
     } catch (_) {}
 
-    // ── 24-Hour Peak Usage Heatmap ─────────────────────────────────────────
+    // ── Busiest viewing hours: summed playback over the last 7 days ────────
     try {
       const hourlyData = await IYT_Analytics.getHourlyDistribution(7);
       const heatmapChart = $('stats-heatmap-chart');
@@ -2396,34 +2529,35 @@ async function renderStatsAnalytics(todaySecs, settings) {
 
       if (heatmapChart && hourlyData?.hours) {
         heatmapChart.innerHTML = '';
-        const maxMins = Math.max(1, ...hourlyData.hours.map(h => h.minutes));
+        const maxSeconds = Math.max(1, ...hourlyData.hours.map(h => h.seconds));
         hourlyData.hours.forEach(item => {
           const col = document.createElement('div');
           col.className = 'heatmap-bar-col';
-          col.title = `${item.label}: ${item.minutes}m watched`;
+          col.title = t('stats_busiest_hour_value', [item.label, String(item.minutes)]);
 
           const bar = document.createElement('div');
           bar.className = `heatmap-bar ${item.isPeak ? 'is-peak' : ''}`;
-          const pctHeight = Math.max(6, Math.round((item.minutes / maxMins) * 100));
-          bar.style.height = `${item.minutes > 0 ? pctHeight : 6}%`;
-          if (item.minutes === 0) bar.style.opacity = '0.25';
+          const pctHeight = item.seconds / maxSeconds * 100;
+          bar.style.height = `${pctHeight}%`;
+          bar.hidden = item.seconds === 0;
 
           col.appendChild(bar);
           heatmapChart.appendChild(col);
         });
       }
 
-      if (heatmapInsight && hourlyData?.peakWindow) {
-        if (hourlyData.peakWindow.hasData) {
-          heatmapInsight.textContent = `Peak watch window: ${hourlyData.peakWindow.label} (${hourlyData.peakWindow.totalMinutes}m avg)`;
-        } else {
-          heatmapInsight.textContent = 'Peak watch window: 11:00 PM – 1:00 AM (Typical)';
+      const hasHourlyData = hourlyData?.peakWindow?.hasData === true;
+      if (heatmapInsight) heatmapInsight.textContent = hasHourlyData
+        ? t('stats_busiest_window', [hourlyData.peakWindow.label, String(hourlyData.peakWindow.totalMinutes)])
+        : t('stats_busiest_empty');
+      if (btnHeatmapSchedule) {
+        btnHeatmapSchedule.disabled = !hasHourlyData;
+        delete btnHeatmapSchedule.dataset.start;
+        delete btnHeatmapSchedule.dataset.end;
+        if (hasHourlyData) {
+          btnHeatmapSchedule.dataset.start = hourlyData.peakWindow.startStr;
+          btnHeatmapSchedule.dataset.end = hourlyData.peakWindow.endStr;
         }
-      }
-
-      if (btnHeatmapSchedule && hourlyData?.peakWindow) {
-        btnHeatmapSchedule.dataset.start = hourlyData.peakWindow.startStr;
-        btnHeatmapSchedule.dataset.end = hourlyData.peakWindow.endStr;
       }
     } catch (_) {}
 
@@ -2496,8 +2630,8 @@ async function renderStatsAnalytics(todaySecs, settings) {
           const studyBtn = document.createElement('button');
           studyBtn.type = 'button';
           studyBtn.className = `btn-ch-tag tag-study ${ch.tag === 'study' ? 'is-active' : ''}`;
-          studyBtn.title = 'Mark as Study / Productive';
-          studyBtn.textContent = 'Study';
+          studyBtn.title = t('stats_learning_tag_study');
+          studyBtn.textContent = t('stats_learning_tag_study');
           studyBtn.addEventListener('click', async (e) => {
             e.stopPropagation();
             const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
@@ -2510,8 +2644,8 @@ async function renderStatsAnalytics(todaySecs, settings) {
           const leisureBtn = document.createElement('button');
           leisureBtn.type = 'button';
           leisureBtn.className = `btn-ch-tag tag-leisure ${ch.tag === 'leisure' ? 'is-active' : ''}`;
-          leisureBtn.title = 'Mark as Leisure / Distraction';
-          leisureBtn.textContent = 'Leisure';
+          leisureBtn.title = t('stats_learning_tag_leisure');
+          leisureBtn.textContent = t('stats_learning_tag_leisure');
           leisureBtn.addEventListener('click', async (e) => {
             e.stopPropagation();
             const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
@@ -2933,8 +3067,11 @@ function bindSettingHelp() {
 
 function bindAll() {
   bindSettingHelp();
+  $('btn-video-session-start')?.addEventListener('click', startVideoSession);
+  $('btn-video-session-finish')?.addEventListener('click', finishVideoSession);
   document.querySelectorAll('[data-focus-minutes]').forEach(button => {
     button.addEventListener('click', async () => {
+      if (IYT_Policy.videoSessionPhase(_s)) return;
       button.disabled = true;
       try { renderAll(await StorageManager.startFocusSession(Number(button.dataset.focusMinutes))); }
       catch (error) { showToast(error.message); renderProtectionStatus(); }
@@ -2948,6 +3085,7 @@ function bindAll() {
   const customStartBtn = $('btn-focus-custom-start');
   if (customStartBtn && customInput) {
     const startCustom = async () => {
+      if (IYT_Policy.videoSessionPhase(_s)) return;
       const mins = parseInt(customInput.value, 10);
       if (!mins || mins < 1 || mins > 1440) {
         showToast('Please enter a duration between 1 and 1440 minutes');
@@ -3569,8 +3707,9 @@ function bindAll() {
       return;
     }
     const btn = $('btn-heatmap-schedule');
-    const start = btn?.dataset.start || '23:00';
-    const end = btn?.dataset.end || '07:00';
+    const start = btn?.dataset.start;
+    const end = btn?.dataset.end;
+    if (!start || !end || btn.disabled) return;
 
     switchTab('focus');
     const schedCard = $('card-focus-schedule');
@@ -3581,7 +3720,7 @@ function bindAll() {
     const labelInput = $('schedule-input-label');
     const startInput = $('schedule-input-start');
     const endInput = $('schedule-input-end');
-    if (labelInput) labelInput.value = '🌙 Peak Hour Focus';
+    if (labelInput) labelInput.value = t('stats_busiest_schedule_label');
     if (startInput) startInput.value = start;
     if (endInput) endInput.value = end;
 
@@ -3589,7 +3728,7 @@ function bindAll() {
     if (formWrap) {
       formWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-    showToast('Pre-filled schedule for your peak watch window! ⚡');
+    showToast(t('stats_busiest_schedule_prefill'));
   });
 
   // Watch Analytics Export (CSV & JSON) (Pro)
@@ -4201,6 +4340,7 @@ function bindAll() {
 
   // Live update when settings write while popup is open
   browser.storage.onChanged.addListener(async changes => {
+    if (changes.videoSessionNotice?.newValue) showVideoSessionNotice(changes.videoSessionNotice.newValue);
     if (changes.proLicense) {
       renderProState().catch(() => {});
     }
@@ -4251,6 +4391,7 @@ async function init() {
   restoreFocusCardState(storedFocusCards?.focusCardsCollapsed);
   renderAll(s);
   bindAll();
+  browser.storage.local.get('videoSessionNotice').then(data => showVideoSessionNotice(data.videoSessionNotice)).catch(() => {});
 
   // Show 1st-run welcome card if not dismissed yet
   if (!storedWelcome?.welcomeDismissed) {
@@ -4270,9 +4411,10 @@ async function init() {
   }
   switchTab(initialTab);
   checkYouTubeConnection();
-  browser.tabs.onActivated?.addListener(() => { checkYouTubeConnection(); });
+  refreshVideoInfo();
+  browser.tabs.onActivated?.addListener(() => { checkYouTubeConnection(); refreshVideoInfo(); });
   browser.tabs.onUpdated?.addListener((_tabId, changeInfo, tab) => {
-    if (tab.active && (changeInfo.status || changeInfo.url)) checkYouTubeConnection();
+    if (tab.active && (changeInfo.status || changeInfo.url)) { checkYouTubeConnection(); refreshVideoInfo(); }
   });
   try {
     const response = await browser.runtime.sendMessage({ type: 'IYT_REVIEW_PROMPT' });

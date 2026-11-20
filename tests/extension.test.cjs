@@ -118,6 +118,100 @@ function store(initial = {}) {
   context.StorageManager._background = true;
   return { state, writes, manager: context.StorageManager, policy: context.IYT_Policy, validate: context.IYT_validate, context };
 }
+const videoContext = (tabId = 1, isPro = true) => ({ content: true, tabId, videoId: 'abcdefghijk', isPro: async () => isPro });
+const videoStartCommand = { op: 'videoStart', videoId: 'abcdefghijk', title: 'A useful video', duration: 120, position: 10, live: false };
+
+test('one-video start is centrally Pro gated and serialized across tabs', async () => {
+  const env = store();
+  await assert.rejects(env.manager.execute(videoStartCommand), /sender/);
+  await assert.rejects(env.manager.execute(videoStartCommand, videoContext(1, false)), { code: 'PRO_REQUIRED' });
+  const results = await Promise.allSettled([env.manager.execute(videoStartCommand, videoContext()), env.manager.execute(videoStartCommand, videoContext(2))]);
+  assert.equal(results.filter(r => r.status === 'fulfilled').length, 1);
+  const s = await env.manager.getSettings();
+  assert.equal(s.videoSession.ownerTabId, 1);
+  assert.equal(s.videoSession.sessionDeadline - s.videoSession.startedAt, 86400000);
+  const effective = env.policy.effective(s);
+  assert.equal(effective.blockRecommended, true);
+  assert.equal(effective.disableAutoplay, true);
+  assert.equal(env.policy.videoPlaybackAllowed(s, true, 'abcdefghijk', true), true);
+  assert.equal(env.policy.videoPlaybackAllowed(s, false, 'abcdefghijk', true), false);
+  assert.equal(env.policy.videoPlaybackAllowed(s, true, 'other123456', true), false);
+  assert.equal(env.policy.videoPlaybackAllowed(s, true, 'abcdefghijk', false), false);
+});
+
+test('one-video completion is owner-only, epoch-safe and creates one persisted five-minute break', async () => {
+  const env = store();
+  let s = await env.manager.execute(videoStartCommand, videoContext());
+  const old = s.videoSession;
+  await assert.rejects(env.manager.execute({ op: 'videoClaim', token: old.token, videoId: old.videoId }, videoContext(2)));
+  s = await env.manager.execute({ op: 'videoClaim', token: old.token, videoId: old.videoId }, videoContext());
+  assert.notEqual(s.videoSession.ownerEpoch, old.ownerEpoch);
+  const finish = { op: 'videoFinish', token: old.token, videoId: old.videoId, ownerEpoch: old.ownerEpoch, ended: true };
+  s = await env.manager.execute(finish, videoContext());
+  assert.equal(s.videoSession.phase, 'watching', 'stale document cannot finish');
+  finish.ownerEpoch = s.videoSession.ownerEpoch;
+  s = await env.manager.execute(finish, videoContext(2));
+  assert.equal(s.videoSession.phase, 'watching', 'other tab cannot finish');
+  s = await env.manager.execute({ ...finish, ended: false }, videoContext());
+  assert.equal(s.videoSession.phase, 'watching', 'unconfirmed completion is ignored');
+  s = await env.manager.execute(finish, videoContext());
+  const deadline = s.videoSession.breakUntil;
+  assert.equal(s.videoSession.phase, 'break');
+  assert.equal(deadline - s.videoSession.completedAt, 300000);
+  s = await env.manager.execute(finish, videoContext());
+  assert.equal(s.videoSession.breakUntil, deadline);
+  const restarted = store(env.state);
+  assert.equal((await restarted.manager.getSettings()).videoSession.breakUntil, deadline);
+  assert.equal(restarted.policy.videoPlaybackAllowed(s, true, old.videoId, true), false);
+});
+
+test('one-video commitment blocks escape mutations even with PIN authorization and preserves stronger rules', async () => {
+  const env = store();
+  await locked(env);
+  const settings = await env.manager.execute(videoStartCommand, videoContext());
+  for (const cmd of [{ op:'snooze',minutes:1 }, { op:'reset' }, { op:'resetStats' }, { op:'import',settings:env.manager.getDefaultSettings() }, { op:'update',updates:{extensionEnabled:false} }, { op:'nested',parentKey:'stats',childKey:'limitDismissedToday',value:true }]) {
+    await assert.rejects(env.manager.execute(cmd), { code:'COMMITMENT' });
+    await assert.rejects(env.manager.execute({op:'queueUnlock',command:cmd,pin:'1234'}), { code:'COMMITMENT' });
+  }
+  await assert.rejects(env.manager.updateSetting('videoSession', null), /key/);
+  const ended = await env.manager.finishVideoNow(settings.videoSession.token);
+  assert.equal(ended.videoSession.phase, 'break', 'finish now needs no PIN');
+  assert.equal(ended.focusLock.enabled, true);
+  await assert.rejects(env.manager.startFocusSession(5), { code:'COMMITMENT' });
+});
+
+test('one-video state is strict and non-portable; timeout and expired break reconcile without extension', async () => {
+  const env = store();
+  const settings = await env.manager.execute(videoStartCommand, videoContext());
+  assert.equal(env.validate(settings, true).videoSession, null);
+  for (const patch of [{foo:true},{breakUntil:123},{ownerTabId:'1'},{videoId:'invalid'},{sessionDeadline:1}]) assert.throws(() => env.validate({...settings,videoSession:{...settings.videoSession,...patch}}), /videoSession/);
+  const now = Date.now();
+  const sessionDeadline = now - 60000;
+  const expired = {...settings,videoSession:{...settings.videoSession,startedAt:sessionDeadline-86400000,sessionDeadline}};
+  const h = store({settings:expired});
+  let s = await h.manager.getSettings();
+  assert.equal(s.videoSession.breakUntil, sessionDeadline + 300000);
+  s.videoSession.completedAt = now - 400000; s.videoSession.breakUntil = now - 100000;
+  h.state.settings = s;
+  assert.equal((await h.manager.getSettings()).videoSession, null);
+  expired.videoSession.startedAt = now - 86400000 - 400000;
+  expired.videoSession.sessionDeadline = now - 400000;
+  assert.equal((await store({settings:expired}).manager.getSettings()).videoSession, null);
+});
+
+test('one-video starts respect off, snooze, budget and full schedules while strict schedules remain allowed', async () => {
+  for (const [patch, code] of [[{extensionEnabled:false},'off'],[{snoozeUntil:Date.now()+60000},'snooze'],[{dailyLimit:{enabled:true,limitMinutes:1,warningEnabled:true,resetHour:4},stats:{todayWatchSeconds:60,limitDismissedToday:false,lastStatsReset:StorageDay()}},'budget']]) {
+    const env = store({ settings: { ...store().manager.getDefaultSettings(), ...patch } });
+    await assert.rejects(env.manager.execute(videoStartCommand,videoContext()), {code});
+  }
+  function StorageDay() { return store().manager.getTodayString(); }
+  const env = store(); const d = new Date();
+  await env.manager.updateSetting('scheduledBlocking',{enabled:true,schedules:[{id:'full',label:'Full',enabled:true,days:[d.getDay()],startTime:'00:00',endTime:'00:00',mode:'full'}]});
+  await assert.rejects(env.manager.execute(videoStartCommand,videoContext()),{code:'schedule'});
+  await env.manager.updateSetting('scheduledBlocking',{enabled:true,schedules:[{id:'strict',label:'Strict',enabled:true,days:[d.getDay()],startTime:'00:00',endTime:'00:00',mode:'strict'}]});
+  assert.equal((await env.manager.execute(videoStartCommand,videoContext())).videoSession.phase,'watching');
+});
+
 const locked = async env => {
   const pin = crypto.createHash('sha256').update('1234').digest('hex');
   await env.manager.updateSetting('focusLock', { ...env.manager.getDefaultSettings().focusLock, enabled: true, pin });
@@ -662,7 +756,10 @@ test('locale catalogs contain new labels without encoding corruption', () => {
   const english=JSON.parse(source('_locales/en/messages.json'));
   for(const lang of fs.readdirSync(path.join(root,'_locales'))) {
     const catalog=JSON.parse(source(`_locales/${lang}/messages.json`));
-    for(const key of Object.keys(english)) assert.ok(catalog[key],`${lang}: ${key}`);
+    for(const key of Object.keys(english)) {
+      assert.ok(catalog[key],`${lang}: ${key}`);
+      assert.ok(/^[a-zA-Z0-9_]+$/.test(key), `${lang}: ${key} must only contain [a-zA-Z0-9_] for Chrome manifest i18n compatibility`);
+    }
     for(const key of ['scheduled_close_tab','scheduled_blank_screen','action_undo','channel_blocked']) assert.ok(!/^\?+[\s?$1]*$/.test(catalog[key].message),lang);
     for(const key of ['stats_callout_info','stats_tooltip_info','desc_block_shorts']) {
       assert.ok(!/\?/.test(catalog[key].message), `${lang}: ${key} contains damaged text`);
@@ -688,12 +785,14 @@ test('new focus messages are translated and retain their time placeholder', () =
   }
 });
 
-function timerHarness(overrides = {}) {
+function timerHarness(overrides = {}, sessionFixture = false) {
   const env=store(); let settings=Object.assign(env.manager.getDefaultSettings(),overrides);
   let now=0, selectedVideo, timerId=0; const intervals=new Map(), timeouts=new Map(), nodes=new Map(), changes=[];
+  const metadata={live:'False',clock:'2:00',liveBadge:null,ad:false,routeId:'abcdefghijk'};
   function element() {
     return { children:[], style:{}, classList:{add(){},remove(){}}, listeners:{},
-      setAttribute(){}, getAttribute(){return null;}, querySelector(){return null;}, closest(){return null;},
+      setAttribute(){}, getAttribute(){return null;}, querySelector(selector){return this.children.find(c=>c.tagName===selector)||null;}, closest(){return null;},
+      append(...children){for(const child of children)this.appendChild(child);},
       appendChild(child){this.children.push(child);child.parentElement=this;if(child.id)nodes.set(child.id,child);},
       addEventListener(name,fn){(this.listeners[name] ||= new Set()).add(fn);},
       removeEventListener(name,fn){this.listeners[name]?.delete(fn);},
@@ -702,25 +801,107 @@ function timerHarness(overrides = {}) {
     };
   }
   const player=element(),video=Object.assign(element(),{isConnected:true,paused:false,seeking:false,readyState:4,currentTime:0,duration:120,playbackRate:1,ended:false,muted:false,volume:0.7});
-  video.closest=()=>player;video.pause=()=>{if(!video.paused){video.paused=true;video.emit('pause');}};video.play=async()=>{video.paused=false;video.emit('playing');};selectedVideo=video;
-  const doc={body:element(),addEventListener(){},getElementById:id=>nodes.get(id),createElement:element,
-    querySelector:selector=>selector==='#movie_player'?player:selector.includes('video')&&!selector.includes('.ad')?selectedVideo:null};
-  const location={pathname:'/watch',search:'?v=one',href:'https://www.youtube.com/watch?v=one'};
+  video.closest=selector=>sessionFixture && selector.includes('.ad')?(metadata.ad?player:null):player;video.pause=()=>{if(!video.paused){video.paused=true;video.emit('pause');}};video.play=async()=>{video.paused=false;video.emit('playing');};selectedVideo=video;
+  const documentEvents={}, messages=[];
+  const doc={body:element(),addEventListener(name,fn){(documentEvents[name] ||= []).push(fn);},getElementById:id=>nodes.get(id),createElement:tag=>Object.assign(element(),{tagName:tag}),
+    querySelectorAll:()=>[video],
+    querySelector:selector=>sessionFixture && selector.includes('miniplayer')?null
+      :sessionFixture && selector==='.ad-showing, .ad-interrupting'?(metadata.ad?player:null)
+      :sessionFixture && selector==='ytd-watch-flexy[video-id]'?{getAttribute:()=>metadata.routeId}
+      :sessionFixture && selector==='meta[itemprop="isLiveBroadcast"]'?(metadata.live===null?null:{content:metadata.live})
+      :sessionFixture && selector==='.ytp-live-badge'?metadata.liveBadge
+      :sessionFixture && selector==='.ytp-time-duration'?{textContent:metadata.clock}
+      :selector==='#movie_player'?player:selector.includes('video')&&!selector.includes('.ad')?selectedVideo:null};
+  const location={pathname:'/watch',search:sessionFixture?'?v=abcdefghijk':'?v=one',href:sessionFixture?'https://www.youtube.com/watch?v=abcdefghijk':'https://www.youtube.com/watch?v=one'};
   const context=vm.createContext({document:doc,location,window:{location,addEventListener(){}},console,crypto:crypto.webcrypto,URLSearchParams,
     IYT_Policy:env.policy,I18N:{async setLanguage(){},getMessage:(key,subs,fallback)=>fallback,getDirection:()=> 'ltr'},
-    StorageManager:{getTodayString:()=>env.manager.getTodayString(),getSettings:async()=>clone(settings),recordWatch:async seconds=>{settings.stats.todayWatchSeconds+=seconds;return clone(settings);}},
+    StorageManager:{getTodayString:()=>env.manager.getTodayString(),getSettings:async()=>clone(settings),recordWatch:async seconds=>{settings.stats.todayWatchSeconds+=seconds;return clone(settings);},
+      _request:async command=>{if(!env.state.settings)env.state.settings=clone(settings);settings=await env.manager.execute(command,videoContext());return clone(settings);},
+      finishVideoNow:async token=>{settings=await env.manager.finishVideoNow(token);return clone(settings);}},
     performance:{now:()=>now},getComputedStyle:()=>({position:'relative'}),requestAnimationFrame:fn=>fn(),
     setInterval:fn=>{const id=++timerId;intervals.set(id,fn);return id;},clearInterval:id=>intervals.delete(id),
     setTimeout:fn=>{const id=++timerId;timeouts.set(id,fn);return id;},clearTimeout:id=>timeouts.delete(id),
-    browser:{storage:{onChanged:{addListener:fn=>changes.push(fn)}},runtime:{onMessage:{addListener(){}}}}
+    browser:{storage:{onChanged:{addListener:fn=>changes.push(fn)}},runtime:{id:'fixture',sendMessage(){},onMessage:{addListener:fn=>messages.push(fn)}}}
   });
   vm.runInContext(source('content/timerToast.js'),context);
-  return {video,player,nodes,intervals,timeouts,context,location,changes,
+  return {video,player,nodes,intervals,timeouts,context,location,changes,documentEvents,messages,metadata,
+    message:msg=>new Promise(resolve=>{for(const fn of messages)fn(msg,{id:'fixture'},resolve);}),
     timer:context.window.__iytTimer, settings:()=>settings,
     select(value){selectedVideo=value;},async tick(seconds,mediaSeconds=seconds){now+=seconds*1000;video.currentTime+=mediaSeconds;for(const fn of [...intervals.values()])fn();await Promise.resolve();await Promise.resolve();},
     async change(patch){settings={...settings,...patch};for(const fn of changes)await fn({settings:{newValue:settings}});}
   };
 }
+
+test('one-video UI presents restrictions and unavailable states without changing settings', async () => {
+  const env=store(), settings=env.manager.getDefaultSettings(), nodes=new Map();
+  for(const id of ['btn-video-session-start','btn-video-session-finish','video-session-title','video-session-status','ext-badge'])
+    nodes.set(id,{hidden:false,disabled:false,textContent:'',classList:{add(){},remove(){}}});
+  const popup=source('ui/popup.js');
+  const context=vm.createContext({IYT_Policy:env.policy,$:id=>nodes.get(id),t:(key,subs)=>key+(subs?':'+subs.join(','):''),
+    setTimeout,clearTimeout,location:{pathname:'/ui/options.html'},
+    isSupportedYouTubeTab:tab=>tab?.url?.startsWith('https://www.youtube.com/'),browser:{tabs:{query:async()=>[],sendMessage:async()=>null}}});
+  vm.runInContext('let _s='+JSON.stringify(settings)+';'+popup.slice(popup.indexOf('let _videoInfo = null;'),popup.indexOf('async function startVideoSession()')),context);
+  const baseline=JSON.stringify(settings);
+  context.renderVideoSession();assert.equal(nodes.get('btn-video-session-start').hidden,false);
+  await context.refreshVideoInfo();assert.equal(nodes.get('video-session-status').textContent,'video_session_reason_options');
+  for(const [reason,patch] of [['off',{extensionEnabled:false}],['snooze',{snoozeUntil:Date.now()+60000}],
+    ['budget',{dailyLimit:{enabled:true,limitMinutes:1},stats:{...settings.stats,todayWatchSeconds:60}}],
+    ['schedule',{scheduledBlocking:{enabled:true,schedules:[{id:'test',label:'Test',enabled:true,days:[new Date().getDay()],startTime:'00:00',endTime:'00:00',mode:'full'}]}}]]) {
+    context.patch=patch;vm.runInContext('_s={...'+baseline+',...patch};',context);
+    assert.equal(context.localVideoSessionReason(),reason);context.renderVideoSession();
+    assert.equal(nodes.get('video-session-status').textContent,'video_session_reason_'+reason);
+  }
+  const startedAt=Date.now(),session={token:'fixture',phase:'watching',videoId:'abcdefghijk',title:'A lesson',ownerTabId:1,ownerEpoch:'epoch',startedAt,sessionDeadline:startedAt+86400000,completedAt:null,breakUntil:null};
+  context.session=session;vm.runInContext('_s={...'+baseline+',videoSession:session};',context);context.renderVideoSession();
+  assert.equal(nodes.get('video-session-title').textContent,'A lesson');assert.equal(nodes.get('btn-video-session-start').hidden,true);
+  assert.equal(nodes.get('btn-video-session-finish').hidden,false);
+  session.phase='break';session.completedAt=startedAt;session.breakUntil=startedAt+300000;context.renderVideoSession();
+  assert.equal(nodes.get('btn-video-session-finish').hidden,true,'break has no finish/skip action');
+  assert.match(nodes.get('video-session-status').textContent,/video_session_break:5/);
+  assert.equal(JSON.stringify(settings),baseline,'rendering does not mutate settings');
+  for(const file of ['ui/popup.html','ui/options.html']) {
+    const html=source(file);assert.ok(html.includes('id="btn-video-session-start"'));assert.ok(html.includes('data-i18n="stats_learning_share"'));
+    assert.ok(html.includes('data-i18n="stats_busiest_hours"'));assert.ok(html.includes('id="video-session-status"'));
+  }
+});
+
+test('one-video playback validates metadata, ignores ads, and latches completion before asynchronous break', async () => {
+  const h=timerHarness({},true);await h.timer.attach();
+  assert.equal((await h.message({type:'IYT_VIDEO_INFO'})).eligible,true);
+  const started=await h.message({type:'IYT_VIDEO_START'});
+  assert.equal(started.ok,true);
+  assert.equal(h.video.paused,true,'start never automatically plays');
+  await h.video.play();assert.equal(h.video.paused,false,'owner may resume chosen video');
+  h.metadata.ad=true;h.video.currentTime=120;h.video.ended=true;h.video.emit('ended');
+  await new Promise(setImmediate);
+  assert.equal(h.settings().videoSession.phase,'watching','detected ad ending does not complete selected content');
+  h.metadata.ad=false;
+  h.video.currentTime=120;h.video.ended=true;h.video.emit('ended');
+  await h.video.play();assert.equal(h.video.paused,true,'completion latch blocks immediate replay');
+  await new Promise(setImmediate);
+  assert.equal(h.settings().videoSession.phase,'break');
+  const until=h.settings().videoSession.breakUntil;
+  h.video.emit('ended');await new Promise(setImmediate);
+  assert.equal(h.settings().videoSession.breakUntil,until);
+  assert.ok(h.nodes.has('iyt-video-session-overlay'));
+});
+
+test('one-video metadata rejects unknown duration, live or unresolved identity and guard covers new audio', async () => {
+  const h=timerHarness({},true);await h.timer.attach();
+  h.video.duration=Infinity;assert.equal((await h.message({type:'IYT_VIDEO_INFO'})).eligible,false);
+  h.video.duration=120;h.metadata.live='True';
+  assert.equal((await h.message({type:'IYT_VIDEO_INFO'})).eligible,false,'finite DVR duration is still live');
+  h.metadata.live=null;h.metadata.liveBadge={hidden:false};
+  assert.equal((await h.message({type:'IYT_VIDEO_INFO'})).eligible,false,'visible live badge overrides duration clock');
+  h.metadata.liveBadge=null;h.metadata.clock='';
+  assert.equal((await h.message({type:'IYT_VIDEO_INFO'})).eligible,false,'missing non-live evidence fails safely');
+  h.metadata.live='False';h.location.search='?v=other123456';assert.equal((await h.message({type:'IYT_VIDEO_INFO'})).eligible,false);
+  h.location.search='?v=abcdefghijk';
+  await h.message({type:'IYT_VIDEO_START'});
+  const audio={paused:false,pause(){this.paused=true;}};
+  for(const fn of h.documentEvents.play)fn({target:audio});
+  assert.equal(audio.paused,true,'document guard stops unrelated inserted media');
+});
 
 test('timer counts elapsed playback when callbacks are delayed, not callback count', async () => {
   const h=timerHarness();await h.timer.attach();await h.tick(12);

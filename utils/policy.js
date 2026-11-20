@@ -19,6 +19,10 @@ globalThis.IYT_Policy = {
   },
   effective(s, now = new Date()) {
     const result = { ...s };
+    if (this.videoSessionPhase(s, now.getTime()) === 'watching') {
+      for (const key of ['blockHomeFeed','blockRecommended','blockEndScreens','blockShorts','disableAutoplay','disableHoverPreviews']) result[key] = true;
+      result.limitHomeFeed = false;
+    }
     // Timed sessions use the user's chosen controls. Only an explicitly strict
     // schedule may temporarily enable every protection.
     if (this.schedules(s, now).some(rule => rule.mode === 'strict')) {
@@ -29,6 +33,26 @@ globalThis.IYT_Policy = {
       result.limitHomeFeed = false;
     }
     return result;
+  },
+  videoSessionPhase(s, now = Date.now()) {
+    const v = s?.videoSession;
+    if (!v) return null;
+    if (v.phase === 'watching') return now < v.sessionDeadline ? 'watching' : (now < v.sessionDeadline + 300000 ? 'break' : null);
+    return v.phase === 'break' && now < v.breakUntil ? 'break' : null;
+  },
+  videoPlaybackAllowed(s, owner, videoId, verified, now = Date.now()) {
+    const phase = this.videoSessionPhase(s, now);
+    return !phase || (phase === 'watching' && owner && verified && videoId === s.videoSession.videoId);
+  },
+  commitmentWeakens(old, next, op) {
+    if (!this.videoSessionPhase(old)) return false;
+    if (['reset','import','resetStats','snooze','focusStart'].includes(op)) return true;
+    // Reuse the same guardrails even when Focus Lock is not configured.
+    const guard = { ...old.focusLock, enabled: true, pin: old.focusLock.pin || 'commitment' };
+    // A synthetic lock is only a comparison mechanism. Preserve its identity in
+    // both operands so harmless edits do not look like disabling/changing a PIN.
+    if (old.focusLock.enabled && old.focusLock.pin && (!next.focusLock.enabled || next.focusLock.pin !== old.focusLock.pin || next.focusLock.cooldownMinutes < old.focusLock.cooldownMinutes)) return true;
+    return this.weakens({ ...old, focusLock: guard }, { ...next, focusLock: guard }, op);
   },
   focusSessionActive(s, now = Date.now()) {
     return this.active(s, now) && s.focusSessionUntil > now;

@@ -94,6 +94,178 @@ const IYT_Timer = (() => {
   let _warningRetryAt = 0;
   let _overlayTrapHandler = null;
   let _prevFocusedEl = null;
+  let _ownerToken = null;
+  let _ownerEpoch = null;
+  let _completionPending = null;
+  let _claimPending = null;
+  let _claimAttempted = null;
+  let _sessionDeadlineTimer = null;
+  let _sessionOverlay = null;
+  let _startingVideo = false;
+  let _startDeparted = false;
+  let _startingVideoId = null;
+  let _settingsGeneration = 0;
+
+  async function _readCurrentSettings() {
+    const generation = _settingsGeneration;
+    const settings = await StorageManager.getSettings();
+    return generation === _settingsGeneration || !_settings ? settings : _settings;
+  }
+
+  function _canonicalId() {
+    const id = location.pathname === '/watch' ? new URLSearchParams(location.search).get('v') : null;
+    return /^[a-zA-Z0-9_-]{11}$/.test(id || '') ? id : null;
+  }
+  function _ordinaryVideoInfo() {
+    const videoId = _canonicalId();
+    if (!videoId || _hasActiveMiniplayer()) return { eligible: false, reason: 'unsupported' };
+    const video = _video;
+    if (!video?.isConnected || _attachedId !== videoId || !Number.isFinite(video.duration) || video.duration <= 0) return { eligible: false, reason: 'loading' };
+    if (video.ended || video.currentTime >= video.duration || !Number.isFinite(video.currentTime)) return { eligible: false, reason: 'unsupported' };
+    if (document.querySelector('.ad-showing, .ad-interrupting')) return { eligible: false, reason: 'ads' };
+    const routeId = document.querySelector('ytd-watch-flexy[video-id]')?.getAttribute('video-id')
+      || document.querySelector('meta[itemprop="videoId"]')?.content;
+    if (routeId !== videoId) return { eligible: false, reason: 'loading' };
+    const liveMeta = document.querySelector('meta[itemprop="isLiveBroadcast"]')?.content;
+    const liveBadge = document.querySelector('.ytp-live-badge');
+    const visibleLive = liveBadge && !liveBadge.hidden && getComputedStyle(liveBadge).display !== 'none' && getComputedStyle(liveBadge).visibility !== 'hidden';
+    const clock = document.querySelector('.ytp-time-duration')?.textContent?.trim() || '';
+    // Require an explicit non-live marker or a duration clock with no live badge.
+    if (liveMeta === 'True' || liveMeta === 'true' || visibleLive || !(liveMeta?.toLowerCase() === 'false' || /^\d+(?::\d{2}){1,2}$/.test(clock))) return { eligible: false, reason: 'unsupported' };
+    const title = (document.querySelector('h1.ytd-watch-metadata, h1.title, .slim-video-metadata-title')?.textContent || document.title || videoId).trim().slice(0, 200);
+    return { eligible: true, videoId, title, duration: video.duration, position: video.currentTime, live: false };
+  }
+  function _videoInfo() {
+    if (!_settings) return { eligible: false, reason: 'loading' };
+    const reason = !IYT_Policy.active(_settings) ? (_settings.extensionEnabled === false ? 'off' : 'snooze')
+      : IYT_Policy.videoSessionPhase(_settings) || _settings.focusSessionUntil > Date.now() ? 'active_session'
+      : IYT_Policy.schedules(_settings).some(r => r.mode === 'full') ? 'schedule'
+      : _settings.dailyLimit.enabled && (_settings.stats.limitDismissedToday || _isLimitExceeded()) ? 'budget' : null;
+    return reason ? { eligible: false, reason } : _ordinaryVideoInfo();
+  }
+  function _ownsSession() { return _ownerToken === _settings?.videoSession?.token && _ownerEpoch === _settings?.videoSession?.ownerEpoch; }
+  function _sessionBlocks(media) {
+    if (_startingVideo || _completionPending === _settings?.videoSession?.token) return true;
+    const info = IYT_Policy.videoSessionPhase(_settings) === 'watching' ? _ordinaryVideoInfo() : null;
+    const verified = info?.eligible || (info?.reason === 'ads' && _attachedId === _canonicalId() && document.querySelector('ytd-watch-flexy[video-id]')?.getAttribute('video-id') === _canonicalId());
+    return !IYT_Policy.videoPlaybackAllowed(_settings, _ownsSession(), info?.videoId || (verified ? _attachedId : null), media === _video && verified);
+  }
+  function _sessionText(key, fallback, subs) { return I18N.getMessage(key, subs, fallback); }
+  function _renderSessionOverlay() {
+    const phase = IYT_Policy.videoSessionPhase(_settings);
+    const blocked = phase && (!_video || _sessionBlocks(_video));
+    if (!blocked && !_completionPending) { _sessionOverlay?.remove(); _sessionOverlay = null; return; }
+    if (!document.body) return;
+    if (!_sessionOverlay) {
+      _sessionOverlay = document.createElement('section');
+      _sessionOverlay.id = 'iyt-video-session-overlay';
+      _sessionOverlay.setAttribute('role', 'status');
+      const heading = document.createElement('h2'); heading.className = 'iyt-session-heading';
+      const detail = document.createElement('p'); detail.className = 'iyt-session-detail';
+      const finish = document.createElement('button'); finish.type = 'button'; finish.className = 'iyt-session-finish';
+      finish.addEventListener('click', () => _finishNow().catch(handleTimerError));
+      _sessionOverlay.append(heading, detail, finish);
+      document.body.appendChild(_sessionOverlay);
+    }
+    const breakUntil = _settings?.videoSession?.breakUntil || (_settings?.videoSession?.sessionDeadline + 300000);
+    const seconds = Math.max(0, Math.ceil((breakUntil - Date.now()) / 1000));
+    const remaining = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+    _sessionOverlay.querySelector('h2').textContent = _completionPending ? _sessionText('video_session_working', 'Starting your break…') : phase === 'break' ? _sessionText('video_session_done', 'You’re done for now') : _sessionText('video_session_other', 'Only the chosen video can play in its original tab.');
+    _sessionOverlay.querySelector('p').textContent = phase === 'break' ? _sessionText('video_session_break_remaining', 'Playback is paused for $1.', [remaining]) : (_settings?.videoSession?.title || '');
+    const finish = _sessionOverlay.querySelector('button');
+    finish.textContent = _sessionText('video_session_finish_now', 'Finish now and take a 5-minute break');
+    finish.hidden = phase !== 'watching' || Boolean(_completionPending);
+  }
+  function _enforceSession() {
+    if (!IYT_Policy.videoSessionPhase(_settings) && !_startingVideo) {
+      _completionPending = null; _ownerToken = null; _ownerEpoch = null;
+      if (_sessionOverlay) { _sessionOverlay.remove(); _sessionOverlay = null; }
+      if (!_limitOverlayActive) _restoreMediaSession();
+      return;
+    }
+    for (const media of document.querySelectorAll('video, audio')) {
+      if (_sessionBlocks(media)) { media.pause(); _exitPictureInPicture(); _blockMediaSession(); }
+    }
+    if (!_limitOverlayActive && !_sessionBlocks(_video)) _restoreMediaSession();
+    _renderSessionOverlay();
+  }
+  function _scheduleSessionDeadline() {
+    clearTimeout(_sessionDeadlineTimer);
+    const v = _settings?.videoSession;
+    const next = v?.phase === 'watching' ? v.sessionDeadline : v?.breakUntil;
+    if (next > Date.now()) _sessionDeadlineTimer = setTimeout(() => { _syncCurrentSettings().catch(handleTimerError); }, Math.min(2147483647, next - Date.now() + 25));
+  }
+  async function _syncSession(settings) {
+    ++_settingsGeneration;
+    _settings = settings;
+    if (_completionPending && (settings.videoSession?.token !== _completionPending || settings.videoSession?.phase !== 'watching')) _completionPending = null;
+    _scheduleSessionDeadline();
+    _enforceSession();
+    const v = settings.videoSession;
+    if (v?.phase === 'watching' && !_startingVideo && !_ownsSession() && !_claimPending && _claimAttempted !== v.token && _ordinaryVideoInfo().eligible && _canonicalId() === v.videoId) {
+      _claimPending = v.token;
+      _claimAttempted = v.token;
+      try {
+        const generation = _attachGeneration;
+        const video = _video;
+        const claimed = await StorageManager._request({ op: 'videoClaim', token: v.token, videoId: v.videoId });
+        // Responses can trail a storage event that already applied a break or a
+        // newer epoch. Read current state instead of reinstalling the old reply.
+        const current = await _readCurrentSettings();
+        const owner = current.videoSession;
+        if (generation === _attachGeneration && video === _video && _ordinaryVideoInfo().eligible && _canonicalId() === v.videoId && owner?.phase === 'watching' && owner.token === v.token && owner.ownerEpoch === claimed.videoSession?.ownerEpoch) {
+          _ownerToken = v.token; _ownerEpoch = owner.ownerEpoch;
+        }
+        await _syncSession(current);
+      } catch (error) { if (error.code === 'CONTEXT_INVALIDATED') handleTimerError(error); }
+      finally { _claimPending = null; _enforceSession(); }
+    }
+  }
+  async function _syncCurrentSettings() { await _syncSession(await _readCurrentSettings()); }
+  async function _finishNow() {
+    const token = _settings?.videoSession?.token;
+    if (!token) return;
+    _completionPending = token; _enforceSession();
+    try { await StorageManager.finishVideoNow(token); await _syncCurrentSettings(); }
+    catch (error) { _completionPending = null; _enforceSession(); throw error; }
+  }
+  async function _startVideo() {
+    const info = _videoInfo();
+    if (!info.eligible) return { ok: false, code: info.reason, error: info.reason };
+    _startingVideo = true; _startingVideoId = info.videoId; _startDeparted = false; _enforceSession();
+    const generation = _attachGeneration;
+    const video = _video;
+    try {
+      const accepted = await StorageManager._request({ op: 'videoStart', ...info });
+      let settings = await _readCurrentSettings();
+      const session = settings.videoSession;
+      if (session?.token === accepted.videoSession?.token && session.phase === 'watching' && session.ownerEpoch === accepted.videoSession.ownerEpoch) {
+        if (_startDeparted || _canonicalId() !== info.videoId) {
+          // The start may have committed after the background already checked
+          // navigation. End that accepted token even if the route returned.
+          await StorageManager._request({ op: 'videoDepart', token: session.token, ownerEpoch: session.ownerEpoch, departed: true });
+          settings = await _readCurrentSettings();
+        } else if (generation === _attachGeneration && video === _video && _ordinaryVideoInfo().eligible) {
+          _ownerToken = session.token; _ownerEpoch = session.ownerEpoch;
+        }
+      }
+      _startingVideo = false;
+      await _syncSession(settings);
+      return { ok: true, settings: _settings };
+    } catch (error) { return { ok: false, error: error.message, code: error.code }; }
+    finally { _startingVideo = false; _startingVideoId = null; _startDeparted = false; _enforceSession(); }
+  }
+  function routeChanged() {
+    if (_startingVideo && _canonicalId() !== _startingVideoId) _startDeparted = true;
+    const v = _settings?.videoSession;
+    _enforceSession();
+    if (v?.phase === 'watching' && _ownsSession() && _canonicalId() !== v.videoId) {
+      _completionPending = v.token;
+      StorageManager._request({ op: 'videoDepart', token: v.token, ownerEpoch: _ownerEpoch }).then(_syncCurrentSettings).catch(handleTimerError);
+    }
+  }
+  document.addEventListener('play', event => { if (_sessionBlocks(event.target)) { event.target.pause(); _exitPictureInPicture(); _blockMediaSession(); _renderSessionOverlay(); } }, true);
+  document.addEventListener('playing', event => { if (_sessionBlocks(event.target)) { event.target.pause(); _renderSessionOverlay(); } }, true);
 
   async function _maybeWarnBeforeLimit() {
     if (_warningPending || document.hidden || !_enforcing() || _video.paused || !_settings || Date.now() < _warningRetryAt) return;
@@ -147,6 +319,7 @@ const IYT_Timer = (() => {
   }
 
   function _canOfferFinishVideo() {
+    if (IYT_Policy.videoSessionPhase(_settings)) return false;
     if (window.location.pathname.startsWith('/live')) return false;
     if (!_video) return false;
     if (_video.ended) return false;
@@ -171,7 +344,7 @@ const IYT_Timer = (() => {
   function _isLimitExceeded() {
     if (!_enforcing() || !_settings?.dailyLimit?.enabled) return false;
     if (_settings.stats?.limitDismissedToday) return false;
-    if (_allowedVideoId && _allowedVideoId === _getVideoId()) return false;
+    if (!IYT_Policy.videoSessionPhase(_settings) && _allowedVideoId && _allowedVideoId === _getVideoId()) return false;
     const limitMin = Number(_settings.dailyLimit.limitMinutes) || 60;
     const currentTotalSec = (_baseWatchSeconds || 0) + _batchAccumulator + _pendingSeconds();
     return (currentTotalSec / 60) >= limitMin;
@@ -548,7 +721,7 @@ const IYT_Timer = (() => {
     }
     document.getElementById('iyt-limit-overlay')?.remove();
     _limitOverlayActive = false;
-    _restoreMediaSession();
+    if (!IYT_Policy.videoSessionPhase(_settings) && !_completionPending) _restoreMediaSession();
     try {
       if (_prevFocusedEl && typeof _prevFocusedEl.focus === 'function' && _prevFocusedEl.isConnected) {
         _prevFocusedEl.focus();
@@ -567,8 +740,11 @@ const IYT_Timer = (() => {
     async function send(attempt = 0) {
       if (_contextInvalidated) return;
       try {
-        const settings = await StorageManager.recordWatch(seconds, id, batch.day);
+        const generation = _settingsGeneration;
+        const response = await StorageManager.recordWatch(seconds, id, batch.day);
+        const settings = generation === _settingsGeneration || !_settings ? response : _settings;
         _pendingBatches.delete(id);
+        ++_settingsGeneration;
         _settings = settings;
         _baseWatchSeconds = settings.stats.todayWatchSeconds;
         _day = StorageManager.getTodayString(settings?.dailyLimit?.resetHour);
@@ -678,11 +854,12 @@ const IYT_Timer = (() => {
   // ─── Video event handlers ──────────────────────────────────────────────────
   function _onPlay() {
     if (_contextInvalidated) return;
+    if (_sessionBlocks(_video)) { _video?.pause(); _renderSessionOverlay(); return; }
     if (_allowedVideoId && _allowedVideoId !== _getVideoId()) {
       _allowedVideoId = null;
     }
 
-    if ((_limitOverlayActive || _isLimitExceeded()) && _allowedVideoId !== _getVideoId()) {
+    if ((_limitOverlayActive || _isLimitExceeded()) && (IYT_Policy.videoSessionPhase(_settings) || _allowedVideoId !== _getVideoId())) {
       if (_video && !_video.paused) {
         _video.pause();
       }
@@ -722,6 +899,12 @@ const IYT_Timer = (() => {
     if (document.querySelector('.ad-showing, .ad-interrupting') || (_video && _video.closest('.ad-showing'))) {
       return;
     }
+    const session = _settings?.videoSession;
+    if (session?.phase === 'watching' && _ownsSession() && _attachedId === session.videoId && _video?.ended && Number.isFinite(_video.duration) && _video.currentTime >= _video.duration - 0.5) {
+      _completionPending = session.token;
+      _enforceSession();
+      StorageManager._request({ op: 'videoFinish', token: session.token, ownerEpoch: _ownerEpoch, videoId: _attachedId, ended: true }).then(_syncCurrentSettings).catch(handleTimerError);
+    }
     _graceConsumedFor = _getVideoId();
     _allowedVideoId = null;
     if (_isLimitExceeded()) {
@@ -733,6 +916,7 @@ const IYT_Timer = (() => {
   }
 
   function _onTimeUpdate() {
+    if (_sessionBlocks(_video)) { _video?.pause(); _renderSessionOverlay(); return; }
     if (_allowedVideoId && _allowedVideoId !== _getVideoId()) {
       _allowedVideoId = null;
     }
@@ -764,26 +948,28 @@ const IYT_Timer = (() => {
     }
     if (!video?.isConnected || generation !== _attachGeneration) return;
     if (_video === video && _attachedId === id && _listenersAttached) return;
-    const settings = await StorageManager.getSettings();
+    let settings = await _readCurrentSettings();
     if (generation !== _attachGeneration || id !== _getVideoId() || !_validRoute()) return;
     const sameVideo = _attachedId === id;
     detach(false);
     if (!sameVideo) { _allowedVideoId = null; _videoSeconds = 0; }
     await I18N.setLanguage(settings.userLanguage || 'auto');
     if (generation !== _attachGeneration || id !== _getVideoId() || !_validRoute()) return;
+    _settings = settings;
     _video = video;
     _attachedId = id;
-    _settings = settings;
     _baseWatchSeconds = settings.stats.todayWatchSeconds;
     _day = StorageManager.getTodayString(settings?.dailyLimit?.resetHour);
     for (const [event, handler] of Object.entries(_videoEvents)) video.addEventListener(event, handler);
     _listenersAttached = true;
+    await _syncSession(settings);
     if (_isLimitExceeded()) { video.pause(); _showLimitOverlay(); }
     else if (!video.paused && video.readyState >= 3) _onPlay();
   }
   function _onSeeking() { _onPause(); }
   function _onSeeked() { if (_video && !_video.paused && _video.readyState >= 3) _onPlay(); }
-  const _videoEvents = { play: _onPlay, playing: _onPlay, timeupdate: _onTimeUpdate, pause: _onPause, ended: _onEnded, waiting: _onPause, seeking: _onSeeking, seeked: _onSeeked, ratechange: _onSeeking };
+  function _metadataChanged() { if (_settings) _syncSession(_settings).catch(handleTimerError); }
+  const _videoEvents = { play: _onPlay, playing: _onPlay, timeupdate: _onTimeUpdate, pause: _onPause, ended: _onEnded, waiting: _onPause, seeking: _onSeeking, seeked: _onSeeked, ratechange: _onSeeking, loadedmetadata: _metadataChanged, durationchange: _metadataChanged };
   let _listenersAttached = false;
   function detach(cancel = true) {
     if (cancel) ++_attachGeneration;
@@ -842,9 +1028,9 @@ const IYT_Timer = (() => {
     }
     const oldLanguage = _settings?.userLanguage;
     const settings = changes.settings || !_settings
-      ? await StorageManager.getSettings()
+      ? await _readCurrentSettings()
       : { ..._settings, stats: changes.usage.newValue.stats };
-    _settings = settings;
+    await _syncSession(settings);
     _baseWatchSeconds = settings.stats.todayWatchSeconds;
     if (oldLanguage !== settings.userLanguage) await I18N.setLanguage(settings.userLanguage || 'auto');
     if (_isLimitExceeded()) { _video?.pause(); _showLimitOverlay(); }
@@ -862,7 +1048,7 @@ const IYT_Timer = (() => {
   });
 
   document.addEventListener('enterpictureinpicture', () => {
-    if (_limitOverlayActive && _allowedVideoId !== _getVideoId()) {
+    if (_sessionBlocks(document.pictureInPictureElement) || (_limitOverlayActive && _allowedVideoId !== _getVideoId())) {
       _exitPictureInPicture();
       if (_video && !_video.paused) _video.pause();
     }
@@ -870,7 +1056,13 @@ const IYT_Timer = (() => {
 
   // Listen for preview messages from extension popup
   if (browser && browser.runtime && browser.runtime.onMessage) {
-    browser.runtime.onMessage.addListener((msg) => {
+    browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+      if (msg?.type === 'IYT_VIDEO_INFO' || msg?.type === 'IYT_VIDEO_START') {
+        if (sender?.id !== browser.runtime.id) return;
+        if (msg.type === 'IYT_VIDEO_INFO') { sendResponse(_videoInfo()); return; }
+        _startVideo().then(sendResponse).catch(error => sendResponse({ ok: false, error: error.message, code: error.code }));
+        return true;
+      }
       if (msg && msg.type === 'IYT_PREVIEW_TOAST') {
         const mins = msg.minutes || (_settings?.softReminder?.intervalMinutes || 30);
         _showToast(mins);
@@ -878,7 +1070,10 @@ const IYT_Timer = (() => {
     });
   }
 
-  return { attach, detach, showToast: _showToast };
+  // Load the commitment even on home/search routes, where no timer attaches.
+  _syncCurrentSettings().catch(handleTimerError);
+  document.addEventListener('DOMContentLoaded', _enforceSession, { once: true });
+  return { attach, detach, routeChanged, showToast: _showToast };
 })();
 
 window.__iytTimer = IYT_Timer;

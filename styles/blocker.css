@@ -1,3 +1,29 @@
+/* One-video restriction: presentation only; playback is guarded independently. */
+html body #iyt-video-session-overlay {
+  position: fixed !important;
+  inset: auto 16px 24px !important;
+  z-index: 2147483647 !important;
+  box-sizing: border-box !important;
+  max-width: 520px !important;
+  margin-inline: auto !important;
+  padding: 20px !important;
+  border: 1px solid #727780 !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  color: #17191d !important;
+  box-shadow: 0 4px 24px #0003 !important;
+  font: 15px/1.5 system-ui, sans-serif !important;
+}
+html body #iyt-video-session-overlay h2 { margin: 0 0 8px !important; font-size: 18px !important; }
+html body #iyt-video-session-overlay p { margin: 0 0 12px !important; overflow-wrap: anywhere !important; }
+html body #iyt-video-session-overlay button { padding: 10px 14px !important; border: 0 !important; border-radius: 8px !important; background: #0056b3 !important; color: #fff !important; font: inherit !important; cursor: pointer !important; }
+html body #iyt-video-session-overlay button:focus-visible { outline: 3px solid #007aff !important; outline-offset: 3px !important; }
+html body #iyt-video-session-overlay button[hidden] { display: none !important; }
+@media (prefers-color-scheme: dark) {
+  html body #iyt-video-session-overlay { background: #222228 !important; color: #f3f3f7 !important; }
+}
+html[dark] body #iyt-video-session-overlay { background: #222228 !important; color: #f3f3f7 !important; }
+
 /* Narrow cold-start shield: released after authoritative settings are applied. */
 html:not([data-iyt-ready]) ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
 html:not([data-iyt-ready]) ytd-watch-flexy #related,

@@ -20,6 +20,20 @@ globalThis.IYT_validate = function (input, portable = false) {
       if (!Object.hasOwn(template, key) || ['__proto__','constructor','prototype'].includes(key)) fail(name);
       const d = template[key];
       if (name === 'focusLock.pendingUnlock') { result[key] = null; continue; }
+      if (name === 'videoSession') {
+        if (v === null) { result[key] = null; continue; }
+        const fields = ['token','phase','videoId','title','ownerTabId','ownerEpoch','startedAt','sessionDeadline','completedAt','breakUntil'];
+        if (!object(v) || Object.keys(v).length !== fields.length || fields.some(k => !Object.hasOwn(v, k)) || Object.keys(v).some(k => !fields.includes(k))) fail(name);
+        if (![v.token, v.ownerEpoch].every(t => typeof t === 'string' && /^[a-zA-Z0-9_-]{1,100}$/.test(t))) fail(name);
+        if (!/^[a-zA-Z0-9_-]{11}$/.test(v.videoId) || typeof v.videoId !== 'string' || typeof v.title !== 'string' || v.title.length > 200 || /[\u0000-\u001f]/.test(v.title)) fail(name);
+        if (!Number.isInteger(v.ownerTabId) || v.ownerTabId < 0 || !Number.isSafeInteger(v.startedAt) || v.startedAt < 0 || v.sessionDeadline !== v.startedAt + 86400000) fail(name);
+        if (v.phase === 'watching') {
+          if (v.completedAt !== null || v.breakUntil !== null) fail(name);
+        } else if (v.phase === 'break') {
+          if (!Number.isSafeInteger(v.completedAt) || v.completedAt < v.startedAt || v.breakUntil !== v.completedAt + 300000) fail(name);
+        } else fail(name);
+        result[key] = { ...v }; continue;
+      }
       if (name === 'snoozeUntil' || name === 'focusSessionUntil') {
         if (v !== null && (!Number.isFinite(v) || v < 0)) fail(name);
       } else if (name === 'focusLock.pin') {
@@ -71,6 +85,7 @@ globalThis.IYT_validate = function (input, portable = false) {
     result.stats = { ...defaults.stats };
     result.snoozeUntil = null;
     result.focusSessionUntil = null;
+    result.videoSession = null;
   }
   return result;
 };

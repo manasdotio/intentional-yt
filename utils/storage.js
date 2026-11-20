@@ -26,6 +26,7 @@ class StorageManager {
       extensionEnabled: true,
       snoozeUntil: null,
       focusSessionUntil: null,
+      videoSession: null,
       userLanguage: 'auto',
       themeMode: 'auto',
 
@@ -193,6 +194,7 @@ class StorageManager {
     const settings = await this.getSettings();
     return this._request({ op: 'focusEnd', until: settings.focusSessionUntil });
   }
+  static finishVideoNow(token) { return this._request({ op: 'videoFinishNow', token }); }
   static claimLimitWarning() { return this._request({ op: 'claimLimitWarning' }); }
   static changeList(key, value, remove = false) { return this._request({ op: 'list', key, value, remove }); }
   static saveSchedule(schedule) { return this._request({ op: 'scheduleSave', schedule }); }
@@ -211,7 +213,7 @@ class StorageManager {
       case 'update':
         if (!command.updates || typeof command.updates !== 'object' || Array.isArray(command.updates)) throw new Error('Invalid update');
         for (const [key, value] of Object.entries(command.updates)) {
-          if (['stats','__proto__','prototype','constructor'].includes(key)) throw new Error('Invalid update key');
+          if (['stats','videoSession','__proto__','prototype','constructor'].includes(key)) throw new Error('Invalid update key');
           next[key] = value;
         }
         break;
@@ -258,7 +260,7 @@ class StorageManager {
       (/^(block|disable)/.test(key) || ['limitHomeFeed','redirectShorts','hideThumbnails','neutralThumbnails','grayscaleMode','fullWindowPlayer'].includes(key));
   }
 
-  static execute(command) {
+  static execute(command, context = {}) {
     return this._enqueue(async () => {
       const stored = await browser.storage.local.get(['settings','usage','presetUndo']);
       let settings;
@@ -278,8 +280,16 @@ class StorageManager {
       if (settings.stats.lastStatsReset !== today) { settings.stats = this.getDefaultSettings().stats; settings.stats.lastStatsReset = today; batches = []; }
       if (settings.snoozeUntil && settings.snoozeUntil <= Date.now()) settings.snoozeUntil = null;
       if (settings.focusSessionUntil && settings.focusSessionUntil <= Date.now()) settings.focusSessionUntil = null;
+      const toBreak = (when = Date.now()) => {
+        if (settings.videoSession?.phase !== 'watching') return;
+        settings.videoSession = { ...settings.videoSession, phase: 'break', completedAt: when, breakUntil: when + 300000 };
+      };
+      if (settings.videoSession?.phase === 'watching' && settings.videoSession.sessionDeadline <= Date.now()) toBreak(settings.videoSession.sessionDeadline);
+      if (settings.videoSession?.phase === 'break' && settings.videoSession.breakUntil <= Date.now()) settings.videoSession = null;
+      const commitmentError = () => { const error = new Error('Finish this video and take the 5-minute break before changing these protections.'); error.code = 'COMMITMENT'; return error; };
       const apply = (action, authorized = false) => {
         const next = this._mutate(settings, action);
+        if (IYT_Policy.commitmentWeakens(settings, next, action.op)) throw commitmentError();
         if (!authorized && IYT_Policy.weakens(settings, next, action.op)) {
           const error = new Error('Focus Lock requires a PIN and cooldown for this change.'); error.code = 'LOCKED'; throw error;
         }
@@ -288,7 +298,11 @@ class StorageManager {
       if (settings.focusLock.pendingUnlock?.unlocksAt <= Date.now()) {
         const queued = settings.focusLock.pendingUnlock.command;
         settings.focusLock.pendingUnlock = null;
-        apply(queued, true);
+        try { apply(queued, true); }
+        catch (error) {
+          if (error.code !== 'COMMITMENT') throw error;
+          await browser.storage.local.set({ videoSessionNotice: 'pending-change-cancelled' });
+        }
       }
       const commit = async () => {
         const preferences = { ...settings }; delete preferences.stats;
@@ -300,6 +314,43 @@ class StorageManager {
         if (stored.presetUndo !== undefined) await browser.storage.local.remove('presetUndo');
         return settings;
       };
+      if (command.op === 'videoStart') {
+        if (!context.content || !Number.isInteger(context.tabId) || context.videoId !== command.videoId) throw new Error('Invalid video sender');
+        if (!await context.isPro?.()) { const error = new Error('This feature requires Pro.'); error.code = 'PRO_REQUIRED'; throw error; }
+        const unavailable = !IYT_Policy.active(settings) ? (settings.extensionEnabled === false ? 'off' : 'snooze')
+          : settings.videoSession || settings.focusSessionUntil > Date.now() ? 'active_session'
+          : IYT_Policy.schedules(settings).some(r => r.mode === 'full') ? 'schedule'
+          : settings.dailyLimit.enabled && (settings.stats.limitDismissedToday || settings.stats.todayWatchSeconds >= settings.dailyLimit.limitMinutes * 60) ? 'budget' : null;
+        if (unavailable) { const error = new Error(unavailable); error.code = unavailable; throw error; }
+        if (typeof command.videoId !== 'string' || !/^[a-zA-Z0-9_-]{11}$/.test(command.videoId) || typeof command.title !== 'string' || !Number.isFinite(command.duration) || command.duration <= 0 || !Number.isFinite(command.position) || command.position < 0 || command.position >= command.duration || command.live !== false) throw new Error('Invalid video metadata');
+        const now = Date.now();
+        settings.videoSession = { token: crypto.randomUUID(), phase: 'watching', videoId: command.videoId, title: command.title.replace(/[\u0000-\u001f]/g, '').slice(0, 200), ownerTabId: context.tabId, ownerEpoch: crypto.randomUUID(), startedAt: now, sessionDeadline: now + 86400000, completedAt: null, breakUntil: null };
+        return commit();
+      }
+      if (['videoClaim','videoFinish','videoDepart'].includes(command.op)) {
+        const v = settings.videoSession;
+        if (!context.content || context.tabId !== v?.ownerTabId || command.token !== v?.token || v?.phase !== 'watching') {
+          if (command.op === 'videoClaim') throw new Error('This is not the original video tab.');
+          return commit();
+        }
+        if (command.op === 'videoClaim') {
+          if (context.videoId !== v.videoId || command.videoId !== v.videoId) throw new Error('Invalid video claim');
+          settings.videoSession = { ...v, ownerEpoch: crypto.randomUUID() };
+        } else if (command.ownerEpoch === v.ownerEpoch) {
+          if (command.op === 'videoDepart' && (context.videoId !== v.videoId || command.departed === true)) toBreak();
+          else if (command.op === 'videoFinish' && command.videoId === v.videoId && command.ended === true) toBreak();
+        }
+        return commit();
+      }
+      if (command.op === 'videoFinishNow') {
+        if (command.token === settings.videoSession?.token) toBreak();
+        return commit();
+      }
+      if (command.op === 'videoAbandon') {
+        if (!context.internal) throw new Error('Invalid lifecycle command');
+        if (command.token === settings.videoSession?.token) toBreak();
+        return commit();
+      }
       if (command.op === 'read' || command.op === 'reconcile') return commit();
       if (command.op === 'claimLimitWarning') {
         const key = `${today}:${settings.dailyLimit.limitMinutes}`;
@@ -325,7 +376,8 @@ class StorageManager {
         const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(command.pin));
         const hex = Array.from(new Uint8Array(hash), b => b.toString(16).padStart(2,'0')).join('');
         if (hex !== settings.focusLock.pin) throw new Error('Incorrect PIN');
-        this._mutate(settings, command.command);
+        const proposed = this._mutate(settings, command.command);
+        if (IYT_Policy.commitmentWeakens(settings, proposed, command.command.op)) throw commitmentError();
         const now = Date.now();
         settings.focusLock.pendingUnlock = { command: command.command, requestedAt: now, unlocksAt: now + settings.focusLock.cooldownMinutes * 60000 };
         return commit();

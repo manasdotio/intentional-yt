@@ -398,6 +398,7 @@
           </div>
         </div>
 
+        <p class="video-session-copy allowlist-explanation" data-i18n="allowlist_explanation">Free allowlist: cards matching a channel OR keyword stay visible; other cards are dimmed or hidden. If both lists are empty, all cards are shown. This filters cards, not direct video playback.</p>
         <!-- Allowlist Action Option (Dim vs Hide) -->
         <div class="allowlist-action-card" id="allowlist-action-container" style="display:none">
           <span class="allowlist-action-label" data-i18n="allowlist_action_title">Other videos action:</span>
@@ -464,6 +465,13 @@
         <section class="focus-section-card focus-session-card" aria-labelledby="focus-session-title">
           <div class="setting-label"><h2 id="focus-session-title" class="focus-card-title" data-i18n="focus_session_title">Focus session</h2><button type="button" class="setting-help" aria-labelledby="focus-session-title" aria-describedby="help-focus-session" data-help="help-focus-session"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button></div>
           <p id="help-focus-session" class="setting-help-text" hidden data-i18n="focus_session_description">Start a timed session using your chosen blocking settings. Schedules and daily limits still apply.</p>
+          <div class="video-session-controls">
+            <button type="button" class="btn-secondary" id="btn-video-session-start" data-i18n="video_session_start" aria-describedby="video-session-description video-session-status">Watch only this video · Pro</button>
+            <p id="video-session-description" class="video-session-copy" data-i18n="video_session_description">Commit to this video: only the chosen video can play in its original tab, then all YouTube playback pauses for a mandatory 5-minute break. Finishing now also starts the full break. Maximum session: 24 hours.</p>
+            <p id="video-session-title" class="video-session-title" hidden></p>
+            <p id="video-session-status" class="video-session-copy" role="status" aria-live="polite" data-i18n="video_session_checking">Checking the current video…</p>
+            <button type="button" class="btn-secondary" id="btn-video-session-finish" hidden data-i18n="video_session_finish_now">Finish now and take a 5-minute break</button>
+          </div>
           <div class="focus-session-actions">
             <button type="button" class="btn-secondary" data-focus-minutes="15" data-i18n="time_option_minutes" data-i18n-arg="15">15 min</button>
             <button type="button" class="btn-secondary" data-focus-minutes="25" data-i18n="time_option_minutes" data-i18n-arg="25">25 min</button>
@@ -839,14 +847,14 @@
               <div class="stats-kpi-icon-wrap icon-green">
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
               </div>
-              <span class="stats-kpi-label">Focus</span>
+              <span class="stats-kpi-label" data-i18n="stats_learning_share">Learning share</span>
               <span class="badge-pro-micro">PRO</span>
-              <button type="button" class="setting-help setting-help-mini" aria-label="About Focus Score" aria-describedby="help-stats-focus" data-help="help-stats-focus"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button>
+              <button type="button" class="setting-help setting-help-mini" data-i18n-aria="stats_learning_share" aria-label="Learning share" aria-describedby="help-stats-focus" data-help="help-stats-focus"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button>
             </div>
             <div class="stats-kpi-val" id="stats-kpi-focus-score">--%</div>
-            <div class="stats-kpi-sub" id="stats-kpi-focus-sub">Intentional Ratio</div>
+            <div class="stats-kpi-sub" id="stats-kpi-focus-sub" data-i18n="stats_learning_denominator">of tagged watch time</div>
             <span id="stats-protections-active" style="display:none">0 / 26</span>
-            <div id="help-stats-focus" class="setting-help-text" hidden>Intentional Focus Score (0–100%) measures the percentage of your watch time spent on Study channels vs Leisure channels: Study / (Study + Leisure). Tag channels below to calculate your score.</div>
+            <div id="help-stats-focus" class="setting-help-text" hidden data-i18n="stats_learning_help">Today's Study / (Study + Leisure) watch time, based on your channel tags. Untagged time is excluded from the percentage and shown separately. This is not a measure of concentration or distraction.</div>
           </div>
         </div>
 
@@ -861,12 +869,12 @@
             <div class="stats-chart-segmented" role="tablist">
               <button type="button" class="chart-tab-btn is-active" id="btn-chart-tab-days" role="tab" aria-selected="true">7 Days</button>
               <button type="button" class="chart-tab-btn" id="btn-chart-tab-hours" role="tab" aria-selected="false">
-                <span>Peak Hours</span>
+                <span data-i18n="stats_busiest_hours">Busiest viewing hours</span>
                 <span class="badge-pro-micro">PRO</span>
               </button>
             </div>
           </div>
-          <div id="help-stats-activity" class="setting-help-text" hidden>Switch between your 7-day watch history and a 24-hour vulnerability heatmap. Peak Hours highlights when you are most prone to doomscrolling so you can schedule quiet hours.</div>
+          <div id="help-stats-activity" class="setting-help-text" hidden data-i18n="stats_busiest_help">Switch between your free 7-day watch history and Pro hourly playback totals. Busiest viewing hours sums watch time across the last 7 days; it does not measure vulnerability or doomscrolling. Use a real busiest window to prefill a custom schedule.</div>
 
           <!-- View 1: 7-Day Activity -->
           <div class="stats-chart-view" id="stats-view-days">
@@ -883,8 +891,8 @@
           <!-- View 2: 24-Hour Peak Hours Heatmap (PRO) -->
           <div class="stats-chart-view" id="stats-view-hours" style="display:none">
             <div class="stats-view-meta">
-              <span class="stats-view-sub">24-hour vulnerability distribution</span>
-              <span class="stats-trend-badge">7-day avg</span>
+              <span class="stats-view-sub" data-i18n="stats_busiest_subtitle">Playback by hour of day</span>
+              <span class="stats-trend-badge" data-i18n="stats_busiest_period">Last 7 days · total</span>
             </div>
             <div class="stats-heatmap-chart" id="stats-heatmap-chart">
               <!-- 24 hourly micro-bars injected by popup.js -->
@@ -899,10 +907,10 @@
             <div class="stats-heatmap-callout" id="stats-heatmap-callout">
               <div class="stats-heatmap-callout-text">
                 <span class="stats-heatmap-callout-icon">⚡</span>
-                <span id="stats-heatmap-insight">Peak watch window: 11:00 PM – 1:00 AM</span>
+                <span id="stats-heatmap-insight" data-i18n="stats_busiest_empty">No hourly watch data in the last 7 days. No viewing window to suggest.</span>
               </div>
-              <button type="button" class="btn-heatmap-schedule" id="btn-heatmap-schedule" title="Create a focus block for this window">
-                <span>Set Schedule</span>
+              <button type="button" class="btn-heatmap-schedule" id="btn-heatmap-schedule" disabled data-i18n-title="stats_busiest_schedule_help" title="Prefill a custom schedule from this viewing window">
+                <span data-i18n="stats_busiest_schedule">Set schedule</span>
               </button>
             </div>
           </div>
@@ -913,21 +921,21 @@
           <div class="stats-channels-header">
             <div class="stats-channels-title-wrap">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
-              <span class="stats-channels-title">Channels &amp; Focus Ratio</span>
+              <span class="stats-channels-title" data-i18n="stats_learning_channels">Channels &amp; learning share</span>
               <span class="badge-pro-micro">PRO</span>
               <button type="button" class="setting-help setting-help-mini" aria-label="About Channel Tagging" aria-describedby="help-stats-channels" data-help="help-stats-channels"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".8" fill="currentColor" stroke="none"/></svg></button>
             </div>
             <span class="stats-channels-badge">Last 7 days</span>
           </div>
-          <div id="help-stats-channels" class="setting-help-text" hidden>Your top watched channels from the last 7 days. Tag creators as Study (productive) or Leisure (entertainment) to balance your intentional ratio.</div>
+          <div id="help-stats-channels" class="setting-help-text" hidden data-i18n="stats_learning_channels_help">Your top watched channels from the last 7 days. Choose Study or Leisure tags to describe your viewing; neither tag judges its value. The learning share above uses today's tagged watch time. Untagged minutes are always shown separately.</div>
 
           <!-- Integrated Focus Ratio Meter (animates when tags are clicked directly below!) -->
           <div class="stats-fs-meter-box" id="stats-fs-meter-box">
             <div class="stats-fs-gauge-row">
               <div class="stats-fs-score-val" id="stats-fs-score">--%</div>
               <div class="stats-fs-meta">
-                <div class="stats-fs-status" id="stats-fs-status">Tag channels below</div>
-                <div class="stats-fs-breakdown" id="stats-fs-breakdown">0m Study · 0m Leisure</div>
+                <div class="stats-fs-status" id="stats-fs-status" data-i18n="stats_learning_empty">No tagged watch time today</div>
+                <div class="stats-fs-breakdown" id="stats-fs-breakdown">0m Study · 0m Leisure · 0m unassigned</div>
               </div>
             </div>
             <div class="stats-fs-bar-track">
@@ -974,7 +982,7 @@
                 </div>
                 <div class="settings-row-meta">
                   <span class="settings-row-label" id="settings-pro-title">Intentional YT Pro</span>
-                  <span class="settings-row-sub" id="settings-pro-sub">Unlock Study Mode, Profiles &amp; Analytics</span>
+                  <span class="settings-row-sub" id="settings-pro-sub" data-i18n="membership_free_description">Get one-video sessions, learning breakdown, busiest hours, watch exports &amp; schedule templates.</span>
                 </div>
               </div>
               <div class="settings-nav-chevron" style="display:flex; align-items:center; gap:6px;">
@@ -1439,8 +1447,8 @@
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
             </div>
             <div class="pro-feat-text">
-              <strong>Deep Focus Analytics</strong>
-              <span>7-day playback chart, channel tracking &amp; focus streaks</span>
+              <strong data-i18n="pro_video_title">One-video sessions</strong>
+              <span data-i18n="pro_video_description">One chosen video in its original tab, then a mandatory 5-minute break</span>
             </div>
           </div>
           <div class="pro-feature-item">
@@ -1448,8 +1456,8 @@
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             </div>
             <div class="pro-feat-text">
-              <strong>Strict Study Mode</strong>
-              <span>Channel allowlist (whitelist) that blocks all non-study feeds</span>
+              <strong data-i18n="pro_learning_title">Channel tags &amp; learning breakdown</strong>
+              <span data-i18n="pro_learning_description">Study / (Study + Leisure), with unassigned time shown separately</span>
             </div>
           </div>
           <div class="pro-feature-item">
@@ -1457,8 +1465,8 @@
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             </div>
             <div class="pro-feat-text">
-              <strong>Schedule Profiles</strong>
-              <span>Automatic day &amp; time profiles (Work, Study, Evening)</span>
+              <strong data-i18n="pro_templates_title">Schedule templates</strong>
+              <span data-i18n="pro_templates_description">Ready-made Work, Evening and Night schedules; custom schedules stay free</span>
             </div>
           </div>
           <div class="pro-feature-item">
@@ -1466,13 +1474,14 @@
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
             <div class="pro-feat-text">
-              <strong>Strict Mode Lock</strong>
-              <span>Friction delay &amp; PIN lock to defeat impulsive changes</span>
+              <strong data-i18n="pro_hours_title">Busiest viewing hours &amp; watch exports</strong>
+              <span data-i18n="pro_hours_description">Last 7 days of hourly playback totals; export watch data as CSV or JSON</span>
             </div>
           </div>
         </div>
 
         <!-- License Entry Section (visible if not Pro) -->
+        <p class="video-session-copy" data-i18n="pro_free_features">Still free: watch history, streaks, Focus Lock, channel/keyword allowlist, custom schedules and settings backup.</p>
         <div id="pro-license-entry-wrap" class="pro-license-entry-wrap">
           <div class="pro-cta-row">
             <a href="https://intentionalyt.me/pro" target="_blank" rel="noopener noreferrer" class="btn-primary pro-buy-btn" id="link-buy-pro">

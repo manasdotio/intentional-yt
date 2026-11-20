@@ -71,6 +71,7 @@
     const path = location.pathname + location.search;
     if (path === _lastPath && !force) return;
     _lastPath = path;
+    window.__iytTimer?.routeChanged?.();
     const generation = ++_generation;
     if (await checkHomeRedirect()) return;
     if (!isVideoPage()) window.__iytTimer?.detach();

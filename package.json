@@ -9,8 +9,8 @@
     "start": "next start",
     "package": "node scripts/package.cjs --unpacked",
     "audit:seo": "node scripts/audit-seo.mjs",
-    "test": "node --test tests/extension.test.cjs",
-    "test:extension": "node --test tests/extension.test.cjs"
+    "test": "node --test tests/extension.test.cjs tests/video-background.test.cjs",
+    "test:extension": "node --test tests/extension.test.cjs tests/video-background.test.cjs"
   },
   "engines": {
     "node": ">=20.15.0 <21 || >=22.2.0 <23 || >=24"

@@ -194,8 +194,9 @@ const IYT_Analytics = (() => {
   }
 
   /**
-   * Compute Intentional Focus Score (0-100%) and watch breakdown.
-   * Compares study watch seconds vs leisure watch seconds.
+   * Compute learning share (0-100%) and watch breakdown.
+   * Study / (Study + Leisure); uncategorized time is separate.
+   * The legacy API name and export column stay stable. This does not measure concentration.
    * Returns { score, studySeconds, leisureSeconds, unassignedSeconds, totalSeconds, studyMinutes, leisureMinutes, totalMinutes }.
    */
   async function getFocusScore(days = 1, targetDateStr = null) {
@@ -247,8 +248,8 @@ const IYT_Analytics = (() => {
   }
 
   /**
-   * Get 24-hour distribution of watch time over the last `days` days.
-   * Identifies peak doomscroll / vulnerability window.
+   * Get summed playback by hour of day over the last `days` days.
+   * Identifies the busiest adjacent two-hour viewing window, not attention or vulnerability.
    */
   async function getHourlyDistribution(days = 7) {
     const data = await _read();

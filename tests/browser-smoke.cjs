@@ -607,6 +607,77 @@ fs.writeFileSync(path.join(extension,'manifest.json'),JSON.stringify(manifest));
     await worker.evaluate(async()=>{const data=await browser.storage.local.get('settings');data.settings.focusLock.pendingUnlock.unlocksAt=Date.now()-1;await browser.storage.local.set(data);await reconcile();});
     assert.equal(await worker.evaluate(async()=>(await StorageManager.getSettings()).dailyLimit.limitMinutes),60);
     console.log('PASS: protected UI prompts for PIN, modal isolates background, closed-popup cooldown applies');
+    // One-video commitment uses controlled HTML media metadata, never live accounts.
+    await worker.evaluate(async()=>{
+      await browser.storage.local.remove(['settings','usage']);
+      await browser.storage.local.set({proLicense:{isPro:true,licenseKey:'TEST-PRO-LIFETIME'}});
+      await StorageManager.getSettings();
+    });
+    const owner=await context.newPage(), duplicate=await context.newPage();
+    const prepareVideo=async target=>{
+      await target.goto('https://www.youtube.com/watch?v=abcdefghijk');
+      await target.evaluate(()=>{
+        let watch=document.querySelector('ytd-watch-flexy');
+        if(!watch){watch=document.createElement('ytd-watch-flexy');document.body.append(watch);}
+        watch.setAttribute('video-id','abcdefghijk');
+        const meta=document.createElement('meta');meta.setAttribute('itemprop','isLiveBroadcast');meta.content='False';document.head.append(meta);
+        const video=document.querySelector('video');
+        Object.defineProperties(video,{duration:{configurable:true,value:120},currentTime:{configurable:true,writable:true,value:10},ended:{configurable:true,writable:true,value:false},paused:{configurable:true,writable:true,value:true}});
+        video.pause=function(){this.paused=true;this.dispatchEvent(new Event('pause'));};
+        window.fixturePlay=()=>{video.paused=false;video.dispatchEvent(new Event('play'));video.dispatchEvent(new Event('playing'));return video.paused;};
+        document.dispatchEvent(new Event('yt-player-updated'));
+      });
+      await target.waitForTimeout(200);
+    };
+    await prepareVideo(owner);await prepareVideo(duplicate);
+    const ownerId=await worker.evaluate(async()=> (await browser.tabs.query({url:'https://www.youtube.com/watch?v=abcdefghijk'}))[0].id);
+    const started=await worker.evaluate(tabId=>browser.tabs.sendMessage(tabId,{type:'IYT_VIDEO_START'}),ownerId);
+    assert.equal(started.ok,true,JSON.stringify(started));
+    const actualOwnerId=started.settings.videoSession.ownerTabId;
+    // tabs.query order need not match page creation order: check each tab by result.
+    const ownerPage=await owner.evaluate(()=>window.fixturePlay()) ? duplicate : owner;
+    const duplicatePage=ownerPage===owner?duplicate:owner;
+    await duplicatePage.waitForSelector('#iyt-video-session-overlay');
+    assert.equal(await ownerPage.evaluate(()=>window.fixturePlay()),false,'original tab may play');
+    assert.equal(await duplicatePage.evaluate(()=>window.fixturePlay()),true,'duplicate video tab is paused');
+    await worker.evaluate(async()=>{
+      await StorageManager.updateSetting('dailyLimit',{enabled:true,limitMinutes:1,warningEnabled:true,resetHour:4});
+      const day=StorageManager.getTodayString();await StorageManager.recordWatch(60,'session-budget',day);
+    });
+    await ownerPage.waitForTimeout(100);
+    assert.equal(await ownerPage.evaluate(()=>window.fixturePlay()),true,'video session never grants extra daily minutes');
+    await ownerPage.evaluate(()=>{
+      const video=document.querySelector('video');video.currentTime=120;video.ended=true;video.dispatchEvent(new Event('ended'));
+      window.fixturePlay();
+    });
+    await ownerPage.waitForSelector('#iyt-video-session-overlay');
+    await worker.evaluate(async()=>{const s=await StorageManager.getSettings();if(s.videoSession?.phase!=='break')throw new Error('Completion did not start break');});
+    const videoBreakDeadline=await worker.evaluate(async()=> (await StorageManager.getSettings()).videoSession.breakUntil);
+    await ownerPage.evaluate(()=>document.querySelector('video').dispatchEvent(new Event('ended')));
+    assert.equal(await worker.evaluate(async()=> (await StorageManager.getSettings()).videoSession.breakUntil),videoBreakDeadline,'duplicate completion does not extend break');
+    assert.equal(await duplicatePage.evaluate(()=>window.fixturePlay()),true,'break blocks all tabs');
+    await worker.evaluate(async()=>{
+      const data=await browser.storage.local.get('settings');const session=data.settings.videoSession;
+      session.completedAt=Date.now()-300001;session.breakUntil=session.completedAt+300000;
+      session.startedAt=session.completedAt-1000;session.sessionDeadline=session.startedAt+86400000;
+      IYT_validate(data.settings,StorageManager.getDefaultSettings());
+      await browser.storage.local.set(data);await reconcile();
+    });
+    assert.equal(await worker.evaluate(async()=> (await StorageManager.getSettings()).videoSession),null);
+    assert.equal(await ownerPage.evaluate(()=>document.querySelector('video').paused),true,'expiry never auto-plays');
+    await prepareVideo(ownerPage);
+    const second=await worker.evaluate(tabId=>browser.tabs.sendMessage(tabId,{type:'IYT_VIDEO_START'}),actualOwnerId);
+    // Budget is still exhausted, proving expiry did not change existing restrictions.
+    assert.equal(second.ok,false);assert.equal(second.code,'budget');
+    await worker.evaluate(async()=>{await browser.storage.local.remove(['settings','usage']);await StorageManager.getSettings();});
+    const third=await worker.evaluate(tabId=>browser.tabs.sendMessage(tabId,{type:'IYT_VIDEO_START'}),actualOwnerId);
+    assert.equal(third.ok,true,JSON.stringify(third));
+    await ownerPage.close();
+    await duplicatePage.waitForTimeout(100);
+    assert.equal(await worker.evaluate(async()=> (await StorageManager.getSettings()).videoSession.phase),'break','closing original tab starts break');
+    await duplicatePage.close();
+    await worker.evaluate(async()=>{await browser.storage.local.remove(['settings','usage']);await StorageManager.getSettings();});
+    console.log('PASS: Pro one-video ownership, duplicate tabs, budget preservation, completion, durable break and owner closure');
     await worker.evaluate(()=>browser.storage.local.set({welcomeDismissed:false}));
     popup=await context.newPage();
     const mobilePopupSession = await context.newCDPSession(popup);

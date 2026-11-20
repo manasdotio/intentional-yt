@@ -53,6 +53,17 @@
 }
 .focus-session-card { padding: 14px; }
 .focus-session-card h2 { margin: 0 0 8px; }
+.video-session-controls { margin-block: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--rule-hairline); }
+.video-session-controls .btn-secondary { width: 100%; height: auto; min-height: 34px; white-space: normal; overflow-wrap: anywhere; }
+.video-session-controls button:disabled, .btn-heatmap-schedule:disabled { opacity: 0.45; cursor: not-allowed; }
+.video-session-copy { margin-block: 8px; font-size: 11px; line-height: 1.5; color: var(--ink-secondary); overflow-wrap: anywhere; }
+.video-session-title { margin-block: 8px; font-size: 12px; font-weight: 600; color: var(--ink-primary); overflow-wrap: anywhere; }
+.allowlist-explanation { padding-inline: 4px; }
+#kpi-focus-card .stats-kpi-top { flex-wrap: wrap; }
+#kpi-focus-card .stats-kpi-label { white-space: normal; overflow-wrap: anywhere; }
+.stats-chart-segmented { max-width: 100%; flex-wrap: wrap; }
+.stats-fs-meta { min-width: 0; }
+.stats-fs-breakdown { overflow-wrap: anywhere; }
 .focus-session-actions {
   display: flex;
   align-items: center;
@@ -6049,6 +6060,8 @@ body.is-options-page .tab-pro-text {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 10px;
 }
 
@@ -6161,13 +6174,13 @@ body.is-options-page .tab-pro-text {
 }
 
 .stats-fs-bar-study {
-  background: #10B981;
+  background: var(--accent);
   transition: width 0.3s ease;
   border-radius: 9999px;
 }
 
 .stats-fs-bar-leisure {
-  background: #EF4444;
+  background: var(--ink-ghost);
   transition: width 0.3s ease;
   border-radius: 9999px;
 }
@@ -6300,8 +6313,7 @@ body.is-options-page .tab-pro-text {
 }
 
 .heatmap-bar.is-peak {
-  background: linear-gradient(180deg, #F59E0B, #EA580C);
-  box-shadow: 0 0 6px rgba(245, 158, 11, 0.3);
+  background: var(--accent);
 }
 
 .stats-heatmap-axis {

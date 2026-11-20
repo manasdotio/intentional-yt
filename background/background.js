@@ -1,6 +1,6 @@
 /** Central settings writer and durable deadline reconciliation. */
 'use strict';
-if (typeof importScripts === 'function') importScripts('/utils/storage.js', '/utils/policy.js', '/utils/schema.js');
+if (typeof importScripts === 'function') importScripts('/utils/storage.js', '/utils/policy.js', '/utils/schema.js', '/utils/licensing.js');
 var browser = globalThis.browser || globalThis.chrome;
 StorageManager._background = true;
 const RESET = 'iyt-daily-reset', DEADLINE = 'iyt-deadline';
@@ -28,14 +28,15 @@ function getNextResetTime(resetHour = 4, now = new Date()) {
   }
   return target.getTime();
 }
-function scheduleDeadlines(currentSettings) {
+function scheduleDeadlines() {
   alarmQueue = alarmQueue.catch(() => {}).then(async () => {
-    const settings = currentSettings || await StorageManager.execute({ op: 'reconcile' });
+    // Resolve state when this alarm write runs, never from a caller's snapshot.
+    const settings = await StorageManager.execute({ op: 'reconcile' });
     const now = new Date();
     const resetHour = settings.dailyLimit?.resetHour ?? 4;
     const nextReset = getNextResetTime(resetHour, now);
     if ((await browser.alarms.get(RESET))?.scheduledTime !== nextReset) await browser.alarms.create(RESET, { when: nextReset });
-    const deadlines = [settings.snoozeUntil, settings.focusSessionUntil, settings.focusLock.pendingUnlock?.unlocksAt].filter(t => t > Date.now());
+    const deadlines = [settings.snoozeUntil, settings.focusSessionUntil, settings.focusLock.pendingUnlock?.unlocksAt, settings.videoSession?.phase === 'watching' ? settings.videoSession.sessionDeadline : settings.videoSession?.breakUntil].filter(t => t > Date.now());
     const next = Math.min(...deadlines);
     if (deadlines.length) {
       if ((await browser.alarms.get(DEADLINE))?.scheduledTime !== next) await browser.alarms.create(DEADLINE, { when: next });
@@ -43,9 +44,38 @@ function scheduleDeadlines(currentSettings) {
   });
   return alarmQueue;
 }
-async function reconcile() {
+function videoIdentity(url) {
+  try {
+    const u = new URL(url);
+    const id = u.searchParams.get('v');
+    return /^https?:$/.test(u.protocol) && ['www.youtube.com','m.youtube.com'].includes(u.hostname) && u.pathname === '/watch' && /^[a-zA-Z0-9_-]{11}$/.test(id || '') ? id : null;
+  } catch { return null; }
+}
+async function reconcile(abandon = false) {
+  const settings = await StorageManager.execute({ op: 'reconcile' });
+  const v = settings.videoSession;
+  if (v?.phase === 'watching') {
+    let missing = abandon;
+    try { const tab = await browser.tabs.get(v.ownerTabId); missing ||= videoIdentity(tab.url) !== v.videoId; }
+    catch { missing = true; }
+    if (missing) await StorageManager.execute({ op: 'videoAbandon', token: v.token }, { internal: true });
+  }
   await scheduleDeadlines();
 }
+async function reconcileDeparture(tabId, url) {
+  // Queue the read at event time: earlier starts are visible, later starts are
+  // not abandoned by this departure. Keep the departed URL, even after return.
+  const settings = await StorageManager.execute({ op: 'reconcile' });
+  const v = settings.videoSession;
+  if (v?.phase === 'watching' && v.ownerTabId === tabId && videoIdentity(url) !== v.videoId) {
+    await StorageManager.execute({ op: 'videoAbandon', token: v.token }, { internal: true });
+  }
+  await scheduleDeadlines();
+}
+if (browser.tabs?.onRemoved) browser.tabs.onRemoved.addListener(() => { reconcile().catch(console.error); });
+if (browser.tabs?.onUpdated) browser.tabs.onUpdated.addListener((id, change) => {
+  if (change.url) return reconcileDeparture(id, change.url).catch(console.error);
+});
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (sender.id !== browser.runtime.id) return;
   if (message?.type === 'IYT_REVIEW_PROMPT') {
@@ -66,8 +96,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return;
   }
   if (message?.type !== 'IYT_STORAGE') return;
-  StorageManager.execute(message.command).then(async settings => {
-    if (!['watch', 'claimLimitWarning'].includes(message.command.op)) await scheduleDeadlines(settings);
+  const op = message.command?.op;
+  if (op === 'videoAbandon') { sendResponse({ ok: false, error: 'Invalid lifecycle command' }); return; }
+  const context = { content: sender.frameId === 0 && Number.isInteger(sender.tab?.id) && /^https?:\/\/(www|m)\.youtube\.com\//.test(sender.url || ''), tabId: sender.tab?.id, videoId: videoIdentity(sender.url), isPro: () => IYT_Licensing.isPro() };
+  StorageManager.execute(message.command, context).then(async settings => {
+    if (!['watch', 'claimLimitWarning'].includes(message.command.op)) await scheduleDeadlines();
     sendResponse({ ok: true, settings });
   }).catch(error => sendResponse({ ok: false, error: error.message, code: error.code }));
   return true;
@@ -141,7 +174,7 @@ if (browser?.contextMenus?.onClicked) {
 
 setupContextMenus();
 
-browser.runtime.onStartup.addListener(() => { reconcile().catch(console.error); });
+browser.runtime.onStartup.addListener(() => { reconcile(true).catch(console.error); });
 // Starts the seven-day wait on install, or on first run of this version for
 // existing users whose original installation date is unknown.
 StorageManager.reviewPrompt().catch(console.error);

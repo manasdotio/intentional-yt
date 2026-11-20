@@ -102,7 +102,14 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
   - *Full Block*: Reopens YouTube only when the scheduled window closes with a serene commitment screen.
   - *Strict Protections*: Forces all distraction blocks on while keeping intentional playback allowed.
 
+### One-video Sessions & Pro Boundaries
+- **Pro: Watch only this video**: Only the chosen video plays in its originating tab, followed by a mandatory full 5-minute playback break. Finish now starts the same full break; there is no skip or PIN override. Maximum commitment: 24 hours. Timed focus sessions cannot overlap.
+- **Pro analytics**: Learning share is Study / (Study + Leisure) tagged watch time, with unassigned minutes always shown separately; it does not measure concentration or distraction. Busiest viewing hours are summed playback across the last 7 days, not an average or a doomscroll/vulnerability measure. Empty data has no invented viewing window or schedule suggestion. Watch exports and ready-made schedule templates are Pro.
+- **Still free**: Watch history, streaks, Focus Lock, channel/keyword allowlist, custom schedules and settings backup. Do not market these as paid features.
+- **Localization release followup**: New UI copy has partial, unreviewed Spanish/French/German/Hindi translations. Remaining new entries are explicitly marked English fallbacks; native-speaker review is still required.
+
 ### 8. Channel & Keyword Filtering (Filters Tab)
+- **Free Allowlist**: Cards matching a channel OR keyword stay visible; other cards are dimmed or hidden. Empty channel and keyword lists show all cards. Filtering does not block direct video playback.
 - `channelBlocklist`: Array of blocked channel names/handles (case-insensitive client-side DOM match). Hides whole video cards across home feed, search, and sidebar.
 - `keywordBlocklist`: Array of blocked keywords. Hides supported video cards when their title or a card description snippet matches. Matching ignores case; entries up to three characters use word boundaries, longer entries use substring matching. Full descriptions are not fetched or checked.
 - `enableQuickBlock`: Solid, high-contrast 1-click Block button displayed next to channel names on video cards for instant blocking without popup interaction.
