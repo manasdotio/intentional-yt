@@ -1,9 +1,9 @@
 /**
  * licensing.js — Intentional YT Pro Licensing Engine
  * Handles license verification, storage in browser.storage.local['proLicense'],
- * and lifetime state queries.
+ * reverse trial in browser.storage.local['proTrial'], and lifetime state queries.
  *
- * 100% Local privacy: License state stays on-device.
+ * 100% Local privacy: License and trial state stay on-device. Zero tracking.
  */
 
 'use strict';
@@ -12,24 +12,78 @@ var browser = globalThis.browser || globalThis.chrome;
 
 const IYT_Licensing = (() => {
   const STORAGE_KEY = 'proLicense';
+  const TRIAL_KEY = 'proTrial';
+  const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
   const DEV_KEYS = ['DEV-LIFETIME-PRO', 'TEST-PRO-LIFETIME', 'PRO-REVIEWER-2026'];
 
-  /** Get current license info from storage */
+  /** Get current license & trial info from storage */
   async function getLicense() {
     try {
-      const stored = await browser.storage.local.get(STORAGE_KEY);
+      const stored = await browser.storage.local.get([STORAGE_KEY, TRIAL_KEY]);
+      const now = Date.now();
+
+      // 1. Permanent / Paid Lifetime License
       const lic = stored?.[STORAGE_KEY];
       if (lic && typeof lic === 'object' && lic.isPro === true) {
         return {
           isPro: true,
+          isTrial: false,
+          trialExpired: false,
+          daysLeft: null,
+          trialEndsAt: null,
           licenseKey: lic.licenseKey || '',
           plan: lic.plan || 'lifetime',
-          activatedAt: lic.activatedAt || Date.now()
+          activatedAt: lic.activatedAt || now
         };
       }
+
+      // 2. Automatic 7-Day Pro Trial (Reverse Trial)
+      let trial = stored?.[TRIAL_KEY];
+      if (!trial || typeof trial !== 'object' || !Number.isFinite(trial.startedAt) || !Number.isFinite(trial.expiresAt)) {
+        // Initialize 7-day trial on first run
+        trial = {
+          startedAt: now,
+          expiresAt: now + SEVEN_DAYS_MS
+        };
+        try {
+          await browser.storage.local.set({ [TRIAL_KEY]: trial });
+        } catch (_) {}
+      }
+
+      if (now < trial.expiresAt) {
+        const msRemaining = Math.max(0, trial.expiresAt - now);
+        const daysLeft = Math.max(1, Math.ceil(msRemaining / (24 * 60 * 60 * 1000)));
+        return {
+          isPro: true,
+          isTrial: true,
+          trialExpired: false,
+          daysLeft,
+          trialEndsAt: trial.expiresAt,
+          licenseKey: null,
+          plan: 'trial',
+          activatedAt: trial.startedAt
+        };
+      }
+
+      // 3. Trial Expired -> Free Forever
+      return {
+        isPro: false,
+        isTrial: false,
+        trialExpired: true,
+        daysLeft: 0,
+        trialEndsAt: trial.expiresAt,
+        licenseKey: null,
+        plan: null,
+        activatedAt: trial.startedAt
+      };
     } catch (_) {}
+
     return {
       isPro: false,
+      isTrial: false,
+      trialExpired: false,
+      daysLeft: 0,
+      trialEndsAt: null,
       licenseKey: null,
       plan: null,
       activatedAt: null
@@ -84,7 +138,7 @@ const IYT_Licensing = (() => {
     return { success: true, plan: 'lifetime' };
   }
 
-  /** Deactivate and return to free tier */
+  /** Deactivate and return to free tier (or trial if active) */
   async function deactivate() {
     await browser.storage.local.remove(STORAGE_KEY);
     return { success: true };
@@ -99,3 +153,6 @@ const IYT_Licensing = (() => {
 })();
 
 globalThis.IYT_Licensing = IYT_Licensing;
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = IYT_Licensing;
+}

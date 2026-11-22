@@ -38,6 +38,13 @@ globalThis.IYT_validate = function (input, portable = false) {
         if (v !== null && (!Number.isFinite(v) || v < 0)) fail(name);
       } else if (name === 'focusLock.pin') {
         if (v !== null && (typeof v !== 'string' || !/^[a-f0-9]{64}$/.test(v))) fail(name);
+      } else if (name === 'focusLock.unlockType') {
+        if (!['pin', 'phrase', 'both', 'strict'].includes(v)) fail(name);
+      } else if (name === 'focusLock.phraseType') {
+        if (!['reflective', 'stoic', 'custom'].includes(v)) fail(name);
+      } else if (name === 'focusLock.customPhrase') {
+        if (typeof v !== 'string' || v.length > 200) fail(name);
+        result[key] = v; continue;
       } else if (Array.isArray(d)) {
         if (!Array.isArray(v) || v.length > (key === 'schedules' ? 100 : 1000)) fail(name);
         if (key === 'schedules') {
@@ -64,6 +71,10 @@ globalThis.IYT_validate = function (input, portable = false) {
         if (!Number.isFinite(v) || v < 0) fail(name);
         if (name === 'dailyLimit.resetHour') {
           if (!Number.isInteger(v) || v < 0 || v > 23) fail(name);
+        } else if (name === 'intentGate.durationSeconds') {
+          if (!Number.isInteger(v) || v < 0 || v > 60) fail(name);
+        } else if (name === 'intentGate.recheckMinutes') {
+          if (!Number.isInteger(v) || v < 0 || v > 1440) fail(name);
         } else {
           if (name !== 'stats.todayWatchSeconds' && (!Number.isInteger(v) || v < 1 || v > 1440)) fail(name);
           if (name === 'stats.todayWatchSeconds' && v > 8640000) fail(name);

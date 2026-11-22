@@ -2097,3 +2097,341 @@ test('stats dashboard layout has 3-section hierarchy and segmented switcher', ()
   assert.ok(popupJs.includes('stats-kpi-focus-score'), 'popup.js updates stats-kpi-focus-score');
 });
 
+test('mindful intent gate defaults off, validates schema, respects Focus Lock and provides UI', async () => {
+  const env = store();
+  const defaults = env.manager.getDefaultSettings();
+  assert.equal(defaults.intentGate.enabled, false, 'intentGate defaults to disabled');
+  assert.equal(defaults.intentGate.durationSeconds, 5, 'intentGate defaults to 5s pause');
+  assert.equal(defaults.intentGate.recheckMinutes, 0, 'intentGate defaults to recheckMinutes 0 (off)');
+
+  // Schema validation
+  const validOn = env.validate({ ...defaults, intentGate: { enabled: true, durationSeconds: 10, recheckMinutes: 20 } });
+  assert.equal(validOn.intentGate.enabled, true);
+  assert.equal(validOn.intentGate.durationSeconds, 10);
+  assert.equal(validOn.intentGate.recheckMinutes, 20);
+
+  const validZero = env.validate({ ...defaults, intentGate: { enabled: true, durationSeconds: 0, recheckMinutes: 0 } });
+  assert.equal(validZero.intentGate.durationSeconds, 0);
+  assert.equal(validZero.intentGate.recheckMinutes, 0);
+
+  assert.throws(() => env.validate({ ...defaults, intentGate: { enabled: 'yes', durationSeconds: 5, recheckMinutes: 0 } }), /Invalid setting/);
+  assert.throws(() => env.validate({ ...defaults, intentGate: { enabled: true, durationSeconds: -1, recheckMinutes: 0 } }), /Invalid setting/);
+  assert.throws(() => env.validate({ ...defaults, intentGate: { enabled: true, durationSeconds: 61, recheckMinutes: 0 } }), /Invalid setting/);
+  assert.throws(() => env.validate({ ...defaults, intentGate: { enabled: true, durationSeconds: 5, recheckMinutes: -1 } }), /Invalid setting/);
+  assert.throws(() => env.validate({ ...defaults, intentGate: { enabled: true, durationSeconds: 5, recheckMinutes: 1441 } }), /Invalid setting/);
+
+  // StorageManager nested update support
+  const updatedEnabled = await env.manager.updateNestedSetting('intentGate', 'enabled', true);
+  assert.equal(updatedEnabled.intentGate.enabled, true, 'nested update sets intentGate.enabled to true');
+  const updatedSeconds = await env.manager.updateNestedSetting('intentGate', 'durationSeconds', 10);
+  assert.equal(updatedSeconds.intentGate.durationSeconds, 10, 'nested update sets intentGate.durationSeconds to 10');
+  const updatedRecheck = await env.manager.updateNestedSetting('intentGate', 'recheckMinutes', 20);
+  assert.equal(updatedRecheck.intentGate.recheckMinutes, 20, 'nested update sets intentGate.recheckMinutes to 20');
+
+  // Focus Lock protection check
+  const lockedOld = {
+    ...defaults,
+    focusLock: { enabled: true, pin: 'a'.repeat(64), cooldownMinutes: 10, lockedSettings: [], pendingUnlock: null },
+    intentGate: { enabled: true, durationSeconds: 5, recheckMinutes: 20 }
+  };
+  const weakeningNext = {
+    ...lockedOld,
+    intentGate: { enabled: false, durationSeconds: 5, recheckMinutes: 20 }
+  };
+  assert.ok(env.policy.weakens(lockedOld, weakeningNext, 'update'), 'disabling intentGate weakens focusLock');
+
+  const weakeningRecheck = {
+    ...lockedOld,
+    intentGate: { enabled: true, durationSeconds: 5, recheckMinutes: 0 }
+  };
+  assert.ok(env.policy.weakens(lockedOld, weakeningRecheck, 'update'), 'turning off recheck weakens focusLock');
+
+  // UI elements in popup.html and options.html
+  const popupHtml = source('ui/popup.html');
+  const optionsHtml = source('ui/options.html');
+  for (const [name, html] of [['popup.html', popupHtml], ['options.html', optionsHtml]]) {
+    assert.ok(html.includes('id="card-focus-intent"'), `${name} has card-focus-intent`);
+    assert.ok(html.includes('id="toggle-intentGateEnabled"'), `${name} has toggle-intentGateEnabled`);
+    assert.ok(html.includes('id="intent-gate-expand"'), `${name} has intent-gate-expand`);
+    assert.ok(html.includes('id="select-intentGateDuration"'), `${name} has select-intentGateDuration`);
+    assert.ok(html.includes('id="select-intentGateRecheck"'), `${name} has select-intentGateRecheck`);
+    assert.ok(html.includes('data-i18n="pro_intent_title"'), `${name} has pro_intent_title in pro modal`);
+  }
+
+  // Script compiles cleanly and includes media lock protection
+  const scriptContent = source('content/intentGate.js');
+  assert.ok(scriptContent.includes('startMediaLock'), 'intentGate implements startMediaLock');
+  assert.ok(scriptContent.includes('stopMediaLock'), 'intentGate implements stopMediaLock');
+  assert.ok(scriptContent.includes('mediaObserver'), 'intentGate implements mediaObserver');
+  assert.ok(scriptContent.includes('pauseYouTubePlayer'), 'intentGate implements pauseYouTubePlayer');
+  new vm.Script(scriptContent, { filename: 'content/intentGate.js' });
+});
+
+test('hardcore commitment friction phrase unlocks schema, policy, storage and UI', async () => {
+  const env = store();
+  const defaults = env.manager.getDefaultSettings();
+  assert.equal(defaults.focusLock.unlockType, 'pin');
+  assert.equal(defaults.focusLock.phraseType, 'reflective');
+  assert.equal(defaults.focusLock.customPhrase, '');
+
+  // Schema validation
+  const validPhrase = env.validate({
+    ...defaults,
+    focusLock: {
+      ...defaults.focusLock,
+      unlockType: 'phrase',
+      phraseType: 'stoic',
+      customPhrase: 'Custom test phrase for focus commitment'
+    }
+  });
+  assert.equal(validPhrase.focusLock.unlockType, 'phrase');
+  assert.equal(validPhrase.focusLock.phraseType, 'stoic');
+  assert.equal(validPhrase.focusLock.customPhrase, 'Custom test phrase for focus commitment');
+
+  assert.throws(() => env.validate({
+    ...defaults,
+    focusLock: { ...defaults.focusLock, unlockType: 'magic' }
+  }), /Invalid setting/);
+
+  assert.throws(() => env.validate({
+    ...defaults,
+    focusLock: { ...defaults.focusLock, phraseType: 'random' }
+  }), /Invalid setting/);
+
+  assert.throws(() => env.validate({
+    ...defaults,
+    focusLock: { ...defaults.focusLock, customPhrase: 'x'.repeat(201) }
+  }), /Invalid setting/);
+
+  // getFrictionPhrase helper
+  const reflectivePhrase = env.manager.getFrictionPhrase({ phraseType: 'reflective' });
+  assert.ok(reflectivePhrase.includes('consciously choosing'));
+
+  const stoicPhrase = env.manager.getFrictionPhrase({ phraseType: 'stoic' });
+  assert.ok(stoicPhrase.includes('power over your mind'));
+
+  const customPhrase = env.manager.getFrictionPhrase({ phraseType: 'custom', customPhrase: 'My custom goal' });
+  assert.equal(customPhrase, 'My custom goal');
+
+  // Nested updates
+  await env.manager.updateNestedSetting('focusLock', 'unlockType', 'phrase');
+  await env.manager.updateNestedSetting('focusLock', 'phraseType', 'stoic');
+  await env.manager.updateNestedSetting('focusLock', 'customPhrase', 'Deep work only');
+
+  // Policy weakening protection
+  const lockedBoth = {
+    ...defaults,
+    focusLock: { enabled: true, pin: 'a'.repeat(64), cooldownMinutes: 10, unlockType: 'both', phraseType: 'reflective', customPhrase: '', lockedSettings: [], pendingUnlock: null }
+  };
+  const weakenToPin = {
+    ...lockedBoth,
+    focusLock: { ...lockedBoth.focusLock, unlockType: 'pin' }
+  };
+  assert.ok(env.policy.weakens(lockedBoth, weakenToPin, 'update'), 'downgrading both to pin weakens lock');
+
+  // Phrase-only queueUnlock
+  const phraseEnv = store();
+  await phraseEnv.manager.updateSetting('focusLock', {
+    ...defaults.focusLock,
+    enabled: true,
+    unlockType: 'phrase',
+    phraseType: 'reflective',
+    cooldownMinutes: 10
+  });
+  const unblockCmd = { op: 'update', updates: { blockHomeFeed: false } };
+
+  await assert.rejects(
+    phraseEnv.manager.queueUnlock(unblockCmd, null, 'wrong phrase'),
+    /Friction commitment phrase does not match/
+  );
+
+  await phraseEnv.manager.queueUnlock(unblockCmd, null, reflectivePhrase);
+  assert.ok(phraseEnv.state.settings.focusLock.pendingUnlock, 'correct friction phrase queues unlock');
+
+  // Double vault (both) queueUnlock
+  const doubleEnv = store();
+  const pin = '1234';
+  const hashedPin = (await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin)));
+  const hexPin = Array.from(new Uint8Array(hashedPin), b => b.toString(16).padStart(2,'0')).join('');
+  await doubleEnv.manager.updateSetting('focusLock', {
+    ...defaults.focusLock,
+    enabled: true,
+    pin: hexPin,
+    unlockType: 'both',
+    phraseType: 'stoic',
+    cooldownMinutes: 10
+  });
+
+  // Rejects with wrong PIN
+  await assert.rejects(
+    doubleEnv.manager.queueUnlock(unblockCmd, '0000', stoicPhrase),
+    /Incorrect PIN/
+  );
+
+  // Rejects with wrong phrase
+  await assert.rejects(
+    doubleEnv.manager.queueUnlock(unblockCmd, '1234', 'wrong stoic phrase'),
+    /Friction commitment phrase does not match/
+  );
+
+  // Accepts with both correct
+  await doubleEnv.manager.queueUnlock(unblockCmd, '1234', stoicPhrase);
+  assert.ok(doubleEnv.state.settings.focusLock.pendingUnlock, 'double vault accepts valid pin + phrase');
+
+  // Strict commitment (irreversible) tests
+  const strictValid = env.validate({
+    ...defaults,
+    focusLock: { ...defaults.focusLock, unlockType: 'strict' }
+  });
+  assert.equal(strictValid.focusLock.unlockType, 'strict');
+
+  const lockedStrict = {
+    ...defaults,
+    focusLock: { enabled: true, pin: 'a'.repeat(64), cooldownMinutes: 10, unlockType: 'strict', phraseType: 'reflective', customPhrase: '', lockedSettings: [], pendingUnlock: null }
+  };
+  const weakenStrictToPin = {
+    ...lockedStrict,
+    focusLock: { ...lockedStrict.focusLock, unlockType: 'pin' }
+  };
+  assert.ok(env.policy.weakens(lockedStrict, weakenStrictToPin, 'update'), 'downgrading strict to pin weakens lock');
+
+  // Strict rejects queueUnlock during an active focus session
+  const strictEnv = store();
+  await strictEnv.manager.updateSetting('focusLock', {
+    ...defaults.focusLock,
+    enabled: true,
+    unlockType: 'strict',
+    cooldownMinutes: 10
+  });
+  strictEnv.state.settings.focusSessionUntil = Date.now() + 1800000; // 30 min focus session
+  await assert.rejects(
+    strictEnv.manager.queueUnlock(unblockCmd),
+    e => e.code === 'STRICT_COMMITMENT',
+    'strict rejects queueUnlock during active focus session'
+  );
+
+  // UI verification
+  const popupHtml = source('ui/popup.html');
+  const optionsHtml = source('ui/options.html');
+  for (const [name, html] of [['popup.html', popupHtml], ['options.html', optionsHtml]]) {
+    assert.ok(html.includes('id="select-focusLockUnlockType"'), `${name} has select-focusLockUnlockType`);
+    assert.ok(html.includes('id="row-focusLockStrictNotice"'), `${name} has row-focusLockStrictNotice`);
+    assert.ok(html.includes('value="strict"'), `${name} has strict option`);
+    assert.ok(html.includes('id="select-focusLockPhraseType"'), `${name} has select-focusLockPhraseType`);
+    assert.ok(html.includes('id="input-focusLockCustomPhrase"'), `${name} has input-focusLockCustomPhrase`);
+    assert.ok(html.includes('id="input-verify-phrase"'), `${name} has input-verify-phrase in modal`);
+    assert.ok(html.includes('id="verify-phrase-target"'), `${name} has verify-phrase-target in modal`);
+  }
+});
+
+test('first-run zero setup blocking and 3-bullet pro paywall UX', async () => {
+  const env = store();
+
+  // 1. First-Run Instant Protection Invariants
+  const initial = env.manager.getInitialSettings();
+  assert.equal(initial.blockHomeFeed, true, 'home feed is blocked immediately on second #1');
+  assert.equal(initial.blockShorts, true, 'shorts are blocked immediately on second #1');
+  assert.equal(initial.blockRecommended, true, 'recommended suggestions blocked on install');
+  assert.equal(initial.extensionEnabled, true, 'extension is active on fresh install');
+
+  // Cold start shield in blocker.css covers home feed, shorts, and recommendations
+  const blockerCss = source('styles/blocker.css');
+  assert.ok(blockerCss.includes('html:not([data-iyt-ready]) ytd-browse[page-subtype="home"]'), 'cold-start shield guards home feed');
+  assert.ok(blockerCss.includes('html:not([data-iyt-ready]) ytd-shorts'), 'cold-start shield guards ytd-shorts');
+  assert.ok(blockerCss.includes('html:not([data-iyt-ready]) #shorts-container'), 'cold-start shield guards shorts container');
+  assert.ok(blockerCss.includes('html:not([data-iyt-ready]) ytd-reel-shelf-renderer'), 'cold-start shield guards reel shelves');
+
+  // 2. Pro Paywall Modal 3-Bullet Value Pitch & 1-Click Buy Invariants
+  const popupHtml = source('ui/popup.html');
+  const optionsHtml = source('ui/options.html');
+
+  for (const [name, html] of [['popup.html', popupHtml], ['options.html', optionsHtml]]) {
+    assert.ok(html.includes('class="pro-pitch-bullets"'), `${name} has 3-bullet pitch list`);
+    assert.ok(html.includes('data-i18n="pro_intent_title"'), `${name} has Bullet 1: Mindful Intent Gate`);
+    assert.ok(html.includes('data-i18n="pro_commitment_title"'), `${name} has Bullet 2: Hardcore & Strict Commitment`);
+    assert.ok(html.includes('data-i18n="pro_video_title"'), `${name} has Bullet 3: One-Video Sessions & Breaks`);
+    assert.ok(html.includes('data-i18n="pro_free_features"'), `${name} has reassuring free-tier reminder`);
+    assert.ok(html.includes('id="link-buy-pro"'), `${name} has 1-click buy button`);
+    assert.ok(html.includes('href="https://intentionalyt.me/pro"'), `${name} links to pro page`);
+  }
+
+  // 3. Popup JS handles 1-click buy navigation and delegated pro badge triggers
+  const popupJs = source('ui/popup.js');
+  assert.ok(popupJs.includes('link-buy-pro'), 'popup.js binds 1-click buy handler');
+  assert.ok(popupJs.includes('.badge-pro-micro'), 'popup.js handles delegated clicks on pro badges');
+});
+
+test('automatic 7-day pro trial (reverse trial) and lifetime licensing engine', async () => {
+  const env = store();
+  vm.runInContext(source('utils/licensing.js'), env.context);
+  const licensing = env.context.IYT_Licensing;
+
+  // 1. Fresh Install: Automatic 7-day Pro trial is initialized
+  const initialLic = await licensing.getLicense();
+  assert.equal(initialLic.isPro, true, 'fresh install is Pro out of the box');
+  assert.equal(initialLic.isTrial, true, 'fresh install is on 7-day trial');
+  assert.equal(initialLic.trialExpired, false, 'trial is not expired');
+  assert.equal(initialLic.daysLeft, 7, 'starts with 7 days remaining');
+  assert.equal(initialLic.plan, 'trial', 'plan is trial');
+  assert.ok(env.state.proTrial, 'proTrial object persisted in storage');
+  assert.equal(await licensing.isPro(), true, 'isPro() helper returns true');
+
+  // Pro features work centrally during trial
+  const videoCmd = { op: 'videoStart', videoId: 'abcdefghijk', title: 'Great Video', duration: 300, position: 0, live: false };
+  const trialCtx = { content: true, tabId: 1, videoId: 'abcdefghijk', isPro: () => licensing.isPro() };
+  await env.manager.execute(videoCmd, trialCtx);
+  const settings = await env.manager.getSettings();
+  assert.equal(settings.videoSession.videoId, 'abcdefghijk', 'videoStart succeeds during trial');
+
+  // 2. Trial Expiration: When now >= expiresAt, gracefully falls back to free
+  env.state.proTrial.expiresAt = Date.now() - 1000; // expired in past
+  const expiredLic = await licensing.getLicense();
+  assert.equal(expiredLic.isPro, false, 'isPro is false once trial expires');
+  assert.equal(expiredLic.isTrial, false, 'isTrial is false once trial expires');
+  assert.equal(expiredLic.trialExpired, true, 'trialExpired is true');
+  assert.equal(expiredLic.daysLeft, 0, '0 days left');
+  assert.equal(expiredLic.plan, null, 'plan is null');
+  assert.equal(await licensing.isPro(), false, 'isPro() helper returns false');
+
+  // Pro features throw PRO_REQUIRED after trial expiry
+  const expiredCtx = { content: true, tabId: 2, videoId: 'bcdefghijkl', isPro: () => licensing.isPro() };
+  await assert.rejects(
+    env.manager.execute({ op: 'videoStart', videoId: 'bcdefghijkl', title: 'V2', duration: 100, position: 0, live: false }, expiredCtx),
+    e => e.code === 'PRO_REQUIRED',
+    'one-video start throws PRO_REQUIRED after trial expires'
+  );
+
+  // 3. Lifetime License Activation: Overrides trial
+  const activation = await licensing.activate('DEV-LIFETIME-PRO');
+  assert.equal(activation.success, true, 'activation succeeded');
+  assert.equal(activation.plan, 'lifetime', 'lifetime plan activated');
+
+  const lifetimeLic = await licensing.getLicense();
+  assert.equal(lifetimeLic.isPro, true, 'isPro is true');
+  assert.equal(lifetimeLic.isTrial, false, 'isTrial is false (permanent)');
+  assert.equal(lifetimeLic.plan, 'lifetime', 'plan is lifetime');
+  assert.equal(lifetimeLic.licenseKey, 'DEV-LIFETIME-PRO', 'license key is stored');
+
+  // 4. Deactivation
+  await licensing.deactivate();
+  const postDeactivateLic = await licensing.getLicense();
+  assert.equal(postDeactivateLic.isPro, false, 'returns to expired free tier');
+
+  // 5. Trust strip and UI validation
+  const popupHtml = source('ui/popup.html');
+  const optionsHtml = source('ui/options.html');
+  for (const [name, html] of [['popup.html', popupHtml], ['options.html', optionsHtml]]) {
+    assert.ok(html.includes('7-Day Free Trial Included'), `${name} displays 7-Day Free Trial Included trust badge`);
+    assert.ok(!html.includes('14-Day Money-Back Guarantee'), `${name} replaced money-back guarantee`);
+    assert.ok(html.includes('id="pro-modal-status-pill"'), `${name} has pro-modal-status-pill`);
+  }
+
+  // 6. CSS trial styling
+  const popupCss = source('styles/popup.css');
+  assert.ok(popupCss.includes('.hd-pro-pill.is-trial'), 'popup.css has trial header pill styles');
+  assert.ok(popupCss.includes('.tab-pro-btn.is-trial'), 'popup.css has trial sidebar button styles');
+  assert.ok(popupCss.includes('.settings-pro-status-badge.is-trial'), 'popup.css has trial settings badge styles');
+  assert.ok(popupCss.includes('.pro-active-card.is-trial'), 'popup.css has trial active banner styles');
+});
+
+

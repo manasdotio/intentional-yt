@@ -492,6 +492,61 @@
           </div>
         </section>
 
+        <!-- Card 0: Mindful Intent Gate (Pro) -->
+        <div class="focus-section-card" id="card-focus-intent">
+          <div class="focus-card-header" data-card="intent" role="button" tabindex="0" aria-expanded="true">
+            <div class="focus-card-header-left">
+              <div class="focus-card-icon-box icon-box-emerald">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div class="focus-card-title-wrap">
+                <div class="focus-card-title-row" style="display:flex;align-items:center;gap:6px;">
+                  <span class="focus-card-title" data-i18n="toggle_intent_gate">Mindful Intent Gate</span>
+                  <span class="badge-pro-micro">PRO</span>
+                </div>
+                <span class="focus-card-sub" data-i18n="desc_intent_gate_sub">Pause &amp; reflect before opening YouTube</span>
+              </div>
+            </div>
+            <div class="focus-card-header-right">
+              <span class="focus-card-badge" id="badge-focus-intent" data-i18n="status_off">Off</span>
+              <svg class="focus-card-chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="focus-card-body" id="card-focus-intent-body">
+            <div class="row row-tier1">
+              <div class="row-text-group">
+                <label class="row-text" id="label-toggle-intentGateEnabled" for="toggle-intentGateEnabled" data-i18n="toggle_intent_gate">Mindful Intent Gate</label>
+                <span id="help-toggle-intentGateEnabled" class="row-subtext" data-i18n="desc_intent_gate">Interrupt autopilot with a mindful pause and goal check before YouTube opens.</span>
+              </div>
+              <input type="checkbox" class="chk" id="toggle-intentGateEnabled" aria-describedby="help-toggle-intentGateEnabled" />
+            </div>
+
+            <!-- Inset Drawer: Pause Duration & Mid-Session Re-check -->
+            <div class="time-expand intent-config-expand" id="intent-gate-expand">
+              <div class="config-row">
+                <span class="time-hint" data-i18n="intent_gate_pause_label">Mindful pause</span>
+                <select class="time-sel" id="select-intentGateDuration">
+                  <option value="3">3 seconds</option>
+                  <option value="5" selected>5 seconds</option>
+                  <option value="10">10 seconds</option>
+                  <option value="15">15 seconds</option>
+                </select>
+              </div>
+              <div class="config-row">
+                <span class="time-hint" data-i18n="intent_gate_recheck_label">Check-in</span>
+                <select class="time-sel" id="select-intentGateRecheck">
+                  <option value="0" selected data-i18n="intent_gate_recheck_off">Off (Only on open)</option>
+                  <option value="15">Every 15 min</option>
+                  <option value="20">Every 20 min</option>
+                  <option value="30">Every 30 min</option>
+                  <option value="45">Every 45 min</option>
+                  <option value="60">Every 60 min</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Card 1: Time & Limits -->
         <div class="focus-section-card" id="card-focus-time">
           <div class="focus-card-header" data-card="time" role="button" tabindex="0" aria-expanded="true">
@@ -603,6 +658,35 @@
                   <option value="30" data-i18n="focus_lock_duration_30m">30 min</option>
                   <option value="60" data-i18n="focus_lock_duration_60m">60 min</option>
                 </select>
+              </div>
+              <div class="config-row">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span class="time-hint" data-i18n="focus_lock_unlock_method_label">Unlock method</span>
+                  <span class="badge-pro-micro" role="button" tabindex="0" title="Pro Feature">PRO</span>
+                </div>
+                <select class="time-sel" id="select-focusLockUnlockType">
+                  <option value="pin" selected data-i18n="focus_lock_method_pin">4-Digit PIN</option>
+                  <option value="phrase" data-i18n="focus_lock_method_phrase">Friction Phrase</option>
+                  <option value="both" data-i18n="focus_lock_method_both">Double Vault (PIN + Phrase)</option>
+                  <option value="strict" data-i18n="focus_lock_method_strict">Strict Commitment (Irreversible)</option>
+                </select>
+              </div>
+              <div class="config-row" id="row-focusLockStrictNotice" style="display:none; padding:8px 10px; background:var(--surface-inset); border-radius:8px; margin-top:4px;">
+                <span style="font-size:11px; line-height:1.4; color:var(--ink-secondary);">
+                  🔒 <strong>Strict Commitment</strong> locks YouTube protections completely. Early unlocking is strictly disabled during active Focus Sessions, Scheduled Blocks, or Daily Limits.
+                </span>
+              </div>
+              <div class="config-row" id="row-focusLockPhraseType" style="display:none">
+                <span class="time-hint" data-i18n="focus_lock_phrase_style_label">Phrase style</span>
+                <select class="time-sel" id="select-focusLockPhraseType">
+                  <option value="reflective" selected data-i18n="focus_lock_style_reflective">Conscious choice</option>
+                  <option value="stoic" data-i18n="focus_lock_style_stoic">Stoic reflection</option>
+                  <option value="custom" data-i18n="focus_lock_style_custom">Custom statement</option>
+                </select>
+              </div>
+              <div class="config-row" id="row-focusLockCustomPhrase" style="display:none; flex-direction:column; align-items:flex-start; gap:6px;">
+                <span class="time-hint" data-i18n="focus_lock_custom_phrase_label">Your commitment phrase</span>
+                <input type="text" id="input-focusLockCustomPhrase" class="iyt-phrase-input" placeholder="Type personal phrase (20-150 chars)…" maxlength="150" />
               </div>
             </div>
           </div>
@@ -1368,7 +1452,7 @@
 
   <!-- Focus Lock Verification Modal -->
   <div id="modal-pin-verify" class="iyt-modal-overlay" style="display:none">
-    <div class="iyt-modal-card">
+    <div class="iyt-modal-card iyt-friction-modal-card">
       <div class="iyt-modal-header">
         <span class="iyt-modal-title" data-i18n="focus_lock_verify_title">Focus Lock Protected</span>
       </div>
@@ -1377,9 +1461,22 @@
           <span class="verify-target-label" data-i18n="verify_target_label">Unlocking:</span>
           <span id="verify-target-name" class="verify-target-badge"></span>
         </div>
-        <p class="verify-prompt-text" data-i18n="focus_lock_verify_prompt">Enter your 4-digit PIN to begin the cooldown delay:</p>
-        <div class="pin-inputs-wrap">
-          <input type="password" id="input-verify-pin" class="pin-input" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="••••" autocomplete="off" />
+        <div id="verify-pin-section">
+          <p class="verify-prompt-text" id="verify-prompt-text" data-i18n="focus_lock_verify_prompt">Enter your 4-digit PIN to begin the cooldown delay:</p>
+          <div class="pin-inputs-wrap">
+            <input type="password" id="input-verify-pin" class="pin-input" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="••••" autocomplete="off" />
+          </div>
+        </div>
+        <div id="verify-phrase-section" style="display:none; margin-top:12px;">
+          <p class="verify-prompt-text" style="margin-bottom:8px;">Type this commitment phrase exactly. Copy &amp; paste is disabled:</p>
+          <div class="iyt-friction-target-box" id="verify-phrase-target"></div>
+          <div class="iyt-friction-input-wrap">
+            <textarea id="input-verify-phrase" class="iyt-friction-textarea" rows="3" placeholder="Type phrase character-by-character…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+            <div class="iyt-friction-meta">
+              <span id="verify-phrase-counter" class="iyt-friction-counter">0 / 0</span>
+              <span id="verify-phrase-paste-warn" class="iyt-friction-warn" style="display:none">Pasting is disabled</span>
+            </div>
+          </div>
         </div>
         <div id="verify-pin-error" class="modal-error" style="display:none"></div>
       </div>
@@ -1419,8 +1516,11 @@
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div>
-            <div class="pro-modal-main-title">Intentional YT Pro</div>
-            <div class="pro-modal-subtitle">One-time purchase · Lifetime access · 100% Local</div>
+            <div class="pro-modal-title-row">
+              <span class="pro-modal-main-title">Intentional YT Pro</span>
+              <span class="pro-pill-lifetime" id="pro-modal-status-pill">LIFETIME ACCESS</span>
+            </div>
+            <div class="pro-modal-subtitle">Save 40+ hours every month · Never get sucked in again</div>
           </div>
         </div>
         <button type="button" class="preset-modal-close" id="btn-close-pro-modal" aria-label="Close" title="Close">
@@ -1435,58 +1535,84 @@
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
           <div class="pro-active-meta">
-            <div class="pro-active-title">Lifetime Pro Active</div>
+            <div class="pro-active-title" id="pro-active-title">Lifetime Pro Active</div>
             <div class="pro-active-key" id="pro-active-masked-key">Key: ••••-••••-XXXX</div>
           </div>
         </div>
 
-        <!-- Pro Features Highlights Grid -->
-        <div class="pro-features-grid">
-          <div class="pro-feature-item">
-            <div class="pro-feat-icon icon-blue">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <!-- Psychological Anchoring / Time Saved Callout -->
+        <div class="pro-value-anchor">
+          <div class="pro-anchor-icon">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="pro-anchor-text">
+            <strong>Reclaim ~42 hours of lost focus every month.</strong>
+            <span>One single investment. Protect your attention and peace of mind forever.</span>
+          </div>
+        </div>
+
+        <!-- Pro Value Pitch: 3 Compelling Bullets -->
+        <div class="pro-pitch-bullets">
+          <div class="pro-pitch-bullet">
+            <div class="pro-pitch-icon icon-emerald">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
             </div>
-            <div class="pro-feat-text">
-              <strong data-i18n="pro_video_title">One-video sessions</strong>
-              <span data-i18n="pro_video_description">One chosen video in its original tab, then a mandatory 5-minute break</span>
+            <div class="pro-pitch-content">
+              <strong class="pro-pitch-heading" data-i18n="pro_intent_title">Mindful Intent Gate</strong>
+              <p class="pro-pitch-desc" data-i18n="pro_intent_description">Pause and prompt for a goal before opening YouTube to break autopilot.</p>
             </div>
           </div>
-          <div class="pro-feature-item">
-            <div class="pro-feat-icon icon-amber">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+
+          <div class="pro-pitch-bullet">
+            <div class="pro-pitch-icon icon-indigo">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
-            <div class="pro-feat-text">
-              <strong data-i18n="pro_learning_title">Channel tags &amp; learning breakdown</strong>
-              <span data-i18n="pro_learning_description">Study / (Study + Leisure), with unassigned time shown separately</span>
-            </div>
-          </div>
-          <div class="pro-feature-item">
-            <div class="pro-feat-icon icon-purple">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </div>
-            <div class="pro-feat-text">
-              <strong data-i18n="pro_templates_title">Schedule templates</strong>
-              <span data-i18n="pro_templates_description">Ready-made Work, Evening and Night schedules; custom schedules stay free</span>
+            <div class="pro-pitch-content">
+              <strong class="pro-pitch-heading" data-i18n="pro_commitment_title">Hardcore &amp; Strict Commitment</strong>
+              <p class="pro-pitch-desc" data-i18n="pro_commitment_description">Friction phrase typing unlocks and irreversible focus sessions that stop impulsive binge-watching.</p>
             </div>
           </div>
-          <div class="pro-feature-item">
-            <div class="pro-feat-icon icon-green">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+
+          <div class="pro-pitch-bullet">
+            <div class="pro-pitch-icon icon-blue">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
             </div>
-            <div class="pro-feat-text">
-              <strong data-i18n="pro_hours_title">Busiest viewing hours &amp; watch exports</strong>
-              <span data-i18n="pro_hours_description">Last 7 days of hourly playback totals; export watch data as CSV or JSON</span>
+            <div class="pro-pitch-content">
+              <strong class="pro-pitch-heading" data-i18n="pro_video_title">One-Video Sessions &amp; Breaks</strong>
+              <p class="pro-pitch-desc" data-i18n="pro_video_description">Commit to 1 chosen educational video in its original tab, then a mandatory 5-minute break.</p>
             </div>
           </div>
         </div>
 
+        <!-- Social Proof & Risk Reversal Trust Badges -->
+        <div class="pro-trust-badges">
+          <span class="pro-trust-pill">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            7-Day Free Trial Included
+          </span>
+          <span class="pro-trust-pill">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            100% Local · Zero Tracking
+          </span>
+          <span class="pro-trust-pill">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Pay Once · Own Forever
+          </span>
+        </div>
+
         <!-- License Entry Section (visible if not Pro) -->
-        <p class="video-session-copy" data-i18n="pro_free_features">Still free: watch history, streaks, Focus Lock, channel/keyword allowlist, custom schedules and settings backup.</p>
+        <p class="pro-free-guarantee" data-i18n="pro_free_features">Still 100% free: Core home feed &amp; Shorts blocking, custom schedules, watch history, and basic Focus Lock.</p>
         <div id="pro-license-entry-wrap" class="pro-license-entry-wrap">
           <div class="pro-cta-row">
             <a href="https://intentionalyt.me/pro" target="_blank" rel="noopener noreferrer" class="btn-primary pro-buy-btn" id="link-buy-pro">
-              <span>Get Lifetime Pro ($14.99)</span>
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <div class="pro-buy-btn-content">
+                <span class="pro-buy-btn-title" id="pro-buy-btn-title">Unlock Lifetime Pro</span>
+                <span class="pro-buy-btn-sub" id="pro-buy-btn-sub">One-time payment · Instant access · No subscriptions</span>
+              </div>
+              <div class="pro-buy-btn-price-wrap">
+                <span class="pro-buy-btn-price">$14.99</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </div>
             </a>
           </div>
 

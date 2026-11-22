@@ -493,11 +493,29 @@ async function toggleAllAccordions() {
 
 /* ── Focus Tab Modular Feature Cards ───────────────────── */
 
-const FOCUS_CARD_NAMES = ['time', 'lock', 'schedule'];
+const FOCUS_CARD_NAMES = ['intent', 'time', 'lock', 'schedule'];
 
 function updateFocusCardBadges(s) {
   const settings = s || _s;
   if (!settings) return;
+
+  // 0. Intent Gate Card
+  const intentBadge = $('badge-focus-intent');
+  const intentCard = $('card-focus-intent');
+  if (intentBadge) {
+    const intentOn = !!settings.intentGate?.enabled;
+    const dur = settings.intentGate?.durationSeconds || 5;
+    const recheck = settings.intentGate?.recheckMinutes || 0;
+    if (intentOn) {
+      intentBadge.textContent = recheck > 0 ? `${dur}s / ${recheck}m` : `${dur}s Pause`;
+      intentBadge.className = 'focus-card-badge badge-active';
+      intentCard?.classList.add('is-active');
+    } else {
+      intentBadge.textContent = t('status_off') || 'Off';
+      intentBadge.className = 'focus-card-badge';
+      intentCard?.classList.remove('is-active');
+    }
+  }
 
   // 1. Time & Limits Card
   const timeBadge = $('badge-focus-time');
@@ -785,6 +803,7 @@ const SEARCH_DESTINATIONS = [
   { tab: 'blocklists', target: 'input-channel-blocklist', label: 'section_channel_blocklist', aliases: 'block channel channels creator handle url filter' },
   { tab: 'blocklists', target: 'input-keyword-blocklist', label: 'section_keyword_blocklist', aliases: 'block keyword keywords words title description descriptions snippet topic filter' },
   { tab: 'blocklists', target: 'toggle-enableQuickBlock', label: 'filters_quick_block_title', aliases: 'quick block buttons channel' },
+  { tab: 'focus', target: 'toggle-intentGateEnabled', label: 'toggle_intent_gate', aliases: 'intent gate mindful pause breathe goal autopilot pro check' },
   { tab: 'focus', target: 'toggle-dailyLimit', label: 'toggle_daily_limit', aliases: 'daily limit timer time watch budget minutes stop' },
   { tab: 'focus', target: 'toggle-softReminder', label: 'toggle_soft_reminder', aliases: 'break reminder reminders time interval' },
   { tab: 'focus', target: 'toggle-focusLockEnabled', label: 'toggle_focus_lock', aliases: 'focus lock pin password cooldown unlock protect settings' },
@@ -1034,6 +1053,11 @@ function showPinModal(type, settingLabel = '') {
     $('modal-pin-setup').style.display = 'flex';
     setTimeout(() => $('input-setup-pin').focus(), 50);
   } else if (type === 'verify') {
+    const lock = _s?.focusLock || {};
+    const unlockType = lock.unlockType || 'pin';
+    const requiresPin = unlockType !== 'phrase';
+    const requiresPhrase = unlockType === 'phrase' || unlockType === 'both';
+
     $('input-verify-pin').value = '';
     $('verify-pin-error').style.display = 'none';
     const targetWrap = $('verify-target-wrap');
@@ -1046,8 +1070,39 @@ function showPinModal(type, settingLabel = '') {
         targetWrap.style.display = 'none';
       }
     }
+
+    const pinSection = $('verify-pin-section');
+    if (pinSection) pinSection.style.display = requiresPin ? 'block' : 'none';
+
+    const phraseSection = $('verify-phrase-section');
+    if (phraseSection) {
+      phraseSection.style.display = requiresPhrase ? 'block' : 'none';
+      if (requiresPhrase) {
+        const expected = StorageManager.getFrictionPhrase(lock);
+        const targetEl = $('verify-phrase-target');
+        const phraseInput = $('input-verify-phrase');
+        const counterEl = $('verify-phrase-counter');
+        const pasteWarn = $('verify-phrase-paste-warn');
+        if (targetEl) targetEl.textContent = `“${expected}”`;
+        if (phraseInput) {
+          phraseInput.value = '';
+          phraseInput.classList.remove('is-error', 'is-matched');
+        }
+        if (counterEl) counterEl.textContent = `0 / ${expected.length}`;
+        if (pasteWarn) pasteWarn.style.display = 'none';
+      }
+    }
+
+    const submitBtn = $('btn-submit-verify-pin');
+    if (submitBtn) {
+      submitBtn.disabled = requiresPhrase;
+    }
+
     $('modal-pin-verify').style.display = 'flex';
-    setTimeout(() => $('input-verify-pin').focus(), 50);
+    setTimeout(() => {
+      if (requiresPin) $('input-verify-pin')?.focus();
+      else if (requiresPhrase) $('input-verify-phrase')?.focus();
+    }, 50);
   }
 }
 
@@ -1079,14 +1134,34 @@ StorageManager.onProtectedChange = async command => {
   renderAll(fresh);
   if (fresh.focusLock.pendingUnlock) {
     showToast(t('focus_lock_already_pending') || 'An unlock countdown is already active.');
+  } else if (fresh.focusLock?.unlockType === 'strict') {
+    const hasActive = (fresh.focusSessionUntil && fresh.focusSessionUntil > Date.now()) ||
+      (typeof IYT_Policy !== 'undefined' && IYT_Policy.schedules(fresh).length > 0) ||
+      (fresh.dailyLimit?.enabled && fresh.stats?.todayWatchSeconds >= fresh.dailyLimit.limitMinutes * 60);
+
+    if (hasActive) {
+      showToast('🔒 Strict Commitment is active: Early unlocking is strictly disabled until your session finishes.');
+    } else {
+      const label = command.updates && Object.keys(command.updates).length === 2 &&
+        'blockHomeFeed' in command.updates && 'limitHomeFeed' in command.updates ? getSettingFriendlyName('homeFeed')
+        : command.op === 'preset' ? getSettingFriendlyName('preset:' + command.name)
+        : command.parentKey ? getSettingFriendlyName(command.parentKey) : getSettingFriendlyName(Object.keys(command.updates || {})[0] || command.op);
+      promptForPinVerification(async auth => {
+        try {
+          const updated = await StorageManager.queueUnlock(command, auth);
+          renderAll(updated);
+          showToast(t('focus_lock_banner_unlocking', [label]) || label);
+        } catch (error) { showToast(error.message); }
+      }, label);
+    }
   } else {
     const label = command.updates && Object.keys(command.updates).length === 2 &&
       'blockHomeFeed' in command.updates && 'limitHomeFeed' in command.updates ? getSettingFriendlyName('homeFeed')
       : command.op === 'preset' ? getSettingFriendlyName('preset:' + command.name)
       : command.parentKey ? getSettingFriendlyName(command.parentKey) : getSettingFriendlyName(Object.keys(command.updates || {})[0] || command.op);
-    promptForPinVerification(async pin => {
+    promptForPinVerification(async auth => {
       try {
-        const updated = await StorageManager.queueUnlock(command, pin);
+        const updated = await StorageManager.queueUnlock(command, auth);
         renderAll(updated);
         showToast(t('focus_lock_banner_unlocking', [label]) || label);
       } catch (error) { showToast(error.message); }
@@ -2107,9 +2182,48 @@ function renderAll(s) {
   $('focus-lock-config-wrap').style.display = focusLockEnabled ? 'block' : 'none';
   $('select-focusLockCooldown').value = String(s.focusLock?.cooldownMinutes || 10);
 
+  const unlockType = s.focusLock?.unlockType || 'pin';
+  const unlockTypeSel = $('select-focusLockUnlockType');
+  if (unlockTypeSel) unlockTypeSel.value = unlockType;
+
+  const strictNoticeRow = $('row-focusLockStrictNotice');
+  if (strictNoticeRow) strictNoticeRow.style.display = unlockType === 'strict' ? 'flex' : 'none';
+
+  const phraseStyleRow = $('row-focusLockPhraseType');
+  if (phraseStyleRow) phraseStyleRow.style.display = (unlockType === 'phrase' || unlockType === 'both') ? 'flex' : 'none';
+
+  const phraseType = s.focusLock?.phraseType || 'reflective';
+  const phraseTypeSel = $('select-focusLockPhraseType');
+  if (phraseTypeSel) phraseTypeSel.value = phraseType;
+
+  const customPhraseRow = $('row-focusLockCustomPhrase');
+  if (customPhraseRow) customPhraseRow.style.display = (phraseType === 'custom' && (unlockType === 'phrase' || unlockType === 'both')) ? 'flex' : 'none';
+  const customPhraseInput = $('input-focusLockCustomPhrase');
+  if (customPhraseInput && customPhraseInput !== document.activeElement) customPhraseInput.value = s.focusLock?.customPhrase || '';
+
   // Scheduled Blocking
   $('toggle-scheduledBlockingEnabled').checked = !!s.scheduledBlocking?.enabled;
   renderSchedulesList(s);
+
+  // Intent Gate (Pro)
+  const intentToggle = $('toggle-intentGateEnabled');
+  if (intentToggle) {
+    intentToggle.checked = !!s.intentGate?.enabled;
+  }
+  const intentExpand = $('intent-gate-expand');
+  if (intentExpand) {
+    intentExpand.classList.toggle('open', !!s.intentGate?.enabled);
+  }
+  const curDur = s.intentGate?.durationSeconds || 5;
+  const durSel = $('select-intentGateDuration');
+  if (durSel) {
+    durSel.value = String(curDur);
+  }
+  const curRecheck = s.intentGate?.recheckMinutes || 0;
+  const recheckSel = $('select-intentGateRecheck');
+  if (recheckSel) {
+    recheckSel.value = String(curRecheck);
+  }
 
   // Filter Mode, Allowlist & Blocklists
   renderFilterMode();
@@ -2154,14 +2268,25 @@ async function renderProState() {
   try {
     const lic = await IYT_Licensing.getLicense();
     const isPro = Boolean(lic.isPro);
+    const isTrial = Boolean(lic.isTrial);
+    const daysLeft = Number.isFinite(lic.daysLeft) ? lic.daysLeft : 7;
 
     // 1. Header Pro Pill (Mini badge)
     const headerPill = $('btn-header-pro');
     const headerText = $('hd-pro-text');
     if (headerPill) {
       headerPill.classList.toggle('is-pro', isPro);
-      headerPill.title = isPro ? 'Intentional YT Lifetime Pro Active' : 'Unlock Lifetime Pro Features';
-      if (headerText) headerText.textContent = 'PRO';
+      headerPill.classList.toggle('is-trial', isTrial);
+      if (isTrial) {
+        headerPill.title = `Intentional YT 7-Day Free Trial (${daysLeft}d left)`;
+        if (headerText) headerText.textContent = `TRIAL · ${daysLeft}D`;
+      } else if (isPro) {
+        headerPill.title = 'Intentional YT Lifetime Pro Active';
+        if (headerText) headerText.textContent = 'PRO';
+      } else {
+        headerPill.title = lic.trialExpired ? 'Trial Expired · Unlock Lifetime Pro' : 'Unlock Lifetime Pro Features';
+        if (headerText) headerText.textContent = 'PRO';
+      }
     }
 
     // 2. Sidebar Pro Button
@@ -2169,8 +2294,17 @@ async function renderProState() {
     const sidebarText = $('sidebar-pro-text');
     if (sidebarBtn) {
       sidebarBtn.classList.toggle('is-pro', isPro);
-      sidebarBtn.title = isPro ? 'Intentional YT Lifetime Pro Active' : 'Unlock Lifetime Pro Features';
-      if (sidebarText) sidebarText.textContent = isPro ? 'Pro Active' : 'Get Pro';
+      sidebarBtn.classList.toggle('is-trial', isTrial);
+      if (isTrial) {
+        sidebarBtn.title = `Intentional YT 7-Day Free Trial (${daysLeft}d left)`;
+        if (sidebarText) sidebarText.textContent = `Trial (${daysLeft}d)`;
+      } else if (isPro) {
+        sidebarBtn.title = 'Intentional YT Lifetime Pro Active';
+        if (sidebarText) sidebarText.textContent = 'Pro Active';
+      } else {
+        sidebarBtn.title = lic.trialExpired ? 'Trial Expired · Unlock Lifetime Pro' : 'Unlock Lifetime Pro Features';
+        if (sidebarText) sidebarText.textContent = 'Get Pro';
+      }
     }
 
     // 3. Settings Membership Row
@@ -2178,28 +2312,70 @@ async function renderProState() {
     const settingsSub = $('settings-pro-sub');
     if (settingsBadge) {
       settingsBadge.classList.toggle('is-pro', isPro);
-      settingsBadge.textContent = isPro ? 'Pro Active' : 'Free';
+      settingsBadge.classList.toggle('is-trial', isTrial);
+      if (isTrial) {
+        settingsBadge.textContent = `7-Day Trial (${daysLeft}d left)`;
+      } else if (isPro) {
+        settingsBadge.textContent = 'Pro Active';
+      } else {
+        settingsBadge.textContent = lic.trialExpired ? 'Free (Trial Ended)' : 'Free';
+      }
     }
     if (settingsSub) {
-      settingsSub.textContent = isPro
-        ? t('membership_pro_description')
-        : t('membership_free_description');
+      if (isTrial) {
+        settingsSub.textContent = 'All Pro features active on this device · Zero card required · Falls back to Free Forever after trial';
+      } else if (isPro) {
+        settingsSub.textContent = t('membership_pro_description');
+      } else {
+        settingsSub.textContent = t('membership_free_description');
+      }
     }
 
-    // 3. Pro Modal State
+    // 4. Pro Modal State
     const activeBanner = $('pro-active-banner');
+    const bannerTitle = $('pro-active-title');
     const maskedKeyEl = $('pro-active-masked-key');
     const entryWrap = $('pro-license-entry-wrap');
     const deactivateBtn = $('btn-deactivate-license');
+    const modalStatusPill = $('pro-modal-status-pill');
+    const buyBtnTitle = $('pro-buy-btn-title');
+    const buyBtnSub = $('pro-buy-btn-sub');
 
-    if (activeBanner) activeBanner.style.display = isPro ? 'flex' : 'none';
-    if (entryWrap) entryWrap.style.display = isPro ? 'none' : 'flex';
-    if (deactivateBtn) deactivateBtn.style.display = isPro ? 'inline-block' : 'none';
+    if (modalStatusPill) {
+      modalStatusPill.textContent = isTrial ? `${daysLeft}-DAY TRIAL ACTIVE` : 'LIFETIME ACCESS';
+      modalStatusPill.classList.toggle('is-trial', isTrial);
+    }
 
-    if (isPro && maskedKeyEl && lic.licenseKey) {
-      const cleanKey = lic.licenseKey;
-      const last4 = cleanKey.length >= 4 ? cleanKey.slice(-4) : cleanKey;
-      maskedKeyEl.textContent = `Key: ••••-••••-${last4}`;
+    if (isTrial) {
+      if (activeBanner) {
+        activeBanner.style.display = 'flex';
+        activeBanner.classList.add('is-trial');
+      }
+      if (bannerTitle) bannerTitle.textContent = `7-Day Free Trial Active (${daysLeft} days remaining)`;
+      if (maskedKeyEl) maskedKeyEl.textContent = 'All Pro features unlocked on this device · Zero card required';
+      if (entryWrap) entryWrap.style.display = 'flex';
+      if (buyBtnTitle) buyBtnTitle.textContent = 'Lock In Lifetime Pro';
+      if (buyBtnSub) buyBtnSub.textContent = 'One-time payment · Own forever · Instant activation';
+      if (deactivateBtn) deactivateBtn.style.display = 'none';
+    } else if (isPro) {
+      if (activeBanner) {
+        activeBanner.style.display = 'flex';
+        activeBanner.classList.remove('is-trial');
+      }
+      if (bannerTitle) bannerTitle.textContent = 'Lifetime Pro Active';
+      if (maskedKeyEl) {
+        const cleanKey = lic.licenseKey || '';
+        const last4 = cleanKey.length >= 4 ? cleanKey.slice(-4) : cleanKey;
+        maskedKeyEl.textContent = `Key: ••••-••••-${last4}`;
+      }
+      if (entryWrap) entryWrap.style.display = 'none';
+      if (deactivateBtn) deactivateBtn.style.display = 'inline-block';
+    } else {
+      if (activeBanner) activeBanner.style.display = 'none';
+      if (entryWrap) entryWrap.style.display = 'flex';
+      if (buyBtnTitle) buyBtnTitle.textContent = 'Unlock Lifetime Pro';
+      if (buyBtnSub) buyBtnSub.textContent = 'One-time payment · Instant access · No subscriptions';
+      if (deactivateBtn) deactivateBtn.style.display = 'none';
     }
   } catch (_) {}
 }
@@ -3304,6 +3480,94 @@ function bindAll() {
     });
   }
 
+  // Intent Gate Toggle (Pro Gated)
+  $('toggle-intentGateEnabled')?.addEventListener('change', async e => {
+    const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+    if (!isPro) {
+      e.target.checked = false;
+      showToast('Mindful Intent Gate requires Pro ✦');
+      openProModal();
+      return;
+    }
+    const targetVal = e.target.checked;
+    if (!targetVal && isFocusLockActive()) {
+      await interceptSettingChange(
+        'intentGate.enabled',
+        false,
+        () => { e.target.checked = true; },
+        async () => {
+          const updated = await StorageManager.updateNestedSetting('intentGate', 'enabled', false);
+          if (updated) {
+            _s = updated;
+            renderAll(updated);
+            broadcastSettingsToTabs(updated);
+          }
+        }
+      );
+    } else {
+      $('intent-gate-expand')?.classList.toggle('open', targetVal);
+      const updated = await StorageManager.updateNestedSetting('intentGate', 'enabled', targetVal);
+      if (updated) {
+        _s = updated;
+        renderAll(updated);
+        broadcastSettingsToTabs(updated);
+      }
+    }
+  });
+
+  // Intent Gate duration selector
+  $('select-intentGateDuration')?.addEventListener('change', async e => {
+    const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+    if (!isPro) {
+      showToast('Mindful Intent Gate requires Pro ✦');
+      openProModal();
+      return;
+    }
+    const secs = Number(e.target.value) || 5;
+    const updated = await StorageManager.updateNestedSetting('intentGate', 'durationSeconds', secs);
+    if (updated) {
+      _s = updated;
+      renderAll(updated);
+      broadcastSettingsToTabs(updated);
+    }
+  });
+
+  // Intent Gate recheck selector
+  $('select-intentGateRecheck')?.addEventListener('change', async e => {
+    const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+    if (!isPro) {
+      showToast('Mindful Intent Gate requires Pro ✦');
+      openProModal();
+      return;
+    }
+    const mins = Number(e.target.value) || 0;
+    if (isFocusLockActive()) {
+      const curRecheck = _s?.intentGate?.recheckMinutes || 0;
+      if (curRecheck > 0 && (mins === 0 || mins > curRecheck)) {
+        await interceptSettingChange(
+          'intentGate.recheckMinutes',
+          mins,
+          () => { e.target.value = String(curRecheck); },
+          async () => {
+            const updated = await StorageManager.updateNestedSetting('intentGate', 'recheckMinutes', mins);
+            if (updated) {
+              _s = updated;
+              renderAll(updated);
+              broadcastSettingsToTabs(updated);
+            }
+          }
+        );
+        return;
+      }
+    }
+    const updated = await StorageManager.updateNestedSetting('intentGate', 'recheckMinutes', mins);
+    if (updated) {
+      _s = updated;
+      renderAll(updated);
+      broadcastSettingsToTabs(updated);
+    }
+  });
+
   // Nested: soft reminder
   $('toggle-softReminder').addEventListener('change', async e => {
     const targetVal = e.target.checked;
@@ -3504,6 +3768,48 @@ function bindAll() {
     if (_s?.focusLock) _s.focusLock.cooldownMinutes = minutes;
   });
 
+  // Focus Lock unlock method selector
+  $('select-focusLockUnlockType')?.addEventListener('change', async e => {
+    const val = e.target.value;
+    if (val !== 'pin') {
+      const isPro = typeof IYT_Licensing !== 'undefined' ? await IYT_Licensing.isPro() : false;
+      if (!isPro) {
+        e.target.value = 'pin';
+        showToast('Friction Phrase Unlocks require Pro ✦');
+        openProModal();
+        return;
+      }
+    }
+    const updated = await StorageManager.updateNestedSetting('focusLock', 'unlockType', val);
+    if (updated) {
+      _s = updated;
+      renderAll(updated);
+      broadcastSettingsToTabs(updated);
+    }
+  });
+
+  // Focus Lock phrase style selector
+  $('select-focusLockPhraseType')?.addEventListener('change', async e => {
+    const val = e.target.value;
+    const updated = await StorageManager.updateNestedSetting('focusLock', 'phraseType', val);
+    if (updated) {
+      _s = updated;
+      renderAll(updated);
+      broadcastSettingsToTabs(updated);
+    }
+  });
+
+  // Focus Lock custom phrase input
+  $('input-focusLockCustomPhrase')?.addEventListener('change', async e => {
+    const val = e.target.value.trim().slice(0, 150);
+    const updated = await StorageManager.updateNestedSetting('focusLock', 'customPhrase', val);
+    if (updated) {
+      _s = updated;
+      renderAll(updated);
+      broadcastSettingsToTabs(updated);
+    }
+  });
+
   // Focus Lock PIN setup modal actions
   $('btn-save-setup-pin').addEventListener('click', async () => {
     const pin1 = $('input-setup-pin').value.trim();
@@ -3537,37 +3843,91 @@ function bindAll() {
 
   // Focus Lock PIN verify modal actions
   const submitPinVerify = async () => {
-    const pin = $('input-verify-pin').value.trim();
+    const lock = _s?.focusLock || {};
+    const unlockType = lock.unlockType || 'pin';
+    const requiresPin = unlockType !== 'phrase';
+    const requiresPhrase = unlockType === 'phrase' || unlockType === 'both';
     const errorEl = $('verify-pin-error');
 
-    if (pin.length !== 4 || !/^\d{4}$/.test(pin)) {
-      errorEl.textContent = t('focus_lock_error_invalid_pin') || 'PIN must be exactly 4 digits.';
-      errorEl.style.display = 'block';
-      return;
+    let pin = null;
+    if (requiresPin) {
+      pin = $('input-verify-pin').value.trim();
+      if (pin.length !== 4 || !/^\d{4}$/.test(pin)) {
+        errorEl.textContent = t('focus_lock_error_invalid_pin') || 'PIN must be exactly 4 digits.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      const hashed = await hashPin(pin);
+      if (hashed !== lock.pin) {
+        errorEl.textContent = t('focus_lock_error_incorrect_pin') || 'Incorrect PIN. Try again.';
+        errorEl.style.display = 'block';
+        $('input-verify-pin').value = '';
+        $('input-verify-pin').focus();
+        return;
+      }
     }
 
-    const hashed = await hashPin(pin);
-    if (hashed !== _s.focusLock?.pin) {
-      errorEl.textContent = t('focus_lock_error_incorrect_pin') || 'Incorrect PIN. Try again.';
-      errorEl.style.display = 'block';
-      $('input-verify-pin').value = '';
-      $('input-verify-pin').focus();
-      return;
+    let phrase = null;
+    if (requiresPhrase) {
+      phrase = $('input-verify-phrase')?.value.trim() || '';
+      const expected = StorageManager.getFrictionPhrase(lock);
+      if (phrase !== expected.trim()) {
+        errorEl.textContent = 'Commitment phrase does not match. Please type it exactly.';
+        errorEl.style.display = 'block';
+        return;
+      }
     }
 
     const callback = _pendingVerificationCallback;
     hidePinModals();
-    if (callback) await callback(pin);
+    if (callback) await callback({ pin, phrase });
   };
 
   $('btn-submit-verify-pin').addEventListener('click', submitPinVerify);
 
-  // Auto-submit when user enters 4th digit
+  // Auto-submit when user enters 4th digit (if only PIN is required)
   $('input-verify-pin').addEventListener('input', e => {
-    if (e.target.value.trim().length === 4) {
+    const lock = _s?.focusLock || {};
+    if ((lock.unlockType || 'pin') === 'pin' && e.target.value.trim().length === 4) {
       submitPinVerify();
     }
   });
+
+  // Real-time character matching & anti-paste on friction phrase textarea
+  const phraseInputEl = $('input-verify-phrase');
+  if (phraseInputEl) {
+    phraseInputEl.addEventListener('input', () => {
+      const lock = _s?.focusLock || {};
+      const expected = StorageManager.getFrictionPhrase(lock);
+      const typed = phraseInputEl.value;
+      const counterEl = $('verify-phrase-counter');
+      if (counterEl) counterEl.textContent = `${typed.length} / ${expected.length}`;
+
+      const isMatchSoFar = expected.startsWith(typed);
+      phraseInputEl.classList.toggle('is-error', !isMatchSoFar && typed.length > 0);
+      const isComplete = typed.trim() === expected.trim();
+      phraseInputEl.classList.toggle('is-matched', isComplete);
+
+      const requiresPin = (lock.unlockType || 'pin') !== 'phrase';
+      const pinComplete = !requiresPin || $('input-verify-pin').value.trim().length === 4;
+      const submitBtn = $('btn-submit-verify-pin');
+      if (submitBtn) {
+        submitBtn.disabled = !(isComplete && pinComplete);
+      }
+    });
+
+    phraseInputEl.addEventListener('paste', e => {
+      e.preventDefault();
+      const warn = $('verify-phrase-paste-warn');
+      if (warn) {
+        warn.style.display = 'inline';
+        setTimeout(() => { warn.style.display = 'none'; }, 2500);
+      }
+    });
+
+    phraseInputEl.addEventListener('drop', e => e.preventDefault());
+  }
 
   // Enter to submit, Escape to cancel
   $('input-verify-pin').addEventListener('keydown', e => {
@@ -4230,6 +4590,27 @@ function bindAll() {
       handleActivateLicense();
     } else if (e.key === 'Escape') {
       closeProModal();
+    }
+  });
+
+  // 1-Click Buy Pro external navigation
+  $('link-buy-pro')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const url = 'https://intentionalyt.me/pro';
+    if (typeof browser !== 'undefined' && browser?.tabs?.create) {
+      browser.tabs.create({ url });
+    } else {
+      window.open(url, '_blank');
+    }
+  });
+
+  // Global delegated click listener for any PRO badge or explicit pro trigger
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.badge-pro-micro, [data-open-pro], .btn-pro-trigger');
+    if (trigger) {
+      e.preventDefault();
+      e.stopPropagation();
+      openProModal();
     }
   });
 

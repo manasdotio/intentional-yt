@@ -103,6 +103,7 @@ Users can switch focus modes instantly from the top utility bar in the popup or 
   - *Strict Protections*: Forces all distraction blocks on while keeping intentional playback allowed.
 
 ### One-video Sessions & Pro Boundaries
+- **Pro: Mindful Intent Gate**: When enabled (off by default), interrupts autopilot tab openings with a calming breathing pause (3s, 5s, 10s) and a clear intention prompt (Search, Study, Quick 10m check, or custom goal). Includes a quick 'Close Tab' escape button for when users catch themselves opening YouTube on habit. Cleared for the active tab session once answered.
 - **Pro: Watch only this video**: Only the chosen video plays in its originating tab, followed by a mandatory full 5-minute playback break. Finish now starts the same full break; there is no skip or PIN override. Maximum commitment: 24 hours. Timed focus sessions cannot overlap.
 - **Pro analytics**: Learning share is Study / (Study + Leisure) tagged watch time, with unassigned minutes always shown separately; it does not measure concentration or distraction. Busiest viewing hours are summed playback across the last 7 days, not an average or a doomscroll/vulnerability measure. Empty data has no invented viewing window or schedule suggestion. Watch exports and ready-made schedule templates are Pro.
 - **Still free**: Watch history, streaks, Focus Lock, channel/keyword allowlist, custom schedules and settings backup. Do not market these as paid features.

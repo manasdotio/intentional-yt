@@ -1682,64 +1682,397 @@
     "message": "À propos",
     "description": "Label for the About tab in popup navigation"
   },
-  "video_session_start": { "message": "Regarder uniquement cette vidéo · Pro" },
-  "video_session_description": { "message": "Engagez-vous sur cette vidéo : seule la vidéo choisie peut être lue dans son onglet d’origine. Ensuite, toute lecture YouTube est suspendue pour une pause obligatoire de 5 minutes. Terminer maintenant lance aussi la pause complète. Durée maximale de la session : 24 heures." },
-  "video_session_finish_now": { "message": "Terminer maintenant et faire une pause de 5 minutes" },
-  "video_session_watching": { "message": "Seule cette vidéo peut être lue dans son onglet d’origine. Terminez maintenant pour commencer votre pause complète de 5 minutes." },
-  "video_session_break": { "message": "Pause obligatoire · $minutes$ min restantes. Impossible de la passer ou de l’annuler avec un PIN.", "placeholders": { "minutes": { "content": "$1" } } },
-  "video_session_reason_options": { "message": "Aucune vidéo actuelle sur cette page de paramètres. Ouvrez une vidéo YouTube, puis utilisez la fenêtre de l’extension." },
-  "video_session_done": { "message": "Vous avez terminé pour le moment" },
-  "video_session_other": { "message": "Seule la vidéo choisie peut être lue dans son onglet d’origine." },
-  "video_session_break_remaining": { "message": "La lecture est suspendue pendant $remaining$.", "placeholders": { "remaining": { "content": "$1" } } },
-  "video_session_working": { "message": "Début de votre pause…" },
-  "stats_learning_share": { "message": "Part d’étude" },
-  "stats_learning_denominator": { "message": "du temps de lecture étiqueté" },
-  "stats_learning_help": { "message": "Temps d’aujourd’hui en Étude / (Étude + Loisirs), selon vos étiquettes de chaînes. Le temps non attribué est exclu du pourcentage et affiché séparément. Ce n’est pas une mesure de concentration ou de distraction." },
-  "stats_learning_empty": { "message": "Aucun temps de lecture étiqueté aujourd’hui" },
-  "stats_learning_breakdown": { "message": "$study$ Étude · $leisure$ Loisirs · $unassigned$ non attribué", "placeholders": { "study": { "content": "$1" }, "leisure": { "content": "$2" }, "unassigned": { "content": "$3" } } },
-  "stats_learning_channels": { "message": "Chaînes et part d’étude" },
-  "stats_busiest_hours": { "message": "Heures les plus regardées" },
-  "stats_busiest_subtitle": { "message": "Lecture par heure de la journée" },
-  "stats_busiest_period": { "message": "7 derniers jours · total" },
-  "stats_busiest_empty": { "message": "Aucune donnée horaire sur les 7 derniers jours. Aucun créneau à suggérer." },
-  "allowlist_explanation": { "message": "Liste autorisée gratuite : les cartes correspondant à une chaîne OU un mot-clé restent visibles ; les autres sont atténuées ou masquées. Si les deux listes sont vides, toutes les cartes s’affichent. Ce filtre agit sur les cartes, pas sur la lecture directe des vidéos." },
-  "pro_free_features": { "message": "Toujours gratuits : historique, séries de jours, verrouillage de concentration, liste de chaînes/mots-clés autorisés, horaires personnalisés et sauvegarde des paramètres." },
-  "video_session_ready": {"message":"Ready to commit to the video above.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_checking": {"message":"Checking the current video…","description":"English fallback; translation pending native-speaker review."},
-  "video_session_badge_watching": {"message":"One video","description":"English fallback; translation pending native-speaker review."},
-  "video_session_badge_break": {"message":"Break","description":"English fallback; translation pending native-speaker review."},
-  "video_session_status_watching": {"message":"One-video commitment · maximum deadline $time$.","placeholders":{"time":{"content":"$1"}},"description":"English fallback; translation pending native-speaker review."},
-  "video_session_status_break": {"message":"Mandatory playback break until $time$.","placeholders":{"time":{"content":"$1"}},"description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_off": {"message":"Turn protection on before starting a one-video session.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_snooze": {"message":"Wait for snooze to end before starting a one-video session.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_schedule": {"message":"An active schedule prevents starting a one-video session.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_budget": {"message":"Your daily playback budget has been reached.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_active_session": {"message":"A session or mandatory break is already active. Timed sessions and one-video sessions cannot overlap.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_nonvideo": {"message":"Open a YouTube video in the current tab to start.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_loading": {"message":"Wait for the video and its details to finish loading, then try again.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_no_receiver": {"message":"Cannot connect to this YouTube tab. Reload it, wait for it to load, then try again.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_unsupported": {"message":"Use a regular YouTube watch-page video. Live videos, Shorts and miniplayer are not supported.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_ads": {"message":"Wait for the ad to finish before starting a one-video session.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_reason_unavailable": {"message":"This video is not available for a one-video session. Check the current tab and try again.","description":"English fallback; translation pending native-speaker review."},
-  "video_session_notice_cancelled": {"message":"A queued protection change was cancelled because a one-video commitment or mandatory break was active. No PIN can skip this break.","description":"English fallback; translation pending native-speaker review."},
-  "stats_learning_channels_help": {"message":"Your top watched channels from the last 7 days. Choose Study or Leisure tags to describe your viewing; neither tag judges its value. The learning share above uses today's tagged watch time. Untagged minutes are always shown separately.","description":"English fallback; translation pending native-speaker review."},
-  "stats_busiest_help": {"message":"Switch between your free 7-day watch history and Pro hourly playback totals. Busiest viewing hours sums watch time across the last 7 days; it does not measure vulnerability or doomscrolling. Use a real busiest window to prefill a custom schedule.","description":"English fallback; translation pending native-speaker review."},
-  "stats_busiest_window": {"message":"Busiest viewing window: $window$ · $minutes$ min total over the last 7 days","placeholders":{"window":{"content":"$1"},"minutes":{"content":"$2"}},"description":"English fallback; translation pending native-speaker review."},
-  "stats_busiest_hour_value": {"message":"$hour$: $minutes$ min total over the last 7 days","placeholders":{"hour":{"content":"$1"},"minutes":{"content":"$2"}},"description":"English fallback; translation pending native-speaker review."},
-  "stats_busiest_schedule_label": {"message":"Busiest viewing window","description":"English fallback; translation pending native-speaker review."},
-  "stats_busiest_schedule_prefill": {"message":"Schedule prefilled from your busiest viewing window. Review before saving.","description":"English fallback; translation pending native-speaker review."},
-  "stats_busiest_schedule": {"message":"Set schedule","description":"English fallback; translation pending native-speaker review."},
-  "stats_busiest_schedule_help": {"message":"Prefill a custom schedule from this viewing window","description":"English fallback; translation pending native-speaker review."},
-  "membership_free_description": {"message":"Get one-video sessions, learning breakdown, busiest hours, watch exports & schedule templates.","description":"English fallback; translation pending native-speaker review."},
-  "membership_pro_description": {"message":"Lifetime Pro: one-video sessions, learning breakdown, busiest hours, watch exports & schedule templates. Local privacy.","description":"English fallback; translation pending native-speaker review."},
-  "pro_video_title": {"message":"One-video sessions","description":"English fallback; translation pending native-speaker review."},
-  "pro_video_description": {"message":"One chosen video in its original tab, then a mandatory 5-minute break","description":"English fallback; translation pending native-speaker review."},
-  "pro_learning_title": {"message":"Channel tags & learning breakdown","description":"English fallback; translation pending native-speaker review."},
-  "pro_learning_description": {"message":"Study / (Study + Leisure), with unassigned time shown separately","description":"English fallback; translation pending native-speaker review."},
-  "pro_hours_title": {"message":"Busiest viewing hours & watch exports","description":"English fallback; translation pending native-speaker review."},
-  "pro_hours_description": {"message":"Last 7 days of hourly playback totals; export watch data as CSV or JSON","description":"English fallback; translation pending native-speaker review."},
-  "pro_templates_title": {"message":"Schedule templates","description":"English fallback; translation pending native-speaker review."},
-  "pro_templates_description": {"message":"Ready-made Work, Evening and Night schedules; custom schedules stay free","description":"English fallback; translation pending native-speaker review."},
-  "stats_learning_tag_study": {"message":"Study","description":"English fallback; translation pending native-speaker review."},
-  "stats_learning_tag_leisure": {"message":"Leisure","description":"English fallback; translation pending native-speaker review."}
+  "video_session_start": {
+    "message": "Regarder uniquement cette vidéo · Pro"
+  },
+  "video_session_description": {
+    "message": "Engagez-vous sur cette vidéo : seule la vidéo choisie peut être lue dans son onglet d’origine. Ensuite, toute lecture YouTube est suspendue pour une pause obligatoire de 5 minutes. Terminer maintenant lance aussi la pause complète. Durée maximale de la session : 24 heures."
+  },
+  "video_session_finish_now": {
+    "message": "Terminer maintenant et faire une pause de 5 minutes"
+  },
+  "video_session_watching": {
+    "message": "Seule cette vidéo peut être lue dans son onglet d’origine. Terminez maintenant pour commencer votre pause complète de 5 minutes."
+  },
+  "video_session_break": {
+    "message": "Pause obligatoire · $minutes$ min restantes. Impossible de la passer ou de l’annuler avec un PIN.",
+    "placeholders": {
+      "minutes": {
+        "content": "$1"
+      }
+    }
+  },
+  "video_session_reason_options": {
+    "message": "Aucune vidéo actuelle sur cette page de paramètres. Ouvrez une vidéo YouTube, puis utilisez la fenêtre de l’extension."
+  },
+  "video_session_done": {
+    "message": "Vous avez terminé pour le moment"
+  },
+  "video_session_other": {
+    "message": "Seule la vidéo choisie peut être lue dans son onglet d’origine."
+  },
+  "video_session_break_remaining": {
+    "message": "La lecture est suspendue pendant $remaining$.",
+    "placeholders": {
+      "remaining": {
+        "content": "$1"
+      }
+    }
+  },
+  "video_session_working": {
+    "message": "Début de votre pause…"
+  },
+  "stats_learning_share": {
+    "message": "Part d’étude"
+  },
+  "stats_learning_denominator": {
+    "message": "du temps de lecture étiqueté"
+  },
+  "stats_learning_help": {
+    "message": "Temps d’aujourd’hui en Étude / (Étude + Loisirs), selon vos étiquettes de chaînes. Le temps non attribué est exclu du pourcentage et affiché séparément. Ce n’est pas une mesure de concentration ou de distraction."
+  },
+  "stats_learning_empty": {
+    "message": "Aucun temps de lecture étiqueté aujourd’hui"
+  },
+  "stats_learning_breakdown": {
+    "message": "$study$ Étude · $leisure$ Loisirs · $unassigned$ non attribué",
+    "placeholders": {
+      "study": {
+        "content": "$1"
+      },
+      "leisure": {
+        "content": "$2"
+      },
+      "unassigned": {
+        "content": "$3"
+      }
+    }
+  },
+  "stats_learning_channels": {
+    "message": "Chaînes et part d’étude"
+  },
+  "stats_busiest_hours": {
+    "message": "Heures les plus regardées"
+  },
+  "stats_busiest_subtitle": {
+    "message": "Lecture par heure de la journée"
+  },
+  "stats_busiest_period": {
+    "message": "7 derniers jours · total"
+  },
+  "stats_busiest_empty": {
+    "message": "Aucune donnée horaire sur les 7 derniers jours. Aucun créneau à suggérer."
+  },
+  "allowlist_explanation": {
+    "message": "Liste autorisée gratuite : les cartes correspondant à une chaîne OU un mot-clé restent visibles ; les autres sont atténuées ou masquées. Si les deux listes sont vides, toutes les cartes s’affichent. Ce filtre agit sur les cartes, pas sur la lecture directe des vidéos."
+  },
+  "pro_free_features": {
+    "message": "Toujours gratuits : historique, séries de jours, verrouillage de concentration, liste de chaînes/mots-clés autorisés, horaires personnalisés et sauvegarde des paramètres."
+  },
+  "video_session_ready": {
+    "message": "Ready to commit to the video above.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_checking": {
+    "message": "Checking the current video…",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_badge_watching": {
+    "message": "One video",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_badge_break": {
+    "message": "Break",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_status_watching": {
+    "message": "One-video commitment · maximum deadline $time$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    },
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_status_break": {
+    "message": "Mandatory playback break until $time$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    },
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_off": {
+    "message": "Turn protection on before starting a one-video session.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_snooze": {
+    "message": "Wait for snooze to end before starting a one-video session.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_schedule": {
+    "message": "An active schedule prevents starting a one-video session.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_budget": {
+    "message": "Your daily playback budget has been reached.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_active_session": {
+    "message": "A session or mandatory break is already active. Timed sessions and one-video sessions cannot overlap.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_nonvideo": {
+    "message": "Open a YouTube video in the current tab to start.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_loading": {
+    "message": "Wait for the video and its details to finish loading, then try again.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_no_receiver": {
+    "message": "Cannot connect to this YouTube tab. Reload it, wait for it to load, then try again.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_unsupported": {
+    "message": "Use a regular YouTube watch-page video. Live videos, Shorts and miniplayer are not supported.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_ads": {
+    "message": "Wait for the ad to finish before starting a one-video session.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_reason_unavailable": {
+    "message": "This video is not available for a one-video session. Check the current tab and try again.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "video_session_notice_cancelled": {
+    "message": "A queued protection change was cancelled because a one-video commitment or mandatory break was active. No PIN can skip this break.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_learning_channels_help": {
+    "message": "Your top watched channels from the last 7 days. Choose Study or Leisure tags to describe your viewing; neither tag judges its value. The learning share above uses today's tagged watch time. Untagged minutes are always shown separately.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_busiest_help": {
+    "message": "Switch between your free 7-day watch history and Pro hourly playback totals. Busiest viewing hours sums watch time across the last 7 days; it does not measure vulnerability or doomscrolling. Use a real busiest window to prefill a custom schedule.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_busiest_window": {
+    "message": "Busiest viewing window: $window$ · $minutes$ min total over the last 7 days",
+    "placeholders": {
+      "window": {
+        "content": "$1"
+      },
+      "minutes": {
+        "content": "$2"
+      }
+    },
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_busiest_hour_value": {
+    "message": "$hour$: $minutes$ min total over the last 7 days",
+    "placeholders": {
+      "hour": {
+        "content": "$1"
+      },
+      "minutes": {
+        "content": "$2"
+      }
+    },
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_busiest_schedule_label": {
+    "message": "Busiest viewing window",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_busiest_schedule_prefill": {
+    "message": "Schedule prefilled from your busiest viewing window. Review before saving.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_busiest_schedule": {
+    "message": "Set schedule",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_busiest_schedule_help": {
+    "message": "Prefill a custom schedule from this viewing window",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "membership_free_description": {
+    "message": "Get one-video sessions, learning breakdown, busiest hours, watch exports & schedule templates.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "membership_pro_description": {
+    "message": "Lifetime Pro: one-video sessions, learning breakdown, busiest hours, watch exports & schedule templates. Local privacy.",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "pro_video_title": {
+    "message": "One-video sessions",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "pro_video_description": {
+    "message": "One chosen video in its original tab, then a mandatory 5-minute break",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "pro_learning_title": {
+    "message": "Channel tags & learning breakdown",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "pro_learning_description": {
+    "message": "Study / (Study + Leisure), with unassigned time shown separately",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "pro_hours_title": {
+    "message": "Busiest viewing hours & watch exports",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "pro_hours_description": {
+    "message": "Last 7 days of hourly playback totals; export watch data as CSV or JSON",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "pro_templates_title": {
+    "message": "Schedule templates",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "pro_templates_description": {
+    "message": "Ready-made Work, Evening and Night schedules; custom schedules stay free",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_learning_tag_study": {
+    "message": "Study",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "stats_learning_tag_leisure": {
+    "message": "Leisure",
+    "description": "English fallback; translation pending native-speaker review."
+  },
+  "toggle_intent_gate": {
+    "message": "Mindful Intent Gate",
+    "description": "Label for the Mindful Intent Gate toggle"
+  },
+  "desc_intent_gate": {
+    "message": "Interrupt autopilot with a mindful pause and goal check before YouTube opens.",
+    "description": "Description for the Mindful Intent Gate toggle"
+  },
+  "desc_intent_gate_sub": {
+    "message": "Pause & reflect before opening YouTube",
+    "description": "Subtitle for the Mindful Intent Gate card"
+  },
+  "intent_gate_pause_label": {
+    "message": "Mindful pause",
+    "description": "Label for the mindful pause duration setting"
+  },
+  "intent_gate_pause_desc": {
+    "message": "Seconds to pause and breathe before allowing entry",
+    "description": "Description for the mindful pause duration setting"
+  },
+  "intent_gate_title": {
+    "message": "What brings you to YouTube?",
+    "description": "Heading on the Mindful Intent Gate screen"
+  },
+  "intent_gate_breathe": {
+    "message": "Take a deep breath…",
+    "description": "Breathing guidance text on the Mindful Intent Gate screen"
+  },
+  "intent_gate_chip_search": {
+    "message": "Search for a specific topic",
+    "description": "Quick intention chip for search"
+  },
+  "intent_gate_chip_study": {
+    "message": "Study / Deep Work",
+    "description": "Quick intention chip for study"
+  },
+  "intent_gate_chip_quick": {
+    "message": "Quick 10-minute check",
+    "description": "Quick intention chip for brief visit"
+  },
+  "intent_gate_input_placeholder": {
+    "message": "Or type what you want to accomplish…",
+    "description": "Placeholder for custom intention input"
+  },
+  "intent_gate_btn_close": {
+    "message": "I'm on autopilot — Close Tab",
+    "description": "Button to close tab from Intent Gate"
+  },
+  "pro_intent_title": {
+    "message": "Mindful Intent Gate",
+    "description": "Title in Pro features modal for Intent Gate"
+  },
+  "pro_intent_description": {
+    "message": "Pause and prompt for a goal before opening YouTube to break autopilot",
+    "description": "Description in Pro features modal for Intent Gate"
+  },
+  "intent_gate_recheck_label": {
+    "message": "Check-in",
+    "description": "Label for periodic intent re-check"
+  },
+  "intent_gate_recheck_off": {
+    "message": "Off (Only on open)",
+    "description": "Option to only show intent gate when opening YouTube"
+  },
+  "intent_checkin_title": {
+    "message": "Are you still on track?",
+    "description": "Title for mid-session intent check-in"
+  },
+  "intent_checkin_badge": {
+    "message": "Intention Check-in",
+    "description": "Badge for mid-session intent check-in"
+  },
+  "intent_checkin_btn_continue": {
+    "message": "Still on track — Continue",
+    "description": "Button to confirm still on track"
+  },
+  "intent_checkin_btn_close": {
+    "message": "Got distracted — Close Tab",
+    "description": "Button to close tab from check-in"
+  },
+  "focus_lock_unlock_method_label": {
+    "message": "Unlock method",
+    "description": "Label for Focus Lock unlock method"
+  },
+  "focus_lock_method_pin": {
+    "message": "4-Digit PIN",
+    "description": "Option for 4-digit PIN unlock"
+  },
+  "focus_lock_method_phrase": {
+    "message": "Friction Phrase (Type to unlock)",
+    "description": "Option for Friction Phrase unlock"
+  },
+  "focus_lock_method_both": {
+    "message": "Double Vault (PIN + Phrase)",
+    "description": "Option for Double Vault unlock"
+  },
+  "focus_lock_phrase_style_label": {
+    "message": "Phrase style",
+    "description": "Label for friction phrase style selector"
+  },
+  "focus_lock_style_reflective": {
+    "message": "Conscious choice",
+    "description": "Option for conscious choice phrase"
+  },
+  "focus_lock_style_stoic": {
+    "message": "Stoic mindfulness",
+    "description": "Option for stoic phrase"
+  },
+  "focus_lock_style_custom": {
+    "message": "Custom statement",
+    "description": "Option for custom phrase"
+  },
+  "focus_lock_custom_phrase_label": {
+    "message": "Your commitment phrase",
+    "description": "Label for custom commitment phrase input"
+  },
+  "focus_lock_method_strict": {
+    "message": "Strict Commitment (Irreversible)",
+    "description": "Option for Strict Commitment unlock"
+  },
+  "pro_commitment_title": {
+    "message": "Engagement strict et irréversible",
+    "description": "Title in Pro features modal"
+  },
+  "pro_commitment_description": {
+    "message": "Déverrouillage par saisie de phrase réflexive et sessions de focus irréversibles pour stopper les pulsions",
+    "description": "Description in Pro features modal"
+  }
 }

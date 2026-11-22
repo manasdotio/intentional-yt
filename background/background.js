@@ -178,8 +178,20 @@ browser.runtime.onStartup.addListener(() => { reconcile(true).catch(console.erro
 // Starts the seven-day wait on install, or on first run of this version for
 // existing users whose original installation date is unknown.
 StorageManager.reviewPrompt().catch(console.error);
-browser.runtime.onInstalled.addListener(details => {
-  reconcile().catch(console.error);
+browser.runtime.onInstalled.addListener(async details => {
+  try {
+    const settings = await StorageManager.execute({ op: 'reconcile' });
+    if (browser.tabs?.query) {
+      const tabs = await browser.tabs.query({ url: ['*://www.youtube.com/*', '*://m.youtube.com/*'] }).catch(() => []);
+      for (const tab of tabs) {
+        if (tab?.id) {
+          browser.tabs.sendMessage(tab.id, { type: 'IYT_APPLY_SETTINGS', settings }).catch(() => {});
+        }
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
   browser.runtime.setUninstallURL('https://intentionalyt.me/uninstall').catch(() => {});
   if (details?.reason === 'install' && browser?.tabs?.create) {
     browser.tabs.create({ url: browser.runtime.getURL('ui/welcome.html') }).catch(console.error);

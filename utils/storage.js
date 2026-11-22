@@ -74,6 +74,9 @@ class StorageManager {
         enabled: false,
         pin: null,
         cooldownMinutes: 10,
+        unlockType: 'pin',
+        phraseType: 'reflective',
+        customPhrase: '',
         lockedSettings: [],
         pendingUnlock: null
       },
@@ -81,6 +84,12 @@ class StorageManager {
       scheduledBlocking: {
         enabled: false,
         schedules: []
+      },
+
+      intentGate: {
+        enabled: false,
+        durationSeconds: 5,
+        recheckMinutes: 0
       },
 
       stats: {
@@ -201,7 +210,22 @@ class StorageManager {
   static deleteSchedule(id) { return this._request({ op: 'scheduleDelete', id }); }
   static setScheduleEnabled(id, enabled) { return this._request({ op: 'scheduleToggle', id, enabled }); }
   static recordWatch(seconds, batchId, day) { return this._request({ op: 'watch', seconds, batchId, day }); }
-  static queueUnlock(command, pin) { return this._request({ op: 'queueUnlock', command, pin }); }
+  static getFrictionPhrase(lock) {
+    if (lock?.phraseType === 'stoic') {
+      return "You have power over your mind, not outside events. Realize this, and you will find strength.";
+    }
+    if (lock?.phraseType === 'custom' && typeof lock?.customPhrase === 'string' && lock.customPhrase.trim()) {
+      return lock.customPhrase.trim();
+    }
+    return "I am consciously choosing to break my focus and trade my goals for quick dopamine.";
+  }
+
+  static queueUnlock(command, pin, phrase) {
+    if (pin && typeof pin === 'object') {
+      return this._request({ op: 'queueUnlock', command, pin: pin.pin, phrase: pin.phrase });
+    }
+    return this._request({ op: 'queueUnlock', command, pin, phrase });
+  }
 
   static _mutate(current, command) {
     const next = this._merge({}, current);
@@ -218,7 +242,7 @@ class StorageManager {
         }
         break;
       case 'nested':
-        if (!['dailyLimit','softReminder','focusLock','scheduledBlocking','stats'].includes(command.parentKey) || ['pendingUnlock','__proto__','prototype','constructor'].includes(command.childKey)) throw new Error('Invalid nested update');
+        if (!['dailyLimit','softReminder','focusLock','scheduledBlocking','stats','intentGate'].includes(command.parentKey) || ['pendingUnlock','__proto__','prototype','constructor'].includes(command.childKey)) throw new Error('Invalid nested update');
         if (command.parentKey === 'stats' && command.childKey !== 'limitDismissedToday') throw new Error('Invalid stats update');
         next[command.parentKey] = { ...next[command.parentKey], [command.childKey]: command.value }; break;
       case 'list':
@@ -370,16 +394,44 @@ class StorageManager {
       }
       if (command.op === 'cancelUnlock') { settings.focusLock.pendingUnlock = null; return commit(); }
       if (command.op === 'queueUnlock') {
-        if (!settings.focusLock.enabled || !settings.focusLock.pin) throw new Error('Focus Lock is not active');
-        if (settings.focusLock.pendingUnlock) throw new Error('An unlock is already pending');
-        if (typeof command.pin !== 'string' || !/^\d{4}$/.test(command.pin)) throw new Error('Invalid PIN');
-        const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(command.pin));
-        const hex = Array.from(new Uint8Array(hash), b => b.toString(16).padStart(2,'0')).join('');
-        if (hex !== settings.focusLock.pin) throw new Error('Incorrect PIN');
+        const lock = settings.focusLock;
+        if (!lock.enabled) throw new Error('Focus Lock is not active');
+        if (lock.pendingUnlock) throw new Error('An unlock is already pending');
+
+        if (lock.unlockType === 'strict') {
+          const hasActiveRestriction = (settings.focusSessionUntil && settings.focusSessionUntil > Date.now()) ||
+            IYT_Policy.schedules(settings).length > 0 ||
+            (settings.dailyLimit.enabled && settings.stats.todayWatchSeconds >= settings.dailyLimit.limitMinutes * 60);
+
+          if (hasActiveRestriction) {
+            const error = new Error('Strict Commitment is active: Early unlocking is strictly forbidden until your active session or schedule ends.');
+            error.code = 'STRICT_COMMITMENT';
+            throw error;
+          }
+        }
+
+        const requiresPin = lock.unlockType !== 'phrase';
+        const requiresPhrase = lock.unlockType === 'phrase' || lock.unlockType === 'both';
+
+        if (requiresPin) {
+          if (!lock.pin) throw new Error('Focus Lock PIN is not configured');
+          if (typeof command.pin !== 'string' || !/^\d{4}$/.test(command.pin)) throw new Error('Invalid PIN');
+          const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(command.pin));
+          const hex = Array.from(new Uint8Array(hash), b => b.toString(16).padStart(2,'0')).join('');
+          if (hex !== lock.pin) throw new Error('Incorrect PIN');
+        }
+
+        if (requiresPhrase) {
+          const expectedPhrase = StorageManager.getFrictionPhrase(lock);
+          if (typeof command.phrase !== 'string' || command.phrase.trim() !== expectedPhrase.trim()) {
+            throw new Error('Friction commitment phrase does not match');
+          }
+        }
+
         const proposed = this._mutate(settings, command.command);
         if (IYT_Policy.commitmentWeakens(settings, proposed, command.command.op)) throw commitmentError();
         const now = Date.now();
-        settings.focusLock.pendingUnlock = { command: command.command, requestedAt: now, unlocksAt: now + settings.focusLock.cooldownMinutes * 60000 };
+        settings.focusLock.pendingUnlock = { command: command.command, requestedAt: now, unlocksAt: now + lock.cooldownMinutes * 60000 };
         return commit();
       }
       try { apply(command); }

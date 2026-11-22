@@ -29,6 +29,15 @@ html:not([data-iyt-ready]) ytd-browse[page-subtype="home"] ytd-rich-grid-rendere
 html:not([data-iyt-ready]) ytd-watch-flexy #related,
 html:not([data-iyt-ready]) ytd-reel-shelf-renderer,
 html:not([data-iyt-ready]) ytm-reel-shelf-renderer,
+html:not([data-iyt-ready]) ytd-shorts,
+html:not([data-iyt-ready]) #shorts-container,
+html:not([data-iyt-ready]) #shorts-player,
+html:not([data-iyt-ready]) ytd-rich-shelf-renderer[is-shorts],
+html:not([data-iyt-ready]) grid-shelf-view-model:has(a[href*="/shorts"]),
+html:not([data-iyt-ready]) yt-reel-shelf-view-model,
+html:not([data-iyt-ready]) reel-shelf-view-model,
+html:not([data-iyt-ready]) ytd-guide-entry-renderer:has(a[href*="/shorts"]),
+html:not([data-iyt-ready]) ytd-mini-guide-entry-renderer:has(a[href*="/shorts"]),
 html:not([data-iyt-ready])[data-iyt-is-channel-home] ytd-browse ytd-section-list-renderer,
 html:not([data-iyt-ready])[data-iyt-is-channel-home] ytd-browse ytd-rich-grid-renderer,
 html:not([data-iyt-ready])[data-iyt-is-channel-home] ytd-browse ytd-channel-video-player-renderer,
@@ -1977,4 +1986,431 @@ html.iyt-full-window-player ytd-watch-flexy[theater]:not([fullscreen]) #primary-
   margin-left: auto !important;
   margin-right: auto !important;
   text-align: left !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MINDFUL INTENT GATE OVERLAY (PRO)
+═══════════════════════════════════════════════════════════ */
+html.iyt-intent-gate-active,
+html.iyt-intent-gate-active body {
+  overflow: hidden !important;
+}
+
+html.iyt-intent-gate-active video,
+html.iyt-intent-gate-active audio {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+#iyt-intent-gate-screen {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.65) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2147483647 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  backdrop-filter: blur(32px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
+  pointer-events: auto !important;
+  animation: iytSheetFadeIn 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+:root:not([dark]) #iyt-intent-gate-screen,
+[data-theme="light"] #iyt-intent-gate-screen {
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: #000000 !important;
+}
+
+@keyframes iytSheetFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Apple Floating Sheet */
+.iyt-intent-card {
+  max-width: 390px !important;
+  width: 90% !important;
+  background: rgba(30, 30, 32, 0.88) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 28px !important;
+  padding: 32px 26px 20px !important;
+  text-align: center !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  pointer-events: auto !important;
+}
+
+:root:not([dark]) .iyt-intent-card,
+[data-theme="light"] .iyt-intent-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Apple Mindfulness Breathing Rings */
+.iyt-ios-breathe {
+  position: relative !important;
+  width: 64px !important;
+  height: 64px !important;
+  margin: 0 auto 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.iyt-ios-breathe-ring {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 50% !important;
+  background: rgba(52, 199, 89, 0.12) !important;
+  border: 1px solid rgba(52, 199, 89, 0.3) !important;
+  animation: iosBreathe 4s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+  pointer-events: none !important;
+}
+
+.iyt-ios-ring-2 {
+  inset: -6px !important;
+  background: rgba(100, 210, 255, 0.08) !important;
+  border: 1px solid rgba(100, 210, 255, 0.2) !important;
+  animation: iosBreathe 4s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.5s !important;
+  pointer-events: none !important;
+}
+
+@keyframes iosBreathe {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+.iyt-ios-countdown {
+  position: relative !important;
+  z-index: 2 !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif !important;
+  color: #30d158 !important;
+  font-variant-numeric: tabular-nums !important;
+  user-select: none !important;
+  pointer-events: none !important;
+}
+
+:root:not([dark]) .iyt-ios-countdown,
+[data-theme="light"] .iyt-ios-countdown {
+  color: #34c759 !important;
+}
+
+.iyt-ios-subtitle {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: rgba(235, 235, 245, 0.6) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  margin-bottom: 4px !important;
+}
+
+:root:not([dark]) .iyt-ios-subtitle,
+[data-theme="light"] .iyt-ios-subtitle {
+  color: rgba(60, 60, 67, 0.6) !important;
+}
+
+.iyt-ios-title {
+  font-size: 22px !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.025em !important;
+  color: #ffffff !important;
+  margin: 0 0 20px 0 !important;
+  line-height: 1.25 !important;
+}
+
+:root:not([dark]) .iyt-ios-title,
+[data-theme="light"] .iyt-ios-title {
+  color: #000000 !important;
+}
+
+/* iOS Search Input */
+.iyt-ios-search-wrap {
+  position: relative !important;
+  width: 100% !important;
+  margin-bottom: 12px !important;
+  box-sizing: border-box !important;
+}
+
+.iyt-ios-search-icon {
+  position: absolute !important;
+  left: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 15px !important;
+  height: 15px !important;
+  color: rgba(235, 235, 245, 0.45) !important;
+  pointer-events: none !important;
+}
+
+:root:not([dark]) .iyt-ios-search-icon,
+[data-theme="light"] .iyt-ios-search-icon {
+  color: rgba(60, 60, 67, 0.45) !important;
+}
+
+.iyt-ios-search-input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  height: 42px !important;
+  padding: 0 14px 0 36px !important;
+  border-radius: 12px !important;
+  background: rgba(118, 118, 128, 0.24) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  outline: none !important;
+  transition: background 150ms ease !important;
+  pointer-events: auto !important;
+}
+
+.iyt-ios-search-input::placeholder {
+  color: rgba(235, 235, 245, 0.45) !important;
+}
+
+.iyt-ios-search-input:focus {
+  background: rgba(118, 118, 128, 0.35) !important;
+}
+
+:root:not([dark]) .iyt-ios-search-input,
+[data-theme="light"] .iyt-ios-search-input {
+  background: rgba(118, 118, 128, 0.12) !important;
+  color: #000000 !important;
+}
+
+:root:not([dark]) .iyt-ios-search-input::placeholder,
+[data-theme="light"] .iyt-ios-search-input::placeholder {
+  color: rgba(60, 60, 67, 0.45) !important;
+}
+
+:root:not([dark]) .iyt-ios-search-input:focus,
+[data-theme="light"] .iyt-ios-search-input:focus {
+  background: rgba(118, 118, 128, 0.18) !important;
+}
+
+/* iOS Segmented Pills */
+.iyt-ios-pills {
+  display: flex !important;
+  gap: 8px !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin-bottom: 24px !important;
+}
+
+.iyt-intent-chip {
+  padding: 6px 14px !important;
+  border-radius: 9999px !important;
+  background: rgba(118, 118, 128, 0.18) !important;
+  border: none !important;
+  color: rgba(235, 235, 245, 0.75) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 140ms ease !important;
+  user-select: none !important;
+  pointer-events: auto !important;
+}
+
+.iyt-intent-chip:hover {
+  background: rgba(118, 118, 128, 0.28) !important;
+  color: #ffffff !important;
+}
+
+.iyt-intent-chip.active {
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+:root:not([dark]) .iyt-intent-chip,
+[data-theme="light"] .iyt-intent-chip {
+  background: rgba(118, 118, 128, 0.1) !important;
+  color: rgba(60, 60, 67, 0.8) !important;
+}
+
+:root:not([dark]) .iyt-intent-chip:hover,
+[data-theme="light"] .iyt-intent-chip:hover {
+  background: rgba(118, 118, 128, 0.18) !important;
+  color: #000000 !important;
+}
+
+:root:not([dark]) .iyt-intent-chip.active,
+[data-theme="light"] .iyt-intent-chip.active {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* iOS Buttons */
+.iyt-ios-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+.iyt-intent-btn-proceed {
+  width: 100% !important;
+  height: 48px !important;
+  border-radius: 14px !important;
+  background: #30d158 !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: opacity 140ms ease, transform 140ms ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: inherit !important;
+  pointer-events: auto !important;
+}
+
+:root:not([dark]) .iyt-intent-btn-proceed,
+[data-theme="light"] .iyt-intent-btn-proceed {
+  background: #34c759 !important;
+}
+
+.iyt-intent-btn-proceed:hover:not(:disabled) {
+  opacity: 0.92 !important;
+  transform: scale(0.99) !important;
+}
+
+.iyt-intent-btn-proceed:disabled {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(235, 235, 245, 0.3) !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+:root:not([dark]) .iyt-intent-btn-proceed:disabled,
+[data-theme="light"] .iyt-intent-btn-proceed:disabled {
+  background: rgba(0, 0, 0, 0.06) !important;
+  color: rgba(60, 60, 67, 0.3) !important;
+}
+
+.iyt-intent-btn-close {
+  width: 100% !important;
+  height: 38px !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  border: none !important;
+  color: rgba(235, 235, 245, 0.5) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  cursor: pointer !important;
+  transition: color 140ms ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: inherit !important;
+  pointer-events: auto !important;
+}
+
+:root:not([dark]) .iyt-intent-btn-close,
+[data-theme="light"] .iyt-intent-btn-close {
+  color: rgba(60, 60, 67, 0.5) !important;
+}
+
+.iyt-intent-btn-close:hover {
+  color: #ff453a !important;
+}
+
+:root:not([dark]) .iyt-intent-btn-close:hover,
+[data-theme="light"] .iyt-intent-btn-close:hover {
+  color: #ff3b30 !important;
+}
+
+/* iOS Check-in Elements */
+.iyt-checkin-goal-card {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: rgba(118, 118, 128, 0.16) !important;
+  border-radius: 16px !important;
+  padding: 14px 18px !important;
+  margin-bottom: 20px !important;
+  text-align: center !important;
+}
+
+:root:not([dark]) .iyt-checkin-goal-card,
+[data-theme="light"] .iyt-checkin-goal-card {
+  background: rgba(118, 118, 128, 0.08) !important;
+}
+
+.iyt-checkin-goal-heading {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(235, 235, 245, 0.5) !important;
+  margin-bottom: 4px !important;
+}
+
+:root:not([dark]) .iyt-checkin-goal-heading,
+[data-theme="light"] .iyt-checkin-goal-heading {
+  color: rgba(60, 60, 67, 0.5) !important;
+}
+
+.iyt-checkin-goal-text {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  word-break: break-word !important;
+}
+
+:root:not([dark]) .iyt-checkin-goal-text,
+[data-theme="light"] .iyt-checkin-goal-text {
+  color: #000000 !important;
+}
+
+.iyt-checkin-edit-wrap {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.iyt-checkin-btn-edit {
+  width: 100% !important;
+  height: 36px !important;
+  background: transparent !important;
+  border: none !important;
+  color: rgba(235, 235, 245, 0.6) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: color 140ms ease !important;
+  pointer-events: auto !important;
+  font-family: inherit !important;
+}
+
+.iyt-checkin-btn-edit:hover {
+  color: #30d158 !important;
+}
+
+:root:not([dark]) .iyt-checkin-btn-edit,
+[data-theme="light"] .iyt-checkin-btn-edit {
+  color: rgba(60, 60, 67, 0.6) !important;
+}
+
+:root:not([dark]) .iyt-checkin-btn-edit:hover,
+[data-theme="light"] .iyt-checkin-btn-edit:hover {
+  color: #34c759 !important;
 }
